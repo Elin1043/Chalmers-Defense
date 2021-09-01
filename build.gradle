@@ -13,7 +13,21 @@ buildscript {
         
 
     }
+
 }
+
+// TEST (Kör "gradle check" + CTRL Enter) för att köra
+plugins {
+    id 'pmd'
+}
+
+// Någonting. Säger också till om det finns en rapport vilket det aldrig verkar finnas
+pmd {
+    ruleSets = ["category/java/errorprone.xml", "category/java/bestpractices.xml"]
+    System.out.println(pmd.getReportsDir())
+    System.out.println(pmd.getReportsDir().canRead())
+}
+
 
 allprojects {
     apply plugin: "eclipse"
