@@ -16,12 +16,12 @@ buildscript {
 
 }
 
-// TEST (Kör "gradle check" + CTRL Enter) för att köra
+// Adding PMD plugin (Run "gradle check" + CTRL Enter) in terminal to se tests
 plugins {
     id 'pmd'
 }
 
-// Någonting. Säger också till om det finns en rapport vilket det aldrig verkar finnas
+// Some settings, also looks if the path to the report is valid. If not, a report has not been generated
 pmd {
     ruleSets = ["category/java/errorprone.xml", "category/java/bestpractices.xml"]
     System.out.println(pmd.getReportsDir())
