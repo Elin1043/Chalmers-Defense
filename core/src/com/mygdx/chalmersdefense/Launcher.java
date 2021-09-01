@@ -21,7 +21,6 @@ public class Launcher extends ApplicationAdapter {
 		music.setLooping(true);
 		music.setVolume((float) 0.2);
 		music.play();
-		System.out.println("Test");
 
 		Gdx.graphics.setWindowedMode(1280, 900); // Sets the width and height of the program window
 	}
