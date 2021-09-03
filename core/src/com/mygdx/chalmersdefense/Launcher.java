@@ -16,17 +16,18 @@ public class Launcher extends ApplicationAdapter {
 	Texture img;
 	Sprite virus;
 	Music music;
-	Vector2 test;
+
+
+	private final Vector2 rotHelper= new Vector2();
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("Chalmers_logga.png");
 		virus = new Sprite(new Texture("corona_virus_low.png"));
-		test = new Vector2();
 
-		virus.setPosition(-300, -150);
-		virus.setScale(0.15F);
+		virus.setPosition(-300, -150);	// This needs to be fixed with later sprites
+		virus.setScale(0.15F);					// This too
 
 
 
@@ -44,10 +45,11 @@ public class Launcher extends ApplicationAdapter {
 		ScreenUtils.clear(255, 255, 255, 1);
 		batch.begin();
 		batch.draw(img, 200, 100, 250, 300);
+
 		virus.draw(batch);
 
 
-		virus.setRotation(getAngle(Gdx.input.getX(), Gdx.input.getY(), 200, 200));
+		virus.setRotation(getAngle(Gdx.input.getX(), Gdx.input.getY(), 300, 600));
 		batch.end();
 	}
 	
@@ -59,8 +61,8 @@ public class Launcher extends ApplicationAdapter {
 	}
 
 	private float getAngle(int rotToX, int rotToY, int orgX, int orgY){
-		test.set(rotToX - orgX, rotToY - orgY);
-		return test.angleDeg();
+		rotHelper.set(rotToX - orgX, rotToY - orgY);
+		return -rotHelper.angleDeg();	// Negative because it just works then :)
 	}
 
 }
