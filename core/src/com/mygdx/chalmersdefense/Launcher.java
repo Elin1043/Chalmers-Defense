@@ -4,18 +4,32 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
+
+import java.util.Vector;
 
 public class Launcher extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+	Sprite virus;
 	Music music;
-	
+	Vector2 test;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("Chalmers_logga.png");
+		virus = new Sprite(new Texture("corona_virus_low.png"));
+		test = new Vector2();
+
+		virus.setPosition(-300, -150);
+		virus.setScale(0.15F);
+
+
+
 		music = Gdx.audio.newMusic(Gdx.files.internal("ponggamesound.wav"));
 
 		music.setLooping(true);
@@ -30,6 +44,12 @@ public class Launcher extends ApplicationAdapter {
 		ScreenUtils.clear(255, 255, 255, 1);
 		batch.begin();
 		batch.draw(img, 200, 100, 250, 300);
+		virus.draw(batch);
+		//test.set(Gdx.input.getX(), Gdx.input.getY());
+
+		Vector2 dir = new Vector2(Gdx.input.getX() - 100, Gdx.input.getY() - 100);
+
+		virus.setRotation(dir.angleDeg());
 		batch.end();
 	}
 	
@@ -39,4 +59,7 @@ public class Launcher extends ApplicationAdapter {
 		img.dispose();
 		music.dispose();
 	}
+
+
+
 }
