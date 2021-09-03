@@ -81,6 +81,8 @@ public class Launcher extends ApplicationAdapter {
 		music.dispose();
 	}
 
+
+	//rotToX/Y is the coordinates to be rotated to, orgX/Y is the location to be rotated around
 	private float getAngle(int rotToX, int rotToY, int orgX, int orgY){
 		rotHelper.set(rotToX - orgX, rotToY - orgY);
 		return -rotHelper.angleDeg();	// Negative because it just works then :)
