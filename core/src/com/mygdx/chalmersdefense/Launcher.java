@@ -45,11 +45,9 @@ public class Launcher extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(img, 200, 100, 250, 300);
 		virus.draw(batch);
-		//test.set(Gdx.input.getX(), Gdx.input.getY());
 
-		Vector2 dir = new Vector2(Gdx.input.getX() - 100, Gdx.input.getY() - 100);
 
-		virus.setRotation(dir.angleDeg());
+		virus.setRotation(getAngle(Gdx.input.getX(), Gdx.input.getY(), 200, 200));
 		batch.end();
 	}
 	
@@ -60,6 +58,9 @@ public class Launcher extends ApplicationAdapter {
 		music.dispose();
 	}
 
-
+	private float getAngle(int rotToX, int rotToY, int orgX, int orgY){
+		test.set(rotToX - orgX, rotToY - orgY);
+		return test.angleDeg();
+	}
 
 }
