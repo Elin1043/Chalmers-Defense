@@ -88,4 +88,8 @@ public class Launcher extends ApplicationAdapter {
 		return -rotHelper.angleDeg();	// Negative because it just works then :)
 	}
 
+	public int testJunit(int willDouble){
+		return willDouble * 2;
+	}
+
 }
