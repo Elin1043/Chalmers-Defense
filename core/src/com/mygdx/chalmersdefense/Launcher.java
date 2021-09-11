@@ -3,11 +3,17 @@ package com.mygdx.chalmersdefense;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Vector;
 
@@ -19,14 +25,22 @@ public class Launcher extends ApplicationAdapter {
 	Sprite virus3;
 	Sprite virus4;
 	Music music;
+	TextureRegion backgroundTexture;
+	Camera camera;
+	Viewport viewport;
 
 
 	private final Vector2 rotHelper= new Vector2();
 
 	@Override
 	public void create () {
+		camera = new OrthographicCamera();
+		viewport = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		viewport.setCamera(camera);
 		batch = new SpriteBatch();
-		img = new Texture("Chalmers_logga.png");
+		img = new Texture("HomeScreen.png");
+
+
 
 
 		virus = new Sprite(new Texture("corona_virus_low.png"));
@@ -58,9 +72,10 @@ public class Launcher extends ApplicationAdapter {
 
 	@Override
 	public void render () {
+		camera.update();
 		ScreenUtils.clear(255, 255, 255, 1);
 		batch.begin();
-		batch.draw(img, 200, 100, 250, 300);
+		batch.draw(img, 0, 0, viewport.getWorldWidth(),viewport.getWorldHeight());
 
 		virus.draw(batch);
 		virus2.draw(batch);
@@ -72,6 +87,12 @@ public class Launcher extends ApplicationAdapter {
 		virus3.setRotation(getAngle(Gdx.input.getX(), Gdx.input.getY(), 300, 240));
 		virus4.setRotation(getAngle(Gdx.input.getX(), Gdx.input.getY(), 1000, 240));
 		batch.end();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		viewport.update(width, height);
+
 	}
 	
 	@Override
