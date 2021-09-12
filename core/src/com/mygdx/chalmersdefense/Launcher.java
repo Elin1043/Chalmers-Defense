@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -34,8 +35,8 @@ public class Launcher extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-		camera = new OrthographicCamera();
-		viewport = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		camera = new OrthographicCamera(1920, 1080);
+		viewport = new FitViewport(camera.viewportWidth, camera.viewportHeight, camera);
 		viewport.setCamera(camera);
 		batch = new SpriteBatch();
 		img = new Texture("HomeScreen.png");
@@ -74,6 +75,9 @@ public class Launcher extends ApplicationAdapter {
 	public void render () {
 		camera.update();
 		ScreenUtils.clear(255, 255, 255, 1);
+
+		batch.setProjectionMatrix(camera.combined); // Renders based on window pixels and not screen pixels.
+
 		batch.begin();
 		batch.draw(img, 0, 0, viewport.getWorldWidth(),viewport.getWorldHeight());
 
@@ -92,7 +96,7 @@ public class Launcher extends ApplicationAdapter {
 	@Override
 	public void resize(int width, int height) {
 		viewport.update(width, height);
-
+		camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
 	}
 	
 	@Override
