@@ -1,10 +1,10 @@
 package com.mygdx.chalmersdefense;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -16,9 +16,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.util.Vector;
-
-public class Launcher extends ApplicationAdapter {
+public class Launcher extends Game {
 	SpriteBatch batch;
 	Texture img;
 	Sprite virus;
@@ -30,7 +28,6 @@ public class Launcher extends ApplicationAdapter {
 	Camera camera;
 	Viewport viewport;
 
-
 	private final Vector2 rotHelper= new Vector2();
 
 	@Override
@@ -40,7 +37,6 @@ public class Launcher extends ApplicationAdapter {
 		viewport.setCamera(camera);
 		batch = new SpriteBatch();
 		img = new Texture("HomeScreen.png");
-
 
 
 
