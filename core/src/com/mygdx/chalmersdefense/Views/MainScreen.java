@@ -22,7 +22,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.badlogic.gdx.graphics.GL20;
-
+import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 
 
 public class MainScreen implements Screen {
