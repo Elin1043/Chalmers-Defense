@@ -17,16 +17,18 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.chalmersdefense.Views.MainScreen;
 
-public class Launcher extends Game {
+public class ChalmersDefense extends Game {
 	private final MainScreen menuScreen = new MainScreen(this);
 
 	@Override
 	public void create () {
+		setScreen(menuScreen);
 	}
 
 	@Override
 	public void render () {
-		menuScreen.render(Gdx.graphics.getDeltaTime());
+//		super.render();
+//		menuScreen.render(Gdx.graphics.getDeltaTime());
 	}
 
 	@Override

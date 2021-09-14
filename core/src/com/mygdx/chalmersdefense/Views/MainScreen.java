@@ -1,6 +1,5 @@
 package com.mygdx.chalmersdefense.Views;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -14,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.chalmersdefense.ChalmersDefense;
 
 
 public class MainScreen implements Screen {
@@ -29,9 +29,13 @@ public class MainScreen implements Screen {
     Camera camera;
     Viewport viewport;
 
+    ChalmersDefense launcher;
+
     private final Vector2 rotHelper= new Vector2();
 
-    public MainScreen(Game game){
+    public MainScreen(ChalmersDefense launcher){
+        this.launcher = launcher;
+
         camera = new OrthographicCamera(1920, 1080);
         viewport = new FitViewport(camera.viewportWidth, camera.viewportHeight, camera);
         viewport.setCamera(camera);
