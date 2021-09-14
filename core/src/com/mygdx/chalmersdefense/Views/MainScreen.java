@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,35 +15,34 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.chalmersdefense.ChalmersDefense;
+import com.badlogic.gdx.graphics.GL20;
+
 
 
 public class MainScreen implements Screen {
 
-    SpriteBatch batch;
+
     Texture img;
     Sprite virus;
     Sprite virus2;
     Sprite virus3;
     Sprite virus4;
-    Music music;
-    TextureRegion backgroundTexture;
+
+
+    ChalmersDefense game;
     Camera camera;
     Viewport viewport;
-
-    ChalmersDefense launcher;
+    Batch batch;
 
     private final Vector2 rotHelper= new Vector2();
 
-    public MainScreen(ChalmersDefense launcher){
-        this.launcher = launcher;
+    public MainScreen(ChalmersDefense game, Camera camera, Viewport viewport, Batch batch){
+        this.game = game;
+        this.camera = camera;
+        this.viewport = viewport;
+        this.batch = batch;
 
-        camera = new OrthographicCamera(1920, 1080);
-        viewport = new FitViewport(camera.viewportWidth, camera.viewportHeight, camera);
-        viewport.setCamera(camera);
-        batch = new SpriteBatch();
-        img = new Texture("../HomeScreen.png");
-
-
+        img = new Texture("HomeScreen.png");
 
         virus = new Sprite(new Texture("corona_virus_low.png"));
         virus2 = new Sprite(new Texture("corona_virus_low.png"));
@@ -61,13 +61,6 @@ public class MainScreen implements Screen {
         virus4.setPosition(50, 40);	// This needs to be fixed with later sprites
         virus4.setScale(0.15F);					// This too
 
-
-        music = Gdx.audio.newMusic(Gdx.files.internal("ponggamesound.wav"));
-
-        music.setLooping(true);
-        music.setVolume((float) 0.2);
-        music.play();
-
         Gdx.graphics.setWindowedMode(1920, 1080); // Sets the width and height of the program window
     }
 
@@ -78,6 +71,9 @@ public class MainScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0, .25f, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         camera.update();
         ScreenUtils.clear(255, 255, 255, 1);
 
@@ -111,9 +107,7 @@ public class MainScreen implements Screen {
 
     @Override
     public void dispose() {
-        batch.dispose();
         img.dispose();
-        music.dispose();
     }
 
     @Override
