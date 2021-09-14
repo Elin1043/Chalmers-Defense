@@ -3,6 +3,7 @@ package com.mygdx.chalmersdefense;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -57,6 +58,11 @@ public class ChalmersDefense extends Game {
 		super.render();
 
 		batch.end();
+
+		// Makes window appear in fullscreen when pressing escape. (Need to implement a way to go back to fullscreen)
+		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE) && Gdx.graphics.isFullscreen()) {
+			Gdx.graphics.setWindowedMode(1920, 1080);
+		}
 
 //		mainScreen.render(Gdx.graphics.getDeltaTime());
 	}
