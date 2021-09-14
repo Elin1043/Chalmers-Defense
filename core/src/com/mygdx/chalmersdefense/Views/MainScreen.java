@@ -1,6 +1,8 @@
 package com.mygdx.chalmersdefense.Views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
@@ -11,6 +13,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -30,15 +36,19 @@ public class MainScreen implements Screen {
 
 
     ChalmersDefense game;
-    Camera camera;
     Viewport viewport;
     Batch batch;
 
+    private Stage stage;
+    private Texture myTexture;
+    private TextureRegion myTextureRegion;
+    private TextureRegionDrawable myTexRegionDrawable;
+    private ImageButton button;
+
     private final Vector2 rotHelper= new Vector2();
 
-    public MainScreen(ChalmersDefense game, Camera camera, Viewport viewport, Batch batch){
+    public MainScreen(ChalmersDefense game, Viewport viewport, Batch batch){
         this.game = game;
-        this.camera = camera;
         this.viewport = viewport;
         this.batch = batch;
 
@@ -61,26 +71,50 @@ public class MainScreen implements Screen {
         virus4.setPosition(50, 40);	// This needs to be fixed with later sprites
         virus4.setScale(0.15F);					// This too
 
-        Gdx.graphics.setWindowedMode(1920, 1080); // Sets the width and height of the program window
+        createButton();
+    }
+
+    private void createButton(){
+        myTexture = new Texture(Gdx.files.internal("playButton.png"));
+        myTextureRegion = new TextureRegion(myTexture);
+        myTexRegionDrawable = new TextureRegionDrawable(myTextureRegion);
+        button = new ImageButton(myTexRegionDrawable); //Set the button up
+
+        stage = new Stage(viewport); //Set up a stage for the ui
+
+        Gdx.input.setInputProcessor(stage); //Start taking input from the ui
+
+
+        button.addListener(new InputListener()
+        {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button)
+            {
+                game.setScreen(new GameScreen(game, batch, viewport));
+            }
+        });
+
+        stage.addActor(button); //Add the button to the stage to perform rendering and take input.
     }
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(new InputAdapter() {
+            @Override
+            public boolean keyDown(int keyCode) {
+                if (keyCode == Input.Keys.SPACE) {
+                    game.setScreen(new GameScreen(game, batch, viewport));
+                }
+                return true;
+            }
+        });
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, .25f, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.draw(img, 0, 0, viewport.getWorldWidth(),viewport.getWorldHeight());      // FIX viewport pls
 
-        camera.update();
-        ScreenUtils.clear(255, 255, 255, 1);
-
-        batch.setProjectionMatrix(camera.combined); // Renders based on window pixels and not screen pixels.
-
-        batch.begin();
-        batch.draw(img, 0, 0, viewport.getWorldWidth(),viewport.getWorldHeight());
+//        batch.draw(img, 0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());           // Maybe this
 
         virus.draw(batch);
         virus2.draw(batch);
@@ -91,18 +125,18 @@ public class MainScreen implements Screen {
         virus2.setRotation(getAngle(Gdx.input.getX(), Gdx.input.getY(), 1000, 600));
         virus3.setRotation(getAngle(Gdx.input.getX(), Gdx.input.getY(), 300, 240));
         virus4.setRotation(getAngle(Gdx.input.getX(), Gdx.input.getY(), 1000, 240));
-        batch.end();
+
+        stage.act(Gdx.graphics.getDeltaTime()); //Perform ui logic
+        stage.draw(); //Draw the ui
     }
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
-        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
     }
 
     @Override
     public void hide() {
-
+        Gdx.input.setInputProcessor(null);
     }
 
     @Override

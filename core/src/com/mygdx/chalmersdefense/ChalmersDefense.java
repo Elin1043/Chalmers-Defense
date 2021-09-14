@@ -33,7 +33,7 @@ public class ChalmersDefense extends Game {
 		viewport = new FitViewport(camera.viewportWidth, camera.viewportHeight, camera);
 		viewport.setCamera(camera);
 		batch = new SpriteBatch();
-		mainScreen = new MainScreen(this, camera, viewport, batch);
+		mainScreen = new MainScreen(this, viewport, batch);
 		setScreen(mainScreen);
 
 
@@ -41,11 +41,23 @@ public class ChalmersDefense extends Game {
 		music.setLooping(true);
 		music.setVolume((float) 0.2);
 		music.play();
+
+		Gdx.graphics.setWindowedMode(1920, 1080); // Sets the width and height of the program window
 	}
 
 	@Override
 	public void render () {
+
+		camera.update();
+		ScreenUtils.clear(255, 255, 255, 1);
+		batch.setProjectionMatrix(camera.combined); // Renders based on window pixels and not screen pixels.
+
+		batch.begin();
+
 		super.render();
+
+		batch.end();
+
 //		mainScreen.render(Gdx.graphics.getDeltaTime());
 	}
 
