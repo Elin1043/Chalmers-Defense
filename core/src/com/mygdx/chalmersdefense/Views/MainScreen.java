@@ -40,10 +40,10 @@ public class MainScreen implements Screen {
     Batch batch;
 
     private Stage stage;
-    private Texture myTexture;
-    private TextureRegion myTextureRegion;
-    private TextureRegionDrawable myTexRegionDrawable;
-    private ImageButton button;
+    private Texture playButtonTexture;
+    private TextureRegion playButtonTextureRegion;
+    private TextureRegionDrawable playTexRegDrawable;
+    private ImageButton playButton;
 
     private final Vector2 rotHelper= new Vector2();
 
@@ -51,6 +51,8 @@ public class MainScreen implements Screen {
         this.game = game;
         this.viewport = viewport;
         this.batch = batch;
+
+        stage = new Stage(viewport); //Set up a stage for the ui
 
         img = new Texture("HomeScreen.png");
 
@@ -72,49 +74,35 @@ public class MainScreen implements Screen {
         virus4.setScale(0.15F);					// This too
 
         createButton();
+
     }
 
     private void createButton(){
-        myTexture = new Texture(Gdx.files.internal("playButton.png"));
-        myTextureRegion = new TextureRegion(myTexture);
-        myTexRegionDrawable = new TextureRegionDrawable(myTextureRegion);
-        button = new ImageButton(myTexRegionDrawable); //Set the button up
-
-        stage = new Stage(viewport); //Set up a stage for the ui
-
-        Gdx.input.setInputProcessor(stage); //Start taking input from the ui
+        playButtonTexture = new Texture(Gdx.files.internal("playButton.png"));
+        playButtonTextureRegion = new TextureRegion(playButtonTexture);
+        playTexRegDrawable = new TextureRegionDrawable(playButtonTextureRegion);
+        playButton = new ImageButton(playTexRegDrawable); //Set the button up
+        playButton.setPosition(832, 20);
 
 
-        button.addListener(new InputListener()
-        {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button)
-            {
-                game.setScreen(new GameScreen(game, batch, viewport));
-            }
-        });
-
-        stage.addActor(button); //Add the button to the stage to perform rendering and take input.
+        stage.addActor(playButton); //Add the button to the stage to perform rendering and take input.
     }
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(new InputAdapter() {
+        Gdx.input.setInputProcessor(stage); //Start taking input from the ui
+        playButton.addListener(new ClickListener() {
+
             @Override
-            public boolean keyDown(int keyCode) {
-                if (keyCode == Input.Keys.SPACE) {
+            public void clicked(InputEvent event, float x, float y) {
                     game.setScreen(new GameScreen(game, batch, viewport));
-                }
-                return true;
             }
         });
     }
 
     @Override
     public void render(float delta) {
-        batch.draw(img, 0, 0, viewport.getWorldWidth(),viewport.getWorldHeight());      // FIX viewport pls
-
-//        batch.draw(img, 0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());           // Maybe this
+        batch.draw(img, 0, 0, viewport.getWorldWidth(),viewport.getWorldHeight());
 
         virus.draw(batch);
         virus2.draw(batch);
