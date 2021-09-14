@@ -102,9 +102,7 @@ public class MainScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        batch.draw(img, 0, 0, viewport.getWorldWidth(),viewport.getWorldHeight());      // FIX viewport pls
-
-//        batch.draw(img, 0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());           // Maybe this
+        batch.draw(img, 0, 0, viewport.getWorldWidth(),viewport.getWorldHeight());
 
         virus.draw(batch);
         virus2.draw(batch);

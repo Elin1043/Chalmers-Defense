@@ -33,7 +33,7 @@ public class ChalmersDefense extends Game {
 		viewport = new FitViewport(camera.viewportWidth, camera.viewportHeight, camera);
 		viewport.setCamera(camera);
 		batch = new SpriteBatch();
-		mainScreen = new MainScreen(this, viewport, batch);
+		mainScreen = new MainScreen(this,viewport, batch);
 		setScreen(mainScreen);
 
 
