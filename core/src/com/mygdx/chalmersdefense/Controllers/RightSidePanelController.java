@@ -38,7 +38,7 @@ public class RightSidePanelController {
         });
     }
 
-    protected void resetStartRoundButton() {
+    public void resetStartRoundButton() {
         startRoundButton.reset();
     }
 }
