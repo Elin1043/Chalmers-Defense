@@ -4,17 +4,17 @@ public class Rounds {
     private int currentRound;
     private int winningRound;
 
-    public Rounds(int winningRound) {
+    Rounds(int winningRound) {
         this.winningRound = winningRound;
         currentRound = 0;
     }
 
-    protected void sendNextRound() {
+    void sendNextRound() {
         currentRound++;
         // call SpawnVirusClass
     }
 
-    protected boolean gameWon() {
+    boolean gameWon() {
         return currentRound == (winningRound + 1);
     }
 
