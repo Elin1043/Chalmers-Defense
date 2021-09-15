@@ -26,7 +26,7 @@ public class RightSidePanelController {
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.atlas")); // Load atlas file from skin
         Skin skin = new Skin(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.json"), atlas); // Create skin object
         startRoundButton = new Button(skin);
-        startRoundButton.setPosition(1500, 20);
+        startRoundButton.setPosition(1600, 20);
 
         stage.addActor(startRoundButton); //Add the button to the stage to perform rendering and take input.
 
