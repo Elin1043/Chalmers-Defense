@@ -19,4 +19,8 @@ public class Model {
         // Do something
         game.setScreen(gameScreen);
     }
+
+    public void startRoundButtonAction() {
+        // Do something
+    }
 }
