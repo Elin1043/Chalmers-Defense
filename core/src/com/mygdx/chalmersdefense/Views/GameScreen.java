@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.Model.Virus;
+import com.mygdx.chalmersdefense.Model.VirusFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class GameScreen implements Screen {
         this.viewport = viewport;
         this.batch = batch;
 
-        allViruses.add(new Virus(1, new Sprite(new Texture("corona_virus_low.png"))));
+        allViruses.add(VirusFactory.createVirusOne());
         //virus.setPosition(-300, -150);	// This needs to be fixed with later sprites
     }
 
@@ -41,7 +42,7 @@ public class GameScreen implements Screen {
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            allViruses.add(new Virus(1, new Sprite(new Texture("corona_virus_low.png"))));
+            allViruses.add(VirusFactory.createVirusOne());
         }
     }
 
