@@ -11,14 +11,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.chalmersdefense.Model.Model;
 import com.mygdx.chalmersdefense.Views.GameScreen;
 
-public class RightSidePanelController {
+public class RightSidePanelController implements IController {
+    private Model model;
     private Stage stage;
     private Button startRoundButton;
 
-    public RightSidePanelController(Stage stage) {
-        this.stage = stage;
+    public RightSidePanelController(Model model) {
+        this.model = model;
     }
 
     public void addStage(Stage stage) {
@@ -37,12 +39,12 @@ public class RightSidePanelController {
         startRoundButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // Call model.
+                model.startRoundButtonAction();
             }
         });
     }
 
-    protected void resetStartRoundButton() {
+    public void resetStartRoundButton() {
         startRoundButton.reset();
     }
 }

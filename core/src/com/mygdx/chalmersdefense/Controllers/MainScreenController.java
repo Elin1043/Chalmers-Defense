@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.Model.Model;
 
-public class MainScreenController {
+public class MainScreenController implements IController {
     private ImageButton playButton;
     private Model model;
     private Stage stage;
