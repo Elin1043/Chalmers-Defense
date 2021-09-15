@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.chalmersdefense.ChalmersDefense;
+import com.mygdx.chalmersdefense.Models.Tower;
+import com.mygdx.chalmersdefense.Vectors;
 
 public class GameScreen implements Screen {
 
@@ -14,16 +16,16 @@ public class GameScreen implements Screen {
     Viewport viewport;
     Batch batch;
 
-    Sprite virus;
+    Texture smurf1;
+    Tower smurfTower;
 
     public GameScreen(ChalmersDefense game, Batch batch, Viewport viewport){
         this.game = game;
         this.viewport = viewport;
         this.batch = batch;
 
-        virus = new Sprite(new Texture("corona_virus_low.png"));
+        smurf1 = new Texture("Towers/Smurf1.png");
 
-        virus.setPosition(-300, -150);	// This needs to be fixed with later sprites
     }
 
     @Override
@@ -33,7 +35,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        virus.draw(batch);
+        Tower smurfTower = new Tower(new Vectors(100,100), smurf1,0, "Smurf1", 10, 10);
+        batch.draw(smurfTower.getTexture(), smurfTower.getPos().x,smurfTower.getPos().y);
     }
 
     @Override

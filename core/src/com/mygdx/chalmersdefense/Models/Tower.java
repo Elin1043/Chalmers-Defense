@@ -5,7 +5,7 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.Vectors;
 
-public abstract class Tower{
+public class Tower{
     private final Vectors pos;
     private final Texture texture;
     private final int angle;
