@@ -1,14 +1,15 @@
 package com.mygdx.chalmersdefense.Models;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.Vectors;
 
 public class Tower{
     private final Vectors pos;
-    private final Texture texture;
-    private final int angle;
+    private final Sprite sprite;
+    private int angle = 0;
     private double range;
     private String name;
     private Tower upgrade;
@@ -19,10 +20,9 @@ public class Tower{
 
 
 
-    public Tower(Vectors pos, Texture texture, int angle, String name, int attackDamage, int attackSpeed) {
+    public Tower(Vectors pos, Sprite sprite, String name, int attackDamage, int attackSpeed) {
         this.pos = pos;
-        this.texture = texture;
-        this.angle = angle;
+        this.sprite = sprite;
         this.name=name;
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
@@ -32,8 +32,8 @@ public class Tower{
         return name;
     }
 
-    public Texture getTexture(){
-        return texture;
+    public Sprite getSprite(){
+        return sprite;
     }
 
     public Vectors getPos(){
@@ -42,6 +42,11 @@ public class Tower{
 
     public int getAngle(){
         return angle;
+    }
+
+    public void setAngle(int setangle){
+        angle = setangle;
+
     }
 
     public double getRange(){

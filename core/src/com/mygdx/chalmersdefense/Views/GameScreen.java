@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.Views;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.Models.Tower;
+import com.mygdx.chalmersdefense.TowerFactory;
 import com.mygdx.chalmersdefense.Vectors;
 
 public class GameScreen implements Screen {
@@ -16,15 +18,13 @@ public class GameScreen implements Screen {
     Viewport viewport;
     Batch batch;
 
-    Texture smurf1;
-    Tower smurfTower;
+    private Object TowerFactory;
+
 
     public GameScreen(ChalmersDefense game, Batch batch, Viewport viewport){
         this.game = game;
         this.viewport = viewport;
         this.batch = batch;
-
-        smurf1 = new Texture("Towers/Smurf1.png");
 
     }
 
@@ -35,8 +35,17 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Tower smurfTower = new Tower(new Vectors(100,100), smurf1,0, "Smurf1", 10, 10);
-        batch.draw(smurfTower.getTexture(), smurfTower.getPos().x,smurfTower.getPos().y);
+        TowerFactory factory= new TowerFactory();
+        Tower smurf = factory.CreateSmurf(0,0);
+        Tower chemist = factory.CreateChemist(100,100);
+        Tower electro = factory.CreateElectro(300,300);
+
+        chemist.getSprite().draw(batch);
+        smurf.getSprite().draw(batch);
+        electro.getSprite().draw(batch);
+
+
+
     }
 
     @Override
