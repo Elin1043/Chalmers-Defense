@@ -1,26 +1,19 @@
 package com.mygdx.chalmersdefense.Views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.chalmersdefense.ChalmersDefense;
+import com.mygdx.chalmersdefense.Controllers.MainScreenController;
 import com.badlogic.gdx.graphics.GL20;
 import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 
@@ -47,7 +40,7 @@ public class MainScreen implements Screen {
 
     private final Vector2 rotHelper= new Vector2();
 
-    public MainScreen(ChalmersDefense game, Viewport viewport, Batch batch){
+    public MainScreen(ChalmersDefense game, Batch batch, Viewport viewport){
         this.game = game;
         this.viewport = viewport;
         this.batch = batch;
@@ -72,32 +65,15 @@ public class MainScreen implements Screen {
 
         virus4.setPosition(50, 40);	// This needs to be fixed with later sprites
         virus4.setScale(0.15F);					// This too
-
-        createButton();
-
     }
 
-    private void createButton(){
-        playButtonTexture = new Texture(Gdx.files.internal("playButton.png"));
-        playButtonTextureRegion = new TextureRegion(playButtonTexture);
-        playTexRegDrawable = new TextureRegionDrawable(playButtonTextureRegion);
-        playButton = new ImageButton(playTexRegDrawable); //Set the button up
-        playButton.setPosition(832, 20);
-
-
-        stage.addActor(playButton); //Add the button to the stage to perform rendering and take input.
+    public void addMainScreenController(MainScreenController controller) {
+        controller.addStage(stage);
     }
 
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage); //Start taking input from the ui
-        playButton.addListener(new ClickListener() {
-
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                    game.setScreen(new GameScreen(game, batch, viewport));
-            }
-        });
     }
 
     @Override
