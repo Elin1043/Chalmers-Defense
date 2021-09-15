@@ -19,6 +19,10 @@ public class RightSidePanelController {
 
     public RightSidePanelController(Stage stage) {
         this.stage = stage;
+    }
+
+    public void addStage(Stage stage) {
+        this.stage = stage;
         createStartRoundButton();
     }
 
