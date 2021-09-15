@@ -26,6 +26,8 @@ public class Tower{
         this.name=name;
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
+
+        sprite.setPosition(pos.x, pos.y);
     }
 
     public String getName(){

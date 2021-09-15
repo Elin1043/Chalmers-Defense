@@ -17,8 +17,11 @@ public class GameScreen implements Screen {
     private final ChalmersDefense game;
     Viewport viewport;
     Batch batch;
+    TowerFactory factory = new TowerFactory();
+    Tower smurf = factory.CreateSmurf(Gdx.input.getDeltaX(), Gdx.input.getDeltaY());
+    Tower chemist = factory.CreateChemist(200, 200);
+    Tower electro = factory.CreateElectro(500, 500);
 
-    private Object TowerFactory;
 
 
     public GameScreen(ChalmersDefense game, Batch batch, Viewport viewport){
@@ -35,16 +38,9 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        TowerFactory factory= new TowerFactory();
-        Tower smurf = factory.CreateSmurf(0,0);
-        Tower chemist = factory.CreateChemist(100,100);
-        Tower electro = factory.CreateElectro(300,300);
-
         chemist.getSprite().draw(batch);
         smurf.getSprite().draw(batch);
         electro.getSprite().draw(batch);
-
-
 
     }
 
