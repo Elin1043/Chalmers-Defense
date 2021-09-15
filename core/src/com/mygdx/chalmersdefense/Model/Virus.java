@@ -2,6 +2,10 @@ package com.mygdx.chalmersdefense.Model;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+/**
+ * @author Joel Båtsman Hilmersson
+ * A class that representates the common enemy type for the game
+ */
 public class Virus {
     private int health;
     private Sprite sprite;
