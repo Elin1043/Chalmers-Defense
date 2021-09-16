@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.chalmersdefense.ChalmersDefense;
+import com.mygdx.chalmersdefense.Model.SpawnViruses;
 import com.mygdx.chalmersdefense.Model.Virus;
 import com.mygdx.chalmersdefense.Model.VirusFactory;
 
@@ -26,6 +27,9 @@ public class GameScreen implements Screen {
         this.batch = batch;
 
         allViruses.add(VirusFactory.createVirusOne());
+        SpawnViruses test = new SpawnViruses(allViruses);
+
+        test.spawnRound(1);
         //virus.setPosition(-300, -150);	// This needs to be fixed with later sprites
     }
 
