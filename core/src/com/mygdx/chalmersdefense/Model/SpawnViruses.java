@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class SpawnViruses {
 
-    private final String[][] spawnInfo = {{"1|500", "1|80", "1|60", "1|40", "1|40", "1|60", "1|80", "1|100"}};
+    private final String[][] spawnInfo = {{"1|3000", "1|500", "1|500", "1|1000", "1|1000", "1|500", "1|500", "1|1000"}};
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private List<Virus> listToAddTo;
     private boolean isSpawning = false;
@@ -42,16 +42,23 @@ public class SpawnViruses {
 
     private void parseRound(){
 
-        String[] splitedWave = currentRound[waveIndex].split("[|]");
+        if (waveIndex < currentRound.length) {
+
+            String[] splitedWave = currentRound[waveIndex].split("[|]");
 
 
-        switch (Integer.parseInt( splitedWave[0])) {
-            case 1 -> listToAddTo.add(VirusFactory.createVirusOne());     // Måste ha blivit kallat 1 gång utan executorservice, annars slutar den gå eftersom den inte kan skapa en ny textur
+            switch (Integer.parseInt(splitedWave[0])) {
+                case 1 -> listToAddTo.add(VirusFactory.createVirusOne());     // Måste ha blivit kallat 1 gång utan executorservice, annars slutar den gå eftersom den inte kan skapa en ny textur
 
+            }
+
+            waveIndex++;
+            System.out.println(Integer.parseInt(splitedWave[1]));
+            executorService.schedule(this::parseRound, Integer.parseInt(splitedWave[1]), TimeUnit.MILLISECONDS);
+        } else {
+            waveIndex = 0;
+            isSpawning = false;
         }
-
-        executorService.schedule(this::parseRound, Integer.parseInt(splitedWave[1]), TimeUnit.MILLISECONDS);
-
     }
 
 

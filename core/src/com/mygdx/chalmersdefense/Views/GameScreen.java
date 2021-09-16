@@ -21,16 +21,14 @@ public class GameScreen implements Screen {
     Batch batch;
 
     List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
+    private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
 
     public GameScreen(ChalmersDefense game, Batch batch, Viewport viewport){
         this.game = game;
         this.viewport = viewport;
         this.batch = batch;
 
-        //allViruses.add(VirusFactory.createVirusOne());
-        SpawnViruses test = new SpawnViruses(allViruses);
 
-        test.spawnRound(1);
         //virus.setPosition(-300, -150);	// This needs to be fixed with later sprites
     }
 
@@ -48,6 +46,10 @@ public class GameScreen implements Screen {
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             allViruses.add(VirusFactory.createVirusOne());
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+            virusSpawner.spawnRound(1);
         }
     }
 
