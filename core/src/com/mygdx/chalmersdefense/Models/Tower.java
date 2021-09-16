@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mygdx.chalmersdefense.Vectors;
 
 public class Tower{
@@ -41,6 +43,10 @@ public class Tower{
     public Vectors getPos(){
         return pos;
     }
+    public void setPos(int x, int y){
+        pos.x = x;
+        pos.y = y;
+    }
 
     public int getAngle(){
         return angle;
@@ -70,4 +76,6 @@ public class Tower{
     }
 
 
+    public void addListener(ClickListener clickListener) {
+    }
 }

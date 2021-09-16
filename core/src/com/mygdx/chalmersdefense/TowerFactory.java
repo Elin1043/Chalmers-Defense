@@ -19,14 +19,14 @@ public class TowerFactory {
     }
 
     public Tower CreateElectro(int startPosX, int startPosY){
-        chemistImage = new Sprite(new Texture("Towers/Chemist1.png"));
-        Tower electro = new Tower(new Vectors(startPosX,startPosY), chemistImage, "ElectroTower", 20,10);
+        electroImage = new Sprite(new Texture("Towers/Electro1.png"));
+        Tower electro = new Tower(new Vectors(startPosX,startPosY), electroImage, "ElectroTower", 20,10);
         return electro;
     }
 
     public Tower CreateChemist(int startPosX, int startPosY){
-        electroImage = new Sprite(new Texture("Towers/Electro1.png"));
-        Tower chemist = new Tower(new Vectors(startPosX,startPosY), electroImage, "ChemistTower", 30,10);
+        chemistImage = new Sprite(new Texture("Towers/Chemist1.png"));
+        Tower chemist = new Tower(new Vectors(startPosX,startPosY), chemistImage, "ChemistTower", 30,10);
         return chemist;
     }
 
