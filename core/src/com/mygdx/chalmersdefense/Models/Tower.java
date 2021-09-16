@@ -43,7 +43,7 @@ public class Tower{
     public Vectors getPos(){
         return pos;
     }
-    public void setPos(int x, int y){
+    public void setPos(float x, float y){
         pos.x = x;
         pos.y = y;
     }

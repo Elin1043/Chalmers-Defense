@@ -35,9 +35,8 @@ public class GameScreen implements Screen {
     Viewport viewport;
     Batch batch;
     TowerFactory factory = new TowerFactory();
-    Tower smurf = factory.CreateSmurf(Gdx.input.getDeltaX(), Gdx.input.getDeltaY());
     Tower chemist = factory.CreateChemist(200, 200);
-    Tower electro = factory.CreateElectro(500, 500);
+
     Stage stage;
     Boolean held = false;
     ImageButton smurfButton;
@@ -53,6 +52,8 @@ public class GameScreen implements Screen {
         this.batch = batch;
         stage = new Stage(viewport); //Set up a stage for the ui
 
+        chemistButton = createTowerButtons(chemist.getSprite().getTexture(), 300, 0);
+
     }
 
     private ImageButton createTowerButtons(Texture texture, int x, int y){
@@ -60,7 +61,7 @@ public class GameScreen implements Screen {
         TextureRegion playButtonTextureRegion = new TextureRegion(playButtonTexture);
         TextureRegionDrawable playTexRegDrawable = new TextureRegionDrawable(playButtonTextureRegion);
         ImageButton playButton = new ImageButton(playTexRegDrawable); //Set the button up
-        playButton.setPosition(0, 0);
+        playButton.setPosition(x, y);
 
         stage.addActor(playButton); //Add the button to the stage to perform rendering and take input.
 
@@ -73,34 +74,25 @@ public class GameScreen implements Screen {
     public void show() {
 
         Gdx.input.setInputProcessor(stage); //Start taking input from the ui
-        smurfButton = createTowerButtons(smurf.getSprite().getTexture(), 0, 0);
-        chemistButton = createTowerButtons(chemist.getSprite().getTexture(), 0, 0);
 
-
-        smurfButton.addListener(new DragListener() {
-            public void drag(InputEvent event, float x, float y, int pointer) {
-                smurf = factory.CreateSmurf((int)(x - smurfButton.getWidth() / 2),(int)(y - smurfButton.getHeight() / 2));
-                towersList.add(smurf);
-
-            }
-        });
 
         chemistButton.addListener(new DragListener() {
             @Override
             public void dragStart(InputEvent event, float x, float y, int pointer) {
-                chemist = factory.CreateChemist((int)(x - chemistButton.getWidth() / 2),(int)(y - chemistButton.getHeight() / 2));
+                System.out.println(x);
+                chemist = factory.CreateChemist((int)(x + chemistButton.getWidth() / 2),(int)(y - chemistButton.getHeight() / 2));
                 towersList.add(chemist);
 
             }
 
             @Override
             public void drag(InputEvent event, float x, float y, int pointer) {
-                chemist.getSprite().setPosition(x - chemist.getSprite().getWidth() / 2,y - chemist.getSprite().getHeight() / 2 );
+                chemist.setPos(x - chemist.getSprite().getWidth() / 2,y - chemist.getSprite().getHeight() / 2 );
             }
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
-                chemist.getSprite().setPosition(x - chemist.getSprite().getWidth() / 2,y - chemist.getSprite().getHeight() / 2 );
+                chemist.setPos(x - chemist.getSprite().getWidth() / 2,y - chemist.getSprite().getHeight() / 2 );
             }
         });
 
@@ -116,8 +108,9 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         if(towersList != null){
             for (Tower tower: towersList) {
+                //tower.getSprite().setPosition(tower.getPos().x, tower.getPos().y);
                 tower.getSprite().draw(batch);
-                tower.setPos((int)tower.getSprite().getX(), (int)tower.getSprite().getY());
+
 
             }
         }
