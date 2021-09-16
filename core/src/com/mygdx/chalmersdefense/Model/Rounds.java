@@ -14,7 +14,7 @@ public class Rounds {
         // call SpawnVirusClass
     }
 
-    boolean gameWon() {
+    public boolean gameWon() {
         return currentRound == (winningRound + 1);
     }
 

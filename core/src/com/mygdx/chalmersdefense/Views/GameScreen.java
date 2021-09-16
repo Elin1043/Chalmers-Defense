@@ -17,8 +17,6 @@ public class GameScreen implements Screen {
     Viewport viewport;
     Batch batch;
     private Stage stage;
-    private RightSidePanelController rightSidePanelController;
-
 
     Sprite virus;
 
@@ -29,12 +27,13 @@ public class GameScreen implements Screen {
 
         stage = new Stage(viewport); //Set up a stage for the ui
 
-        rightSidePanelController = new RightSidePanelController(stage);
-
-
         virus = new Sprite(new Texture("corona_virus_low.png"));
 
         virus.setPosition(-300, -150);	// This needs to be fixed with later sprites
+    }
+
+    public void addRightSidePanelController(RightSidePanelController controller) {
+        controller.addStage(stage);
     }
 
     @Override
