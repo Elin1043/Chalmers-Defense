@@ -11,6 +11,7 @@ import com.mygdx.chalmersdefense.Model.Virus;
 import com.mygdx.chalmersdefense.Model.VirusFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GameScreen implements Screen {
@@ -19,7 +20,7 @@ public class GameScreen implements Screen {
     Viewport viewport;
     Batch batch;
 
-    List<Virus> allViruses = new ArrayList<>();
+    List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
 
     public GameScreen(ChalmersDefense game, Batch batch, Viewport viewport){
         this.game = game;
