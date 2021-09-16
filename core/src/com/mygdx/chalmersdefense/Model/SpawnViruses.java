@@ -1,5 +1,6 @@
 package com.mygdx.chalmersdefense.Model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -27,21 +28,31 @@ public class SpawnViruses {
 
     public void spawnRound(int round) {
         if (!isSpawning) {
+            System.out.println("HEJ");
             currentRound = spawnInfo[round - 1];
             waveIndex = 0;
-            isSpawning = true;
+            //isSpawning = true;
             parseRound();
         }
 
     }
 
     private void parseRound(){
+        System.out.println("Tjenare");
         String[] splitedWave = currentRound[waveIndex].split("[|]");
 
-        switch (Integer.parseInt( splitedWave[0])) {
-            case 1 -> listToAddTo.add(VirusFactory.createVirusOne());
-        }
-
-        executorService.schedule(this::parseRound, 200, TimeUnit.MILLISECONDS);
+        System.out.println(Arrays.toString(splitedWave));
+        System.out.println(Integer.parseInt( splitedWave[0]));
+        //switch (Integer.parseInt( splitedWave[0])) {
+          //  case 1 -> {
+            //    listToAddTo.add(VirusFactory.createVirusOne());
+              //  System.out.println("HÄR");
+            //}
+        //}
+        System.out.println("Är den här 1 eller 2 gånger");
+        listToAddTo.add(VirusFactory.createVirusOne());
+        System.out.println("Är den här 1 eller 2 gånger");
+        executorService.schedule(this::parseRound, 5000, TimeUnit.MILLISECONDS);
+        System.out.println("DÅ");
     }
 }

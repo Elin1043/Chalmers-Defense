@@ -26,7 +26,7 @@ public class GameScreen implements Screen {
         this.viewport = viewport;
         this.batch = batch;
 
-        allViruses.add(VirusFactory.createVirusOne());
+        //allViruses.add(VirusFactory.createVirusOne());
         SpawnViruses test = new SpawnViruses(allViruses);
 
         test.spawnRound(1);
