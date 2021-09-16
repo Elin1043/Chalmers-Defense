@@ -17,6 +17,9 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.chalmersdefense.Controllers.MainScreenController;
+import com.mygdx.chalmersdefense.Model.Model;
+import com.mygdx.chalmersdefense.Views.GameScreen;
 import com.mygdx.chalmersdefense.Views.MainScreen;
 
 public class ChalmersDefense extends Game {
@@ -26,6 +29,8 @@ public class ChalmersDefense extends Game {
 	Camera camera;
 	Viewport viewport;
 	SpriteBatch batch;
+	Model model;
+	GameScreen gameScreen;
 
 
 	@Override
@@ -34,7 +39,8 @@ public class ChalmersDefense extends Game {
 		viewport = new FitViewport(camera.viewportWidth, camera.viewportHeight, camera);
 		viewport.setCamera(camera);
 		batch = new SpriteBatch();
-		mainScreen = new MainScreen(this,viewport, batch);
+		mainScreen = new MainScreen(this, batch, viewport);
+		gameScreen = new GameScreen(this, batch, viewport);
 		setScreen(mainScreen);
 
 
@@ -43,6 +49,9 @@ public class ChalmersDefense extends Game {
 		music.setVolume((float) 0.2);
 		music.play();
 
+		model = new Model(this, mainScreen, gameScreen);
+		MainScreenController mainScreenController = new MainScreenController(model);
+		mainScreen.addMainScreenController(mainScreenController);
 		//Gdx.graphics.setWindowedMode(1920, 1080); // Sets the width and height of the program window
 	}
 
