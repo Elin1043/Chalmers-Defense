@@ -2,7 +2,10 @@ package com.mygdx.chalmersdefense.Models;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -25,6 +28,8 @@ public class Tower extends Actor {
     private int attackDamage;
     private int attackSpeed;
 
+    private Circle circle = new Circle();
+
 
 
     public Tower(float x, float y, Sprite sprite, String name, int attackDamage, int attackSpeed){
@@ -38,6 +43,21 @@ public class Tower extends Actor {
         this.width = sprite.getWidth();
         this.height = sprite.getHeight();
         this.range = 100;
+
+    }
+
+    public ShapeRenderer drawRadius(ShapeRenderer shape){
+        shape.circle(this.getPosX() + this.getSprite().getWidth()/2, this.getPosY() + this.getSprite().getHeight()/2, this.getRange());
+        return shape;
+    }
+
+    public void setCircle(){
+        circle = new Circle();
+        circle.set(this.getPosX() + this.getSprite().getWidth()/2, this.getPosY() + this.getSprite().getHeight()/2, this.getRange());
+    }
+
+    public Circle getCircle(){
+        return circle;
     }
 
     public String getName(){

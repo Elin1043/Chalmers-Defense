@@ -3,11 +3,14 @@ package com.mygdx.chalmersdefense.Views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -31,6 +34,9 @@ public class GameScreen implements Screen {
     TowerFactory factory = new TowerFactory();
     Tower chemist = factory.CreateChemist(0, 0);
     Tower smurf = factory.CreateSmurf(300, 300);
+    Tower electro = factory.CreateElectro(300, 300);
+
+    Tower newTower;
 
 
     ImageButton smurfButton;
@@ -39,6 +45,9 @@ public class GameScreen implements Screen {
     ArrayList<ImageButton> towerButtons = new ArrayList<>();
     private Stage stage;
     private ShapeRenderer shapeRenderer;
+    private Circle circle;
+
+    private boolean collision = false;
 
 
 
@@ -95,72 +104,74 @@ public class GameScreen implements Screen {
     }
 
 
+    public void addListenerToButton(final Tower tower, final ImageButton button){
+
+        final String towerName = tower.getName();
+        button.addListener(new DragListener() {
+            @Override
+            public void dragStart(InputEvent event, float x, float y, int pointer) {
+
+                switch(towerName){
+                    case "SmurfTower":
+                         smurf = factory.CreateSmurf((int)button.getX(), (int)button.getY());
+                         newTower = smurf;
+                        break;
+                    case "ChemistTower":
+                        chemist = factory.CreateChemist((int)button.getX(), (int)button.getY());
+                        newTower = chemist;
+                        break;
+                    case "ElectroTower":
+                        electro = factory.CreateElectro((int)button.getX(), (int)button.getY());
+                        newTower = electro;
+                        break;
+                    default:
+                        return;
+                }
+
+
+
+                towersList.add(newTower);
+
+            }
+
+            @Override
+            public void drag(InputEvent event, float x, float y, int pointer) {
+                newTower.getSprite().setPosition( Gdx.input.getX() - button.getWidth(),(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getHeight()/2 );
+                newTower.setCircle();
+
+            }
+
+            @Override
+            public void dragStop(InputEvent event, float x, float y, int pointer) {
+                if(!collision){
+                    newTower.setPlaced(true);
+                    newTower.getSprite().setPosition(Gdx.input.getX() - button.getWidth(),(Gdx.graphics.getHeight()  - Gdx.input.getY()) - button.getHeight()/2 );
+                    ImageButton button = createInvisButtons(newTower,newTower.getPosX(), newTower.getPosY());
+                    towerButtons.add(button);
+                    button.addListener(new ClickListener(){
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            System.out.println("Test");
+                        }
+                    });
+                }
+                else{
+
+                    System.out.println("Error");
+                }
+            }
+        });
+    }
+
+
 
     @Override
     public void show() {
 
         Gdx.input.setInputProcessor(stage); //Start taking input from the ui
 
-
-        smurfButton.addListener(new DragListener() {
-            @Override
-            public void dragStart(InputEvent event, float x, float y, int pointer) {
-                smurf = factory.CreateSmurf((int)smurfButton.getX(), (int)smurfButton.getY());
-                towersList.add(smurf);
-
-            }
-
-            @Override
-            public void drag(InputEvent event, float x, float y, int pointer) {
-                smurf.getSprite().setPosition( Gdx.input.getX() - smurfButton.getWidth(),(Gdx.graphics.getHeight() - Gdx.input.getY()) - smurfButton.getHeight()/2 );
-
-            }
-
-            @Override
-            public void dragStop(InputEvent event, float x, float y, int pointer) {
-                smurf.setPlaced(true);
-                smurf.getSprite().setPosition(Gdx.input.getX() - smurfButton.getWidth(),(Gdx.graphics.getHeight()  - Gdx.input.getY()) - smurfButton.getHeight()/2 );
-                ImageButton button = createInvisButtons(smurf,smurf.getPosX(), smurf.getPosY());
-                towerButtons.add(button);
-                button.addListener(new ClickListener(){
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        System.out.println("Test");
-                    }
-                });
-            }
-        });
-
-
-
-
-
-        chemistButton.addListener(new DragListener() {
-            @Override
-            public void dragStart(InputEvent event, float x, float y, int pointer) {
-                chemist = factory.CreateChemist((int)chemistButton.getX(), (int)chemistButton.getY());
-
-                towersList.add(chemist);
-
-            }
-
-            @Override
-            public void drag(InputEvent event, float x, float y, int pointer) {
-                chemist.getSprite().setPosition( Gdx.input.getX() - chemistButton.getWidth(),(Gdx.graphics.getHeight() - Gdx.input.getY()) - chemistButton.getHeight()/2 );
-
-            }
-
-            @Override
-            public void dragStop(InputEvent event, float x, float y, int pointer) {
-                chemist.setPlaced(true);
-                chemist.getSprite().setPosition(Gdx.input.getX() - chemistButton.getWidth(),(Gdx.graphics.getHeight()  - Gdx.input.getY()) - chemistButton.getHeight()/2 );
-            }
-        });
-
-
-
-
-
+        addListenerToButton(smurf, smurfButton);
+        addListenerToButton(chemist, chemistButton);
 
     }
 
@@ -168,18 +179,30 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        createRightSidePanel();
         if(towersList != null){
             for (Tower tower: towersList) {
                 tower.getSprite().draw(batch);
                 tower.setPos(tower.getSprite().getX(), tower.getSprite().getY());
 
-                if(!tower.isPlaced()){
+                if(!tower.isPlaced() && !checkCollision(tower)){
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                    shapeRenderer.setColor(new Color(0xF0FBFF));
-                    shapeRenderer.circle(tower.getSprite().getX() + tower.getSprite().getWidth()/2, tower.getSprite().getY() + tower.getSprite().getHeight()/2, tower.getRange());
+                    shapeRenderer.setColor(Color.LIGHT_GRAY);
+                    tower.drawRadius(shapeRenderer);
+
                     shapeRenderer.end();
+
+                }
+                else if(!tower.isPlaced() && checkCollision(tower)){
+                    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                    shapeRenderer.setColor(Color.RED);
+                    tower.drawRadius(shapeRenderer);
+                    collision = true;
+
+                    shapeRenderer.end();
+                }
+                else{
 
                 }
 
@@ -187,9 +210,19 @@ public class GameScreen implements Screen {
         }
 
 
-
+        createRightSidePanel();
         stage.act(Gdx.graphics.getDeltaTime()); //Perform ui logic
         stage.draw(); //Draw the ui
+    }
+
+    private boolean checkCollision(Tower tower){
+        for(Tower checkTower: towersList){
+            if(tower.getCircle().overlaps(checkTower.getCircle()) && !(checkTower.hashCode() == tower.hashCode())){
+                return true;
+            }
+        }
+        return false;
+
     }
 
 
