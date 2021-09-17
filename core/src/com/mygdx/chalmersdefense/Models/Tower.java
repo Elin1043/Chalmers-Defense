@@ -13,12 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mygdx.chalmersdefense.Vectors;
 
 public class Tower extends Actor {
-    //private final Vectors pos;
     private final Sprite sprite;
     private int angle = 0;
     private float range;
     private String name;
-    private Tower upgrade;
+    //private Tower upgrade;
     private boolean isPlaced=false;
     private float x;
     private float y;

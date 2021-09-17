@@ -1,13 +1,13 @@
 package com.mygdx.chalmersdefense.Views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -26,7 +26,6 @@ import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 
 public class GameScreen implements Screen {
 
-    private final ChalmersDefense game;
     Viewport viewport;
     Batch batch;
     TowerFactory factory = new TowerFactory();
@@ -39,32 +38,33 @@ public class GameScreen implements Screen {
 
     ImageButton smurfButton;
     ImageButton chemistButton;
+    ImageButton electroButton;
     ArrayList<Tower> towersList = new ArrayList<>();
     ArrayList<ImageButton> towerButtons = new ArrayList<>();
-    private Stage stage;
-    private ShapeRenderer shapeRenderer;
-    private Circle circle;
+    private final Stage stage;
+    private final ShapeRenderer shapeRenderer;
 
     private boolean collision = false;
     private boolean falseLetGo = false;
+    private boolean activated = false;
+
+    DragListener dragListener;
+
+    private int money = 100;
 
 
 
 
     public GameScreen(ChalmersDefense game, Batch batch, Viewport viewport){
-        this.game = game;
         this.viewport = viewport;
         this.batch = batch;
         shapeRenderer = new ShapeRenderer();
-
 
         stage = new Stage(viewport); //Set up a stage for the ui
 
         chemistButton = createTowerButtons(chemist.getSprite().getTexture(), 1800, 900);
         smurfButton = createTowerButtons(smurf.getSprite().getTexture(), 1650, 900);
-
-
-
+        electroButton = createTowerButtons(electro.getSprite().getTexture(), 1800, 750);
     }
 
     private ImageButton createInvisButtons(Tower tower,float x, float y){
@@ -82,8 +82,7 @@ public class GameScreen implements Screen {
     }
 
     private ImageButton createTowerButtons(Texture texture, int x, int y){
-        Texture playButtonTexture = texture;
-        TextureRegion playButtonTextureRegion = new TextureRegion(playButtonTexture);
+        TextureRegion playButtonTextureRegion = new TextureRegion(texture);
         TextureRegionDrawable playTexRegDrawable = new TextureRegionDrawable(playButtonTextureRegion);
         ImageButton playButton = new ImageButton(playTexRegDrawable); //Set the button up
         playButton.setPosition(x, y);
@@ -106,7 +105,7 @@ public class GameScreen implements Screen {
     public void addListenerToButton(final Tower tower, final ImageButton button){
 
         final String towerName = tower.getName();
-        button.addListener(new DragListener() {
+        button.addListener(dragListener = new DragListener(){
             @Override
             public void dragStart(InputEvent event, float x, float y, int pointer) {
 
@@ -154,8 +153,10 @@ public class GameScreen implements Screen {
         });
     }
 
+
+
     private void towerListener(Tower tower){
-        ImageButton but = createInvisButtons(newTower,newTower.getPosX(), newTower.getPosY());
+        ImageButton but = createInvisButtons(tower,tower.getPosX(), tower.getPosY());
         towerButtons.add(but);
         but.addListener(new ClickListener(){
             @Override
@@ -170,9 +171,9 @@ public class GameScreen implements Screen {
     public void show() {
 
         Gdx.input.setInputProcessor(stage); //Start taking input from the ui
-
         addListenerToButton(smurf, smurfButton);
         addListenerToButton(chemist, chemistButton);
+        addListenerToButton(electro, electroButton);
 
     }
 
@@ -181,6 +182,22 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            money = 30;
+
+        }
+
+        if(money >= 100 && !activated){
+            smurfButton.setDisabled(false);
+            activated = true;
+        }
+        else if (money < 100){
+            smurfButton.setDisabled(true);
+            smurfButton.remove();
+            activated = false;
+        }
 
         if(towersList != null){
             for (Tower tower: towersList) {
@@ -228,6 +245,14 @@ public class GameScreen implements Screen {
             if(tower.getCircle().overlaps(checkTower.getCircle()) && !(checkTower.hashCode() == tower.hashCode())){
                 return true;
             }
+            else{
+                if(!(-20 < (tower.getPosX() - tower.getRange())) || (1580 < (tower.getPosX() + tower.getRange()))){
+                    return true;
+                }
+                if(!(-20 < (tower.getPosY() - tower.getRange())) || (1000 < (tower.getPosY() + tower.getRange()))){
+                    return true;
+                }
+            }
         }
         return false;
 
@@ -269,5 +294,6 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         Gdx.input.setInputProcessor(null);
+        stage.dispose();
     }
 }
