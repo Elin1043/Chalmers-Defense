@@ -1,13 +1,8 @@
 package com.mygdx.chalmersdefense.Model;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -53,8 +48,8 @@ public class SpawnViruses {
             }
 
             waveIndex++;
-            System.out.println(Integer.parseInt(splitedWave[1]));
             executorService.schedule(this::parseRound, Integer.parseInt(splitedWave[1]), TimeUnit.MILLISECONDS);
+
         } else {
             waveIndex = 0;
             isSpawning = false;

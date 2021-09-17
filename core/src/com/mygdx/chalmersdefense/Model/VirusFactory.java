@@ -11,9 +11,25 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  */
 public abstract class VirusFactory {
 
-    private static final Texture redVirus = new Texture("corona_virus_low.png");
+    private static final Texture redVirus = new Texture("redVirus.png");
 
     static public synchronized Virus createVirusOne(){
+        return new Virus(1, new Sprite(redVirus));
+    }
+
+    static public synchronized Virus createVirusTwo(){
+        return new Virus(1, new Sprite(redVirus));
+    }
+
+    static public synchronized Virus createVirusThree(){
+        return new Virus(1, new Sprite(redVirus));
+    }
+
+    static public synchronized Virus createVirusFour(){
+        return new Virus(1, new Sprite(redVirus));
+    }
+
+    static public synchronized Virus createVirusFive(){
         return new Virus(1, new Sprite(redVirus));
     }
 }
