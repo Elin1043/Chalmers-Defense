@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.chalmersdefense.Controllers.MainScreenController;
+import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.Model.Model;
 import com.mygdx.chalmersdefense.Views.GameScreen;
 import com.mygdx.chalmersdefense.Views.MainScreen;
@@ -50,8 +51,12 @@ public class ChalmersDefense extends Game {
 		music.play();
 
 		model = new Model(this, mainScreen, gameScreen);
+
 		MainScreenController mainScreenController = new MainScreenController(model);
 		mainScreen.addMainScreenController(mainScreenController);
+
+		RightSidePanelController rightSidePanelController = new RightSidePanelController(model);
+		gameScreen.addRightSidePanelController(rightSidePanelController);
 		//Gdx.graphics.setWindowedMode(1920, 1080); // Sets the width and height of the program window
 	}
 
