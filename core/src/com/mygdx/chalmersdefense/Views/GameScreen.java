@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -21,7 +20,6 @@ import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.Models.Tower;
 import com.mygdx.chalmersdefense.TowerFactory;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
@@ -48,6 +46,7 @@ public class GameScreen implements Screen {
     private Circle circle;
 
     private boolean collision = false;
+    private boolean falseLetGo = false;
 
 
 
@@ -144,23 +143,27 @@ public class GameScreen implements Screen {
                 if(!collision){
                     newTower.setPlaced(true);
                     newTower.getSprite().setPosition(Gdx.input.getX() - button.getWidth(),(Gdx.graphics.getHeight()  - Gdx.input.getY()) - button.getHeight()/2 );
-                    ImageButton button = createInvisButtons(newTower,newTower.getPosX(), newTower.getPosY());
                     newTower.setCircle();
-                    towerButtons.add(button);
-                    button.addListener(new ClickListener(){
-                        @Override
-                        public void clicked(InputEvent event, float x, float y) {
-                            System.out.println("Test");
-                        }
-                    });
+                    towerListener(newTower);
+
                 }
                 else{
-                    System.out.println("Error");
+                   falseLetGo = true;
                 }
             }
         });
     }
 
+    private void towerListener(Tower tower){
+        ImageButton but = createInvisButtons(newTower,newTower.getPosX(), newTower.getPosY());
+        towerButtons.add(but);
+        but.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Test");
+            }
+        });
+    }
 
 
     @Override
@@ -200,6 +203,17 @@ public class GameScreen implements Screen {
                     collision = true;
                 }
 
+            }
+        }
+
+        if(falseLetGo){
+            newTower.getSprite().setPosition( Gdx.input.getX() - newTower.getWidth(),(Gdx.graphics.getHeight() - Gdx.input.getY()) - newTower.getHeight()/2 );
+            newTower.setCircle();
+            if(!collision){
+                falseLetGo = false;
+                newTower.setPlaced(true);
+                towerListener(newTower);
+                shapeRenderer.end();
             }
         }
 
