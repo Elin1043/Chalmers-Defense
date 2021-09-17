@@ -8,9 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -40,9 +38,10 @@ public class GameScreen implements Screen {
     Viewport viewport;
     Batch batch;
     TowerFactory factory = new TowerFactory();
-    Tower chemist = factory.CreateChemist(200, 200);
+    Tower chemist = factory.CreateChemist(0, 0);
+    Tower smurf = factory.CreateSmurf(300, 300);
 
-    Boolean held = false;
+
     ImageButton smurfButton;
     ImageButton chemistButton;
     ArrayList<Tower> towersList = new ArrayList<>();
@@ -58,10 +57,13 @@ public class GameScreen implements Screen {
         this.batch = batch;
         shapeRenderer = new ShapeRenderer();
 
-        stage = new Stage(viewport); //Set up a stage for the ui
+
         stage = new Stage(viewport); //Set up a stage for the ui
 
         chemistButton = createTowerButtons(chemist.getSprite().getTexture(), 1800, 900);
+        smurfButton = createTowerButtons(smurf.getSprite().getTexture(), 1650, 900);
+
+
 
     }
 
@@ -92,10 +94,31 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(stage); //Start taking input from the ui
 
 
+        smurfButton.addListener(new DragListener() {
+            @Override
+            public void dragStart(InputEvent event, float x, float y, int pointer) {
+                smurf = factory.CreateSmurf((int)smurfButton.getX(), (int)smurfButton.getY());
+                towersList.add(smurf);
+
+            }
+
+            @Override
+            public void drag(InputEvent event, float x, float y, int pointer) {
+                smurf.getSprite().setPosition( Gdx.input.getX() - smurfButton.getWidth(),(Gdx.graphics.getHeight() - Gdx.input.getY()) - smurfButton.getHeight()/2 );
+            }
+
+            @Override
+            public void dragStop(InputEvent event, float x, float y, int pointer) {
+                smurf.getSprite().setPosition(Gdx.input.getX() - smurfButton.getWidth(),(Gdx.graphics.getHeight()  - Gdx.input.getY()) - smurfButton.getHeight()/2 );
+            }
+        });
+
+
+
+
         chemistButton.addListener(new DragListener() {
             @Override
             public void dragStart(InputEvent event, float x, float y, int pointer) {
-                System.out.println(x);
                 chemist = factory.CreateChemist((int)chemistButton.getX(), (int)chemistButton.getY());
                 towersList.add(chemist);
 
@@ -113,6 +136,8 @@ public class GameScreen implements Screen {
         });
 
 
+
+
     }
 
 
@@ -121,13 +146,15 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         //virus.draw(batch);
 
+        smurf.getSprite().draw(batch);
+        //createBorder(smurf);
         createRightSidePanel();
         if(towersList != null){
             for (Tower tower: towersList) {
-                //System.out.println(tower.getSprite().getY());
-                System.out.println(Gdx.input.getY());
                 tower.getSprite().draw(batch);
 
+                tower.setPos(tower.getSprite().getX(), tower.getSprite().getY());
+                //createBorder(tower);
 
             }
         }
@@ -136,18 +163,22 @@ public class GameScreen implements Screen {
         stage.draw(); //Draw the ui
     }
 
+    private void createBorder(Tower tower) {
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(new Color(0xF0FBFF));
+        shapeRenderer.rect(tower.getPosX(), tower.getPosY(), tower.getWidth(), tower.getHeight());
+        shapeRenderer.end();
+
+    }
+
     private void createRightSidePanel() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(new Color(0xF0FBFF));
         shapeRenderer.rect(Gdx.graphics.getWidth() - 320, 0, 320, Gdx.graphics.getHeight());
         shapeRenderer.end();
 
-
-
-
-
-
         stage.draw();
+
     }
 
     @Override
@@ -172,6 +203,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        Gdx.input.setInputProcessor(null);
     }
 }

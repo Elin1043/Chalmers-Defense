@@ -3,12 +3,13 @@ package com.mygdx.chalmersdefense.Models;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mygdx.chalmersdefense.Vectors;
 
-public class Tower{
+public class Tower extends Actor {
     //private final Vectors pos;
     private final Sprite sprite;
     private int angle = 0;
@@ -16,36 +17,58 @@ public class Tower{
     private String name;
     private Tower upgrade;
     private boolean isPlaced=false;
+    private float x;
+    private float y;
+    private float width;
+    private float height;
 
     private int attackDamage;
     private int attackSpeed;
 
 
 
-    public Tower(int x, int y, Sprite sprite, String name, int attackDamage, int attackSpeed) {
+    public Tower(float x, float y, Sprite sprite, String name, int attackDamage, int attackSpeed) {
         this.sprite = sprite;
         this.name=name;
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
 
         sprite.setPosition(x, y);
+        this.setPos(x,y);
+        this.width = sprite.getWidth();
+        this.height = sprite.getHeight();
     }
 
     public String getName(){
         return name;
     }
 
+    public void setPos(float x, float y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public float getPosX(){
+        return x;
+    }
+
+    public float getHeight(){
+        return height;
+    }
+
+    public float getWidth(){
+        return width;
+    }
+
+
+    public float getPosY(){
+        return y;
+    }
+
     public Sprite getSprite(){
         return sprite;
     }
 
-    //public Vectors getPos(){
-      //  return pos;
-    //}
-    //public void setPos(float x, float y){
-      //  pos.x = x;
-        //pos.y = y;
-    //}
 
     public int getAngle(){
         return angle;
@@ -75,6 +98,4 @@ public class Tower{
     }
 
 
-    public void addListener(ClickListener clickListener) {
-    }
 }
