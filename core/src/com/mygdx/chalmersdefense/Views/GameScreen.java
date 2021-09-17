@@ -18,6 +18,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Null;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.Models.Tower;
@@ -28,6 +32,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 
 public class GameScreen implements Screen {
 
@@ -37,11 +42,12 @@ public class GameScreen implements Screen {
     TowerFactory factory = new TowerFactory();
     Tower chemist = factory.CreateChemist(200, 200);
 
-    Stage stage;
     Boolean held = false;
     ImageButton smurfButton;
     ImageButton chemistButton;
     ArrayList<Tower> towersList = new ArrayList<>();
+    private Stage stage;
+    private ShapeRenderer shapeRenderer;
 
 
 
@@ -50,6 +56,9 @@ public class GameScreen implements Screen {
         this.game = game;
         this.viewport = viewport;
         this.batch = batch;
+        shapeRenderer = new ShapeRenderer();
+
+        stage = new Stage(viewport); //Set up a stage for the ui
         stage = new Stage(viewport); //Set up a stage for the ui
 
         chemistButton = createTowerButtons(chemist.getSprite().getTexture(), 300, 0);
@@ -66,6 +75,12 @@ public class GameScreen implements Screen {
         stage.addActor(playButton); //Add the button to the stage to perform rendering and take input.
 
         return playButton;
+        virus.setPosition(-300, -150);	// This needs to be fixed with later sprites
+
+    }
+
+    public void addRightSidePanelController(RightSidePanelController controller) {
+        controller.addStage(stage);
     }
 
 
@@ -106,6 +121,9 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        virus.draw(batch);
+
+        createRightSidePanel();
         if(towersList != null){
             for (Tower tower: towersList) {
                 //tower.getSprite().setPosition(tower.getPos().x, tower.getPos().y);
@@ -114,6 +132,17 @@ public class GameScreen implements Screen {
 
             }
         }
+
+        stage.act(Gdx.graphics.getDeltaTime()); //Perform ui logic
+        stage.draw(); //Draw the ui
+    }
+
+    private void createRightSidePanel() {
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(new Color(0xF0FBFF));
+        shapeRenderer.rect(Gdx.graphics.getWidth() - 320, 0, 320, Gdx.graphics.getHeight());
+        shapeRenderer.end();
+
 
 
 

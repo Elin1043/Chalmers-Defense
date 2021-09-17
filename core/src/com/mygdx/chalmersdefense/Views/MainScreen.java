@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.Controllers.MainScreenController;
+import com.badlogic.gdx.graphics.GL20;
+import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 
 
 public class MainScreen implements Screen {
