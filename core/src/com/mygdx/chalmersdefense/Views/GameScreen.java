@@ -183,22 +183,6 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            money = 30;
-
-        }
-
-        if(money >= 100 && !activated){
-            smurfButton.setDisabled(false);
-            activated = true;
-        }
-        else if (money < 100){
-            smurfButton.setDisabled(true);
-            smurfButton.remove();
-            activated = false;
-        }
-
         if(towersList != null){
             for (Tower tower: towersList) {
                 tower.getSprite().draw(batch);
