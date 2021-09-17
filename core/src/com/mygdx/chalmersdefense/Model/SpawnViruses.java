@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class SpawnViruses {
 
-    private final String[][] spawnInfo = {{"1|3000", "2*20|250|3000", "3|500", "4|1000", "5|1000", "5|500", "1|500", "2|1000"}};
+    private final String[][] spawnInfo = {{"1|3000", "2*20|250|2000", "3*5|300|500", "4|1000", "5|1000", "5|500", "1|500", "2|1000"},};
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private List<Virus> listToAddTo;
     private boolean isSpawning = false;
@@ -67,7 +67,6 @@ public class SpawnViruses {
                     }
                     waveAmountSpawned++;
 
-                    System.out.println(splitedWave[1]);
                     executorService.schedule(this::parseRound, Integer.parseInt(splitedWave[1]), TimeUnit.MILLISECONDS);
                 } else {
                     waveAmountSpawned = 0;

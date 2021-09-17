@@ -10,10 +10,7 @@ import com.mygdx.chalmersdefense.Model.SpawnViruses;
 import com.mygdx.chalmersdefense.Model.Virus;
 import com.mygdx.chalmersdefense.Model.VirusFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class GameScreen implements Screen {
 
@@ -40,10 +37,20 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        for (Virus virus: allViruses) {     // Om den lägger till ett virus exakt samtidigt blir det inte bra
-            virus.update();
-            virus.getSprite().draw(batch);
+
+        try {
+            for (Virus virus: allViruses) {     // Om den lägger till ett virus exakt samtidigt blir det inte bra
+                virus.update();
+                virus.getSprite().draw(batch);
+            }
+        } catch (ConcurrentModificationException e) {
+            System.out.println("FAIL");
+            for (Virus virus: allViruses) {     // Om den lägger till ett virus exakt samtidigt blir det inte bra
+                virus.update();
+                virus.getSprite().draw(batch);
+            }
         }
+
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             allViruses.add(VirusFactory.createVirusOne());
