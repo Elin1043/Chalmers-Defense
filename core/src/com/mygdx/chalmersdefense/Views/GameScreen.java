@@ -12,6 +12,7 @@ import com.mygdx.chalmersdefense.Model.VirusFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class GameScreen implements Screen {
@@ -39,7 +40,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        for (Virus virus: allViruses) {
+        for (Virus virus: allViruses) {     // Om den lägger till ett virus exakt samtidigt blir det inte bra
             virus.update();
             virus.getSprite().draw(batch);
         }

@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class SpawnViruses {
 
-    private final String[][] spawnInfo = {{"1|3000", "1|500", "1|500", "1|1000", "1|1000", "1|500", "1|500", "1|1000"}};
+    private final String[][] spawnInfo = {{"1|3000", "2|500", "3|500", "4|1000", "5|1000", "5|500", "1|500", "2|1000"}};
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private List<Virus> listToAddTo;
     private boolean isSpawning = false;
@@ -44,7 +44,10 @@ public class SpawnViruses {
 
             switch (Integer.parseInt(splitedWave[0])) {
                 case 1 -> listToAddTo.add(VirusFactory.createVirusOne());     // Måste ha blivit kallat 1 gång utan executorservice, annars slutar den gå eftersom den inte kan skapa en ny textur
-
+                case 2 -> listToAddTo.add(VirusFactory.createVirusTwo());
+                case 3 -> listToAddTo.add(VirusFactory.createVirusThree());
+                case 4 -> listToAddTo.add(VirusFactory.createVirusFour());
+                case 5 -> listToAddTo.add(VirusFactory.createVirusFive());
             }
 
             waveIndex++;
