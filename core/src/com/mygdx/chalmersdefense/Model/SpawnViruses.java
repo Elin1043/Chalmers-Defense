@@ -43,36 +43,14 @@ public class SpawnViruses {
 
 
             if (splitedWave.length == 2) {
-                switch (Integer.parseInt(splitedWave[0])) {
-                    case 1 -> listToAddTo.add(VirusFactory.createVirusOne());     // Måste ha blivit kallat 1 gång utan executorservice, annars slutar den gå eftersom den inte kan skapa en ny textur
-                    case 2 -> listToAddTo.add(VirusFactory.createVirusTwo());
-                    case 3 -> listToAddTo.add(VirusFactory.createVirusThree());
-                    case 4 -> listToAddTo.add(VirusFactory.createVirusFour());
-                    case 5 -> listToAddTo.add(VirusFactory.createVirusFive());
-                    default -> waveIndex = currentRound.length;                 // Maybe exception instead
-                }
-                executorService.schedule(this::parseRound, Integer.parseInt(splitedWave[1]), TimeUnit.MILLISECONDS);
+
+                addToList(splitedWave);
+                scheduleNextSpawnTime(splitedWave, 1);
                 waveIndex++;
+
             } else if (splitedWave.length == 3) {
-                String[] spawnInfo = splitedWave[0].split("[*]");
 
-                if (waveAmountSpawned < Integer.parseInt(spawnInfo[1])) {
-                    switch (Integer.parseInt(spawnInfo[0])) {
-                        case 1 -> listToAddTo.add(VirusFactory.createVirusOne());     // Måste ha blivit kallat 1 gång utan executorservice, annars slutar den gå eftersom den inte kan skapa en ny textur
-                        case 2 -> listToAddTo.add(VirusFactory.createVirusTwo());
-                        case 3 -> listToAddTo.add(VirusFactory.createVirusThree());
-                        case 4 -> listToAddTo.add(VirusFactory.createVirusFour());
-                        case 5 -> listToAddTo.add(VirusFactory.createVirusFive());
-                        default -> waveIndex = currentRound.length;                 // Maybe exception instead
-                    }
-                    waveAmountSpawned++;
-
-                    executorService.schedule(this::parseRound, Integer.parseInt(splitedWave[1]), TimeUnit.MILLISECONDS);
-                } else {
-                    waveAmountSpawned = 0;
-                    executorService.schedule(this::parseRound, Integer.parseInt(splitedWave[2]), TimeUnit.MILLISECONDS);
-                    waveIndex++;
-                }
+                multiVirusSpawnHandler(splitedWave);
 
             }
 
@@ -80,6 +58,36 @@ public class SpawnViruses {
             waveIndex = 0;
             waveAmountSpawned = 0;
             isSpawning = false;
+        }
+    }
+
+    private void multiVirusSpawnHandler(String[] splitedWave) {
+        String[] spawnInfo = splitedWave[0].split("[*]");
+
+        if (waveAmountSpawned < Integer.parseInt(spawnInfo[1])) {
+            addToList(spawnInfo);
+            waveAmountSpawned++;
+
+            scheduleNextSpawnTime(splitedWave, 1);
+        } else {
+            waveAmountSpawned = 0;
+            scheduleNextSpawnTime(splitedWave, 2);
+            waveIndex++;
+        }
+    }
+
+    private void scheduleNextSpawnTime(String[] splitedWave, int i) {
+        executorService.schedule(this::parseRound, Integer.parseInt(splitedWave[i]), TimeUnit.MILLISECONDS);
+    }
+
+    private void addToList(String[] splitedWave) {
+        switch (Integer.parseInt(splitedWave[0])) {
+            case 1 -> listToAddTo.add(VirusFactory.createVirusOne());     // Måste ha blivit kallat 1 gång utan executorservice, annars slutar den gå eftersom den inte kan skapa en ny textur
+            case 2 -> listToAddTo.add(VirusFactory.createVirusTwo());
+            case 3 -> listToAddTo.add(VirusFactory.createVirusThree());
+            case 4 -> listToAddTo.add(VirusFactory.createVirusFour());
+            case 5 -> listToAddTo.add(VirusFactory.createVirusFive());
+            default -> waveIndex = currentRound.length;                 // Maybe exception instead
         }
     }
 

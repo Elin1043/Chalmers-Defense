@@ -39,13 +39,16 @@ public class GameScreen implements Screen {
     public void render(float delta) {
 
         try {
+
             for (Virus virus: allViruses) {     // Om den lägger till ett virus exakt samtidigt blir det inte bra
                 virus.update();
                 virus.getSprite().draw(batch);
             }
+
         } catch (ConcurrentModificationException e) {
             System.out.println("FAIL");
-            for (Virus virus: allViruses) {     // Om den lägger till ett virus exakt samtidigt blir det inte bra
+
+            for (Virus virus: allViruses) {
                 virus.update();
                 virus.getSprite().draw(batch);
             }
