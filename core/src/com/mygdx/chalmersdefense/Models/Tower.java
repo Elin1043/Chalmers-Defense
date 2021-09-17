@@ -49,6 +49,7 @@ public class Tower extends Actor {
     public ShapeRenderer drawRadius(ShapeRenderer shape){
         shape.circle(this.getPosX() + this.getSprite().getWidth()/2, this.getPosY() + this.getSprite().getHeight()/2, this.getRange());
         return shape;
+
     }
 
     public void setCircle(){

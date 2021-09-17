@@ -128,8 +128,6 @@ public class GameScreen implements Screen {
                         return;
                 }
 
-
-
                 towersList.add(newTower);
 
             }
@@ -147,6 +145,7 @@ public class GameScreen implements Screen {
                     newTower.setPlaced(true);
                     newTower.getSprite().setPosition(Gdx.input.getX() - button.getWidth(),(Gdx.graphics.getHeight()  - Gdx.input.getY()) - button.getHeight()/2 );
                     ImageButton button = createInvisButtons(newTower,newTower.getPosX(), newTower.getPosY());
+                    newTower.setCircle();
                     towerButtons.add(button);
                     button.addListener(new ClickListener(){
                         @Override
@@ -156,7 +155,6 @@ public class GameScreen implements Screen {
                     });
                 }
                 else{
-
                     System.out.println("Error");
                 }
             }
@@ -190,20 +188,16 @@ public class GameScreen implements Screen {
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                     shapeRenderer.setColor(Color.LIGHT_GRAY);
                     tower.drawRadius(shapeRenderer);
-
                     shapeRenderer.end();
+                    collision = false;
 
                 }
                 else if(!tower.isPlaced() && checkCollision(tower)){
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                     shapeRenderer.setColor(Color.RED);
                     tower.drawRadius(shapeRenderer);
-                    collision = true;
-
                     shapeRenderer.end();
-                }
-                else{
-
+                    collision = true;
                 }
 
             }
