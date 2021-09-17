@@ -16,20 +16,20 @@ public class TowerFactory {
 
     public Tower CreateSmurf(int startPosX, int startPosY){
         smurfImage = new Sprite(new Texture("Towers/Smurf.png"));
-        Tower smurf = new Tower(startPosX,startPosY, smurfImage, "SmurfTower", 10,10);
+        Tower smurf = new Tower(startPosX,startPosY, smurfImage, "SmurfTower", 10,10, 100);
 
         return smurf;
     }
 
     public Tower CreateElectro(int startPosX, int startPosY){
         electroImage = new Sprite(new Texture("Towers/Electro.png"));
-        Tower electro = new Tower(startPosX,startPosY, electroImage, "ElectroTower", 20,10);
+        Tower electro = new Tower(startPosX,startPosY, electroImage, "ElectroTower", 20,10, 200);
         return electro;
     }
 
     public Tower CreateChemist(int startPosX, int startPosY){
         chemistImage = new Sprite(new Texture("Towers/Chemist.png"));
-        Tower chemist = new Tower(startPosX,startPosY, chemistImage, "ChemistTower", 30,10);
+        Tower chemist = new Tower(startPosX,startPosY, chemistImage, "ChemistTower", 30,10, 300);
         return chemist;
     }
 

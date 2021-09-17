@@ -21,6 +21,7 @@ import com.mygdx.chalmersdefense.Models.Tower;
 import com.mygdx.chalmersdefense.TowerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 
@@ -30,9 +31,8 @@ public class GameScreen implements Screen {
     Batch batch;
     TowerFactory factory = new TowerFactory();
     Tower chemist = factory.CreateChemist(0, 0);
-    Tower smurf = factory.CreateSmurf(300, 300);
-    Tower electro = factory.CreateElectro(300, 300);
-
+    Tower smurf = factory.CreateSmurf(0, 0);
+    Tower electro = factory.CreateElectro(0, 0);
     Tower newTower;
 
 
@@ -40,7 +40,8 @@ public class GameScreen implements Screen {
     ImageButton chemistButton;
     ImageButton electroButton;
     ArrayList<Tower> towersList = new ArrayList<>();
-    ArrayList<ImageButton> towerButtons = new ArrayList<>();
+
+    HashMap<Tower, ImageButton> towerButtons = new HashMap<Tower, ImageButton>();
     private final Stage stage;
     private final ShapeRenderer shapeRenderer;
 
@@ -157,7 +158,7 @@ public class GameScreen implements Screen {
 
     private void towerListener(Tower tower){
         ImageButton but = createInvisButtons(tower,tower.getPosX(), tower.getPosY());
-        towerButtons.add(but);
+        towerButtons.put(tower, but);
         but.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -177,11 +178,38 @@ public class GameScreen implements Screen {
 
     }
 
+    //Not really working
+    private void checkAffordableTowers(){
+        for (Tower i : towerButtons.keySet()) {
+            if(money >= i.getCost()){
+                towerButtons.get(i).setTouchable(Touchable.enabled);
+                activated = true;
+            }
+            else if (money < i.getCost()){
+                towerButtons.get(i).setTouchable(Touchable.disabled);
+                activated = false;
+            }
+        }
+
+    }
+
 
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        checkAffordableTowers();
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            if(money == 30){
+                money = 100;
+            }
+            else{
+                money = 30;
+            }
+
+
+        }
 
         if(towersList != null){
             for (Tower tower: towersList) {

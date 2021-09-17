@@ -26,12 +26,14 @@ public class Tower extends Actor {
 
     private int attackDamage;
     private int attackSpeed;
+    private int cost;
 
     private Circle circle = new Circle();
 
 
 
-    public Tower(float x, float y, Sprite sprite, String name, int attackDamage, int attackSpeed){
+
+    public Tower(float x, float y, Sprite sprite, String name, int attackDamage, int attackSpeed, int cost){
         this.sprite = sprite;
         this.name=name;
         this.attackDamage = attackDamage;
@@ -42,9 +44,12 @@ public class Tower extends Actor {
         this.width = sprite.getWidth();
         this.height = sprite.getHeight();
         this.range = 100;
+        this.cost = cost;
 
     }
-
+    public int getCost() {
+        return cost;
+    }
     public ShapeRenderer drawRadius(ShapeRenderer shape){
         shape.circle(this.getPosX() + this.getSprite().getWidth()/2, this.getPosY() + this.getSprite().getHeight()/2, this.getRange());
         return shape;
