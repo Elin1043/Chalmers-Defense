@@ -13,7 +13,7 @@ public class Tower extends Actor {
     //private final Vectors pos;
     private final Sprite sprite;
     private int angle = 0;
-    private double range;
+    private float range;
     private String name;
     private Tower upgrade;
     private boolean isPlaced=false;
@@ -27,7 +27,7 @@ public class Tower extends Actor {
 
 
 
-    public Tower(float x, float y, Sprite sprite, String name, int attackDamage, int attackSpeed) {
+    public Tower(float x, float y, Sprite sprite, String name, int attackDamage, int attackSpeed){
         this.sprite = sprite;
         this.name=name;
         this.attackDamage = attackDamage;
@@ -37,6 +37,7 @@ public class Tower extends Actor {
         this.setPos(x,y);
         this.width = sprite.getWidth();
         this.height = sprite.getHeight();
+        this.range = 100;
     }
 
     public String getName(){
@@ -79,7 +80,7 @@ public class Tower extends Actor {
 
     }
 
-    public double getRange(){
+    public float getRange(){
         return range;
     }
 

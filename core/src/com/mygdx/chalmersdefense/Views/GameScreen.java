@@ -1,32 +1,25 @@
 package com.mygdx.chalmersdefense.Views;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Null;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.Models.Tower;
 import com.mygdx.chalmersdefense.TowerFactory;
-import com.mygdx.chalmersdefense.Vectors;
 
-import java.awt.Image;
-import java.awt.event.MouseEvent;
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 
@@ -95,6 +88,8 @@ public class GameScreen implements Screen {
 
     }
 
+
+
     public void addRightSidePanelController(RightSidePanelController controller) {
         controller.addStage(stage);
     }
@@ -118,10 +113,12 @@ public class GameScreen implements Screen {
             @Override
             public void drag(InputEvent event, float x, float y, int pointer) {
                 smurf.getSprite().setPosition( Gdx.input.getX() - smurfButton.getWidth(),(Gdx.graphics.getHeight() - Gdx.input.getY()) - smurfButton.getHeight()/2 );
+
             }
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
+                smurf.setPlaced(true);
                 smurf.getSprite().setPosition(Gdx.input.getX() - smurfButton.getWidth(),(Gdx.graphics.getHeight()  - Gdx.input.getY()) - smurfButton.getHeight()/2 );
                 ImageButton button = createInvisButtons(smurf,smurf.getPosX(), smurf.getPosY());
                 towerButtons.add(button);
@@ -142,6 +139,7 @@ public class GameScreen implements Screen {
             @Override
             public void dragStart(InputEvent event, float x, float y, int pointer) {
                 chemist = factory.CreateChemist((int)chemistButton.getX(), (int)chemistButton.getY());
+
                 towersList.add(chemist);
 
             }
@@ -149,10 +147,12 @@ public class GameScreen implements Screen {
             @Override
             public void drag(InputEvent event, float x, float y, int pointer) {
                 chemist.getSprite().setPosition( Gdx.input.getX() - chemistButton.getWidth(),(Gdx.graphics.getHeight() - Gdx.input.getY()) - chemistButton.getHeight()/2 );
+
             }
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
+                chemist.setPlaced(true);
                 chemist.getSprite().setPosition(Gdx.input.getX() - chemistButton.getWidth(),(Gdx.graphics.getHeight()  - Gdx.input.getY()) - chemistButton.getHeight()/2 );
             }
         });
@@ -169,37 +169,38 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        smurf.getSprite().draw(batch);
-        //createBorder(smurf);
         createRightSidePanel();
         if(towersList != null){
             for (Tower tower: towersList) {
                 tower.getSprite().draw(batch);
-
                 tower.setPos(tower.getSprite().getX(), tower.getSprite().getY());
-                //createBorder(tower);
+
+                if(!tower.isPlaced()){
+                    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                    shapeRenderer.setColor(new Color(0xF0FBFF));
+                    shapeRenderer.circle(tower.getSprite().getX() + tower.getSprite().getWidth()/2, tower.getSprite().getY() + tower.getSprite().getHeight()/2, tower.getRange());
+                    shapeRenderer.end();
+
+                }
 
             }
         }
+
+
 
         stage.act(Gdx.graphics.getDeltaTime()); //Perform ui logic
         stage.draw(); //Draw the ui
     }
 
-    private void createBorder(Tower tower) {
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(new Color(0xF0FBFF));
-        shapeRenderer.rect(tower.getPosX(), tower.getPosY(), tower.getWidth(), tower.getHeight());
-        shapeRenderer.end();
 
-    }
+
+
 
     private void createRightSidePanel() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(new Color(0xF0FBFF));
         shapeRenderer.rect(Gdx.graphics.getWidth() - 320, 0, 320, Gdx.graphics.getHeight());
         shapeRenderer.end();
-
         stage.draw();
 
     }
