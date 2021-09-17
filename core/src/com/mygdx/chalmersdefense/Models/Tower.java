@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mygdx.chalmersdefense.Vectors;
 
 public class Tower{
-    private final Vectors pos;
+    //private final Vectors pos;
     private final Sprite sprite;
     private int angle = 0;
     private double range;
@@ -22,14 +22,13 @@ public class Tower{
 
 
 
-    public Tower(Vectors pos, Sprite sprite, String name, int attackDamage, int attackSpeed) {
-        this.pos = pos;
+    public Tower(int x, int y, Sprite sprite, String name, int attackDamage, int attackSpeed) {
         this.sprite = sprite;
         this.name=name;
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
 
-        sprite.setPosition(pos.x, pos.y);
+        sprite.setPosition(x, y);
     }
 
     public String getName(){
@@ -40,13 +39,13 @@ public class Tower{
         return sprite;
     }
 
-    public Vectors getPos(){
-        return pos;
-    }
-    public void setPos(float x, float y){
-        pos.x = x;
-        pos.y = y;
-    }
+    //public Vectors getPos(){
+      //  return pos;
+    //}
+    //public void setPos(float x, float y){
+      //  pos.x = x;
+        //pos.y = y;
+    //}
 
     public int getAngle(){
         return angle;

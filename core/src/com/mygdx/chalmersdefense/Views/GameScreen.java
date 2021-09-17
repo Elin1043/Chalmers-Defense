@@ -61,7 +61,7 @@ public class GameScreen implements Screen {
         stage = new Stage(viewport); //Set up a stage for the ui
         stage = new Stage(viewport); //Set up a stage for the ui
 
-        chemistButton = createTowerButtons(chemist.getSprite().getTexture(), 300, 0);
+        chemistButton = createTowerButtons(chemist.getSprite().getTexture(), 1800, 900);
 
     }
 
@@ -72,10 +72,11 @@ public class GameScreen implements Screen {
         ImageButton playButton = new ImageButton(playTexRegDrawable); //Set the button up
         playButton.setPosition(x, y);
 
+
         stage.addActor(playButton); //Add the button to the stage to perform rendering and take input.
 
         return playButton;
-        virus.setPosition(-300, -150);	// This needs to be fixed with later sprites
+        //virus.setPosition(-300, -150);	// This needs to be fixed with later sprites
 
     }
 
@@ -95,19 +96,19 @@ public class GameScreen implements Screen {
             @Override
             public void dragStart(InputEvent event, float x, float y, int pointer) {
                 System.out.println(x);
-                chemist = factory.CreateChemist((int)(x + chemistButton.getWidth() / 2),(int)(y - chemistButton.getHeight() / 2));
+                chemist = factory.CreateChemist((int)chemistButton.getX(), (int)chemistButton.getY());
                 towersList.add(chemist);
 
             }
 
             @Override
             public void drag(InputEvent event, float x, float y, int pointer) {
-                chemist.setPos(x - chemist.getSprite().getWidth() / 2,y - chemist.getSprite().getHeight() / 2 );
+                chemist.getSprite().setPosition( Gdx.input.getX() - chemistButton.getWidth(),(Gdx.graphics.getHeight() - Gdx.input.getY()) - chemistButton.getHeight()/2 );
             }
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
-                chemist.setPos(x - chemist.getSprite().getWidth() / 2,y - chemist.getSprite().getHeight() / 2 );
+                chemist.getSprite().setPosition(Gdx.input.getX() - chemistButton.getWidth(),(Gdx.graphics.getHeight()  - Gdx.input.getY()) - chemistButton.getHeight()/2 );
             }
         });
 
@@ -116,17 +117,15 @@ public class GameScreen implements Screen {
 
 
 
-
-
-
     @Override
     public void render(float delta) {
-        virus.draw(batch);
+        //virus.draw(batch);
 
         createRightSidePanel();
         if(towersList != null){
             for (Tower tower: towersList) {
-                //tower.getSprite().setPosition(tower.getPos().x, tower.getPos().y);
+                //System.out.println(tower.getSprite().getY());
+                System.out.println(Gdx.input.getY());
                 tower.getSprite().draw(batch);
 
 
