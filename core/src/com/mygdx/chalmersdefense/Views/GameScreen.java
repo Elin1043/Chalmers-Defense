@@ -3,10 +3,14 @@ package com.mygdx.chalmersdefense.Views;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
@@ -17,6 +21,7 @@ public class GameScreen implements Screen {
     Viewport viewport;
     Batch batch;
     private Stage stage;
+    private ShapeRenderer shapeRenderer;
 
     Sprite virus;
 
@@ -24,12 +29,14 @@ public class GameScreen implements Screen {
         this.game = game;
         this.viewport = viewport;
         this.batch = batch;
+        shapeRenderer = new ShapeRenderer();
 
         stage = new Stage(viewport); //Set up a stage for the ui
 
         virus = new Sprite(new Texture("corona_virus_low.png"));
 
         virus.setPosition(-300, -150);	// This needs to be fixed with later sprites
+
     }
 
     public void addRightSidePanelController(RightSidePanelController controller) {
@@ -44,8 +51,18 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         virus.draw(batch);
+
+        createRightSidePanel();
+
         stage.act(Gdx.graphics.getDeltaTime()); //Perform ui logic
         stage.draw(); //Draw the ui
+    }
+
+    private void createRightSidePanel() {
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(new Color(0xF0FBFF));
+        shapeRenderer.rect(Gdx.graphics.getWidth() - 320, 0, 320, Gdx.graphics.getHeight());
+        shapeRenderer.end();
     }
 
     @Override
