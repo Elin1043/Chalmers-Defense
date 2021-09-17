@@ -36,7 +36,7 @@ public class MainScreen extends AbstractScreen {
         TextureRegion playButtonTextureRegion = new TextureRegion(playButtonTexture);
         TextureRegionDrawable playTexRegDrawable = new TextureRegionDrawable(playButtonTextureRegion);
         playButton = new ImageButton(playTexRegDrawable); //Set the button up
-        playButton.setPosition(432, 20);
+        playButton.setPosition(832, 20);
 
         //Add the button to the stage to perform rendering and take input. (WILL BE MOVED)
 
