@@ -9,8 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
@@ -18,14 +17,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Null;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.Models.Tower;
 import com.mygdx.chalmersdefense.TowerFactory;
 import com.mygdx.chalmersdefense.Vectors;
 
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +43,7 @@ public class GameScreen implements Screen {
     ImageButton smurfButton;
     ImageButton chemistButton;
     ArrayList<Tower> towersList = new ArrayList<>();
+    ArrayList<ImageButton> towerButtons = new ArrayList<>();
     private Stage stage;
     private ShapeRenderer shapeRenderer;
 
@@ -65,6 +64,20 @@ public class GameScreen implements Screen {
 
 
 
+    }
+
+    private ImageButton createInvisButtons(Tower tower,float x, float y){
+        Texture playButtonTexture = tower.getSprite().getTexture();
+        TextureRegion playButtonTextureRegion = new TextureRegion(playButtonTexture);
+        TextureRegionDrawable playTexRegDrawable = new TextureRegionDrawable(playButtonTextureRegion);
+        ImageButton invisButton = new ImageButton(playTexRegDrawable); //Set the button up
+        invisButton.setColor(255,255,255,0);
+        invisButton.setSize(tower.getWidth(), tower.getHeight());
+        invisButton.setPosition(x,y);
+
+
+        stage.addActor(invisButton); //Add the button to the stage to perform rendering and take input.
+        return invisButton;
     }
 
     private ImageButton createTowerButtons(Texture texture, int x, int y){
@@ -110,8 +123,17 @@ public class GameScreen implements Screen {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
                 smurf.getSprite().setPosition(Gdx.input.getX() - smurfButton.getWidth(),(Gdx.graphics.getHeight()  - Gdx.input.getY()) - smurfButton.getHeight()/2 );
+                ImageButton button = createInvisButtons(smurf,smurf.getPosX(), smurf.getPosY());
+                towerButtons.add(button);
+                button.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        System.out.println("Test");
+                    }
+                });
             }
         });
+
 
 
 
@@ -138,13 +160,14 @@ public class GameScreen implements Screen {
 
 
 
+
+
     }
 
 
 
     @Override
     public void render(float delta) {
-        //virus.draw(batch);
 
         smurf.getSprite().draw(batch);
         //createBorder(smurf);
