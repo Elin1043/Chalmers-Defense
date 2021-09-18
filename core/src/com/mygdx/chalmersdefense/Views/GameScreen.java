@@ -49,7 +49,7 @@ public class GameScreen implements Screen {
     ImageButton ecobutton;
     ArrayList<Tower> towersList = new ArrayList<>();
 
-    HashMap<Tower, ImageButton> towerButtons = new HashMap<Tower, ImageButton>();
+    HashMap<Tower, ImageButton> towerButtons = new HashMap<>();
     private final Stage stage;
     private final ShapeRenderer shapeRenderer;
 
