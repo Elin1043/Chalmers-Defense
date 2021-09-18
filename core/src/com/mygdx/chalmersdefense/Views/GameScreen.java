@@ -244,6 +244,7 @@ public class GameScreen implements Screen {
                 towerButtons.get(i).setTouchable(Touchable.disabled);
                 towerButtons.get(i).getImage().setColor(Color.LIGHT_GRAY);
 
+
             }
         }
     }
