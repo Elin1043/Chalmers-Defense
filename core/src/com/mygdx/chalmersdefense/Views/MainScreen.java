@@ -23,10 +23,11 @@ public class MainScreen extends AbstractScreen {
     private ImageButton playButton;
 
     private final Vector2 rotHelper = new Vector2();
+    private MainScreenController mainScreenController;
 
     public MainScreen(){
         super();
-
+        mainScreenController = new MainScreenController();
         img = new Image(new Texture("HomeScreen.png"));
         createPlayButton();
     }
@@ -39,13 +40,8 @@ public class MainScreen extends AbstractScreen {
         playButton.setPosition(832, 20);
 
         //Add the button to the stage to perform rendering and take input. (WILL BE MOVED)
+        mainScreenController.addPlayButtonListener(playButton);
 
-        playButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                ScreenManager.getInstance().showScreen(ScreenEnum.GAME);
-            }
-        });
     }
 
     @Override
