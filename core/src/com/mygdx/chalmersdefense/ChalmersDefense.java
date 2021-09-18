@@ -14,7 +14,9 @@ public class ChalmersDefense extends Game {
 
 	@Override
 	public void create () {
-		ScreenManager.getInstance().initialize(this);
+		model = new Model(this);
+
+		ScreenManager.getInstance().initialize(this, model);
 		ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("ponggamesound.wav"));
@@ -22,7 +24,6 @@ public class ChalmersDefense extends Game {
 		music.setVolume((float) 0.2);
 		music.play();
 
-		model = new Model(this);
 		//Gdx.graphics.setWindowedMode(1920, 1080); // Sets the width and height of the program window
 	}
 
