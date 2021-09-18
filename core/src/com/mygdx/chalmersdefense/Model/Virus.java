@@ -20,7 +20,7 @@ public class Virus {
     }
 
     public void update() {
-        sprite.setX(sprite.getX() + 1);
+        sprite.setX(sprite.getX() + (4F + health)/5F);
     }
 
 }

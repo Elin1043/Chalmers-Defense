@@ -76,8 +76,6 @@ public class SpawnViruses {
         if(splitedWave[0].split("[*]").length == 2) {
             spawnInfo = splitedWave[0].split("[*]");
 
-            System.out.println(Arrays.toString(spawnInfo));
-
             if (waveAmountSpawned < Integer.parseInt(spawnInfo[1])) {
                 addToList(Integer.parseInt(spawnInfo[0]));
                 waveAmountSpawned++;
