@@ -41,7 +41,7 @@ public class SpawnViruses {
 
     }
 
-    private synchronized void parseRound(){
+    private synchronized void parseRound() {
 
         if (waveIndex < currentRound.length) {
 
@@ -114,7 +114,16 @@ public class SpawnViruses {
     }
 
     private void scheduleNextSpawnTime(String[] splitedWave, int i) {
-        executorService.schedule(this::parseRound, Integer.parseInt(splitedWave[i]), TimeUnit.MILLISECONDS);
+        //executorService.schedule(this::parseRound, Integer.parseInt(splitedWave[i]), TimeUnit.MILLISECONDS);
+        executorService.schedule(() -> {
+            try {
+                parseRound();
+            } catch (IllegalRoundDataException e){
+                System.out.println(e.getMessage());
+                waveIndex++;
+                parseRound();
+            }
+        }, Integer.parseInt(splitedWave[i]), TimeUnit.MILLISECONDS);
     }
 
     private void addToList(int typeOfVirus) {
@@ -124,7 +133,7 @@ public class SpawnViruses {
             case 3 -> listToAddTo.add(VirusFactory.createVirusThree());
             case 4 -> listToAddTo.add(VirusFactory.createVirusFour());
             case 5 -> listToAddTo.add(VirusFactory.createVirusFive());
-            default -> throw new IllegalRoundDataException("Data error in wave" + waveIndex + "in block: " + Arrays.toString(currentRound)); // waveIndex = currentRound.length;                 // Maybe exception instead
+            default -> throw new IllegalRoundDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound)); // waveIndex = currentRound.length;                 // Maybe exception instead
         }
     }
 
