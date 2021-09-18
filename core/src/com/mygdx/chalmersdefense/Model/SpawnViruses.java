@@ -72,18 +72,14 @@ public class SpawnViruses {
 
     private void multiVirusSpawnHandler(String[] splitedWave) {
         String[] spawnInfo;
-        System.out.println("Tjenare");
 
         if(splitedWave[0].split("[*]").length == 2) {
             spawnInfo = splitedWave[0].split("[*]");
 
-            System.out.println("Rätt");
             System.out.println(Arrays.toString(spawnInfo));
 
             if (waveAmountSpawned < Integer.parseInt(spawnInfo[1])) {
-                System.out.println("Helt rätt");
                 addToList(Integer.parseInt(spawnInfo[0]));
-                System.out.println("Kommer den förbi?");
                 waveAmountSpawned++;
 
                 scheduleNextSpawnTime(splitedWave, 1);
@@ -118,12 +114,10 @@ public class SpawnViruses {
     }
 
     private void scheduleNextSpawnTime(String[] splitedWave, int i) {
-        System.out.println("´Schemalägger");
         executorService.schedule(this::parseRound, Integer.parseInt(splitedWave[i]), TimeUnit.MILLISECONDS);
     }
 
     private void addToList(int typeOfVirus) {
-        System.out.println("Lägger till");
         switch (typeOfVirus) {
             case 1 -> listToAddTo.add(VirusFactory.createVirusOne());     // Måste ha blivit kallat 1 gång utan executorservice, annars slutar den gå eftersom den inte kan skapa en ny textur
             case 2 -> listToAddTo.add(VirusFactory.createVirusTwo());
@@ -132,7 +126,6 @@ public class SpawnViruses {
             case 5 -> listToAddTo.add(VirusFactory.createVirusFive());
             default -> waveIndex = currentRound.length;                 // Maybe exception instead
         }
-        System.out.println("Har lagt till");
     }
 
 
