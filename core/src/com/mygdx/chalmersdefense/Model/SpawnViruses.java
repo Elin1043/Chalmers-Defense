@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.Model;
 
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -12,12 +13,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class SpawnViruses {
 
-    private final String[][] spawnInfo = {{"1|3000", "2*20|250|2000", "3*5|300|500", "4|1000", "5|1000", "5|500", "1|500", "2|1000"},};
+    // TODO måste kolla så att rundinformationen innehåller rätt data format. Typ kasta exeption ifall den upptäcker fel
+
+    private final String[][] spawnInfo = {{"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},};
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-    private List<Virus> listToAddTo;
+    private final List<Virus> listToAddTo;
     private boolean isSpawning = false;
 
-    String[] currentRound;
+    private String[] currentRound;
     private int waveIndex = 0;
     private int waveAmountSpawned;
 
@@ -29,13 +32,14 @@ public class SpawnViruses {
         if (!isSpawning) {
             currentRound = spawnInfo[round - 1];
             waveIndex = 0;
+            waveAmountSpawned = 0;
             isSpawning = true;
             parseRound();
         }
 
     }
 
-    private void parseRound(){
+    private synchronized void parseRound(){
 
         if (waveIndex < currentRound.length) {
 
@@ -44,13 +48,18 @@ public class SpawnViruses {
 
             if (splitedWave.length == 2) {
 
-                addToList(splitedWave);
+                addToList(Integer.parseInt(splitedWave[0]));
                 scheduleNextSpawnTime(splitedWave, 1);
                 waveIndex++;
 
             } else if (splitedWave.length == 3) {
 
                 multiVirusSpawnHandler(splitedWave);
+
+            } else {
+
+                waveAmountSpawned = 0;
+                isSpawning = false;                 // Maybe exception instead (Some error in round coding)
 
             }
 
@@ -62,26 +71,60 @@ public class SpawnViruses {
     }
 
     private void multiVirusSpawnHandler(String[] splitedWave) {
-        String[] spawnInfo = splitedWave[0].split("[*]");
+        String[] spawnInfo;
+        System.out.println("Tjenare");
 
-        if (waveAmountSpawned < Integer.parseInt(spawnInfo[1])) {
-            addToList(spawnInfo);
-            waveAmountSpawned++;
+        if(splitedWave[0].split("[*]").length == 2) {
+            spawnInfo = splitedWave[0].split("[*]");
 
-            scheduleNextSpawnTime(splitedWave, 1);
-        } else {
-            waveAmountSpawned = 0;
-            scheduleNextSpawnTime(splitedWave, 2);
-            waveIndex++;
+            System.out.println("Rätt");
+            System.out.println(Arrays.toString(spawnInfo));
+
+            if (waveAmountSpawned < Integer.parseInt(spawnInfo[1])) {
+                System.out.println("Helt rätt");
+                addToList(Integer.parseInt(spawnInfo[0]));
+                System.out.println("Kommer den förbi?");
+                waveAmountSpawned++;
+
+                scheduleNextSpawnTime(splitedWave, 1);
+            } else {
+                waveAmountSpawned = 0;
+                scheduleNextSpawnTime(splitedWave, 2);
+                waveIndex++;
+            }
+
+        } else if (splitedWave[0].split("[/]").length == 2) {
+            spawnInfo = splitedWave[0].split("[/]");
+            int currentVirusType;
+
+            if (Integer.parseInt(spawnInfo[0]) < Integer.parseInt(spawnInfo[1])){
+                currentVirusType = Integer.parseInt(spawnInfo[0]) + waveAmountSpawned;
+            } else {
+                currentVirusType = Integer.parseInt(spawnInfo[0]) - waveAmountSpawned;
+            }
+
+            addToList(currentVirusType);
+            if (currentVirusType != Integer.parseInt(spawnInfo[1])) {
+                waveAmountSpawned++;
+                scheduleNextSpawnTime(splitedWave, 1);
+            } else {
+                waveAmountSpawned = 0;
+                scheduleNextSpawnTime(splitedWave, 2);
+                waveIndex++;
+            }
+
+
         }
     }
 
     private void scheduleNextSpawnTime(String[] splitedWave, int i) {
+        System.out.println("´Schemalägger");
         executorService.schedule(this::parseRound, Integer.parseInt(splitedWave[i]), TimeUnit.MILLISECONDS);
     }
 
-    private void addToList(String[] splitedWave) {
-        switch (Integer.parseInt(splitedWave[0])) {
+    private void addToList(int typeOfVirus) {
+        System.out.println("Lägger till");
+        switch (typeOfVirus) {
             case 1 -> listToAddTo.add(VirusFactory.createVirusOne());     // Måste ha blivit kallat 1 gång utan executorservice, annars slutar den gå eftersom den inte kan skapa en ny textur
             case 2 -> listToAddTo.add(VirusFactory.createVirusTwo());
             case 3 -> listToAddTo.add(VirusFactory.createVirusThree());
@@ -89,6 +132,7 @@ public class SpawnViruses {
             case 5 -> listToAddTo.add(VirusFactory.createVirusFive());
             default -> waveIndex = currentRound.length;                 // Maybe exception instead
         }
+        System.out.println("Har lagt till");
     }
 
 
