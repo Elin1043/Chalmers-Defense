@@ -2,8 +2,11 @@ package com.mygdx.chalmersdefense.Views;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.mygdx.chalmersdefense.Model.Model;
 
 public class ScreenManager {
+    private MainScreen mainScreen;
+    private GameScreen gameScreen;
 
     private static ScreenManager instance;
 
@@ -20,8 +23,10 @@ public class ScreenManager {
         return instance;
     }
 
-    public void initialize(Game game) {
+    public void initialize(Game game, Model model) {
         this.game = game;
+        mainScreen = new MainScreen();
+        gameScreen = new GameScreen(model);
     }
 
     // Show in the game the screen which enum type is received
@@ -31,13 +36,26 @@ public class ScreenManager {
         Screen currentScreen = game.getScreen();
 
         // Show new screen
-        AbstractScreen newScreen = screenEnum.getScreen();
-        newScreen.buildStage();
-        game.setScreen(newScreen);
+        AbstractScreen newScreen = getScreen(screenEnum);
+        if (newScreen != null) {
+            newScreen.buildStage();
+            game.setScreen(newScreen);
+        }
 
         // Dispose previous screen
         if (currentScreen != null) {
             currentScreen.dispose();
+        }
+    }
+
+    private AbstractScreen getScreen(ScreenEnum screenEnum) {
+        switch (screenEnum) {
+            case MAIN_MENU:
+                return mainScreen;
+            case GAME:
+                return gameScreen;
+            default:
+                return null;
         }
     }
 }
