@@ -1,6 +1,8 @@
 package com.mygdx.chalmersdefense.Model;
 
 
+import com.mygdx.chalmersdefense.Model.CustomExceptions.IllegalRoundDataException;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -15,7 +17,7 @@ public class SpawnViruses {
 
     // TODO måste kolla så att rundinformationen innehåller rätt data format. Typ kasta exeption ifall den upptäcker fel
 
-    private final String[][] spawnInfo = {{"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},};
+    private final String[][] spawnInfo = {{"1|3000", "2*20|250|2000", "1/6|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},};
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private final List<Virus> listToAddTo;
     private boolean isSpawning = false;
@@ -122,7 +124,7 @@ public class SpawnViruses {
             case 3 -> listToAddTo.add(VirusFactory.createVirusThree());
             case 4 -> listToAddTo.add(VirusFactory.createVirusFour());
             case 5 -> listToAddTo.add(VirusFactory.createVirusFive());
-            default -> waveIndex = currentRound.length;                 // Maybe exception instead
+            default -> throw new IllegalRoundDataException("Data error in wave" + waveIndex + "in block: " + Arrays.toString(currentRound)); // waveIndex = currentRound.length;                 // Maybe exception instead
         }
     }
 
