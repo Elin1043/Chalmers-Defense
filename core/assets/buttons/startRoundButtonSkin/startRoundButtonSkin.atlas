@@ -1,0 +1,20 @@
+
+startRoundButtonSkin.png
+size: 512, 512
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+speedUpRoundButton
+  rotate: false
+  xy: 1, 107
+  size: 286, 88
+  orig: 286, 88
+  offset: 0, 0
+  index: -1
+startRoundButton
+  rotate: false
+  xy: 1, 197
+  size: 286, 88
+  orig: 286, 88
+  offset: 0, 0
+  index: -1

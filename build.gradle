@@ -24,8 +24,6 @@ plugins {
 // Some settings, also looks if the path to the report is valid. If not, a report has not been generated
 pmd {
     ruleSets = ["category/java/errorprone.xml", "category/java/bestpractices.xml"]
-    System.out.println(pmd.getReportsDir())
-    System.out.println(pmd.getReportsDir().canRead())
 }
 
 
