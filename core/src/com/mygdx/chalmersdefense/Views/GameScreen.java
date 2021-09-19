@@ -22,8 +22,11 @@ public class GameScreen extends AbstractScreen implements Screen {
     private Image sideBarBackground;
     private RightSidePanelController rightSidePanelController;
     private Button startRoundButton;
-    private Label towerLabel;
+
     private LabelStyle labelStyleBlack36;
+    private Label towerLabel;
+    private Label powerUpLabel;
+
 
     public GameScreen(RightSidePanelController rightSidePanelController){
         super();
@@ -35,7 +38,9 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         createRightSidePanel();
 
-        createTowerLabel();
+        towerLabel = createLabel("Towers", 20);
+
+        powerUpLabel = createLabel("Power-ups", 600);
     }
 
     @Override
@@ -44,13 +49,15 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(virus);
         addActor(sideBarBackground);
         addActor(towerLabel);
+        addActor(powerUpLabel);
 
         createStartRoundButton();
     }
 
-    private void createTowerLabel() {
-        towerLabel = new Label("Towers", labelStyleBlack36);
-        towerLabel.setPosition(1920 - sideBarBackground.getWidth()/2 - towerLabel.getWidth()/2, 1080 - towerLabel.getHeight() - 20);
+    private Label createLabel(String text, float y) {
+        Label label = new Label(text, labelStyleBlack36);
+        label.setPosition(1920 - sideBarBackground.getWidth()/2 - label.getWidth()/2, 1080 - label.getHeight() - y);
+        return label;
     }
 
     private BitmapFont generateBitmapFont(int size) {
