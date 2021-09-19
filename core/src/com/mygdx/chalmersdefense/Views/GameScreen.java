@@ -1,75 +1,42 @@
 package com.mygdx.chalmersdefense.Views;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.chalmersdefense.ChalmersDefense;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
+import com.mygdx.chalmersdefense.Model.Model;
 
-public class GameScreen implements Screen {
+public class GameScreen extends AbstractScreen implements Screen {
 
-    private final ChalmersDefense game;
-    Viewport viewport;
-    Batch batch;
-    private Stage stage;
+    Image virus;
+    private RightSidePanelController rightSidePanelController;
+    private Button startRoundButton;
 
-    Sprite virus;
-
-    public GameScreen(ChalmersDefense game, Batch batch, Viewport viewport){
-        this.game = game;
-        this.viewport = viewport;
-        this.batch = batch;
-
-        stage = new Stage(viewport); //Set up a stage for the ui
-
-        virus = new Sprite(new Texture("corona_virus_low.png"));
-
+    public GameScreen(Model model){
+        super();
+        rightSidePanelController = new RightSidePanelController(model);
+        createStartRoundButton();
+        virus = new Image(new Texture("corona_virus_low.png"));
         virus.setPosition(-300, -150);	// This needs to be fixed with later sprites
     }
 
-    public void addRightSidePanelController(RightSidePanelController controller) {
-        controller.addStage(stage);
+    @Override
+    public void buildStage() {
+        addActor(virus);
+        super.render(Gdx.graphics.getDeltaTime());
     }
 
-    @Override
-    public void show() {
-        Gdx.input.setInputProcessor(stage); //Start taking input from the ui
-    }
+    private void createStartRoundButton() {
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.atlas")); // Load atlas file from skin
+        Skin skin = new Skin(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.json"), atlas); // Create skin object
+        startRoundButton = new Button(skin);
+        startRoundButton.setPosition(1600, 20);
 
-    @Override
-    public void render(float delta) {
-        virus.draw(batch);
-        stage.act(Gdx.graphics.getDeltaTime()); //Perform ui logic
-        stage.draw(); //Draw the ui
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
+        this.addActor(startRoundButton); //Add the button to the stage to perform rendering and take input.
+        rightSidePanelController.addStartButtonListener(startRoundButton);
     }
 }
