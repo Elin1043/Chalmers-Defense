@@ -2,6 +2,8 @@ package com.mygdx.chalmersdefense.Views;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.mygdx.chalmersdefense.Controllers.MainScreenController;
+import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.Model.Model;
 
 public class ScreenManager {
@@ -23,10 +25,10 @@ public class ScreenManager {
         return instance;
     }
 
-    public void initialize(Game game, Model model) {
+    public void initialize(Game game, MainScreen mainScreen, GameScreen gameScreen) {
         this.game = game;
-        mainScreen = new MainScreen();
-        gameScreen = new GameScreen(model);
+        this.mainScreen = mainScreen;
+        this.gameScreen = gameScreen;
     }
 
     // Show in the game the screen which enum type is received

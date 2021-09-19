@@ -27,9 +27,9 @@ public class MainScreen extends AbstractScreen {
     private final Vector2 rotHelper = new Vector2();
     private MainScreenController mainScreenController;
 
-    public MainScreen(){
+    public MainScreen(MainScreenController mainScreenController){
         super();
-        mainScreenController = new MainScreenController();
+        this.mainScreenController = mainScreenController;
         img = new Image(new Texture("HomeScreen.png"));
         createPlayButton();
     }

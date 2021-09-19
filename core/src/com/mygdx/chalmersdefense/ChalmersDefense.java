@@ -3,7 +3,11 @@ package com.mygdx.chalmersdefense;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.mygdx.chalmersdefense.Controllers.MainScreenController;
+import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.Model.Model;
+import com.mygdx.chalmersdefense.Views.GameScreen;
+import com.mygdx.chalmersdefense.Views.MainScreen;
 import com.mygdx.chalmersdefense.Views.ScreenEnum;
 import com.mygdx.chalmersdefense.Views.ScreenManager;
 
@@ -16,7 +20,16 @@ public class ChalmersDefense extends Game {
 	public void create () {
 		model = new Model(this);
 
-		ScreenManager.getInstance().initialize(this, model);
+		// Creating Controllers
+		MainScreenController mainScreenController = new MainScreenController();
+		RightSidePanelController rightSidePanelController = new RightSidePanelController(model);
+
+		// Creating Views
+		MainScreen mainScreen = new MainScreen(mainScreenController);
+		GameScreen gameScreen = new GameScreen(rightSidePanelController);
+
+		// Init ScreenManager
+		ScreenManager.getInstance().initialize(this, mainScreen, gameScreen);
 		ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("ponggamesound.wav"));

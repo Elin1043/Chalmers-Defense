@@ -16,9 +16,9 @@ public class GameScreen extends AbstractScreen implements Screen {
     private RightSidePanelController rightSidePanelController;
     private Button startRoundButton;
 
-    public GameScreen(Model model){
+    public GameScreen(RightSidePanelController rightSidePanelController){
         super();
-        rightSidePanelController = new RightSidePanelController(model);
+        this.rightSidePanelController = rightSidePanelController;
         createStartRoundButton();
         virus = new Image(new Texture("corona_virus_low.png"));
         virus.setPosition(-300, -150);	// This needs to be fixed with later sprites
