@@ -8,29 +8,24 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
-import com.mygdx.chalmersdefense.Controllers.TowerButtonListener;
 import com.mygdx.chalmersdefense.Controllers.TowerClickListener;
 import com.mygdx.chalmersdefense.Model.Model;
 import com.mygdx.chalmersdefense.Model.Tower;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameScreen extends AbstractScreen implements Screen {
@@ -52,6 +47,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     Batch batch = super.getBatch();
 
+    private Group towerButtonGroup;
     ImageButton smurfButton;
     ImageButton chemistButton;
     ImageButton electroButton;
@@ -67,23 +63,20 @@ public class GameScreen extends AbstractScreen implements Screen {
     public GameScreen(Model model, RightSidePanelController rightSidePanelController){
         super();
         this.rightSidePanelController = rightSidePanelController;
+        this.model = model;
         labelStyleBlack36 = generateLabelStyle(36, Color.BLACK);
 
-        virus = new Image(new Texture("corona_virus_low.png"));
-        virus.setPosition(-300, -150);	// This needs to be fixed with later sprites
-        this.model = model;
-        createStartRoundButton();
-         towerClickListener = new TowerClickListener(model);
-
         createRightSidePanel();
+        createStartRoundButton();
+
+        towerClickListener = new TowerClickListener(model);
 
         towerLabel = createLabel("Towers", 20);
 
         powerUpLabel = createLabel("Power-ups", 600);
-    }
 
-    @Override
-    public void buildStage() {
+        towerButtonGroup = new Group();
+
         smurfButton = createTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
         towerButtons.put(100, smurfButton);
         chemistButton = createTowerButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1770, 830, "chemist");
@@ -95,19 +88,25 @@ public class GameScreen extends AbstractScreen implements Screen {
         meckButton = createTowerButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "meck");
         towerButtons.put(500, meckButton);
         ecobutton = createTowerButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
+        ecobutton.setZIndex(2);
         towerButtons.put(600, ecobutton);
 
+        // Add actors to group
+        towerButtonGroup.addActor(smurfButton);
+        towerButtonGroup.addActor(chemistButton);
+        towerButtonGroup.addActor(hackerButton);
+        towerButtonGroup.addActor(electroButton);
+        towerButtonGroup.addActor(meckButton);
+        towerButtonGroup.addActor(ecobutton);
     }
 
     @Override
     public void buildStage() {
-        addActor(smurfButton);
-        addActor(chemistButton);
-        addActor(hackerButton);
-        addActor(electroButton);
-        addActor(meckButton);
-        addActor(ecobutton);
-
+        addActor(sideBarBackground);
+        addActor(towerButtonGroup);
+        addActor(towerLabel);
+        addActor(powerUpLabel);
+        addActor(startRoundButton);
     }
 
     @Override
@@ -119,14 +118,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         }
         checkAffordableTowers();
 
-
-
-        addActor(virus);
-        addActor(sideBarBackground);
-        addActor(towerLabel);
-        addActor(powerUpLabel);
-
-        createStartRoundButton();
     }
 
     private Label createLabel(String text, float y) {
@@ -174,7 +165,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         startRoundButton = new Button(skin);
         startRoundButton.setPosition(1920 - sideBarBackground.getWidth()/2 - startRoundButton.getWidth()/2, 20);
 
-        this.addActor(startRoundButton); //Add the button to the stage to perform rendering and take input.
         rightSidePanelController.addStartButtonListener(startRoundButton);
     }
 
