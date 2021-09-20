@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.mygdx.chalmersdefense.Controllers.MainScreenController;
 import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.Controllers.TowerButtonListener;
+import com.mygdx.chalmersdefense.Controllers.TowerClickListener;
 import com.mygdx.chalmersdefense.Model.Model;
 import com.mygdx.chalmersdefense.Views.GameScreen;
 import com.mygdx.chalmersdefense.Views.MainScreen;
@@ -51,6 +52,7 @@ public class ChalmersDefense extends Game {
 
 		//Initialize listeners
 		TowerButtonListener towerButtonListener = new TowerButtonListener(model);
+
 		gameScreen.addTowerButtonListener(towerButtonListener);
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("ponggamesound.wav"));

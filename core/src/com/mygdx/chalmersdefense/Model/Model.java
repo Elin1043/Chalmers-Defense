@@ -4,17 +4,27 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.TowerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Model {
     ChalmersDefense game;
     ArrayList<Tower> towersList = new ArrayList<>();
+
+
+
+    HashMap<Tower, ImageButton> towerButtons = new HashMap<>();
     Tower newTower;
     TowerFactory factory;
+
+
+
+    private int money = 300;
 
     public Model(ChalmersDefense game){
         this.game = game;
@@ -61,6 +71,10 @@ public class Model {
 
     }
 
+
+    public int getMoney() {
+        return money;
+    }
     public ArrayList<Tower> getTowers(){
         return towersList;
     }
@@ -111,6 +125,7 @@ public class Model {
         if(!newTower.getCollision()){
             newTower.setPlaced(true);
             newTower.getSprite().setPosition(Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight()  - Gdx.input.getY()) - button.getImage().getHeight()/2 );
+            newTower.setPos(Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getImage().getHeight()/2);
             newTower.setCircle();
 
 
@@ -118,5 +133,11 @@ public class Model {
         else{
             towersList.remove(newTower);
         }
+    }
+
+    public void towerClicked() {
+        //TODO fill
+        System.out.println("Tower clicked");
+
     }
 }

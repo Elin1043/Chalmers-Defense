@@ -29,6 +29,10 @@ public class Tower extends Actor {
     private int cost;
 
     private boolean collision;
+
+
+
+    private boolean gotButton;
     private Circle circle = new Circle();
 
 
@@ -47,6 +51,7 @@ public class Tower extends Actor {
         this.range = 100;
         this.cost = cost;
         this.collision = false;
+        this.gotButton = false;
 
     }
     public int getCost() {
@@ -58,7 +63,13 @@ public class Tower extends Actor {
         return shape;
 
     }
+    public boolean getGotButton() {
+        return gotButton;
+    }
 
+    public void setGotButton(boolean gotButton) {
+        this.gotButton = gotButton;
+    }
     public boolean getCollision(){
         return collision;
     }

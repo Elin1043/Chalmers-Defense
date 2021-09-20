@@ -9,16 +9,22 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.Controllers.TowerButtonListener;
+import com.mygdx.chalmersdefense.Controllers.TowerClickListener;
 import com.mygdx.chalmersdefense.Model.Model;
 import com.mygdx.chalmersdefense.Model.Tower;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameScreen extends AbstractScreen implements Screen {
 
@@ -39,19 +45,31 @@ public class GameScreen extends AbstractScreen implements Screen {
     ImageButton meckButton;
     ImageButton ecobutton;
 
+    TowerClickListener towerClickListener;
+
+    HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
+
     public GameScreen(RightSidePanelController rightSidePanelController, Model model){
         super();
         this.rightSidePanelController = rightSidePanelController;
         this.model = model;
         createStartRoundButton();
+       towerClickListener = new TowerClickListener(model);
 
 
         smurfButton = createTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
+        towerButtons.put(100, smurfButton);
         chemistButton = createTowerButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1770, 830, "chemist");
+        towerButtons.put(200, chemistButton);
         hackerButton = createTowerButtons(new Texture("buttons/TowerButtons/HackerButton.png"), 1620, 650, "hacker");
+        towerButtons.put(300, hackerButton);
         electroButton = createTowerButtons(new Texture("buttons/TowerButtons/ElectroButton.png"), 1770, 650, "electro");
+        towerButtons.put(400, electroButton);
         meckButton = createTowerButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "meck");
+        towerButtons.put(500, meckButton);
         ecobutton = createTowerButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
+        towerButtons.put(600, ecobutton);
+
     }
 
     @Override
@@ -72,6 +90,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         if(model.getTowers() != null){
             renderTowers();
         }
+        checkAffordableTowers();
 
 
 
@@ -86,6 +105,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         meckButton.addListener(listener);
         ecobutton.addListener(listener);
     }
+
 
     private void createStartRoundButton() {
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.atlas")); // Load atlas file from skin
@@ -108,7 +128,36 @@ public class GameScreen extends AbstractScreen implements Screen {
         this.addActor(towerButton); //Add the button to the stage to perform rendering and take input.
         return towerButton;
 
+    }
 
+
+    private ImageButton createInvisButtonsOnTower(Tower tower,float x, float y){
+        Texture invisButtonTexture = tower.getSprite().getTexture();
+        TextureRegion invisButtonTextureRegion = new TextureRegion(invisButtonTexture);
+        TextureRegionDrawable invisTexRegDrawable = new TextureRegionDrawable(invisButtonTextureRegion);
+        ImageButton invisButton = new ImageButton(invisTexRegDrawable); //Set the button up
+        invisButton.setColor(255,255,255,0);
+        invisButton.setSize(tower.getWidth(), tower.getHeight());
+        invisButton.setPosition(x,y);
+
+
+        this.addActor(invisButton);
+        return invisButton;
+    }
+
+    private void checkAffordableTowers(){
+        for (Integer i : towerButtons.keySet()) {
+            if(model.getMoney() >= i && !towerButtons.get(i).isTouchable()){
+                towerButtons.get(i).setTouchable(Touchable.enabled);
+
+            }
+            else if (model.getMoney()< i && towerButtons.get(i).isTouchable()){
+                towerButtons.get(i).setTouchable(Touchable.disabled);
+                towerButtons.get(i).getImage().setColor(Color.LIGHT_GRAY);
+
+
+            }
+        }
     }
 
     private void renderTowers() {
@@ -130,6 +179,13 @@ public class GameScreen extends AbstractScreen implements Screen {
 
             }
 
+            else if(tower.isPlaced() && !tower.getGotButton()){
+                ImageButton btn = createInvisButtonsOnTower(tower, tower.getPosX(), tower.getPosY());
+                btn.addListener(towerClickListener);
+                tower.setGotButton(true);
+            }
+
+
             super.batch.begin();
             tower.getSprite().draw(super.batch);
             super.batch.end();
@@ -141,4 +197,6 @@ public class GameScreen extends AbstractScreen implements Screen {
 
 
     }
+
+
 }
