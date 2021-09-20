@@ -5,11 +5,14 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public abstract class AbstractScreen extends Stage implements Screen {
     private OrthographicCamera camera;
+    Batch batch = new SpriteBatch();
     protected AbstractScreen() {
         super(new FitViewport(1920, 1080, new OrthographicCamera(1920, 1080)));
     }
@@ -22,11 +25,12 @@ public abstract class AbstractScreen extends Stage implements Screen {
         //Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        this.getBatch().setProjectionMatrix(this.getCamera().combined); // Renders based on window pixels and not screen pixels.
+        batch.setProjectionMatrix(this.getCamera().combined); // Renders based on window pixels and not screen pixels.
 
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE) && Gdx.graphics.isFullscreen()) {
             Gdx.graphics.setWindowedMode(1920, 1080);
         }
+
 
         super.act(delta);
         super.draw();
