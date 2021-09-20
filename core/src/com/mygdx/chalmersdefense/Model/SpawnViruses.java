@@ -121,7 +121,8 @@ public class SpawnViruses {
             } catch (IllegalRoundDataException e){
                 System.out.println(e.getMessage());
                 waveIndex++;
-                parseRound();
+                waveAmountSpawned = 0;
+                scheduleNextSpawnTime(splitedWave, i);
             }
         }, Integer.parseInt(splitedWave[i]), TimeUnit.MILLISECONDS);
     }
