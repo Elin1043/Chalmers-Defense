@@ -35,7 +35,6 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    private Model model;
 
     Batch batch = super.getBatch();
 
@@ -53,7 +52,6 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     public GameScreen(Model model, RightSidePanelController rightSidePanelController){
         super();
-        this.model = model;
         this.rightSidePanelController = rightSidePanelController;
         this.model = model;
         createStartRoundButton();
