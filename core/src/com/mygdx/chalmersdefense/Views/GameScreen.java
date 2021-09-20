@@ -56,8 +56,8 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     TowerClickListener towerClickListener;
 
-    List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
-    private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
+
+
     HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
 
 
@@ -99,25 +99,25 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         super.render(Gdx.graphics.getDeltaTime());
 
-        if(model.getTowers() != null){
-            renderTowers();
-        }
+//        if(model.getTowers() != null){
+//            renderTowers();
+//        }
+
+        renderTowers();
         checkAffordableTowers();
 
 
         super.batch.begin();
-        try {
 
-            for (Virus virus: allViruses) {     // Om den lägger till ett virus exakt samtidigt blir det inte bra
-                virus.update();
+        try {
+            for (Virus virus: model.getViruses()) {     // Om den lägger till ett virus exakt samtidigt blir det inte bra
                 virus.getSprite().draw(super.batch);
             }
 
         } catch (ConcurrentModificationException e) {
             System.out.println("FAIL");
 
-            for (Virus virus: allViruses) {
-                virus.update();
+            for (Virus virus: model.getViruses()) {
                 virus.getSprite().draw(super.batch);
             }
         }
@@ -126,11 +126,11 @@ public class GameScreen extends AbstractScreen implements Screen {
 
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            allViruses.add(VirusFactory.createVirusOne());
+            model.getViruses().add(VirusFactory.createVirusOne());
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            virusSpawner.spawnRound(1);
+            model.getVirusSpawner().spawnRound(1);
         }
 
 
@@ -229,9 +229,6 @@ public class GameScreen extends AbstractScreen implements Screen {
             super.batch.begin();
             tower.getSprite().draw(super.batch);
             super.batch.end();
-
-
-
 
         }
 

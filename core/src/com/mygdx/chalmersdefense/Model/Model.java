@@ -10,21 +10,25 @@ import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.TowerFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class Model {
     ChalmersDefense game;
     ArrayList<Tower> towersList = new ArrayList<>();
 
 
-
-    HashMap<Tower, ImageButton> towerButtons = new HashMap<>();
     Tower newTower;
     TowerFactory factory;
 
-
+    private List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
+    private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
 
     private int money = 300;
+
+
+
 
     public Model(ChalmersDefense game){
         this.game = game;
@@ -33,6 +37,7 @@ public class Model {
 
     public void updateModel(){
         updateTowers();
+        updateVirus();
     }
 
     private void updateTowers(){
@@ -47,6 +52,12 @@ public class Model {
                 tower.setCollision(true);
             }
 
+        }
+    }
+
+    private void updateVirus(){
+        for (Virus virus : allViruses){
+            virus.update();
         }
     }
 
@@ -75,8 +86,18 @@ public class Model {
     public int getMoney() {
         return money;
     }
+
+    // Ska vi använda Arraylist eller bara List ?
     public ArrayList<Tower> getTowers(){
         return towersList;
+    }
+
+    public List<Virus> getViruses(){
+        return allViruses;
+    }
+    // TODO This should be gone later!!
+    public SpawnViruses getVirusSpawner(){
+        return virusSpawner;
     }
 
 

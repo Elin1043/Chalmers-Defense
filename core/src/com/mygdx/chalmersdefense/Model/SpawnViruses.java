@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class SpawnViruses {
 
 
-    private final String[][] spawnInfo = {{"1|3000", "2*20|250|2000", "1/6|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},};
+    private final String[][] spawnInfo = {{"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},};
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private final List<Virus> listToAddTo;
     private boolean isSpawning = false;
