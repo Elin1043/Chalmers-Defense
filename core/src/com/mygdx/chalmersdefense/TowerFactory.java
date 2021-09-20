@@ -3,9 +3,7 @@ package com.mygdx.chalmersdefense;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.mygdx.chalmersdefense.Models.Tower;
+import com.mygdx.chalmersdefense.Model.Tower;
 
 
 public class TowerFactory {

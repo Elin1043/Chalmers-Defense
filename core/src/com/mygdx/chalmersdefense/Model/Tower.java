@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.Models;
+package com.mygdx.chalmersdefense.Model;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -28,6 +28,7 @@ public class Tower extends Actor {
     private int attackSpeed;
     private int cost;
 
+    private boolean collision;
     private Circle circle = new Circle();
 
 
@@ -45,15 +46,25 @@ public class Tower extends Actor {
         this.height = sprite.getHeight();
         this.range = 100;
         this.cost = cost;
+        this.collision = false;
 
     }
     public int getCost() {
         return cost;
     }
+
     public ShapeRenderer drawRadius(ShapeRenderer shape){
         shape.circle(this.getPosX() + this.getSprite().getWidth()/2, this.getPosY() + this.getSprite().getHeight()/2, this.getRange());
         return shape;
 
+    }
+
+    public boolean getCollision(){
+        return collision;
+    }
+
+    public void setCollision(Boolean set){
+        collision = set;
     }
 
     public void setCircle(){
