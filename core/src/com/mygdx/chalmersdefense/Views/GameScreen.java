@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.Views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -104,11 +105,12 @@ public class GameScreen extends AbstractScreen implements Screen {
         checkAffordableTowers();
 
 
+        super.batch.begin();
         try {
 
             for (Virus virus: allViruses) {     // Om den lägger till ett virus exakt samtidigt blir det inte bra
                 virus.update();
-                virus.getSprite().draw(batch);
+                virus.getSprite().draw(super.batch);
             }
 
         } catch (ConcurrentModificationException e) {
@@ -116,9 +118,11 @@ public class GameScreen extends AbstractScreen implements Screen {
 
             for (Virus virus: allViruses) {
                 virus.update();
-                virus.getSprite().draw(batch);
+                virus.getSprite().draw(super.batch);
             }
         }
+
+        super.batch.end();
 
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
