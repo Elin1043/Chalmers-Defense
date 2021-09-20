@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class SpawnViruses {
 
-    // TODO måste kolla så att rundinformationen innehåller rätt data format. Typ kasta exeption ifall den upptäcker fel
 
     private final String[][] spawnInfo = {{"1|3000", "2*20|250|2000", "1/6|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},};
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
@@ -50,9 +49,7 @@ public class SpawnViruses {
 
             if (splitedWave.length == 2) {
 
-                addToList(Integer.parseInt(splitedWave[0]));
-                scheduleNextSpawnTime(splitedWave, 1);
-                waveIndex++;
+                singleVirusSpawnHandler(splitedWave);
 
             } else if (splitedWave.length == 3) {
 
@@ -60,8 +57,7 @@ public class SpawnViruses {
 
             } else {
 
-                waveAmountSpawned = 0;
-                isSpawning = false;                 // Maybe exception instead (Some error in round coding)
+                throw new IllegalRoundDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound));
 
             }
 
@@ -72,57 +68,78 @@ public class SpawnViruses {
         }
     }
 
+    private void singleVirusSpawnHandler(String[] splitedWave) {
+        addToList(Integer.parseInt(splitedWave[0]));
+        scheduleNextSpawnTime(splitedWave, 1);
+        waveIndex++;
+    }
+
     private void multiVirusSpawnHandler(String[] splitedWave) {
-        String[] spawnInfo;
 
         if(splitedWave[0].split("[*]").length == 2) {
-            spawnInfo = splitedWave[0].split("[*]");
 
-            if (waveAmountSpawned < Integer.parseInt(spawnInfo[1])) {
-                addToList(Integer.parseInt(spawnInfo[0]));
-                waveAmountSpawned++;
-
-                scheduleNextSpawnTime(splitedWave, 1);
-            } else {
-                waveAmountSpawned = 0;
-                scheduleNextSpawnTime(splitedWave, 2);
-                waveIndex++;
-            }
+            sameTypeVirusSpawner(splitedWave);
 
         } else if (splitedWave[0].split("[/]").length == 2) {
-            spawnInfo = splitedWave[0].split("[/]");
-            int currentVirusType;
 
-            if (Integer.parseInt(spawnInfo[0]) < Integer.parseInt(spawnInfo[1])){
-                currentVirusType = Integer.parseInt(spawnInfo[0]) + waveAmountSpawned;
-            } else {
-                currentVirusType = Integer.parseInt(spawnInfo[0]) - waveAmountSpawned;
-            }
-
-            addToList(currentVirusType);
-            if (currentVirusType != Integer.parseInt(spawnInfo[1])) {
-                waveAmountSpawned++;
-                scheduleNextSpawnTime(splitedWave, 1);
-            } else {
-                waveAmountSpawned = 0;
-                scheduleNextSpawnTime(splitedWave, 2);
-                waveIndex++;
-            }
-
+            differentTypeVirusSpawner(splitedWave);
 
         }
     }
 
+    private void sameTypeVirusSpawner(String[] splitedWave) {
+
+        String[] spawnInfo = splitedWave[0].split("[*]");
+
+        if (waveAmountSpawned < Integer.parseInt(spawnInfo[1])) {
+            addToList(Integer.parseInt(spawnInfo[0]));
+            waveAmountSpawned++;
+
+            scheduleNextSpawnTime(splitedWave, 1);
+        } else {
+            waveAmountSpawned = 0;
+            scheduleNextSpawnTime(splitedWave, 2);
+            waveIndex++;
+        }
+    }
+
+    private void differentTypeVirusSpawner(String[] splitedWave) {
+
+        String[] spawnInfo = splitedWave[0].split("[/]");
+
+        int currentVirusType;
+
+        if (Integer.parseInt(spawnInfo[0]) < Integer.parseInt(spawnInfo[1])){
+            currentVirusType = Integer.parseInt(spawnInfo[0]) + waveAmountSpawned;
+        } else {
+            currentVirusType = Integer.parseInt(spawnInfo[0]) - waveAmountSpawned;
+        }
+
+        addToList(currentVirusType);
+
+        if (currentVirusType != Integer.parseInt(spawnInfo[1])) {
+            waveAmountSpawned++;
+            scheduleNextSpawnTime(splitedWave, 1);
+        } else {
+            waveAmountSpawned = 0;
+            scheduleNextSpawnTime(splitedWave, 2);
+            waveIndex++;
+        }
+    }
+
     private void scheduleNextSpawnTime(String[] splitedWave, int i) {
-        //executorService.schedule(this::parseRound, Integer.parseInt(splitedWave[i]), TimeUnit.MILLISECONDS);
         executorService.schedule(() -> {
             try {
+
                 parseRound();
+
             } catch (IllegalRoundDataException e){
+
                 System.out.println(e.getMessage());
                 waveIndex++;
                 waveAmountSpawned = 0;
                 scheduleNextSpawnTime(splitedWave, i);
+
             }
         }, Integer.parseInt(splitedWave[i]), TimeUnit.MILLISECONDS);
     }
@@ -134,7 +151,7 @@ public class SpawnViruses {
             case 3 -> listToAddTo.add(VirusFactory.createVirusThree());
             case 4 -> listToAddTo.add(VirusFactory.createVirusFour());
             case 5 -> listToAddTo.add(VirusFactory.createVirusFive());
-            default -> throw new IllegalRoundDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound)); // waveIndex = currentRound.length;                 // Maybe exception instead
+            default -> throw new IllegalRoundDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound));
         }
     }
 
