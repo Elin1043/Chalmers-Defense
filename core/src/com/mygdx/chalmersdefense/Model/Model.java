@@ -84,31 +84,13 @@ public class Model {
         String towerName = event.getListenerActor().getName();
         ImageButton button = (ImageButton) event.getListenerActor();
         switch(towerName){
-            case "smurf":
-                newTower = factory.CreateSmurf((int)button.getX(), (int)button.getY());
-                break;
-
-            case "chemist":
-                newTower = factory.CreateChemist((int)button.getX(), (int)button.getY());
-                break;
-
-            case "electro":
-                newTower = factory.CreateElectro((int)button.getX(), (int)button.getY());
-                break;
-
-            case "hacker":
-                newTower = factory.CreateHacker((int)button.getX(), (int)button.getY());
-                break;
-
-            case "meck":
-                newTower = factory.CreateMeck((int)button.getX(), (int)button.getY());
-                break;
-
-            case "eco":
-                newTower = factory.CreateEco((int)button.getX(), (int)button.getY());
-                break;
-            default:
-                return;
+            case "smurf"   -> newTower = factory.CreateSmurf((int)button.getX(), (int)button.getY());
+            case "chemist" -> newTower = factory.CreateChemist((int)button.getX(), (int)button.getY());
+            case "electro" -> newTower = factory.CreateElectro((int)button.getX(), (int)button.getY());
+            case "hacker"  -> newTower = factory.CreateHacker((int)button.getX(), (int)button.getY());
+            case "meck"    -> newTower = factory.CreateMeck((int)button.getX(), (int)button.getY());
+            case "eco"     -> newTower = factory.CreateEco((int)button.getX(), (int)button.getY());
+            default        -> { return; }
         }
 
         towersList.add(newTower);
