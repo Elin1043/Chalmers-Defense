@@ -44,7 +44,7 @@ public class ChalmersDefense extends Game {
 
 		// Creating Views
 		MainScreen mainScreen = new MainScreen(mainScreenController);
-		gameScreen = new GameScreen(rightSidePanelController, model);
+		GameScreen gameScreen = new GameScreen(model, rightSidePanelController);
 
 		// Init ScreenManager
 		ScreenManager.getInstance().initialize(this, mainScreen, gameScreen);

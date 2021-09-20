@@ -28,9 +28,10 @@ import java.util.HashMap;
 
 public class GameScreen extends AbstractScreen implements Screen {
 
-    Image virus;
     private RightSidePanelController rightSidePanelController;
     private Button startRoundButton;
+    private Model model;
+
 
     ShapeRenderer shapeRenderer = new ShapeRenderer();
 
@@ -49,13 +50,14 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
 
-    public GameScreen(RightSidePanelController rightSidePanelController, Model model){
+
+    public GameScreen(Model model, RightSidePanelController rightSidePanelController){
         super();
+        this.model = model;
         this.rightSidePanelController = rightSidePanelController;
         this.model = model;
         createStartRoundButton();
-       towerClickListener = new TowerClickListener(model);
-
+         towerClickListener = new TowerClickListener(model);
 
         smurfButton = createTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
         towerButtons.put(100, smurfButton);
