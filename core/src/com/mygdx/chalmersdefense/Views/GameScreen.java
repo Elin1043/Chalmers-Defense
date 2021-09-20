@@ -30,34 +30,32 @@ import java.util.HashMap;
 
 public class GameScreen extends AbstractScreen implements Screen {
 
-    private Image virus;
-    private Image sideBarBackground;
     private RightSidePanelController rightSidePanelController;
+    private Model model;
+
+    private Image sideBarBackground;
     private Button startRoundButton;
 
     private LabelStyle labelStyleBlack36;
     private Label towerLabel;
     private Label powerUpLabel;
 
-    private Model model;
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
 
-    ShapeRenderer shapeRenderer = new ShapeRenderer();
-
-
-    Batch batch = super.getBatch();
+    private Batch batch = super.getBatch();
 
     private Group towerButtonGroup;
-    ImageButton smurfButton;
-    ImageButton chemistButton;
-    ImageButton electroButton;
-    ImageButton hackerButton;
-    ImageButton meckButton;
-    ImageButton ecobutton;
+    private ImageButton smurfButton;
+    private ImageButton chemistButton;
+    private ImageButton electroButton;
+    private ImageButton hackerButton;
+    private ImageButton meckButton;
+    private ImageButton ecobutton;
 
-    TowerClickListener towerClickListener;
+    private TowerClickListener towerClickListener;
 
-    HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
+    private HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
 
 
     public GameScreen(Model model, RightSidePanelController rightSidePanelController){
@@ -73,7 +71,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         towerLabel = createLabel("Towers", 20);
 
-        powerUpLabel = createLabel("Power-ups", 600);
+        powerUpLabel = createLabel("Power-ups", 620);
 
         towerButtonGroup = new Group();
 
