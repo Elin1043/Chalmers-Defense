@@ -41,8 +41,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         this.rightSidePanelController = rightSidePanelController;
         this.model = model;
         createStartRoundButton();
-        virus = new Image(new Texture("corona_virus_low.png"));
-        virus.setPosition(-300, -150);	// This needs to be fixed with later sprites
+
 
         smurfButton = createTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
         chemistButton = createTowerButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1770, 830, "chemist");
@@ -54,7 +53,6 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     @Override
     public void buildStage() {
-        addActor(virus);
         addActor(smurfButton);
         addActor(chemistButton);
         addActor(hackerButton);
@@ -62,35 +60,15 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(meckButton);
         addActor(ecobutton);
 
-        //model.getTowers().get(0).getSprite().draw(super.getBatch());
         super.render(Gdx.graphics.getDeltaTime());
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
-        for (Tower tower: model.getTowers()) {
-            super.getBatch().begin();
-            tower.getSprite().draw(super.getBatch());
-
-
-            if(!tower.isPlaced() && !tower.getCollision()){
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setColor(Color.LIGHT_GRAY);
-                tower.drawRadius(shapeRenderer);
-                shapeRenderer.end();
-
-
-            }
-            else if(!tower.isPlaced() && tower.getCollision()){
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setColor(Color.RED);
-                tower.drawRadius(shapeRenderer);
-                shapeRenderer.end();
-
-            }
-            super.getBatch().end();
-        }
+        super.getBatch().begin();
+        renderTowers();
+        super.getBatch().end();
 
     }
 
@@ -128,8 +106,28 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     }
 
-    public void update() {
+    private void renderTowers() {
 
+        for (Tower tower: model.getTowers()) {
+            tower.getSprite().draw(super.getBatch());
+
+            if(!tower.isPlaced() && !tower.getCollision()){
+                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                shapeRenderer.setColor(Color.LIGHT_GRAY);
+                tower.drawRadius(shapeRenderer);
+                shapeRenderer.end();
+
+
+            }
+            else if(!tower.isPlaced() && tower.getCollision()){
+                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                shapeRenderer.setColor(Color.RED);
+                tower.drawRadius(shapeRenderer);
+                shapeRenderer.end();
+
+            }
+
+        }
 
     }
 }

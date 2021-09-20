@@ -16,7 +16,7 @@ public class Model {
     Tower newTower;
     TowerFactory factory;
 
-    public Model(ChalmersDefense game) {
+    public Model(ChalmersDefense game){
         this.game = game;
         factory = new TowerFactory();
     }
@@ -39,6 +39,9 @@ public class Model {
 
         }
     }
+
+
+
 
     private boolean checkCollisionOfTowers(Tower tower){
         for(Tower checkTower: towersList){
@@ -63,7 +66,7 @@ public class Model {
     }
 
 
-    public void dragStart(InputEvent event) {
+    public void dragStart(InputEvent event){
         String towerName = event.getListenerActor().getName();
         ImageButton button = (ImageButton) event.getListenerActor();
         switch(towerName){
@@ -97,13 +100,13 @@ public class Model {
         towersList.add(newTower);
     }
 
-    public void onDrag(InputEvent event) {
+    public void onDrag(InputEvent event){
         ImageButton button = (ImageButton) event.getListenerActor();
         newTower.getSprite().setPosition( Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getImage().getHeight()/2 );
         newTower.setCircle();
     }
 
-    public void dragEnd(InputEvent event) {
+    public void dragEnd(InputEvent event){
         ImageButton button = (ImageButton) event.getListenerActor();
         if(!newTower.getCollision()){
             newTower.setPlaced(true);

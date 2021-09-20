@@ -69,7 +69,7 @@ public class Tower extends Actor {
 
     public void setCircle(){
         circle = new Circle();
-        circle.set(this.getPosX() + this.getSprite().getWidth()/2, this.getPosY() + this.getSprite().getHeight()/2, this.getRange());
+        circle.set(this.getPosX() , this.getPosY() , this.getWidth());
     }
 
     public Circle getCircle(){

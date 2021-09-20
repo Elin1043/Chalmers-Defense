@@ -17,10 +17,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ChalmersDefense extends Game {
-	private final int delay = 50;
+	// The delay (ms) corresponds to 20 updates a sec (hz)
+	private final int delay = 20;
 	// The timer is started with an listener (see below) that executes the statements
 	// each step between delays.
 	private Timer timer;
+
 
 	Music music;
 	Model model;
@@ -28,10 +30,11 @@ public class ChalmersDefense extends Game {
 	GameScreen gameScreen;
 
 	@Override
-	public void create () {
+	public void create (){
 		timer = new Timer(delay, new TimerListener());
 
 		model = new Model(this);
+
 
 
 		// Creating Controllers
@@ -71,7 +74,7 @@ public class ChalmersDefense extends Game {
 
 		public void actionPerformed(ActionEvent e) {
 			model.updateModel();
-			gameScreen.update();
+			//gameScreen.update();
 		}
 	}
 
