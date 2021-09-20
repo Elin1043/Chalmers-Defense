@@ -80,7 +80,7 @@ public class Tower extends Actor {
 
     public void setCircle(){
         circle = new Circle();
-        circle.set(this.getPosX() , this.getPosY() , this.getWidth());
+        circle.set(this.getSprite().getX() , this.getSprite().getY() , 40);
     }
 
     public Circle getCircle(){
