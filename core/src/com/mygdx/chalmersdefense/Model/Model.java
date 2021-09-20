@@ -9,22 +9,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.TowerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class Model {
     ChalmersDefense game;
     ArrayList<Tower> towersList = new ArrayList<>();
 
 
-
-    HashMap<Tower, ImageButton> towerButtons = new HashMap<>();
     Tower newTower;
     TowerFactory factory;
 
-
+    private List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
+    private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
 
     private int money = 300;
+
+
+
 
     public Model(ChalmersDefense game){
         this.game = game;
@@ -33,6 +34,7 @@ public class Model {
 
     public void updateModel(){
         updateTowers();
+        updateVirus();
     }
 
     private void updateTowers(){
@@ -47,6 +49,22 @@ public class Model {
                 tower.setCollision(true);
             }
 
+        }
+    }
+
+    // TODO Try to fix concurrent modification error in list. Then the try-catch block can be removed
+    private void updateVirus(){
+        try {
+            for (Virus virus : allViruses){ // Om den lägger till ett virus exakt samtidigt blir det inte bra
+                virus.update();
+            }
+
+        } catch (ConcurrentModificationException e) {
+            System.out.println("FAIL when updating Virus");
+
+            for (Virus virus : allViruses){ // Om den lägger till ett virus exakt samtidigt blir det inte bra
+                virus.update();
+            }
         }
     }
 
@@ -75,8 +93,18 @@ public class Model {
     public int getMoney() {
         return money;
     }
+
+    // Ska vi använda Arraylist eller bara List ?
     public ArrayList<Tower> getTowers(){
         return towersList;
+    }
+
+    public List<Virus> getViruses(){
+        return allViruses;
+    }
+    // TODO This should be gone later!!
+    public SpawnViruses getVirusSpawner(){
+        return virusSpawner;
     }
 
 
@@ -84,31 +112,13 @@ public class Model {
         String towerName = event.getListenerActor().getName();
         ImageButton button = (ImageButton) event.getListenerActor();
         switch(towerName){
-            case "smurf":
-                newTower = factory.CreateSmurf((int)button.getX(), (int)button.getY());
-                break;
-
-            case "chemist":
-                newTower = factory.CreateChemist((int)button.getX(), (int)button.getY());
-                break;
-
-            case "electro":
-                newTower = factory.CreateElectro((int)button.getX(), (int)button.getY());
-                break;
-
-            case "hacker":
-                newTower = factory.CreateHacker((int)button.getX(), (int)button.getY());
-                break;
-
-            case "meck":
-                newTower = factory.CreateMeck((int)button.getX(), (int)button.getY());
-                break;
-
-            case "eco":
-                newTower = factory.CreateEco((int)button.getX(), (int)button.getY());
-                break;
-            default:
-                return;
+            case "smurf"   -> newTower = factory.CreateSmurf((int)button.getX(), (int)button.getY());
+            case "chemist" -> newTower = factory.CreateChemist((int)button.getX(), (int)button.getY());
+            case "electro" -> newTower = factory.CreateElectro((int)button.getX(), (int)button.getY());
+            case "hacker"  -> newTower = factory.CreateHacker((int)button.getX(), (int)button.getY());
+            case "meck"    -> newTower = factory.CreateMeck((int)button.getX(), (int)button.getY());
+            case "eco"     -> newTower = factory.CreateEco((int)button.getX(), (int)button.getY());
+            default        -> { return; }
         }
 
         towersList.add(newTower);

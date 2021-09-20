@@ -1,10 +1,19 @@
 package com.mygdx.chalmersdefense.Views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.chalmersdefense.ChalmersDefense;
+import com.mygdx.chalmersdefense.Model.SpawnViruses;
+import com.mygdx.chalmersdefense.Model.Virus;
+import com.mygdx.chalmersdefense.Model.VirusFactory;
+
+import java.util.*;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -47,6 +56,8 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     TowerClickListener towerClickListener;
 
+
+
     HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
 
 
@@ -55,7 +66,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         this.rightSidePanelController = rightSidePanelController;
         this.model = model;
         createStartRoundButton();
-         towerClickListener = new TowerClickListener(model);
+        towerClickListener = new TowerClickListener(model);
 
         smurfButton = createTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
         towerButtons.put(100, smurfButton);
@@ -85,13 +96,42 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
         super.render(Gdx.graphics.getDeltaTime());
 
-        if(model.getTowers() != null){
-            renderTowers();
-        }
+//        if(model.getTowers() != null){
+//            renderTowers();
+//        }
+
+        renderTowers();
         checkAffordableTowers();
 
+
+        super.batch.begin();
+
+        try {
+            for (Virus virus: model.getViruses()) {     // Om den lägger till ett virus exakt samtidigt blir det inte bra
+                virus.getSprite().draw(super.batch);
+            }
+
+        } catch (ConcurrentModificationException e) {
+            System.out.println("FAIL when rendering Virus");
+
+            for (Virus virus: model.getViruses()) {
+                virus.getSprite().draw(super.batch);
+            }
+        }
+
+        super.batch.end();
+
+
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            model.getViruses().add(VirusFactory.createVirusOne());
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+            model.getVirusSpawner().spawnRound(1);
+        }
 
 
     }
@@ -189,9 +229,6 @@ public class GameScreen extends AbstractScreen implements Screen {
             super.batch.begin();
             tower.getSprite().draw(super.batch);
             super.batch.end();
-
-
-
 
         }
 
