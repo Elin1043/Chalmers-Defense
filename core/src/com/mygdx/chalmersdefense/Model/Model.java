@@ -9,10 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.TowerFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Model {
     ChalmersDefense game;
@@ -55,9 +52,19 @@ public class Model {
         }
     }
 
+    // TODO Try to fix concurrent modification error in list. Then the try-catch block can be removed
     private void updateVirus(){
-        for (Virus virus : allViruses){
-            virus.update();
+        try {
+            for (Virus virus : allViruses){ // Om den lägger till ett virus exakt samtidigt blir det inte bra
+                virus.update();
+            }
+
+        } catch (ConcurrentModificationException e) {
+            System.out.println("FAIL when updating Virus");
+
+            for (Virus virus : allViruses){ // Om den lägger till ett virus exakt samtidigt blir det inte bra
+                virus.update();
+            }
         }
     }
 

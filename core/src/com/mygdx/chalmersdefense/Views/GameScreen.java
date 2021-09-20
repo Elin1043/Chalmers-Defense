@@ -115,7 +115,7 @@ public class GameScreen extends AbstractScreen implements Screen {
             }
 
         } catch (ConcurrentModificationException e) {
-            System.out.println("FAIL");
+            System.out.println("FAIL when rendering Virus");
 
             for (Virus virus: model.getViruses()) {
                 virus.getSprite().draw(super.batch);
