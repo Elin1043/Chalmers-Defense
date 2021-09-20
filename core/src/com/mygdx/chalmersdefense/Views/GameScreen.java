@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -28,6 +29,8 @@ public class GameScreen extends AbstractScreen implements Screen {
     ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     private Model model;
+
+    Batch batch = super.getBatch();
 
     ImageButton smurfButton;
     ImageButton chemistButton;
@@ -60,15 +63,17 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(meckButton);
         addActor(ecobutton);
 
-        super.render(Gdx.graphics.getDeltaTime());
     }
 
     @Override
     public void render(float delta) {
-        super.render(delta);
-        super.getBatch().begin();
-        renderTowers();
-        super.getBatch().end();
+        super.render(Gdx.graphics.getDeltaTime());
+
+        if(model.getTowers() != null){
+            renderTowers();
+        }
+
+
 
     }
 
@@ -109,15 +114,13 @@ public class GameScreen extends AbstractScreen implements Screen {
     private void renderTowers() {
 
         for (Tower tower: model.getTowers()) {
-            tower.getSprite().draw(super.getBatch());
+
 
             if(!tower.isPlaced() && !tower.getCollision()){
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                 shapeRenderer.setColor(Color.LIGHT_GRAY);
                 tower.drawRadius(shapeRenderer);
                 shapeRenderer.end();
-
-
             }
             else if(!tower.isPlaced() && tower.getCollision()){
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -127,7 +130,15 @@ public class GameScreen extends AbstractScreen implements Screen {
 
             }
 
+            super.batch.begin();
+            tower.getSprite().draw(super.batch);
+            super.batch.end();
+
+
+
+
         }
+
 
     }
 }
