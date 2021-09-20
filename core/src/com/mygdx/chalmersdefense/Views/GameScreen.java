@@ -12,21 +12,19 @@ import com.mygdx.chalmersdefense.Model.Model;
 
 public class GameScreen extends AbstractScreen implements Screen {
 
-    Image virus;
     private RightSidePanelController rightSidePanelController;
     private Button startRoundButton;
+    private Model model;
 
-    public GameScreen(RightSidePanelController rightSidePanelController){
+    public GameScreen(Model model, RightSidePanelController rightSidePanelController){
         super();
+        this.model = model;
         this.rightSidePanelController = rightSidePanelController;
         createStartRoundButton();
-        virus = new Image(new Texture("corona_virus_low.png"));
-        virus.setPosition(-300, -150);	// This needs to be fixed with later sprites
     }
 
     @Override
     public void buildStage() {
-        addActor(virus);
         super.render(Gdx.graphics.getDeltaTime());
     }
 
