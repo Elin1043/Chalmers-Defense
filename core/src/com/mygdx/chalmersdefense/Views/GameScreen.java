@@ -32,11 +32,11 @@ import com.mygdx.chalmersdefense.Model.Tower;
 
 import java.util.HashMap;
 /**
- * @author
  *
  *
- * @Modified by Elin Forsberg
- *  Added methods and variables to handle placing towers
+ *
+ *
+ * 2021-09-20 Modified by Elin Forsberg: Added methods and variables to handle placing towers
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
@@ -44,6 +44,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private Model model;
 
     private Image sideBarBackground;
+    private Image bottomBarPanelBackground;
     private Button startRoundButton;
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -77,6 +78,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         labelStyleBlack36 = generateLabelStyle(36, Color.BLACK);
 
+        createBottomBarPanel();
         createRightSidePanel();
         createStartRoundButton();
 
@@ -106,6 +108,8 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     @Override
     public void buildStage() {
+        addActor(bottomBarPanelBackground);
+
         addActor(sideBarBackground);
         addActor(smurfButton);
         addActor(chemistButton);
@@ -166,6 +170,11 @@ public class GameScreen extends AbstractScreen implements Screen {
     private void createRightSidePanel() {
         sideBarBackground = new Image(new Texture("SideBarBackground.png"));
         sideBarBackground.setPosition(1920 - 320, 0);
+    }
+
+    private void createBottomBarPanel() {
+        bottomBarPanelBackground = new Image(new Texture("BottomBarBackground.png"));
+        bottomBarPanelBackground.setPosition(0, 0);
     }
 
     private void renderViruses() {
