@@ -1,41 +1,47 @@
 package com.mygdx.chalmersdefense.Model;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.chalmersdefense.ChalmersDefense;
-import com.mygdx.chalmersdefense.TowerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
+
+/**
+ * @author
+ *
+ *
+ * @Modified by Elin Forsberg
+ *  Added methods to handle placing towers + cost of towers
+ */
 
 public class Model {
     ChalmersDefense game;
     ArrayList<Tower> towersList = new ArrayList<>();
 
 
-
-    HashMap<Tower, ImageButton> towerButtons = new HashMap<>();
     Tower newTower;
     TowerFactory factory;
 
-
+    private List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
+    private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
 
     private int money = 300;
 
-    public Model(ChalmersDefense game){
+
+
+
+    public Model(ChalmersDefense game) {
         this.game = game;
         factory = new TowerFactory();
     }
 
-    public void updateModel(){
+    public void updateModel() {
         updateTowers();
+        updateVirus();
     }
 
-    private void updateTowers(){
+    private void updateTowers() {
         for (Tower tower: towersList) {
             tower.setPos(tower.getSprite().getX(), tower.getSprite().getY());
 
@@ -50,10 +56,26 @@ public class Model {
         }
     }
 
+    // TODO Try to fix concurrent modification error in list. Then the try-catch block can be removed
+    private void updateVirus() {
+        try {
+            for (Virus virus : allViruses){ // Om den lägger till ett virus exakt samtidigt blir det inte bra
+                virus.update();
+            }
+
+        } catch (ConcurrentModificationException e) {
+            System.out.println("FAIL when updating Virus");
+
+            for (Virus virus : allViruses){ // Om den lägger till ett virus exakt samtidigt blir det inte bra
+                virus.update();
+            }
+        }
+    }
 
 
 
-    private boolean checkCollisionOfTowers(Tower tower){
+
+    private boolean checkCollisionOfTowers(Tower tower) {
         for(Tower checkTower: towersList){
             if(tower.getCircle().overlaps(checkTower.getCircle()) && !(checkTower.hashCode() == tower.hashCode())){
                 return true;
@@ -75,52 +97,44 @@ public class Model {
     public int getMoney() {
         return money;
     }
-    public ArrayList<Tower> getTowers(){
+
+    // Ska vi använda Arraylist eller bara List ?
+    public ArrayList<Tower> getTowers() {
         return towersList;
     }
 
+    public List<Virus> getViruses() {
+        return allViruses;
+    }
+    // TODO This should be gone later!!
+    public SpawnViruses getVirusSpawner() {
+        return virusSpawner;
+    }
 
-    public void dragStart(InputEvent event){
+
+    public void dragStart(InputEvent event) {
         String towerName = event.getListenerActor().getName();
         ImageButton button = (ImageButton) event.getListenerActor();
         switch(towerName){
-            case "smurf":
-                newTower = factory.CreateSmurf((int)button.getX(), (int)button.getY());
-                break;
-
-            case "chemist":
-                newTower = factory.CreateChemist((int)button.getX(), (int)button.getY());
-                break;
-
-            case "electro":
-                newTower = factory.CreateElectro((int)button.getX(), (int)button.getY());
-                break;
-
-            case "hacker":
-                newTower = factory.CreateHacker((int)button.getX(), (int)button.getY());
-                break;
-
-            case "meck":
-                newTower = factory.CreateMeck((int)button.getX(), (int)button.getY());
-                break;
-
-            case "eco":
-                newTower = factory.CreateEco((int)button.getX(), (int)button.getY());
-                break;
-            default:
-                return;
+            case "smurf"   -> newTower = factory.CreateSmurf((int)button.getX(), (int)button.getY());
+            case "chemist" -> newTower = factory.CreateChemist((int)button.getX(), (int)button.getY());
+            case "electro" -> newTower = factory.CreateElectro((int)button.getX(), (int)button.getY());
+            case "hacker"  -> newTower = factory.CreateHacker((int)button.getX(), (int)button.getY());
+            case "meck"    -> newTower = factory.CreateMeck((int)button.getX(), (int)button.getY());
+            case "eco"     -> newTower = factory.CreateEco((int)button.getX(), (int)button.getY());
+            default        -> { return; }
         }
 
         towersList.add(newTower);
     }
 
-    public void onDrag(InputEvent event){
+    public void onDrag(InputEvent event) {
         ImageButton button = (ImageButton) event.getListenerActor();
         newTower.getSprite().setPosition( Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getImage().getHeight()/2 );
         newTower.setCircle();
     }
 
-    public void dragEnd(InputEvent event){
+    public void dragEnd(InputEvent event) {
         ImageButton button = (ImageButton) event.getListenerActor();
         if(!newTower.getCollision()){
             newTower.setPlaced(true);
