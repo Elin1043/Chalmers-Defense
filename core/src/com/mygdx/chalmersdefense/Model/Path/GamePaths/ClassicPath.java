@@ -3,12 +3,20 @@ package com.mygdx.chalmersdefense.Model.Path.GamePaths;
 import com.mygdx.chalmersdefense.Model.Path.Path;
 import com.mygdx.chalmersdefense.Utilities.PositionVector;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 public class ClassicPath extends Path {
+    Rectangle rec;
+
+
+
 
     public ClassicPath() {
         super();
         startingPoint = new PositionVector(0, 472);
     }
+
 
     @Override
     protected void setPathWaypoints() {
@@ -28,5 +36,17 @@ public class ClassicPath extends Path {
 
         }
     }
+
+    private void setRectangles(){
+        for (int i = 0; i < pathWaypoints.size(); i++){
+            rec = new Rectangle();
+            rec.setRect(pathWaypoints.get(i).getX(), pathWaypoints.get(i).getY(), pathWaypoints.get(i+1).getX(), pathWaypoints.get(i+1).getY());
+            //rectangles.add(rec);
+
+        }
+
+    }
+
+
 
 }

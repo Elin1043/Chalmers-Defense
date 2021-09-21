@@ -1,11 +1,16 @@
 package com.mygdx.chalmersdefense.Model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.chalmersdefense.ChalmersDefense;
+import com.mygdx.chalmersdefense.Model.Path.Path;
 
 import java.util.*;
+
+import static java.lang.Math.abs;
 
 /**
  * @author
@@ -22,6 +27,7 @@ public class Model {
 
     Tower newTower;
     TowerFactory factory;
+    Path path;
 
     private List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
     private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
@@ -74,20 +80,35 @@ public class Model {
 
 
 
+    private boolean checkMapAndTowerCollision(Circle circ, Rectangle rect)
+    {
+
+        float distancex = 0;
+        float distancey = 0;
+        distancex = abs(circ.x - rect.x);
+        distancey = abs(circ.y - rect.y);
+        if (distancex > (rect.width/2 + circ.radius)) { return false; }
+        if (distancey > (rect.height/2 + circ.radius)) { return false; }
+        if (distancex <= (rect.width/2)) { return true; }
+        if (distancey <= (rect.height/2)) { return true; }
+        int cDist_sq = (int) (distancex - rect.width / 2) ^ 2 + (int) (distancey - rect.height / 2) ^ 2;
+
+        return (cDist_sq <= ((int)circ.radius^2));
+    }
+
 
     private boolean checkCollisionOfTowers(Tower tower) {
         for(Tower checkTower: towersList){
             if(tower.getCircle().overlaps(checkTower.getCircle()) && !(checkTower.hashCode() == tower.hashCode())){
                 return true;
             }
-            else{
-                if(!(-20 < (tower.getPosX() - tower.getRange())) || (1580 < (tower.getPosX() + tower.getRange()))){
+            else if(!(-20 < (tower.getPosX() - tower.getRange())) || (1580 < (tower.getPosX() + tower.getRange()))){
                     return true;
-                }
-                if(!(-20 < (tower.getPosY() - tower.getRange())) || (1000 < (tower.getPosY() + tower.getRange()))){
-                    return true;
-                }
             }
+            else if(!(-20 < (tower.getPosY() - tower.getRange())) || (1000 < (tower.getPosY() + tower.getRange()))){
+                return true;
+            }
+
         }
         return false;
 

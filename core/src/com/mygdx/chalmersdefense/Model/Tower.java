@@ -35,10 +35,9 @@ public class Tower extends Actor {
     private int cost;
 
     private boolean collision;
-
-
-
     private boolean gotButton;
+
+
     private Circle circle = new Circle();
 
 
