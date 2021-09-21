@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.chalmersdefense.ChalmersDefense;
+import com.mygdx.chalmersdefense.Model.Path.GamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.Model.Path.Path;
 
 import java.util.*;
@@ -27,7 +28,10 @@ public class Model {
 
     Tower newTower;
     TowerFactory factory;
-    Path path;
+
+
+
+    private Path path;
 
     private List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
     private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
@@ -40,6 +44,7 @@ public class Model {
     public Model(ChalmersDefense game) {
         this.game = game;
         factory = new TowerFactory();
+        path = new ClassicPath();
     }
 
     public void updateModel() {
@@ -117,6 +122,10 @@ public class Model {
 
     public int getMoney() {
         return money;
+    }
+
+    public Path getPath() {
+        return path;
     }
 
     // Ska vi använda Arraylist eller bara List ?

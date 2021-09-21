@@ -29,6 +29,7 @@ import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.Controllers.TowerClickListener;
 import com.mygdx.chalmersdefense.Model.Model;
 import com.mygdx.chalmersdefense.Model.Tower;
+import com.mygdx.chalmersdefense.Utilities.PositionVector;
 
 import java.util.HashMap;
 /**
@@ -126,7 +127,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         renderTowers();
         checkAffordableTowers();
-
+        renderRectangels();
         renderViruses();
 
 
@@ -166,6 +167,41 @@ public class GameScreen extends AbstractScreen implements Screen {
     private void createRightSidePanel() {
         sideBarBackground = new Image(new Texture("SideBarBackground.png"));
         sideBarBackground.setPosition(1920 - 320, 0);
+    }
+
+    private void renderRectangels(){
+        model.getPath().getFirstWaypoint();
+        for (int i = 0; i < 12; i++) {
+            //float distx =  (model.getPath().getWaypoint(i+1).getX() - model.getPath().getWaypoint(i).getX());
+            //float disty = (model.getPath().getWaypoint(i).getY() - model.getPath().getWaypoint(i+1).getY());
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(Color.LIGHT_GRAY);
+
+            if(model.getPath().getWaypoint(i).getX() == model.getPath().getWaypoint(i+1).getX()){
+                float disty = Math.abs((model.getPath().getWaypoint(i+1).getY() - model.getPath().getWaypoint(i).getY()));
+                if(model.getPath().getWaypoint(i).getY() < model.getPath().getWaypoint(i+1).getY()){
+
+                    shapeRenderer.rect(model.getPath().getWaypoint(i).getX()-40 , model.getPath().getWaypoint(i).getY() -40,80, disty + 80);
+                }
+                else{
+                    shapeRenderer.rect(model.getPath().getWaypoint(i).getX()-40 , model.getPath().getWaypoint(i).getY() -40  - disty,80, disty + 80 );
+                }
+            }
+            else{
+                float distx = Math.abs((model.getPath().getWaypoint(i+1).getX() - model.getPath().getWaypoint(i).getX()));
+                if(model.getPath().getWaypoint(i).getX() < model.getPath().getWaypoint(i+1).getX()){
+
+                    shapeRenderer.rect(model.getPath().getWaypoint(i).getX()-40 , model.getPath().getWaypoint(i).getY()-40,distx, 80);
+                }
+                else{
+                    shapeRenderer.rect(model.getPath().getWaypoint(i).getX()-40 - distx  , model.getPath().getWaypoint(i).getY()-40,distx, 80);
+                }
+
+            }
+
+
+            shapeRenderer.end();
+        }
     }
 
     private void renderViruses() {
