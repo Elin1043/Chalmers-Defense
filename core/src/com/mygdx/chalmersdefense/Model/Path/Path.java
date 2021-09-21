@@ -1,17 +1,14 @@
 package com.mygdx.chalmersdefense.Model.Path;
 
 import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
-import com.mygdx.chalmersdefense.Utilities.PointWrapper;
+import com.mygdx.chalmersdefense.Utilities.PositionVector;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 
 public abstract class Path {
 
-    protected ArrayList<PointWrapper> pathWaypoints;
-    protected PointWrapper startingPoint;
+    protected ArrayList<PositionVector> pathWaypoints;
+    protected PositionVector startingPoint;
 
     protected Path() {
         pathWaypoints = new ArrayList<>();
@@ -20,8 +17,8 @@ public abstract class Path {
 
     protected abstract void setPathWaypoints();
 
-    public PointWrapper getWaypoint(int index) throws NoFurtherWaypointException {
-        PointWrapper waypoint;
+    public PositionVector getWaypoint(int index) throws NoFurtherWaypointException {
+        PositionVector waypoint;
         try {
             waypoint = pathWaypoints.get(index);
         } catch (IndexOutOfBoundsException e) {
@@ -31,15 +28,15 @@ public abstract class Path {
         return waypoint;
     }
 
-    public boolean isAtWaypoint(float x, float y, PointWrapper virusVector) {
+    public boolean isAtWaypoint(float x, float y, PositionVector virusVector) {
         if (Math.abs(x - virusVector.getX()) <= 1) {
             return (Math.abs(y - virusVector.getY()) <= 1);
         }
         return false;
     }
 
-    public PointWrapper getFirstWaypoint() {
-        return new PointWrapper(startingPoint);
+    public PositionVector getFirstWaypoint() {
+        return new PositionVector(startingPoint);
     }
 
 
