@@ -1,15 +1,19 @@
 package com.mygdx.chalmersdefense.Model;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.chalmersdefense.ChalmersDefense;
-import com.mygdx.chalmersdefense.TowerFactory;
 
 import java.util.*;
+
+/**
+ * @author
+ *
+ *
+ * @Modified by Elin Forsberg
+ *  Added methods to handle placing towers + cost of towers
+ */
 
 public class Model {
     ChalmersDefense game;
@@ -27,17 +31,17 @@ public class Model {
 
 
 
-    public Model(ChalmersDefense game){
+    public Model(ChalmersDefense game) {
         this.game = game;
         factory = new TowerFactory();
     }
 
-    public void updateModel(){
+    public void updateModel() {
         updateTowers();
         updateVirus();
     }
 
-    private void updateTowers(){
+    private void updateTowers() {
         for (Tower tower: towersList) {
             tower.setPos(tower.getSprite().getX(), tower.getSprite().getY());
 
@@ -69,7 +73,7 @@ public class Model {
 
 
 
-    private boolean checkCollisionOfTowers(Tower tower){
+    private boolean checkCollisionOfTowers(Tower tower) {
         for(Tower checkTower: towersList){
             if(tower.getCircle().overlaps(checkTower.getCircle()) && !(checkTower.hashCode() == tower.hashCode())){
                 return true;
@@ -93,20 +97,20 @@ public class Model {
     }
 
     // Ska vi använda Arraylist eller bara List ?
-    public ArrayList<Tower> getTowers(){
+    public ArrayList<Tower> getTowers() {
         return towersList;
     }
 
-    public List<Virus> getViruses(){
+    public List<Virus> getViruses() {
         return allViruses;
     }
     // TODO This should be gone later!!
-    public SpawnViruses getVirusSpawner(){
+    public SpawnViruses getVirusSpawner() {
         return virusSpawner;
     }
 
 
-    public void dragStart(InputEvent event){
+    public void dragStart(InputEvent event) {
         String towerName = event.getListenerActor().getName();
         ImageButton button = (ImageButton) event.getListenerActor();
         switch(towerName){
@@ -122,13 +126,13 @@ public class Model {
         towersList.add(newTower);
     }
 
-    public void onDrag(InputEvent event){
+    public void onDrag(InputEvent event) {
         ImageButton button = (ImageButton) event.getListenerActor();
         newTower.getSprite().setPosition( Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getImage().getHeight()/2 );
         newTower.setCircle();
     }
 
-    public void dragEnd(InputEvent event){
+    public void dragEnd(InputEvent event) {
         ImageButton button = (ImageButton) event.getListenerActor();
         if(!newTower.getCollision()){
             newTower.setPlaced(true);
