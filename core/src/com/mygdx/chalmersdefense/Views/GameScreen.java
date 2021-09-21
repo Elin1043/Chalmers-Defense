@@ -5,10 +5,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.Model.Virus;
 import com.mygdx.chalmersdefense.Model.VirusFactory;
-
 import java.util.*;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -52,7 +52,6 @@ public class GameScreen extends AbstractScreen implements Screen {
     private Label powerUpLabel;
 
     private Image mapImage;
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     private ImageButton smurfButton;
     private ImageButton chemistButton;
@@ -64,17 +63,6 @@ public class GameScreen extends AbstractScreen implements Screen {
     private TowerClickListener towerClickListener;
     private Batch batch = super.getBatch();
 
-    private Group towerButtonGroup;
-    private ImageButton smurfButton;
-    private ImageButton chemistButton;
-    private ImageButton electroButton;
-    private ImageButton hackerButton;
-    private ImageButton meckButton;
-    private ImageButton ecobutton;
-
-
-    private HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
-    private TowerClickListener towerClickListener;
 
     private HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
 
@@ -91,6 +79,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         createRightSidePanel();
         createStartRoundButton();
+
         towerClickListener = new TowerClickListener(model);
 
         towerClickListener = new TowerClickListener(model);
@@ -98,8 +87,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         towerLabel = createLabel("Towers", 20);
 
         powerUpLabel = createLabel("Power-ups", 620);
-
-        towerButtonGroup = new Group();
 
         smurfButton = createTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
         towerButtons.put(100, smurfButton);
@@ -115,18 +102,11 @@ public class GameScreen extends AbstractScreen implements Screen {
         towerButtons.put(600, ecobutton);
 
         addTowerButtonListener();
-
-        // Add actors to group
-        towerButtonGroup.addActor(smurfButton);
-        towerButtonGroup.addActor(chemistButton);
-        towerButtonGroup.addActor(hackerButton);
-        towerButtonGroup.addActor(electroButton);
-        towerButtonGroup.addActor(meckButton);
-        towerButtonGroup.addActor(ecobutton);
     }
 
     @Override
     public void buildStage() {
+        addActor(sideBarBackground);
         addActor(smurfButton);
         addActor(chemistButton);
         addActor(hackerButton);
@@ -135,8 +115,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(ecobutton);
 
         addActor(mapImage);
-        addActor(sideBarBackground);
-        addActor(towerButtonGroup);
         addActor(towerLabel);
         addActor(powerUpLabel);
         addActor(startRoundButton);
@@ -144,19 +122,10 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
         super.render(Gdx.graphics.getDeltaTime());
 
         renderTowers();
         checkAffordableTowers();
-
-    }
-
-    private Label createLabel(String text, float y) {
-        Label label = new Label(text, labelStyleBlack36);
-        label.setPosition(1920 - sideBarBackground.getWidth()/2 - label.getWidth()/2, 1080 - label.getHeight() - y);
-        return label;
-    }
 
         renderViruses();
 
@@ -168,6 +137,14 @@ public class GameScreen extends AbstractScreen implements Screen {
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             model.getVirusSpawner().spawnRound(1);
         }
+    }
+
+    private Label createLabel(String text, float y) {
+        Label label = new Label(text, labelStyleBlack36);
+        label.setPosition(1920 - sideBarBackground.getWidth()/2 - label.getWidth()/2, 1080 - label.getHeight() - y);
+        return label;
+    }
+
 
     private BitmapFont generateBitmapFont(int size) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/CenturyGothic.ttf"));
@@ -238,7 +215,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         towerButton.setName(name);
 
 
-        this.addActor(towerButton); //Add the button to the stage to perform rendering and take input.
         return towerButton;
 
     }
