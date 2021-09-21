@@ -19,7 +19,7 @@ public class Model {
     Tower newTower;
     TowerFactory factory;
 
-    private List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
+    private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
     private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
 
     private int money = 300;
@@ -52,20 +52,18 @@ public class Model {
         }
     }
 
-    // TODO Try to fix concurrent modification error in list. Then the try-catch block can be removed
+
     private void updateVirus(){
-        try {
-            for (Virus virus : allViruses){ // Om den lägger till ett virus exakt samtidigt blir det inte bra
+
+
+        synchronized (allViruses) {
+
+            for (Virus virus : allViruses) {
                 virus.update();
             }
 
-        } catch (ConcurrentModificationException e) {
-            System.out.println("FAIL when updating Virus");
-
-            for (Virus virus : allViruses){ // Om den lägger till ett virus exakt samtidigt blir det inte bra
-                virus.update();
-            }
         }
+
     }
 
 

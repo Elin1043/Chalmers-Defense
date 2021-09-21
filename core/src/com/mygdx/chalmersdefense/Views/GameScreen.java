@@ -99,27 +99,18 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         super.render(Gdx.graphics.getDeltaTime());
 
-//        if(model.getTowers() != null){
-//            renderTowers();
-//        }
-
         renderTowers();
         checkAffordableTowers();
 
 
         super.batch.begin();
 
-        try {
-            for (Virus virus: model.getViruses()) {     // Om den lägger till ett virus exakt samtidigt blir det inte bra
+        synchronized (model.getViruses()) {
+
+            for (Virus virus : model.getViruses()) {
                 virus.getSprite().draw(super.batch);
             }
 
-        } catch (ConcurrentModificationException e) {
-            System.out.println("FAIL when rendering Virus");
-
-            for (Virus virus: model.getViruses()) {
-                virus.getSprite().draw(super.batch);
-            }
         }
 
         super.batch.end();
