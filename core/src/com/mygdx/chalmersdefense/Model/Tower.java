@@ -12,6 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mygdx.chalmersdefense.Vectors;
 
+/**
+ * @author ELin Forsberg
+ * A class defining the tower objects
+ *
+ */
+
 public class Tower extends Actor {
     private final Sprite sprite;
     private int angle = 0;

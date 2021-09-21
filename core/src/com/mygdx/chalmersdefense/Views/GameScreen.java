@@ -1,10 +1,15 @@
 package com.mygdx.chalmersdefense.Views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.mygdx.chalmersdefense.Model.Virus;
+import com.mygdx.chalmersdefense.Model.VirusFactory;
+
+import java.util.*;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -14,7 +19,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -27,7 +31,13 @@ import com.mygdx.chalmersdefense.Model.Model;
 import com.mygdx.chalmersdefense.Model.Tower;
 
 import java.util.HashMap;
-
+/**
+ * @author
+ *
+ *
+ * @Modified by Elin Forsberg
+ *  Added methods and variables to handle placing towers
+ */
 public class GameScreen extends AbstractScreen implements Screen {
 
     private RightSidePanelController rightSidePanelController;
@@ -36,13 +46,22 @@ public class GameScreen extends AbstractScreen implements Screen {
     private Image sideBarBackground;
     private Button startRoundButton;
 
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private LabelStyle labelStyleBlack36;
     private Label towerLabel;
     private Label powerUpLabel;
 
+    private Image mapImage;
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
+    private ImageButton smurfButton;
+    private ImageButton chemistButton;
+    private ImageButton electroButton;
+    private ImageButton hackerButton;
+    private ImageButton meckButton;
+    private ImageButton ecobutton;
 
+    private TowerClickListener towerClickListener;
     private Batch batch = super.getBatch();
 
     private Group towerButtonGroup;
@@ -53,6 +72,8 @@ public class GameScreen extends AbstractScreen implements Screen {
     private ImageButton meckButton;
     private ImageButton ecobutton;
 
+
+    private HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
     private TowerClickListener towerClickListener;
 
     private HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
@@ -62,10 +83,15 @@ public class GameScreen extends AbstractScreen implements Screen {
         super();
         this.rightSidePanelController = rightSidePanelController;
         this.model = model;
+
+        mapImage = new Image(new Texture("ClassicMap.png"));
+        mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
+
         labelStyleBlack36 = generateLabelStyle(36, Color.BLACK);
 
         createRightSidePanel();
         createStartRoundButton();
+        towerClickListener = new TowerClickListener(model);
 
         towerClickListener = new TowerClickListener(model);
 
@@ -86,8 +112,9 @@ public class GameScreen extends AbstractScreen implements Screen {
         meckButton = createTowerButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "meck");
         towerButtons.put(500, meckButton);
         ecobutton = createTowerButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
-        ecobutton.setZIndex(2);
         towerButtons.put(600, ecobutton);
+
+        addTowerButtonListener();
 
         // Add actors to group
         towerButtonGroup.addActor(smurfButton);
@@ -100,6 +127,14 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     @Override
     public void buildStage() {
+        addActor(smurfButton);
+        addActor(chemistButton);
+        addActor(hackerButton);
+        addActor(electroButton);
+        addActor(meckButton);
+        addActor(ecobutton);
+
+        addActor(mapImage);
         addActor(sideBarBackground);
         addActor(towerButtonGroup);
         addActor(towerLabel);
@@ -109,11 +144,10 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
         super.render(Gdx.graphics.getDeltaTime());
 
-        if(model.getTowers() != null){
-            renderTowers();
-        }
+        renderTowers();
         checkAffordableTowers();
 
     }
@@ -123,6 +157,17 @@ public class GameScreen extends AbstractScreen implements Screen {
         label.setPosition(1920 - sideBarBackground.getWidth()/2 - label.getWidth()/2, 1080 - label.getHeight() - y);
         return label;
     }
+
+        renderViruses();
+
+
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            model.getViruses().add(VirusFactory.createVirusOne());
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+            model.getVirusSpawner().spawnRound(1);
+        }
 
     private BitmapFont generateBitmapFont(int size) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/CenturyGothic.ttf"));
@@ -146,14 +191,33 @@ public class GameScreen extends AbstractScreen implements Screen {
         sideBarBackground.setPosition(1920 - 320, 0);
     }
 
+    private void renderViruses() {
+        super.batch.begin();
 
-    public void addTowerButtonListener(DragListener listener){
-        smurfButton.addListener(listener);
-        chemistButton.addListener(listener);
-        hackerButton.addListener(listener);
-        electroButton.addListener(listener);
-        meckButton.addListener(listener);
-        ecobutton.addListener(listener);
+        try {
+            for (Virus virus: model.getViruses()) {     // Om den lägger till ett virus exakt samtidigt blir det inte bra
+                virus.getSprite().draw(super.batch);
+            }
+
+        } catch (ConcurrentModificationException e) {
+            System.out.println("FAIL when rendering Virus");
+
+            for (Virus virus: model.getViruses()) {
+                virus.getSprite().draw(super.batch);
+            }
+        }
+
+        super.batch.end();
+    }
+
+
+    private void addTowerButtonListener() {
+        rightSidePanelController.addTowerButtonListener(smurfButton);
+        rightSidePanelController.addTowerButtonListener(chemistButton);
+        rightSidePanelController.addTowerButtonListener(hackerButton);
+        rightSidePanelController.addTowerButtonListener(electroButton);
+        rightSidePanelController.addTowerButtonListener(meckButton);
+        rightSidePanelController.addTowerButtonListener(ecobutton);
     }
 
 
@@ -166,7 +230,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         rightSidePanelController.addStartButtonListener(startRoundButton);
     }
 
-    private ImageButton createTowerButtons(Texture texture, int x, int y, String name){
+    private ImageButton createTowerButtons(Texture texture, int x, int y, String name) {
         TextureRegion towerButtonTextureRegion = new TextureRegion(texture);
         TextureRegionDrawable towerButtonRegDrawable = new TextureRegionDrawable(towerButtonTextureRegion);
         ImageButton towerButton = new ImageButton(towerButtonRegDrawable); //Set the button up
@@ -180,7 +244,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
 
-    private ImageButton createInvisButtonsOnTower(Tower tower,float x, float y){
+    private ImageButton createInvisButtonsOnTower(Tower tower,float x, float y) {
         Texture invisButtonTexture = tower.getSprite().getTexture();
         TextureRegion invisButtonTextureRegion = new TextureRegion(invisButtonTexture);
         TextureRegionDrawable invisTexRegDrawable = new TextureRegionDrawable(invisButtonTextureRegion);
@@ -194,7 +258,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         return invisButton;
     }
 
-    private void checkAffordableTowers(){
+    private void checkAffordableTowers() {
         for (Integer i : towerButtons.keySet()) {
             if(model.getMoney() >= i && !towerButtons.get(i).isTouchable()){
                 towerButtons.get(i).setTouchable(Touchable.enabled);
@@ -238,9 +302,6 @@ public class GameScreen extends AbstractScreen implements Screen {
             super.batch.begin();
             tower.getSprite().draw(super.batch);
             super.batch.end();
-
-
-
 
         }
 
