@@ -3,6 +3,8 @@ package com.mygdx.chalmersdefense.Model;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.chalmersdefense.Model.Path.GamePaths.ClassicPath;
+import com.mygdx.chalmersdefense.Model.Path.Path;
 
 
 /**
@@ -17,23 +19,25 @@ public abstract class VirusFactory {
     private static final Texture yellowVirus = new Texture("yellowVirus.png");
     private static final Texture pinkVirus = new Texture("pinkVirus.png");
 
+    private static final Path path = new ClassicPath();
+
     static public synchronized Virus createVirusOne(){
-        return new Virus(1, new Sprite(redVirus));
+        return new Virus(1, new Sprite(redVirus), path);
     }
 
     static public synchronized Virus createVirusTwo(){
-        return new Virus(2, new Sprite(blueVirus));
+        return new Virus(2, new Sprite(blueVirus), path);
     }
 
     static public synchronized Virus createVirusThree(){
-        return new Virus(3, new Sprite(greenVirus));
+        return new Virus(3, new Sprite(greenVirus), path);
     }
 
     static public synchronized Virus createVirusFour(){
-        return new Virus(4, new Sprite(yellowVirus));
+        return new Virus(4, new Sprite(yellowVirus), path);
     }
 
     static public synchronized Virus createVirusFive(){
-        return new Virus(5, new Sprite(pinkVirus));
+        return new Virus(5, new Sprite(pinkVirus), path);
     }
 }
