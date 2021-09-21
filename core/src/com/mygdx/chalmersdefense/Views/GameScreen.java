@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.Model.Virus;
 import com.mygdx.chalmersdefense.Model.VirusFactory;
 
@@ -39,6 +40,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
+    private Image mapImage;
 
     private ImageButton smurfButton;
     private ImageButton chemistButton;
@@ -58,6 +60,10 @@ public class GameScreen extends AbstractScreen implements Screen {
         super();
         this.rightSidePanelController = rightSidePanelController;
         this.model = model;
+
+        mapImage = new Image(new Texture("ClassicMap.png"));
+        mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
+
         createStartRoundButton();
         towerClickListener = new TowerClickListener(model);
 
@@ -87,6 +93,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(meckButton);
         addActor(ecobutton);
 
+        addActor(mapImage);
     }
 
     @Override
