@@ -5,18 +5,25 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.Model.Virus;
 import com.mygdx.chalmersdefense.Model.VirusFactory;
-
 import java.util.*;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.Controllers.TowerClickListener;
@@ -34,11 +41,15 @@ import java.util.HashMap;
 public class GameScreen extends AbstractScreen implements Screen {
 
     private RightSidePanelController rightSidePanelController;
-    private Button startRoundButton;
     private Model model;
 
+    private Image sideBarBackground;
+    private Button startRoundButton;
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private LabelStyle labelStyleBlack36;
+    private Label towerLabel;
+    private Label powerUpLabel;
 
     private Image mapImage;
 
@@ -50,7 +61,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private ImageButton ecobutton;
 
     private TowerClickListener towerClickListener;
-
+    private Batch batch = super.getBatch();
 
 
     private HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
@@ -64,8 +75,18 @@ public class GameScreen extends AbstractScreen implements Screen {
         mapImage = new Image(new Texture("ClassicMap.png"));
         mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
 
+        labelStyleBlack36 = generateLabelStyle(36, Color.BLACK);
+
+        createRightSidePanel();
         createStartRoundButton();
+
         towerClickListener = new TowerClickListener(model);
+
+        towerClickListener = new TowerClickListener(model);
+
+        towerLabel = createLabel("Towers", 20);
+
+        powerUpLabel = createLabel("Power-ups", 620);
 
         smurfButton = createTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
         towerButtons.put(100, smurfButton);
@@ -81,11 +102,11 @@ public class GameScreen extends AbstractScreen implements Screen {
         towerButtons.put(600, ecobutton);
 
         addTowerButtonListener();
-
     }
 
     @Override
     public void buildStage() {
+        addActor(sideBarBackground);
         addActor(smurfButton);
         addActor(chemistButton);
         addActor(hackerButton);
@@ -94,16 +115,17 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(ecobutton);
 
         addActor(mapImage);
+        addActor(towerLabel);
+        addActor(powerUpLabel);
+        addActor(startRoundButton);
     }
 
     @Override
     public void render(float delta) {
-
         super.render(Gdx.graphics.getDeltaTime());
 
         renderTowers();
         checkAffordableTowers();
-
 
         renderViruses();
 
@@ -115,8 +137,35 @@ public class GameScreen extends AbstractScreen implements Screen {
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             model.getVirusSpawner().spawnRound(1);
         }
+    }
+
+    private Label createLabel(String text, float y) {
+        Label label = new Label(text, labelStyleBlack36);
+        label.setPosition(1920 - sideBarBackground.getWidth()/2 - label.getWidth()/2, 1080 - label.getHeight() - y);
+        return label;
+    }
 
 
+    private BitmapFont generateBitmapFont(int size) {
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/CenturyGothic.ttf"));
+        FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+        parameter.size = size;
+        BitmapFont font36 = generator.generateFont(parameter);
+        generator.dispose();
+        return font36;
+    }
+
+    private LabelStyle generateLabelStyle(int size, Color color){
+        BitmapFont font36 = generateBitmapFont(size);
+        LabelStyle labelStyle = new LabelStyle();
+        labelStyle.font = font36;
+        labelStyle.fontColor = color;
+        return labelStyle;
+    }
+
+    private void createRightSidePanel() {
+        sideBarBackground = new Image(new Texture("SideBarBackground.png"));
+        sideBarBackground.setPosition(1920 - 320, 0);
     }
 
     private void renderViruses() {
@@ -153,9 +202,8 @@ public class GameScreen extends AbstractScreen implements Screen {
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.atlas")); // Load atlas file from skin
         Skin skin = new Skin(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.json"), atlas); // Create skin object
         startRoundButton = new Button(skin);
-        startRoundButton.setPosition(1600, 20);
+        startRoundButton.setPosition(1920 - sideBarBackground.getWidth()/2 - startRoundButton.getWidth()/2, 20);
 
-        this.addActor(startRoundButton); //Add the button to the stage to perform rendering and take input.
         rightSidePanelController.addStartButtonListener(startRoundButton);
     }
 
@@ -167,7 +215,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         towerButton.setName(name);
 
 
-        this.addActor(towerButton); //Add the button to the stage to perform rendering and take input.
         return towerButton;
 
     }
