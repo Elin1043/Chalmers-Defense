@@ -12,14 +12,14 @@ public class Virus {
     private int health;
     private Sprite sprite;
     private final Path path;
-    private final PositionVector startPos;
+    private PositionVector currentMoveToVector;
 
     public Virus(int health, Sprite sprite, Path path) {
         this.health = health;
         this.sprite = sprite;
         this.path = path;
-        startPos = path.getFirstWaypoint();
-        sprite.setPosition(startPos.getX(), startPos.getY());
+        currentMoveToVector = path.getFirstWaypoint();
+        sprite.setPosition(currentMoveToVector.getX() - sprite.getWidth()/2, currentMoveToVector.getY() - sprite.getHeight()/2);
     }
 
     public Sprite getSprite() {
@@ -28,6 +28,10 @@ public class Virus {
 
     public void update() {
         sprite.setX(sprite.getX() + (4F + health)/5F);
+    }
+
+    private void moveToPoint(){
+
     }
 
 }

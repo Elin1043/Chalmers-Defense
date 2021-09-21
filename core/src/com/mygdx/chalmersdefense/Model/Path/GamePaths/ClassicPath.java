@@ -7,13 +7,14 @@ public class ClassicPath extends Path {
 
     public ClassicPath() {
         super();
-        startingPoint = new PositionVector(0, 472);
+        startingPoint = new PositionVector(0, 453);
+        setPathWaypoints();
     }
 
     @Override
     protected void setPathWaypoints() {
         if (pathWaypoints.isEmpty()) {
-            pathWaypoints.add(new PositionVector(476, 472));
+            pathWaypoints.add(new PositionVector(476, 468));
             pathWaypoints.add(new PositionVector(476, 756));
             pathWaypoints.add(new PositionVector(270, 756));
             pathWaypoints.add(new PositionVector(270, 973));
