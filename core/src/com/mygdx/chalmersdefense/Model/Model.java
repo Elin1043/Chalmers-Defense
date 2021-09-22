@@ -136,7 +136,7 @@ public class Model {
 
     public void onDrag(InputEvent event) {
         ImageButton button = (ImageButton) event.getListenerActor();
-        newTower.getSprite().setPosition( Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getImage().getHeight()/2 );
+        newTower.getSprite().setPosition(event.getStageX() - button.getImage().getWidth()/2,event.getStageY() - button.getImage().getHeight()/2 );
         newTower.setCircle();
     }
 
@@ -144,8 +144,8 @@ public class Model {
         ImageButton button = (ImageButton) event.getListenerActor();
         if(!newTower.getCollision()){
             newTower.setPlaced(true);
-            newTower.getSprite().setPosition(Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight()  - Gdx.input.getY()) - button.getImage().getHeight()/2 );
-            newTower.setPos(Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getImage().getHeight()/2);
+            newTower.getSprite().setPosition(event.getStageX() - button.getImage().getWidth()/2,event.getStageY() - button.getImage().getHeight()/2 );
+            newTower.setPos(event.getStageX() - button.getImage().getWidth()/2,event.getStageY() - button.getImage().getHeight()/2);
             newTower.setCircle();
 
 
@@ -166,6 +166,10 @@ public class Model {
                 clickedTower = tower;
             }
         }
+    }
 
+    // Maybe temporary because it sets the object to null.
+    public void towerNotClicked() {
+        clickedTower = null;
     }
 }
