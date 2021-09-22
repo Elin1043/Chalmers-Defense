@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.chalmersdefense.ChalmersDefense;
+import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
 import com.mygdx.chalmersdefense.Model.Path.GamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.Model.Path.Path;
 
@@ -13,7 +14,10 @@ import java.util.List;
 
 
 /**
- * @author
+ * @author Joel Båtsman Hilmmersson
+ * @author Elin Forsberg
+ * @author Daniel Persson
+ * @author Jenny Carlsson
  *
  *
  * @Modified by Elin Forsberg
@@ -96,38 +100,74 @@ public class Model {
     //Function for creating the rectangles on path used for collision
     private void createCollisionOnPath(){
 
-        for (int i = 0; i < path.getListSize() -1; i++) {
-            Rectangle rectangle = new Rectangle();
-            float posX = path.getWaypoint(i).getX();
-            float posY = path.getWaypoint(i).getY();
-            float nextX = path.getWaypoint(i+1).getX();
-            float nextY = path.getWaypoint(i+1).getY();
-            if(posX == nextX){
-                float distY = Math.abs((nextY - posY));
-                if(posY < nextY){
+//        for (int i = 0; i < path.getListSize() -1; i++) {
+//            Rectangle rectangle = new Rectangle();
+//            float posX = path.getWaypoint(i).getX();
+//            float posY = path.getWaypoint(i).getY();
+//            float nextX = path.getWaypoint(i+1).getX();
+//            float nextY = path.getWaypoint(i+1).getY();
+//            if(posX == nextX){
+//                float distY = Math.abs((nextY - posY));
+//                if(posY < nextY){
+//
+//                    rectangle.set(posX-40 , posY -40,80, distY + 80);
+//                }
+//                else{
+//                    rectangle.set(posX-40 , posY -distY -40,80, distY + 80);
+//
+//                }
+//            }
+//            else{
+//                float distX = Math.abs((nextX - posX));
+//                if(posX < nextX){
+//
+//                    rectangle.set(posX-40 , posY-40, distX, 80);
+//                }
+//                else{
+//                    rectangle.set(posX-40 - distX  , posY-40, distX, 80);
+//                }
+//
+//
+//            }
+//            collisionRectangles.add(rectangle);
+//        }
 
-                    rectangle.set(posX-40 , posY -40,80, distY + 80);
+        try {
+            int i = 0;
+            while (true){
+                Rectangle rectangle = new Rectangle();
+                float posX = path.getWaypoint(i).getX();
+                float posY = path.getWaypoint(i).getY();
+                float nextX = path.getWaypoint(i+1).getX();
+                float nextY = path.getWaypoint(i+1).getY();
+                if(posX == nextX){
+                    float distY = Math.abs((nextY - posY));
+                    if(posY < nextY){
+
+                        rectangle.set(posX-40 , posY -40,80, distY + 80);
+                    }
+                    else{
+                        rectangle.set(posX-40 , posY -distY -40,80, distY + 80);
+
+                    }
                 }
                 else{
-                    rectangle.set(posX-40 , posY -distY -40,80, distY + 80);
+                    float distX = Math.abs((nextX - posX));
+                    if(posX < nextX){
+
+                        rectangle.set(posX-40 , posY-40, distX, 80);
+                    }
+                    else{
+                        rectangle.set(posX-40 - distX  , posY-40, distX, 80);
+                    }
+
 
                 }
+                collisionRectangles.add(rectangle);
+                i++;
             }
-            else{
-                float distX = Math.abs((nextX - posX));
-                if(posX < nextX){
+        } catch (NoFurtherWaypointException ignored) {}
 
-                    rectangle.set(posX-40 , posY-40, distX, 80);
-                }
-                else{
-                    rectangle.set(posX-40 - distX  , posY-40, distX, 80);
-                }
-
-
-            }
-            collisionRectangles.add(rectangle);
-
-        }
     }
 
     //Checks if a tower collides with path

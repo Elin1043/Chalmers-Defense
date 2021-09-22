@@ -54,9 +54,7 @@ public class Virus {
         if (totalLengthToVector < totalSpeed) {
             try {
                 currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex++);
-            } catch (IndexOutOfBoundsException e) {
-                sprite.setY(20000);
-            }
+            } catch (NoFurtherWaypointException ignore) {}
         }
     }
 
