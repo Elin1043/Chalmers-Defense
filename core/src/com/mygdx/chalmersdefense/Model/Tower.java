@@ -50,7 +50,6 @@ public class Tower extends Actor {
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
 
-        sprite.setPosition(x, y);
         this.setPos(x,y);
         this.width = sprite.getWidth();
         this.height = sprite.getHeight();
@@ -86,7 +85,7 @@ public class Tower extends Actor {
 
     public void setRectangle(){
         rectangle = new Rectangle();
-        rectangle.set(this.getSprite().getX()  , this.getSprite().getY()  , this.width,this.height);
+        rectangle.set(this.x  , this.y  , this.width,this.height);
     }
 
     public Rectangle getRectangle(){
