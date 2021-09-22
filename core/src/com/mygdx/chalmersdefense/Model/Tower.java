@@ -1,16 +1,11 @@
 package com.mygdx.chalmersdefense.Model;
 
-import com.badlogic.gdx.graphics.Texture;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.physics.box2d.Shape;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
-import com.mygdx.chalmersdefense.Vectors;
+
 
 /**
  * @author ELin Forsberg
@@ -35,11 +30,10 @@ public class Tower extends Actor {
     private int cost;
 
     private boolean collision;
-
-
-
     private boolean gotButton;
-    private Circle circle = new Circle();
+
+
+    private Rectangle rectangle = new Rectangle();
 
 
 
@@ -50,7 +44,6 @@ public class Tower extends Actor {
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
 
-        sprite.setPosition(x, y);
         this.setPos(x,y);
         this.width = sprite.getWidth();
         this.height = sprite.getHeight();
@@ -65,7 +58,7 @@ public class Tower extends Actor {
     }
 
     public ShapeRenderer drawRadius(ShapeRenderer shape){
-        shape.circle(this.getPosX() + this.getSprite().getWidth()/2, this.getPosY() + this.getSprite().getHeight()/2, this.getRange());
+        shape.circle(this.x + this.width/2 , this.y  + this.height/2, this.range);
         return shape;
 
     }
@@ -84,13 +77,13 @@ public class Tower extends Actor {
         collision = set;
     }
 
-    public void setCircle(){
-        circle = new Circle();
-        circle.set(this.getSprite().getX() , this.getSprite().getY() , 40);
+    public void setRectangle(){
+        rectangle = new Rectangle();
+        rectangle.set(this.x  , this.y  , this.width,this.height);
     }
 
-    public Circle getCircle(){
-        return circle;
+    public Rectangle getRectangle(){
+        return rectangle;
     }
 
     public String getName(){

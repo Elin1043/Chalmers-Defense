@@ -3,6 +3,7 @@ package com.mygdx.chalmersdefense.Model.Path;
 import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
 import com.mygdx.chalmersdefense.Utilities.PositionVector;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Path {
@@ -38,6 +39,8 @@ public abstract class Path {
     public PositionVector getFirstWaypoint() {
         return new PositionVector(startingPoint);
     }
+
+
 
 
 }
