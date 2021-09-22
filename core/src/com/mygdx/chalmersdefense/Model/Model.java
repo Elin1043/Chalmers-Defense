@@ -2,8 +2,6 @@ package com.mygdx.chalmersdefense.Model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.Model.Path.GamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.Model.Path.Path;
@@ -40,7 +38,6 @@ public class Model {
 
     private int money = 300;
 
-    //Remove libgdx from model
 
 
 
@@ -174,16 +171,14 @@ public class Model {
     }
 
     //Create a tower when user draged from TowerButton
-    public void dragStart(InputEvent event) {
-        String towerName = event.getListenerActor().getName();
-        ImageButton button = (ImageButton) event.getListenerActor();
+    public void dragStart(String towerName, int x, int y) {
         switch(towerName){
-            case "smurf"   -> newTower = factory.CreateSmurf((int)button.getX(), (int)button.getY());
-            case "chemist" -> newTower = factory.CreateChemist((int)button.getX(), (int)button.getY());
-            case "electro" -> newTower = factory.CreateElectro((int)button.getX(), (int)button.getY());
-            case "hacker"  -> newTower = factory.CreateHacker((int)button.getX(), (int)button.getY());
-            case "meck"    -> newTower = factory.CreateMeck((int)button.getX(), (int)button.getY());
-            case "eco"     -> newTower = factory.CreateEco((int)button.getX(), (int)button.getY());
+            case "smurf"   -> newTower = factory.CreateSmurf(x, y);
+            case "chemist" -> newTower = factory.CreateChemist(x, y);
+            case "electro" -> newTower = factory.CreateElectro(x, y);
+            case "hacker"  -> newTower = factory.CreateHacker(x, y);
+            case "meck"    -> newTower = factory.CreateMeck(x, y);
+            case "eco"     -> newTower = factory.CreateEco(x, y);
             default        -> { return; }
         }
 
@@ -193,9 +188,9 @@ public class Model {
 
 
     //While dragging the tower, follow the mouse
-    public void onDrag(InputEvent event) {
-        ImageButton button = (ImageButton) event.getListenerActor();
-        newTower.setPos( Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getImage().getHeight()/2 );
+    public void onDrag(int buttonWidth, int buttonHeight, int x, int y, int windowHeight) {
+
+        newTower.setPos( x - buttonWidth,(windowHeight - y - buttonHeight ));
         newTower.setRectangle();
 
         for (Tower tower: towersList) {
@@ -214,11 +209,11 @@ public class Model {
     //When let go of tower, check if valid spot to let go.
     //If not valid: remove tower
     //If valid: place tower
-    public void dragEnd(InputEvent event) {
-        ImageButton button = (ImageButton) event.getListenerActor();
+    public void dragEnd(int buttonWidth, int buttonHeight, int x, int y, int windowHeight) {
+
         if(!newTower.getCollision()){
             newTower.setPlaced(true);
-            newTower.setPos(Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight()  - Gdx.input.getY()) - button.getImage().getHeight()/2 );
+            newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
             newTower.setRectangle();
 
         }
