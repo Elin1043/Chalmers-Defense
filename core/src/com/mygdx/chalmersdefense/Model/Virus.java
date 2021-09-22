@@ -15,7 +15,7 @@ public class Virus {
     private final Path path;
     private PositionVector currentMoveToVector;
 
-    int currentMoveToVectorIndex = 0;
+    private int currentMoveToVectorIndex = 0;
 
     public Virus(int health, Sprite sprite, Path path) {
         this.health = health;
@@ -55,7 +55,7 @@ public class Virus {
             try {
                 currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex++);
             } catch (IndexOutOfBoundsException e) {
-                currentMoveToVectorIndex = 0;
+                sprite.setY(20000);
             }
         }
     }

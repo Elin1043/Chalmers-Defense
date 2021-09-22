@@ -3,6 +3,7 @@ package com.mygdx.chalmersdefense;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.utils.Timer;
 import com.mygdx.chalmersdefense.Controllers.MainScreenController;
 import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.Model.Model;
@@ -11,7 +12,6 @@ import com.mygdx.chalmersdefense.Views.MainScreen;
 import com.mygdx.chalmersdefense.Views.ScreenEnum;
 import com.mygdx.chalmersdefense.Views.ScreenManager;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,9 +23,9 @@ import java.awt.event.ActionListener;
  *  Added a timer to update Model
  */
 public class ChalmersDefense extends Game {
-	// The delay (ms) corresponds to 20 updates a sec (hz)
-	private final int delay = 5;
-	// The timer is started with an listener (see below) that executes the statements
+	// The delay (s) between when game data is being updated
+	private final float delay = 0.005F;
+	// The timer is started with a listener (see below) that executes the statements
 	// each step between delays.
 	private Timer timer;
 
@@ -35,8 +35,7 @@ public class ChalmersDefense extends Game {
 
 	@Override
 	public void create() {
-		timer = new Timer(delay, new TimerListener());
-
+		timer =  new Timer();
 		model = new Model(this);
 
 
@@ -55,24 +54,28 @@ public class ChalmersDefense extends Game {
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("ponggamesound.wav"));
 		music.setLooping(true);
-		music.setVolume((float) 0.2);
+		music.setVolume(0.2F);
 		music.play();
+
+		setupTimer();
 		timer.start();
 
 	}
 
+	private void setupTimer() {
+		timer.scheduleTask(new Timer.Task() {
+			@Override
+			public void run() {
+				model.updateModel();
+			}
+		}, 0, delay);
+	}
 
 
 	public int testJunit(int willDouble) {
 		return willDouble * 2;
 	}
 
-	private class TimerListener implements ActionListener {
 
-		public void actionPerformed(ActionEvent e) {
-			model.updateModel();
-			//gameScreen.update();
-		}
-	}
 
 }

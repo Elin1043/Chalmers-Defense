@@ -78,7 +78,9 @@ public class Model {
         synchronized (allViruses) {
 
             for (Virus virus : allViruses) {
-
+                if (virus.getSprite().getY() > 1130) {
+                    //allViruses.remove(virus);
+                }
                 virus.update();
             }
 
