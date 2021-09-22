@@ -23,7 +23,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.Controllers.TowerClickListener;
@@ -44,9 +43,12 @@ public class GameScreen extends AbstractScreen implements Screen {
     private Model model;
 
     private Image sideBarBackground;
+    private Button startRoundButton;
+
+    private Group bottomBarPanelUpgradeGroup;
     private Image bottomBarPanelBackground;
     private Image bottomBarUpgradePanelBackground;
-    private Button startRoundButton;
+
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private LabelStyle labelStyleBlack36;
@@ -79,8 +81,10 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         labelStyleBlack36 = generateLabelStyle(36, Color.BLACK);
 
+        bottomBarPanelUpgradeGroup = new Group();
         createBottomBarPanel();
         createBottomBarUpgradePanel();
+        bottomBarPanelUpgradeGroup.addActor(bottomBarUpgradePanelBackground);
 
         createRightSidePanel();
         createStartRoundButton();
@@ -112,8 +116,8 @@ public class GameScreen extends AbstractScreen implements Screen {
     @Override
     public void buildStage() {
         addActor(bottomBarPanelBackground);
-        addActor(bottomBarUpgradePanelBackground);
-        bottomBarUpgradePanelBackground.setVisible(false);
+        addActor(bottomBarPanelUpgradeGroup);
+        bottomBarPanelUpgradeGroup.setVisible(false);
 
         addActor(sideBarBackground);
         addActor(smurfButton);
@@ -139,7 +143,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         renderViruses();
 
         if (model.getClickedTower() != null) {
-            bottomBarUpgradePanelBackground.setVisible(true);
+            bottomBarPanelUpgradeGroup.setVisible(true);
         }
 
 
