@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Tower extends Actor {
     private final Sprite sprite;
+    private final String spritePath;
     private int angle = 0;
     private float range;
     private String name;
@@ -38,8 +39,9 @@ public class Tower extends Actor {
 
 
 
-    public Tower(float x, float y, Sprite sprite, String name, int attackDamage, int attackSpeed, int cost){
+    public Tower(float x, float y, Sprite sprite, String spritePath, String name, int attackDamage, int attackSpeed, int cost){
         this.sprite = sprite;
+        this.spritePath = spritePath;
         this.name=name;
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
@@ -57,11 +59,6 @@ public class Tower extends Actor {
         return cost;
     }
 
-    public ShapeRenderer drawRadius(ShapeRenderer shape){
-        shape.circle(this.x + this.width/2 , this.y  + this.height/2, this.range);
-        return shape;
-
-    }
     public boolean getGotButton() {
         return gotButton;
     }
