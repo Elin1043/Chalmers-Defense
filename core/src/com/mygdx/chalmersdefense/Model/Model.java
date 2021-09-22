@@ -76,12 +76,16 @@ public class Model {
 
     private void updateVirus(){
         synchronized (allViruses) {
-
+            List<Virus> virusToRemove = new ArrayList<>();
             for (Virus virus : allViruses) {
                 if (virus.getSprite().getY() > 1130) {
-                    //allViruses.remove(virus);
+                    virusToRemove.add(virus);
                 }
                 virus.update();
+            }
+
+            for (Virus virus : virusToRemove){
+                allViruses.remove(virus);
             }
 
         }
