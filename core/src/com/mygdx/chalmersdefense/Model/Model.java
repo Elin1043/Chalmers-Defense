@@ -92,9 +92,8 @@ public class Model {
 
     //Function for creating the rectangles on path used for collision
     private void createCollisionOnPath(){
-        path.getFirstWaypoint();
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < path.getListSize() -1; i++) {
             Rectangle rectangle = new Rectangle();
             float posX = path.getWaypoint(i).getX();
             float posY = path.getWaypoint(i).getY();

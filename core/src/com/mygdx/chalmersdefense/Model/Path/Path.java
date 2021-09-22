@@ -16,6 +16,7 @@ public abstract class Path {
 
     }
 
+
     protected abstract void setPathWaypoints();
 
     public PositionVector getWaypoint(int index) throws NoFurtherWaypointException {
@@ -34,6 +35,9 @@ public abstract class Path {
             return (Math.abs(y - virusVector.getY()) <= 1);
         }
         return false;
+    }
+    public int getListSize(){
+        return pathWaypoints.size();
     }
 
     public PositionVector getFirstWaypoint() {
