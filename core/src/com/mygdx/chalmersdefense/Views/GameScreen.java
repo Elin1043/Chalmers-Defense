@@ -45,6 +45,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private Image sideBarBackground;
     private Image bottomBarPanelBackground;
+    private Image bottomBarUpgradePanelBackground;
     private Button startRoundButton;
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -79,6 +80,8 @@ public class GameScreen extends AbstractScreen implements Screen {
         labelStyleBlack36 = generateLabelStyle(36, Color.BLACK);
 
         createBottomBarPanel();
+        createBottomBarUpgradePanel();
+
         createRightSidePanel();
         createStartRoundButton();
 
@@ -109,6 +112,8 @@ public class GameScreen extends AbstractScreen implements Screen {
     @Override
     public void buildStage() {
         addActor(bottomBarPanelBackground);
+        addActor(bottomBarUpgradePanelBackground);
+        bottomBarUpgradePanelBackground.setVisible(false);
 
         addActor(sideBarBackground);
         addActor(smurfButton);
@@ -132,6 +137,10 @@ public class GameScreen extends AbstractScreen implements Screen {
         checkAffordableTowers();
 
         renderViruses();
+
+        if (model.getClickedTower() != null) {
+            bottomBarUpgradePanelBackground.setVisible(true);
+        }
 
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
@@ -168,13 +177,18 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
     private void createRightSidePanel() {
-        sideBarBackground = new Image(new Texture("SideBarBackground.png"));
+        sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
         sideBarBackground.setPosition(1920 - 320, 0);
     }
 
     private void createBottomBarPanel() {
-        bottomBarPanelBackground = new Image(new Texture("BottomBarBackground.png"));
+        bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
         bottomBarPanelBackground.setPosition(0, 0);
+    }
+
+    private void createBottomBarUpgradePanel() {
+        bottomBarUpgradePanelBackground = new Image(new Texture("GameScreen/BottomBarUpgradePanel.png"));
+        bottomBarUpgradePanelBackground.setPosition(bottomBarPanelBackground.getWidth() - bottomBarUpgradePanelBackground.getWidth(), 3);
     }
 
     private void renderViruses() {
