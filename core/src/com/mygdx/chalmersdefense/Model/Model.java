@@ -58,11 +58,10 @@ public class Model {
 
 
     private void updateVirus(){
-
-
         synchronized (allViruses) {
 
             for (Virus virus : allViruses) {
+
                 virus.update();
             }
 
