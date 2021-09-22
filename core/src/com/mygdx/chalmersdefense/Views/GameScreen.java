@@ -28,6 +28,9 @@ import com.mygdx.chalmersdefense.Model.Model;
 import com.mygdx.chalmersdefense.Model.Tower;
 
 import java.util.HashMap;
+
+import static com.badlogic.gdx.graphics.GL20.*;
+
 /**
  * @author
  *
@@ -75,8 +78,6 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         createRightSidePanel();
         createStartRoundButton();
-
-        towerClickListener = new TowerClickListener(model);
 
         towerClickListener = new TowerClickListener(model);
 
@@ -183,6 +184,43 @@ public class GameScreen extends AbstractScreen implements Screen {
         super.batch.end();
     }
 
+    private void renderTowers() {
+        for (Tower tower: model.getTowers()) {
+
+            if(!tower.isPlaced() && !tower.getCollision()){
+                Gdx.gl.glEnable(GL_BLEND);
+                Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                shapeRenderer.setColor(new Color(150/255F, 150/255F, 150/255F, 0.8F));
+                tower.drawRadius(shapeRenderer);
+                shapeRenderer.end();
+                Gdx.gl.glDisable(GL_BLEND);
+            }
+            else if(!tower.isPlaced() && tower.getCollision()){
+                Gdx.gl.glEnable(GL_BLEND);
+                Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                shapeRenderer.setColor(new Color(255/255F, 51/255F, 51/255F, 0.8F));
+                tower.drawRadius(shapeRenderer);
+                shapeRenderer.end();
+                Gdx.gl.glDisable(GL_BLEND);
+            }
+
+            else if(tower.isPlaced() && !tower.getGotButton()){
+                ImageButton btn = createInvisButtonsOnTower(tower, tower.getPosX(), tower.getPosY());
+                btn.addListener(towerClickListener);
+                tower.setGotButton(true);
+            }
+
+            super.batch.begin();
+            tower.getSprite().draw(super.batch);
+            super.batch.end();
+
+        }
+
+
+    }
+
 
     private void addTowerButtonListener() {
         rightSidePanelController.addTowerButtonListener(smurfButton);
@@ -245,40 +283,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         }
     }
 
-    private void renderTowers() {
 
-        for (Tower tower: model.getTowers()) {
-
-
-            if(!tower.isPlaced() && !tower.getCollision()){
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setColor(Color.LIGHT_GRAY);
-                tower.drawRadius(shapeRenderer);
-                shapeRenderer.end();
-            }
-            else if(!tower.isPlaced() && tower.getCollision()){
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setColor(Color.RED);
-                tower.drawRadius(shapeRenderer);
-                shapeRenderer.end();
-
-            }
-
-            else if(tower.isPlaced() && !tower.getGotButton()){
-                ImageButton btn = createInvisButtonsOnTower(tower, tower.getPosX(), tower.getPosY());
-                btn.addListener(towerClickListener);
-                tower.setGotButton(true);
-            }
-
-
-            super.batch.begin();
-            tower.getSprite().draw(super.batch);
-            super.batch.end();
-
-        }
-
-
-    }
 
 
 }
