@@ -170,9 +170,12 @@ public class GameScreen extends AbstractScreen implements Screen {
         super.batch.begin();
 
         synchronized (model.getViruses()) {
-
+            //Sprite virusSprite = new Sprite(new Texture("virus1Hp.png"));
             for (Virus virus : model.getViruses()) {
-                virus.getSprite().draw(super.batch);
+
+                Sprite virusSprite = new Sprite(new Texture(virus.getImagePath()));
+                virusSprite.setPosition(virus.getX(), virus.getY());
+                virusSprite.draw(super.batch);
             }
 
         }
@@ -186,6 +189,7 @@ public class GameScreen extends AbstractScreen implements Screen {
             towerSprite.setPosition(tower.getPosX(), tower.getPosY());
             tower.setHeight(towerSprite.getHeight());
             tower.setWidth(towerSprite.getWidth());
+
             if(!tower.isPlaced() && !tower.getCollision()){
                 Gdx.gl.glEnable(GL_BLEND);
                 Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -254,9 +258,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
 
     private ImageButton createInvisButtonsOnTower(Tower tower,float x, float y) {
-        Texture texture = new Texture(tower.getSpritePath());
-        Texture invisButtonTexture = texture;
-        TextureRegion invisButtonTextureRegion = new TextureRegion(invisButtonTexture);
+        TextureRegion invisButtonTextureRegion = new TextureRegion();
         TextureRegionDrawable invisTexRegDrawable = new TextureRegionDrawable(invisButtonTextureRegion);
         ImageButton invisButton = new ImageButton(invisTexRegDrawable); //Set the button up
         invisButton.setColor(255,255,255,0);

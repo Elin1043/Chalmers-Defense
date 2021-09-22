@@ -10,24 +10,34 @@ import com.mygdx.chalmersdefense.Utilities.PositionVector;
  * A class that representates the common enemy type for the game
  */
 public class Virus {
-    private int health;
-    private Sprite sprite;
+    private int health = 1;
+    //private final Sprite sprite;
+
+
+    private final String imagePath = "virus" + health + "Hp.png";
+
+    private float xPos;
+    private float yPos;
+
+
     private final Path path;
     private PositionVector currentMoveToVector;
 
     private int currentMoveToVectorIndex = 0;
 
-    public Virus(int health, Sprite sprite, Path path) {
+    public Virus(int health, Path path) {
         this.health = health;
-        this.sprite = sprite;
+        //this.sprite = sprite;
         this.path = path;
         currentMoveToVector = path.getFirstWaypoint();
-        sprite.setPosition(currentMoveToVector.getX() - sprite.getWidth()/2, currentMoveToVector.getY() - sprite.getHeight()/2);
+        //sprite.setPosition(currentMoveToVector.getX() - sprite.getWidth()/2, currentMoveToVector.getY() - sprite.getHeight()/2);
+        xPos = currentMoveToVector.getX();
+        yPos = currentMoveToVector.getY();
     }
 
-    public Sprite getSprite() {
-        return sprite;
-    }
+//    public Sprite getSprite() {
+//        return sprite;
+//    }
 
     public void update() {
         moveToPoint();
@@ -35,8 +45,10 @@ public class Virus {
 
     private void moveToPoint() {
         int totalSpeed = (3 + health)/4;
-        double diffX = sprite.getX() + sprite.getWidth()/2 - currentMoveToVector.getX();
-        double diffY = sprite.getY() + sprite.getHeight()/2 - currentMoveToVector.getY();
+//        double diffX = xPos + sprite.getWidth()/2 - currentMoveToVector.getX();
+//        double diffY = yPos + sprite.getHeight()/2 - currentMoveToVector.getY();
+        double diffX = xPos - currentMoveToVector.getX();
+        double diffY = yPos - currentMoveToVector.getY();
 
         double totalLengthToVector = Math.sqrt(Math.pow(diffX,2) + Math.pow(diffY,2));
 
@@ -48,7 +60,10 @@ public class Virus {
         if (Double.isNaN(addedDiffX)) { addedDiffX = 0; }
         if (Double.isNaN(addedDiffY)) { addedDiffY = 0; }
 
-        sprite.setPosition((float) (sprite.getX() - addedDiffX), (float) (sprite.getY() - addedDiffY));
+        xPos -= addedDiffX;
+        yPos -= addedDiffY;
+
+        //sprite.setPosition((float) (xPos - addedDiffX), (float) (yPos - addedDiffY));
 
 
         if (totalLengthToVector < totalSpeed) {
@@ -57,5 +72,11 @@ public class Virus {
             } catch (NoFurtherWaypointException ignore) {}
         }
     }
+
+    public float getX() { return xPos; }
+
+    public float getY() { return yPos; }
+
+    public String getImagePath() { return imagePath; }
 
 }
