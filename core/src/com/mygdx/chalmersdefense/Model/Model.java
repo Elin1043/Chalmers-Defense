@@ -26,10 +26,10 @@ import java.util.List;
 
 public class Model {
     private ChalmersDefense game;
-    private ArrayList<Tower> towersList = new ArrayList<>();
+    private final ArrayList<Tower> towersList = new ArrayList<>();
 
 
-    private ArrayList<Rectangle> collisionRectangles = new ArrayList<>();
+    private final ArrayList<Rectangle> collisionRectangles = new ArrayList<>();
 
 
     private Tower newTower;
@@ -37,7 +37,7 @@ public class Model {
 
 
 
-    private Path path;
+    private final Path path;
 
     private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
     private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
@@ -49,8 +49,8 @@ public class Model {
 
     public Model(ChalmersDefense game) {
         this.game = game;
-        factory = new TowerFactory();
-        path = new ClassicPath();
+        factory = new TowerFactory();       // Make factory abstract?
+        path = new ClassicPath();           // Make a path factory instead?
         createCollisionOnPath();
 
     }
@@ -173,7 +173,7 @@ public class Model {
     //Checks if a tower collides with path
     private boolean checkMapAndTowerCollision(Tower tower)
     {
-        for (Rectangle rect:collisionRectangles) {
+        for (Rectangle rect : collisionRectangles) {
             if(tower.getRectangle().overlaps(rect)){
                 return true;
             }
