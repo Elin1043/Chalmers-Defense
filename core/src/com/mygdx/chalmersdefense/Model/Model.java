@@ -81,7 +81,7 @@ public class Model {
     }
 
 
-    //Function for creating the rectangles on path used for collision
+    //Function for creating the rectangles on path used for collision   (TODO Detta borde kanske ligga i path?)
     private void createCollisionOnPath(){
 
 //        for (int i = 0; i < path.getListSize() -1; i++) {

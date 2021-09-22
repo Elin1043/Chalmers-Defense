@@ -48,23 +48,23 @@ public class GameScreen extends AbstractScreen implements Screen {
     private Button startRoundButton;
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
-    private LabelStyle labelStyleBlack36;
-    private Label towerLabel;
-    private Label powerUpLabel;
+    private final LabelStyle labelStyleBlack36;
+    private final Label towerLabel;
+    private final Label powerUpLabel;
 
-    private Image mapImage;
+    private final Image mapImage;
 
-    private ImageButton smurfButton;
-    private ImageButton chemistButton;
-    private ImageButton electroButton;
-    private ImageButton hackerButton;
-    private ImageButton meckButton;
-    private ImageButton ecobutton;
+    private final ImageButton smurfButton;
+    private final ImageButton chemistButton;
+    private final ImageButton electroButton;
+    private final ImageButton hackerButton;
+    private final ImageButton meckButton;
+    private final ImageButton ecobutton;
 
-    private TowerClickListener towerClickListener;
+    private final TowerClickListener towerClickListener;
 
 
-    private HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
+    private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
 
     private final Sprite commonUseSprite = new Sprite(new Texture("virus1Hp.png"));
 
