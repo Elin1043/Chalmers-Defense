@@ -35,19 +35,12 @@ public class Virus {
 
     private void moveToPoint() {
         int totalSpeed = (3 + health)/4;
-        double diffX = sprite.getX() + sprite.getWidth() - currentMoveToVector.getX();
-        double diffY = sprite.getY() + sprite.getHeight() - currentMoveToVector.getY();
-
-        //System.out.println(diffY);
+        double diffX = sprite.getX() + sprite.getWidth()/2 - currentMoveToVector.getX();
+        double diffY = sprite.getY() + sprite.getHeight()/2 - currentMoveToVector.getY();
 
         double totalLengthToVector = Math.sqrt(Math.pow(diffX,2) + Math.pow(diffY,2));
 
         double lengthDiff = totalSpeed/totalLengthToVector;
-
-        //System.out.println(lengthDiff);
-
-        //System.out.println((diffY * lengthDiff));
-        //System.out.println((float) (sprite.getY() - (diffY * lengthDiff)));
 
         double addedDiffX = (diffX * lengthDiff);
         double addedDiffY = (diffY * lengthDiff);
@@ -56,7 +49,6 @@ public class Virus {
         if (Double.isNaN(addedDiffY)) { addedDiffY = 0; }
 
         sprite.setPosition((float) (sprite.getX() - addedDiffX), (float) (sprite.getY() - addedDiffY));
-
 
 
         if (totalLengthToVector < totalSpeed) {

@@ -28,13 +28,6 @@ public abstract class Path {
         return waypoint;
     }
 
-    public boolean isAtWaypoint(float x, float y, PositionVector virusVector) {
-        if (Math.abs(x - virusVector.getX()) <= 1) {
-            return (Math.abs(y - virusVector.getY()) <= 1);
-        }
-        return false;
-    }
-
     public PositionVector getFirstWaypoint() {
         return new PositionVector(startingPoint);
     }
