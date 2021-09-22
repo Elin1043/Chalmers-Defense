@@ -53,25 +53,10 @@ public class Model {
 
     //Update all the components in model
     public void updateModel() {
-        updateTowers();
         updateVirus();
     }
 
-    //Update the towers on map
-    private void updateTowers() {
-        for (Tower tower: towersList) {
-            tower.setPos(tower.getSprite().getX(), tower.getSprite().getY());
 
-            if(!tower.isPlaced() && !checkCollisionOfTower(tower)){
-                tower.setCollision(false);
-
-            }
-            else if(!tower.isPlaced() && checkCollisionOfTower(tower)){
-                tower.setCollision(true);
-            }
-
-        }
-    }
 
     // TODO Try to fix concurrent modification error in list. Then the try-catch block can be removed
     private void updateVirus() {
@@ -207,7 +192,20 @@ public class Model {
     public void onDrag(InputEvent event) {
         ImageButton button = (ImageButton) event.getListenerActor();
         newTower.getSprite().setPosition( Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getImage().getHeight()/2 );
+        newTower.setPos(newTower.getSprite().getX(), newTower.getSprite().getY());
         newTower.setRectangle();
+
+        for (Tower tower: towersList) {
+
+            if(!tower.isPlaced() && !checkCollisionOfTower(tower)){
+                tower.setCollision(false);
+
+            }
+            else if(!tower.isPlaced() && checkCollisionOfTower(tower)){
+                tower.setCollision(true);
+            }
+
+        }
     }
 
     //When let go of tower, check if valid spot to let go.
