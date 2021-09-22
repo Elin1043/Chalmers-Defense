@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.Model;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
 import com.mygdx.chalmersdefense.Model.Path.Path;
 import com.mygdx.chalmersdefense.Utilities.PositionVector;
 
@@ -59,9 +60,12 @@ public class Virus {
 
 
         if (totalLengthToVector < totalSpeed) {
-            currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex++);
+            try {
+                currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex++);
+            } catch (NoFurtherWaypointException e) {
+                currentMoveToVectorIndex = 0;
+            }
         }
-
     }
 
 }
