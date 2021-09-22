@@ -42,7 +42,7 @@ public class Virus {
     }
 
     private void moveToPoint() {
-        int totalSpeed = (3 + health)/4;
+        double totalSpeed = (3F + health)/4F;
 //        double diffX = xPos + sprite.getWidth()/2 - currentMoveToVector.getX();
 //        double diffY = yPos + sprite.getHeight()/2 - currentMoveToVector.getY();
         double diffX = xPos - currentMoveToVector.getX();
