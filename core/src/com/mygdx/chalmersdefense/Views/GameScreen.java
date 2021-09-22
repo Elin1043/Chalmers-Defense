@@ -172,7 +172,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         synchronized (model.getViruses()) {
             //Sprite virusSprite = new Sprite(new Texture("virus1Hp.png"));
             for (Virus virus : model.getViruses()) {
-
                 Sprite virusSprite = new Sprite(new Texture(virus.getImagePath()));
                 virusSprite.setPosition(virus.getX(), virus.getY());
                 virusSprite.draw(super.batch);

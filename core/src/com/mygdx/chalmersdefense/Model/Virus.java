@@ -10,11 +10,11 @@ import com.mygdx.chalmersdefense.Utilities.PositionVector;
  * A class that representates the common enemy type for the game
  */
 public class Virus {
-    private int health = 1;
+    private int health;
     //private final Sprite sprite;
 
 
-    private final String imagePath = "virus" + health + "Hp.png";
+    private String imagePath;
 
     private float xPos;
     private float yPos;
@@ -27,17 +27,18 @@ public class Virus {
 
     public Virus(int health, Path path) {
         this.health = health;
-        //this.sprite = sprite;
+        updateImagePath();
+
         this.path = path;
         currentMoveToVector = path.getFirstWaypoint();
         //sprite.setPosition(currentMoveToVector.getX() - sprite.getWidth()/2, currentMoveToVector.getY() - sprite.getHeight()/2);
         xPos = currentMoveToVector.getX();
         yPos = currentMoveToVector.getY();
+
+
+
     }
 
-//    public Sprite getSprite() {
-//        return sprite;
-//    }
 
     public void update() {
         moveToPoint();
@@ -63,14 +64,16 @@ public class Virus {
         xPos -= addedDiffX;
         yPos -= addedDiffY;
 
-        //sprite.setPosition((float) (xPos - addedDiffX), (float) (yPos - addedDiffY));
-
 
         if (totalLengthToVector < totalSpeed) {
             try {
                 currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex++);
             } catch (NoFurtherWaypointException ignore) {}
         }
+    }
+
+    private void updateImagePath() {
+        imagePath = "virus" + health + "Hp.png";
     }
 
     public float getX() { return xPos; }
