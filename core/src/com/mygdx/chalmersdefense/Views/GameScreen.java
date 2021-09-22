@@ -71,9 +71,9 @@ public class GameScreen extends AbstractScreen implements Screen {
     private HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
 
 
-    public GameScreen(Model model, RightSidePanelController rightSidePanelController){
+    public GameScreen(Model model){
         super();
-        this.rightSidePanelController = rightSidePanelController;
+        this.rightSidePanelController = new RightSidePanelController(model);
         this.model = model;
 
         mapImage = new Image(new Texture("ClassicMap.png"));
