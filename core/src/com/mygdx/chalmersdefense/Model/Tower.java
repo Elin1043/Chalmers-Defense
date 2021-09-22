@@ -1,8 +1,7 @@
 package com.mygdx.chalmersdefense.Model;
 
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -14,7 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 
 public class Tower extends Actor {
-    private final Sprite sprite;
+
+    private final String spritePath;
     private int angle = 0;
     private float range;
     private String name;
@@ -22,6 +22,9 @@ public class Tower extends Actor {
     private boolean isPlaced=false;
     private float x;
     private float y;
+
+
+
     private float width;
     private float height;
 
@@ -38,15 +41,16 @@ public class Tower extends Actor {
 
 
 
-    public Tower(float x, float y, Sprite sprite, String name, int attackDamage, int attackSpeed, int cost){
-        this.sprite = sprite;
+    public Tower(float x, float y, String spritePath, String name, int attackDamage, int attackSpeed, int cost){
+        this.spritePath = spritePath;
         this.name=name;
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
 
+
+        this.width = 100;
+        this.height = 100;
         this.setPos(x,y);
-        this.width = sprite.getWidth();
-        this.height = sprite.getHeight();
         this.range = 100;
         this.cost = cost;
         this.collision = false;
@@ -57,11 +61,10 @@ public class Tower extends Actor {
         return cost;
     }
 
-    public ShapeRenderer drawRadius(ShapeRenderer shape){
-        shape.circle(this.x + this.width/2 , this.y  + this.height/2, this.range);
-        return shape;
-
+    public String getSpritePath() {
+        return spritePath;
     }
+
     public boolean getGotButton() {
         return gotButton;
     }
@@ -80,6 +83,16 @@ public class Tower extends Actor {
     public void setRectangle(){
         rectangle = new Rectangle();
         rectangle.set(this.x  , this.y  , this.width,this.height);
+    }
+
+    @Override
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    @Override
+    public void setHeight(float height) {
+        this.height = height;
     }
 
     public Rectangle getRectangle(){
@@ -112,9 +125,6 @@ public class Tower extends Actor {
         return y;
     }
 
-    public Sprite getSprite(){
-        return sprite;
-    }
 
 
     public int getAngle(){
