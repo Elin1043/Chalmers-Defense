@@ -3,7 +3,7 @@ package com.mygdx.chalmersdefense.Model;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import com.mygdx.chalmersdefense.Model.Tower;
+
 /**
  * @author Elin Forsberg
  * A factory class for creating different towers

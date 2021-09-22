@@ -11,7 +11,6 @@ import com.mygdx.chalmersdefense.Model.Path.Path;
 import java.util.*;
 import java.util.List;
 
-import static java.lang.Math.abs;
 
 /**
  * @author
@@ -173,14 +172,6 @@ public class Model {
         return money;
     }
 
-    //Return path
-    public Path getPath() {
-        return path;
-    }
-    //Return array of rectangles making up path
-    public ArrayList<Rectangle> getCollisionRectangles() {
-        return collisionRectangles;
-    }
 
     // Ska vi använda Arraylist eller bara List ?
     //Return list of towers on map

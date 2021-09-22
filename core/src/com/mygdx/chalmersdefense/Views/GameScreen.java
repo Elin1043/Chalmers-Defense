@@ -5,8 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.Model.Virus;
 import com.mygdx.chalmersdefense.Model.VirusFactory;
@@ -39,13 +37,13 @@ import java.util.HashMap;
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
-    private RightSidePanelController rightSidePanelController;
-    private Model model;
+    private final RightSidePanelController rightSidePanelController;
+    private final Model model;
 
     private Image sideBarBackground;
     private Button startRoundButton;
 
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
     private LabelStyle labelStyleBlack36;
     private Label towerLabel;
     private Label powerUpLabel;
@@ -60,7 +58,6 @@ public class GameScreen extends AbstractScreen implements Screen {
     private ImageButton ecobutton;
 
     private TowerClickListener towerClickListener;
-    private Batch batch = super.getBatch();
 
 
     private HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
