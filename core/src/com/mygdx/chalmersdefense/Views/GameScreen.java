@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.mygdx.chalmersdefense.Controllers.GameScreenController;
 import com.mygdx.chalmersdefense.Model.Virus;
 import com.mygdx.chalmersdefense.Model.VirusFactory;
 import java.util.*;
@@ -40,6 +41,7 @@ import java.util.HashMap;
 public class GameScreen extends AbstractScreen implements Screen {
 
     private RightSidePanelController rightSidePanelController;
+    private GameScreenController gameScreenController;
     private Model model;
 
     private Image sideBarBackground;
@@ -74,10 +76,12 @@ public class GameScreen extends AbstractScreen implements Screen {
     public GameScreen(Model model){
         super();
         this.rightSidePanelController = new RightSidePanelController(model);
+        this.gameScreenController = new GameScreenController(model);
         this.model = model;
 
         mapImage = new Image(new Texture("ClassicMap.png"));
         mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
+        gameScreenController.addMapClickListener(mapImage);
 
         labelStyleBlack36 = generateLabelStyle(36, Color.BLACK);
 
@@ -142,9 +146,8 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         renderViruses();
 
-        if (model.getClickedTower() != null) {
-            bottomBarPanelUpgradeGroup.setVisible(true);
-        }
+        // If clicked tower is present show upgrade panel.
+        bottomBarPanelUpgradeGroup.setVisible(model.getClickedTower() != null);
 
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
