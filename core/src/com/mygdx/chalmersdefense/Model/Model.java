@@ -40,6 +40,8 @@ public class Model {
 
     private int money = 300;
 
+    //Remove libgdx from model
+
 
 
 
@@ -188,11 +190,12 @@ public class Model {
         towersList.add(newTower);
     }
 
+
+
     //While dragging the tower, follow the mouse
     public void onDrag(InputEvent event) {
         ImageButton button = (ImageButton) event.getListenerActor();
-        newTower.getSprite().setPosition( Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getImage().getHeight()/2 );
-        newTower.setPos(newTower.getSprite().getX(), newTower.getSprite().getY());
+        newTower.setPos( Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getImage().getHeight()/2 );
         newTower.setRectangle();
 
         for (Tower tower: towersList) {
@@ -215,8 +218,7 @@ public class Model {
         ImageButton button = (ImageButton) event.getListenerActor();
         if(!newTower.getCollision()){
             newTower.setPlaced(true);
-            newTower.getSprite().setPosition(Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight()  - Gdx.input.getY()) - button.getImage().getHeight()/2 );
-            newTower.setPos(Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getImage().getHeight()/2);
+            newTower.setPos(Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight()  - Gdx.input.getY()) - button.getImage().getHeight()/2 );
             newTower.setRectangle();
 
         }

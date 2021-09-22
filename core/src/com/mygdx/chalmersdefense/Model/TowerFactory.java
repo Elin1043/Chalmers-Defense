@@ -10,12 +10,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  */
 
 public class TowerFactory {
-    private Sprite smurfImage;
-    private Sprite chemistImage;
-    private Sprite electroImage;
-    private Sprite hackerImage;
-    private Sprite meckImage;
-    private Sprite ecoImage;
 
     private String smurfImagePath = "Towers/Smurf.png";
     private String chemistImagePath = "Towers/Chemist.png";
@@ -26,41 +20,35 @@ public class TowerFactory {
 
 
     public Tower CreateSmurf(int startPosX, int startPosY){
-        smurfImage = new Sprite(new Texture("Towers/Smurf.png"));
-        Tower smurf = new Tower(startPosX,startPosY, smurfImage, smurfImagePath, "SmurfTower", 10,10, 100);
+        Tower smurf = new Tower(startPosX,startPosY, smurfImagePath, "SmurfTower", 10,10, 100);
 
         return smurf;
     }
 
     public Tower CreateChemist(int startPosX, int startPosY){
-        chemistImage = new Sprite(new Texture("Towers/Chemist.png"));
-        Tower chemist = new Tower(startPosX,startPosY, chemistImage, chemistImagePath, "ChemistTower", 30,10, 200);
+        Tower chemist = new Tower(startPosX,startPosY, chemistImagePath, "ChemistTower", 30,10, 200);
         return chemist;
     }
 
     public Tower CreateHacker(int startPosX, int startPosY){
-        hackerImage = new Sprite(new Texture("Towers/Hacker.png"));
-        Tower hacker = new Tower(startPosX,startPosY, hackerImage, hackerImagePath, "HackerTower", 10,10, 300);
+        Tower hacker = new Tower(startPosX,startPosY,  hackerImagePath, "HackerTower", 10,10, 300);
 
         return hacker;
     }
 
     public Tower CreateElectro(int startPosX, int startPosY){
-        electroImage = new Sprite(new Texture("Towers/Electro.png"));
-        Tower electro = new Tower(startPosX,startPosY, electroImage, electroImagePath, "ElectroTower", 20,10, 400);
+        Tower electro = new Tower(startPosX,startPosY,  electroImagePath, "ElectroTower", 20,10, 400);
         return electro;
     }
 
 
     public Tower CreateMeck(int startPosX, int startPosY){
-        meckImage = new Sprite(new Texture("Towers/Meck.png"));
-        Tower meck = new Tower(startPosX,startPosY, meckImage, meckImagePath, "MeckTower", 30,10, 500);
+        Tower meck = new Tower(startPosX,startPosY,  meckImagePath, "MeckTower", 30,10, 500);
         return meck;
     }
 
     public Tower CreateEco(int startPosX, int startPosY){
-        ecoImage = new Sprite(new Texture("Towers/Eco.png"));
-        Tower eco = new Tower(startPosX,startPosY, ecoImage, ecoImagePath, "EcoTower", 20,10, 600);
+        Tower eco = new Tower(startPosX,startPosY, ecoImagePath, "EcoTower", 20,10, 600);
         return eco;
     }
 

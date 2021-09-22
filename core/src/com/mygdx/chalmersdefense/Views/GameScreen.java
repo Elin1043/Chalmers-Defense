@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.Model.Virus;
 import com.mygdx.chalmersdefense.Model.VirusFactory;
@@ -186,7 +187,10 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private void renderTowers() {
         for (Tower tower: model.getTowers()) {
-
+            Sprite towerSprite = new Sprite(new Texture(tower.getSpritePath()));
+            towerSprite.setPosition(tower.getPosX(), tower.getPosY());
+            tower.setHeight(towerSprite.getHeight());
+            tower.setWidth(towerSprite.getWidth());
             if(!tower.isPlaced() && !tower.getCollision()){
                 Gdx.gl.glEnable(GL_BLEND);
                 Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -213,7 +217,7 @@ public class GameScreen extends AbstractScreen implements Screen {
             }
 
             super.batch.begin();
-            tower.getSprite().draw(super.batch);
+            towerSprite.draw(super.batch);
             super.batch.end();
 
         }
@@ -255,7 +259,8 @@ public class GameScreen extends AbstractScreen implements Screen {
 
 
     private ImageButton createInvisButtonsOnTower(Tower tower,float x, float y) {
-        Texture invisButtonTexture = tower.getSprite().getTexture();
+        Texture texture = new Texture(tower.getSpritePath());
+        Texture invisButtonTexture = texture;
         TextureRegion invisButtonTextureRegion = new TextureRegion(invisButtonTexture);
         TextureRegionDrawable invisTexRegDrawable = new TextureRegionDrawable(invisButtonTextureRegion);
         ImageButton invisButton = new ImageButton(invisTexRegDrawable); //Set the button up
