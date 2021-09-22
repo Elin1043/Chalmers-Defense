@@ -66,6 +66,8 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
 
+    private final Sprite commonUseSprite = new Sprite(new Texture("virus1Hp.png"));
+
 
     public GameScreen(Model model, RightSidePanelController rightSidePanelController){
         super();
@@ -172,9 +174,11 @@ public class GameScreen extends AbstractScreen implements Screen {
         synchronized (model.getViruses()) {
             //Sprite virusSprite = new Sprite(new Texture("virus1Hp.png"));
             for (Virus virus : model.getViruses()) {
-                Sprite virusSprite = new Sprite(new Texture(virus.getImagePath()));
-                virusSprite.setPosition(virus.getX(), virus.getY());
-                virusSprite.draw(super.batch);
+                //virusSprite = new Sprite(new Texture(virus.getImagePath()));
+
+                commonUseSprite.setTexture(new Texture(virus.getImagePath()));
+                commonUseSprite.setPosition(virus.getX(), virus.getY());
+                commonUseSprite.draw(super.batch);
             }
 
         }

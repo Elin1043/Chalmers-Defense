@@ -1,6 +1,5 @@
 package com.mygdx.chalmersdefense.Model;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
 import com.mygdx.chalmersdefense.Model.Path.Path;
 import com.mygdx.chalmersdefense.Utilities.PositionVector;
@@ -34,8 +33,6 @@ public class Virus {
         //sprite.setPosition(currentMoveToVector.getX() - sprite.getWidth()/2, currentMoveToVector.getY() - sprite.getHeight()/2);
         xPos = currentMoveToVector.getX();
         yPos = currentMoveToVector.getY();
-
-
 
     }
 
@@ -72,9 +69,7 @@ public class Virus {
         }
     }
 
-    private void updateImagePath() {
-        imagePath = "virus" + health + "Hp.png";
-    }
+    private void updateImagePath() { imagePath = "virus" + health + "Hp.png"; }
 
     public float getX() { return xPos; }
 
