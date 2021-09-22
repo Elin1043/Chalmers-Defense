@@ -28,7 +28,7 @@ public class RightSidePanelController {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // Add action here
+                model.getVirusSpawner().spawnRound(1);                  // Will need to change later more
             }
         });
     }
