@@ -15,6 +15,7 @@ public abstract class Path {
 
     }
 
+
     protected abstract void setPathWaypoints();
 
     public PositionVector getWaypoint(int index) throws NoFurtherWaypointException {
@@ -31,6 +32,8 @@ public abstract class Path {
     public PositionVector getFirstWaypoint() {
         return new PositionVector(startingPoint);
     }
+
+
 
 
 }
