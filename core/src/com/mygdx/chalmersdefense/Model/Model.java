@@ -8,11 +8,12 @@ import com.mygdx.chalmersdefense.ChalmersDefense;
 import java.util.*;
 
 /**
- * @author
  *
  *
- * @Modified by Elin Forsberg
- *  Added methods to handle placing towers + cost of towers
+ *
+ *
+ *  2021-09-20 Modified by Elin Forsberg: Added methods to handle placing towers + cost of towers
+ *  2021-09-22 Modified by Daniel Persson: Added support for storing a clicked tower and added algorithm for finding what tower is being clicked.
  */
 
 public class Model {
@@ -21,6 +22,7 @@ public class Model {
 
 
     Tower newTower;
+    private Tower clickedTower;
     TowerFactory factory;
 
     private List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
@@ -103,6 +105,10 @@ public class Model {
         return towersList;
     }
 
+    public Tower getClickedTower() {
+        return clickedTower;
+    }
+
     public List<Virus> getViruses() {
         return allViruses;
     }
@@ -149,9 +155,17 @@ public class Model {
         }
     }
 
-    public void towerClicked() {
-        //TODO fill
-        System.out.println("Tower clicked");
+    public void towerClicked(float x, float y) {
+
+        // Algorithm for finding which tower is clicked
+        for (Tower tower : towersList) {
+            float towerCenterX = tower.getPosX() + tower.getWidth()/2;
+            float towerCenterY = tower.getPosY() + tower.getHeight()/2;
+            if (Math.sqrt(Math.pow(towerCenterX - x, 2) + Math.pow(towerCenterY - y, 2)) <= tower.getWidth()) {
+                System.out.println("Found it");
+                clickedTower = tower;
+            }
+        }
 
     }
 }
