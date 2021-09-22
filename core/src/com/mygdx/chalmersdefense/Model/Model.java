@@ -10,6 +10,7 @@ import com.mygdx.chalmersdefense.Model.Path.GamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.Model.Path.Path;
 
 import java.util.*;
+import java.util.List;
 
 import static java.lang.Math.abs;
 
@@ -22,12 +23,16 @@ import static java.lang.Math.abs;
  */
 
 public class Model {
-    ChalmersDefense game;
-    ArrayList<Tower> towersList = new ArrayList<>();
+    private ChalmersDefense game;
+    private ArrayList<Tower> towersList = new ArrayList<>();
 
 
-    Tower newTower;
-    TowerFactory factory;
+
+    private ArrayList<Rectangle> collisionRectangles = new ArrayList<>();
+
+
+    private Tower newTower;
+    private TowerFactory factory;
 
 
 
@@ -45,6 +50,8 @@ public class Model {
         this.game = game;
         factory = new TowerFactory();
         path = new ClassicPath();
+        createCollisionOnPath();
+
     }
 
     public void updateModel() {
@@ -84,33 +91,66 @@ public class Model {
     }
 
 
+    private void createCollisionOnPath(){
+        path.getFirstWaypoint();
 
-    private boolean checkMapAndTowerCollision(Circle circ, Rectangle rect)
+        for (int i = 0; i < 12; i++) {
+            Rectangle rectangle = new Rectangle();
+            if(path.getWaypoint(i).getX() == path.getWaypoint(i+1).getX()){
+                float distY = Math.abs((path.getWaypoint(i+1).getY() - path.getWaypoint(i).getY()));
+                if(path.getWaypoint(i).getY() < path.getWaypoint(i+1).getY()){
+
+                    rectangle.set(path.getWaypoint(i).getX()-40 , path.getWaypoint(i).getY() -40,80, distY + 80);
+                }
+                else{
+                    rectangle.set(path.getWaypoint(i).getX()-40 , path.getWaypoint(i).getY() -distY -40,80, distY + 80);
+
+                }
+
+            }
+            else{
+                float distX = Math.abs((path.getWaypoint(i+1).getX() - path.getWaypoint(i).getX()));
+                if(path.getWaypoint(i).getX() < path.getWaypoint(i+1).getX()){
+
+                    rectangle.set(path.getWaypoint(i).getX()-40 , path.getWaypoint(i).getY()-40, distX, 80);
+                }
+                else{
+                    rectangle.set(path.getWaypoint(i).getX()-40 - distX  , path.getWaypoint(i).getY()-40, distX, 80);
+                }
+
+
+            }
+            collisionRectangles.add(rectangle);
+
+
+
+        }
+    }
+
+    private boolean checkMapAndTowerCollision(Rectangle rectangle)
     {
+        for (Rectangle rect:collisionRectangles) {
+            if(rectangle.overlaps(rect)){
+                return true;
+            }
 
-        float distancex = 0;
-        float distancey = 0;
-        distancex = abs(circ.x - rect.x);
-        distancey = abs(circ.y - rect.y);
-        if (distancex > (rect.width/2 + circ.radius)) { return false; }
-        if (distancey > (rect.height/2 + circ.radius)) { return false; }
-        if (distancex <= (rect.width/2)) { return true; }
-        if (distancey <= (rect.height/2)) { return true; }
-        int cDist_sq = (int) (distancex - rect.width / 2) ^ 2 + (int) (distancey - rect.height / 2) ^ 2;
-
-        return (cDist_sq <= ((int)circ.radius^2));
+        }
+        return false;
     }
 
 
     private boolean checkCollisionOfTowers(Tower tower) {
         for(Tower checkTower: towersList){
-            if(tower.getCircle().overlaps(checkTower.getCircle()) && !(checkTower.hashCode() == tower.hashCode())){
+            if(tower.getRectangle().overlaps(checkTower.getRectangle()) && !(checkTower.hashCode() == tower.hashCode())){
                 return true;
             }
-            else if(!(-20 < (tower.getPosX() - tower.getRange())) || (1580 < (tower.getPosX() + tower.getRange()))){
+            else if(!(-20 < (tower.getPosX() - tower.getRectangle().width)) || (1580 < (tower.getPosX() + tower.getRectangle().width))){
                     return true;
             }
-            else if(!(-20 < (tower.getPosY() - tower.getRange())) || (1000 < (tower.getPosY() + tower.getRange()))){
+            else if(!(130 < (tower.getPosY() - tower.getRectangle().height) || (1000 < (tower.getPosY() + tower.getRectangle().height)))){
+                return true;
+            }
+            else if(checkMapAndTowerCollision(tower.getRectangle())){
                 return true;
             }
 
@@ -126,6 +166,9 @@ public class Model {
 
     public Path getPath() {
         return path;
+    }
+    public ArrayList<Rectangle> getCollisionRectangles() {
+        return collisionRectangles;
     }
 
     // Ska vi använda Arraylist eller bara List ?
@@ -161,7 +204,7 @@ public class Model {
     public void onDrag(InputEvent event) {
         ImageButton button = (ImageButton) event.getListenerActor();
         newTower.getSprite().setPosition( Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getImage().getHeight()/2 );
-        newTower.setCircle();
+        newTower.setRectangle();
     }
 
     public void dragEnd(InputEvent event) {
@@ -170,7 +213,7 @@ public class Model {
             newTower.setPlaced(true);
             newTower.getSprite().setPosition(Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight()  - Gdx.input.getY()) - button.getImage().getHeight()/2 );
             newTower.setPos(Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getImage().getHeight()/2);
-            newTower.setCircle();
+            newTower.setRectangle();
 
 
         }
