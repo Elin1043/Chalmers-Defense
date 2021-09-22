@@ -17,12 +17,13 @@ public abstract class Path {
 
     protected abstract void setPathWaypoints();
 
-    public PositionVector getWaypoint(int index) throws NoFurtherWaypointException {
+    public PositionVector getWaypoint(int index)  {
         PositionVector waypoint;
         try {
             waypoint = pathWaypoints.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new NoFurtherWaypointException(e.getMessage());
+            //throw new NoFurtherWaypointException(e.getMessage());
+            waypoint = pathWaypoints.get(index - 1);
         }
 
         return waypoint;
