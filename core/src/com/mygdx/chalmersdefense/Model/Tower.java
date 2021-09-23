@@ -30,10 +30,14 @@ public class Tower extends Actor {
 
     private int attackDamage;
     private int attackSpeed;
+    private int reloadTime;
     private int cost;
 
     private boolean collision;
     private boolean gotButton;
+
+    private int currentReload;
+    private double reloadTimeInSeconds;
 
 
     private Rectangle rectangle = new Rectangle();
@@ -41,11 +45,15 @@ public class Tower extends Actor {
 
 
 
-    public Tower(float x, float y, String spritePath, String name, int attackDamage, int attackSpeed, int cost){
+
+    public Tower(float x, float y, String spritePath, String name, int attackDamage, int attackSpeed, int cost, int reloadTime){
         this.spritePath = spritePath;
         this.name=name;
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
+        this.reloadTime = reloadTime;
+
+       reloadTimeInSeconds = ((int) (reloadTime / 60.0 * 100)) / 100.0;
 
 
         this.width = 100;
@@ -72,6 +80,7 @@ public class Tower extends Actor {
     public void setGotButton(boolean gotButton) {
         this.gotButton = gotButton;
     }
+
     public boolean getCollision(){
         return collision;
     }
@@ -155,4 +164,11 @@ public class Tower extends Actor {
     }
 
 
+    public void shootProjectile(){
+
+//        if(currentReload < 1 && currentTarget != null){
+//            add(createProjectile());
+//            currentReload = reloadTime;
+//        }
+    }
 }
