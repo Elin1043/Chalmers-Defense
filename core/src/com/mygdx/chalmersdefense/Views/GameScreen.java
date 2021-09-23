@@ -50,6 +50,8 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final Label towerLabel = createLabel("Towers", 20);
     private final Label powerUpLabel = createLabel("Power-ups", 620);
 
+    private final Label lifeLabel = createLabel("Test", 700);
+
     private final Image mapImage;
 
     private final ImageButton smurfButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
@@ -103,6 +105,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(mapImage);
         addActor(towerLabel);
         addActor(powerUpLabel);
+        addActor(lifeLabel);
         addActor(startRoundButton);
     }
 
@@ -114,6 +117,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         checkAffordableTowers();
         renderViruses();
 
+        updateLifeCounter();
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             model.getViruses().add(VirusFactory.createVirusOne());
@@ -122,6 +126,10 @@ public class GameScreen extends AbstractScreen implements Screen {
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             model.getVirusSpawner().spawnRound(1);
         }
+    }
+
+    private void updateLifeCounter() {
+        lifeLabel.setText(model.getLivesLeft());
     }
 
     private Label createLabel(String text, float y) {

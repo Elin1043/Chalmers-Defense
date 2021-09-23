@@ -118,9 +118,8 @@ public class Model {
 
 
     //Return money
-    public int getMoney() {
-        return player.getMoney();
-    }
+    public int getMoney() { return player.getMoney(); }
+    public int getLivesLeft() {return player.getLives(); }
 
 
     //Return list of towers on map
