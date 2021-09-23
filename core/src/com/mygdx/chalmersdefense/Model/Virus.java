@@ -89,4 +89,6 @@ public class Virus {
 
     public String getSpriteKey() { return spriteKey; }
 
+    public int getLifeDecreaseAmount() { return health; }
+
 }

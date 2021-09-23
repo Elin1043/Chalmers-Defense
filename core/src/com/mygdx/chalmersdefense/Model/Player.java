@@ -16,6 +16,11 @@ class Player {
 
 
     int getLives() { return lives; }
+    int getMoney() { return money; }
+
+    void decreaseLivesBy(int livesToDecrease){
+        lives -= livesToDecrease;
+    }
 
 
 }

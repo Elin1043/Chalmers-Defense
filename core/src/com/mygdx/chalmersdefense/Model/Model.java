@@ -24,21 +24,19 @@ import java.util.List;
 
 public class Model {
     private ChalmersDefense game;
-    private final ArrayList<Tower> towersList = new ArrayList<>();
 
+    private final ArrayList<Tower> towersList = new ArrayList<>();
+    private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
 
     private Tower newTower;
     private TowerFactory factory;
 
-
+    private final Player player = new Player(100, 300); //Change staring capital later. Just used for testing right now
 
     private final Path path;
 
-    private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
+
     private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
-
-    private int money = 300;
-
 
 
 
@@ -69,6 +67,7 @@ public class Model {
             }
 
             for (Virus virus : virusToRemove){
+                player.decreaseLivesBy(virus.getLifeDecreaseAmount());
                 allViruses.remove(virus);
             }
 
@@ -120,7 +119,7 @@ public class Model {
 
     //Return money
     public int getMoney() {
-        return money;
+        return player.getMoney();
     }
 
 
