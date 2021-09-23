@@ -39,14 +39,9 @@ public class Virus {
     public Virus(int health, Path path) {
         this.health = health;
         updateImagePath();
-
         this.path = path;
+
         currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex);
-        //sprite.setPosition(currentMoveToVector.getX() - sprite.getWidth()/2, currentMoveToVector.getY() - sprite.getHeight()/2);
-
-
-        //xPos = currentMoveToVector.getX();
-        //yPos = currentMoveToVector.getY();
 
         try {
             BufferedImage img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(imagePath)));
@@ -67,8 +62,7 @@ public class Virus {
 
     private void moveToPoint() {
         double totalSpeed = (3F + health)/4F;
-//        double diffX = xPos + sprite.getWidth()/2 - currentMoveToVector.getX();
-//        double diffY = yPos + sprite.getHeight()/2 - currentMoveToVector.getY();
+
         double diffX = xPos + witdhX / 2F - currentMoveToVector.getX();
         double diffY = yPos + heightY / 2F - currentMoveToVector.getY();
 
@@ -85,13 +79,12 @@ public class Virus {
         xPos -= addedDiffX;
         yPos -= addedDiffY;
 
-
         if (totalLengthToVector < totalSpeed) {
             currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex++);
         }
     }
 
-    private void updateImagePath() { imagePath = "virus" + health + "Hp.png"; }
+    private void updateImagePath() { imagePath = "viruses/virus" + health + "Hp.png"; }
 
     public float getX() { return xPos; }
 

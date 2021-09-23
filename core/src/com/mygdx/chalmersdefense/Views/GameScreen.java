@@ -66,7 +66,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
 
-    private final Sprite commonUseSprite = new Sprite(new Texture("virus1Hp.png"));
+    private final Sprite commonUseSprite = new Sprite(new Texture("viruses/virus1Hp.png"));
 
 
     public GameScreen(Model model, RightSidePanelController rightSidePanelController){
