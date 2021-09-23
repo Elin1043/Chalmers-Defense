@@ -87,17 +87,17 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         powerUpLabel = createLabel("Power-ups", 620);
 
-        smurfButton = createTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
+        smurfButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
         towerButtons.put(100, smurfButton);
-        chemistButton = createTowerButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1770, 830, "chemist");
+        chemistButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1770, 830, "chemist");
         towerButtons.put(200, chemistButton);
-        hackerButton = createTowerButtons(new Texture("buttons/TowerButtons/HackerButton.png"), 1620, 650, "hacker");
+        hackerButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/HackerButton.png"), 1620, 650, "hacker");
         towerButtons.put(300, hackerButton);
-        electroButton = createTowerButtons(new Texture("buttons/TowerButtons/ElectroButton.png"), 1770, 650, "electro");
+        electroButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ElectroButton.png"), 1770, 650, "electro");
         towerButtons.put(400, electroButton);
-        meckButton = createTowerButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "meck");
+        meckButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "meck");
         towerButtons.put(500, meckButton);
-        ecobutton = createTowerButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
+        ecobutton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
         towerButtons.put(600, ecobutton);
 
         addTowerButtonListener();
@@ -192,8 +192,9 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private void renderTowers() {
         for (Tower tower: model.getTowers()) {
-            Sprite towerSprite = new Sprite(new Texture(tower.getSpriteKey()));
+            Sprite towerSprite = spriteMap.get(tower.getSpriteKey());
             towerSprite.setPosition(tower.getPosX(), tower.getPosY());
+
             tower.setHeight(towerSprite.getHeight());
             tower.setWidth(towerSprite.getWidth());
 
@@ -217,7 +218,7 @@ public class GameScreen extends AbstractScreen implements Screen {
             }
 
             else if(tower.isPlaced() && !tower.getGotButton()){
-                ImageButton btn = createInvisButtonsOnTower(tower, tower.getPosX(), tower.getPosY());
+                ImageButton btn = createInvisButtonsOnTower(towerSprite, tower.getPosX(), tower.getPosY());
                 btn.addListener(towerClickListener);
                 tower.setGotButton(true);
             }
@@ -251,7 +252,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         rightSidePanelController.addStartButtonListener(startRoundButton);
     }
 
-    private ImageButton createTowerButtons(Texture texture, int x, int y, String name) {
+    private ImageButton createRightPanelTowerButtons(Texture texture, int x, int y, String name) {
         TextureRegion towerButtonTextureRegion = new TextureRegion(texture);
         TextureRegionDrawable towerButtonRegDrawable = new TextureRegionDrawable(towerButtonTextureRegion);
         ImageButton towerButton = new ImageButton(towerButtonRegDrawable); //Set the button up
@@ -264,13 +265,13 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
 
-    private ImageButton createInvisButtonsOnTower(Tower tower,float x, float y) {
-        Texture texture = new Texture(tower.getSpriteKey());
-        TextureRegion invisButtonTextureRegion = new TextureRegion(texture);
+    private ImageButton createInvisButtonsOnTower(Sprite towerSprite,float x, float y) {
+        TextureRegion invisButtonTextureRegion = new TextureRegion(towerSprite);
         TextureRegionDrawable invisTexRegDrawable = new TextureRegionDrawable(invisButtonTextureRegion);
+
         ImageButton invisButton = new ImageButton(invisTexRegDrawable); //Set the button up
         invisButton.setColor(255,255,255,0);
-        invisButton.setSize(tower.getWidth(), tower.getHeight());
+        invisButton.setSize(towerSprite.getWidth(), towerSprite.getHeight());
         invisButton.setPosition(x,y);
 
 
