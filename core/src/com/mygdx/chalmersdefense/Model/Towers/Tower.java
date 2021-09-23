@@ -24,7 +24,7 @@ import java.util.List;
 public abstract class Tower extends Actor {
 
     private final String spritePath;
-    private int angle = 0;
+    private float angle = 0;
     private float range;
     private String name;
     //private Tower upgrade;
@@ -137,11 +137,11 @@ public abstract class Tower extends Actor {
 
 
 
-    public int getAngle(){
+    public float getAngle(){
         return angle;
     }
 
-    public void setAngle(int setangle){
+    public void setAngle(float setangle){
         angle = setangle;
 
     }

@@ -1,5 +1,6 @@
 package com.mygdx.chalmersdefense.Model.Towers;
 
+import com.mygdx.chalmersdefense.Model.TargetMode.Calculate;
 import com.mygdx.chalmersdefense.Model.TargetMode.TargetMode;
 import com.mygdx.chalmersdefense.Model.Virus;
 
@@ -11,27 +12,31 @@ public class ChemistTower extends Tower{
     private static int range = 100;
     private static int attackDamage = 10;
     private static int attackSpeed = 10;
+
+
     private TargetMode targetMode;
+    private Virus currentTarget;
 
     public ChemistTower(float x, float y, TargetMode targetMode) {
         super(x, y, "Towers/Chemist.png", "ChemistTower", attackDamage, attackSpeed, cost, range);
         this.targetMode = targetMode;
     }
 
-    private ArrayList<Virus> targetsInRange(ArrayList<Virus> viruses){
-        ArrayList<Virus> list = new ArrayList<>();
-
-        for (Virus virus:viruses){
-            if (targetMode.isWithinRange(virus, this.getX(),this.getY() , range)){
-                list.add(virus);
+    public void target(List<Virus> viruses) {
+        if (viruses != null && this.isPlaced()) {
+            currentTarget = targetMode.getTarget(viruses, this.getPosX(), this.getPosY(), range);
+            if (currentTarget != null) {
+                this.setAngle( Calculate.angleDeg(currentTarget.getX(), currentTarget.getY(), this.getPosX(), this.getPosY()));
             }
         }
-        return list;
     }
+
+
+
 
 
     @Override
     public void update(List<Virus> viruses) {
-
+        target(viruses);
     }
 }

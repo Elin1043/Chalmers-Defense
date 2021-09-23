@@ -27,7 +27,7 @@ public class SmurfTower extends Tower{
         if (viruses != null && this.isPlaced()) {
             currentTarget = targetMode.getTarget(viruses, this.getPosX(), this.getPosY(), range);
             if (currentTarget != null) {
-                this.setAngle((int) Calculate.getAngle(this.getPosX(), this.getPosY(), Gdx.input.getX(), Gdx.input.getY()));
+                this.setAngle( Calculate.angleDeg(currentTarget.getX(), currentTarget.getY(), this.getPosX(), this.getPosY()));
             }
         }
     }
