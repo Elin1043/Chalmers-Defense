@@ -14,8 +14,6 @@ public class Virus {
     private final Path path;
     private final PositionVector startPos;
 
-
-
     public Virus(int health, Sprite sprite, Path path) {
         this.health = health;
         this.sprite = sprite;
@@ -31,6 +29,5 @@ public class Virus {
     public void update() {
         sprite.setX(sprite.getX() + (4F + health)/5F);
     }
-
 
 }
