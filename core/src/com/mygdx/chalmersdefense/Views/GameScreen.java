@@ -191,6 +191,7 @@ public class GameScreen extends AbstractScreen implements Screen {
             towerSprite.setPosition(tower.getPosX(), tower.getPosY());
             tower.setHeight(towerSprite.getHeight());
             tower.setWidth(towerSprite.getWidth());
+
             if(!tower.isPlaced() && !tower.getCollision()){
                 Gdx.gl.glEnable(GL_BLEND);
                 Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
