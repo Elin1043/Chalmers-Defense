@@ -10,6 +10,5 @@ public class SmurfTower extends Tower{
 
     public SmurfTower(float x, float y){
         super(x, y, "Towers/Smurf.png", "SmurfTower", attackDamage, attackSpeed, cost, range);
-
     }
 }

@@ -33,7 +33,6 @@ public class Model {
 
 
     private Tower newTower;
-    private TowerFactory factory;
 
 
 
@@ -50,7 +49,6 @@ public class Model {
 
     public Model(ChalmersDefense game) {
         this.game = game;
-        factory = new TowerFactory();       // Make factory abstract?
         path = new ClassicPath();           // Make a path factory instead?
         createCollisionOnPath();
 
@@ -218,12 +216,12 @@ public class Model {
     //Create a tower when user draged from TowerButton
     public void dragStart(String towerName, int x, int y) {
         switch(towerName){
-            case "smurf"   -> newTower = factory.CreateSmurf(x, y);
-//            case "chemist" -> newTower = factory.CreateChemist(x, y);
-//            case "electro" -> newTower = factory.CreateElectro(x, y);
-//            case "hacker"  -> newTower = factory.CreateHacker(x, y);
-//            case "meck"    -> newTower = factory.CreateMeck(x, y);
-//            case "eco"     -> newTower = factory.CreateEco(x, y);
+            case "smurf"   -> newTower = TowerFactory.CreateSmurf(x, y);
+            case "chemist" -> newTower = TowerFactory.CreateChemist(x, y);
+            case "electro" -> newTower = TowerFactory.CreateElectro(x, y);
+            case "hacker"  -> newTower = TowerFactory.CreateHacker(x, y);
+            case "meck"    -> newTower = TowerFactory.CreateMeck(x, y);
+            case "eco"     -> newTower = TowerFactory.CreateEco(x, y);
             default        -> { return; }
         }
 

@@ -261,7 +261,9 @@ public class GameScreen extends AbstractScreen implements Screen {
 
 
     private ImageButton createInvisButtonsOnTower(Tower tower,float x, float y) {
-        TextureRegion invisButtonTextureRegion = new TextureRegion();
+        Texture texture = new Texture(tower.getSpritePath());
+        Texture invisButtonTexture = texture;
+        TextureRegion invisButtonTextureRegion = new TextureRegion(invisButtonTexture);
         TextureRegionDrawable invisTexRegDrawable = new TextureRegionDrawable(invisButtonTextureRegion);
         ImageButton invisButton = new ImageButton(invisTexRegDrawable); //Set the button up
         invisButton.setColor(255,255,255,0);
