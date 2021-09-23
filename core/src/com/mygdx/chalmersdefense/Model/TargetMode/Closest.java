@@ -2,19 +2,21 @@ package com.mygdx.chalmersdefense.Model.TargetMode;
 
 import com.mygdx.chalmersdefense.Model.Virus;
 
-import java.util.ArrayList;
 
-public abstract class Closest extends TargetMode{
+import java.util.ArrayList;
+import java.util.List;
+
+public class Closest extends TargetMode{
 
 
 
     @Override
-    public Virus getTarget(ArrayList<Virus> viruses, float x, float y, double range){
+    public Virus getTarget(List<Virus> viruses, float x, float y, double range){
         double disToClosest;
         Virus closestVirus;
 
         if(viruses.size() > 0){
-            ArrayList<Virus> inRange = new ArrayList<>();
+            List<Virus> inRange = new ArrayList<>();
             for(Virus c: viruses){
                 if(isWithinRange(c,x, y,range)){
                     inRange.add(c);

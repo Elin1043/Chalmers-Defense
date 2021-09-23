@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.mygdx.chalmersdefense.Model.Towers.Tower;
 import com.mygdx.chalmersdefense.Model.Virus;
 import com.mygdx.chalmersdefense.Model.VirusFactory;
 import java.util.*;
@@ -26,7 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.Controllers.TowerClickListener;
 import com.mygdx.chalmersdefense.Model.Model;
-import com.mygdx.chalmersdefense.Model.Towers.Tower;
+
 
 import java.util.HashMap;
 
@@ -36,7 +37,7 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * @author
  *
  *
- * @Modified by Elin Forsberg
+ * Modified by Elin Forsberg
  *  Added methods and variables to handle placing towers
  */
 public class GameScreen extends AbstractScreen implements Screen {
@@ -190,8 +191,9 @@ public class GameScreen extends AbstractScreen implements Screen {
         for (Tower tower: model.getTowers()) {
             Sprite towerSprite = new Sprite(new Texture(tower.getSpritePath()));
             towerSprite.setPosition(tower.getPosX(), tower.getPosY());
-
-
+            towerSprite.setRotation(tower.getAngle());
+            tower.setHeight(towerSprite.getHeight());
+            tower.setWidth(towerSprite.getWidth());
 
             if(!tower.isPlaced() && !tower.getCollision()){
                 Gdx.gl.glEnable(GL_BLEND);

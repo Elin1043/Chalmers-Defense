@@ -4,12 +4,15 @@ package com.mygdx.chalmersdefense.Model.Towers;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mygdx.chalmersdefense.Model.Virus;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -65,7 +68,7 @@ public abstract class Tower extends Actor {
 
 
         this.setPos(x,y);
-        this.range = 100;
+        this.range = range;
         this.cost = cost;
         this.collision = false;
         this.gotButton = false;
@@ -132,6 +135,8 @@ public abstract class Tower extends Actor {
 
 
 
+
+
     public int getAngle(){
         return angle;
     }
@@ -158,6 +163,10 @@ public abstract class Tower extends Actor {
     public int getAttackSpeed() {
         return attackSpeed;
     }
+
+
+
+    public abstract void update(List<Virus> viruses);
 
 
 }

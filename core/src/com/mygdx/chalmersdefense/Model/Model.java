@@ -3,7 +3,6 @@ package com.mygdx.chalmersdefense.Model;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.chalmersdefense.ChalmersDefense;
-import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
 import com.mygdx.chalmersdefense.Model.Path.GamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.Model.Path.Path;
 import com.mygdx.chalmersdefense.Model.Towers.Tower;
@@ -52,9 +51,15 @@ public class Model {
     //Update all the components in model
     public void updateModel() {
         updateVirus();
+        updateTowers();
+
     }
 
-
+    private void updateTowers(){
+        for (Tower tower: towersList) {
+            tower.update((allViruses));
+        }
+    }
 
 
     private void updateVirus(){
@@ -75,8 +80,6 @@ public class Model {
         }
 
     }
-
-
 
 
     //Checks if a tower collides with path
