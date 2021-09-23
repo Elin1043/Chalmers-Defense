@@ -18,8 +18,8 @@ import java.util.List;
  * @author Jenny Carlsson
  *
  *
- * @Modified by Elin Forsberg
- *  Added methods to handle towers + collisions
+ * 2021-09-20 Modified by Elin Forsberg: Added methods to handle towers + collisions
+ * 2021-09-20 Modified by Joel Båtsman Hilmersson: Made updateVirus loop syncronized
  */
 
 public class Model {
@@ -124,7 +124,6 @@ public class Model {
     }
 
 
-    // Ska vi använda Arraylist eller bara List ?
     //Return list of towers on map
     public ArrayList<Tower> getTowers() {
         return towersList;

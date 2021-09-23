@@ -32,40 +32,37 @@ import java.util.HashMap;
 import static com.badlogic.gdx.graphics.GL20.*;
 
 /**
- * @author
+ * @author Daniel Persson
  *
- *
- * @Modified by Elin Forsberg
- *  Added methods and variables to handle placing towers
+ * 2021-09-20 Modified by Elin Forsberg: Added methods and variables to handle placing towers
+ * 2021-09-23 Modified by Joel Båtsman Hilmersson: All sprites now comes from hashmap when rendering
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
     private final RightSidePanelController rightSidePanelController;
     private final Model model;
 
-    private Image sideBarBackground;
+    private final Image sideBarBackground = new Image(new Texture("SideBarBackground.png"));
     private Button startRoundButton;
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
-    private final LabelStyle labelStyleBlack36;
-    private final Label towerLabel;
-    private final Label powerUpLabel;
+    private final LabelStyle labelStyleBlack36 = generateLabelStyle(Color.BLACK);
+    private final Label towerLabel = createLabel("Towers", 20);
+    private final Label powerUpLabel = createLabel("Power-ups", 620);
 
     private final Image mapImage;
 
-    private final ImageButton smurfButton;
-    private final ImageButton chemistButton;
-    private final ImageButton electroButton;
-    private final ImageButton hackerButton;
-    private final ImageButton meckButton;
-    private final ImageButton ecobutton;
+    private final ImageButton smurfButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
+    private final ImageButton chemistButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1770, 830, "chemist");
+    private final ImageButton electroButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ElectroButton.png"), 1770, 650, "electro");
+    private final ImageButton hackerButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/HackerButton.png"), 1620, 650, "hacker");
+    private final ImageButton meckButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "meck");
+    private final ImageButton ecoButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
 
     private final TowerClickListener towerClickListener;
 
 
     private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
-
-    private final Sprite commonUseSprite = new Sprite(new Texture("viruses/virus1Hp.png"));
 
 
     public GameScreen(Model model, RightSidePanelController rightSidePanelController){
@@ -73,32 +70,22 @@ public class GameScreen extends AbstractScreen implements Screen {
         this.rightSidePanelController = rightSidePanelController;
         this.model = model;
 
+        // This should come from classicPath class
         mapImage = new Image(new Texture("ClassicMap.png"));
         mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
 
-        labelStyleBlack36 = generateLabelStyle(36, Color.BLACK);
 
         createRightSidePanel();
         createStartRoundButton();
 
         towerClickListener = new TowerClickListener(model);
 
-        towerLabel = createLabel("Towers", 20);
-
-        powerUpLabel = createLabel("Power-ups", 620);
-
-        smurfButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
         towerButtons.put(100, smurfButton);
-        chemistButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1770, 830, "chemist");
         towerButtons.put(200, chemistButton);
-        hackerButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/HackerButton.png"), 1620, 650, "hacker");
         towerButtons.put(300, hackerButton);
-        electroButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ElectroButton.png"), 1770, 650, "electro");
         towerButtons.put(400, electroButton);
-        meckButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "meck");
         towerButtons.put(500, meckButton);
-        ecobutton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
-        towerButtons.put(600, ecobutton);
+        towerButtons.put(600, ecoButton);
 
         addTowerButtonListener();
     }
@@ -111,7 +98,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(hackerButton);
         addActor(electroButton);
         addActor(meckButton);
-        addActor(ecobutton);
+        addActor(ecoButton);
 
         addActor(mapImage);
         addActor(towerLabel);
@@ -144,17 +131,17 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
 
-    private BitmapFont generateBitmapFont(int size) {
+    private BitmapFont generateBitmapFont() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/CenturyGothic.ttf"));
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-        parameter.size = size;
+        parameter.size = 36;
         BitmapFont font36 = generator.generateFont(parameter);
         generator.dispose();
         return font36;
     }
 
-    private LabelStyle generateLabelStyle(int size, Color color){
-        BitmapFont font36 = generateBitmapFont(size);
+    private LabelStyle generateLabelStyle(Color color){
+        BitmapFont font36 = generateBitmapFont();
         LabelStyle labelStyle = new LabelStyle();
         labelStyle.font = font36;
         labelStyle.fontColor = color;
@@ -162,7 +149,6 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
     private void createRightSidePanel() {
-        sideBarBackground = new Image(new Texture("SideBarBackground.png"));
         sideBarBackground.setPosition(1920 - 320, 0);
     }
 
@@ -171,17 +157,11 @@ public class GameScreen extends AbstractScreen implements Screen {
         super.batch.begin();
 
         synchronized (model.getViruses()) {
-            //Sprite virusSprite = new Sprite(new Texture("virus1Hp.png"));
             for (Virus virus : model.getViruses()) {
-                //virusSprite = new Sprite(new Texture(virus.getImagePath()));
 
-//                commonUseSprite.setTexture(new Texture(virus.getSpriteKey()));
-//                commonUseSprite.setPosition(virus.getX(), virus.getY());
-//                commonUseSprite.draw(super.batch);
                 Sprite virusSprite = spriteMap.get(virus.getSpriteKey());
                 virusSprite.setPosition(virus.getX(), virus.getY());
                 virusSprite.draw(super.batch);
-
 
             }
 
@@ -239,7 +219,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         rightSidePanelController.addTowerButtonListener(hackerButton);
         rightSidePanelController.addTowerButtonListener(electroButton);
         rightSidePanelController.addTowerButtonListener(meckButton);
-        rightSidePanelController.addTowerButtonListener(ecobutton);
+        rightSidePanelController.addTowerButtonListener(ecoButton);
     }
 
 

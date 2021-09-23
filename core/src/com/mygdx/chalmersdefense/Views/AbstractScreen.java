@@ -14,6 +14,11 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.HashMap;
 
+/**
+ * @author Daniel Persson
+ *
+ * 2021-09-23 Modified by Joel Båtsman Hilmersson: Created Hashmap with sprites
+ */
 public abstract class AbstractScreen extends Stage implements Screen {
 
     final HashMap<String, Sprite> spriteMap = new HashMap<>();
