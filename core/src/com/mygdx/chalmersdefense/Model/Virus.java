@@ -63,9 +63,7 @@ public class Virus {
 
 
         if (totalLengthToVector < totalSpeed) {
-            try {
-                currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex++);
-            } catch (NoFurtherWaypointException ignore) {}
+            currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex++);
         }
     }
 
