@@ -41,7 +41,7 @@ public class Virus {
         updateImagePath();
 
         this.path = path;
-        currentMoveToVector = path.getFirstWaypoint();
+        currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex);
         //sprite.setPosition(currentMoveToVector.getX() - sprite.getWidth()/2, currentMoveToVector.getY() - sprite.getHeight()/2);
 
 

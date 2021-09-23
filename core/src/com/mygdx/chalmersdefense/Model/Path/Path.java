@@ -11,21 +11,12 @@ public abstract class Path {
     protected final ArrayList<PositionVector> pathWaypoints;
     private final ArrayList<Rectangle> collisionRectangles = new ArrayList<>();
 
-    protected PositionVector startingPoint;
-
     protected Path() { pathWaypoints = new ArrayList<>(); }
 
 
     protected abstract void setPathWaypoints();
 
-    public PositionVector getWaypoint(int index) {
-        return pathWaypoints.get(index);
-    }
-
-    public PositionVector getFirstWaypoint() {
-        return new PositionVector(startingPoint);
-    }
-
+    public PositionVector getWaypoint(int index) { return pathWaypoints.get(index); }
 
     protected void createMapCollision(){
         for (int i = 0; i < pathWaypoints.size() -1; i++) {
@@ -54,7 +45,6 @@ public abstract class Path {
                 else{
                     rectangle.set(posX-40 - distX  , posY-40, distX, 80);
                 }
-
 
             }
             collisionRectangles.add(rectangle);
