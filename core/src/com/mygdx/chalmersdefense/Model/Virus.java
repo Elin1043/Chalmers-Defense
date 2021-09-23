@@ -1,15 +1,10 @@
 package com.mygdx.chalmersdefense.Model;
 
-import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
 import com.mygdx.chalmersdefense.Model.Path.Path;
 import com.mygdx.chalmersdefense.Utilities.PositionVector;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -27,7 +22,7 @@ public class Virus {
     private float xPos;
     private float yPos;
 
-    private int witdhX = 0;
+    private int widthX = 0;
     private int heightY = 0;
 
 
@@ -45,13 +40,13 @@ public class Virus {
 
         try {
             BufferedImage img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(imagePath)));
-            this.witdhX = img.getWidth();
+            this.widthX = img.getWidth();
             this.heightY = img.getHeight();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        xPos = currentMoveToVector.getX() - witdhX / 2F;
+        xPos = currentMoveToVector.getX() - widthX / 2F;
         yPos = currentMoveToVector.getY() - heightY / 2F;
     }
 
@@ -63,7 +58,7 @@ public class Virus {
     private void moveToPoint() {
         double totalSpeed = (3F + health)/4F;
 
-        double diffX = xPos + witdhX / 2F - currentMoveToVector.getX();
+        double diffX = xPos + widthX / 2F - currentMoveToVector.getX();
         double diffY = yPos + heightY / 2F - currentMoveToVector.getY();
 
         double totalLengthToVector = Math.sqrt(Math.pow(diffX,2) + Math.pow(diffY,2));

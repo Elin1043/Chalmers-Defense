@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 public abstract class AbstractScreen extends Stage implements Screen {
 
-    final HashMap<Sprite, String> map = new HashMap<>();
+    final HashMap<Sprite, String> spriteMap = new HashMap<>();
 
     final Batch batch = new SpriteBatch();
     protected AbstractScreen() {
@@ -60,12 +60,18 @@ public abstract class AbstractScreen extends Stage implements Screen {
     @Override public void resume() {}
 
     private void createSprites() {
-        map.put(new Sprite(new Texture("Towers/Smurf.png")), "SmurfTower1");
-        map.put(new Sprite(new Texture("Towers/Chemist.png")), "ChemistTower1");
-        map.put(new Sprite(new Texture("Towers/Electro.png")), "HackerTower1");
-        map.put(new Sprite(new Texture("Towers/Hacker.png")), "ower1");
-        map.put(new Sprite(new Texture("Towers/Meck.png")), "smurfTower1");
-        map.put(new Sprite(new Texture("Towers/Eco.png")), "smurfTower1");
+        spriteMap.put(new Sprite(new Texture("Towers/Smurf.png")), "SmurfTower1");
+        spriteMap.put(new Sprite(new Texture("Towers/Chemist.png")), "ChemistTower1");
+        spriteMap.put(new Sprite(new Texture("Towers/Electro.png")), "ElectroTower1");
+        spriteMap.put(new Sprite(new Texture("Towers/Hacker.png")), "HackerTower1");
+        spriteMap.put(new Sprite(new Texture("Towers/Meck.png")), "MeckTower1");
+        spriteMap.put(new Sprite(new Texture("Towers/Eco.png")), "EcoTower1");
+        spriteMap.put(new Sprite(new Texture("viruses/virus1Hp.png")), "virus1");
+        spriteMap.put(new Sprite(new Texture("viruses/virus2Hp.png")), "virus2");
+        spriteMap.put(new Sprite(new Texture("viruses/virus3Hp.png")), "virus3");
+        spriteMap.put(new Sprite(new Texture("viruses/virus4Hp.png")), "virus4");
+        spriteMap.put(new Sprite(new Texture("viruses/virus5Hp.png")), "virus5");
+
     }
 }
 
