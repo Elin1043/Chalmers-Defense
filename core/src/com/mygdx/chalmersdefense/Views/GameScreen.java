@@ -75,7 +75,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
 
 
-        createRightSidePanel();
+        placeRightSidePanel();
         createStartRoundButton();
 
         towerClickListener = new TowerClickListener(model);
@@ -148,8 +148,8 @@ public class GameScreen extends AbstractScreen implements Screen {
         return labelStyle;
     }
 
-    private void createRightSidePanel() {
-        sideBarBackground.setPosition(1920 - 320, 0);
+    private void placeRightSidePanel() {
+        sideBarBackground.setPosition(Gdx.graphics.getWidth() - sideBarBackground.getWidth(), 0);
     }
 
 
