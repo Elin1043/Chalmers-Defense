@@ -1,15 +1,10 @@
 package com.mygdx.chalmersdefense.Model;
 
-import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
 import com.mygdx.chalmersdefense.Model.Path.Path;
 import com.mygdx.chalmersdefense.Utilities.PositionVector;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -29,6 +24,8 @@ public class Virus {
 
     private int witdhX = 0;
     private int heightY = 0;
+
+    private double totalLengthToVector;
 
 
     private final Path path;
@@ -72,7 +69,7 @@ public class Virus {
         double diffX = xPos + witdhX / 2F - currentMoveToVector.getX();
         double diffY = yPos + heightY / 2F - currentMoveToVector.getY();
 
-        double totalLengthToVector = Math.sqrt(Math.pow(diffX,2) + Math.pow(diffY,2));
+        totalLengthToVector = Math.sqrt(Math.pow(diffX,2) + Math.pow(diffY,2));
 
         double lengthDiff = totalSpeed/totalLengthToVector;
 
@@ -89,6 +86,14 @@ public class Virus {
         if (totalLengthToVector < totalSpeed) {
             currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex++);
         }
+    }
+
+    public double getDistanceToNextPoint(){
+        return totalLengthToVector;
+    }
+
+    public int getWayPointIndex(){
+        return currentMoveToVectorIndex;
     }
 
     private void updateImagePath() { imagePath = "virus" + health + "Hp.png"; }

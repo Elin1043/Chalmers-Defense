@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.Model.Towers;
 
 
-import com.mygdx.chalmersdefense.Model.TargetMode.Closest;
+
 import com.mygdx.chalmersdefense.Model.TargetMode.TargetMode;
 import com.mygdx.chalmersdefense.Model.TargetMode.TargetModeFactory;
 
@@ -15,9 +15,10 @@ public abstract class TowerFactory {
 
     private static TargetModeFactory targetModeFactory = new TargetModeFactory();
     private static TargetMode targetModeClosest = targetModeFactory.getClosestTarget();
+    private static TargetMode targetModeFirst = targetModeFactory.getFirstTarget();
 
     public static Tower CreateSmurf(int startPosX, int startPosY){
-        Tower smurf = new SmurfTower(startPosX,startPosY, targetModeClosest);
+        Tower smurf = new SmurfTower(startPosX,startPosY, targetModeFirst);
 
         return smurf;
     }
