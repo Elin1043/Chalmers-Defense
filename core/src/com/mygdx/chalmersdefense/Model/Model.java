@@ -183,7 +183,6 @@ public class Model {
             newTower.setPlaced(true);
             newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
             newTower.setRectangle();
-
         }
         else{
             towersList.remove(newTower);

@@ -5,16 +5,23 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import java.util.HashMap;
+
 public abstract class AbstractScreen extends Stage implements Screen {
-    private OrthographicCamera camera;
-    Batch batch = new SpriteBatch();
+
+    final HashMap<Sprite, String> map = new HashMap<>();
+
+    final Batch batch = new SpriteBatch();
     protected AbstractScreen() {
         super(new FitViewport(1920, 1080, new OrthographicCamera(1920, 1080)));
+        createSprites();
     }
 
     public abstract void buildStage();
@@ -51,5 +58,14 @@ public abstract class AbstractScreen extends Stage implements Screen {
     }
     @Override public void pause() {}
     @Override public void resume() {}
+
+    private void createSprites() {
+        map.put(new Sprite(new Texture("Towers/Smurf.png")), "SmurfTower1");
+        map.put(new Sprite(new Texture("Towers/Chemist.png")), "ChemistTower1");
+        map.put(new Sprite(new Texture("Towers/Electro.png")), "HackerTower1");
+        map.put(new Sprite(new Texture("Towers/Hacker.png")), "ower1");
+        map.put(new Sprite(new Texture("Towers/Meck.png")), "smurfTower1");
+        map.put(new Sprite(new Texture("Towers/Eco.png")), "smurfTower1");
+    }
 }
 
