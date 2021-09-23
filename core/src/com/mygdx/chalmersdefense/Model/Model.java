@@ -65,6 +65,7 @@ public class Model {
     private void updateVirus(){
         synchronized (allViruses) {
             List<Virus> virusToRemove = new ArrayList<>();
+
             for (Virus virus : allViruses) {
                 if (virus.getY() > 1130) {
                     virusToRemove.add(virus);
