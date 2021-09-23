@@ -10,16 +10,19 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  * @author ELin Forsberg
  * A class defining the tower objects
  *
+ * 2021-09-23 Modified by Joel Båtsman Hilmersson: changed class to hold hashmap key for sprite
  */
 
 public class Tower extends Actor {
 
-    private final String spritePath;
+    private String spriteKey;
+    private int upgradeLevel = 1;
+
     private int angle = 0;
     private float range;
     private String name;
     //private Tower upgrade;
-    private boolean isPlaced=false;
+    private boolean isPlaced = false;
     private float x;
     private float y;
 
@@ -41,8 +44,7 @@ public class Tower extends Actor {
 
 
 
-    public Tower(float x, float y, String spritePath, String name, int attackDamage, int attackSpeed, int cost){
-        this.spritePath = spritePath;
+    public Tower(float x, float y, String name, int attackDamage, int attackSpeed, int cost){
         this.name=name;
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
@@ -56,13 +58,17 @@ public class Tower extends Actor {
         this.collision = false;
         this.gotButton = false;
 
-    }
-    public int getCost() {
-        return cost;
+        updateSpriteKey();
     }
 
-    public String getSpritePath() {
-        return spritePath;
+    private void updateSpriteKey() { spriteKey = name + upgradeLevel; }
+
+    public String getSpriteKey() {
+        return spriteKey;
+    }
+
+    public int getCost() {
+        return cost;
     }
 
     public boolean getGotButton() {
@@ -146,6 +152,7 @@ public class Tower extends Actor {
     public void setPlaced(boolean placed){
         isPlaced=placed;
     }
+
     public int getAttackDamage() {
         return attackDamage;
     }

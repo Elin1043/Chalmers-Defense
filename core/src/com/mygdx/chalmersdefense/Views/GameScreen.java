@@ -192,7 +192,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private void renderTowers() {
         for (Tower tower: model.getTowers()) {
-            Sprite towerSprite = new Sprite(new Texture(tower.getSpritePath()));
+            Sprite towerSprite = new Sprite(new Texture(tower.getSpriteKey()));
             towerSprite.setPosition(tower.getPosX(), tower.getPosY());
             tower.setHeight(towerSprite.getHeight());
             tower.setWidth(towerSprite.getWidth());
@@ -265,7 +265,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
 
     private ImageButton createInvisButtonsOnTower(Tower tower,float x, float y) {
-        Texture texture = new Texture(tower.getSpritePath());
+        Texture texture = new Texture(tower.getSpriteKey());
         TextureRegion invisButtonTextureRegion = new TextureRegion(texture);
         TextureRegionDrawable invisTexRegDrawable = new TextureRegionDrawable(invisButtonTextureRegion);
         ImageButton invisButton = new ImageButton(invisTexRegDrawable); //Set the button up
