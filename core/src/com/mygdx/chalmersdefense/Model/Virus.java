@@ -1,6 +1,6 @@
 package com.mygdx.chalmersdefense.Model;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
 import com.mygdx.chalmersdefense.Model.Path.Path;
 import com.mygdx.chalmersdefense.Utilities.PositionVector;
 
@@ -10,24 +10,71 @@ import com.mygdx.chalmersdefense.Utilities.PositionVector;
  */
 public class Virus {
     private int health;
-    private Sprite sprite;
+    //private final Sprite sprite;
+
+
+    private String imagePath;
+
+    private float xPos;
+    private float yPos;
+
+
     private final Path path;
-    private final PositionVector startPos;
+    private PositionVector currentMoveToVector;
 
-    public Virus(int health, Sprite sprite, Path path) {
+    private int currentMoveToVectorIndex = 0;
+
+    public Virus(int health, Path path) {
         this.health = health;
-        this.sprite = sprite;
+        updateImagePath();
+
         this.path = path;
-        startPos = path.getFirstWaypoint();
-        sprite.setPosition(startPos.getX(), startPos.getY());
+        currentMoveToVector = path.getFirstWaypoint();
+        //sprite.setPosition(currentMoveToVector.getX() - sprite.getWidth()/2, currentMoveToVector.getY() - sprite.getHeight()/2);
+        xPos = currentMoveToVector.getX();
+        yPos = currentMoveToVector.getY();
+
     }
 
-    public Sprite getSprite() {
-        return sprite;
-    }
 
     public void update() {
-        sprite.setX(sprite.getX() + (4F + health)/5F);
+        moveToPoint();
     }
+
+    private void moveToPoint() {
+        double totalSpeed = (3F + health)/4F;
+//        double diffX = xPos + sprite.getWidth()/2 - currentMoveToVector.getX();
+//        double diffY = yPos + sprite.getHeight()/2 - currentMoveToVector.getY();
+        double diffX = xPos - currentMoveToVector.getX();
+        double diffY = yPos - currentMoveToVector.getY();
+
+        double totalLengthToVector = Math.sqrt(Math.pow(diffX,2) + Math.pow(diffY,2));
+
+        double lengthDiff = totalSpeed/totalLengthToVector;
+
+        double addedDiffX = (diffX * lengthDiff);
+        double addedDiffY = (diffY * lengthDiff);
+
+        if (Double.isNaN(addedDiffX)) { addedDiffX = 0; }
+        if (Double.isNaN(addedDiffY)) { addedDiffY = 0; }
+
+        xPos -= addedDiffX;
+        yPos -= addedDiffY;
+
+
+        if (totalLengthToVector < totalSpeed) {
+            try {
+                currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex++);
+            } catch (NoFurtherWaypointException ignore) {}
+        }
+    }
+
+    private void updateImagePath() { imagePath = "virus" + health + "Hp.png"; }
+
+    public float getX() { return xPos; }
+
+    public float getY() { return yPos; }
+
+    public String getImagePath() { return imagePath; }
 
 }

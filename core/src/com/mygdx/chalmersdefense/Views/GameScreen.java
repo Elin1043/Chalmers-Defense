@@ -48,23 +48,25 @@ public class GameScreen extends AbstractScreen implements Screen {
     private Button startRoundButton;
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
-    private LabelStyle labelStyleBlack36;
-    private Label towerLabel;
-    private Label powerUpLabel;
+    private final LabelStyle labelStyleBlack36;
+    private final Label towerLabel;
+    private final Label powerUpLabel;
 
-    private Image mapImage;
+    private final Image mapImage;
 
-    private ImageButton smurfButton;
-    private ImageButton chemistButton;
-    private ImageButton electroButton;
-    private ImageButton hackerButton;
-    private ImageButton meckButton;
-    private ImageButton ecobutton;
+    private final ImageButton smurfButton;
+    private final ImageButton chemistButton;
+    private final ImageButton electroButton;
+    private final ImageButton hackerButton;
+    private final ImageButton meckButton;
+    private final ImageButton ecobutton;
 
-    private TowerClickListener towerClickListener;
+    private final TowerClickListener towerClickListener;
 
 
-    private HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
+    private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
+
+    private final Sprite commonUseSprite = new Sprite(new Texture("virus1Hp.png"));
 
 
     public GameScreen(Model model, RightSidePanelController rightSidePanelController){
@@ -169,17 +171,16 @@ public class GameScreen extends AbstractScreen implements Screen {
     private void renderViruses() {
         super.batch.begin();
 
-        try {
-            for (Virus virus: model.getViruses()) {     // Om den lägger till ett virus exakt samtidigt blir det inte bra
-                virus.getSprite().draw(super.batch);
+        synchronized (model.getViruses()) {
+            //Sprite virusSprite = new Sprite(new Texture("virus1Hp.png"));
+            for (Virus virus : model.getViruses()) {
+                //virusSprite = new Sprite(new Texture(virus.getImagePath()));
+
+                commonUseSprite.setTexture(new Texture(virus.getImagePath()));
+                commonUseSprite.setPosition(virus.getX(), virus.getY());
+                commonUseSprite.draw(super.batch);
             }
 
-        } catch (ConcurrentModificationException e) {
-            System.out.println("FAIL when rendering Virus");
-
-            for (Virus virus: model.getViruses()) {
-                virus.getSprite().draw(super.batch);
-            }
         }
 
         super.batch.end();
@@ -260,9 +261,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
 
     private ImageButton createInvisButtonsOnTower(Tower tower,float x, float y) {
-        Texture texture = new Texture(tower.getSpritePath());
-        Texture invisButtonTexture = texture;
-        TextureRegion invisButtonTextureRegion = new TextureRegion(invisButtonTexture);
+        TextureRegion invisButtonTextureRegion = new TextureRegion();
         TextureRegionDrawable invisTexRegDrawable = new TextureRegionDrawable(invisButtonTextureRegion);
         ImageButton invisButton = new ImageButton(invisTexRegDrawable); //Set the button up
         invisButton.setColor(255,255,255,0);

@@ -7,12 +7,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class ClassicPath extends Path {
+
     public ClassicPath() {
         super();
-        startingPoint = new PositionVector(0, 472);
+        startingPoint = new PositionVector(-50, 453);
         setPathWaypoints();
     }
-
 
     @Override
     protected void setPathWaypoints() {
@@ -29,7 +29,7 @@ public class ClassicPath extends Path {
             pathWaypoints.add(new PositionVector(1081, 901));
             pathWaypoints.add(new PositionVector(1081, 684));
             pathWaypoints.add(new PositionVector(861, 684));
-            pathWaypoints.add(new PositionVector(861, 1080));
+            pathWaypoints.add(new PositionVector(861, 1130));
 
         }
     }

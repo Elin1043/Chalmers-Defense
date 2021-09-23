@@ -3,7 +3,6 @@ package com.mygdx.chalmersdefense.Model.Path;
 import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
 import com.mygdx.chalmersdefense.Utilities.PositionVector;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Path {
@@ -30,21 +29,13 @@ public abstract class Path {
         return waypoint;
     }
 
-    public boolean isAtWaypoint(float x, float y, PositionVector virusVector) {
-        if (Math.abs(x - virusVector.getX()) <= 1) {
-            return (Math.abs(y - virusVector.getY()) <= 1);
-        }
-        return false;
-    }
-    public int getListSize(){
-        return pathWaypoints.size();
-    }
-
     public PositionVector getFirstWaypoint() {
         return new PositionVector(startingPoint);
     }
 
-
+    public int getListSize(){
+        return pathWaypoints.size();
+    }
 
 
 }

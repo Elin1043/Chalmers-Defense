@@ -3,6 +3,7 @@ package com.mygdx.chalmersdefense.Model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.chalmersdefense.ChalmersDefense;
+import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
 import com.mygdx.chalmersdefense.Model.Path.GamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.Model.Path.Path;
 import com.mygdx.chalmersdefense.Model.Towers.Tower;
@@ -13,7 +14,10 @@ import java.util.List;
 
 
 /**
- * @author
+ * @author Joel Båtsman Hilmmersson
+ * @author Elin Forsberg
+ * @author Daniel Persson
+ * @author Jenny Carlsson
  *
  *
  * @Modified by Elin Forsberg
@@ -22,10 +26,10 @@ import java.util.List;
 
 public class Model {
     private ChalmersDefense game;
-    private ArrayList<Tower> towersList = new ArrayList<>();
+    private final ArrayList<Tower> towersList = new ArrayList<>();
 
 
-    private ArrayList<Rectangle> collisionRectangles = new ArrayList<>();
+    private final ArrayList<Rectangle> collisionRectangles = new ArrayList<>();
 
 
     private Tower newTower;
@@ -33,9 +37,9 @@ public class Model {
 
 
 
-    private Path path;
+    private final Path path;
 
-    private List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
+    private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
     private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
 
     private int money = 300;
@@ -46,8 +50,8 @@ public class Model {
 
     public Model(ChalmersDefense game) {
         this.game = game;
-        factory = new TowerFactory();
-        path = new ClassicPath();
+        factory = new TowerFactory();       // Make factory abstract?
+        path = new ClassicPath();           // Make a path factory instead?
         createCollisionOnPath();
 
     }
@@ -59,64 +63,103 @@ public class Model {
 
 
 
-    // TODO Try to fix concurrent modification error in list. Then the try-catch block can be removed
-    private void updateVirus() {
-        try {
-            for (Virus virus : allViruses){ // Om den lägger till ett virus exakt samtidigt blir det inte bra
+
+    private void updateVirus(){
+        synchronized (allViruses) {
+            List<Virus> virusToRemove = new ArrayList<>();
+            for (Virus virus : allViruses) {
+                if (virus.getY() > 1130) {
+                    virusToRemove.add(virus);
+                }
                 virus.update();
             }
 
-        } catch (ConcurrentModificationException e) {
-            System.out.println("FAIL when updating Virus");
-
-            for (Virus virus : allViruses){ // Om den lägger till ett virus exakt samtidigt blir det inte bra
-                virus.update();
+            for (Virus virus : virusToRemove){
+                allViruses.remove(virus);
             }
+
         }
+
     }
 
 
-    //Function for creating the rectangles on path used for collision
+    //Function for creating the rectangles on path used for collision   (TODO Detta borde kanske ligga i path?)
     private void createCollisionOnPath(){
 
-        for (int i = 0; i < path.getListSize() -1; i++) {
-            Rectangle rectangle = new Rectangle();
-            float posX = path.getWaypoint(i).getX();
-            float posY = path.getWaypoint(i).getY();
-            float nextX = path.getWaypoint(i+1).getX();
-            float nextY = path.getWaypoint(i+1).getY();
-            if(posX == nextX){
-                float distY = Math.abs((nextY - posY));
-                if(posY < nextY){
+//        for (int i = 0; i < path.getListSize() -1; i++) {
+//            Rectangle rectangle = new Rectangle();
+//            float posX = path.getWaypoint(i).getX();
+//            float posY = path.getWaypoint(i).getY();
+//            float nextX = path.getWaypoint(i+1).getX();
+//            float nextY = path.getWaypoint(i+1).getY();
+//            if(posX == nextX){
+//                float distY = Math.abs((nextY - posY));
+//                if(posY < nextY){
+//
+//                    rectangle.set(posX-40 , posY -40,80, distY + 80);
+//                }
+//                else{
+//                    rectangle.set(posX-40 , posY -distY -40,80, distY + 80);
+//
+//                }
+//            }
+//            else{
+//                float distX = Math.abs((nextX - posX));
+//                if(posX < nextX){
+//
+//                    rectangle.set(posX-40 , posY-40, distX, 80);
+//                }
+//                else{
+//                    rectangle.set(posX-40 - distX  , posY-40, distX, 80);
+//                }
+//
+//
+//            }
+//            collisionRectangles.add(rectangle);
+//        }
 
-                    rectangle.set(posX-40 , posY -40,80, distY + 80);
+        try {
+            int i = 0;
+            while (true){
+                Rectangle rectangle = new Rectangle();
+                float posX = path.getWaypoint(i).getX();
+                float posY = path.getWaypoint(i).getY();
+                float nextX = path.getWaypoint(i+1).getX();
+                float nextY = path.getWaypoint(i+1).getY();
+                if(posX == nextX){
+                    float distY = Math.abs((nextY - posY));
+                    if(posY < nextY){
+
+                        rectangle.set(posX-40 , posY -40,80, distY + 80);
+                    }
+                    else{
+                        rectangle.set(posX-40 , posY -distY -40,80, distY + 80);
+
+                    }
                 }
                 else{
-                    rectangle.set(posX-40 , posY -distY -40,80, distY + 80);
+                    float distX = Math.abs((nextX - posX));
+                    if(posX < nextX){
+
+                        rectangle.set(posX-40 , posY-40, distX, 80);
+                    }
+                    else{
+                        rectangle.set(posX-40 - distX  , posY-40, distX, 80);
+                    }
+
 
                 }
+                collisionRectangles.add(rectangle);
+                i++;
             }
-            else{
-                float distX = Math.abs((nextX - posX));
-                if(posX < nextX){
+        } catch (NoFurtherWaypointException ignored) {}
 
-                    rectangle.set(posX-40 , posY-40, distX, 80);
-                }
-                else{
-                    rectangle.set(posX-40 - distX  , posY-40, distX, 80);
-                }
-
-
-            }
-            collisionRectangles.add(rectangle);
-
-        }
     }
 
     //Checks if a tower collides with path
     private boolean checkMapAndTowerCollision(Tower tower)
     {
-        for (Rectangle rect:collisionRectangles) {
+        for (Rectangle rect : collisionRectangles) {
             if(tower.getRectangle().overlaps(rect)){
                 return true;
             }
