@@ -12,6 +12,7 @@ public class ClassicPath extends Path {
         super();
         startingPoint = new PositionVector(-50, 453);
         setPathWaypoints();
+        super.createMapCollision();
     }
 
     @Override
@@ -29,7 +30,7 @@ public class ClassicPath extends Path {
             pathWaypoints.add(new PositionVector(1081, 901));
             pathWaypoints.add(new PositionVector(1081, 684));
             pathWaypoints.add(new PositionVector(861, 684));
-            pathWaypoints.add(new PositionVector(861, 1130));
+            pathWaypoints.add(new PositionVector(861, 1200));
 
         }
     }

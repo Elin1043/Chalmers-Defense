@@ -4,6 +4,15 @@ import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointExcepti
 import com.mygdx.chalmersdefense.Model.Path.Path;
 import com.mygdx.chalmersdefense.Utilities.PositionVector;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
+
 /**
  * @author Joel Båtsman Hilmersson
  * A class that representates the common enemy type for the game
@@ -18,6 +27,9 @@ public class Virus {
     private float xPos;
     private float yPos;
 
+    private int witdhX = 0;
+    private int heightY = 0;
+
 
     private final Path path;
     private PositionVector currentMoveToVector;
@@ -31,9 +43,21 @@ public class Virus {
         this.path = path;
         currentMoveToVector = path.getFirstWaypoint();
         //sprite.setPosition(currentMoveToVector.getX() - sprite.getWidth()/2, currentMoveToVector.getY() - sprite.getHeight()/2);
-        xPos = currentMoveToVector.getX();
-        yPos = currentMoveToVector.getY();
 
+
+        //xPos = currentMoveToVector.getX();
+        //yPos = currentMoveToVector.getY();
+
+        try {
+            BufferedImage img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(imagePath)));
+            this.witdhX = img.getWidth();
+            this.heightY = img.getHeight();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        xPos = currentMoveToVector.getX() - witdhX / 2F;
+        yPos = currentMoveToVector.getY() - heightY / 2F;
     }
 
 
@@ -45,8 +69,8 @@ public class Virus {
         double totalSpeed = (3F + health)/4F;
 //        double diffX = xPos + sprite.getWidth()/2 - currentMoveToVector.getX();
 //        double diffY = yPos + sprite.getHeight()/2 - currentMoveToVector.getY();
-        double diffX = xPos - currentMoveToVector.getX();
-        double diffY = yPos - currentMoveToVector.getY();
+        double diffX = xPos + witdhX / 2F - currentMoveToVector.getX();
+        double diffY = yPos + heightY / 2F - currentMoveToVector.getY();
 
         double totalLengthToVector = Math.sqrt(Math.pow(diffX,2) + Math.pow(diffY,2));
 
@@ -63,9 +87,7 @@ public class Virus {
 
 
         if (totalLengthToVector < totalSpeed) {
-            try {
-                currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex++);
-            } catch (NoFurtherWaypointException ignore) {}
+            currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex++);
         }
     }
 

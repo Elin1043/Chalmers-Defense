@@ -29,9 +29,6 @@ public class Model {
     private final ArrayList<Tower> towersList = new ArrayList<>();
 
 
-    private final ArrayList<Rectangle> collisionRectangles = new ArrayList<>();
-
-
     private Tower newTower;
 
 
@@ -50,8 +47,6 @@ public class Model {
     public Model(ChalmersDefense game) {
         this.game = game;
         path = new ClassicPath();           // Make a path factory instead?
-        createCollisionOnPath();
-
     }
 
     //Update all the components in model
@@ -65,6 +60,7 @@ public class Model {
     private void updateVirus(){
         synchronized (allViruses) {
             List<Virus> virusToRemove = new ArrayList<>();
+
             for (Virus virus : allViruses) {
                 if (virus.getY() > 1130) {
                     virusToRemove.add(virus);
@@ -81,83 +77,12 @@ public class Model {
     }
 
 
-    //Function for creating the rectangles on path used for collision   (TODO Detta borde kanske ligga i path?)
-    private void createCollisionOnPath(){
 
-//        for (int i = 0; i < path.getListSize() -1; i++) {
-//            Rectangle rectangle = new Rectangle();
-//            float posX = path.getWaypoint(i).getX();
-//            float posY = path.getWaypoint(i).getY();
-//            float nextX = path.getWaypoint(i+1).getX();
-//            float nextY = path.getWaypoint(i+1).getY();
-//            if(posX == nextX){
-//                float distY = Math.abs((nextY - posY));
-//                if(posY < nextY){
-//
-//                    rectangle.set(posX-40 , posY -40,80, distY + 80);
-//                }
-//                else{
-//                    rectangle.set(posX-40 , posY -distY -40,80, distY + 80);
-//
-//                }
-//            }
-//            else{
-//                float distX = Math.abs((nextX - posX));
-//                if(posX < nextX){
-//
-//                    rectangle.set(posX-40 , posY-40, distX, 80);
-//                }
-//                else{
-//                    rectangle.set(posX-40 - distX  , posY-40, distX, 80);
-//                }
-//
-//
-//            }
-//            collisionRectangles.add(rectangle);
-//        }
-
-        try {
-            int i = 0;
-            while (true){
-                Rectangle rectangle = new Rectangle();
-                float posX = path.getWaypoint(i).getX();
-                float posY = path.getWaypoint(i).getY();
-                float nextX = path.getWaypoint(i+1).getX();
-                float nextY = path.getWaypoint(i+1).getY();
-                if(posX == nextX){
-                    float distY = Math.abs((nextY - posY));
-                    if(posY < nextY){
-
-                        rectangle.set(posX-40 , posY -40,80, distY + 80);
-                    }
-                    else{
-                        rectangle.set(posX-40 , posY -distY -40,80, distY + 80);
-
-                    }
-                }
-                else{
-                    float distX = Math.abs((nextX - posX));
-                    if(posX < nextX){
-
-                        rectangle.set(posX-40 , posY-40, distX, 80);
-                    }
-                    else{
-                        rectangle.set(posX-40 - distX  , posY-40, distX, 80);
-                    }
-
-
-                }
-                collisionRectangles.add(rectangle);
-                i++;
-            }
-        } catch (NoFurtherWaypointException ignored) {}
-
-    }
 
     //Checks if a tower collides with path
     private boolean checkMapAndTowerCollision(Tower tower)
     {
-        for (Rectangle rect : collisionRectangles) {
+        for (Rectangle rect : path.getCollisionRectangles()) {
             if(tower.getRectangle().overlaps(rect)){
                 return true;
             }
