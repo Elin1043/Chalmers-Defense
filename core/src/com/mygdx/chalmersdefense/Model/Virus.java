@@ -17,7 +17,7 @@ public class Virus {
     //private final Sprite sprite;
 
 
-    private String imagePath;
+    private String spriteKey;
 
     private float xPos;
     private float yPos;
@@ -33,13 +33,15 @@ public class Virus {
 
     public Virus(int health, Path path) {
         this.health = health;
-        updateImagePath();
+        updateSpriteKey();
         this.path = path;
 
         currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex);
 
+
+        // Kanske vill göra detta när man ändrar liv. Iallafall om man har något virus av annan storlek
         try {
-            BufferedImage img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(imagePath)));
+            BufferedImage img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("viruses/virus" + health + ".png")));
             this.widthX = img.getWidth();
             this.heightY = img.getHeight();
         } catch (IOException e) {
@@ -79,12 +81,12 @@ public class Virus {
         }
     }
 
-    private void updateImagePath() { imagePath = "viruses/virus" + health + "Hp.png"; }
+    private void updateSpriteKey() { spriteKey = "virus" + health; }
 
     public float getX() { return xPos; }
 
     public float getY() { return yPos; }
 
-    public String getImagePath() { return imagePath; }
+    public String getSpriteKey() { return spriteKey; }
 
 }

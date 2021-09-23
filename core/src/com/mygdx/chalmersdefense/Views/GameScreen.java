@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.Model.Virus;
 import com.mygdx.chalmersdefense.Model.VirusFactory;
-import java.util.*;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -176,7 +175,7 @@ public class GameScreen extends AbstractScreen implements Screen {
             for (Virus virus : model.getViruses()) {
                 //virusSprite = new Sprite(new Texture(virus.getImagePath()));
 
-                commonUseSprite.setTexture(new Texture(virus.getImagePath()));
+                commonUseSprite.setTexture(new Texture(virus.getSpriteKey()));
                 commonUseSprite.setPosition(virus.getX(), virus.getY());
                 commonUseSprite.draw(super.batch);
             }
