@@ -43,6 +43,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final Model model;
 
     private final Image sideBarBackground = new Image(new Texture("SideBarBackground.png"));
+    private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
     private Button startRoundButton;
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -76,6 +77,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         mapImage = new Image(new Texture("ClassicMap.png"));
         mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
 
+        lifeIcon.setPosition(1650, 320);
 
         placeRightSidePanel();
         createStartRoundButton();
@@ -95,6 +97,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     @Override
     public void buildStage() {
         addActor(sideBarBackground);
+        addActor(lifeIcon);
         addActor(smurfButton);
         addActor(chemistButton);
         addActor(hackerButton);
