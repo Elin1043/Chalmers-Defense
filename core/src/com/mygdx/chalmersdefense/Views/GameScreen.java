@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.Controllers.GameScreenController;
 import com.mygdx.chalmersdefense.Model.Virus;
@@ -47,10 +48,8 @@ public class GameScreen extends AbstractScreen implements Screen {
     private Image sideBarBackground;
     private Button startRoundButton;
 
-    private Group bottomBarPanelUpgradeGroup;
     private Image bottomBarPanelBackground;
-    private Image bottomBarUpgradePanelBackground;
-
+    private Group bottomBarPanelUpgradeGroup;
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private LabelStyle labelStyleBlack36;
@@ -83,12 +82,14 @@ public class GameScreen extends AbstractScreen implements Screen {
         mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
         gameScreenController.addMapClickListener(mapImage);
 
+        // Generating label style
         labelStyleBlack36 = generateLabelStyle(36, Color.BLACK);
 
         bottomBarPanelUpgradeGroup = new Group();
         createBottomBarPanel();
-        createBottomBarUpgradePanel();
-        bottomBarPanelUpgradeGroup.addActor(bottomBarUpgradePanelBackground);
+        addActor(bottomBarPanelBackground);
+
+        bottomBarPanelUpgradeGroup.setPosition(bottomBarPanelBackground.getWidth() - 1390, 0);
 
         createRightSidePanel();
         createStartRoundButton();
@@ -147,7 +148,19 @@ public class GameScreen extends AbstractScreen implements Screen {
         renderViruses();
 
         // If clicked tower is present show upgrade panel.
-        bottomBarPanelUpgradeGroup.setVisible(model.getClickedTower() != null);
+        if (model.getClickedTower() != null) {
+            // Remove old upgrade panel.
+            bottomBarPanelUpgradeGroup.clearChildren();
+
+            // If panel not rendered, render panel.
+            if (!bottomBarPanelUpgradeGroup.hasChildren()) {
+                updateUpgradePanelInfo(model.getClickedTower());
+                bottomBarPanelUpgradeGroup.setVisible(true);
+            }
+        } else {
+            bottomBarPanelUpgradeGroup.clearChildren();
+            bottomBarPanelUpgradeGroup.setVisible(false);
+        }
 
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
@@ -170,9 +183,9 @@ public class GameScreen extends AbstractScreen implements Screen {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/CenturyGothic.ttf"));
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
         parameter.size = size;
-        BitmapFont font36 = generator.generateFont(parameter);
+        BitmapFont font = generator.generateFont(parameter);
         generator.dispose();
-        return font36;
+        return font;
     }
 
     private LabelStyle generateLabelStyle(int size, Color color){
@@ -193,9 +206,17 @@ public class GameScreen extends AbstractScreen implements Screen {
         bottomBarPanelBackground.setPosition(0, 0);
     }
 
-    private void createBottomBarUpgradePanel() {
-        bottomBarUpgradePanelBackground = new Image(new Texture("GameScreen/BottomBarUpgradePanel.png"));
-        bottomBarUpgradePanelBackground.setPosition(bottomBarPanelBackground.getWidth() - bottomBarUpgradePanelBackground.getWidth(), 3);
+    private Actor createBottomBarUpgradePanel() {
+        Image bottomBarUpgradePanelBackground = new Image(new Texture("GameScreen/BottomBarUpgradePanel.png"));
+        bottomBarUpgradePanelBackground.setPosition(0 , 3);
+        return bottomBarUpgradePanelBackground;
+    }
+
+    private void updateUpgradePanelInfo(Tower tower) {
+        bottomBarPanelUpgradeGroup.addActor(createBottomBarUpgradePanel());
+        Label towerNameLabel = new Label(tower.getName(), labelStyleBlack36);
+        bottomBarPanelUpgradeGroup.addActor(towerNameLabel);
+        towerNameLabel.setPosition(170, 130);
     }
 
     private void renderViruses() {
