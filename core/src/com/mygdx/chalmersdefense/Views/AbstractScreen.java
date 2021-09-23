@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 public abstract class AbstractScreen extends Stage implements Screen {
 
-    final HashMap<Sprite, String> spriteMap = new HashMap<>();
+    final HashMap<String, Sprite> spriteMap = new HashMap<>();
 
     final Batch batch = new SpriteBatch();
     protected AbstractScreen() {
@@ -60,17 +60,17 @@ public abstract class AbstractScreen extends Stage implements Screen {
     @Override public void resume() {}
 
     private void createSprites() {
-        spriteMap.put(new Sprite(new Texture("Towers/Smurf.png")), "SmurfTower1");
-        spriteMap.put(new Sprite(new Texture("Towers/Chemist.png")), "ChemistTower1");
-        spriteMap.put(new Sprite(new Texture("Towers/Electro.png")), "ElectroTower1");
-        spriteMap.put(new Sprite(new Texture("Towers/Hacker.png")), "HackerTower1");
-        spriteMap.put(new Sprite(new Texture("Towers/Meck.png")), "MeckTower1");
-        spriteMap.put(new Sprite(new Texture("Towers/Eco.png")), "EcoTower1");
-        spriteMap.put(new Sprite(new Texture("viruses/virus1Hp.png")), "virus1");
-        spriteMap.put(new Sprite(new Texture("viruses/virus2Hp.png")), "virus2");
-        spriteMap.put(new Sprite(new Texture("viruses/virus3Hp.png")), "virus3");
-        spriteMap.put(new Sprite(new Texture("viruses/virus4Hp.png")), "virus4");
-        spriteMap.put(new Sprite(new Texture("viruses/virus5Hp.png")), "virus5");
+        spriteMap.put("SmurfTower1", new Sprite(new Texture("Towers/Smurf.png")));
+        spriteMap.put("ChemistTower1", new Sprite(new Texture("Towers/Chemist.png")));
+        spriteMap.put("ElectroTower1", new Sprite(new Texture("Towers/Electro.png")));
+        spriteMap.put("HackerTower1", new Sprite(new Texture("Towers/Hacker.png")));
+        spriteMap.put("MeckTower1", new Sprite(new Texture("Towers/Meck.png")));
+        spriteMap.put("EcoTower1", new Sprite(new Texture("Towers/Eco.png")));
+        spriteMap.put("virus1", new Sprite(new Texture("viruses/virus1Hp.png")));
+        spriteMap.put("virus2", new Sprite(new Texture("viruses/virus2Hp.png")));
+        spriteMap.put("virus3", new Sprite(new Texture("viruses/virus3Hp.png")));
+        spriteMap.put("virus4", new Sprite(new Texture("viruses/virus4Hp.png")));
+        spriteMap.put("virus5", new Sprite(new Texture("viruses/virus5Hp.png")));
 
     }
 }

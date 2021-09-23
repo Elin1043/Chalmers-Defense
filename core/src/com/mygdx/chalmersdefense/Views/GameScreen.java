@@ -175,9 +175,14 @@ public class GameScreen extends AbstractScreen implements Screen {
             for (Virus virus : model.getViruses()) {
                 //virusSprite = new Sprite(new Texture(virus.getImagePath()));
 
-                commonUseSprite.setTexture(new Texture(virus.getSpriteKey()));
-                commonUseSprite.setPosition(virus.getX(), virus.getY());
-                commonUseSprite.draw(super.batch);
+//                commonUseSprite.setTexture(new Texture(virus.getSpriteKey()));
+//                commonUseSprite.setPosition(virus.getX(), virus.getY());
+//                commonUseSprite.draw(super.batch);
+                Sprite virusSprite = spriteMap.get(virus.getSpriteKey());
+                virusSprite.setPosition(virus.getX(), virus.getY());
+                virusSprite.draw(super.batch);
+
+
             }
 
         }

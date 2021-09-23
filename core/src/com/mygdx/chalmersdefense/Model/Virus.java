@@ -41,7 +41,7 @@ public class Virus {
 
         // Kanske vill göra detta när man ändrar liv. Iallafall om man har något virus av annan storlek
         try {
-            BufferedImage img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("viruses/virus" + health + ".png")));
+            BufferedImage img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("viruses/virus" + health + "Hp.png")));
             this.widthX = img.getWidth();
             this.heightY = img.getHeight();
         } catch (IOException e) {
