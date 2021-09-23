@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.Model.Virus;
 import com.mygdx.chalmersdefense.Model.VirusFactory;
-import java.util.*;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -190,8 +189,8 @@ public class GameScreen extends AbstractScreen implements Screen {
         for (Tower tower: model.getTowers()) {
             Sprite towerSprite = new Sprite(new Texture(tower.getSpritePath()));
             towerSprite.setPosition(tower.getPosX(), tower.getPosY());
-            tower.setHeight(towerSprite.getHeight());
-            tower.setWidth(towerSprite.getWidth());
+
+
 
             if(!tower.isPlaced() && !tower.getCollision()){
                 Gdx.gl.glEnable(GL_BLEND);

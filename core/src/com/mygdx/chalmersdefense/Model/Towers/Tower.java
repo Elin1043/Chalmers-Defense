@@ -5,6 +5,12 @@ package com.mygdx.chalmersdefense.Model.Towers;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 
 /**
  * @author ELin Forsberg
@@ -24,7 +30,6 @@ public abstract class Tower extends Actor {
     private float y;
 
 
-
     private float width;
     private float height;
 
@@ -36,20 +41,29 @@ public abstract class Tower extends Actor {
     private boolean gotButton;
 
 
+
     private Rectangle rectangle = new Rectangle();
 
 
 
 
-    public Tower(float x, float y, String spritePath, String name, int attackDamage, int attackSpeed, int cost, int range){
+    public Tower(float x, float y, String spritePath, String name, int attackDamage, int attackSpeed, int cost, int range) {
         this.spritePath = spritePath;
         this.name=name;
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
 
 
-        this.width = 100;
-        this.height = 100;
+        try{
+            BufferedImage towerImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream(spritePath));
+            this.width         = towerImage.getWidth();
+            this.height        = towerImage.getHeight();
+        }
+        catch (Exception exception){
+            System.out.println(exception);
+        }
+
+
         this.setPos(x,y);
         this.range = 100;
         this.cost = cost;
@@ -85,15 +99,6 @@ public abstract class Tower extends Actor {
         rectangle.set(this.x  , this.y  , this.width,this.height);
     }
 
-    @Override
-    public void setWidth(float width) {
-        this.width = width;
-    }
-
-    @Override
-    public void setHeight(float height) {
-        this.height = height;
-    }
 
     public Rectangle getRectangle(){
         return rectangle;

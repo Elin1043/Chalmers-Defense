@@ -1,6 +1,6 @@
 package com.mygdx.chalmersdefense.Model;
 
-import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
@@ -168,18 +168,18 @@ public class Model {
 
 
     //Checks if towers collide with anything
-    private boolean checkCollisionOfTower(Tower tower) {
+    private boolean checkCollisionOfTower(Tower tower, int windowHeight, int windowWidth) {
         for(Tower checkTower: towersList){
             //Check if tower collides with a placed tower
             if(tower.getRectangle().overlaps(checkTower.getRectangle()) && !(checkTower.hashCode() == tower.hashCode())){
                 return true;
             }
             //Check if tower out of bound on X
-            else if(!(0 <= (tower.getPosX())) || (Gdx.graphics.getWidth() - 340 < (tower.getPosX() + tower.getRectangle().width/2))){
+            else if(!(0 <= (tower.getPosX())) || (windowWidth - 340 < (tower.getPosX() + tower.getRectangle().width/2))){
                     return true;
             }
             //Check if tower out of bound on Y
-            else if(!(Gdx.graphics.getHeight() - 950 < (tower.getPosY() - tower.getHeight()/2)) || (Gdx.graphics.getHeight() < (tower.getPosY()) + tower.getHeight())){
+            else if(!(windowHeight - 950 < (tower.getPosY() - tower.getHeight()/2)) || (windowHeight < (tower.getPosY()) + tower.getHeight())){
                 return true;
             }
             //check if tower collide with path
@@ -231,18 +231,18 @@ public class Model {
 
 
     //While dragging the tower, follow the mouse
-    public void onDrag(int buttonWidth, int buttonHeight, int x, int y, int windowHeight) {
+    public void onDrag(int buttonWidth, int buttonHeight, int x, int y, int windowHeight, int windowWidth) {
 
         newTower.setPos( x - buttonWidth,(windowHeight - y - buttonHeight ));
         newTower.setRectangle();
 
         for (Tower tower: towersList) {
 
-            if(!tower.isPlaced() && !checkCollisionOfTower(tower)){
+            if(!tower.isPlaced() && !checkCollisionOfTower(tower, windowHeight, windowWidth)){
                 tower.setCollision(false);
 
             }
-            else if(!tower.isPlaced() && checkCollisionOfTower(tower)){
+            else if(!tower.isPlaced() && checkCollisionOfTower(tower, windowHeight, windowWidth)){
                 tower.setCollision(true);
             }
 
