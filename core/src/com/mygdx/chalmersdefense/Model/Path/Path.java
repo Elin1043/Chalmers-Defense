@@ -8,10 +8,12 @@ import java.util.ArrayList;
 
 public abstract class Path {
 
-    protected final ArrayList<PositionVector> pathWaypoints;
+    private final int pathWidth;
+
+    protected final ArrayList<PositionVector> pathWaypoints = new ArrayList<>();
     private final ArrayList<Rectangle> collisionRectangles = new ArrayList<>();
 
-    protected Path() { pathWaypoints = new ArrayList<>(); }
+    protected Path(int pathWidth) { this.pathWidth = pathWidth; }
 
 
     protected abstract void setPathWaypoints();
@@ -25,21 +27,22 @@ public abstract class Path {
             float posY = getWaypoint(i).getY();
             float nextX = getWaypoint(i+1).getX();
             float nextY = getWaypoint(i+1).getY();
+
             if(posX == nextX){
                 float distY = Math.abs((nextY - posY));
+
                 if(posY < nextY){
 
-                    rectangle.set(posX-40 , posY -40,80, distY + 80);
+                    rectangle.set(posX - pathWidth/2F , posY - pathWidth/2F, pathWidth, distY + pathWidth);
                 }
                 else{
-                    rectangle.set(posX-40 , posY -distY -40,80, distY + 80);
-
+                    rectangle.set(posX - pathWidth/2F , posY -distY - pathWidth/2F, pathWidth, distY + pathWidth);
                 }
             }
-            else{
+            else {
                 float distX = Math.abs((nextX - posX));
-                if(posX < nextX){
 
+                if(posX < nextX){
                     rectangle.set(posX-40 , posY-40, distX, 80);
                 }
                 else{

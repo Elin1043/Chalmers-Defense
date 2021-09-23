@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class ClassicPath extends Path {
 
     public ClassicPath() {
-        super();
+        super(80);
         setPathWaypoints();
         super.createMapCollision();
     }
