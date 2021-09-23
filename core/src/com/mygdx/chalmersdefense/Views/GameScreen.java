@@ -26,7 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.Controllers.TowerClickListener;
 import com.mygdx.chalmersdefense.Model.Model;
-import com.mygdx.chalmersdefense.Model.Tower;
+import com.mygdx.chalmersdefense.Model.Towers.Tower;
 
 import java.util.HashMap;
 

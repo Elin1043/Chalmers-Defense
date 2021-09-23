@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.Model.Path.GamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.Model.Path.Path;
+import com.mygdx.chalmersdefense.Model.Towers.Tower;
+import com.mygdx.chalmersdefense.Model.Towers.TowerFactory;
 
 import java.util.*;
 import java.util.List;
@@ -174,11 +176,11 @@ public class Model {
     public void dragStart(String towerName, int x, int y) {
         switch(towerName){
             case "smurf"   -> newTower = factory.CreateSmurf(x, y);
-            case "chemist" -> newTower = factory.CreateChemist(x, y);
-            case "electro" -> newTower = factory.CreateElectro(x, y);
-            case "hacker"  -> newTower = factory.CreateHacker(x, y);
-            case "meck"    -> newTower = factory.CreateMeck(x, y);
-            case "eco"     -> newTower = factory.CreateEco(x, y);
+//            case "chemist" -> newTower = factory.CreateChemist(x, y);
+//            case "electro" -> newTower = factory.CreateElectro(x, y);
+//            case "hacker"  -> newTower = factory.CreateHacker(x, y);
+//            case "meck"    -> newTower = factory.CreateMeck(x, y);
+//            case "eco"     -> newTower = factory.CreateEco(x, y);
             default        -> { return; }
         }
 

@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.Model;
+package com.mygdx.chalmersdefense.Model.Towers;
 
 
 
@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  *
  */
 
-public class Tower extends Actor {
+public abstract class Tower extends Actor {
 
     private final String spritePath;
     private int angle = 0;
@@ -41,7 +41,7 @@ public class Tower extends Actor {
 
 
 
-    public Tower(float x, float y, String spritePath, String name, int attackDamage, int attackSpeed, int cost){
+    public Tower(float x, float y, String spritePath, String name, int attackDamage, int attackSpeed, int cost, int range){
         this.spritePath = spritePath;
         this.name=name;
         this.attackDamage = attackDamage;
