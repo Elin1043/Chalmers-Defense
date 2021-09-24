@@ -25,6 +25,7 @@ public class Virus {
     private int widthX = 0;
     private int heightY = 0;
 
+    private float totalDistanceTrawled = 0;
 
     private final Path path;
     private PositionVector currentMoveToVector;
@@ -79,6 +80,8 @@ public class Virus {
         if (totalLengthToVector < totalSpeed) {
             currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex++);
         }
+
+        totalDistanceTrawled += totalSpeed;
     }
 
     private void updateSpriteKey() { spriteKey = "virus" + health; }
@@ -88,5 +91,7 @@ public class Virus {
     public float getY() { return yPos; }
 
     public String getSpriteKey() { return spriteKey; }
+
+    public float getTotalDistanceTrawled() { return totalDistanceTrawled; }
 
 }
