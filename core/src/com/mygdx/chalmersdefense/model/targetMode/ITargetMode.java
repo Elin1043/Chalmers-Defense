@@ -14,6 +14,8 @@ public interface ITargetMode {
     /**
      * Retrieves a virus based on which targeting mode used
      * @param virusInRange Viruses to choose a target from
+     * @param towerX The x position of the tower
+     * @param towerY The y position of the tower
      * @return The targeted virus
      */
     Virus getRightVirus(List<Virus> virusInRange, float towerX, float towerY);
