@@ -40,6 +40,7 @@ public class Tower extends Actor {
 
     //private final TargetMode firstMode = TargetModeFactory.
 
+    private final List<ITargetMode> targetModes;
     private ITargetMode currentTargetMode;
 
     private float width;
@@ -63,10 +64,11 @@ public class Tower extends Actor {
 
 
 
-    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, ITargetMode targetMode){
+    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes){
         this.name=name;
         this.attackSpeed = attackSpeed;
-        this.currentTargetMode = targetMode;
+        this.targetModes = targetModes;
+        this.currentTargetMode = targetModes.get(0);
         updateSpriteKey();
 
         try{
