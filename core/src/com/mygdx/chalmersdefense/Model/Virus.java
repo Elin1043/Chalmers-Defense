@@ -25,7 +25,7 @@ public class Virus {
     private int widthX = 0;     // width of object
     private int heightY = 0;    // height of object
 
-    private float totalDistanceTrawled = 0;
+    private float totalDistanceTrawled = 0;     // Total distance the virus have trawled
 
     private final Path path;    // pointer to path object
     private PositionVector currentMoveToVector;     // Current vector (coordinates) to move to
@@ -120,6 +120,10 @@ public class Virus {
      */
     public int getLifeDecreaseAmount() { return health; }
 
+    /**
+     * Gets the total distance trawled by the virus object
+     * @return Total distance trawled
+     */
     public float getTotalDistanceTrawled() { return totalDistanceTrawled; }
 
 }
