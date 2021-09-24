@@ -2,12 +2,14 @@ package com.mygdx.chalmersdefense.Views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.mygdx.chalmersdefense.Controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.Controllers.GameScreenController;
 import com.mygdx.chalmersdefense.Model.Virus;
 import com.mygdx.chalmersdefense.Model.VirusFactory;
@@ -42,14 +44,24 @@ import java.util.HashMap;
 public class GameScreen extends AbstractScreen implements Screen {
 
     private RightSidePanelController rightSidePanelController;
+    private BottomBarPanelController bottomBarPanelController;
     private GameScreenController gameScreenController;
     private Model model;
 
     private Image sideBarBackground;
     private Button startRoundButton;
 
+    // Bottom bar
     private Image bottomBarPanelBackground;
+
+    // Upgrade panel
     private Group bottomBarPanelUpgradeGroup;
+    private Button upgradeButtonFirst;
+    private Button upgradeButtonSecond;
+    private Label towerNameLabel;
+
+    private final TextureAtlas upgradePanelAtlas = new TextureAtlas(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.atlas")); // Load atlas file from skin
+    private final Skin upgradePanelSkin = new Skin(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.json"), upgradePanelAtlas); // Create skin object
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private LabelStyle labelStyleBlack36;
@@ -75,6 +87,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     public GameScreen(Model model){
         super();
         this.rightSidePanelController = new RightSidePanelController(model);
+        this.bottomBarPanelController = new BottomBarPanelController(model);
         this.gameScreenController = new GameScreenController(model);
         this.model = model;
 
@@ -85,12 +98,20 @@ public class GameScreen extends AbstractScreen implements Screen {
         // Generating label style
         labelStyleBlack36 = generateLabelStyle(36, Color.BLACK);
 
+        // START Bottom bar group creation
         bottomBarPanelUpgradeGroup = new Group();
         createBottomBarPanel();
         addActor(bottomBarPanelBackground);
 
         bottomBarPanelUpgradeGroup.setPosition(bottomBarPanelBackground.getWidth() - 1390, 0);
+        bottomBarPanelUpgradeGroup.addActor(createBottomBarUpgradePanelBackground());
+        createUpgradeButtons();
 
+        towerNameLabel = new Label("", labelStyleBlack36);
+        towerNameLabel.setPosition(170, 130);
+        // END
+
+        // START Right side panel creation
         createRightSidePanel();
         createStartRoundButton();
 
@@ -116,12 +137,15 @@ public class GameScreen extends AbstractScreen implements Screen {
         towerButtons.put(600, ecobutton);
 
         addTowerButtonListener();
+        // END
     }
 
     @Override
     public void buildStage() {
+        // Bottom bar actors
         addActor(bottomBarPanelBackground);
         addActor(bottomBarPanelUpgradeGroup);
+        bottomBarPanelUpgradeGroup.addActor(towerNameLabel);
         bottomBarPanelUpgradeGroup.setVisible(false);
 
         addActor(sideBarBackground);
@@ -149,16 +173,9 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         // If clicked tower is present show upgrade panel.
         if (model.getClickedTower() != null) {
-            // Remove old upgrade panel.
-            bottomBarPanelUpgradeGroup.clearChildren();
-
-            // If panel not rendered, render panel.
-            if (!bottomBarPanelUpgradeGroup.hasChildren()) {
-                updateUpgradePanelInfo(model.getClickedTower());
-                bottomBarPanelUpgradeGroup.setVisible(true);
-            }
+            bottomBarPanelUpgradeGroup.setVisible(true);
+            updateUpgradePanelInfo(model.getClickedTower());
         } else {
-            bottomBarPanelUpgradeGroup.clearChildren();
             bottomBarPanelUpgradeGroup.setVisible(false);
         }
 
@@ -206,17 +223,27 @@ public class GameScreen extends AbstractScreen implements Screen {
         bottomBarPanelBackground.setPosition(0, 0);
     }
 
-    private Actor createBottomBarUpgradePanel() {
+    private Actor createBottomBarUpgradePanelBackground() {
         Image bottomBarUpgradePanelBackground = new Image(new Texture("GameScreen/BottomBarUpgradePanel.png"));
         bottomBarUpgradePanelBackground.setPosition(0 , 3);
         return bottomBarUpgradePanelBackground;
     }
 
+    private void createUpgradeButtons() {
+        upgradeButtonFirst = new Button(upgradePanelSkin);
+        bottomBarPanelUpgradeGroup.addActor(upgradeButtonFirst);
+        upgradeButtonFirst.setPosition(580, 22);
+        bottomBarPanelController.addClickListenerUpgradeButton(upgradeButtonFirst);
+
+        upgradeButtonSecond = new Button(upgradePanelSkin);
+        bottomBarPanelUpgradeGroup.addActor(upgradeButtonSecond);
+        upgradeButtonSecond.setPosition(990, 22);
+        bottomBarPanelController.addClickListenerUpgradeButton(upgradeButtonSecond);
+    }
+
     private void updateUpgradePanelInfo(Tower tower) {
-        bottomBarPanelUpgradeGroup.addActor(createBottomBarUpgradePanel());
-        Label towerNameLabel = new Label(tower.getName(), labelStyleBlack36);
-        bottomBarPanelUpgradeGroup.addActor(towerNameLabel);
-        towerNameLabel.setPosition(170, 130);
+        towerNameLabel.setText(tower.getName());
+
     }
 
     private void renderViruses() {
