@@ -60,7 +60,9 @@ public class Virus {
 
     public void decreaseHealth() {
         this.health --;
-        updateSpriteKey();
+        if (health > 0) {
+            updateSpriteKey();
+        }
     }
 
     public void update() {
@@ -112,9 +114,6 @@ public class Virus {
     public float getTotalDistanceTrawled() { return totalDistanceTrawled; }
 
     public boolean isDead() {
-        if(this.health == 0){
-            return true;
-        }
-        return false;
+        return this.health == 0;
     }
 }
