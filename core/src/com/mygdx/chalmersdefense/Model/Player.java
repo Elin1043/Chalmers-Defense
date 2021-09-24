@@ -1,5 +1,7 @@
 package com.mygdx.chalmersdefense.Model;
 
+import com.mygdx.chalmersdefense.Model.CustomExceptions.PlayerLostAllLifeException;
+
 /**
  * @author Joel Båtsman Hilmersson
  * Class representing the player and thier resorces
@@ -18,8 +20,13 @@ class Player {
     int getLives() { return lives; }
     int getMoney() { return money; }
 
-    void decreaseLivesBy(int livesToDecrease){
-        lives -= livesToDecrease;
+    void decreaseLivesBy(int livesToDecrease) throws PlayerLostAllLifeException {
+        if (lives == 0){
+            throw new PlayerLostAllLifeException();
+        } else {
+            lives -= livesToDecrease;
+        }
+
     }
 
 

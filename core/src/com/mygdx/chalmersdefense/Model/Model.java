@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
+import com.mygdx.chalmersdefense.Model.CustomExceptions.PlayerLostAllLifeException;
 import com.mygdx.chalmersdefense.Model.Path.GamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.Model.Path.Path;
 
@@ -67,7 +68,13 @@ public class Model {
             }
 
             for (Virus virus : virusToRemove){
-                player.decreaseLivesBy(virus.getLifeDecreaseAmount());
+                try {
+                    player.decreaseLivesBy(virus.getLifeDecreaseAmount());
+                } catch (PlayerLostAllLifeException ignore){
+
+                    // Här ska man hantera ifall man förlorar spelet
+
+                }
                 allViruses.remove(virus);
             }
 
