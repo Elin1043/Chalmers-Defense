@@ -6,13 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.chalmersdefense.model.Virus;
 import com.mygdx.chalmersdefense.model.projectiles.BulletProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
-import com.mygdx.chalmersdefense.model.targetMode.TargetMode;
-import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
-import com.mygdx.chalmersdefense.model.targetMode.TargetMode;
+import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
@@ -42,7 +40,7 @@ public class Tower extends Actor {
 
     //private final TargetMode firstMode = TargetModeFactory.
 
-    private TargetMode currentTargetMode;
+    private ITargetMode currentTargetMode;
 
     private float width;
     private float height;
@@ -55,7 +53,7 @@ public class Tower extends Actor {
 
     private boolean gotTarget;
 
-    private int reloadTime = 60; //how many frames
+    private int reloadTime = 60; //how many updates from model
     private int currentReload = 0;
     private Virus currentTarget;
 
@@ -65,7 +63,7 @@ public class Tower extends Actor {
 
 
 
-    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, TargetMode targetMode){
+    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, ITargetMode targetMode){
         this.name=name;
         this.attackSpeed = attackSpeed;
         this.currentTargetMode = targetMode;
@@ -92,14 +90,14 @@ public class Tower extends Actor {
 
     }
 
-    public void target(List<Virus> viruses) {
-        if (viruses != null && this.isPlaced()) {
-            currentTarget = currentTargetMode.getTarget(viruses, this.getPosX(), this.getPosY(), range);
-            if (currentTarget != null) {
-                this.setAngle( Calculate.angleDeg(currentTarget.getX(), currentTarget.getY(), this.getPosX(), this.getPosY()));
-            }
-        }
-    }
+//    public void target(List<Virus> viruses) {
+//        if (viruses != null && this.isPlaced()) {
+//            currentTarget = currentTargetMode.getTarget(viruses, this.getPosX(), this.getPosY(), range);
+//            if (currentTarget != null) {
+//                this.setAngle( Calculate.angleDeg(currentTarget.getX(), currentTarget.getY(), this.getPosX(), this.getPosY()));
+//            }
+//        }
+//    }
 
     public Projectile createProjectile() {
         if (currentTarget != null){
@@ -123,7 +121,7 @@ public class Tower extends Actor {
 
 
     public void update(List<Virus> viruses) {
-        target(viruses);
+        //target(viruses);
         shoot();
     }
 

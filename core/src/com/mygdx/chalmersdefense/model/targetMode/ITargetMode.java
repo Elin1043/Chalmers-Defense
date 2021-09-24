@@ -16,5 +16,5 @@ public interface ITargetMode {
      * @param virusInRange Viruses to choose a target from
      * @return The targeted virus
      */
-    Virus getRightVirus(List<Virus> virusInRange);
+    Virus getRightVirus(List<Virus> virusInRange, float towerX, float towerY);
 }

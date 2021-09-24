@@ -2,7 +2,7 @@ package com.mygdx.chalmersdefense.model.towers;
 
 
 
-import com.mygdx.chalmersdefense.model.targetMode.TargetMode;
+import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
 
 /**
@@ -14,40 +14,34 @@ public abstract class TowerFactory {
 
 
 
-    private static final TargetMode targetModeClosest = TargetModeFactory.getClosestTarget();
-    private static final TargetMode targetModeFirst = TargetModeFactory.getFirstTarget();
+    private static final ITargetMode targetModeClosest = TargetModeFactory.getClosestTarget();
+    private static final ITargetMode targetModeFirst = TargetModeFactory.getFirstTarget();
 
     public static Tower CreateSmurf(int startPosX, int startPosY){
-        Tower smurf = new Tower(startPosX,startPosY, "SmurfTower", 10, 100, 200, targetModeFirst);
 
-        return smurf;
+        return new Tower(startPosX,startPosY, "SmurfTower", 10, 100, 200, targetModeFirst);
     }
 
     public static Tower CreateChemist(int startPosX, int startPosY){
-        Tower chemist = new Tower(startPosX,startPosY, "ChemistTower", 10, 100, 200, targetModeFirst);
-        return chemist;
+        return new Tower(startPosX,startPosY, "ChemistTower", 10, 100, 200, targetModeFirst);
     }
 
     public static Tower CreateHacker(int startPosX, int startPosY){
-        Tower hacker = new Tower(startPosX,startPosY, "HackerTower", 10, 100, 200, targetModeFirst);
 
-        return hacker;
+        return new Tower(startPosX,startPosY, "HackerTower", 10, 100, 200, targetModeFirst);
     }
 
     public static Tower CreateElectro(int startPosX, int startPosY){
-        Tower electro = new Tower(startPosX,startPosY, "ElectroTower", 10, 100, 200, targetModeFirst);
-        return electro;
+        return new Tower(startPosX,startPosY, "ElectroTower", 10, 100, 200, targetModeFirst);
     }
 
 
     public static Tower CreateMeck(int startPosX, int startPosY){
-        Tower meck = new Tower(startPosX,startPosY, "MeckTower", 10, 100, 200, targetModeFirst);
-        return meck;
+        return new Tower(startPosX,startPosY, "MeckTower", 10, 100, 200, targetModeFirst);
     }
 
     public static Tower CreateEco(int startPosX, int startPosY){
-        Tower eco = new Tower(startPosX,startPosY, "EcoTower", 10, 100, 200, targetModeFirst);
-        return eco;
+        return new Tower(startPosX,startPosY, "EcoTower", 10, 100, 200, targetModeFirst);
     }
 
 

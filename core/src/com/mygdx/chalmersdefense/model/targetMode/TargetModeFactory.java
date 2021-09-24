@@ -6,8 +6,8 @@ public abstract class TargetModeFactory {
     private final static Closest targetClosest = new Closest();
     private final static First targetFirst = new First();
 
-    public static TargetMode getClosestTarget() { return targetClosest; }
-    public static TargetMode getFirstTarget() {
+    public static ITargetMode getClosestTarget() { return targetClosest; }
+    public static ITargetMode getFirstTarget() {
         return targetFirst;
     }
 }

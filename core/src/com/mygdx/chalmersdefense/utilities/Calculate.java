@@ -8,7 +8,13 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * @author Elin Forsberg
+ *
+ * 2021-09-24 Modified by Joel Båtsman Hilmersson: Added getVirusesInRange method
+ *
+ * Util class to help with calculations
+ */
 public abstract class Calculate {
 
 
