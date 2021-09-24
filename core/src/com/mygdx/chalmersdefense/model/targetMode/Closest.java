@@ -14,7 +14,7 @@ import java.util.List;
  *
  * Finds the virus that is the nearest to the tower
  */
-public class Closest implements ITargetMode{
+class Closest implements ITargetMode{
 
     @Override
     public Virus getRightVirus(List<Virus> virusInRange, float towerX, float towerY) {

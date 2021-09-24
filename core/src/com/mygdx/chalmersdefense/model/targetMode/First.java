@@ -12,7 +12,7 @@ import java.util.List;
  *
  * Finds the virus that have travled the furthest distance
  */
-public class First implements ITargetMode{
+class First implements ITargetMode{
 
     @Override
     public Virus getRightVirus(List<Virus> virusInRange, float towerX, float towerY) {

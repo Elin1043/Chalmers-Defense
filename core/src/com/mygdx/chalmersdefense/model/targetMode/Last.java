@@ -9,7 +9,7 @@ import java.util.List;
  *
  * Finds the virus that have travled the least distance
  */
-public class Last implements ITargetMode {
+class Last implements ITargetMode {
 
     @Override
     public Virus getRightVirus(List<Virus> virusInRange, float towerX, float towerY) {
