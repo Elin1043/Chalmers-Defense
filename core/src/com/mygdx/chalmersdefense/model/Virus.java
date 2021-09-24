@@ -114,6 +114,6 @@ public class Virus {
     public float getTotalDistanceTrawled() { return totalDistanceTrawled; }
 
     public boolean isDead() {
-        return this.health == 0;
+        return this.health <= 0;
     }
 }
