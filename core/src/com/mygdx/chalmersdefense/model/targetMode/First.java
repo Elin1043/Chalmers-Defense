@@ -19,15 +19,10 @@ public class First extends TargetMode{
                     return null;
                 }
                 Virus target = inRange.get(0); //start with a Virus so a comparison can be made
-                double distanceToWaypoint = 999999999; //the first Virus does not have to be checked, more efficient to hard-code in dummy data
-                int waypointNumberOfFirstVirus = 0;
 
-                //cycle through all Virus, get what waypoints they're on, remember the one with the highest waypoints & shortest distance to waypoints
                 for (Virus Virus:inRange){
-                    if ((Virus.getDistanceToNextPoint() < distanceToWaypoint && Virus.getWayPointIndex() == waypointNumberOfFirstVirus)|| Virus.getWayPointIndex() >= waypointNumberOfFirstVirus){
+                    if ((Virus.getTotalDistanceTrawled() > target.getTotalDistanceTrawled())){
                         target = Virus;
-                        distanceToWaypoint = Virus.getDistanceToNextPoint();
-                        waypointNumberOfFirstVirus = Virus.getWayPointIndex();
                     }
 
 

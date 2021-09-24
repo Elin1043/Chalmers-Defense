@@ -21,14 +21,10 @@ public class SmurfTower extends Tower{
     private int reloadTime = 60; //how many frames
     private int currentReload = 0;
 
-    Model model;
-
-
-
 
 
     public SmurfTower(float x, float y, TargetMode targetMode){
-        super(x, y, "Towers/Smurf.png", "SmurfTower", attackDamage, attackSpeed, cost, range);
+        super(x, y, "SmurfTower", attackDamage, attackSpeed, cost, range);
         this.targetMode = targetMode;
     }
 

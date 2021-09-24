@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.mygdx.chalmersdefense.Model.Virus;
-import com.mygdx.chalmersdefense.Model.VirusFactory;
+import com.mygdx.chalmersdefense.model.Virus;
+import com.mygdx.chalmersdefense.model.VirusFactory;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -22,10 +22,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
-import com.mygdx.chalmersdefense.Controllers.TowerClickListener;
-import com.mygdx.chalmersdefense.Model.Model;
-import com.mygdx.chalmersdefense.Model.Tower;
+import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
+import com.mygdx.chalmersdefense.controllers.TowerClickListener;
+import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.model.projectiles.Projectile;
+import com.mygdx.chalmersdefense.model.towers.Tower;
+
 
 import java.util.HashMap;
 
@@ -157,7 +159,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         super.batch.begin();
 
         for (Projectile projectile:model.getProjectilesList()) {
-            Sprite projectileSprite = new Sprite(new Texture(projectile.getImagePath()));
+            Sprite projectileSprite = spriteMap.get(projectile.getName());
             projectileSprite.setPosition(projectile.getX(), projectile.getY());
             projectileSprite.draw(super.batch);
         }
@@ -185,11 +187,10 @@ public class GameScreen extends AbstractScreen implements Screen {
     private void renderTowers() {
         for (Tower tower: model.getTowers()) {
             Sprite towerSprite = spriteMap.get(tower.getSpriteKey());
-            towerSprite.setPosition(tower.getPosX(), tower.getPosY());
 
+            towerSprite.setPosition(tower.getPosX(), tower.getPosY());
             towerSprite.setRotation(tower.getAngle());
-            tower.setHeight(towerSprite.getHeight());
-            tower.setWidth(towerSprite.getWidth());
+
 
             if(!tower.isPlaced() && !tower.getCollision()){
                 Gdx.gl.glEnable(GL_BLEND);

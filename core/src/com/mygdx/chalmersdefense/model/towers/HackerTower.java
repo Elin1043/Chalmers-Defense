@@ -21,7 +21,7 @@ public class HackerTower extends Tower{
     private int currentReload = 0;
 
     public HackerTower(float x, float y, TargetMode targetMode) {
-        super(x, y, "Towers/Hacker.png", "HackerTower", attackDamage, attackSpeed, cost, range);
+        super(x, y, "HackerTower", attackDamage, attackSpeed, cost, range);
         this.targetMode = targetMode;
     }
 

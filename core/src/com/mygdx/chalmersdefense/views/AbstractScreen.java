@@ -65,17 +65,20 @@ public abstract class AbstractScreen extends Stage implements Screen {
     @Override public void resume() {}
 
     private void createSprites() {
-        spriteMap.put("SmurfTower1", new Sprite(new Texture("Towers/Smurf.png")));
-        spriteMap.put("ChemistTower1", new Sprite(new Texture("Towers/Chemist.png")));
-        spriteMap.put("ElectroTower1", new Sprite(new Texture("Towers/Electro.png")));
-        spriteMap.put("HackerTower1", new Sprite(new Texture("Towers/Hacker.png")));
-        spriteMap.put("MeckTower1", new Sprite(new Texture("Towers/Meck.png")));
-        spriteMap.put("EcoTower1", new Sprite(new Texture("Towers/Eco.png")));
+        spriteMap.put("SmurfTower1", new Sprite(new Texture("Towers/SmurfTower1.png")));
+        spriteMap.put("ChemistTower1", new Sprite(new Texture("Towers/ChemistTower1.png")));
+        spriteMap.put("ElectroTower1", new Sprite(new Texture("Towers/ElectroTower1.png")));
+        spriteMap.put("HackerTower1", new Sprite(new Texture("Towers/HackerTower1.png")));
+        spriteMap.put("MeckTower1", new Sprite(new Texture("Towers/MeckTower1.png")));
+        spriteMap.put("EcoTower1", new Sprite(new Texture("Towers/EcoTower1.png")));
+
         spriteMap.put("virus1", new Sprite(new Texture("viruses/virus1Hp.png")));
         spriteMap.put("virus2", new Sprite(new Texture("viruses/virus2Hp.png")));
         spriteMap.put("virus3", new Sprite(new Texture("viruses/virus3Hp.png")));
         spriteMap.put("virus4", new Sprite(new Texture("viruses/virus4Hp.png")));
         spriteMap.put("virus5", new Sprite(new Texture("viruses/virus5Hp.png")));
+
+        spriteMap.put("bullet", new Sprite(new Texture("projectiles/bullet.png")));
 
     }
 }

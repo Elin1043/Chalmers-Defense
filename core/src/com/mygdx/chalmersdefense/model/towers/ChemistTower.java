@@ -22,7 +22,7 @@ public class ChemistTower extends Tower{
     private int currentReload = 0;
 
     public ChemistTower(float x, float y, TargetMode targetMode) {
-        super(x, y, "Towers/Chemist.png", "ChemistTower", attackDamage, attackSpeed, cost, range);
+        super(x, y,  "ChemistTower", attackDamage, attackSpeed, cost, range);
         this.targetMode = targetMode;
     }
 

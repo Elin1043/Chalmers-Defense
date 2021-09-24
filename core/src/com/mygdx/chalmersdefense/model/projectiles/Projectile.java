@@ -11,14 +11,14 @@ public abstract class Projectile {
     private String imagePath;
 
 
-
+    private String name;
     private float x;
     private float y;
     private double angle;
 
-    public Projectile(int speed,String imagePath, float x, float y, double angle){
+    public Projectile(int speed,String name, float x, float y, double angle){
         this.speed = speed;
-        this.imagePath = imagePath;
+        this.name = name;
         this.x = x;
         this.y = y;
         this.angle = angle + 61;
@@ -35,8 +35,8 @@ public abstract class Projectile {
 
     public abstract void attack(Virus virus);
 
-    public String getImagePath() {
-        return imagePath;
+    public String getName() {
+        return name;
     }
     public float getX() {
         return x;

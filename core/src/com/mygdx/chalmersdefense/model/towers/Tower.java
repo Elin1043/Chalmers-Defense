@@ -9,6 +9,7 @@ import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,7 +26,7 @@ public abstract class Tower extends Actor {
     private String spriteKey;
     private int upgradeLevel = 1;
 
-    private int angle = 0;
+    private float angle = 0;
     private float range;
     private String name;
     //private Tower upgrade;
@@ -51,17 +52,20 @@ public abstract class Tower extends Actor {
 
 
 
-    public Tower(float x, float y, String name, int attackDamage, int attackSpeed, int cost){
+    public Tower(float x, float y, String name, int attackDamage, int attackSpeed, int cost, int range){
         this.name=name;
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
+        updateSpriteKey();
 
         try{
-            BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(spritePath)));
+            BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("towers/" +spriteKey + ".png")));
             this.width         = towerImage.getWidth();
             this.height        = towerImage.getHeight();
+
+
         }
-        catch (Exception exception){
+        catch (IOException exception){
             System.out.println(exception);
         }
 
@@ -71,7 +75,7 @@ public abstract class Tower extends Actor {
         this.collision = false;
         this.gotButton = false;
 
-        updateSpriteKey();
+
     }
 
     private void updateSpriteKey() { spriteKey = name + upgradeLevel; }

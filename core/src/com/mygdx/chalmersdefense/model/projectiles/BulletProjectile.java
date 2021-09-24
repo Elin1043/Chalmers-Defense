@@ -3,11 +3,10 @@ package com.mygdx.chalmersdefense.model.projectiles;
 import com.mygdx.chalmersdefense.model.Virus;
 
 public class BulletProjectile extends Projectile{
-    private static String imagePath = "projectiles/bullet.png";
-
+    private static String name = "bullet";
 
     public BulletProjectile(int speed , float x, float y, double angle) {
-        super(10, imagePath, x, y, angle);
+        super(10, name, x, y, angle);
     }
 
     @Override

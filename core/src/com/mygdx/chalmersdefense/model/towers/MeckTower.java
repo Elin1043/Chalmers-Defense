@@ -21,7 +21,7 @@ public class MeckTower extends Tower{
     private int currentReload = 0;
 
     public MeckTower(float x, float y, TargetMode targetMode) {
-        super(x, y, "Towers/Meck.png", "MeckTower", attackDamage, attackSpeed, cost, range);
+        super(x, y,  "MeckTower", attackDamage, attackSpeed, cost, range);
         this.targetMode = targetMode;
     }
 
