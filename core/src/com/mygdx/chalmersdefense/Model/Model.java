@@ -162,7 +162,6 @@ public class Model {
             float towerCenterX = tower.getPosX() + tower.getWidth()/2;
             float towerCenterY = tower.getPosY() + tower.getHeight()/2;
             if (Math.sqrt(Math.pow(towerCenterX - x, 2) + Math.pow(towerCenterY - y, 2)) <= tower.getWidth()) {
-                System.out.println("Found it");
                 clickedTower = tower;
             }
         }
