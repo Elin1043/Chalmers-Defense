@@ -94,7 +94,7 @@ public class Tower extends Actor {
 
     public void target(List<Virus> viruses) {
         if (viruses != null && this.isPlaced()) {
-            currentTarget = targetMode.getTarget(viruses, this.getPosX(), this.getPosY(), range);
+            currentTarget = currentTargetMode.getTarget(viruses, this.getPosX(), this.getPosY(), range);
             if (currentTarget != null) {
                 this.setAngle( Calculate.angleDeg(currentTarget.getX(), currentTarget.getY(), this.getPosX(), this.getPosY()));
             }

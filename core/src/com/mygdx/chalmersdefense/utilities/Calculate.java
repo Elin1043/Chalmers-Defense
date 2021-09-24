@@ -12,9 +12,9 @@ public abstract class Calculate {
 
 
 
-    public static List<Virus> getVirusesInRange() {
-
-    }
+  //  public static List<Virus> getVirusesInRange() {
+//
+  //  }
 
 
     public static float angleDeg (float rotToX, float rotToY, float orgX, float orgY) {
