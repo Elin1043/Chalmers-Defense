@@ -189,7 +189,7 @@ public class GameScreen extends AbstractScreen implements Screen {
             Sprite towerSprite = spriteMap.get(tower.getSpriteKey());
 
             towerSprite.setPosition(tower.getPosX(), tower.getPosY());
-            towerSprite.setRotation(tower.getAngle());
+            towerSprite.setRotation((float) tower.getAngle());
 
 
             if(!tower.isPlaced() && !tower.getCollision()){

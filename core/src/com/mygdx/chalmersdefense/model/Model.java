@@ -86,6 +86,7 @@ public class Model {
             Projectile projectile = tower.shoot();
             if(projectile != null){
                 projectilesList.add(projectile);
+
             }
 
         }

@@ -16,8 +16,6 @@ public abstract class Projectile {
     private int speed;
 
 
-
-
     private String name;
     private float x;
     private float y;

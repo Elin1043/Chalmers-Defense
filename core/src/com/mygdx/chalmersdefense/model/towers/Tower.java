@@ -4,9 +4,12 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.chalmersdefense.model.Virus;
+import com.mygdx.chalmersdefense.model.projectiles.BulletProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.targetMode.TargetMode;
 import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
+import com.mygdx.chalmersdefense.model.targetMode.TargetMode;
+import com.mygdx.chalmersdefense.utilities.Calculate;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -23,12 +26,12 @@ import java.util.Objects;
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: changed class to hold hashmap key for sprite
  */
 
-public abstract class Tower extends Actor {
+public class Tower extends Actor {
 
     private String spriteKey;
     private int upgradeLevel = 1;
 
-    private float angle = 0;
+    private double angle = 0;
     private float range;
     private String name;
     //private Tower upgrade;
@@ -44,12 +47,17 @@ public abstract class Tower extends Actor {
     private float width;
     private float height;
 
-    private int attackDamage;
     private int attackSpeed;
     private int cost;
 
     private boolean collision;
     private boolean gotButton;
+
+    private boolean gotTarget;
+
+    private int reloadTime = 60; //how many frames
+    private int currentReload = 0;
+    private Virus currentTarget;
 
 
     private java.awt.Rectangle rectangle = new java.awt.Rectangle();
@@ -57,11 +65,10 @@ public abstract class Tower extends Actor {
 
 
 
-    public Tower(float x, float y, String name, int attackDamage, int attackSpeed, int cost, int range, TargetMode mode){
+    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, TargetMode targetMode){
         this.name=name;
-        this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
-        this.currentTargetMode = mode;
+        this.currentTargetMode = targetMode;
         updateSpriteKey();
 
         try{
@@ -78,10 +85,46 @@ public abstract class Tower extends Actor {
         this.setPos(x,y);
         this.range = range;
         this.cost = cost;
+        this.gotTarget = false;
         this.collision = false;
         this.gotButton = false;
 
 
+    }
+
+    public void target(List<Virus> viruses) {
+        if (viruses != null && this.isPlaced()) {
+            currentTarget = targetMode.getTarget(viruses, this.getPosX(), this.getPosY(), range);
+            if (currentTarget != null) {
+                this.setAngle( Calculate.angleDeg(currentTarget.getX(), currentTarget.getY(), this.getPosX(), this.getPosY()));
+            }
+        }
+    }
+
+    public Projectile createProjectile() {
+        if (currentTarget != null){
+            return new BulletProjectile(attackSpeed,this.getPosX(), this.getPosY(), this.angle);
+        }
+        return null;
+    }
+
+
+    public Projectile shoot(){
+        if(currentReload < 1 && currentTarget != null){
+            Projectile projectile = createProjectile();
+            currentReload = reloadTime;
+            return projectile;
+        }
+        else{
+            currentReload --;
+        }
+        return null;
+    }
+
+
+    public void update(List<Virus> viruses) {
+        target(viruses);
+        shoot();
     }
 
     private void updateSpriteKey() { spriteKey = name + upgradeLevel; }
@@ -91,7 +134,6 @@ public abstract class Tower extends Actor {
     }
 
 
-    public abstract Projectile shoot();
 
 
     public int getCost() {
@@ -147,7 +189,7 @@ public abstract class Tower extends Actor {
         return y;
     }
 
-    public float getAngle(){
+    public double getAngle(){
         return angle;
     }
 
@@ -167,12 +209,6 @@ public abstract class Tower extends Actor {
         isPlaced = placed;
     }
 
-    public int getAttackDamage() {
-        return attackDamage;
-    }
-
-
-    public abstract void update(List<Virus> viruses);
 
 
 }
