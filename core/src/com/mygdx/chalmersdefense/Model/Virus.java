@@ -25,6 +25,7 @@ public class Virus {
     private int widthX = 0;     // width of object
     private int heightY = 0;    // height of object
 
+    private float totalDistanceTrawled = 0;
 
     private final Path path;    // pointer to path object
     private PositionVector currentMoveToVector;     // Current vector (coordinates) to move to
@@ -89,6 +90,8 @@ public class Virus {
         if (totalLengthToVector < totalSpeed) {
             currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex++);
         }
+
+        totalDistanceTrawled += totalSpeed;
     }
 
     private void updateSpriteKey() { spriteKey = "virus" + health; } // Updates the key to Sprite hashmap
@@ -116,5 +119,7 @@ public class Virus {
      * @return Amount of damage to be done
      */
     public int getLifeDecreaseAmount() { return health; }
+
+    public float getTotalDistanceTrawled() { return totalDistanceTrawled; }
 
 }
