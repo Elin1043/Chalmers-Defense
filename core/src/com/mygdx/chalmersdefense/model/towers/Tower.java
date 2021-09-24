@@ -88,20 +88,9 @@ public class Tower extends Actor {
 
     }
 
-//    public void target(List<Virus> viruses) {
-//        if (viruses != null && this.isPlaced()) {
-//            currentTarget = currentTargetMode.getTarget(viruses, this.getPosX(), this.getPosY(), range);
-//            if (currentTarget != null) {
-//                this.setAngle( Calculate.angleDeg(currentTarget.getX(), currentTarget.getY(), this.getPosX(), this.getPosY()));
-//            }
-//        }
-//    }
-
-
-
     public Projectile shoot(){
         if(currentReload < 1 && gotTarget){
-            Projectile projectile = new BulletProjectile(attackSpeed,this.getPosX(), this.getPosY(), this.angle);
+            Projectile projectile = new BulletProjectile(attackSpeed, this.getPosX() + width/2, this.getPosY() + height/2, this.angle);
             currentReload = reloadTime;
             return projectile;
         }
