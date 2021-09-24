@@ -2,12 +2,12 @@ package com.mygdx.chalmersdefense.model.towers;
 
 
 
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.chalmersdefense.model.Virus;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
@@ -47,7 +47,7 @@ public abstract class Tower extends Actor {
     private boolean gotButton;
 
 
-    private Rectangle rectangle = new Rectangle();
+    private java.awt.Rectangle rectangle = new java.awt.Rectangle();
 
 
 
@@ -109,10 +109,10 @@ public abstract class Tower extends Actor {
 
     public void setRectangle(){
         rectangle = new Rectangle();
-        rectangle.set(this.x  , this.y  , this.width,this.height);
+        rectangle.setRect(this.x  , this.y  , this.width,this.height);
     }
 
-    public Rectangle getRectangle(){
+    public java.awt.Rectangle getRectangle(){
         return rectangle;
     }
 

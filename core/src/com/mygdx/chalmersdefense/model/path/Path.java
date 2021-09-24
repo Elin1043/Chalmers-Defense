@@ -1,8 +1,8 @@
 package com.mygdx.chalmersdefense.model.path;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.chalmersdefense.utilities.PositionVector;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Path {
@@ -32,20 +32,20 @@ public abstract class Path {
 
                 if(posY < nextY){
 
-                    rectangle.set(posX - pathWidth/2F , posY - pathWidth/2F, pathWidth, distY + pathWidth);
+                    rectangle.setRect(posX - pathWidth/2F , posY - pathWidth/2F, pathWidth, distY + pathWidth);
                 }
                 else{
-                    rectangle.set(posX - pathWidth/2F , posY -distY - pathWidth/2F, pathWidth, distY + pathWidth);
+                    rectangle.setRect(posX - pathWidth/2F , posY -distY - pathWidth/2F, pathWidth, distY + pathWidth);
                 }
             }
             else {
                 float distX = Math.abs((nextX - posX));
 
                 if(posX < nextX){
-                    rectangle.set(posX-40 , posY-40, distX, 80);
+                    rectangle.setRect(posX-40 , posY-40, distX, 80);
                 }
                 else{
-                    rectangle.set(posX-40 - distX  , posY-40, distX, 80);
+                    rectangle.setRect(posX-40 - distX  , posY-40, distX, 80);
                 }
 
             }

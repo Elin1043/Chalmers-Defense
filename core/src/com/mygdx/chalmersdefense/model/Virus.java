@@ -15,6 +15,8 @@ import java.util.Objects;
  * A class that representates the common enemy type for the game
  */
 public class Virus {
+
+
     private int health;
     //private final Sprite sprite;
 
@@ -23,6 +25,8 @@ public class Virus {
 
     private float xPos;
     private float yPos;
+
+
 
     private int widthX = 0;
     private int heightY = 0;
@@ -55,6 +59,10 @@ public class Virus {
         yPos = currentMoveToVector.getY() - heightY / 2F;
     }
 
+    public void decreaseHealth() {
+        this.health --;
+        updateSpriteKey();
+    }
 
     public void update() {
         moveToPoint();
@@ -92,8 +100,22 @@ public class Virus {
 
     public float getY() { return yPos; }
 
+    public int getWidthX() {
+        return widthX;
+    }
+
+    public int getHeightY() {
+        return heightY;
+    }
+
     public String getSpriteKey() { return spriteKey; }
 
     public float getTotalDistanceTrawled() { return totalDistanceTrawled; }
 
+    public boolean isDead() {
+        if(this.health == 0){
+            return true;
+        }
+        return false;
+    }
 }

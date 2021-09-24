@@ -2,7 +2,7 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.BulletProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
-import com.mygdx.chalmersdefense.model.targetMode.Calculate;
+import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.model.targetMode.TargetMode;
 import com.mygdx.chalmersdefense.model.Virus;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ChemistTower extends Tower{
     private static final int cost = 100;
-    private static int range = 100;
+    private static int range = 150;
     private static int attackDamage = 10;
     private static int attackSpeed = 10;
 

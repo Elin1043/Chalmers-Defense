@@ -1,14 +1,15 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.path.GamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
+import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.model.towers.Tower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 
+import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class Model {
     private ChalmersDefense game;
-    private final ArrayList<Tower> towersList = new ArrayList<>();
+    private final List<Tower> towersList = new ArrayList<>();
     private List<Projectile> projectilesList = new ArrayList<>();
 
 
@@ -60,9 +61,19 @@ public class Model {
     }
 
     private void updateProjectiles(){
+        List<Projectile> removeProjectiles= new ArrayList<>();
         for (Projectile projectile: projectilesList) {
             projectile.move();
+            if(checkCollisonOfProjectiles(projectile)){
+                removeProjectiles.add(projectile);
+            }
         }
+
+        for (Projectile projectile: removeProjectiles) {
+            projectilesList.remove(projectile);
+        }
+
+
     }
 
     private void updateTowers(){
@@ -82,8 +93,9 @@ public class Model {
             List<Virus> virusToRemove = new ArrayList<>();
 
             for (Virus virus : allViruses) {
-                if (virus.getY() > 1130) {
+                if (virus.getY() > 1130 || virus.isDead()) {
                     virusToRemove.add(virus);
+
                 }
                 virus.update();
             }
@@ -100,11 +112,25 @@ public class Model {
     //Checks if a tower collides with path
     private boolean checkMapAndTowerCollision(Tower tower)
     {
-        for (Rectangle rect : path.getCollisionRectangles()) {
-            if(tower.getRectangle().overlaps(rect)){
+        for (java.awt.Rectangle rect : path.getCollisionRectangles()) {
+            if(tower.getRectangle().intersects(rect)){
                 return true;
             }
 
+        }
+        return false;
+    }
+
+    private boolean checkCollisonOfProjectiles(Projectile projectile){
+        for (Rectangle rectangle: path.getCollisionRectangles()) {
+            if(Calculate.objectsIntersects(projectile,rectangle)){
+                for (Virus virus: getViruses()) {
+                    if(Calculate.objectsIntersects(projectile,virus)){
+                        virus.decreaseHealth();
+                        return true;
+                    }
+                }
+            }
         }
         return false;
     }
@@ -114,7 +140,7 @@ public class Model {
     private boolean checkCollisionOfTower(Tower tower, int windowHeight, int windowWidth) {
         for(Tower checkTower: towersList){
             //Check if tower collides with a placed tower
-            if(tower.getRectangle().overlaps(checkTower.getRectangle()) && !(checkTower.hashCode() == tower.hashCode())){
+            if(tower.getRectangle().intersects(checkTower.getRectangle()) && !(checkTower.hashCode() == tower.hashCode())){
                 return true;
             }
             //Check if tower out of bound on X
@@ -143,7 +169,7 @@ public class Model {
 
 
     //Return list of towers on map
-    public ArrayList<Tower> getTowers() {
+    public List<Tower> getTowers() {
         return towersList;
     }
 

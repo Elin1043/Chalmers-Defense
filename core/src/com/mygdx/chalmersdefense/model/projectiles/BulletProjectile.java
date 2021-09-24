@@ -9,10 +9,4 @@ public class BulletProjectile extends Projectile{
         super(10, name, x, y, angle);
     }
 
-    @Override
-    public void attack(Virus virus) {
-        if (virus != null){
-            //virus.devolve();
-        }
-    }
 }

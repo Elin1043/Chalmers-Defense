@@ -1,9 +1,8 @@
 package com.mygdx.chalmersdefense.model.towers;
 
-import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.model.projectiles.BulletProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
-import com.mygdx.chalmersdefense.model.targetMode.Calculate;
+import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.model.targetMode.TargetMode;
 import com.mygdx.chalmersdefense.model.Virus;
 
