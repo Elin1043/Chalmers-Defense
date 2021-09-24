@@ -3,12 +3,9 @@ package com.mygdx.chalmersdefense.model.towers;
 
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.mygdx.chalmersdefense.model.Virus;
 import com.mygdx.chalmersdefense.model.projectiles.BulletProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
-import com.mygdx.chalmersdefense.utilities.Calculate;
-
 import javax.imageio.ImageIO;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -56,7 +53,6 @@ public class Tower extends Actor {
 
     private int reloadTime = 60; //how many updates from model
     private int currentReload = 0;
-    private Virus currentTarget;
 
 
     private Rectangle rectangle = new Rectangle();
@@ -101,17 +97,11 @@ public class Tower extends Actor {
 //        }
 //    }
 
-    public Projectile createProjectile() {
-        if (currentTarget != null){
-            return new BulletProjectile(attackSpeed,this.getPosX(), this.getPosY(), this.angle);
-        }
-        return null;
-    }
 
 
     public Projectile shoot(){
-        if(currentReload < 1 && currentTarget != null){
-            Projectile projectile = createProjectile();
+        if(currentReload < 1 && gotTarget){
+            Projectile projectile = new BulletProjectile(attackSpeed,this.getPosX(), this.getPosY(), this.angle);
             currentReload = reloadTime;
             return projectile;
         }
@@ -122,10 +112,7 @@ public class Tower extends Actor {
     }
 
 
-    public void update(List<Virus> viruses) {
-        //target(viruses);
-        shoot();
-    }
+    public void update() { shoot(); }
 
     private void updateSpriteKey() { spriteKey = name + upgradeLevel; }
 
@@ -202,13 +189,16 @@ public class Tower extends Actor {
         return range;
     }
 
+    public ITargetMode getCurrentTargetMode() { return currentTargetMode; }
+
     public boolean isPlaced(){
         return isPlaced;
     }
     public void placeTower(){
         isPlaced = true;
     }
-
+    public void haveTarget() { gotTarget = true; }
+    public void notHaveTarget() { gotTarget = false; }
 
 
 }

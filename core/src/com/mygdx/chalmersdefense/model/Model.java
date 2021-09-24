@@ -79,10 +79,20 @@ public class Model {
 
     private void updateTowers(){
         for (Tower tower: towersList) {
-            //tower.update((allViruses));
+            tower.update();
+
+            List<Virus> virusInRange;
 
             synchronized (allViruses) {
-                List<Virus> virusInRange = Calculate.getVirusesInRange(tower.getPosX(), tower.getPosY(), tower.getRange(), allViruses);
+                virusInRange = Calculate.getVirusesInRange(tower.getPosX(), tower.getPosY(), tower.getRange(), allViruses);
+            }
+
+            if (virusInRange.size() > 0) {
+                Virus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getPosX(), tower.getPosY());
+                tower.setAngle(Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getPosX(), tower.getPosY()));
+                tower.haveTarget();
+            } else {
+                tower.notHaveTarget();
             }
 
             Projectile projectile = tower.shoot();

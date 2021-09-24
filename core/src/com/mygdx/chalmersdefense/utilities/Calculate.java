@@ -38,7 +38,7 @@ public abstract class Calculate {
         if(angle < 0){
             angle += 360;
         }
-        return angle - 61;
+        return angle - 45;
     }
 
 
