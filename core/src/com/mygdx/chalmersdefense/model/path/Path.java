@@ -2,7 +2,7 @@ package com.mygdx.chalmersdefense.model.path;
 
 import com.mygdx.chalmersdefense.utilities.PositionVector;
 
-import java.awt.*;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public abstract class Path {

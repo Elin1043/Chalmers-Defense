@@ -62,7 +62,7 @@ public class Model {
     }
 
     private void updateProjectiles(){
-        List<Projectile> removeProjectiles= new ArrayList<>();
+        List<Projectile> removeProjectiles = new ArrayList<>();
         for (Projectile projectile: projectilesList) {
             projectile.move();
             if(checkCollisonOfProjectiles(projectile)){
@@ -81,7 +81,9 @@ public class Model {
         for (Tower tower: towersList) {
             //tower.update((allViruses));
 
-
+            synchronized (allViruses) {
+                List<Virus> virusInRange = Calculate.getVirusesInRange(tower.getPosX(), tower.getPosY(), tower.getRange(), allViruses);
+            }
 
             Projectile projectile = tower.shoot();
             if(projectile != null){
@@ -126,6 +128,7 @@ public class Model {
         return false;
     }
 
+    // TODO Should be divided into smaller methods???
     private boolean checkCollisonOfProjectiles(Projectile projectile){
         for (Rectangle rectangle: path.getCollisionRectangles()) {
             if(Calculate.objectsIntersects(projectile,rectangle)){
@@ -149,7 +152,7 @@ public class Model {
                 return true;
             }
             //Check if tower out of bound on X
-            else if(!(0 <= (tower.getPosX())) || (windowWidth - 340 < (tower.getPosX() + tower.getRectangle().width/2))){
+            else if(!(0 <= (tower.getPosX())) || (windowWidth - 340 < (tower.getPosX() + tower.getWidth()/2))){
                     return true;
             }
             //Check if tower out of bound on Y
@@ -232,7 +235,7 @@ public class Model {
     public void dragEnd(int buttonWidth, int buttonHeight, int x, int y, int windowHeight) {
 
         if(!newTower.getCollision()){
-            newTower.setPlaced(true);
+            newTower.placeTower();
             newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
             newTower.setRectangle();
         }

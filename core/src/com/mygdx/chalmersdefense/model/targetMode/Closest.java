@@ -9,8 +9,6 @@ import java.util.List;
 
 public class Closest extends TargetMode{
 
-
-
     @Override
     public Virus getTarget(List<Virus> viruses, float x, float y, double range){
         double disToClosest;

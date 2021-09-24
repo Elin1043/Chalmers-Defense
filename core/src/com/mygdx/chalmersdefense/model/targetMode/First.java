@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class First extends TargetMode{
+
     @Override
     public Virus getTarget(List<Virus> viruses, float x, float y, double range) {
             if (viruses.size() > 0){ //can only get a target if there are enemies
-                List<Virus> inRange = new ArrayList<Virus>();
+                List<Virus> inRange = new ArrayList<>();
                 for(Virus c: viruses){
                     if(isWithinRange(c,x,y,range)){
                         inRange.add(c);

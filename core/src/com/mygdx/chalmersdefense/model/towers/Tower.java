@@ -60,7 +60,7 @@ public class Tower extends Actor {
     private Virus currentTarget;
 
 
-    private java.awt.Rectangle rectangle = new java.awt.Rectangle();
+    private Rectangle rectangle = new Rectangle();
 
 
 
@@ -79,7 +79,7 @@ public class Tower extends Actor {
 
         }
         catch (IOException exception){
-            System.out.println(exception);
+            exception.printStackTrace();
         }
 
         this.setPos(x,y);
@@ -160,7 +160,7 @@ public class Tower extends Actor {
         rectangle.setRect(this.x  , this.y  , this.width,this.height);
     }
 
-    public java.awt.Rectangle getRectangle(){
+    public Rectangle getRectangle(){
         return rectangle;
     }
 
@@ -205,8 +205,8 @@ public class Tower extends Actor {
     public boolean isPlaced(){
         return isPlaced;
     }
-    public void setPlaced(boolean placed){
-        isPlaced = placed;
+    public void placeTower(){
+        isPlaced = true;
     }
 
 
