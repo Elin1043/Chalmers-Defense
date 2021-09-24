@@ -1,8 +1,7 @@
 package com.mygdx.chalmersdefense.Model;
 
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -11,17 +10,24 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  * @author ELin Forsberg
  * A class defining the tower objects
  *
+ * 2021-09-23 Modified by Joel Båtsman Hilmersson: changed class to hold hashmap key for sprite
  */
 
 public class Tower extends Actor {
-    private final Sprite sprite;
+
+    private String spriteKey;
+    private int upgradeLevel = 1;
+
     private int angle = 0;
     private float range;
     private String name;
     //private Tower upgrade;
-    private boolean isPlaced=false;
+    private boolean isPlaced = false;
     private float x;
     private float y;
+
+
+
     private float width;
     private float height;
 
@@ -38,30 +44,33 @@ public class Tower extends Actor {
 
 
 
-    public Tower(float x, float y, Sprite sprite, String name, int attackDamage, int attackSpeed, int cost){
-        this.sprite = sprite;
+    public Tower(float x, float y, String name, int attackDamage, int attackSpeed, int cost){
         this.name=name;
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
 
+
+        this.width = 100;
+        this.height = 100;
         this.setPos(x,y);
-        this.width = sprite.getWidth();
-        this.height = sprite.getHeight();
         this.range = 100;
         this.cost = cost;
         this.collision = false;
         this.gotButton = false;
 
+        updateSpriteKey();
     }
+
+    private void updateSpriteKey() { spriteKey = name + upgradeLevel; }
+
+    public String getSpriteKey() {
+        return spriteKey;
+    }
+
     public int getCost() {
         return cost;
     }
 
-    public ShapeRenderer drawRadius(ShapeRenderer shape){
-        shape.circle(this.x + this.width/2 , this.y  + this.height/2, this.range);
-        return shape;
-
-    }
     public boolean getGotButton() {
         return gotButton;
     }
@@ -80,6 +89,16 @@ public class Tower extends Actor {
     public void setRectangle(){
         rectangle = new Rectangle();
         rectangle.set(this.x  , this.y  , this.width,this.height);
+    }
+
+    @Override
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    @Override
+    public void setHeight(float height) {
+        this.height = height;
     }
 
     public Rectangle getRectangle(){
@@ -112,9 +131,6 @@ public class Tower extends Actor {
         return y;
     }
 
-    public Sprite getSprite(){
-        return sprite;
-    }
 
 
     public int getAngle(){
@@ -136,6 +152,7 @@ public class Tower extends Actor {
     public void setPlaced(boolean placed){
         isPlaced=placed;
     }
+
     public int getAttackDamage() {
         return attackDamage;
     }

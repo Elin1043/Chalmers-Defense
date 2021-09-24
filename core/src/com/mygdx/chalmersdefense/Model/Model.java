@@ -2,9 +2,8 @@ package com.mygdx.chalmersdefense.Model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.chalmersdefense.ChalmersDefense;
+import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
 import com.mygdx.chalmersdefense.Model.Path.GamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.Model.Path.Path;
 
@@ -13,19 +12,19 @@ import java.util.List;
 
 
 /**
- * @author
+ * @author Joel Båtsman Hilmmersson
+ * @author Elin Forsberg
+ * @author Daniel Persson
+ * @author Jenny Carlsson
  *
  *
- * @Modified by Elin Forsberg
- *  Added methods to handle towers + collisions
+ * 2021-09-20 Modified by Elin Forsberg: Added methods to handle towers + collisions
+ * 2021-09-20 Modified by Joel Båtsman Hilmersson: Made updateVirus loop syncronized
  */
 
 public class Model {
     private ChalmersDefense game;
-    private ArrayList<Tower> towersList = new ArrayList<>();
-
-
-    private ArrayList<Rectangle> collisionRectangles = new ArrayList<>();
+    private final ArrayList<Tower> towersList = new ArrayList<>();
 
 
     private Tower newTower;
@@ -33,9 +32,9 @@ public class Model {
 
 
 
-    private Path path;
+    private final Path path;
 
-    private List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
+    private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
     private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
 
     private int money = 300;
@@ -43,95 +42,47 @@ public class Model {
 
 
 
+
     public Model(ChalmersDefense game) {
         this.game = game;
-        factory = new TowerFactory();
-        path = new ClassicPath();
-        createCollisionOnPath();
-
+        factory = new TowerFactory();       // Make factory abstract?
+        path = new ClassicPath();           // Make a path factory instead?
     }
 
     //Update all the components in model
     public void updateModel() {
-        updateTowers();
         updateVirus();
     }
 
-    //Update the towers on map
-    private void updateTowers() {
-        for (Tower tower: towersList) {
-            tower.setPos(tower.getSprite().getX(), tower.getSprite().getY());
 
-            if(!tower.isPlaced() && !checkCollisionOfTower(tower)){
-                tower.setCollision(false);
 
-            }
-            else if(!tower.isPlaced() && checkCollisionOfTower(tower)){
-                tower.setCollision(true);
-            }
 
-        }
-    }
+    private void updateVirus(){
+        synchronized (allViruses) {
+            List<Virus> virusToRemove = new ArrayList<>();
 
-    // TODO Try to fix concurrent modification error in list. Then the try-catch block can be removed
-    private void updateVirus() {
-        try {
-            for (Virus virus : allViruses){ // Om den lägger till ett virus exakt samtidigt blir det inte bra
+            for (Virus virus : allViruses) {
+                if (virus.getY() > 1130) {
+                    virusToRemove.add(virus);
+                }
                 virus.update();
             }
 
-        } catch (ConcurrentModificationException e) {
-            System.out.println("FAIL when updating Virus");
-
-            for (Virus virus : allViruses){ // Om den lägger till ett virus exakt samtidigt blir det inte bra
-                virus.update();
+            for (Virus virus : virusToRemove){
+                allViruses.remove(virus);
             }
+
         }
+
     }
 
 
-    //Function for creating the rectangles on path used for collision
-    private void createCollisionOnPath(){
-        path.getFirstWaypoint();
 
-        for (int i = 0; i < 12; i++) {
-            Rectangle rectangle = new Rectangle();
-            float posX = path.getWaypoint(i).getX();
-            float posY = path.getWaypoint(i).getY();
-            float nextX = path.getWaypoint(i+1).getX();
-            float nextY = path.getWaypoint(i+1).getY();
-            if(posX == nextX){
-                float distY = Math.abs((nextY - posY));
-                if(posY < nextY){
-
-                    rectangle.set(posX-40 , posY -40,80, distY + 80);
-                }
-                else{
-                    rectangle.set(posX-40 , posY -distY -40,80, distY + 80);
-
-                }
-            }
-            else{
-                float distX = Math.abs((nextX - posX));
-                if(posX < nextX){
-
-                    rectangle.set(posX-40 , posY-40, distX, 80);
-                }
-                else{
-                    rectangle.set(posX-40 - distX  , posY-40, distX, 80);
-                }
-
-
-            }
-            collisionRectangles.add(rectangle);
-
-        }
-    }
 
     //Checks if a tower collides with path
     private boolean checkMapAndTowerCollision(Tower tower)
     {
-        for (Rectangle rect:collisionRectangles) {
+        for (Rectangle rect : path.getCollisionRectangles()) {
             if(tower.getRectangle().overlaps(rect)){
                 return true;
             }
@@ -173,7 +124,6 @@ public class Model {
     }
 
 
-    // Ska vi använda Arraylist eller bara List ?
     //Return list of towers on map
     public ArrayList<Tower> getTowers() {
         return towersList;
@@ -188,40 +138,50 @@ public class Model {
     }
 
     //Create a tower when user draged from TowerButton
-    public void dragStart(InputEvent event) {
-        String towerName = event.getListenerActor().getName();
-        ImageButton button = (ImageButton) event.getListenerActor();
+    public void dragStart(String towerName, int x, int y) {
         switch(towerName){
-            case "smurf"   -> newTower = factory.CreateSmurf((int)button.getX(), (int)button.getY());
-            case "chemist" -> newTower = factory.CreateChemist((int)button.getX(), (int)button.getY());
-            case "electro" -> newTower = factory.CreateElectro((int)button.getX(), (int)button.getY());
-            case "hacker"  -> newTower = factory.CreateHacker((int)button.getX(), (int)button.getY());
-            case "meck"    -> newTower = factory.CreateMeck((int)button.getX(), (int)button.getY());
-            case "eco"     -> newTower = factory.CreateEco((int)button.getX(), (int)button.getY());
+            case "smurf"   -> newTower = factory.CreateSmurf(x, y);
+            case "chemist" -> newTower = factory.CreateChemist(x, y);
+            case "electro" -> newTower = factory.CreateElectro(x, y);
+            case "hacker"  -> newTower = factory.CreateHacker(x, y);
+            case "meck"    -> newTower = factory.CreateMeck(x, y);
+            case "eco"     -> newTower = factory.CreateEco(x, y);
             default        -> { return; }
         }
 
         towersList.add(newTower);
     }
 
+
+
     //While dragging the tower, follow the mouse
-    public void onDrag(InputEvent event) {
-        ImageButton button = (ImageButton) event.getListenerActor();
-        newTower.getSprite().setPosition( Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getImage().getHeight()/2 );
+    public void onDrag(int buttonWidth, int buttonHeight, int x, int y, int windowHeight) {
+
+        newTower.setPos( x - buttonWidth,(windowHeight - y - buttonHeight ));
         newTower.setRectangle();
+
+        for (Tower tower: towersList) {
+
+            if(!tower.isPlaced() && !checkCollisionOfTower(tower)){
+                tower.setCollision(false);
+
+            }
+            else if(!tower.isPlaced() && checkCollisionOfTower(tower)){
+                tower.setCollision(true);
+            }
+
+        }
     }
 
     //When let go of tower, check if valid spot to let go.
     //If not valid: remove tower
     //If valid: place tower
-    public void dragEnd(InputEvent event) {
-        ImageButton button = (ImageButton) event.getListenerActor();
+    public void dragEnd(int buttonWidth, int buttonHeight, int x, int y, int windowHeight) {
+
         if(!newTower.getCollision()){
             newTower.setPlaced(true);
-            newTower.getSprite().setPosition(Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight()  - Gdx.input.getY()) - button.getImage().getHeight()/2 );
-            newTower.setPos(Gdx.input.getX() - button.getImage().getWidth()/2,(Gdx.graphics.getHeight() - Gdx.input.getY()) - button.getImage().getHeight()/2);
+            newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
             newTower.setRectangle();
-
         }
         else{
             towersList.remove(newTower);

@@ -1,5 +1,6 @@
 package com.mygdx.chalmersdefense.Controllers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -27,7 +28,7 @@ public class RightSidePanelController {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // Add action here
+                model.getVirusSpawner().spawnRound(1);                  // Will need to change later more
             }
         });
     }
@@ -36,17 +37,27 @@ public class RightSidePanelController {
         button.addListener(new DragListener(){
             @Override
             public void dragStart(InputEvent event, float x, float y, int pointer) {
-                model.dragStart(event);
+                String towerName = event.getListenerActor().getName();
+                ImageButton button = (ImageButton) event.getListenerActor();
+                model.dragStart(towerName, (int)button.getX(), (int)button.getY());
             }
 
             @Override
             public void drag(InputEvent event, float x, float y, int pointer) {
-                model.onDrag(event);
+                ImageButton button = (ImageButton) event.getListenerActor();
+                int inputX = Gdx.input.getX();
+                int inputY = Gdx.input.getY();
+                int windowHeight = Gdx.graphics.getHeight();
+                model.onDrag((int) (button.getImage().getWidth()/2),(int) (button.getImage().getHeight()/2) ,inputX,inputY, windowHeight);
             }
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
-                model.dragEnd(event);
+                ImageButton button = (ImageButton) event.getListenerActor();
+                int inputX = Gdx.input.getX();
+                int inputY = Gdx.input.getY();
+                int windowHeight = Gdx.graphics.getHeight();
+                model.dragEnd((int) (button.getImage().getWidth()/2),(int) (button.getImage().getHeight()/2) ,inputX,inputY, windowHeight);
             }
         });
 
