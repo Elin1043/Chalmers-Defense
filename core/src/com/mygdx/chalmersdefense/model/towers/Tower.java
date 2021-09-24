@@ -5,6 +5,7 @@ package com.mygdx.chalmersdefense.model.towers;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.chalmersdefense.model.Virus;
+import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -66,6 +67,10 @@ public abstract class Tower extends Actor {
         this.gotButton = false;
 
     }
+
+    public abstract Projectile shoot();
+
+
     public int getCost() {
         return cost;
     }

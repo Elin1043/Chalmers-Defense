@@ -68,6 +68,11 @@ public class Model {
     private void updateTowers(){
         for (Tower tower: towersList) {
             tower.update((allViruses));
+            Projectile projectile = tower.shoot();
+            if(projectile != null){
+                projectilesList.add(projectile);
+            }
+
         }
     }
 

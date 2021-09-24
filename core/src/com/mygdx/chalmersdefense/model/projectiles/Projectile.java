@@ -21,7 +21,7 @@ public abstract class Projectile {
         this.imagePath = imagePath;
         this.x = x;
         this.y = y;
-        this.angle = angle;
+        this.angle = angle + 61;
 
     }
 

@@ -41,14 +41,17 @@ public class HackerTower extends Tower{
         return null;
     }
 
-    public void shoot(){
+    @Override
+    public Projectile shoot(){
         if(currentReload < 1 && currentTarget != null){
-            createProjectile();
+            Projectile projectile = createProjectile();
             currentReload = reloadTime;
+            return projectile;
         }
         else{
             currentReload --;
         }
+        return null;
     }
 
 
