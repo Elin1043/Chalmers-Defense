@@ -88,8 +88,8 @@ public class Tower extends Actor {
 
     }
 
-    public Projectile shoot(){
-        if(currentReload < 1 && gotTarget){
+    public Projectile shootProjectile(){
+        if(currentReload < 1 && gotTarget && isPlaced){
             Projectile projectile = new BulletProjectile(attackSpeed, this.getPosX() + width/2, this.getPosY() + height/2, this.angle);
             currentReload = reloadTime;
             return projectile;
@@ -101,7 +101,7 @@ public class Tower extends Actor {
     }
 
 
-    public void update() { shoot(); }
+    public void update() { shootProjectile(); }
 
     private void updateSpriteKey() { spriteKey = name + upgradeLevel; }
 
@@ -170,8 +170,7 @@ public class Tower extends Actor {
     }
 
     public void setAngle(float setangle){
-        angle = setangle;
-
+        if (isPlaced) { angle = setangle; }
     }
 
     public float getRange(){
@@ -186,6 +185,7 @@ public class Tower extends Actor {
     public void placeTower(){
         isPlaced = true;
     }
+
     public void haveTarget() { gotTarget = true; }
     public void notHaveTarget() { gotTarget = false; }
 

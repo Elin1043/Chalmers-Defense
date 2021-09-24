@@ -95,7 +95,7 @@ public class Model {
                 tower.notHaveTarget();
             }
 
-            Projectile projectile = tower.shoot();
+            Projectile projectile = tower.shootProjectile();
             if(projectile != null){
                 projectilesList.add(projectile);
 
