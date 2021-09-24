@@ -1,5 +1,9 @@
 package com.mygdx.chalmersdefense.model.targetMode;
 
+import com.mygdx.chalmersdefense.model.Virus;
+
+import java.util.List;
+
 /**
  * @author Joel Båtsman Hilmersson
  *
@@ -7,4 +11,10 @@ package com.mygdx.chalmersdefense.model.targetMode;
  */
 public interface ITargetMode {
 
+    /**
+     * Retrieves a virus based on which targeting mode used
+     * @param virusInRange Viruses to choose a target from
+     * @return The targeted virus
+     */
+    Virus getRightVirus(List<Virus> virusInRange);
 }
