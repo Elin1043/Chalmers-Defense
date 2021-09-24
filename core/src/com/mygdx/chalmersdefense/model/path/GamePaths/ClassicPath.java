@@ -6,8 +6,7 @@ import com.mygdx.chalmersdefense.utilities.PositionVector;
 public class ClassicPath extends Path {
 
     public ClassicPath() {
-        super();
-        startingPoint = new PositionVector(-50, 453);
+        super(80);
         setPathWaypoints();
         super.createMapCollision();
     }
@@ -15,7 +14,7 @@ public class ClassicPath extends Path {
     @Override
     protected void setPathWaypoints() {
         if (pathWaypoints.isEmpty()) {
-            pathWaypoints.add(new PositionVector(0, 456));
+            pathWaypoints.add(new PositionVector(-50, 456));
             pathWaypoints.add(new PositionVector(483, 456));
             pathWaypoints.add(new PositionVector(483, 756));
             pathWaypoints.add(new PositionVector(270, 756));

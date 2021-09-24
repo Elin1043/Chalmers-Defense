@@ -17,18 +17,22 @@ import java.util.Objects;
  * @author ELin Forsberg
  * A class defining the tower objects
  *
+ * 2021-09-23 Modified by Joel Båtsman Hilmersson: changed class to hold hashmap key for sprite
  */
 
 public abstract class Tower extends Actor {
 
-    private final String spritePath;
-    private float angle = 0;
+    private String spriteKey;
+    private int upgradeLevel = 1;
+
+    private int angle = 0;
     private float range;
     private String name;
     //private Tower upgrade;
-    private boolean isPlaced=false;
+    private boolean isPlaced = false;
     private float x;
     private float y;
+
 
 
     private float width;
@@ -45,8 +49,9 @@ public abstract class Tower extends Actor {
     private Rectangle rectangle = new Rectangle();
 
 
-    public Tower(float x, float y, String spritePath, String name, int attackDamage, int attackSpeed, int cost, int range) {
-        this.spritePath = spritePath;
+
+
+    public Tower(float x, float y, String name, int attackDamage, int attackSpeed, int cost){
         this.name=name;
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
@@ -66,17 +71,21 @@ public abstract class Tower extends Actor {
         this.collision = false;
         this.gotButton = false;
 
+        updateSpriteKey();
     }
+
+    private void updateSpriteKey() { spriteKey = name + upgradeLevel; }
+
+    public String getSpriteKey() {
+        return spriteKey;
+    }
+
 
     public abstract Projectile shoot();
 
 
     public int getCost() {
         return cost;
-    }
-
-    public String getSpritePath() {
-        return spritePath;
     }
 
     public boolean getGotButton() {
@@ -146,6 +155,10 @@ public abstract class Tower extends Actor {
     }
     public void setPlaced(boolean placed){
         isPlaced=placed;
+    }
+
+    public int getAttackDamage() {
+        return attackDamage;
     }
 
 

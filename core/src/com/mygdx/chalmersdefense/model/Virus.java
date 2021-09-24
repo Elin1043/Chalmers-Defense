@@ -1,5 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
+import com.mygdx.chalmersdefense.Model.Path.Path;
+import com.mygdx.chalmersdefense.Utilities.PositionVector;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.utilities.PositionVector;
 
@@ -17,16 +19,15 @@ public class Virus {
     //private final Sprite sprite;
 
 
-    private String imagePath;
+    private String spriteKey;
 
     private float xPos;
     private float yPos;
 
-    private int witdhX = 0;
+    private int widthX = 0;
     private int heightY = 0;
 
-    private double totalLengthToVector;
-
+    private float totalDistanceTrawled = 0;
 
     private final Path path;
     private PositionVector currentMoveToVector;
@@ -35,25 +36,22 @@ public class Virus {
 
     public Virus(int health, Path path) {
         this.health = health;
-        updateImagePath();
-
+        updateSpriteKey();
         this.path = path;
-        currentMoveToVector = path.getFirstWaypoint();
-        //sprite.setPosition(currentMoveToVector.getX() - sprite.getWidth()/2, currentMoveToVector.getY() - sprite.getHeight()/2);
+
+        currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex);
 
 
-        //xPos = currentMoveToVector.getX();
-        //yPos = currentMoveToVector.getY();
-
+        // Kanske vill göra detta när man ändrar liv. Iallafall om man har något virus av annan storlek
         try {
-            BufferedImage img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(imagePath)));
-            this.witdhX = img.getWidth();
+            BufferedImage img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("viruses/virus" + health + "Hp.png")));
+            this.widthX = img.getWidth();
             this.heightY = img.getHeight();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        xPos = currentMoveToVector.getX() - witdhX / 2F;
+        xPos = currentMoveToVector.getX() - widthX / 2F;
         yPos = currentMoveToVector.getY() - heightY / 2F;
     }
 
@@ -64,12 +62,11 @@ public class Virus {
 
     private void moveToPoint() {
         double totalSpeed = (3F + health)/4F;
-//        double diffX = xPos + sprite.getWidth()/2 - currentMoveToVector.getX();
-//        double diffY = yPos + sprite.getHeight()/2 - currentMoveToVector.getY();
-        double diffX = xPos + witdhX / 2F - currentMoveToVector.getX();
+
+        double diffX = xPos + widthX / 2F - currentMoveToVector.getX();
         double diffY = yPos + heightY / 2F - currentMoveToVector.getY();
 
-        totalLengthToVector = Math.sqrt(Math.pow(diffX,2) + Math.pow(diffY,2));
+        double totalLengthToVector = Math.sqrt(Math.pow(diffX,2) + Math.pow(diffY,2));
 
         double lengthDiff = totalSpeed/totalLengthToVector;
 
@@ -82,26 +79,21 @@ public class Virus {
         xPos -= addedDiffX;
         yPos -= addedDiffY;
 
-
         if (totalLengthToVector < totalSpeed) {
             currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex++);
         }
+
+        totalDistanceTrawled += totalSpeed;
     }
 
-    public double getDistanceToNextPoint(){
-        return totalLengthToVector;
-    }
-
-    public int getWayPointIndex(){
-        return currentMoveToVectorIndex;
-    }
-
-    private void updateImagePath() { imagePath = "virus" + health + "Hp.png"; }
+    private void updateSpriteKey() { spriteKey = "virus" + health; }
 
     public float getX() { return xPos; }
 
     public float getY() { return yPos; }
 
-    public String getImagePath() { return imagePath; }
+    public String getSpriteKey() { return spriteKey; }
+
+    public float getTotalDistanceTrawled() { return totalDistanceTrawled; }
 
 }
