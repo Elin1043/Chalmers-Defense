@@ -21,8 +21,7 @@ public class EcoTower extends Tower{
     private int currentReload = 0;
 
     public EcoTower(float x, float y, TargetMode targetMode) {
-        super(x, y,"EcoTower", attackDamage, attackSpeed, cost, range);
-        this.targetMode = targetMode;
+        super(x, y,"EcoTower", attackDamage, attackSpeed, cost, range, targetMode);
     }
 
     public void target(List<Virus> viruses) {

@@ -5,6 +5,8 @@ package com.mygdx.chalmersdefense.model.towers;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.chalmersdefense.model.Virus;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
+import com.mygdx.chalmersdefense.model.targetMode.TargetMode;
+import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -35,6 +37,9 @@ public abstract class Tower extends Actor {
     private float y;
 
 
+    //private final TargetMode firstMode = TargetModeFactory.
+
+    private TargetMode currentTargetMode;
 
     private float width;
     private float height;
@@ -52,10 +57,11 @@ public abstract class Tower extends Actor {
 
 
 
-    public Tower(float x, float y, String name, int attackDamage, int attackSpeed, int cost, int range){
+    public Tower(float x, float y, String name, int attackDamage, int attackSpeed, int cost, int range, TargetMode mode){
         this.name=name;
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
+        this.currentTargetMode = mode;
         updateSpriteKey();
 
         try{
@@ -158,7 +164,7 @@ public abstract class Tower extends Actor {
         return isPlaced;
     }
     public void setPlaced(boolean placed){
-        isPlaced=placed;
+        isPlaced = placed;
     }
 
     public int getAttackDamage() {

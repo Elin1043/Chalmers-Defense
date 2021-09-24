@@ -18,7 +18,6 @@ public class Virus {
 
 
     private int health;
-    //private final Sprite sprite;
 
 
     private String spriteKey;

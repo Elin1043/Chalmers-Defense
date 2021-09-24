@@ -23,8 +23,7 @@ public class SmurfTower extends Tower{
 
 
     public SmurfTower(float x, float y, TargetMode targetMode){
-        super(x, y, "SmurfTower", attackDamage, attackSpeed, cost, range);
-        this.targetMode = targetMode;
+        super(x, y, "SmurfTower", attackDamage, attackSpeed, cost, range, targetMode);
     }
 
     public void target(List<Virus> viruses) {

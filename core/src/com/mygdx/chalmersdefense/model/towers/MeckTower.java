@@ -14,15 +14,13 @@ public class MeckTower extends Tower{
     private static int attackDamage = 10;
     private static int attackSpeed = 10;
 
-    private TargetMode targetMode;
     private Virus currentTarget;
 
     private int reloadTime = 60; //how many frames
     private int currentReload = 0;
 
     public MeckTower(float x, float y, TargetMode targetMode) {
-        super(x, y,  "MeckTower", attackDamage, attackSpeed, cost, range);
-        this.targetMode = targetMode;
+        super(x, y,  "MeckTower", attackDamage, attackSpeed, cost, range, targetMode);
     }
 
     public void target(List<Virus> viruses) {

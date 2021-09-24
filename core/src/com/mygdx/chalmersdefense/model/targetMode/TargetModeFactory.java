@@ -1,22 +1,13 @@
 package com.mygdx.chalmersdefense.model.targetMode;
 
-public class TargetModeFactory {
+public abstract class TargetModeFactory {
 
 
-    private Closest targetClosest;
-    private First targetFirst;
+    private final static Closest targetClosest = new Closest();
+    private final static First targetFirst = new First();
 
-
-    public TargetModeFactory() {
-        targetClosest = new Closest();
-        targetFirst = new First();
-    }
-
-
-    public TargetMode getClosestTarget() {
-        return targetClosest;
-    }
-    public TargetMode getFirstTarget() {
+    public static TargetMode getClosestTarget() { return targetClosest; }
+    public static TargetMode getFirstTarget() {
         return targetFirst;
     }
 }

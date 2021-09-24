@@ -4,9 +4,17 @@ package com.mygdx.chalmersdefense.utilities;
 import com.mygdx.chalmersdefense.model.Virus;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 
-import java.awt.*;
+import java.awt.Rectangle;
+import java.util.List;
+
 
 public abstract class Calculate {
+
+
+
+    public static List<Virus> getVirusesInRange() {
+
+    }
 
 
     public static float angleDeg (float rotToX, float rotToY, float orgX, float orgY) {

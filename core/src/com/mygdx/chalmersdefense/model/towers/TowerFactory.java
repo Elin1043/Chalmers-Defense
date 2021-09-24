@@ -13,9 +13,9 @@ import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
 public abstract class TowerFactory {
 
 
-    private static TargetModeFactory targetModeFactory = new TargetModeFactory();
-    private static TargetMode targetModeClosest = targetModeFactory.getClosestTarget();
-    private static TargetMode targetModeFirst = targetModeFactory.getFirstTarget();
+
+    private static final TargetMode targetModeClosest = TargetModeFactory.getClosestTarget();
+    private static final TargetMode targetModeFirst = TargetModeFactory.getFirstTarget();
 
     public static Tower CreateSmurf(int startPosX, int startPosY){
         Tower smurf = new SmurfTower(startPosX,startPosY, targetModeFirst);

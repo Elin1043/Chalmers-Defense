@@ -10,7 +10,8 @@ import com.mygdx.chalmersdefense.model.towers.Tower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -78,7 +79,10 @@ public class Model {
 
     private void updateTowers(){
         for (Tower tower: towersList) {
-            tower.update((allViruses));
+            //tower.update((allViruses));
+
+
+
             Projectile projectile = tower.shoot();
             if(projectile != null){
                 projectilesList.add(projectile);
