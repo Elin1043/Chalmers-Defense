@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
+import com.mygdx.chalmersdefense.Model.CustomExceptions.PlayerLostAllLifeException;
 import com.mygdx.chalmersdefense.Model.Path.GamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.Model.Path.Path;
 
@@ -24,21 +25,19 @@ import java.util.List;
 
 public class Model {
     private ChalmersDefense game;
-    private final ArrayList<Tower> towersList = new ArrayList<>();
 
+    private final ArrayList<Tower> towersList = new ArrayList<>();
+    private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
 
     private Tower newTower;
     private TowerFactory factory;
 
-
+    private final Player player = new Player(100, 300); //Change staring capital later. Just used for testing right now
 
     private final Path path;
 
-    private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
+
     private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
-
-    private int money = 300;
-
 
 
 
@@ -69,6 +68,13 @@ public class Model {
             }
 
             for (Virus virus : virusToRemove){
+                try {
+                    player.decreaseLivesBy(virus.getLifeDecreaseAmount());
+                } catch (PlayerLostAllLifeException ignore){
+
+                    // Här ska man hantera ifall man förlorar spelet
+
+                }
                 allViruses.remove(virus);
             }
 
@@ -119,9 +125,8 @@ public class Model {
 
 
     //Return money
-    public int getMoney() {
-        return money;
-    }
+    public int getMoney() { return player.getMoney(); }
+    public int getLivesLeft() {return player.getLives(); }
 
 
     //Return list of towers on map

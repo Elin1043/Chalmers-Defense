@@ -43,10 +43,10 @@ public abstract class Path {
                 float distX = Math.abs((nextX - posX));
 
                 if(posX < nextX){
-                    rectangle.set(posX-40 , posY-40, distX, 80);
+                    rectangle.set(posX-pathWidth/2F , posY-pathWidth/2F, distX, pathWidth);
                 }
                 else{
-                    rectangle.set(posX-40 - distX  , posY-40, distX, 80);
+                    rectangle.set(posX-pathWidth/2F - distX  , posY-pathWidth/2F, distX, pathWidth);
                 }
 
             }
