@@ -70,7 +70,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateEco(int startPosX, int startPosY){
-        return new Tower(startPosX,startPosY, "EcoTower", 10, 100, 200, TargetModeFactory.getTargetModes());
+        return new EcoTower(startPosX,startPosY, "EcoTower", 10, 100, 200, TargetModeFactory.getTargetModes());
     }
 
 

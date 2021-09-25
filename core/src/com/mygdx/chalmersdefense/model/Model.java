@@ -6,6 +6,7 @@ import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeExcepti
 import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
+import com.mygdx.chalmersdefense.model.towers.EcoTower;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.model.towers.Tower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
@@ -37,7 +38,7 @@ public class Model {
 
     private final Path path;
 
-    private final Player player = new Player(100, 300); //Change staring capital later. Just used for testing right now
+    private final Player player = new Player(100, 600); //Change staring capital later. Just used for testing right now
 
     private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
     private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
@@ -93,8 +94,6 @@ public class Model {
     //Update all the towers
     private void updateTowers(){
         for (Tower tower: towersList) {
-            tower.update();
-
             List<Virus> virusInRange;
 
             synchronized (allViruses) {
@@ -112,7 +111,11 @@ public class Model {
             Projectile projectile = tower.shootProjectile();
             if(projectile != null){
                 projectilesList.add(projectile);
-
+            }
+            else{
+                if(tower instanceof EcoTower){
+                    player.increaseMoney(((EcoTower) tower).getMoneyEarned());
+                }
             }
 
         }

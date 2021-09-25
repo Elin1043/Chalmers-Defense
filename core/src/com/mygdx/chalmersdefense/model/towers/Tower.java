@@ -102,10 +102,6 @@ public class Tower extends Actor {
         return null;
     }
 
-    /**
-     * Update the towers
-     */
-    public void update() { shootProjectile(); }
 
     private void updateSpriteKey() { spriteKey = name + upgradeLevel; }
 
