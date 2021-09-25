@@ -12,6 +12,7 @@ import com.mygdx.chalmersdefense.model.VirusFactory;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -42,13 +43,31 @@ import static com.badlogic.gdx.graphics.GL20.*;
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
-    private final RightSidePanelController rightSidePanelController;
-    private final Model model;
+    private RightSidePanelController rightSidePanelController;
+    private BottomBarPanelController bottomBarPanelController;
+    private GameScreenController gameScreenController;
+    private Model model;
 
     private final Image sideBarBackground = new Image(new Texture("SideBarBackground.png"));
     private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
     private Button startRoundButton;
 
+    // Bottom bar
+    private Image bottomBarPanelBackground;
+
+    // Upgrade panel
+    private Group bottomBarPanelUpgradeGroup;
+    private Button upgradeButtonFirst;
+    private Button upgradeButtonSecond;
+    private Label towerNameLabel;
+
+    private final TextureAtlas upgradePanelAtlas = new TextureAtlas(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.atlas")); // Load atlas file from skin
+    private final Skin upgradePanelSkin = new Skin(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.json"), upgradePanelAtlas); // Create skin object
+
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private LabelStyle labelStyleBlack36;
+    private Label towerLabel;
+    private Label powerUpLabel;
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
     private final LabelStyle labelStyleBlack36 = generateLabelStyle(Color.BLACK);
     private final Label towerLabel = createLabel("Towers", 20);
@@ -71,18 +90,38 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
 
 
-    public GameScreen(Model model, RightSidePanelController rightSidePanelController){
+    public GameScreen(Model model){
         super();
-        this.rightSidePanelController = rightSidePanelController;
+        this.rightSidePanelController = new RightSidePanelController(model);
+        this.bottomBarPanelController = new BottomBarPanelController(model);
+        this.gameScreenController = new GameScreenController(model);
         this.model = model;
 
         // This should come from classicPath class
         mapImage = new Image(new Texture("ClassicMap.png"));
         mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
+        gameScreenController.addMapClickListener(mapImage);
 
         lifeIcon.setPosition(1650, 320);
+        // Generating label style
+        labelStyleBlack36 = generateLabelStyle(36, Color.BLACK);
 
         placeRightSidePanel();
+        // START Bottom bar group creation
+        bottomBarPanelUpgradeGroup = new Group();
+        createBottomBarPanel();
+        addActor(bottomBarPanelBackground);
+
+        bottomBarPanelUpgradeGroup.setPosition(bottomBarPanelBackground.getWidth() - 1390, 0);
+        bottomBarPanelUpgradeGroup.addActor(createBottomBarUpgradePanelBackground());
+        createUpgradeButtons();
+
+        towerNameLabel = new Label("", labelStyleBlack36);
+        towerNameLabel.setPosition(170, 130);
+        // END
+
+        // START Right side panel creation
+        createRightSidePanel();
         createStartRoundButton();
 
         towerClickListener = new TowerClickListener(model);
@@ -95,10 +134,17 @@ public class GameScreen extends AbstractScreen implements Screen {
         towerButtons.put(600, ecoButton);
 
         addTowerButtonListener();
+        // END
     }
 
     @Override
     public void buildStage() {
+        // Bottom bar actors
+        addActor(bottomBarPanelBackground);
+        addActor(bottomBarPanelUpgradeGroup);
+        bottomBarPanelUpgradeGroup.addActor(towerNameLabel);
+        bottomBarPanelUpgradeGroup.setVisible(false);
+
         addActor(sideBarBackground);
         addActor(lifeIcon);
         addActor(smurfButton);
@@ -125,6 +171,14 @@ public class GameScreen extends AbstractScreen implements Screen {
         renderProjectiles();
 
         updateLifeCounter();
+        // If clicked tower is present show upgrade panel.
+        if (model.getClickedTower() != null) {
+            bottomBarPanelUpgradeGroup.setVisible(true);
+            updateUpgradePanelInfo(model.getClickedTower());
+        } else {
+            bottomBarPanelUpgradeGroup.setVisible(false);
+        }
+
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             model.getViruses().add(VirusFactory.createVirusOne());
@@ -146,17 +200,17 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
 
-    private BitmapFont generateBitmapFont() {
+    private BitmapFont generateBitmapFont(int size) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/CenturyGothic.ttf"));
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-        parameter.size = 36;
-        BitmapFont font36 = generator.generateFont(parameter);
+        parameter.size = size;
+        BitmapFont font = generator.generateFont(parameter);
         generator.dispose();
-        return font36;
+        return font;
     }
 
-    private LabelStyle generateLabelStyle(Color color){
-        BitmapFont font36 = generateBitmapFont();
+    private LabelStyle generateLabelStyle(int size, Color color){
+        BitmapFont font36 = generateBitmapFont(size);
         LabelStyle labelStyle = new LabelStyle();
         labelStyle.font = font36;
         labelStyle.fontColor = color;
@@ -181,6 +235,34 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
     //Render viruses
+    private void createBottomBarPanel() {
+        bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
+        bottomBarPanelBackground.setPosition(0, 0);
+    }
+
+    private Actor createBottomBarUpgradePanelBackground() {
+        Image bottomBarUpgradePanelBackground = new Image(new Texture("GameScreen/BottomBarUpgradePanel.png"));
+        bottomBarUpgradePanelBackground.setPosition(0 , 3);
+        return bottomBarUpgradePanelBackground;
+    }
+
+    private void createUpgradeButtons() {
+        upgradeButtonFirst = new Button(upgradePanelSkin);
+        bottomBarPanelUpgradeGroup.addActor(upgradeButtonFirst);
+        upgradeButtonFirst.setPosition(580, 22);
+        bottomBarPanelController.addClickListenerUpgradeButton(upgradeButtonFirst);
+
+        upgradeButtonSecond = new Button(upgradePanelSkin);
+        bottomBarPanelUpgradeGroup.addActor(upgradeButtonSecond);
+        upgradeButtonSecond.setPosition(990, 22);
+        bottomBarPanelController.addClickListenerUpgradeButton(upgradeButtonSecond);
+    }
+
+    private void updateUpgradePanelInfo(Tower tower) {
+        towerNameLabel.setText(tower.getName());
+
+    }
+
     private void renderViruses() {
         super.batch.begin();
 

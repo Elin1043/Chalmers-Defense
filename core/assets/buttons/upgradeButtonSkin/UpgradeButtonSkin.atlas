@@ -1,0 +1,27 @@
+
+UpgradeButtonSkin.png
+size: 512, 512
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+UpgradeButtonBought
+  rotate: false
+  xy: 1, 301
+  size: 358, 148
+  orig: 358, 148
+  offset: 0, 0
+  index: -1
+UpgradeButtonDisabled
+  rotate: false
+  xy: 1, 151
+  size: 358, 148
+  orig: 358, 148
+  offset: 0, 0
+  index: -1
+UpgradeButtonNormal
+  rotate: false
+  xy: 1, 1
+  size: 358, 148
+  orig: 358, 148
+  offset: 0, 0
+  index: -1
