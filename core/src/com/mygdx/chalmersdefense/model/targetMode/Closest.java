@@ -7,40 +7,28 @@ import com.mygdx.chalmersdefense.utilities.Calculate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Closest extends TargetMode{
-
-
+/**
+ * @author Elin Forsberg
+ *
+ * 2021-09-24 Modified by Joel Båtsman Hilmersson: Changed class to use ITargetMode interface
+ *
+ * Finds the virus that is the nearest to the tower
+ */
+class Closest implements ITargetMode{
 
     @Override
-    public Virus getTarget(List<Virus> viruses, float x, float y, double range){
-        double disToClosest;
-        Virus closestVirus;
+    public Virus getRightVirus(List<Virus> virusInRange, float towerX, float towerY) {
+        Virus closestVirus = virusInRange.get(0);   // Need to hold the closes virus
+        double closestDistance = Calculate.disBetweenPoints(towerX, towerY, closestVirus.getX(), closestVirus.getY());
 
-        if(viruses.size() > 0){
-            List<Virus> inRange = new ArrayList<>();
-            for(Virus c: viruses){
-                if(isWithinRange(c,x, y,range)){
-                    inRange.add(c);
-                }
+        for (Virus virus : virusInRange){
+            double rangeToVirus = Calculate.disBetweenPoints(towerX, towerY, virus.getX(), virus.getY());
+            if (rangeToVirus < closestDistance){
+                closestDistance = rangeToVirus;
+                closestVirus = virus;
             }
-            if(inRange.size() <= 0){
-                return null;
-            }
-
-            closestVirus = inRange.get(0);
-            disToClosest = Calculate.disBetweenPoints(x,y, closestVirus.getX(), closestVirus.getX());
-
-            for (Virus virus:inRange){
-                double rangeToCurrent = Calculate.disBetweenPoints(x,y, virus.getX(), virus.getY());
-                if (rangeToCurrent < disToClosest){
-                    disToClosest = rangeToCurrent;
-                    closestVirus = virus;
-                }
-            }
-
-            return closestVirus;
         }
-        return null;
-    }
 
+        return closestVirus;
+    }
 }

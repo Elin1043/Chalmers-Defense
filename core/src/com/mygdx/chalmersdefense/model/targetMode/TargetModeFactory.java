@@ -1,22 +1,17 @@
 package com.mygdx.chalmersdefense.model.targetMode;
 
-public class TargetModeFactory {
+import java.util.List;
 
-
-    private Closest targetClosest;
-    private First targetFirst;
-
-
-    public TargetModeFactory() {
-        targetClosest = new Closest();
-        targetFirst = new First();
-    }
-
-
-    public TargetMode getClosestTarget() {
-        return targetClosest;
-    }
-    public TargetMode getFirstTarget() {
-        return targetFirst;
+/**
+ * @author Elin Forsberg
+ *
+ * 2021-09-24 Modified by Joel Båtsman Hilmersson: The factory now has a list of ITagetMode
+ *
+ * Finds the virus that have travled the furthest distance
+ */
+public abstract class TargetModeFactory {
+    private final static List<ITargetMode> modeList = List.of(new First(), new Last(), new Closest());
+    public static List<ITargetMode> getTargetModes() {
+        return modeList;
     }
 }

@@ -10,7 +10,8 @@ import com.mygdx.chalmersdefense.model.towers.Tower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -61,7 +62,7 @@ public class Model {
     }
 
     private void updateProjectiles(){
-        List<Projectile> removeProjectiles= new ArrayList<>();
+        List<Projectile> removeProjectiles = new ArrayList<>();
         for (Projectile projectile: projectilesList) {
             projectile.move();
             if(checkCollisonOfProjectiles(projectile)){
@@ -78,8 +79,23 @@ public class Model {
 
     private void updateTowers(){
         for (Tower tower: towersList) {
-            tower.update(allViruses);
-            Projectile projectile = tower.shoot();
+            tower.update();
+
+            List<Virus> virusInRange;
+
+            synchronized (allViruses) {
+                virusInRange = Calculate.getVirusesInRange(tower.getPosX(), tower.getPosY(), tower.getRange(), allViruses);
+            }
+
+            if (virusInRange.size() > 0) {
+                Virus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getPosX(), tower.getPosY());
+                tower.setAngle(Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getPosX(), tower.getPosY()));
+                tower.haveTarget();
+            } else {
+                tower.notHaveTarget();
+            }
+
+            Projectile projectile = tower.shootProjectile();
             if(projectile != null){
                 projectilesList.add(projectile);
 
@@ -122,6 +138,7 @@ public class Model {
         return false;
     }
 
+    // TODO Should be divided into smaller methods???
     private boolean checkCollisonOfProjectiles(Projectile projectile){
         for (Rectangle rectangle: path.getCollisionRectangles()) {
             if(Calculate.objectsIntersects(projectile,rectangle)){
@@ -145,7 +162,7 @@ public class Model {
                 return true;
             }
             //Check if tower out of bound on X
-            else if(!(0 <= (tower.getPosX())) || (windowWidth - 340 < (tower.getPosX() + tower.getRectangle().width/2))){
+            else if(!(0 <= (tower.getPosX())) || (windowWidth - 340 < (tower.getPosX() + tower.getWidth()/2))){
                     return true;
             }
             //Check if tower out of bound on Y
@@ -228,7 +245,7 @@ public class Model {
     public void dragEnd(int buttonWidth, int buttonHeight, int x, int y, int windowHeight) {
 
         if(!newTower.getCollision()){
-            newTower.setPlaced(true);
+            newTower.placeTower();
             newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
             newTower.setRectangle();
         }

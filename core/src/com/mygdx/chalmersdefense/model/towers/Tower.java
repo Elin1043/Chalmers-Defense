@@ -3,14 +3,11 @@ package com.mygdx.chalmersdefense.model.towers;
 
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.mygdx.chalmersdefense.model.Virus;
 import com.mygdx.chalmersdefense.model.projectiles.BulletProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
-import com.mygdx.chalmersdefense.model.targetMode.TargetMode;
-import com.mygdx.chalmersdefense.utilities.Calculate;
-
+import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
@@ -38,12 +35,15 @@ public class Tower extends Actor {
     private float y;
 
 
+    //private final TargetMode firstMode = TargetModeFactory.
+
+    private final List<ITargetMode> targetModes;
+    private ITargetMode currentTargetMode;
 
     private float width;
     private float height;
 
     private int attackSpeed;
-    private TargetMode targetMode;
     private int cost;
 
     private boolean collision;
@@ -51,20 +51,20 @@ public class Tower extends Actor {
 
     private boolean gotTarget;
 
-    private int reloadTime = 60; //how many frames
+    private int reloadTime = 60; //how many updates from model
     private int currentReload = 0;
-    private Virus currentTarget;
 
 
-    private java.awt.Rectangle rectangle = new java.awt.Rectangle();
+    private Rectangle rectangle = new Rectangle();
 
 
 
 
-    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, TargetMode targetMode){
+    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes){
         this.name=name;
         this.attackSpeed = attackSpeed;
-        this.targetMode = targetMode;
+        this.targetModes = targetModes;
+        this.currentTargetMode = targetModes.get(0);
         updateSpriteKey();
 
         try{
@@ -75,7 +75,7 @@ public class Tower extends Actor {
 
         }
         catch (IOException exception){
-            System.out.println(exception);
+            exception.printStackTrace();
         }
 
         this.setPos(x,y);
@@ -88,26 +88,9 @@ public class Tower extends Actor {
 
     }
 
-    public void target(List<Virus> viruses) {
-        if (viruses != null && this.isPlaced()) {
-            currentTarget = targetMode.getTarget(viruses, this.getPosX(), this.getPosY(), range);
-            if (currentTarget != null) {
-                this.setAngle( Calculate.angleDeg(currentTarget.getX(), currentTarget.getY(), this.getPosX(), this.getPosY()));
-            }
-        }
-    }
-
-    public Projectile createProjectile() {
-        if (currentTarget != null){
-            return new BulletProjectile(attackSpeed,this.getPosX(), this.getPosY(), this.angle);
-        }
-        return null;
-    }
-
-
-    public Projectile shoot(){
-        if(currentReload < 1 && currentTarget != null){
-            Projectile projectile = createProjectile();
+    public Projectile shootProjectile(){
+        if(currentReload < 1 && gotTarget && isPlaced){
+            Projectile projectile = new BulletProjectile(attackSpeed, this.getPosX() + width/2, this.getPosY() + height/2, this.angle);
             currentReload = reloadTime;
             return projectile;
         }
@@ -118,10 +101,7 @@ public class Tower extends Actor {
     }
 
 
-    public void update(List<Virus> viruses) {
-        target(viruses);
-        shoot();
-    }
+    public void update() { shootProjectile(); }
 
     private void updateSpriteKey() { spriteKey = name + upgradeLevel; }
 
@@ -156,7 +136,7 @@ public class Tower extends Actor {
         rectangle.setRect(this.x  , this.y  , this.width,this.height);
     }
 
-    public java.awt.Rectangle getRectangle(){
+    public Rectangle getRectangle(){
         return rectangle;
     }
 
@@ -190,21 +170,24 @@ public class Tower extends Actor {
     }
 
     public void setAngle(float setangle){
-        angle = setangle;
-
+        if (isPlaced) { angle = setangle; }
     }
 
     public float getRange(){
         return range;
     }
 
+    public ITargetMode getCurrentTargetMode() { return currentTargetMode; }
+
     public boolean isPlaced(){
         return isPlaced;
     }
-    public void setPlaced(boolean placed){
-        isPlaced=placed;
+    public void placeTower(){
+        isPlaced = true;
     }
 
+    public void haveTarget() { gotTarget = true; }
+    public void notHaveTarget() { gotTarget = false; }
 
 
 }

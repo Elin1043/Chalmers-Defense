@@ -1,6 +1,5 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
-import com.mygdx.chalmersdefense.model.Virus;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -26,7 +25,7 @@ public abstract class Projectile {
         this.name = name;
         this.x = x;
         this.y = y;
-        this.angle = angle + 61;
+        this.angle = angle;
 
         try{
             BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("projectiles/" +name + ".png")));
@@ -36,7 +35,7 @@ public abstract class Projectile {
 
         }
         catch (IOException exception){
-            System.out.println(exception);
+            exception.printStackTrace();
         }
 
     }
@@ -44,6 +43,7 @@ public abstract class Projectile {
     public void move() {
         float xLength = (float) ((Math.cos(Math.toRadians(angle)) * speed));
         float yLength = (float) ((Math.sin(Math.toRadians(angle)) * speed));
+
         x =  x + xLength;
         y =  y + yLength;
 
