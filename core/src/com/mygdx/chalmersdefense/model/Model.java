@@ -24,6 +24,7 @@ import java.util.List;
  *
  * 2021-09-20 Modified by Elin Forsberg: Added methods to handle towers + collisions
  * 2021-09-20 Modified by Joel Båtsman Hilmersson: Made updateVirus loop syncronized
+ * 2021-09-24 Modified by Elin Forsberg: Added methods to handle projectiles
  */
 
 public class Model {
@@ -31,10 +32,7 @@ public class Model {
     private final List<Tower> towersList = new ArrayList<>();
     private List<Projectile> projectilesList = new ArrayList<>();
 
-
     private Tower newTower;
-
-
 
     private final Path path;
 
@@ -44,23 +42,25 @@ public class Model {
     private int money = 300;
 
 
-
-
-
+    /**
+     * Constructor of the model class
+     * @param game current game session
+     */
     public Model(ChalmersDefense game) {
         this.game = game;
         path = new ClassicPath();           // Make a path factory instead?
     }
 
-    //Update all the components in model
+    /**
+     * Update all the model components
+     */
     public void updateModel() {
         updateVirus();
         updateTowers();
         updateProjectiles();
-
-
     }
 
+    //Update the projectiles
     private void updateProjectiles(){
         List<Projectile> removeProjectiles = new ArrayList<>();
         for (Projectile projectile: projectilesList) {
@@ -77,6 +77,7 @@ public class Model {
 
     }
 
+    //Check if coordinates are outside the screen
     private boolean checkIfOutOfBounds(float y, float x){
         if(y > 1130 || -50 > y){
             return true;
@@ -87,6 +88,7 @@ public class Model {
         return false;
     }
 
+    //Update all the towers
     private void updateTowers(){
         for (Tower tower: towersList) {
             tower.update();
@@ -114,7 +116,7 @@ public class Model {
         }
     }
 
-
+    //Update all the viruses
     private void updateVirus(){
         synchronized (allViruses) {
             List<Virus> virusToRemove = new ArrayList<>();
@@ -148,16 +150,22 @@ public class Model {
         return false;
     }
 
-    // TODO Should be divided into smaller methods???
+    //Checks if projectile collided with virus
     private boolean checkCollisonOfProjectiles(Projectile projectile){
         for (Rectangle rectangle: path.getCollisionRectangles()) {
             if(Calculate.objectsIntersects(projectile,rectangle)){
-                for (Virus virus: getViruses()) {
-                    if(Calculate.objectsIntersects(projectile,virus)){
-                        virus.decreaseHealth();
-                        return true;
-                    }
-                }
+                return checkVirusAndProjectileCollision(projectile);
+            }
+        }
+        return false;
+    }
+
+    //Helper method for collison between virus and projectile
+    private boolean checkVirusAndProjectileCollision(Projectile projectile){
+        for (Virus virus: getViruses()) {
+            if(Calculate.objectsIntersects(projectile,virus)){
+                virus.decreaseHealth();
+                return true;
             }
         }
         return false;
@@ -190,26 +198,41 @@ public class Model {
     }
 
 
-    //Return money
+    /**
+     * Return the current money value
+     * @return the money value
+     */
     public int getMoney() {
         return money;
     }
 
-
-    //Return list of towers on map
+    /**
+     * Return the list of towers on map
+     * @return The list of towers
+     */
     public List<Tower> getTowers() {
         return towersList;
     }
 
+    /**
+     * Return the list of viruses on path
+     * @return the list of viruses
+     */
     public List<Virus> getViruses() {
         return allViruses;
     }
+
     // TODO This should be gone later!!
     public SpawnViruses getVirusSpawner() {
         return virusSpawner;
     }
 
-    //Create a tower when user draged from TowerButton
+    /**
+     * Creates a new tower when user starts dragging from a tower button.
+     * @param towerName the name of the tower
+     * @param x the X-position of the button
+     * @param y the Y-position of the button
+     */
     public void dragStart(String towerName, int x, int y) {
         switch(towerName){
             case "smurf"   -> newTower = TowerFactory.CreateSmurf(x, y);
@@ -224,13 +247,25 @@ public class Model {
         towersList.add(newTower);
     }
 
+    /**
+     * Return the list of projectiles
+     * @return list of projectiles
+     */
     public List<Projectile> getProjectilesList() {
         return projectilesList;
     }
 
 
-
-    //While dragging the tower, follow the mouse
+    /**
+     * Handles a tower being dragged.
+     * Updates the towers position after mouse and check for collision
+     * @param buttonWidth The width of the button dragged from
+     * @param buttonHeight The height of the button dragged from
+     * @param x The X-position of the mouse
+     * @param y The Y-position of the mouse
+     * @param windowHeight The height of the window
+     * @param windowWidth  The width of the window
+     */
     public void onDrag(int buttonWidth, int buttonHeight, int x, int y, int windowHeight, int windowWidth) {
 
         newTower.setPos( x - buttonWidth,(windowHeight - y - buttonHeight ));
@@ -249,9 +284,18 @@ public class Model {
         }
     }
 
-    //When let go of tower, check if valid spot to let go.
-    //If not valid: remove tower
-    //If valid: place tower
+
+    /**
+     * Handles when the tower is let go.
+     * Checks if tower can be placed on current position.
+     * If not: tower is removed
+     * if valid: place the tower
+     * @param buttonWidth The width of the button dragged from
+     * @param buttonHeight The height of the button dragged from
+     * @param x The X-position of the mouse
+     * @param y The Y-position of the mouse
+     * @param windowHeight The height of the window
+     */
     public void dragEnd(int buttonWidth, int buttonHeight, int x, int y, int windowHeight) {
 
         if(!newTower.getCollision()){
@@ -264,7 +308,10 @@ public class Model {
         }
     }
 
-    //Function for when a placed tower is clicked
+
+    /**
+     * Handles when a placed tower is clicked
+     */
     public void towerClicked() {
         //TODO fill
         System.out.println("Tower clicked");
