@@ -1,7 +1,7 @@
-package com.mygdx.chalmersdefense.Model.Path.GamePaths;
+package com.mygdx.chalmersdefense.model.path.GamePaths;
 
-import com.mygdx.chalmersdefense.Model.Path.Path;
-import com.mygdx.chalmersdefense.Utilities.PositionVector;
+import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.utilities.PositionVector;
 
 public class ClassicPath extends Path {
 

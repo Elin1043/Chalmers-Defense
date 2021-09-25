@@ -1,9 +1,9 @@
-package com.mygdx.chalmersdefense.Controllers;
+package com.mygdx.chalmersdefense.controllers;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.mygdx.chalmersdefense.Model.Model;
+import com.mygdx.chalmersdefense.model.Model;
 
 /*
 * @author Daniel Persson

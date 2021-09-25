@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.Utilities;
+package com.mygdx.chalmersdefense.utilities;
 
 public class PositionVector {
 

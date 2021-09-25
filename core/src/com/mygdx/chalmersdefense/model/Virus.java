@@ -1,8 +1,8 @@
-package com.mygdx.chalmersdefense.Model;
+package com.mygdx.chalmersdefense.model;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.mygdx.chalmersdefense.Model.Path.Path;
-import com.mygdx.chalmersdefense.Utilities.PositionVector;
+import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.utilities.PositionVector;
 
 /**
  * @author Joel Båtsman Hilmersson
