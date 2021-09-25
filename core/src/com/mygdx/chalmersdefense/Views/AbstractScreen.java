@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.views;
+package com.mygdx.chalmersdefense.Views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

@@ -1,10 +1,10 @@
-package com.mygdx.chalmersdefense.model;
+package com.mygdx.chalmersdefense.Model;
 
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
-import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.Model.Path.GamePaths.ClassicPath;
+import com.mygdx.chalmersdefense.Model.Path.Path;
 
 
 /**

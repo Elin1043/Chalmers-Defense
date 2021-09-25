@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.model;
+package com.mygdx.chalmersdefense.Model;
 
 public class Rounds {
     private int currentRound;

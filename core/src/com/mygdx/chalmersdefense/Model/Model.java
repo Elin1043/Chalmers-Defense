@@ -1,12 +1,12 @@
-package com.mygdx.chalmersdefense.model;
+package com.mygdx.chalmersdefense.Model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.chalmersdefense.ChalmersDefense;
-import com.mygdx.chalmersdefense.model.customExceptions.NoFurtherWaypointException;
-import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
-import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
-import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
+import com.mygdx.chalmersdefense.Model.CustomExceptions.PlayerLostAllLifeException;
+import com.mygdx.chalmersdefense.Model.Path.GamePaths.ClassicPath;
+import com.mygdx.chalmersdefense.Model.Path.Path;
 
 import java.util.*;
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.mygdx.chalmersdefense.model;
+package com.mygdx.chalmersdefense.Model;
 
-import com.mygdx.chalmersdefense.model.path.Path;
-import com.mygdx.chalmersdefense.utilities.PositionVector;
+import com.mygdx.chalmersdefense.Model.Path.Path;
+import com.mygdx.chalmersdefense.Utilities.PositionVector;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

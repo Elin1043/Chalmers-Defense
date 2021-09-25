@@ -1,8 +1,8 @@
-package com.mygdx.chalmersdefense.model.path;
+package com.mygdx.chalmersdefense.Model.Path;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.chalmersdefense.model.customExceptions.NoFurtherWaypointException;
-import com.mygdx.chalmersdefense.utilities.PositionVector;
+import com.mygdx.chalmersdefense.Model.CustomExceptions.NoFurtherWaypointException;
+import com.mygdx.chalmersdefense.Utilities.PositionVector;
 
 import java.util.ArrayList;
 

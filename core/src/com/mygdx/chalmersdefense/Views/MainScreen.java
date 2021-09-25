@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.views;
+package com.mygdx.chalmersdefense.Views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -14,9 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.chalmersdefense.ChalmersDefense;
-import com.mygdx.chalmersdefense.controllers.MainScreenController;
+import com.mygdx.chalmersdefense.Controllers.MainScreenController;
 import com.badlogic.gdx.graphics.GL20;
-import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
+import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
 
 
 public class MainScreen extends AbstractScreen {

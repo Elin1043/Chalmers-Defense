@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.views;
+package com.mygdx.chalmersdefense.Views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.mygdx.chalmersdefense.model.Virus;
-import com.mygdx.chalmersdefense.model.VirusFactory;
+import com.mygdx.chalmersdefense.Model.Virus;
+import com.mygdx.chalmersdefense.Model.VirusFactory;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -22,10 +22,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
-import com.mygdx.chalmersdefense.controllers.TowerClickListener;
-import com.mygdx.chalmersdefense.model.Model;
-import com.mygdx.chalmersdefense.model.Tower;
+import com.mygdx.chalmersdefense.Controllers.RightSidePanelController;
+import com.mygdx.chalmersdefense.Controllers.TowerClickListener;
+import com.mygdx.chalmersdefense.Model.Model;
+import com.mygdx.chalmersdefense.Model.Tower;
 
 import java.util.HashMap;
 

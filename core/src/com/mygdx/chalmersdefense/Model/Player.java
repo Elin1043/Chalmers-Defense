@@ -1,6 +1,6 @@
-package com.mygdx.chalmersdefense.model;
+package com.mygdx.chalmersdefense.Model;
 
-import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
+import com.mygdx.chalmersdefense.Model.CustomExceptions.PlayerLostAllLifeException;
 
 /**
  * @author Joel Båtsman Hilmersson

@@ -1,7 +1,7 @@
-package com.mygdx.chalmersdefense.model;
+package com.mygdx.chalmersdefense.Model;
 
 
-import com.mygdx.chalmersdefense.model.customExceptions.IllegalRoundDataException;
+import com.mygdx.chalmersdefense.Model.CustomExceptions.IllegalRoundDataException;
 
 import java.util.Arrays;
 import java.util.List;
