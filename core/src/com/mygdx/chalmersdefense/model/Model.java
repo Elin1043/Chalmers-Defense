@@ -65,7 +65,7 @@ public class Model {
         List<Projectile> removeProjectiles = new ArrayList<>();
         for (Projectile projectile: projectilesList) {
             projectile.move();
-            if(checkCollisonOfProjectiles(projectile)){
+            if(checkCollisonOfProjectiles(projectile) ||  checkIfOutOfBounds(projectile.getY(), projectile.getX()) ){
                 removeProjectiles.add(projectile);
             }
         }
@@ -75,6 +75,16 @@ public class Model {
         }
 
 
+    }
+
+    private boolean checkIfOutOfBounds(float y, float x){
+        if(y > 1130 || -50 > y){
+            return true;
+        }
+        if(x > 1970 || -50 > x){
+            return true;
+        }
+        return false;
     }
 
     private void updateTowers(){
