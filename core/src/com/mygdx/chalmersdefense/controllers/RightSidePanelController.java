@@ -33,6 +33,10 @@ public class RightSidePanelController {
         });
     }
 
+    /**
+     * Listener for tower buttons
+     * @param button the tower button that was dragged
+     */
     public void addTowerButtonListener(Button button) {
         button.addListener(new DragListener(){
             @Override
@@ -48,7 +52,8 @@ public class RightSidePanelController {
                 int inputX = Gdx.input.getX();
                 int inputY = Gdx.input.getY();
                 int windowHeight = Gdx.graphics.getHeight();
-                model.onDrag((int) (button.getImage().getWidth()/2),(int) (button.getImage().getHeight()/2) ,inputX,inputY, windowHeight);
+                int windowWidth = Gdx.graphics.getWidth();
+                model.onDrag((int) (button.getImage().getWidth()/2),(int) (button.getImage().getHeight()/2) ,inputX,inputY, windowHeight, windowWidth);
             }
 
             @Override

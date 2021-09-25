@@ -3,9 +3,6 @@ package com.mygdx.chalmersdefense.model.path.gamePaths;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.utilities.PositionVector;
 
-import java.awt.*;
-import java.util.ArrayList;
-
 public class ClassicPath extends Path {
 
     public ClassicPath() {

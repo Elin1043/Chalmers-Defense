@@ -25,7 +25,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.controllers.TowerClickListener;
 import com.mygdx.chalmersdefense.model.Model;
-import com.mygdx.chalmersdefense.model.Tower;
+import com.mygdx.chalmersdefense.model.projectiles.Projectile;
+import com.mygdx.chalmersdefense.model.towers.Tower;
+
 
 import java.util.HashMap;
 
@@ -36,6 +38,7 @@ import static com.badlogic.gdx.graphics.GL20.*;
  *
  * 2021-09-20 Modified by Elin Forsberg: Added methods and variables to handle placing towers
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: All sprites now comes from hashmap when rendering
+ * 2021-09-24 Modified by Elin Forsberg: Added methods to render projectiles
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
@@ -119,6 +122,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         renderTowers();
         checkAffordableTowers();
         renderViruses();
+        renderProjectiles();
 
         updateLifeCounter();
 
@@ -163,7 +167,20 @@ public class GameScreen extends AbstractScreen implements Screen {
         sideBarBackground.setPosition(Gdx.graphics.getWidth() - sideBarBackground.getWidth(), 0);
     }
 
+    //Render projectiles
+    private void renderProjectiles() {
+        super.batch.begin();
 
+        for (Projectile projectile:model.getProjectilesList()) {
+            Sprite projectileSprite = spriteMap.get(projectile.getName());
+            projectileSprite.setPosition(projectile.getX(), projectile.getY());
+            projectileSprite.draw(super.batch);
+        }
+
+        super.batch.end();
+    }
+
+    //Render viruses
     private void renderViruses() {
         super.batch.begin();
 
@@ -181,14 +198,14 @@ public class GameScreen extends AbstractScreen implements Screen {
         super.batch.end();
     }
 
+    //Render towers
     private void renderTowers() {
         for (Tower tower: model.getTowers()) {
             Sprite towerSprite = spriteMap.get(tower.getSpriteKey());
             towerSprite.setPosition(tower.getPosX(), tower.getPosY());
+            towerSprite.setRotation((float) tower.getAngle());
 
-            tower.setHeight(towerSprite.getHeight());
-            tower.setWidth(towerSprite.getWidth());
-
+            //If tower is not placed and not colliding: circle around is grey
             if(!tower.isPlaced() && !tower.getCollision()){
                 Gdx.gl.glEnable(GL_BLEND);
                 Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -198,6 +215,8 @@ public class GameScreen extends AbstractScreen implements Screen {
                 shapeRenderer.end();
                 Gdx.gl.glDisable(GL_BLEND);
             }
+
+            //If tower is not placed and colliding: circle around is red
             else if(!tower.isPlaced() && tower.getCollision()){
                 Gdx.gl.glEnable(GL_BLEND);
                 Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -208,6 +227,7 @@ public class GameScreen extends AbstractScreen implements Screen {
                 Gdx.gl.glDisable(GL_BLEND);
             }
 
+            //If tower is placed and dont have button: create a button and set that it's placed
             else if(tower.isPlaced() && !tower.getGotButton()){
                 ImageButton btn = createInvisButtonsOnTower(towerSprite, tower.getPosX(), tower.getPosY());
                 btn.addListener(towerClickListener);
@@ -256,6 +276,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
 
+    //Create button on towers placed
     private ImageButton createInvisButtonsOnTower(Sprite towerSprite,float x, float y) {
         TextureRegion invisButtonTextureRegion = new TextureRegion(towerSprite);
         TextureRegionDrawable invisTexRegDrawable = new TextureRegionDrawable(invisButtonTextureRegion);
@@ -270,6 +291,8 @@ public class GameScreen extends AbstractScreen implements Screen {
         return invisButton;
     }
 
+
+    //Checks what towers the player can afford
     private void checkAffordableTowers() {
         for (Integer i : towerButtons.keySet()) {
             if(model.getMoney() >= i && !towerButtons.get(i).isTouchable()){
@@ -279,8 +302,6 @@ public class GameScreen extends AbstractScreen implements Screen {
             else if (model.getMoney()< i && towerButtons.get(i).isTouchable()){
                 towerButtons.get(i).setTouchable(Touchable.disabled);
                 towerButtons.get(i).getImage().setColor(Color.LIGHT_GRAY);
-
-
             }
         }
     }

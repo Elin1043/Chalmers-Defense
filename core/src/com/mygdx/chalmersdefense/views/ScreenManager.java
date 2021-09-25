@@ -2,9 +2,6 @@ package com.mygdx.chalmersdefense.views;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-import com.mygdx.chalmersdefense.controllers.MainScreenController;
-import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
-import com.mygdx.chalmersdefense.model.Model;
 
 public class ScreenManager {
     private MainScreen mainScreen;
