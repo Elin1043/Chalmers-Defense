@@ -142,12 +142,20 @@ public class Model {
             }
 
             if (allViruses.isEmpty() && !virusSpawner.isSpawning()) {
-                game.stopModelUpdate();
-
+                stopGameUpdate();
+                System.out.println("Stop TIMER");
             }
 
         }
 
+    }
+
+    private void stopGameUpdate() {
+        game.stopModelUpdate();
+    }
+
+    private void startGameUpdate() {
+        game.startModelUpdate();
     }
 
 
@@ -249,7 +257,8 @@ public class Model {
      */
     public void startRoundPressed() {
         if (!virusSpawner.isSpawning()) {
-            game.startModelUpdate();
+            startGameUpdate();
+            round.incrementToNextRound();
             System.out.println("START TIMER");
             virusSpawner.spawnRound(round.getCurrentRound());
         } else {

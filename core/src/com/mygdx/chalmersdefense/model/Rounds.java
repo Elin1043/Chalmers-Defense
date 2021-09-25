@@ -1,17 +1,18 @@
 package com.mygdx.chalmersdefense.model;
 
+/**
+ *
+ */
 public class Rounds {
-    private int currentRound;
+    private int currentRound = 0;
     private int winningRound;
 
     Rounds(int winningRound) {
         this.winningRound = winningRound;
-        currentRound = 1;
     }
 
-    void sendNextRound() {
+    void incrementToNextRound() {
         currentRound++;
-        // call SpawnVirusClass
     }
 
     public boolean gameWon() {
@@ -19,7 +20,7 @@ public class Rounds {
     }
 
     public int getCurrentRound() {
-        return currentRound;
+        return Math.max(currentRound, 1);
     }
 
     public int getWinningRound() {
