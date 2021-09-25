@@ -141,6 +141,11 @@ public class Model {
                 allViruses.remove(virus);
             }
 
+            if (allViruses.isEmpty() && !virusSpawner.isSpawning()) {
+                game.stopModelUpdate();
+
+            }
+
         }
 
     }
@@ -239,9 +244,18 @@ public class Model {
         return virusSpawner;
     }
 
-    public void startRoundPressed(){
-        if (!virusSpawner.isSpawning()){
+    /**
+     * Starts spawning viruses based on which is the current round
+     */
+    public void startRoundPressed() {
+        if (!virusSpawner.isSpawning()) {
+            game.startModelUpdate();
+            System.out.println("START TIMER");
             virusSpawner.spawnRound(round.getCurrentRound());
+        } else {
+
+            // Here we can speed up or slow down round later
+
         }
     }
 

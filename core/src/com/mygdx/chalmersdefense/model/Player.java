@@ -36,10 +36,10 @@ class Player {
     /**
      * Method to decrease player life
      * @param livesToDecrease How much to decrease lives by
-     * @throws PlayerLostAllLifeException When the life counter reaches zero
+     * @throws PlayerLostAllLifeException When the life counter reaches zero or below
      */
     void decreaseLivesBy(int livesToDecrease) throws PlayerLostAllLifeException {
-        if (lives == 0){
+        if (lives <= 0){
             throw new PlayerLostAllLifeException();
         } else {
             lives -= livesToDecrease;

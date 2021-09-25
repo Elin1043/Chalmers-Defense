@@ -6,7 +6,7 @@ public class Rounds {
 
     Rounds(int winningRound) {
         this.winningRound = winningRound;
-        currentRound = 0;
+        currentRound = 1;
     }
 
     void sendNextRound() {

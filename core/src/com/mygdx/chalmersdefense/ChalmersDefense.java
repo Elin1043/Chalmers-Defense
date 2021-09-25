@@ -55,7 +55,7 @@ public class ChalmersDefense extends Game {
 		music.play();
 
 		setupTimer();
-		timer.start();
+		timer.start();	// Take this away later maybe
 
 	}
 
@@ -73,6 +73,16 @@ public class ChalmersDefense extends Game {
 		return willDouble * 2;
 	}
 
+	public void stopModelUpdate() {
+		timer.stop();
+		timer.clear();
+		System.out.println("STOP TIMER");
+	}
+
+	public void startModelUpdate() {
+		timer.start();
+		setupTimer();
+	}
 
 
 }
