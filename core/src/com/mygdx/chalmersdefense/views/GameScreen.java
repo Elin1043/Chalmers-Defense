@@ -47,6 +47,8 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private final Image sideBarBackground = new Image(new Texture("SideBarBackground.png"));
     private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
+    private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
+
     private Button startRoundButton;
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -55,6 +57,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final Label powerUpLabel = createLabel("Power-ups", 620);
 
     private final Label lifeLabel = createLabel("Test", 700);
+    private final Label moneyLabel = createLabel("Test", 800);
 
     private final Image mapImage;
 
@@ -81,6 +84,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
 
         lifeIcon.setPosition(1650, 320);
+        moneyIcon.setPosition(1650, 220);
 
         placeRightSidePanel();
         createStartRoundButton();
@@ -101,6 +105,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     public void buildStage() {
         addActor(sideBarBackground);
         addActor(lifeIcon);
+        addActor(moneyIcon);
         addActor(smurfButton);
         addActor(chemistButton);
         addActor(hackerButton);
@@ -112,6 +117,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(towerLabel);
         addActor(powerUpLabel);
         addActor(lifeLabel);
+        addActor(moneyLabel);
         addActor(startRoundButton);
     }
 
@@ -125,6 +131,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         renderProjectiles();
 
         updateLifeCounter();
+        updateMoneyCounter();
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             model.getViruses().add(VirusFactory.createVirusOne());
@@ -137,6 +144,10 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private void updateLifeCounter() {
         lifeLabel.setText(model.getLivesLeft());
+    }
+
+    private void updateMoneyCounter() {
+        moneyLabel.setText(model.getMoney());
     }
 
     private Label createLabel(String text, float y) {

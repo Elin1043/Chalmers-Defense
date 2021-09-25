@@ -50,7 +50,7 @@ public class Model {
      */
     public Model(ChalmersDefense game) {
         this.game = game;
-        path = new ClassicPath();           // Make a path factory instead?
+        path = new ClassicPath();
     }
 
     /**
@@ -126,6 +126,9 @@ public class Model {
             for (Virus virus : allViruses) {
                 if (virus.getY() > 1130 || virus.isDead()) {
                     virusToRemove.add(virus);
+                    if(virus.isDead()){
+                        player.increaseMoney(1); //Change amount later
+                    }
 
                 }
                 virus.update();
