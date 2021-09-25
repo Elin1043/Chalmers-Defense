@@ -22,6 +22,10 @@ public abstract class Projectile {
     private float y;
     private double angle;
 
+
+
+    private boolean dealtDamage;
+
     public Projectile(int speed,String name, float x, float y, double angle){
         this.speed = speed;
         this.name = name;
@@ -55,6 +59,14 @@ public abstract class Projectile {
     }
 
     public abstract Projectile createProjectile(int speed, float x, float y, double angle);
+
+    public boolean getIfDealtDamage() {
+        return dealtDamage;
+    }
+
+    public void setDealtDamage(boolean dealtDamage) {
+        this.dealtDamage = dealtDamage;
+    }
 
     /**
      * Gets width of projectile

@@ -178,30 +178,36 @@ public class Model {
     }
 
     //Helper method for collison between virus and projectile
-    //TODO fix bug: sometimes hits multiple viruses at the same time
     private boolean checkVirusAndProjectileCollision(Projectile projectile){
         boolean collided = false;
         for (Virus virus: getViruses()) {
             if(Calculate.objectsIntersects(projectile,virus)){
-                if(projectile instanceof AcidProjectile){
-                    //collidedWithAcid(projectile);
-                    virus.decreaseHealth();
-                }
-                else{
-                    virus.decreaseHealth();
-                }
+                    if(projectile instanceof AcidProjectile){
+                            collidedWithAcid(projectile);
+                    }
+                    else{
+                        if(!projectile.getIfDealtDamage()){
+                            virus.decreaseHealth();
+                            projectile.setDealtDamage(true);
+                        }
+
+                    }
+
                 collided = true;
             }
         }
         return collided;
     }
 
-    //Bugg: Sometimes kills virus of high level with one shot
+    //Collison with acid projectile
     private void collidedWithAcid(Projectile projectile){
+        if(!projectile.getIfDealtDamage()){
         for (Virus virus:getViruses()) {
-            if (Calculate.disBetweenPoints(projectile.getX() - projectile.getWidth()/2, projectile.getY() - projectile.getHeight()/2, virus.getX() - virus.getWidth()/2,virus.getY() - virus.getHeight()/2) < ((AcidProjectile) projectile).getRange() * ((AcidProjectile) projectile).getRange()){
-                virus.decreaseHealth();
+                if (Calculate.disBetweenPoints(projectile.getX(), projectile.getY(), virus.getX() ,virus.getY() ) < ((AcidProjectile) projectile).getRange() * ((AcidProjectile) projectile).getRange()){
+                        virus.decreaseHealth();
+                }
             }
+            projectile.setDealtDamage(true);
         }
     }
 
