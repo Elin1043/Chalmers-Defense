@@ -45,12 +45,15 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final Model model;
 
     private final Image sideBarBackground = new Image(new Texture("SideBarBackground.png"));
+    private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
     private Button startRoundButton;
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
     private final LabelStyle labelStyleBlack36 = generateLabelStyle(Color.BLACK);
     private final Label towerLabel = createLabel("Towers", 20);
     private final Label powerUpLabel = createLabel("Power-ups", 620);
+
+    private final Label lifeLabel = createLabel("Test", 700);
 
     private final Image mapImage;
 
@@ -76,6 +79,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         mapImage = new Image(new Texture("ClassicMap.png"));
         mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
 
+        lifeIcon.setPosition(1650, 320);
 
         placeRightSidePanel();
         createStartRoundButton();
@@ -95,6 +99,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     @Override
     public void buildStage() {
         addActor(sideBarBackground);
+        addActor(lifeIcon);
         addActor(smurfButton);
         addActor(chemistButton);
         addActor(hackerButton);
@@ -105,6 +110,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(mapImage);
         addActor(towerLabel);
         addActor(powerUpLabel);
+        addActor(lifeLabel);
         addActor(startRoundButton);
     }
 
@@ -117,6 +123,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         renderViruses();
         renderProjectiles();
 
+        updateLifeCounter();
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             model.getViruses().add(VirusFactory.createVirusOne());
@@ -125,6 +132,10 @@ public class GameScreen extends AbstractScreen implements Screen {
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             model.getVirusSpawner().spawnRound(1);
         }
+    }
+
+    private void updateLifeCounter() {
+        lifeLabel.setText(model.getLivesLeft());
     }
 
     private Label createLabel(String text, float y) {
@@ -187,7 +198,6 @@ public class GameScreen extends AbstractScreen implements Screen {
     private void renderTowers() {
         for (Tower tower: model.getTowers()) {
             Sprite towerSprite = spriteMap.get(tower.getSpriteKey());
-
             towerSprite.setPosition(tower.getPosX(), tower.getPosY());
             towerSprite.setRotation((float) tower.getAngle());
 
