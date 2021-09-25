@@ -34,6 +34,22 @@ class Player {
     int getMoney() { return money; }
 
     /**
+     * Decrease the amount of money
+     * @param amount amount to decrease by
+     */
+    void decreaseMoney(int amount){
+        money -= amount;
+    }
+
+    /**
+     * Increase the amount of money
+     * @param amount amount to increase by
+     */
+    void increaseMoney(int amount){
+        money += amount;
+    }
+
+    /**
      * Method to decrease player life
      * @param livesToDecrease How much to decrease lives by
      * @throws PlayerLostAllLifeException When the life counter reaches zero
