@@ -1,9 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.mygdx.chalmersdefense.model.path.GamePaths.ClassicPath;
+import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
 
 
@@ -13,31 +11,45 @@ import com.mygdx.chalmersdefense.model.path.Path;
  */
 public abstract class VirusFactory {
 
-    private static final Texture redVirus = new Texture("redVirus.png");
-    private static final Texture blueVirus = new Texture("blueVirus.png");
-    private static final Texture greenVirus = new Texture("greenVirus.png");
-    private static final Texture yellowVirus = new Texture("yellowVirus.png");
-    private static final Texture pinkVirus = new Texture("pinkVirus.png");
+    private static final Path path = new ClassicPath(); // Pointer to the path object
 
-    private static final Path path = new ClassicPath();
-
+    /**
+     * Creates a Virus with one health
+     * @return The new Virus object
+     */
     static public synchronized Virus createVirusOne(){
-        return new Virus(1, new Sprite(redVirus), path);
+        return new Virus(1, path);
     }
 
+    /**
+     * Creates a Virus with two health
+     * @return The new Virus object
+     */
     static public synchronized Virus createVirusTwo(){
-        return new Virus(2, new Sprite(blueVirus), path);
+        return new Virus(2, path);
     }
 
+    /**
+     * Creates a Virus with three health
+     * @return The new Virus object
+     */
     static public synchronized Virus createVirusThree(){
-        return new Virus(3, new Sprite(greenVirus), path);
+        return new Virus(3, path);
     }
 
+    /**
+     * Creates a Virus with four health
+     * @return The new Virus object
+     */
     static public synchronized Virus createVirusFour(){
-        return new Virus(4, new Sprite(yellowVirus), path);
+        return new Virus(4, path);
     }
 
+    /**
+     * Creates a Virus with five health
+     * @return The new Virus object
+     */
     static public synchronized Virus createVirusFive(){
-        return new Virus(5, new Sprite(pinkVirus), path);
+        return new Virus(5, path);
     }
 }

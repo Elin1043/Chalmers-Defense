@@ -5,16 +5,16 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
+import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.model.Virus;
 import com.mygdx.chalmersdefense.model.VirusFactory;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -48,7 +48,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private GameScreenController gameScreenController;
     private Model model;
 
-    private final Image sideBarBackground = new Image(new Texture("SideBarBackground.png"));
+    private Image sideBarBackground;
     private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
     private Button startRoundButton;
 
@@ -61,6 +61,8 @@ public class GameScreen extends AbstractScreen implements Screen {
     private Button upgradeButtonSecond;
     private Label towerNameLabel;
 
+    private final Label lifeLabel;
+
     private final TextureAtlas upgradePanelAtlas = new TextureAtlas(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.atlas")); // Load atlas file from skin
     private final Skin upgradePanelSkin = new Skin(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.json"), upgradePanelAtlas); // Create skin object
 
@@ -68,14 +70,8 @@ public class GameScreen extends AbstractScreen implements Screen {
     private LabelStyle labelStyleBlack36;
     private Label towerLabel;
     private Label powerUpLabel;
-    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
-    private final LabelStyle labelStyleBlack36 = generateLabelStyle(Color.BLACK);
-    private final Label towerLabel = createLabel("Towers", 20);
-    private final Label powerUpLabel = createLabel("Power-ups", 620);
 
-    private final Label lifeLabel = createLabel("Test", 700);
-
-    private final Image mapImage;
+    private Image mapImage;
 
     private final ImageButton smurfButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
     private final ImageButton chemistButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1770, 830, "chemist");
@@ -84,7 +80,8 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final ImageButton meckButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "meck");
     private final ImageButton ecoButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
 
-    private final TowerClickListener towerClickListener;
+    private TowerClickListener towerClickListener;
+    private Batch batch = super.getBatch();
 
 
     private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
@@ -103,10 +100,10 @@ public class GameScreen extends AbstractScreen implements Screen {
         gameScreenController.addMapClickListener(mapImage);
 
         lifeIcon.setPosition(1650, 320);
+
         // Generating label style
         labelStyleBlack36 = generateLabelStyle(36, Color.BLACK);
 
-        placeRightSidePanel();
         // START Bottom bar group creation
         bottomBarPanelUpgradeGroup = new Group();
         createBottomBarPanel();
@@ -125,6 +122,11 @@ public class GameScreen extends AbstractScreen implements Screen {
         createStartRoundButton();
 
         towerClickListener = new TowerClickListener(model);
+
+        towerLabel = createLabel("Towers", 20);
+        lifeLabel = createLabel("Test", 700);
+
+        powerUpLabel = createLabel("Power-ups", 620);
 
         towerButtons.put(100, smurfButton);
         towerButtons.put(200, chemistButton);
@@ -217,8 +219,9 @@ public class GameScreen extends AbstractScreen implements Screen {
         return labelStyle;
     }
 
-    private void placeRightSidePanel() {
-        sideBarBackground.setPosition(Gdx.graphics.getWidth() - sideBarBackground.getWidth(), 0);
+    private void createRightSidePanel() {
+        sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
+        sideBarBackground.setPosition(1920 - 320, 0);
     }
 
     //Render projectiles
