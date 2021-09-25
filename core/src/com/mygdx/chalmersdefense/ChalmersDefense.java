@@ -49,7 +49,7 @@ public class ChalmersDefense extends Game {
 		ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
 
 
-		music = Gdx.audio.newMusic(Gdx.files.internal("ponggamesound.wav"));
+		music = Gdx.audio.newMusic(Gdx.files.internal("backgroundMusic.wav"));
 		music.setLooping(true);
 		music.setVolume(0.2F);
 		music.play();
