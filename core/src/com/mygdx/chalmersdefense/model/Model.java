@@ -2,7 +2,8 @@ package com.mygdx.chalmersdefense.model;
 
 
 import com.mygdx.chalmersdefense.ChalmersDefense;
-import com.mygdx.chalmersdefense.model.path.GamePaths.ClassicPath;
+import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
+import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.utilities.Calculate;
@@ -36,10 +37,11 @@ public class Model {
 
     private final Path path;
 
+    private final Player player = new Player(100, 300); //Change staring capital later. Just used for testing right now
+
     private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
     private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
 
-    private int money = 300;
 
 
     /**
@@ -130,6 +132,13 @@ public class Model {
             }
 
             for (Virus virus : virusToRemove){
+                try {
+                    player.decreaseLivesBy(virus.getLifeDecreaseAmount());
+                } catch (PlayerLostAllLifeException ignore){
+
+                    // Här ska man hantera ifall man förlorar spelet
+
+                }
                 allViruses.remove(virus);
             }
 
@@ -202,9 +211,13 @@ public class Model {
      * Return the current money value
      * @return the money value
      */
-    public int getMoney() {
-        return money;
-    }
+    public int getMoney() { return player.getMoney(); }
+
+    /**
+     * Returns the lives left of player
+     * @return lives left
+     */
+    public int getLivesLeft() {return player.getLives(); }
 
     /**
      * Return the list of towers on map

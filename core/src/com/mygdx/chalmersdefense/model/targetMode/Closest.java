@@ -9,10 +9,11 @@ import java.util.List;
 
 /**
  * @author Elin Forsberg
+ * Finds the virus that is the nearest to the tower
  *
  * 2021-09-24 Modified by Joel Båtsman Hilmersson: Changed class to use ITargetMode interface
  *
- * Finds the virus that is the nearest to the tower
+ *
  */
 class Closest implements ITargetMode{
 

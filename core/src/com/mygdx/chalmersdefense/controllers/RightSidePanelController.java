@@ -33,6 +33,10 @@ public class RightSidePanelController {
         });
     }
 
+    /**
+     * Listener for tower buttons
+     * @param button the tower button that was dragged
+     */
     public void addTowerButtonListener(Button button) {
         button.addListener(new DragListener(){
             @Override

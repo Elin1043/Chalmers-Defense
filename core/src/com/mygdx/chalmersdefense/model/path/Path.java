@@ -5,6 +5,11 @@ import com.mygdx.chalmersdefense.utilities.PositionVector;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+/**
+ * @author
+ *
+ * 2021-09-24 Modified by Elin Forsberg and Joel Båtsman Hilmersson: Elin created createMapCollision and Joel implemented it here.
+ */
 public abstract class Path {
 
     private final int pathWidth;
@@ -19,6 +24,9 @@ public abstract class Path {
 
     public PositionVector getWaypoint(int index) { return pathWaypoints.get(index); }
 
+    /**
+     * Method for creating rectangles on path later used for collision
+     */
     protected void createMapCollision(){
         for (int i = 0; i < pathWaypoints.size() -1; i++) {
             Rectangle rectangle = new Rectangle();
@@ -53,6 +61,10 @@ public abstract class Path {
         }
     }
 
+    /**
+     * Gets the list of rectangles used for collision
+     * @return list of rectangles
+     */
     public ArrayList<Rectangle> getCollisionRectangles() { return collisionRectangles; }
 
 }

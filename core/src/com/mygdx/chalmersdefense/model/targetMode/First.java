@@ -7,10 +7,11 @@ import java.util.List;
 
 /**
  * @author Elin Forsberg
+ *Finds the virus that have travled the furthest distance
  *
  * 2021-09-24 Modified by Joel Båtsman Hilmersson: Changed class to use ITargetMode interface
  *
- * Finds the virus that have travled the furthest distance
+ *
  */
 class First implements ITargetMode{
 

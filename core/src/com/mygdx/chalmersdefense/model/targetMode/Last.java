@@ -6,8 +6,8 @@ import java.util.List;
 
 /**
  * @author Joel Båtsman Hilmersson
- *
  * Finds the virus that have travled the least distance
+ *
  */
 class Last implements ITargetMode {
 

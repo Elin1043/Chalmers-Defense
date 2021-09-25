@@ -13,6 +13,8 @@ import java.util.Objects;
 /**
  * @author Joel Båtsman Hilmersson
  * A class that representates the common enemy type for the game
+ *
+ * 2021-09-24 Modified by Elin Forsberg: Added methods to decrease health of virus and check if it's dead
  */
 public class Virus {
     private int health; // Current health of virus
@@ -21,6 +23,8 @@ public class Virus {
 
     private float xPos;         // x position on map
     private float yPos;         // y position on map
+
+
 
     private int widthX = 0;     // width of object
     private int heightY = 0;    // height of object
@@ -57,6 +61,9 @@ public class Virus {
         yPos = currentMoveToVector.getY() - heightY / 2F;
     }
 
+    /**
+     * Decrease the health of the virus and update the spriteKey
+     */
     public void decreaseHealth() {
         this.health --;
         if (health > 0) {
@@ -70,6 +77,7 @@ public class Virus {
     public void update() {
         moveToPoint();
     }
+
 
     private void moveToPoint() {
         double totalSpeed = (3F + health)/4F;      // Calculates speed based on health of virus
@@ -116,6 +124,22 @@ public class Virus {
     public float getY() { return yPos; }
 
     /**
+     * Gets width of virus
+     * @return width
+     */
+    public int getWidth() {
+        return widthX;
+    }
+
+    /**
+     * Gets height of virus
+     * @return height
+     */
+    public int getHeight() {
+        return heightY;
+    }
+
+    /**
      * Gets the key to Sprite hashmap for rendering
      * @return Key to hashmap
      */
@@ -133,6 +157,10 @@ public class Virus {
      */
     public float getTotalDistanceTrawled() { return totalDistanceTrawled; }
 
+    /**
+     * Gets if virus health is 0, which means it's dead
+     * @return if health is 0
+     */
     public boolean isDead() {
         return this.health <= 0;
     }

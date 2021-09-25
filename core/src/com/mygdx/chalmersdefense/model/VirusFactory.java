@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.mygdx.chalmersdefense.model.path.GamePaths.ClassicPath;
+import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
 
 

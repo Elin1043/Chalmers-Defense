@@ -10,10 +10,21 @@ import com.mygdx.chalmersdefense.model.Model;
  */
 public class TowerClickListener extends ClickListener {
     Model model;
+
+    /**
+     * Constructor for TowerClickListener class
+     * @param model current model
+     */
     public TowerClickListener(Model model){
         this.model = model;
     }
 
+    /**
+     * Listener if a tower was clicked
+     * @param event the InputEvent
+     * @param x The X-position of where it was clicked
+     * @param y The Y-position of where it was clicked
+     */
     @Override
     public void clicked(InputEvent event, float x, float y) {
         model.towerClicked();
