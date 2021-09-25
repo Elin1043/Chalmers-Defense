@@ -13,7 +13,7 @@ public class EcoTower extends Tower{
     private int reloadTime = 60*10; //how many updates from model
 
     public EcoTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes) {
-        super(x, y, name, attackSpeed, cost, range, targetModes);
+        super(x, y, name, attackSpeed, cost, range, targetModes, null);
         moneyEarned = 0;
         currentReload = 0;
 

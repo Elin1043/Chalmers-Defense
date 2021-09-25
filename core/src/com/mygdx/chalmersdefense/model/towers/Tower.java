@@ -39,6 +39,7 @@ public class Tower extends Actor {
 
     private final List<ITargetMode> targetModes;
     private ITargetMode currentTargetMode;
+    private Projectile projectile;
 
     private float width;
     private float height;
@@ -51,18 +52,19 @@ public class Tower extends Actor {
 
     private boolean gotTarget;
 
-    private int reloadTime = 60; //how many updates from model
+    private int reloadTime = 60*3; //how many updates from model
     private int currentReload = 0;
 
 
     private Rectangle rectangle = new Rectangle();
 
 
-    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes){
+    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, Projectile projectile){
         this.name=name;
         this.attackSpeed = attackSpeed;
         this.targetModes = targetModes;
         this.currentTargetMode = targetModes.get(0);
+        this.projectile = projectile;
         updateSpriteKey();
 
         try{
@@ -92,7 +94,7 @@ public class Tower extends Actor {
      */
     public Projectile shootProjectile(){
         if(currentReload < 1 && gotTarget && isPlaced){
-            Projectile projectile = new BulletProjectile(attackSpeed, this.getPosX() + width/2, this.getPosY() + height/2, this.angle);
+            projectile = projectile.createProjectile(attackSpeed, this.getPosX() + this.width/2, this.getPosY() + this.height/2, this.angle);
             currentReload = reloadTime;
             return projectile;
         }

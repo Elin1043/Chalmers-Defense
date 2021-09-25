@@ -5,6 +5,7 @@ import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
 import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.model.projectiles.AcidProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.EcoTower;
 import com.mygdx.chalmersdefense.utilities.Calculate;
@@ -109,6 +110,7 @@ public class Model {
             }
 
             Projectile projectile = tower.shootProjectile();
+
             if(projectile != null){
                 projectilesList.add(projectile);
             }
@@ -176,14 +178,31 @@ public class Model {
     }
 
     //Helper method for collison between virus and projectile
+    //TODO fix bug: sometimes hits multiple viruses at the same time
     private boolean checkVirusAndProjectileCollision(Projectile projectile){
+        boolean collided = false;
         for (Virus virus: getViruses()) {
             if(Calculate.objectsIntersects(projectile,virus)){
-                virus.decreaseHealth();
-                return true;
+                if(projectile instanceof AcidProjectile){
+                    //collidedWithAcid(projectile);
+                    virus.decreaseHealth();
+                }
+                else{
+                    virus.decreaseHealth();
+                }
+                collided = true;
             }
         }
-        return false;
+        return collided;
+    }
+
+    //Bugg: Sometimes kills virus of high level with one shot
+    private void collidedWithAcid(Projectile projectile){
+        for (Virus virus:getViruses()) {
+            if (Calculate.disBetweenPoints(projectile.getX() - projectile.getWidth()/2, projectile.getY() - projectile.getHeight()/2, virus.getX() - virus.getWidth()/2,virus.getY() - virus.getHeight()/2) < ((AcidProjectile) projectile).getRange() * ((AcidProjectile) projectile).getRange()){
+                virus.decreaseHealth();
+            }
+        }
     }
 
 

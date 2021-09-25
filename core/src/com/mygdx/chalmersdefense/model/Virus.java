@@ -35,6 +35,7 @@ public class Virus {
     private PositionVector currentMoveToVector;     // Current vector (coordinates) to move to
     private int currentMoveToVectorIndex = 0;       // Which index to use when new vector is retrieved
 
+
     /**
      * Creates Virus object
      * @param health Amount of health the virus start with
@@ -70,6 +71,7 @@ public class Virus {
             updateSpriteKey();
         }
     }
+
 
     /**
      * Updates position of virus

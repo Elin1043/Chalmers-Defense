@@ -54,6 +54,8 @@ public abstract class Projectile {
 
     }
 
+    public abstract Projectile createProjectile(int speed, float x, float y, double angle);
+
     /**
      * Gets width of projectile
      * @return width of projectile
