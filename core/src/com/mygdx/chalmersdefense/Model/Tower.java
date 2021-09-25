@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.Model;
+package com.mygdx.chalmersdefense.model;
 
 
 

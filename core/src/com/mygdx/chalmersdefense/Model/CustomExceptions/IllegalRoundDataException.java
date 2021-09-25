@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.Model.CustomExceptions;
+package com.mygdx.chalmersdefense.model.customExceptions;
 
 /**
  * @author Joel Båtsman Hilmersson

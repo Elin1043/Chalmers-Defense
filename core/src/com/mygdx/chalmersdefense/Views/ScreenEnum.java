@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.Views;
+package com.mygdx.chalmersdefense.views;
 
 public enum ScreenEnum {
     MAIN_MENU, GAME
