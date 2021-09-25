@@ -29,9 +29,12 @@ import java.util.List;
  */
 
 public class Model {
-    private ChalmersDefense game;
+    private final ChalmersDefense game;
     private final List<Tower> towersList = new ArrayList<>();
-    private List<Projectile> projectilesList = new ArrayList<>();
+    private final List<Projectile> projectilesList = new ArrayList<>();
+    private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
+    private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
+    private final Rounds round = new Rounds(10);    // 10 is temporary
 
     private Tower newTower;
 
@@ -39,8 +42,7 @@ public class Model {
 
     private final Player player = new Player(100, 300); //Change staring capital later. Just used for testing right now
 
-    private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
-    private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
+
 
 
 
@@ -84,10 +86,7 @@ public class Model {
         if(y > 1130 || -50 > y){
             return true;
         }
-        if(x > 1970 || -50 > x){
-            return true;
-        }
-        return false;
+        return (x > 1970) || (-50 > x);
     }
 
     //Update all the towers
@@ -238,6 +237,12 @@ public class Model {
     // TODO This should be gone later!!
     public SpawnViruses getVirusSpawner() {
         return virusSpawner;
+    }
+
+    public void startRoundPressed(){
+        if (!virusSpawner.isSpawning()){
+            virusSpawner.spawnRound(round.getCurrentRound());
+        }
     }
 
     /**

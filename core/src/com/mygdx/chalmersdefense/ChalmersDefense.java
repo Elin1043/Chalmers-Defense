@@ -13,17 +13,17 @@ import com.mygdx.chalmersdefense.views.ScreenEnum;
 import com.mygdx.chalmersdefense.views.ScreenManager;
 
 /**
- * @author
+ *  @author
  *
  *
- * @Modified by Elin Forsberg
- *  Added a timer to update Model
+ *  2021-09-16 Modified by Elin Forsberg: Added a timer to update Model
+ *  2021-09-23 Modified by Joel Båtsman Hilmersson: Changed timer to use libGDX timer instead of javaswing
  */
 public class ChalmersDefense extends Game {
 	// The delay (s) between when game data is being updated
 	private final float delay = 0.005F;
 	// The timer is started with a listener (see below) that executes the statements
-	// each step between delays.
+	// Timer that calls method to update model
 	private Timer timer;
 
 	Music music;
