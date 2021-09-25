@@ -247,6 +247,14 @@ public class Model {
     }
 
     /**
+     * Return the list of projectiles
+     * @return list of projectiles
+     */
+    public List<Projectile> getProjectilesList() {
+        return projectilesList;
+    }
+
+    /**
      * Creates a new tower when user starts dragging from a tower button.
      * @param towerName the name of the tower
      * @param x the X-position of the button
@@ -264,14 +272,6 @@ public class Model {
         }
 
         towersList.add(newTower);
-    }
-
-    /**
-     * Return the list of projectiles
-     * @return list of projectiles
-     */
-    public List<Projectile> getProjectilesList() {
-        return projectilesList;
     }
 
 
@@ -321,6 +321,7 @@ public class Model {
             newTower.placeTower();
             newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
             newTower.setRectangle();
+            player.decreaseMoney(newTower.getCost());
         }
         else{
             towersList.remove(newTower);

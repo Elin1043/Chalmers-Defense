@@ -308,6 +308,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         for (Integer i : towerButtons.keySet()) {
             if(model.getMoney() >= i && !towerButtons.get(i).isTouchable()){
                 towerButtons.get(i).setTouchable(Touchable.enabled);
+                towerButtons.get(i).getImage().setColor(Color.WHITE);
 
             }
             else if (model.getMoney()< i && towerButtons.get(i).isTouchable()){

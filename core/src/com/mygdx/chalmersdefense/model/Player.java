@@ -4,7 +4,7 @@ import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeExcepti
 
 /**
  * @author Joel Båtsman Hilmersson
- * Class representing the player and thier resorces
+ * Class representing the player and their resorces
  */
 class Player {
 
