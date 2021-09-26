@@ -26,6 +26,7 @@ import java.util.List;
  * 2021-09-20 Modified by Elin Forsberg: Added methods to handle towers + collisions
  * 2021-09-20 Modified by Joel Båtsman Hilmersson: Made updateVirus loop syncronized
  * 2021-09-24 Modified by Elin Forsberg: Added methods to handle projectiles
+ * 2021-09-25 Modified by Joel Båtsman Hilmersson: Added support for round system
  */
 
 public class Model {
@@ -143,7 +144,7 @@ public class Model {
 
             if (allViruses.isEmpty() && !virusSpawner.isSpawning()) {
                 stopGameUpdate();
-                System.out.println("Stop TIMER");
+                projectilesList.clear();
             }
 
         }
@@ -229,7 +230,13 @@ public class Model {
      * Returns the lives left of player
      * @return lives left
      */
-    public int getLivesLeft() {return player.getLives(); }
+    public int getLivesLeft() { return player.getLives(); }
+
+    /**
+     * Returns the current round
+     * @return current round
+     */
+    public int getCurrentRound() { return round.getCurrentRound(); }
 
     /**
      * Return the list of towers on map
@@ -249,6 +256,7 @@ public class Model {
 
     // TODO This should be gone later!!
     public SpawnViruses getVirusSpawner() {
+        startGameUpdate();
         return virusSpawner;
     }
 
@@ -259,7 +267,6 @@ public class Model {
         if (!virusSpawner.isSpawning()) {
             startGameUpdate();
             round.incrementToNextRound();
-            System.out.println("START TIMER");
             virusSpawner.spawnRound(round.getCurrentRound());
         } else {
 

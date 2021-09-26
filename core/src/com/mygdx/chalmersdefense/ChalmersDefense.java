@@ -75,10 +75,12 @@ public class ChalmersDefense extends Game {
 
 	public void stopModelUpdate() {
 		timer.stop();
+		System.out.println("STOP TIMER");
 	}
 
 	public void startModelUpdate() {
 		timer.start();
+		System.out.println("START TIMER");
 	}
 
 
