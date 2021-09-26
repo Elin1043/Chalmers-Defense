@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,7 +30,7 @@ public class Tower extends Actor {
     private double angle = 0;
     private float range;
     private String name;
-    //private Tower upgrade;
+
     private boolean isPlaced = false;
     private float x;
     private float y;
@@ -106,6 +107,25 @@ public class Tower extends Actor {
      * Update the towers
      */
     public void update() { shootProjectile(); }
+
+    /**
+     * Upgrades the tower based on given HashMap with upgrade values
+     * @param upgrades a HashMap with upgrade values.
+     */
+    public void upgradeTower(HashMap<String, Long> upgrades) {
+        // DMG multiplier??
+        attackSpeed *= upgrades.get("attackSpeedMul");
+        range *= upgrades.get("attackRangeMul");
+        upgradeLevel++;
+    }
+
+    /**
+     * Get the upgrade level of tower
+     * @return upgrade level
+     */
+    public int getUpgradeLevel() {
+        return upgradeLevel;
+    }
 
     private void updateSpriteKey() { spriteKey = name + upgradeLevel; }
 
