@@ -42,7 +42,6 @@ public class Model {
 
     private final Path path;
 
-    private int count = 5;
 
     private final Player player = new Player(100, 600); //Change staring capital later. Just used for testing right now
 
@@ -195,7 +194,7 @@ public class Model {
     //Helper method for collision between virus and projectile
     private boolean checkVirusAndProjectileCollision(Projectile projectile){
         boolean collided = false;
-        for (Virus virus: getViruses()) {
+        for (Virus virus: allViruses) {
             if(Calculate.objectsIntersects(projectile,virus)){
                     if(projectile instanceof AcidProjectile){
                             collidedWithAcid(projectile);
@@ -220,28 +219,24 @@ public class Model {
     //Collison with lightning projectile
     //Does not work properly
     private void collidedWithLightning(Projectile projectile, Virus virus){
-        if(!projectile.getIfDealtDamage()){
-                virus.decreaseHealth();
-                List<Virus> virusInRange = Calculate.getVirusesInRange(projectile.getX() + projectile.getWidth()/2, projectile.getY() + projectile.getHeight()/2, 50, allViruses);
-                if(virusInRange.contains(virus)){
-                    virusInRange.remove(virus);
-                }
-                System.out.println(virusInRange.size());
-                if(!virusInRange.isEmpty() && count > 0){
-                    Virus tempVirus = virusInRange.get(0);
-                    projectile.setAngle(Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2, tempVirus.getY() + tempVirus.getHeight()/2,projectile.getX() + projectile.getWidth()/2, projectile.getY() + projectile.getHeight()/2));
-                    if(Calculate.objectsIntersects(projectile, tempVirus)){
-                        System.out.println("Collided");
-                        count--;
-                        projectile.setDealtDamage(false);
-                        collidedWithLightning(projectile,tempVirus);
-                    }
-                }
-                else if(count <= 0){
-                    count = 5;
-                }
 
-            projectile.setDealtDamage(true);
+
+        if(!projectile.getIfDealtDamage()){
+            virus.decreaseHealth();
+            projectile.virusHit();
+
+            List<Virus> virusInRange = Calculate.getVirusesInRange(projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F, 500, allViruses);
+
+
+            virusInRange.remove(virus);
+
+
+            if(!virusInRange.isEmpty()){
+                Virus tempVirus = virusInRange.get(0);
+                projectile.setAngle(Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2F, tempVirus.getY() + tempVirus.getHeight()/2F,projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F));
+
+            }
+
         }
 
     }
@@ -250,7 +245,7 @@ public class Model {
     private void collidedWithAcid(Projectile projectile){
         if(!projectile.getIfDealtDamage()){
         for (Virus virus:getViruses()) {
-                if (Calculate.disBetweenPoints(projectile.getX() + projectile.getWidth()/2, projectile.getY() + projectile.getHeight()/2, virus.getX() + virus.getWidth()/2 ,virus.getY() + virus.getHeight()/2 ) < ((AcidProjectile) projectile).getRange() * ((AcidProjectile) projectile).getRange()){
+                if (Calculate.disBetweenPoints(projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F, virus.getX() + virus.getWidth()/2F ,virus.getY() + virus.getHeight()/2F ) < ((AcidProjectile) projectile).getRange() * ((AcidProjectile) projectile).getRange()){
                         virus.decreaseHealth();
                 }
             }

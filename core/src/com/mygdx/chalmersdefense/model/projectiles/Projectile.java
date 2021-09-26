@@ -21,7 +21,7 @@ public abstract class Projectile {
     private float x;
     private float y;
 
-
+    private int hitCountsLeft = 5;
 
     private double angle;
 
@@ -69,6 +69,17 @@ public abstract class Projectile {
 
     public boolean getIfDealtDamage() {
         return dealtDamage;
+    }
+
+    /**
+     * Method to call when virus is hit (temp for now, used by lightning)
+     */
+    public void virusHit(){
+        if (hitCountsLeft > 0){
+            hitCountsLeft--;
+        } else {
+            dealtDamage = true;
+        }
     }
 
     public void setDealtDamage(boolean dealtDamage) {
