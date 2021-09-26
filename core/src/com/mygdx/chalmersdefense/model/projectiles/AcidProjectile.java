@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
 public class AcidProjectile extends Projectile{
-    private static String name = "bullet";
+    private static String name = "bullet"; //Change when have new projectile pictures
     private int range = 10;
 
     public AcidProjectile(int speed, float x, float y, double angle) {

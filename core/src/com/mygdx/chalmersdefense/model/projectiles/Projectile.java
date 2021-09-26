@@ -20,6 +20,9 @@ public abstract class Projectile {
     private String name;
     private float x;
     private float y;
+
+
+
     private double angle;
 
 
@@ -56,6 +59,10 @@ public abstract class Projectile {
         x =  x + xLength;
         y =  y + yLength;
 
+    }
+
+    public void setAngle(double angle) {
+        this.angle = angle;
     }
 
     public abstract Projectile createProjectile(int speed, float x, float y, double angle);

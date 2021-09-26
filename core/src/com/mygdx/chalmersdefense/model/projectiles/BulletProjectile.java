@@ -5,7 +5,7 @@ package com.mygdx.chalmersdefense.model.projectiles;
  * Class representing a specific projectile
  */
 public class BulletProjectile extends Projectile{
-    private static String name = "bullet";
+    private static String name = "smurfProjectile2";
 
 
     public BulletProjectile(int speed , float x, float y, double angle) {

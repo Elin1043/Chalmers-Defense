@@ -6,6 +6,7 @@ import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeExcepti
 import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.projectiles.AcidProjectile;
+import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.EcoTower;
 import com.mygdx.chalmersdefense.utilities.Calculate;
@@ -70,7 +71,10 @@ public class Model {
         for (Projectile projectile: projectilesList) {
             projectile.move();
             if(checkCollisonOfProjectiles(projectile) ||  checkIfOutOfBounds(projectile.getY(), projectile.getX()) ){
-                removeProjectiles.add(projectile);
+                if(!(projectile instanceof LightningProjectile)){
+                    removeProjectiles.add(projectile);
+                }
+
             }
         }
 
@@ -185,6 +189,9 @@ public class Model {
                     if(projectile instanceof AcidProjectile){
                             collidedWithAcid(projectile);
                     }
+                    else if(projectile instanceof LightningProjectile){
+                        collidedWithLightning(projectile);
+                    }
                     else{
                         if(!projectile.getIfDealtDamage()){
                             virus.decreaseHealth();
@@ -197,6 +204,37 @@ public class Model {
             }
         }
         return collided;
+    }
+
+    //Collison with lightning projectile
+    //Does not work properly
+    private void collidedWithLightning(Projectile projectile){
+        int count = 5;
+        if(!projectile.getIfDealtDamage()){
+            List<Virus> virusInRange = Calculate.getVirusesInRange(projectile.getX(),projectile.getY(),((LightningProjectile) projectile).getRange(), allViruses);
+            if(!virusInRange.isEmpty()){
+                for (int i = 0; i < virusInRange.size() ; i++) {
+                        if((i < virusInRange.size() - 1)){
+                            virusInRange.get(i).decreaseHealth();
+                            double angle = Calculate.angleDeg(virusInRange.get(i+1).getX(),virusInRange.get(i+1).getY(), virusInRange.get(i).getX(),virusInRange.get(i).getY());
+                            projectile.setAngle(angle);
+                            projectile.move();
+                            count--;
+                        }
+                        else {
+                            virusInRange.get(i).decreaseHealth();
+                        }
+
+
+                    if(count <= 0){
+                        projectilesList.remove(projectile);
+                        break;
+                    }
+                }
+            }
+            projectile.setDealtDamage(true);
+        }
+
     }
 
     //Collison with acid projectile
