@@ -32,7 +32,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateChemist(int startPosX, int startPosY){
-        return new Tower(startPosX,startPosY, "ChemistTower", 5, 200, 200, TargetModeFactory.getTargetModes(), new AcidProjectile(0,0,0,0));
+        return new Tower(startPosX,startPosY, "ChemistTower", 2, 200, 200, TargetModeFactory.getTargetModes(), new AcidProjectile(0,0,0,0));
     }
 
     /**

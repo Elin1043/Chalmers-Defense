@@ -44,6 +44,8 @@ public class Model {
 
     private final Path path;
 
+    private int count = 5;
+
     private final Player player = new Player(100, 600); //Change staring capital later. Just used for testing right now
 
 
@@ -85,13 +87,6 @@ public class Model {
 
     }
 
-    //Check if coordinates are outside the screen
-    private boolean checkIfOutOfBounds(float y, float x){
-        if(y > 1130 || -50 > y){
-            return true;
-        }
-        return (x > 1970) || (-50 > x);
-    }
 
     //Update all the towers
     private void updateTowers(){
@@ -161,6 +156,14 @@ public class Model {
 
     }
 
+    //Check if coordinates are outside the screen
+    private boolean checkIfOutOfBounds(float y, float x){
+        if(y > 1130 || -50 > y){
+            return true;
+        }
+        return (x > 1970) || (-50 > x);
+    }
+
     private void stopGameUpdate() {
         game.stopModelUpdate();
     }
@@ -182,7 +185,7 @@ public class Model {
         return false;
     }
 
-    //Checks if projectile collided with virus
+    //Checks if projectile collided with path, then virus
     private boolean checkCollisonOfProjectiles(Projectile projectile){
         for (Rectangle rectangle: path.getCollisionRectangles()) {
             if(Calculate.objectsIntersects(projectile,rectangle)){
@@ -201,7 +204,7 @@ public class Model {
                             collidedWithAcid(projectile);
                     }
                     else if(projectile instanceof LightningProjectile){
-                        collidedWithLightning(projectile);
+                        collidedWithLightning(projectile, virus);
                     }
                     else{
                         if(!projectile.getIfDealtDamage()){
@@ -219,30 +222,28 @@ public class Model {
 
     //Collison with lightning projectile
     //Does not work properly
-    private void collidedWithLightning(Projectile projectile){
-        int count = 5;
+    private void collidedWithLightning(Projectile projectile, Virus virus){
         if(!projectile.getIfDealtDamage()){
-            List<Virus> virusInRange = Calculate.getVirusesInRange(projectile.getX(),projectile.getY(),((LightningProjectile) projectile).getRange(), allViruses);
-            if(!virusInRange.isEmpty()){
-                for (int i = 0; i < virusInRange.size() ; i++) {
-                        if((i < virusInRange.size() - 1)){
-                            virusInRange.get(i).decreaseHealth();
-                            double angle = Calculate.angleDeg(virusInRange.get(i+1).getX(),virusInRange.get(i+1).getY(), virusInRange.get(i).getX(),virusInRange.get(i).getY());
-                            projectile.setAngle(angle);
-                            projectile.move();
-                            count--;
-                        }
-                        else {
-                            virusInRange.get(i).decreaseHealth();
-                        }
-
-
-                    if(count <= 0){
-                        projectilesList.remove(projectile);
-                        break;
+                virus.decreaseHealth();
+                List<Virus> virusInRange = Calculate.getVirusesInRange(projectile.getX() + projectile.getWidth()/2, projectile.getY() + projectile.getHeight()/2, 50, allViruses);
+                if(virusInRange.contains(virus)){
+                    virusInRange.remove(virus);
+                }
+                System.out.println(virusInRange.size());
+                if(!virusInRange.isEmpty() && count > 0){
+                    Virus tempVirus = virusInRange.get(0);
+                    projectile.setAngle(Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2, tempVirus.getY() + tempVirus.getHeight()/2,projectile.getX() + projectile.getWidth()/2, projectile.getY() + projectile.getHeight()/2));
+                    if(Calculate.objectsIntersects(projectile, tempVirus)){
+                        System.out.println("Collided");
+                        count--;
+                        projectile.setDealtDamage(false);
+                        collidedWithLightning(projectile,tempVirus);
                     }
                 }
-            }
+                else if(count <= 0){
+                    count = 5;
+                }
+
             projectile.setDealtDamage(true);
         }
 
@@ -252,7 +253,7 @@ public class Model {
     private void collidedWithAcid(Projectile projectile){
         if(!projectile.getIfDealtDamage()){
         for (Virus virus:getViruses()) {
-                if (Calculate.disBetweenPoints(projectile.getX(), projectile.getY(), virus.getX() ,virus.getY() ) < ((AcidProjectile) projectile).getRange() * ((AcidProjectile) projectile).getRange()){
+                if (Calculate.disBetweenPoints(projectile.getX() + projectile.getWidth()/2, projectile.getY() + projectile.getHeight()/2, virus.getX() + virus.getWidth()/2 ,virus.getY() + virus.getHeight()/2 ) < ((AcidProjectile) projectile).getRange() * ((AcidProjectile) projectile).getRange()){
                         virus.decreaseHealth();
                 }
             }

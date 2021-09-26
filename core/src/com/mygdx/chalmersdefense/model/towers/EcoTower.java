@@ -9,6 +9,9 @@ public class EcoTower extends Tower{
 
 
     int moneyEarned;
+
+
+
     int currentReload;
     private int reloadTime = 60*10; //how many updates from model
 
@@ -31,6 +34,10 @@ public class EcoTower extends Tower{
         }
         this.setAngle(0);
         return null;
+    }
+
+    public int getCurrentReload() {
+        return currentReload;
     }
 
     public int getMoneyEarned() {

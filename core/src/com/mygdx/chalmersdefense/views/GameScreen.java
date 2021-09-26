@@ -4,16 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.model.Virus;
 import com.mygdx.chalmersdefense.model.VirusFactory;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -26,6 +24,7 @@ import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.controllers.TowerClickListener;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
+import com.mygdx.chalmersdefense.model.towers.EcoTower;
 import com.mygdx.chalmersdefense.model.towers.Tower;
 
 
@@ -58,7 +57,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private final Label lifeLabel = createLabel("Test", 700);
     private final Label moneyLabel = createLabel("Test", 800);
-    private final Label roundLabel = createLabel("Round: HH", 800);
+    private final Label roundLabel = createLabel("Round: HH", 900);
 
     private final Image mapImage;
 
@@ -99,6 +98,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         towerButtons.put(500, meckButton);
         towerButtons.put(600, ecoButton);
 
+
         addTowerButtonListener();
     }
 
@@ -132,8 +132,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         renderViruses();
         renderProjectiles();
 
-        updateLifeCounter();
-        updateMoneyCounter();
         updateLabels();
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
@@ -181,19 +179,30 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     //Render projectiles
     private void renderProjectiles() {
-        super.batch.begin();
+
 
         for (Projectile projectile:model.getProjectilesList()) {
             Sprite projectileSprite = spriteMap.get(projectile.getName());
             projectileSprite.setPosition(projectile.getX(), projectile.getY());
+            Gdx.gl.glEnable(GL_BLEND);
+            Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(new Color(150/255F, 150/255F, 150/255F, 0.8F));
+            shapeRenderer.circle(projectile.getX() + projectile.getWidth()/2, projectile.getY() + projectile.getHeight()/2, 50);
+            shapeRenderer.end();
+            Gdx.gl.glDisable(GL_BLEND);
+
+            super.batch.begin();
             projectileSprite.draw(super.batch);
+            super.batch.end();
         }
 
-        super.batch.end();
+
     }
 
     //Render viruses
     private void renderViruses() {
+
         super.batch.begin();
 
         synchronized (model.getViruses()) {
@@ -245,6 +254,7 @@ public class GameScreen extends AbstractScreen implements Screen {
                 btn.addListener(towerClickListener);
                 tower.setGotButton(true);
             }
+
 
             super.batch.begin();
             towerSprite.draw(super.batch);
