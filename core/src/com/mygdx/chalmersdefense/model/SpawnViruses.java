@@ -5,6 +5,7 @@ import com.mygdx.chalmersdefense.model.customExceptions.IllegalRoundDataExceptio
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -46,7 +47,14 @@ public class SpawnViruses {
 
     public void spawnRound(int round) {
         if (!isSpawning) {
-            currentRound = spawnInfo[round - 1];
+
+            if (round < spawnInfo.length) {
+                currentRound = spawnInfo[round - 1];        // If there exist specific round data, Takes it
+            } else {
+                Random rand = new Random();
+                currentRound = spawnInfo[rand.nextInt(spawnInfo.length-1)];     // Otherwise, randomizes a round from round data
+            }
+
             waveIndex = 0;
             waveAmountSpawned = 0;
             isSpawning = true;
