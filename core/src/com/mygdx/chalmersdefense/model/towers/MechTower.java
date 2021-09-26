@@ -2,20 +2,20 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
+import com.mygdx.chalmersdefense.utilities.Calculate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MechTower extends Tower {
 
-    private int maxTowers = 2;
-    private int currentTowers = 0;
 
     private List<MechMiniTower> miniTowers = new ArrayList<>();
 
     private float x;
     private float y;
     private int attackSpeed;
+    private int range;
     private List<ITargetMode> targetModes;
     private Projectile projectile;
 
@@ -26,17 +26,18 @@ public class MechTower extends Tower {
         this.attackSpeed = attackSpeed;
         this.targetModes = targetModes;
         this.projectile = projectile;
-
+        this.range = range;
 
 
     }
 
-    public void createMiniTowers(){
-        for (int i = 0; i < maxTowers; i++) {
-            int tempX = getRandomNumber(x - getRange(), x + getRange());
-            int tempY = getRandomNumber(y - getRange(), y + getRange());
-            miniTowers.add(new MechMiniTower(tempX,tempY,attackSpeed,targetModes,projectile));
-        }
+    public List<MechMiniTower> createMiniTowers(){
+            MechMiniTower miniTower1 = new MechMiniTower(this.getPosX() + 300,this.getPosY(),attackSpeed,range,targetModes,projectile);
+            MechMiniTower miniTower2 = new MechMiniTower(this.getPosX() + 500,this.getPosY(),attackSpeed,range,targetModes,projectile);
+
+            miniTowers.add(miniTower1);
+            miniTowers.add(miniTower2);
+            return miniTowers;
     }
 
     @Override
@@ -45,9 +46,7 @@ public class MechTower extends Tower {
         return null;
     }
 
-    private int getRandomNumber(float min, float max) {
-        return (int) ((Math.random() * (max - min)) + min);
-    }
+
 
     public List<MechMiniTower> getMiniTowers() {
         return miniTowers;

@@ -66,14 +66,6 @@ public class Model {
         updateProjectiles();
     }
 
-    private void setupTowerList(Tower tower){
-        List<MechMiniTower> miniTowers = ((MechTower) tower).getMiniTowers();
-        miniTowers.get(0).setPos(tower.getPosX(), tower.getPosY() + 50);
-        miniTowers.get(1).setPos(tower.getPosX(), tower.getPosY() - 50);
-        towersList.addAll(miniTowers);
-
-    }
-
     //Update the projectiles
     private void updateProjectiles(){
         List<Projectile> removeProjectiles = new ArrayList<>();
@@ -124,10 +116,6 @@ public class Model {
                 }
             }
         }
-
-
-
-
     }
 
     //Update all the viruses
@@ -424,8 +412,7 @@ public class Model {
             player.decreaseMoney(newTower.getCost());
             System.out.println(towersList.size());
             if(newTower instanceof MechTower){
-                ((MechTower) newTower).createMiniTowers();
-                setupTowerList(newTower);
+                towersList.addAll(((MechTower) newTower).createMiniTowers());
             }
             System.out.println(towersList.size());
         }
