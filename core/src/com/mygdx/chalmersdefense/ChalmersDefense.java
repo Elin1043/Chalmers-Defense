@@ -21,7 +21,7 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
  */
 public class ChalmersDefense extends Game {
 	// The delay (s) between when game data is being updated
-	private final float delay = 0.005F;
+	private float delay = 0.005F;
 	// The timer is started with a listener (see below) that executes the statements
 	// Timer that calls method to update model
 	private Timer timer;
@@ -83,5 +83,14 @@ public class ChalmersDefense extends Game {
 		System.out.println("START TIMER");
 	}
 
+	public void changeUpdateSpeed() {
+		if (delay < 0.004F){
+			delay = 0.005F;
+		} else {
+			delay = 0.002F;
+		}
+		timer.clear();
+		setupTimer();
+	}
 
 }

@@ -182,7 +182,7 @@ public class Model {
         return false;
     }
 
-    //Helper method for collison between virus and projectile
+    //Helper method for collision between virus and projectile
     private boolean checkVirusAndProjectileCollision(Projectile projectile){
         for (Virus virus: getViruses()) {
             if(Calculate.objectsIntersects(projectile,virus)){
@@ -264,7 +264,7 @@ public class Model {
             virusSpawner.spawnRound(round.getCurrentRound());
         } else {
 
-            // Here we can speed up or slow down round later
+            game.changeUpdateSpeed();
 
         }
     }
