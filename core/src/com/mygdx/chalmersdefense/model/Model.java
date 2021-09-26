@@ -8,10 +8,8 @@ import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.projectiles.AcidProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
-import com.mygdx.chalmersdefense.model.towers.EcoTower;
+import com.mygdx.chalmersdefense.model.towers.*;
 import com.mygdx.chalmersdefense.utilities.Calculate;
-import com.mygdx.chalmersdefense.model.towers.Tower;
-import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -56,6 +54,7 @@ public class Model {
     public Model(ChalmersDefense game) {
         this.game = game;
         path = new ClassicPath();           // Make a path factory instead?
+
     }
 
     /**
@@ -65,6 +64,14 @@ public class Model {
         updateVirus();
         updateTowers();
         updateProjectiles();
+    }
+
+    private void setupTowerList(Tower tower){
+        List<MechMiniTower> miniTowers = ((MechTower) tower).getMiniTowers();
+        miniTowers.get(0).setPos(tower.getPosX(), tower.getPosY() + 50);
+        miniTowers.get(1).setPos(tower.getPosX(), tower.getPosY() - 50);
+        towersList.addAll(miniTowers);
+
     }
 
     //Update the projectiles
@@ -79,7 +86,6 @@ public class Model {
 
             }
         }
-
         for (Projectile projectile: removeProjectiles) {
             projectilesList.remove(projectile);
         }
@@ -90,6 +96,7 @@ public class Model {
 
     //Update all the towers
     private void updateTowers(){
+
         for (Tower tower: towersList) {
             List<Virus> virusInRange;
 
@@ -107,6 +114,7 @@ public class Model {
 
             Projectile projectile = tower.shootProjectile();
 
+
             if(projectile != null){
                 projectilesList.add(projectile);
             }
@@ -115,8 +123,11 @@ public class Model {
                     player.increaseMoney(((EcoTower) tower).getMoneyEarned());
                 }
             }
-
         }
+
+
+
+
     }
 
     //Update all the viruses
@@ -130,11 +141,9 @@ public class Model {
                     if(virus.isDead()){
                         player.increaseMoney(1); //Change amount later
                     }
-
                 }
                 virus.update();
             }
-
             for (Virus virus : virusToRemove){
                 try {
                     player.decreaseLivesBy(virus.getLifeDecreaseAmount());
@@ -413,6 +422,12 @@ public class Model {
             newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
             newTower.setRectangle();
             player.decreaseMoney(newTower.getCost());
+            System.out.println(towersList.size());
+            if(newTower instanceof MechTower){
+                ((MechTower) newTower).createMiniTowers();
+                setupTowerList(newTower);
+            }
+            System.out.println(towersList.size());
         }
         else{
             towersList.remove(newTower);

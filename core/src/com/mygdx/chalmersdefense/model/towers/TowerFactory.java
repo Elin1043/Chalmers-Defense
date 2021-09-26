@@ -5,6 +5,7 @@ package com.mygdx.chalmersdefense.model.towers;
 import com.mygdx.chalmersdefense.model.projectiles.AcidProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.BulletProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
+import com.mygdx.chalmersdefense.model.projectiles.RobotProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
 
 /**
@@ -64,7 +65,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateMeck(int startPosX, int startPosY){
-        return new Tower(startPosX,startPosY, "MeckTower", 5, 500, 200, TargetModeFactory.getTargetModes(), new BulletProjectile(0,0,0,0));
+        return new MechTower(startPosX,startPosY, "MechTower", 5, 500, 200, TargetModeFactory.getTargetModes(), new RobotProjectile(0,0,0,0));
     }
 
     /**

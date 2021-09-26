@@ -49,6 +49,8 @@ public class Tower {
     private boolean collision;
     private boolean gotButton;
 
+
+
     private boolean gotTarget;
 
     private int reloadTime = 60*3; //how many updates from model
@@ -250,10 +252,15 @@ public class Tower {
      */
     public ITargetMode getCurrentTargetMode() { return currentTargetMode; }
 
+    public boolean GotTarget() {
+        return gotTarget;
+    }
     /**
      * Gets if tower is placed
      * @return if placed
      */
+
+
     public boolean isPlaced(){
         return isPlaced;
     }

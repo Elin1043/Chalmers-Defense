@@ -6,11 +6,7 @@ import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import java.util.List;
 
 public class EcoTower extends Tower{
-
-
     int moneyEarned;
-
-
 
     int currentReload;
     private int reloadTime = 60*10; //how many updates from model
