@@ -264,7 +264,7 @@ public class Model {
      * Starts spawning viruses based on which is the current round
      */
     public void startRoundPressed() {
-        if (!virusSpawner.isSpawning()) {
+        if (!virusSpawner.isSpawning() && allViruses.isEmpty()) {
             startGameUpdate();
             round.incrementToNextRound();
             virusSpawner.spawnRound(round.getCurrentRound());
