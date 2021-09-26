@@ -73,16 +73,25 @@ public class ChalmersDefense extends Game {
 		return willDouble * 2;
 	}
 
+	/**
+	 * Stops the timer that updates model (Effectively pauses the game state)
+	 */
 	public void stopModelUpdate() {
 		timer.stop();
 		System.out.println("STOP TIMER");
 	}
 
+	/**
+	 * Starts the timer that updates model (Effectively un-pauses the game)
+	 */
 	public void startModelUpdate() {
 		timer.start();
 		System.out.println("START TIMER");
 	}
 
+	/**
+	 * Change model update speed to run simulation faster or slower
+	 */
 	public void changeUpdateSpeed() {
 		if (delay < 0.004F){
 			delay = 0.005F;
