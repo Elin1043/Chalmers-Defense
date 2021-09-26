@@ -410,11 +410,11 @@ public class Model {
             newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
             newTower.setRectangle();
             player.decreaseMoney(newTower.getCost());
-            System.out.println(towersList.size());
+
             if(newTower instanceof MechTower){
                 towersList.addAll(((MechTower) newTower).createMiniTowers());
             }
-            System.out.println(towersList.size());
+
         }
         else{
             towersList.remove(newTower);
