@@ -29,6 +29,7 @@ import java.util.List;
  * 2021-09-20 Modified by Elin Forsberg: Added methods to handle towers + collisions
  * 2021-09-20 Modified by Joel Båtsman Hilmersson: Made updateVirus loop syncronized
  * 2021-09-24 Modified by Elin Forsberg: Added methods to handle projectiles
+ * 2021-09-25 Modified by Joel Båtsman Hilmersson: Added support for round system
  */
 
 public class Model {
@@ -153,7 +154,7 @@ public class Model {
             if (allViruses.isEmpty() && !virusSpawner.isSpawning()) {
                 player.increaseMoney((int) (100 * ((double)round.getCurrentRound()/2)));
                 stopGameUpdate();
-                System.out.println("Stop TIMER");
+                projectilesList.clear();
             }
 
         }
@@ -191,7 +192,7 @@ public class Model {
         return false;
     }
 
-    //Helper method for collison between virus and projectile
+    //Helper method for collision between virus and projectile
     private boolean checkVirusAndProjectileCollision(Projectile projectile){
         boolean collided = false;
         for (Virus virus: getViruses()) {
@@ -296,7 +297,13 @@ public class Model {
      * Returns the lives left of player
      * @return lives left
      */
-    public int getLivesLeft() {return player.getLives(); }
+    public int getLivesLeft() { return player.getLives(); }
+
+    /**
+     * Returns the current round
+     * @return current round
+     */
+    public int getCurrentRound() { return round.getCurrentRound(); }
 
     /**
      * Return the list of towers on map
@@ -314,23 +321,17 @@ public class Model {
         return allViruses;
     }
 
-    // TODO This should be gone later!!
-    public SpawnViruses getVirusSpawner() {
-        return virusSpawner;
-    }
-
     /**
      * Starts spawning viruses based on which is the current round
      */
     public void startRoundPressed() {
-        if (!virusSpawner.isSpawning()) {
+        if (!virusSpawner.isSpawning() && allViruses.isEmpty()) {
             startGameUpdate();
             round.incrementToNextRound();
-            System.out.println("START TIMER");
             virusSpawner.spawnRound(round.getCurrentRound());
         } else {
 
-            // Here we can speed up or slow down round later
+            game.changeUpdateSpeed();
 
         }
     }

@@ -58,6 +58,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private final Label lifeLabel = createLabel("Test", 700);
     private final Label moneyLabel = createLabel("Test", 800);
+    private final Label roundLabel = createLabel("Round: HH", 800);
 
     private final Image mapImage;
 
@@ -118,6 +119,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(powerUpLabel);
         addActor(lifeLabel);
         addActor(moneyLabel);
+        addActor(roundLabel);
         addActor(startRoundButton);
     }
 
@@ -132,22 +134,21 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         updateLifeCounter();
         updateMoneyCounter();
+        updateLabels();
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             model.getViruses().add(VirusFactory.createVirusOne());
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            model.getVirusSpawner().spawnRound(1);
+            model.startRoundPressed();
         }
     }
 
-    private void updateLifeCounter() {
+    private void updateLabels() {
         lifeLabel.setText(model.getLivesLeft());
-    }
-
-    private void updateMoneyCounter() {
         moneyLabel.setText(model.getMoney());
+        roundLabel.setText("Round: " + model.getCurrentRound());
     }
 
     private Label createLabel(String text, float y) {
