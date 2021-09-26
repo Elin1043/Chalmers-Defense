@@ -31,20 +31,32 @@ public class SpawnViruses {
             {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
             {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
             {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"}};
-    private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-    private final List<Virus> listToAddVirusesTo;
-    private boolean isSpawning = false;
+    private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();  // New thread that spawns the viruses when a given time has passed
+    private final List<Virus> listToAddVirusesTo;   // What list to add the spawned viruses to
+    private boolean isSpawning = false; // If the class is currently spawning viruses
 
-    private String[] currentRound;
-    private int waveIndex = 0;
-    private int waveAmountSpawned;
+    private String[] currentRound;  // Round data representing current round
+    private int waveIndex = 0;      // What block/wave the spawner is in the round data
+    private int waveAmountSpawned;  // If multiple virus is spawned from single block, how many have already spawned
 
+    /**
+     * Creates one instance of spawnViruses class
+     * @param listToAddTo The list to spawn viruses in
+     */
     public SpawnViruses(List<Virus> listToAddTo) {
         this.listToAddVirusesTo = listToAddTo;
     }
 
+    /**
+     * Returns if the class currently spawns viruses
+     * @return the spawning status
+     */
     public boolean isSpawning() { return isSpawning; }
 
+    /**
+     * Method to start the virus spawning sequence for a given round
+     * @param round the round to spawn
+     */
     public void spawnRound(int round) {
         if (!isSpawning) {
 
