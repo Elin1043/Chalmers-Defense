@@ -55,7 +55,7 @@ public class ChalmersDefense extends Game {
 		music.play();
 
 		setupTimer();
-		timer.start();	// Take this away later maybe
+		//timer.start();	// Take this away later maybe
 
 	}
 

@@ -5,7 +5,10 @@ import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
 import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.model.projectiles.AcidProjectile;
+import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
+import com.mygdx.chalmersdefense.model.towers.EcoTower;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.model.towers.Tower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
@@ -41,9 +44,6 @@ public class Model {
     private final Path path;
 
     private final Player player = new Player(100, 600); //Change staring capital later. Just used for testing right now
-
-
-
 
 
     /**
@@ -151,6 +151,7 @@ public class Model {
             }
 
             if (allViruses.isEmpty() && !virusSpawner.isSpawning()) {
+                player.increaseMoney((int) (100 * ((double)round.getCurrentRound()/2)));
                 stopGameUpdate();
                 System.out.println("Stop TIMER");
             }
@@ -409,6 +410,7 @@ public class Model {
             newTower.placeTower();
             newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
             newTower.setRectangle();
+            player.decreaseMoney(newTower.getCost());
         }
         else{
             towersList.remove(newTower);
