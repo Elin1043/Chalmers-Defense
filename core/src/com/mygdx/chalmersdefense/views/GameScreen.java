@@ -133,7 +133,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            model.getVirusSpawner().spawnRound(1);
+            model.startRoundPressed();
         }
     }
 

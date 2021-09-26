@@ -254,12 +254,6 @@ public class Model {
         return allViruses;
     }
 
-    // TODO This should be gone later!!
-    public SpawnViruses getVirusSpawner() {
-        startGameUpdate();
-        return virusSpawner;
-    }
-
     /**
      * Starts spawning viruses based on which is the current round
      */
