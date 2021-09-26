@@ -96,7 +96,7 @@ public class ChalmersDefense extends Game {
 		if (delay < 0.004F){
 			delay = 0.005F;
 		} else {
-			delay = 0.002F;
+			delay = 0.0025F;
 		}
 		timer.clear();
 		setupTimer();
