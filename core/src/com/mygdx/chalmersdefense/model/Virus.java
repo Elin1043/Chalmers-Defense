@@ -69,6 +69,8 @@ public class Virus {
         this.health --;
         if (health > 0) {
             updateSpriteKey();
+        } else {
+            health = 0;
         }
     }
 

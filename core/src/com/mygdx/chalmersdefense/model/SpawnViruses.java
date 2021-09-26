@@ -5,6 +5,7 @@ import com.mygdx.chalmersdefense.model.customExceptions.IllegalRoundDataExceptio
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -19,9 +20,19 @@ public class SpawnViruses {
     //  "1|200"         spawns one virus of type "1 - Red" and then waits "200 milliseconds to next wave in round"
     //  "2*20|250|2000" spawns 20 viruses of type "2 - blue" with 250-millisecond delay and then waits 2000 milliseconds for the next wave
     //  "1/5|300|2000"  spawns a stair of virus types from 1 to 5 with a 300-millisecond delay, then waits 2000 milliseconds for the next wave
-    private final String[][] spawnInfo = {{"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"}};
+    private final String[][] spawnInfo = {
+            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
+            {"5*5|250|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
+            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
+            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
+            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
+            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
+            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
+            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
+            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
+            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"}};
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-    private final List<Virus> listToAddTo;
+    private final List<Virus> listToAddVirusesTo;
     private boolean isSpawning = false;
 
     private String[] currentRound;
@@ -29,45 +40,50 @@ public class SpawnViruses {
     private int waveAmountSpawned;
 
     public SpawnViruses(List<Virus> listToAddTo) {
-        this.listToAddTo = listToAddTo;
+        this.listToAddVirusesTo = listToAddTo;
     }
+
+    public boolean isSpawning() { return isSpawning; }
 
     public void spawnRound(int round) {
         if (!isSpawning) {
-            currentRound = spawnInfo[round - 1];
+
+            if (round < spawnInfo.length) {
+                currentRound = spawnInfo[round - 1];        // If there exist specific round data, Takes it
+            } else {
+                Random rand = new Random();
+                currentRound = spawnInfo[rand.nextInt(spawnInfo.length-1)];     // Otherwise, randomizes a round from round data
+            }
+
             waveIndex = 0;
             waveAmountSpawned = 0;
             isSpawning = true;
             parseRound();
         }
-
     }
 
     private synchronized void parseRound() {
 
         if (waveIndex < currentRound.length) {
 
-            String[] splitedWave = currentRound[waveIndex].split("[|]");
-
-
-            if (splitedWave.length == 2) {
-
-                singleVirusSpawnHandler(splitedWave);
-
-            } else if (splitedWave.length == 3) {
-
-                multiVirusSpawnHandler(splitedWave);
-
-            } else {
-
-                throw new IllegalRoundDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound));
-
-            }
+            mainSpawnHandler();
 
         } else {
             waveIndex = 0;
             waveAmountSpawned = 0;
             isSpawning = false;
+        }
+    }
+
+    private void mainSpawnHandler() {
+        String[] splitedWave = currentRound[waveIndex].split("[|]");
+
+        if (splitedWave.length == 2) {
+            singleVirusSpawnHandler(splitedWave);
+        } else if (splitedWave.length == 3) {
+            multiVirusSpawnHandler(splitedWave);
+        } else {
+            throw new IllegalRoundDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound));
         }
     }
 
@@ -149,11 +165,11 @@ public class SpawnViruses {
 
     private void addToList(int typeOfVirus) {
         switch (typeOfVirus) {
-            case 1 -> listToAddTo.add(VirusFactory.createVirusOne());     // Måste ha blivit kallat 1 gång utan executorservice, annars slutar den gå eftersom den inte kan skapa en ny textur
-            case 2 -> listToAddTo.add(VirusFactory.createVirusTwo());
-            case 3 -> listToAddTo.add(VirusFactory.createVirusThree());
-            case 4 -> listToAddTo.add(VirusFactory.createVirusFour());
-            case 5 -> listToAddTo.add(VirusFactory.createVirusFive());
+            case 1 -> listToAddVirusesTo.add(VirusFactory.createVirusOne());
+            case 2 -> listToAddVirusesTo.add(VirusFactory.createVirusTwo());
+            case 3 -> listToAddVirusesTo.add(VirusFactory.createVirusThree());
+            case 4 -> listToAddVirusesTo.add(VirusFactory.createVirusFour());
+            case 5 -> listToAddVirusesTo.add(VirusFactory.createVirusFive());
             default -> throw new IllegalRoundDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound));
         }
     }

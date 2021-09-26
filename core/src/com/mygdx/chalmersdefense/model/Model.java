@@ -5,10 +5,7 @@ import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
 import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
-import com.mygdx.chalmersdefense.model.projectiles.AcidProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
-import com.mygdx.chalmersdefense.model.towers.EcoTower;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.model.towers.Tower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
@@ -32,9 +29,12 @@ import java.util.List;
  */
 
 public class Model {
-    private ChalmersDefense game;
+    private final ChalmersDefense game;
     private final List<Tower> towersList = new ArrayList<>();
-    private List<Projectile> projectilesList = new ArrayList<>();
+    private final List<Projectile> projectilesList = new ArrayList<>();
+    private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
+    private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
+    private final Rounds round = new Rounds(10);    // 10 is temporary
 
     private Tower newTower;
 
@@ -42,8 +42,7 @@ public class Model {
 
     private final Player player = new Player(100, 600); //Change staring capital later. Just used for testing right now
 
-    private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
-    private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
+
 
 
 
@@ -53,7 +52,7 @@ public class Model {
      */
     public Model(ChalmersDefense game) {
         this.game = game;
-        path = new ClassicPath();
+        path = new ClassicPath();           // Make a path factory instead?
     }
 
     /**
@@ -90,10 +89,7 @@ public class Model {
         if(y > 1130 || -50 > y){
             return true;
         }
-        if(x > 1970 || -50 > x){
-            return true;
-        }
-        return false;
+        return (x > 1970) || (-50 > x);
     }
 
     //Update all the towers
@@ -154,8 +150,21 @@ public class Model {
                 allViruses.remove(virus);
             }
 
+            if (allViruses.isEmpty() && !virusSpawner.isSpawning()) {
+                stopGameUpdate();
+                System.out.println("Stop TIMER");
+            }
+
         }
 
+    }
+
+    private void stopGameUpdate() {
+        game.stopModelUpdate();
+    }
+
+    private void startGameUpdate() {
+        game.startModelUpdate();
     }
 
 
@@ -310,6 +319,22 @@ public class Model {
     }
 
     /**
+     * Starts spawning viruses based on which is the current round
+     */
+    public void startRoundPressed() {
+        if (!virusSpawner.isSpawning()) {
+            startGameUpdate();
+            round.incrementToNextRound();
+            System.out.println("START TIMER");
+            virusSpawner.spawnRound(round.getCurrentRound());
+        } else {
+
+            // Here we can speed up or slow down round later
+
+        }
+    }
+
+    /**
      * Return the list of projectiles
      * @return list of projectiles
      */
@@ -384,7 +409,6 @@ public class Model {
             newTower.placeTower();
             newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
             newTower.setRectangle();
-            player.decreaseMoney(newTower.getCost());
         }
         else{
             towersList.remove(newTower);
