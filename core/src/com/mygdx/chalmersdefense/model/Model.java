@@ -437,7 +437,7 @@ public class Model {
 
         }
         else{
-            towersToRemove.add(newTower);
+            towersList.remove(newTower);
         }
     }
 
