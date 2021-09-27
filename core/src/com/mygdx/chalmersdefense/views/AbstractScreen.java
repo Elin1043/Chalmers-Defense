@@ -69,7 +69,8 @@ public abstract class AbstractScreen extends Stage implements Screen {
         spriteMap.put("ChemistTower1", new Sprite(new Texture("Towers/ChemistTower1.png")));
         spriteMap.put("ElectroTower1", new Sprite(new Texture("Towers/ElectroTower1.png")));
         spriteMap.put("HackerTower1", new Sprite(new Texture("Towers/HackerTower1.png")));
-        spriteMap.put("MeckTower1", new Sprite(new Texture("Towers/MeckTower1.png")));
+        spriteMap.put("MechTower1", new Sprite(new Texture("Towers/MechTower1.png")));
+        spriteMap.put("MechMiniTower1", new Sprite(new Texture("Towers/MechMiniTower1.png")));
         spriteMap.put("EcoTower1", new Sprite(new Texture("Towers/EcoTower1.png")));
 
         spriteMap.put("virus1", new Sprite(new Texture("viruses/virus1Hp.png")));
@@ -79,6 +80,15 @@ public abstract class AbstractScreen extends Stage implements Screen {
         spriteMap.put("virus5", new Sprite(new Texture("viruses/virus5Hp.png")));
 
         spriteMap.put("bullet", new Sprite(new Texture("projectiles/bullet.png")));
+        spriteMap.put("smurfProjectile1", new Sprite(new Texture("projectiles/smurfProjectile1.png")));
+        spriteMap.put("smurfProjectile2", new Sprite(new Texture("projectiles/smurfProjectile2.png")));
+        spriteMap.put("electroProjectile1", new Sprite(new Texture("projectiles/electroProjectile1.png")));
+        spriteMap.put("electroProjectile2", new Sprite(new Texture("projectiles/electroProjectile2.png")));
+        spriteMap.put("chemistProjectile", new Sprite(new Texture("projectiles/chemistProjectile.png")));
+        spriteMap.put("chemistCloud", new Sprite(new Texture("projectiles/chemistCloud.png")));
+        spriteMap.put("mechaProjectile", new Sprite(new Texture("projectiles/mechaProjectile.png")));
+        spriteMap.put("money", new Sprite(new Texture("projectiles/money.png")));
+
 
     }
 }

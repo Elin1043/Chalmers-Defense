@@ -3,7 +3,6 @@ package com.mygdx.chalmersdefense;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.utils.Timer;
 import com.mygdx.chalmersdefense.controllers.MainScreenController;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.Model;
@@ -11,6 +10,9 @@ import com.mygdx.chalmersdefense.views.GameScreen;
 import com.mygdx.chalmersdefense.views.MainScreen;
 import com.mygdx.chalmersdefense.views.ScreenEnum;
 import com.mygdx.chalmersdefense.views.ScreenManager;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *  @author
@@ -20,8 +22,8 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
  *  2021-09-23 Modified by Joel Båtsman Hilmersson: Changed timer to use libGDX timer instead of javaswing
  */
 public class ChalmersDefense extends Game {
-	// The delay (s) between when game data is being updated
-	private float delay = 0.005F;
+	// The delay (ms) between when game data is being updated
+	private long delay = 6;
 	// The timer is started with a listener (see below) that executes the statements
 	// Timer that calls method to update model
 	private Timer timer;
@@ -32,7 +34,6 @@ public class ChalmersDefense extends Game {
 
 	@Override
 	public void create() {
-		timer =  new Timer();
 		model = new Model(this);
 
 
@@ -54,19 +55,9 @@ public class ChalmersDefense extends Game {
 		music.setVolume(0.2F);
 		music.play();
 
-		setupTimer();
-		timer.start();	// Take this away later maybe
-
 	}
 
-	private void setupTimer() {
-		timer.scheduleTask(new Timer.Task() {
-			@Override
-			public void run() {
-				model.updateModel();
-			}
-		}, 0, delay);
-	}
+
 
 
 	public int testJunit(int willDouble) {
@@ -77,7 +68,8 @@ public class ChalmersDefense extends Game {
 	 * Stops the timer that updates model (Effectively pauses the game state)
 	 */
 	public void stopModelUpdate() {
-		timer.stop();
+		timer.cancel();
+		timer.purge();
 		System.out.println("STOP TIMER");
 	}
 
@@ -85,20 +77,31 @@ public class ChalmersDefense extends Game {
 	 * Starts the timer that updates model (Effectively un-pauses the game)
 	 */
 	public void startModelUpdate() {
-		timer.start();
+		setupTimer();
 		System.out.println("START TIMER");
+	}
+
+	private void setupTimer() {
+		timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				model.updateModel();
+			}
+		}, 0, delay);
 	}
 
 	/**
 	 * Change model update speed to run simulation faster or slower
 	 */
 	public void changeUpdateSpeed() {
-		if (delay < 0.004F){
-			delay = 0.005F;
+		if (delay < 4){
+			delay = 6;
 		} else {
-			delay = 0.0025F;
+			delay = 3;
 		}
-		timer.clear();
+		timer.cancel();
+		timer.purge();
 		setupTimer();
 	}
 

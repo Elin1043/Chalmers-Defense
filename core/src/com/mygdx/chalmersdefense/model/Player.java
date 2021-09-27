@@ -4,7 +4,7 @@ import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeExcepti
 
 /**
  * @author Joel Båtsman Hilmersson
- * Class representing the player and thier resorces
+ * Class representing the player and their resorces
  */
 class Player {
 
@@ -32,6 +32,22 @@ class Player {
      * @return Current amount of money
      */
     int getMoney() { return money; }
+
+    /**
+     * Decrease the amount of money
+     * @param amount amount to decrease by
+     */
+    void decreaseMoney(int amount){
+        money -= amount;
+    }
+
+    /**
+     * Increase the amount of money
+     * @param amount amount to increase by
+     */
+    void increaseMoney(int amount){
+        money += amount;
+    }
 
     /**
      * Method to decrease player life

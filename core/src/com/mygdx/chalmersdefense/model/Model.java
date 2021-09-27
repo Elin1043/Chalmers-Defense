@@ -5,10 +5,11 @@ import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
 import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.model.projectiles.AcidProjectile;
+import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
+import com.mygdx.chalmersdefense.model.towers.*;
 import com.mygdx.chalmersdefense.utilities.Calculate;
-import com.mygdx.chalmersdefense.model.towers.Tower;
-import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -31,8 +32,8 @@ import java.util.List;
 
 public class Model {
     private final ChalmersDefense game;
-    private final List<Tower> towersList = new ArrayList<>();
-    private final List<Projectile> projectilesList = new ArrayList<>();
+    private final List<Tower> towersList = Collections.synchronizedList(new ArrayList<>());
+    private final List<Projectile> projectilesList = Collections.synchronizedList(new ArrayList<>());
     private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
     private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
     private final Rounds round = new Rounds(10);    // 10 is temporary
@@ -41,10 +42,8 @@ public class Model {
 
     private final Path path;
 
-    private final Player player = new Player(100, 300); //Change staring capital later. Just used for testing right now
 
-
-
+    private final Player player = new Player(100, 3000); //Change staring capital later. Just used for testing right now
 
 
     /**
@@ -54,6 +53,7 @@ public class Model {
     public Model(ChalmersDefense game) {
         this.game = game;
         path = new ClassicPath();           // Make a path factory instead?
+
     }
 
     /**
@@ -68,53 +68,58 @@ public class Model {
     //Update the projectiles
     private void updateProjectiles(){
         List<Projectile> removeProjectiles = new ArrayList<>();
-        for (Projectile projectile: projectilesList) {
-            projectile.move();
-            if(checkCollisonOfProjectiles(projectile) ||  checkIfOutOfBounds(projectile.getY(), projectile.getX()) ){
-                removeProjectiles.add(projectile);
+
+        synchronized (projectilesList) {
+            for (Projectile projectile : projectilesList) {
+                projectile.move();
+                if (checkCollisonOfProjectiles(projectile, removeProjectiles) || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
+                    if (!(projectile instanceof LightningProjectile)) {
+                        removeProjectiles.add(projectile);
+                    }
+
+                }
+            }
+            for (Projectile projectile : removeProjectiles) {
+                projectilesList.remove(projectile);
             }
         }
 
-        for (Projectile projectile: removeProjectiles) {
-            projectilesList.remove(projectile);
-        }
-
-
     }
 
-    //Check if coordinates are outside the screen
-    private boolean checkIfOutOfBounds(float y, float x){
-        if(y > 1130 || -50 > y){
-            return true;
-        }
-        return (x > 1970) || (-50 > x);
-    }
 
     //Update all the towers
     private void updateTowers(){
-        for (Tower tower: towersList) {
-            tower.update();
 
-            List<Virus> virusInRange;
+        synchronized (towersList) {
+            for (Tower tower : towersList) {
+                List<Virus> virusInRange;
 
-            synchronized (allViruses) {
-                virusInRange = Calculate.getVirusesInRange(tower.getPosX(), tower.getPosY(), tower.getRange(), allViruses);
+                synchronized (allViruses) {
+                    virusInRange = Calculate.getVirusesInRange(tower.getPosX(), tower.getPosY(), tower.getRange(), allViruses);
+                }
+
+                if (virusInRange.size() > 0) {
+                    Virus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getPosX(), tower.getPosY());
+                    tower.setAngle(Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getPosX(), tower.getPosY()));
+                    tower.haveTarget();
+                } else {
+                    tower.notHaveTarget();
+                }
+
+                Projectile projectile = tower.shootProjectile();
+
+
+                if (projectile != null) {
+                    projectilesList.add(projectile);
+                    for (Virus virus : allViruses) {
+                        virus.setGotHit(false);
+                    }
+                } else {
+                    if (tower instanceof EcoTower) {
+                        player.increaseMoney(((EcoTower) tower).getMoneyEarned());
+                    }
+                }
             }
-
-            if (virusInRange.size() > 0) {
-                Virus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getPosX(), tower.getPosY());
-                tower.setAngle(Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getPosX(), tower.getPosY()));
-                tower.haveTarget();
-            } else {
-                tower.notHaveTarget();
-            }
-
-            Projectile projectile = tower.shootProjectile();
-            if(projectile != null){
-                projectilesList.add(projectile);
-
-            }
-
         }
     }
 
@@ -126,11 +131,12 @@ public class Model {
             for (Virus virus : allViruses) {
                 if (virus.getY() > 1130 || virus.isDead()) {
                     virusToRemove.add(virus);
-
+                    if(virus.isDead()){
+                        player.increaseMoney(1); //Change amount later
+                    }
                 }
                 virus.update();
             }
-
             for (Virus virus : virusToRemove){
                 try {
                     player.decreaseLivesBy(virus.getLifeDecreaseAmount());
@@ -143,12 +149,21 @@ public class Model {
             }
 
             if (allViruses.isEmpty() && !virusSpawner.isSpawning()) {
+                player.increaseMoney((int) (100 * ((double)round.getCurrentRound()/2)));
                 stopGameUpdate();
                 projectilesList.clear();
             }
 
         }
 
+    }
+
+    //Check if coordinates are outside the screen
+    private boolean checkIfOutOfBounds(float y, float x){
+        if(y > 1130 || -50 > y){
+            return true;
+        }
+        return (x > 1970) || (-50 > x);
     }
 
     private void stopGameUpdate() {
@@ -172,25 +187,89 @@ public class Model {
         return false;
     }
 
-    //Checks if projectile collided with virus
-    private boolean checkCollisonOfProjectiles(Projectile projectile){
+    //Checks if projectile collided with path, then virus
+    private boolean checkCollisonOfProjectiles(Projectile projectile, List<Projectile> list){
         for (Rectangle rectangle: path.getCollisionRectangles()) {
             if(Calculate.objectsIntersects(projectile,rectangle)){
-                return checkVirusAndProjectileCollision(projectile);
+                return checkVirusAndProjectileCollision(projectile, list);
             }
         }
         return false;
     }
 
     //Helper method for collision between virus and projectile
-    private boolean checkVirusAndProjectileCollision(Projectile projectile){
-        for (Virus virus: getViruses()) {
-            if(Calculate.objectsIntersects(projectile,virus)){
-                virus.decreaseHealth();
-                return true;
+    private boolean checkVirusAndProjectileCollision(Projectile projectile, List<Projectile> list){
+        boolean collided = false;
+
+        synchronized (allViruses) {
+            for (Virus virus : allViruses) {
+                if (Calculate.objectsIntersects(projectile, virus)) {
+                    if (projectile instanceof AcidProjectile) {
+                        collidedWithAcid(projectile);
+                    } else if (projectile instanceof LightningProjectile) {
+                        collidedWithLightning(projectile, virus, list);
+
+                    } else {
+                        if (!projectile.getIfDealtDamage()) {
+                            virus.decreaseHealth();
+                            projectile.setDealtDamage(true);
+                        }
+
+                    }
+
+                    collided = true;
+                }
             }
         }
-        return false;
+        return collided;
+    }
+
+    //Collison with lightning projectile
+    private void collidedWithLightning(Projectile projectile, Virus virus, List<Projectile> list){
+        List<Virus> virusToRemove = new ArrayList<>();
+        if(!projectile.getIfDealtDamage()){
+            if(!virus.getIfGotHit()){
+                virus.decreaseHealth();
+                projectile.virusHit();
+                virus.setGotHit(true);
+
+                List<Virus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2F, virus.getY() + virus.getHeight()/2F, ((LightningProjectile) projectile).getRange(), allViruses);
+
+                for (Virus virusInList: virusInRange) {
+                    if(virusInList.getIfGotHit()){
+                        virusToRemove.add(virusInList);
+                    }
+                }
+                virusInRange.removeAll(virusToRemove);
+
+
+                if(!virusInRange.isEmpty()){
+                    Virus tempVirus = virusInRange.get(0);
+                    projectile.setAngle(Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2F, tempVirus.getY() + tempVirus.getHeight()/2F,projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F));
+
+                }
+                else{
+                    list.add(projectile);
+                }
+            }
+
+        }
+        else{
+            list.add(projectile);
+        }
+    }
+
+
+    //Collison with acid projectile
+    private void collidedWithAcid(Projectile projectile){
+        if(!projectile.getIfDealtDamage()){
+        for (Virus virus:getViruses()) {
+                if (Calculate.disBetweenPoints(projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F, virus.getX() + virus.getWidth()/2F ,virus.getY() + virus.getHeight()/2F ) < ((AcidProjectile) projectile).getRange() * ((AcidProjectile) projectile).getRange()){
+                        virus.decreaseHealth();
+                }
+            }
+            projectile.setDealtDamage(true);
+        }
     }
 
 
@@ -270,6 +349,14 @@ public class Model {
     }
 
     /**
+     * Return the list of projectiles
+     * @return list of projectiles
+     */
+    public List<Projectile> getProjectilesList() {
+        return projectilesList;
+    }
+
+    /**
      * Creates a new tower when user starts dragging from a tower button.
      * @param towerName the name of the tower
      * @param x the X-position of the button
@@ -287,14 +374,6 @@ public class Model {
         }
 
         towersList.add(newTower);
-    }
-
-    /**
-     * Return the list of projectiles
-     * @return list of projectiles
-     */
-    public List<Projectile> getProjectilesList() {
-        return projectilesList;
     }
 
 
@@ -344,6 +423,12 @@ public class Model {
             newTower.placeTower();
             newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
             newTower.setRectangle();
+            player.decreaseMoney(newTower.getCost());
+
+            if(newTower instanceof MechTower){
+                towersList.addAll(((MechTower) newTower).createMiniTowers());
+            }
+
         }
         else{
             towersList.remove(newTower);
