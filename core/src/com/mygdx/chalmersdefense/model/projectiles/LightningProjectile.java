@@ -2,7 +2,7 @@ package com.mygdx.chalmersdefense.model.projectiles;
 
 public class LightningProjectile extends Projectile{
     private static String name = "electroProjectile1"; //Change when have new projectile pictures
-    private int range = 100;
+    private int range = 150;
 
     public LightningProjectile(int speed, float x, float y, double angle) {
         super(speed, name, x, y, angle);
