@@ -109,7 +109,7 @@ public class Model {
             if(projectile != null){
                 projectilesList.add(projectile);
             }
-            else{
+            else {
                 if(tower instanceof EcoTower){
                     player.increaseMoney(((EcoTower) tower).getMoneyEarned());
                 }

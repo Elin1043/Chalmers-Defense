@@ -13,14 +13,14 @@ class Last implements ITargetMode {
 
     @Override
     public Virus getRightVirus(List<Virus> virusInRange, float towerX, float towerY) {
-        Virus leastTrawledVirus = virusInRange.get(0);  // Need to have a virus to start comparing against
+        Virus leastTraveledVirus = virusInRange.get(0);  // Need to have a virus to start comparing against
 
         for (Virus virus : virusInRange){
-            if ((virus.getTotalDistanceTrawled() < leastTrawledVirus.getTotalDistanceTrawled())){
-                leastTrawledVirus = virus;
+            if ((virus.getTotalDistanceTrawled() < leastTraveledVirus.getTotalDistanceTrawled())){
+                leastTraveledVirus = virus;
             }
         }
 
-        return leastTrawledVirus;
+        return leastTraveledVirus;
     }
 }

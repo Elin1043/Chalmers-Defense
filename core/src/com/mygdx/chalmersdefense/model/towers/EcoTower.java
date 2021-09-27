@@ -5,7 +5,7 @@ import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import java.util.List;
 
-public class EcoTower extends Tower{
+public class EcoTower extends Tower {
     int moneyEarned;
 
     int currentReload;
