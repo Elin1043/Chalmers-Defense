@@ -32,8 +32,8 @@ import java.util.List;
 
 public class Model {
     private final ChalmersDefense game;
-    private final List<Tower> towersList = new ArrayList<>();
-    private final List<Projectile> projectilesList = new ArrayList<>();
+    private final List<Tower> towersList = Collections.synchronizedList(new ArrayList<>());
+    private final List<Projectile> projectilesList = Collections.synchronizedList(new ArrayList<>());
     private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
     private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
     private final Rounds round = new Rounds(10);    // 10 is temporary
@@ -68,19 +68,21 @@ public class Model {
     //Update the projectiles
     private void updateProjectiles(){
         List<Projectile> removeProjectiles = new ArrayList<>();
-        for (Projectile projectile: projectilesList) {
-            projectile.move();
-            if(checkCollisonOfProjectiles(projectile,removeProjectiles) ||  checkIfOutOfBounds(projectile.getY(), projectile.getX()) ){
-                if(!(projectile instanceof LightningProjectile)){
-                    removeProjectiles.add(projectile);
-                }
 
+        synchronized (projectilesList) {
+            for (Projectile projectile : projectilesList) {
+                projectile.move();
+                if (checkCollisonOfProjectiles(projectile, removeProjectiles) || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
+                    if (!(projectile instanceof LightningProjectile)) {
+                        removeProjectiles.add(projectile);
+                    }
+
+                }
+            }
+            for (Projectile projectile : removeProjectiles) {
+                projectilesList.remove(projectile);
             }
         }
-        for (Projectile projectile: removeProjectiles) {
-            projectilesList.remove(projectile);
-        }
-
 
     }
 
@@ -88,33 +90,35 @@ public class Model {
     //Update all the towers
     private void updateTowers(){
 
-        for (Tower tower: towersList) {
-            List<Virus> virusInRange;
+        synchronized (towersList) {
+            for (Tower tower : towersList) {
+                List<Virus> virusInRange;
 
-            synchronized (allViruses) {
-                virusInRange = Calculate.getVirusesInRange(tower.getPosX(), tower.getPosY(), tower.getRange(), allViruses);
-            }
-
-            if (virusInRange.size() > 0) {
-                Virus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getPosX(), tower.getPosY());
-                tower.setAngle(Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getPosX(), tower.getPosY()));
-                tower.haveTarget();
-            } else {
-                tower.notHaveTarget();
-            }
-
-            Projectile projectile = tower.shootProjectile();
-
-
-            if(projectile != null){
-                projectilesList.add(projectile);
-                for (Virus virus:allViruses) {
-                    virus.setGotHit(false);
+                synchronized (allViruses) {
+                    virusInRange = Calculate.getVirusesInRange(tower.getPosX(), tower.getPosY(), tower.getRange(), allViruses);
                 }
-            }
-            else {
-                if(tower instanceof EcoTower){
-                    player.increaseMoney(((EcoTower) tower).getMoneyEarned());
+
+                if (virusInRange.size() > 0) {
+                    Virus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getPosX(), tower.getPosY());
+                    tower.setAngle(Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getPosX(), tower.getPosY()));
+                    tower.haveTarget();
+                } else {
+                    tower.notHaveTarget();
+                }
+
+                Projectile projectile = tower.shootProjectile();
+
+                List.copyOf(allViruses);
+
+                if (projectile != null) {
+                    projectilesList.add(projectile);
+                    for (Virus virus : allViruses) {
+                        virus.setGotHit(false);
+                    }
+                } else {
+                    if (tower instanceof EcoTower) {
+                        player.increaseMoney(((EcoTower) tower).getMoneyEarned());
+                    }
                 }
             }
         }
@@ -197,24 +201,25 @@ public class Model {
     //Helper method for collision between virus and projectile
     private boolean checkVirusAndProjectileCollision(Projectile projectile, List<Projectile> list){
         boolean collided = false;
-        for (Virus virus: allViruses) {
-            if(Calculate.objectsIntersects(projectile,virus)){
-                    if(projectile instanceof AcidProjectile){
-                            collidedWithAcid(projectile);
-                    }
-                    else if(projectile instanceof LightningProjectile){
-                        collidedWithLightning(projectile, virus,list);
 
-                    }
-                    else{
-                        if(!projectile.getIfDealtDamage()){
+        synchronized (allViruses) {
+            for (Virus virus : allViruses) {
+                if (Calculate.objectsIntersects(projectile, virus)) {
+                    if (projectile instanceof AcidProjectile) {
+                        collidedWithAcid(projectile);
+                    } else if (projectile instanceof LightningProjectile) {
+                        collidedWithLightning(projectile, virus, list);
+
+                    } else {
+                        if (!projectile.getIfDealtDamage()) {
                             virus.decreaseHealth();
                             projectile.setDealtDamage(true);
                         }
 
                     }
 
-                collided = true;
+                    collided = true;
+                }
             }
         }
         return collided;
@@ -229,7 +234,7 @@ public class Model {
                 projectile.virusHit();
                 virus.setGotHit(true);
 
-                List<Virus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2, virus.getY() + virus.getHeight()/2, ((LightningProjectile) projectile).getRange(), allViruses);
+                List<Virus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2F, virus.getY() + virus.getHeight()/2F, ((LightningProjectile) projectile).getRange(), allViruses);
 
                 for (Virus virusInList: virusInRange) {
                     if(virusInList.getIfGotHit()){
@@ -241,7 +246,7 @@ public class Model {
 
                 if(!virusInRange.isEmpty()){
                     Virus tempVirus = virusInRange.get(0);
-                    projectile.setAngle(Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2, tempVirus.getY() + tempVirus.getHeight()/2,projectile.getX() + projectile.getWidth()/2, projectile.getY() + projectile.getHeight()/2));
+                    projectile.setAngle(Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2F, tempVirus.getY() + tempVirus.getHeight()/2F,projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F));
 
                 }
                 else{
