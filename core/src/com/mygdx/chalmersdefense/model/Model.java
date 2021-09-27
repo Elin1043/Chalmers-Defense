@@ -84,6 +84,7 @@ public class Model {
             }
         }
 
+
     }
 
 
@@ -233,7 +234,7 @@ public class Model {
                 projectile.virusHit();
                 virus.setGotHit(true);
 
-                List<Virus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2F, virus.getY() + virus.getHeight()/2F, ((LightningProjectile) projectile).getRange(), allViruses);
+                List<Virus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2, virus.getY() + virus.getHeight()/2, ((LightningProjectile) projectile).getRange(), allViruses);
 
                 for (Virus virusInList: virusInRange) {
                     if(virusInList.getIfGotHit()){
@@ -245,7 +246,7 @@ public class Model {
 
                 if(!virusInRange.isEmpty()){
                     Virus tempVirus = virusInRange.get(0);
-                    projectile.setAngle(Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2F, tempVirus.getY() + tempVirus.getHeight()/2F,projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F));
+                    projectile.setAngle(Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2, tempVirus.getY() + tempVirus.getHeight()/2,projectile.getX() + projectile.getWidth()/2, projectile.getY() + projectile.getHeight()/2));
 
                 }
                 else{
