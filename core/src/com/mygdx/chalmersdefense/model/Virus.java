@@ -36,6 +36,10 @@ public class Virus {
     private int currentMoveToVectorIndex = 0;       // Which index to use when new vector is retrieved
 
 
+
+    private boolean GotHit = false;
+
+
     /**
      * Creates Virus object
      * @param health Amount of health the virus start with
@@ -82,6 +86,13 @@ public class Virus {
         moveToPoint();
     }
 
+    public boolean getIfGotHit() {
+        return GotHit;
+    }
+
+    public void setGotHit(boolean gotHit) {
+        GotHit = gotHit;
+    }
 
     private void moveToPoint() {
         double totalSpeed = (3F + health)/4F;      // Calculates speed based on health of virus

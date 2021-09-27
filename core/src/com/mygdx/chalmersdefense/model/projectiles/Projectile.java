@@ -21,7 +21,7 @@ public abstract class Projectile {
     private float x;
     private float y;
 
-    private int hitCountsLeft = 5;
+    private int hitCountsLeft = 4;
 
     private double angle;
 

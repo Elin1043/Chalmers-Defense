@@ -54,7 +54,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateElectro(int startPosX, int startPosY){
-        return new Tower(startPosX,startPosY, "ElectroTower", 10, 400, 200, TargetModeFactory.getTargetModes(), new LightningProjectile(0,0,0,0));
+        return new Tower(startPosX,startPosY, "ElectroTower", 5, 400, 200, TargetModeFactory.getTargetModes(), new LightningProjectile(0,0,0,0));
     }
 
 

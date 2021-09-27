@@ -70,7 +70,7 @@ public class Model {
         List<Projectile> removeProjectiles = new ArrayList<>();
         for (Projectile projectile: projectilesList) {
             projectile.move();
-            if(checkCollisonOfProjectiles(projectile) ||  checkIfOutOfBounds(projectile.getY(), projectile.getX()) ){
+            if(checkCollisonOfProjectiles(projectile,removeProjectiles) ||  checkIfOutOfBounds(projectile.getY(), projectile.getX()) ){
                 if(!(projectile instanceof LightningProjectile)){
                     removeProjectiles.add(projectile);
                 }
@@ -108,6 +108,9 @@ public class Model {
 
             if(projectile != null){
                 projectilesList.add(projectile);
+                for (Virus virus:allViruses) {
+                    virus.setGotHit(false);
+                }
             }
             else {
                 if(tower instanceof EcoTower){
@@ -182,17 +185,17 @@ public class Model {
     }
 
     //Checks if projectile collided with path, then virus
-    private boolean checkCollisonOfProjectiles(Projectile projectile){
+    private boolean checkCollisonOfProjectiles(Projectile projectile, List<Projectile> list){
         for (Rectangle rectangle: path.getCollisionRectangles()) {
             if(Calculate.objectsIntersects(projectile,rectangle)){
-                return checkVirusAndProjectileCollision(projectile);
+                return checkVirusAndProjectileCollision(projectile, list);
             }
         }
         return false;
     }
 
     //Helper method for collision between virus and projectile
-    private boolean checkVirusAndProjectileCollision(Projectile projectile){
+    private boolean checkVirusAndProjectileCollision(Projectile projectile, List<Projectile> list){
         boolean collided = false;
         for (Virus virus: allViruses) {
             if(Calculate.objectsIntersects(projectile,virus)){
@@ -200,7 +203,8 @@ public class Model {
                             collidedWithAcid(projectile);
                     }
                     else if(projectile instanceof LightningProjectile){
-                        collidedWithLightning(projectile, virus);
+                        collidedWithLightning(projectile, virus,list);
+
                     }
                     else{
                         if(!projectile.getIfDealtDamage()){
@@ -217,29 +221,40 @@ public class Model {
     }
 
     //Collison with lightning projectile
-    //Does not work properly
-    private void collidedWithLightning(Projectile projectile, Virus virus){
-
-
+    private void collidedWithLightning(Projectile projectile, Virus virus, List<Projectile> list){
+        List<Virus> virusToRemove = new ArrayList<>();
         if(!projectile.getIfDealtDamage()){
-            virus.decreaseHealth();
-            projectile.virusHit();
+            if(!virus.getIfGotHit()){
+                virus.decreaseHealth();
+                projectile.virusHit();
+                virus.setGotHit(true);
 
-            List<Virus> virusInRange = Calculate.getVirusesInRange(projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F, 500, allViruses);
+                List<Virus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2, virus.getY() + virus.getHeight()/2, 100, allViruses);
+
+                for (Virus virusInList: virusInRange) {
+                    if(virusInList.getIfGotHit()){
+                        virusToRemove.add(virusInList);
+                    }
+                }
+                virusInRange.removeAll(virusToRemove);
 
 
-            virusInRange.remove(virus);
+                if(!virusInRange.isEmpty()){
+                    Virus tempVirus = virusInRange.get(0);
+                    projectile.setAngle(Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2F, tempVirus.getY() + tempVirus.getHeight()/2F,projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F));
 
-
-            if(!virusInRange.isEmpty()){
-                Virus tempVirus = virusInRange.get(0);
-                projectile.setAngle(Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2F, tempVirus.getY() + tempVirus.getHeight()/2F,projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F));
-
+                }
+                else{
+                    list.add(projectile);
+                }
             }
 
         }
-
+        else{
+            list.add(projectile);
+        }
     }
+
 
     //Collison with acid projectile
     private void collidedWithAcid(Projectile projectile){
