@@ -185,14 +185,6 @@ public class GameScreen extends AbstractScreen implements Screen {
             Sprite projectileSprite = spriteMap.get(projectile.getName());
             projectileSprite.setPosition(projectile.getX(), projectile.getY());
 
-            Gdx.gl.glEnable(GL_BLEND);
-            Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(new Color(150/255F, 150/255F, 150/255F, 0.8F));
-            shapeRenderer.circle(projectile.getX() + projectile.getWidth()/2, projectile.getY() + projectile.getHeight()/2, 150);
-            shapeRenderer.end();
-            Gdx.gl.glDisable(GL_BLEND);
-
             super.batch.begin();
             projectileSprite.draw(super.batch);
             super.batch.end();

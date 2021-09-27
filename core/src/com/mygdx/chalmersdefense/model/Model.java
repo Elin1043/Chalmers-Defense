@@ -229,7 +229,7 @@ public class Model {
                 projectile.virusHit();
                 virus.setGotHit(true);
 
-                List<Virus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2, virus.getY() + virus.getHeight()/2, 100, allViruses);
+                List<Virus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2, virus.getY() + virus.getHeight()/2, 150, allViruses);
 
                 for (Virus virusInList: virusInRange) {
                     if(virusInList.getIfGotHit()){
