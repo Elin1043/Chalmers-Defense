@@ -6,6 +6,7 @@ import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeExcepti
 import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
+import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.model.towers.Tower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
@@ -27,7 +28,7 @@ import java.util.List;
  * 2021-09-20 Modified by Joel Båtsman Hilmersson: Made updateVirus loop syncronized
  * 2021-09-22 Modified by Daniel Persson: Added support for storing a clicked tower and added algorithm for finding what tower is being clicked.
  * 2021-09-24 Modified by Elin Forsberg: Added methods to handle projectiles
- *
+ * 2021-09-27 Modified by Daniel Persson: Added delegation getters for upgrade title, description and price.
  */
 
 public class Model {
@@ -41,6 +42,7 @@ public class Model {
     private final Path path;
 
     private final Player player = new Player(100, 300); //Change staring capital later. Just used for testing right now
+    private final Upgrades upgrades = new Upgrades();
 
     private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
     private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
@@ -339,5 +341,42 @@ public class Model {
     // Maybe temporary because it sets the object to null.
     public void towerNotClicked() {
         clickedTower = null;
+    }
+
+    /**
+     * A delegation for getting title of a tower.
+     * @param tower used to get tower name
+     * @param upgradeLevel what upgrade to get title of
+     * @return a String with towers upgrade title depending on upgrade level.
+     */
+    public String getTowerUpgradeTitle(Tower tower, int upgradeLevel) {
+        return upgrades.getTowerUpgradeTitle(tower, upgradeLevel);
+    }
+
+    /**
+     * A delegation for getting description of a tower.
+     * @param tower used to get tower name
+     * @param upgradeLevel what upgrade to get description of
+     * @return a String with towers upgrade description depending on upgrade level.
+     */
+    public String getTowerUpgradeDesc(Tower tower, int upgradeLevel) {
+        return upgrades.getTowerUpgradeDesc(tower, upgradeLevel);
+    }
+
+    /**
+     * A delegation for getting price of a tower.
+     * @param tower used to get tower name
+     * @param upgradeLevel what upgrade to get price of
+     * @return a String with towers upgrade price depending on upgrade level.
+     */
+    public Long getTowerUpgradePrice(Tower tower, int upgradeLevel) {
+        return upgrades.getTowerUpgradePrice(tower, upgradeLevel);
+    }
+
+    /**
+     * Delegates upgrade method to upgrade class.
+     */
+    public void upgradeClickedTower() {
+        upgrades.upgradeTower(clickedTower);
     }
 }
