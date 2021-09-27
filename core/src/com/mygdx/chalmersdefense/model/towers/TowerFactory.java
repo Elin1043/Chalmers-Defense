@@ -65,7 +65,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateMeck(int startPosX, int startPosY){
-        return new MechTower(startPosX,startPosY, "MechTower", 5, 500, 200, TargetModeFactory.getTargetModes(), new RobotProjectile(0,0,0,0));
+        return new MechTower(startPosX,startPosY, "MechTower", 3, 500, 200, TargetModeFactory.getTargetModes(), new RobotProjectile(0,0,0,0));
     }
 
     /**
