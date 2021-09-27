@@ -375,6 +375,10 @@ public class Model {
         }
 
         towersList.add(newTower);
+        if(newTower instanceof MechTower){
+            towersList.addAll(((MechTower) newTower).createMiniTowers());
+        }
+
     }
 
 
@@ -392,11 +396,23 @@ public class Model {
 
         newTower.setPos( x - buttonWidth,(windowHeight - y - buttonHeight ));
         newTower.setRectangle();
+        if(newTower instanceof MechTower){
+            ((MechTower) newTower).getMiniTowers().get(0).setPos(newTower.getPosX() - 50 , newTower.getPosY() - 50);
+            ((MechTower) newTower).getMiniTowers().get(1).setPos(newTower.getPosX() + 70 , newTower.getPosY() - 50);
+            ((MechTower) newTower).getMiniTowers().get(0).setRectangle();
+            ((MechTower) newTower).getMiniTowers().get(1).setRectangle();
+        }
+
 
         for (Tower tower: towersList) {
 
             if(!tower.isPlaced() && !checkCollisionOfTower(tower, windowHeight, windowWidth)){
                 tower.setCollision(false);
+                if(newTower instanceof  MechTower){
+                    if(checkCollisionOfTower(((MechTower) newTower).getMiniTowers().get(0), windowHeight, windowWidth) || checkCollisionOfTower(((MechTower) newTower).getMiniTowers().get(1), windowHeight, windowWidth)){
+                        tower.setCollision(true);
+                    }
+                }
 
             }
             else if(!tower.isPlaced() && checkCollisionOfTower(tower, windowHeight, windowWidth)){
@@ -421,15 +437,16 @@ public class Model {
     public void dragEnd(int buttonWidth, int buttonHeight, int x, int y, int windowHeight) {
 
         if(!newTower.getCollision()){
+            if(newTower instanceof MechTower && !((MechTower) newTower).getMiniTowers().get(0).getCollision() && !((MechTower) newTower).getMiniTowers().get(1).getCollision()){
+                ((MechTower) newTower).getMiniTowers().get(0).placeTower();
+                ((MechTower) newTower).getMiniTowers().get(1).placeTower();
+                ((MechTower) newTower).getMiniTowers().get(0).setRectangle();
+                ((MechTower) newTower).getMiniTowers().get(1).setRectangle();
+            }
             newTower.placeTower();
             newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
             newTower.setRectangle();
             player.decreaseMoney(newTower.getCost());
-
-            if(newTower instanceof MechTower){
-                towersList.addAll(((MechTower) newTower).createMiniTowers());
-            }
-
         }
         else{
             towersList.remove(newTower);

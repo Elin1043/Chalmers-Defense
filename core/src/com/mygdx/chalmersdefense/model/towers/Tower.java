@@ -26,7 +26,7 @@ public class Tower {
     private int upgradeLevel = 1;
 
     private double angle = 0;
-    private float range;
+    private int range;
     private String name;
     //private Tower upgrade;
     private boolean isPlaced = false;
@@ -242,7 +242,7 @@ public class Tower {
      * Gets the range of the tower
      * @return range of tower
      */
-    public float getRange(){
+    public int getRange(){
         return range;
     }
 

@@ -25,6 +25,7 @@ import com.mygdx.chalmersdefense.controllers.TowerClickListener;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.EcoTower;
+import com.mygdx.chalmersdefense.model.towers.MechMiniTower;
 import com.mygdx.chalmersdefense.model.towers.Tower;
 
 
@@ -220,33 +221,36 @@ public class GameScreen extends AbstractScreen implements Screen {
                 towerSprite.setRotation((float) tower.getAngle());
 
                 //If tower is not placed and not colliding: circle around is grey
-                if (!tower.isPlaced() && !tower.getCollision()) {
-                    Gdx.gl.glEnable(GL_BLEND);
-                    Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                    shapeRenderer.setColor(new Color(150 / 255F, 150 / 255F, 150 / 255F, 0.8F));
-                    shapeRenderer.circle(tower.getPosX() + tower.getWidth() / 2, tower.getPosY() + tower.getHeight() / 2, tower.getRange());
-                    shapeRenderer.end();
-                    Gdx.gl.glDisable(GL_BLEND);
+                if(!(tower instanceof MechMiniTower)){
+                    if (!tower.isPlaced() && !tower.getCollision()) {
+                        Gdx.gl.glEnable(GL_BLEND);
+                        Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                        shapeRenderer.setColor(new Color(150 / 255F, 150 / 255F, 150 / 255F, 0.8F));
+                        shapeRenderer.circle(tower.getPosX() + tower.getWidth() / 2, tower.getPosY() + tower.getHeight() / 2, tower.getRange());
+                        shapeRenderer.end();
+                        Gdx.gl.glDisable(GL_BLEND);
+                    }
+
+                    //If tower is not placed and colliding: circle around is red
+                    else if (!tower.isPlaced() && tower.getCollision()) {
+                        Gdx.gl.glEnable(GL_BLEND);
+                        Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                        shapeRenderer.setColor(new Color(255 / 255F, 51 / 255F, 51 / 255F, 0.8F));
+                        shapeRenderer.circle(tower.getPosX() + tower.getWidth() / 2, tower.getPosY() + tower.getHeight() / 2, tower.getRange());
+                        shapeRenderer.end();
+                        Gdx.gl.glDisable(GL_BLEND);
+                    }
+
+                    //If tower is placed and dont have button: create a button and set that it's placed
+                    else if (tower.isPlaced() && !tower.getGotButton()) {
+                        ImageButton btn = createInvisButtonsOnTower(towerSprite, tower.getPosX(), tower.getPosY());
+                        btn.addListener(towerClickListener);
+                        tower.setGotButton(true);
+                    }
                 }
 
-                //If tower is not placed and colliding: circle around is red
-                else if (!tower.isPlaced() && tower.getCollision()) {
-                    Gdx.gl.glEnable(GL_BLEND);
-                    Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                    shapeRenderer.setColor(new Color(255 / 255F, 51 / 255F, 51 / 255F, 0.8F));
-                    shapeRenderer.circle(tower.getPosX() + tower.getWidth() / 2, tower.getPosY() + tower.getHeight() / 2, tower.getRange());
-                    shapeRenderer.end();
-                    Gdx.gl.glDisable(GL_BLEND);
-                }
-
-                //If tower is placed and dont have button: create a button and set that it's placed
-                else if (tower.isPlaced() && !tower.getGotButton()) {
-                    ImageButton btn = createInvisButtonsOnTower(towerSprite, tower.getPosX(), tower.getPosY());
-                    btn.addListener(towerClickListener);
-                    tower.setGotButton(true);
-                }
 
 
                 super.batch.begin();

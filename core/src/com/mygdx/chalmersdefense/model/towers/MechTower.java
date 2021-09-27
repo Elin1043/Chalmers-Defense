@@ -32,8 +32,8 @@ public class MechTower extends Tower {
     }
 
     public List<MechMiniTower> createMiniTowers(){
-            MechMiniTower miniTower1 = new MechMiniTower(this.getPosX() + 300,this.getPosY(),attackSpeed,range,targetModes,projectile);
-            MechMiniTower miniTower2 = new MechMiniTower(this.getPosX() + 500,this.getPosY(),attackSpeed,range,targetModes,projectile);
+            MechMiniTower miniTower1 = new MechMiniTower(this.getPosX() + 100,this.getPosY() - 100,attackSpeed,range,targetModes,projectile);
+            MechMiniTower miniTower2 = new MechMiniTower(this.getPosX() - 100,this.getPosY() - 100,attackSpeed,range,targetModes,projectile);
 
             miniTowers.add(miniTower1);
             miniTowers.add(miniTower2);
