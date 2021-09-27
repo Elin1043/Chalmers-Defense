@@ -16,5 +16,23 @@
       "attackSpeedMul": 1.3,
       "attackRangeMul": 1.2
     }
+  ],
+  "HackerTower": [
+    {
+      "title": "Title123",
+      "desc": "This is a long description describing the upgrade",
+      "price": 500,
+      "attackDmgMul": 2,
+      "attackSpeedMul": 1.2,
+      "attackRangeMul": 1.1
+    },
+    {
+      "title": "Title",
+      "desc": "This is a long description describing the upgrade",
+      "price": 500,
+      "attackDmgMul": 2,
+      "attackSpeedMul": 1.3,
+      "attackRangeMul": 1.2
+    }
   ]
 }
