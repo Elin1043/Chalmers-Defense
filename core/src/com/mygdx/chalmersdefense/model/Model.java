@@ -34,6 +34,8 @@ import java.util.List;
 public class Model {
     private final ChalmersDefense game;
     private final List<Tower> towersList = new ArrayList<>();
+    private final List<Tower> towersToAdd = new ArrayList<>();
+    private final List<Tower> towersToRemove = new ArrayList<>();
     private final List<Projectile> projectilesList = new ArrayList<>();
     private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
     private List<Virus> virusToRemove = new ArrayList<>();
@@ -89,6 +91,10 @@ public class Model {
 
     //Update all the towers
     private void updateTowers(){
+        towersList.addAll(towersToAdd);
+        towersList.removeAll(towersToRemove);
+        towersToAdd.clear();
+        towersToRemove.clear();
 
         for (Tower tower: towersList) {
             List<Virus> virusInRange;
@@ -322,7 +328,7 @@ public class Model {
      * @return The list of towers
      */
     public List<Tower> getTowers() {
-        return towersList;
+        return List.copyOf(towersList);
     }
 
     /**
@@ -330,7 +336,7 @@ public class Model {
      * @return the list of viruses
      */
     public List<Virus> getViruses() {
-        return allViruses;
+        return List.copyOf(allViruses);
     }
 
     /**
@@ -353,7 +359,7 @@ public class Model {
      * @return list of projectiles
      */
     public List<Projectile> getProjectilesList() {
-        return projectilesList;
+        return List.copyOf(projectilesList);
     }
 
     /**
@@ -426,12 +432,12 @@ public class Model {
             player.decreaseMoney(newTower.getCost());
 
             if(newTower instanceof MechTower){
-                towersList.addAll(((MechTower) newTower).createMiniTowers());
+                towersToAdd.addAll(((MechTower) newTower).createMiniTowers());
             }
 
         }
         else{
-            towersList.remove(newTower);
+            towersToRemove.add(newTower);
         }
     }
 
