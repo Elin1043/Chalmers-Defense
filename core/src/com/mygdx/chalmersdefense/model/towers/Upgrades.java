@@ -40,9 +40,9 @@ public class Upgrades {
     }
 
     /**
-     * Gets title of tower upgrade from database with regards for upgrade level.
+     * Gets title of tower upgrade from database with regards to upgrade level.
      * @param tower used to get towers name
-     * @param upgradeLevel level up upgrade to get title of
+     * @param upgradeLevel level of upgrade to get title from
      * @return a String with towers upgrade title depending on upgrade level.
      */
     public String getTowerUpgradeTitle(Tower tower, int upgradeLevel) {
@@ -51,14 +51,14 @@ public class Upgrades {
             JSONObject upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
             return upgradeObject.get("title").toString();
         } catch (NullPointerException exception) {
-            System.out.println(exception.getMessage());
+            exception.printStackTrace();
         }
         return "";
     }
 
     /**
-     * Gets description of tower upgrade from database with regards for upgrade level.
-     * @param tower used to get towers name
+     * Gets description of tower upgrade from database with regards to upgrade level.
+     * @param tower used to get towers description
      * @param upgradeLevel level up upgrade to get description of
      * @return a String with towers upgrade description depending on upgrade level.
      */
@@ -68,9 +68,26 @@ public class Upgrades {
             JSONObject upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
             return upgradeObject.get("desc").toString();
         } catch (NullPointerException exception) {
-            System.out.println(exception.getMessage());
+            exception.printStackTrace();
         }
         return "";
+    }
+
+    /**
+     * Gets price of tower upgrade from database with regards to upgrade level.
+     * @param tower used to get towers price
+     * @param upgradeLevel level of upgrade to get price from
+     * @return a Long with towers upgrade price depending on upgrade level.
+     */
+    public Long getTowerUpgradePrice(Tower tower, int upgradeLevel) {
+        try {
+            JSONArray towerUpgradeArray = (JSONArray) mainObject.get(tower.getName());
+            JSONObject upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
+            return (Long) upgradeObject.get("price");
+        } catch (NullPointerException exception) {
+            exception.printStackTrace();
+        }
+        return 0L;
     }
 
     /**
