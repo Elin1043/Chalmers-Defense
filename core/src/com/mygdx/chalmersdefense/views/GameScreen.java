@@ -29,6 +29,7 @@ import com.mygdx.chalmersdefense.model.towers.Tower;
 
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 import static com.badlogic.gdx.graphics.GL20.*;
 
@@ -179,9 +180,8 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     //Render projectiles
     private void renderProjectiles() {
-
-
-        for (Projectile projectile:model.getProjectilesList()) {
+        for (Iterator<Projectile> projectileIterator = model.getProjectilesList().iterator(); projectileIterator.hasNext();) {
+            Projectile projectile = projectileIterator.next();
             Sprite projectileSprite = spriteMap.get(projectile.getName());
             projectileSprite.setPosition(projectile.getX(), projectile.getY());
 
@@ -189,8 +189,6 @@ public class GameScreen extends AbstractScreen implements Screen {
             projectileSprite.draw(super.batch);
             super.batch.end();
         }
-
-
     }
 
     //Render viruses

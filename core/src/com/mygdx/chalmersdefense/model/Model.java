@@ -14,6 +14,7 @@ import com.mygdx.chalmersdefense.utilities.Calculate;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -35,6 +36,7 @@ public class Model {
     private final List<Tower> towersList = new ArrayList<>();
     private final List<Projectile> projectilesList = new ArrayList<>();
     private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
+    private List<Virus> virusToRemove = new ArrayList<>();
     private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
     private final Rounds round = new Rounds(10);    // 10 is temporary
 
@@ -43,7 +45,7 @@ public class Model {
     private final Path path;
 
 
-    private final Player player = new Player(100, 600); //Change staring capital later. Just used for testing right now
+    private final Player player = new Player(100, 3000); //Change staring capital later. Just used for testing right now
 
 
     /**
@@ -122,8 +124,18 @@ public class Model {
 
     //Update all the viruses
     private void updateVirus(){
+        for (Virus virus : virusToRemove){
+            try {
+                player.decreaseLivesBy(virus.getLifeDecreaseAmount());
+            } catch (PlayerLostAllLifeException ignore){
+
+                // Här ska man hantera ifall man förlorar spelet
+
+            }
+            allViruses.remove(virus);
+        }
+
         synchronized (allViruses) {
-            List<Virus> virusToRemove = new ArrayList<>();
 
             for (Virus virus : allViruses) {
                 if (virus.getY() > 1130 || virus.isDead()) {
@@ -134,16 +146,7 @@ public class Model {
                 }
                 virus.update();
             }
-            for (Virus virus : virusToRemove){
-                try {
-                    player.decreaseLivesBy(virus.getLifeDecreaseAmount());
-                } catch (PlayerLostAllLifeException ignore){
 
-                    // Här ska man hantera ifall man förlorar spelet
-
-                }
-                allViruses.remove(virus);
-            }
 
             if (allViruses.isEmpty() && !virusSpawner.isSpawning()) {
                 player.increaseMoney((int) (100 * ((double)round.getCurrentRound()/2)));
@@ -197,7 +200,8 @@ public class Model {
     //Helper method for collision between virus and projectile
     private boolean checkVirusAndProjectileCollision(Projectile projectile, List<Projectile> list){
         boolean collided = false;
-        for (Virus virus: allViruses) {
+        for (Iterator<Virus> virusIterator = allViruses.iterator(); virusIterator.hasNext();) {
+            Virus virus = virusIterator.next();
             if(Calculate.objectsIntersects(projectile,virus)){
                     if(projectile instanceof AcidProjectile){
                             collidedWithAcid(projectile);
