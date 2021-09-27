@@ -257,6 +257,7 @@ public class Model {
         else{
             list.add(projectile);
         }
+        throw new RuntimeException();
     }
 
 

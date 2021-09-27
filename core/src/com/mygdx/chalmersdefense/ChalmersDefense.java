@@ -23,10 +23,10 @@ import java.util.TimerTask;
  */
 public class ChalmersDefense extends Game {
 	// The delay (ms) between when game data is being updated
-	private long delay = 6;
+	private long delay = 5;
 	// The timer is started with a listener (see below) that executes the statements
 	// Timer that calls method to update model
-	private Timer timer;
+	private Timer timer = new Timer();
 
 	Music music;
 	Model model;
@@ -96,7 +96,7 @@ public class ChalmersDefense extends Game {
 	 */
 	public void changeUpdateSpeed() {
 		if (delay < 4){
-			delay = 6;
+			delay = 5;
 		} else {
 			delay = 3;
 		}
