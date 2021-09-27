@@ -54,17 +54,28 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     // Bottom bar
     private Image bottomBarPanelBackground;
-
-    // Upgrade panel
-    private Group bottomBarPanelUpgradeGroup;
-    private Button upgradeButtonFirst;
-    private Button upgradeButtonSecond;
-    private Label towerNameLabel;
-
     private final Label lifeLabel;
 
+    // Upgrade panel
+    private final Group bottomBarPanelUpgradeGroup = new Group();
+    private final Label towerNameLabel = new Label("", generateLabelStyle(36, Color.BLACK));
+
+    // Skin for upgrade buttons
     private final TextureAtlas upgradePanelAtlas = new TextureAtlas(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.atlas")); // Load atlas file from skin
     private final Skin upgradePanelSkin = new Skin(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.json"), upgradePanelAtlas); // Create skin object
+
+    // Upgrade button
+    private final Button upgradeButtonFirst = new Button(upgradePanelSkin);
+    private final Button upgradeButtonSecond = new Button(upgradePanelSkin);
+
+    // Labels for upgrade buttons
+    private final Label firstUpgradeButtonTitle = new Label("", generateLabelStyle(24, Color.BLACK));
+    private final Label firstUpgradeButtonDesc = new Label("", generateLabelStyle(20, Color.BLACK));
+    private final Label firstUpgradeButtonPrice = new Label("", generateLabelStyle(20, Color.BLACK));
+    private final Label secondUpgradeButtonTitle = new Label("", generateLabelStyle(24, Color.BLACK));
+    private final Label secondUpgradeButtonDesc = new Label("", generateLabelStyle(20, Color.BLACK));
+    private final Label secondUpgradeButtonPrice = new Label("", generateLabelStyle(20, Color.BLACK));
+
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private LabelStyle labelStyleBlack36;
@@ -105,16 +116,18 @@ public class GameScreen extends AbstractScreen implements Screen {
         labelStyleBlack36 = generateLabelStyle(36, Color.BLACK);
 
         // START Bottom bar group creation
-        bottomBarPanelUpgradeGroup = new Group();
         createBottomBarPanel();
         addActor(bottomBarPanelBackground);
 
         bottomBarPanelUpgradeGroup.setPosition(bottomBarPanelBackground.getWidth() - 1390, 0);
         bottomBarPanelUpgradeGroup.addActor(createBottomBarUpgradePanelBackground());
-        createUpgradeButtons();
+        upgradeButtonFirst.setPosition(580, 22);
+        upgradeButtonSecond.setPosition(990, 22);
 
-        towerNameLabel = new Label("", labelStyleBlack36);
-        towerNameLabel.setPosition(170, 130);
+        createUpgradeButtons(upgradeButtonFirst, firstUpgradeButtonTitle, firstUpgradeButtonDesc, firstUpgradeButtonPrice);
+        createUpgradeButtons(upgradeButtonSecond, secondUpgradeButtonTitle, secondUpgradeButtonDesc, secondUpgradeButtonPrice);
+
+        towerNameLabel.setPosition(170, 135);
         // END
 
         // START Right side panel creation
@@ -249,21 +262,86 @@ public class GameScreen extends AbstractScreen implements Screen {
         return bottomBarUpgradePanelBackground;
     }
 
-    private void createUpgradeButtons() {
-        upgradeButtonFirst = new Button(upgradePanelSkin);
-        bottomBarPanelUpgradeGroup.addActor(upgradeButtonFirst);
-        upgradeButtonFirst.setPosition(580, 22);
-        bottomBarPanelController.addClickListenerUpgradeButton(upgradeButtonFirst);
+    /**
+     * Sets up the upgrade button with labels and image.
+     * @param upgradeButton the button to set up
+     * @param titleLabel the title label to set up
+     * @param descLabel the description label to set up
+     * @param priceLabel the price label to set up
+     */
+    private void createUpgradeButtons(Button upgradeButton, Label titleLabel, Label descLabel, Label priceLabel) {
+        bottomBarPanelUpgradeGroup.addActor(upgradeButton);
+        bottomBarPanelController.addClickListenerUpgradeButton(upgradeButton);
 
-        upgradeButtonSecond = new Button(upgradePanelSkin);
-        bottomBarPanelUpgradeGroup.addActor(upgradeButtonSecond);
-        upgradeButtonSecond.setPosition(990, 22);
-        bottomBarPanelController.addClickListenerUpgradeButton(upgradeButtonSecond);
+        upgradeButton.addActor(titleLabel);
+        upgradeButton.addActor(descLabel);
+        upgradeButton.addActor(priceLabel);
+
+        titleLabel.setPosition(110,120);
+
+        descLabel.setPosition(110,80);
+        descLabel.setWrap(true);
+        descLabel.setWidth(240);
+
+        priceLabel.setPosition(110, 25);
     }
 
+    /**
+     * Updates the upgrade panel.
+     * @param tower tower name used to get correct sprite
+     */
     private void updateUpgradePanelInfo(Tower tower) {
         towerNameLabel.setText(tower.getName());
 
+        Sprite towerSpriteUpgradePanel = spriteMap.get(tower.getName() + 1 + "Large");
+        towerSpriteUpgradePanel.setPosition(bottomBarPanelBackground.getWidth() - 1350, bottomBarPanelBackground.getHeight()/2 - towerSpriteUpgradePanel.getHeight()/2);
+        towerSpriteUpgradePanel.setRotation(0);
+
+        batch.begin();
+        towerSpriteUpgradePanel.draw(batch);
+        batch.end();
+
+        updateUpgradeButton(tower, 1, upgradeButtonFirst, firstUpgradeButtonTitle, firstUpgradeButtonDesc, firstUpgradeButtonPrice);
+        updateUpgradeButton(tower, 2, upgradeButtonSecond, secondUpgradeButtonTitle, secondUpgradeButtonDesc, secondUpgradeButtonPrice);
+    }
+
+    /**
+     * Updates button labels and button data. Also sets button to correct state depending on available money and current upgrade level.
+     * @param tower tower to get data from
+     * @param buttonNr frist or second upgrade button
+     * @param upgradeButton the button to modify
+     * @param titleLabel the title label to modify
+     * @param descLabel the description label to modify
+     * @param priceLabel the price label to modify
+     */
+    private void updateUpgradeButton(Tower tower, int buttonNr, Button upgradeButton, Label titleLabel, Label descLabel, Label priceLabel) {
+        Sprite upgradedTowerSprite = spriteMap.get(tower.getName() + (buttonNr + 1));
+        upgradedTowerSprite.setPosition(upgradeButton.getX() + 180 + upgradedTowerSprite.getWidth() , upgradeButton.getY() + upgradedTowerSprite.getHeight()/4 );
+        upgradedTowerSprite.setRotation(0);
+
+        batch.begin();
+        upgradedTowerSprite.draw(batch);
+        batch.end();
+
+        // If upgrade is bought disable button input
+        if ((tower.getUpgradeLevel() >= 1 + buttonNr)) {
+            upgradeButton.setChecked(true);
+            upgradeButton.setTouchable(Touchable.disabled);
+        } else {
+            upgradeButton.setChecked(false);
+            upgradeButton.setTouchable(Touchable.enabled);
+        }
+
+        // If first upgrade not bought disable second button
+        if (buttonNr == 2 && tower.getUpgradeLevel() == 1) {
+            upgradeButton.setTouchable(Touchable.disabled);
+        }
+
+        //upgradeButton.setDisabled(model.getMoney() < model.getTowerUpgradePrice(tower, 1));
+
+        titleLabel.setText(model.getTowerUpgradeTitle(tower, 1));
+        descLabel.setText(model.getTowerUpgradeDesc(tower, 1));
+        priceLabel.setText("" + model.getTowerUpgradePrice(tower, 1));
     }
 
     private void renderViruses() {
