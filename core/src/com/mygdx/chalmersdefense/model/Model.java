@@ -52,6 +52,7 @@ public class Model {
     public void updateModel() {
         map.updateMap();
         checkRoundCompleted();
+        virusSpawner.decrementSpawnTimer();
     }
 
     private void checkRoundCompleted() {
