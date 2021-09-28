@@ -65,20 +65,20 @@ public abstract class AbstractScreen extends Stage implements Screen {
     @Override public void resume() {}
 
     private void createSprites() {
-        spriteMap.put("SmurfTower1", new Sprite(new Texture("Towers/SmurfTower1.png")));
-        spriteMap.put("SmurfTower1Large", new Sprite(new Texture("Towers/SmurfTower1Large.png")));
-        spriteMap.put("ChemistTower1", new Sprite(new Texture("Towers/ChemistTower1.png")));
-        spriteMap.put("ElectroTower1", new Sprite(new Texture("Towers/ElectroTower1.png")));
-        spriteMap.put("HackerTower1", new Sprite(new Texture("Towers/HackerTower1.png")));
-        spriteMap.put("HackerTower1Large", new Sprite(new Texture("Towers/HackerTower1Large.png")));
-        spriteMap.put("MeckTower1", new Sprite(new Texture("Towers/MeckTower1.png")));
-        spriteMap.put("EcoTower1", new Sprite(new Texture("Towers/EcoTower1.png")));
+        spriteMap.put("IT-Smurf1", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1.png")));
+        spriteMap.put("IT-Smurf1Large", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1Large.png")));
+        spriteMap.put("ChemistTower1", new Sprite(new Texture("towers/ChemistTower1.png")));
+        spriteMap.put("ElectroTower1", new Sprite(new Texture("towers/ElectroTower1.png")));
+        spriteMap.put("Hackerman1", new Sprite(new Texture("towers/Hackerman/Hackerman1.png")));
+        spriteMap.put("Hackerman1Large", new Sprite(new Texture("towers/Hackerman/Hackerman1Large.png")));
+        spriteMap.put("MeckTower1", new Sprite(new Texture("towers/MeckTower1.png")));
+        spriteMap.put("EcoTower1", new Sprite(new Texture("towers/EcoTower1.png")));
 
-        spriteMap.put("SmurfTower2", new Sprite(new Texture("Towers/SmurfTower2.png")));
-        spriteMap.put("HackerTower2", new Sprite(new Texture("Towers/HackerTower2.png")));
+        spriteMap.put("IT-Smurf2", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf2.png")));
+        spriteMap.put("Hackerman2", new Sprite(new Texture("towers/Hackerman/Hackerman2.png")));
 
-        spriteMap.put("SmurfTower3", new Sprite(new Texture("Towers/SmurfTower3.png")));
-        spriteMap.put("HackerTower3", new Sprite(new Texture("Towers/HackerTower3.png")));
+        spriteMap.put("IT-Smurf3", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf3.png")));
+        spriteMap.put("Hackerman3", new Sprite(new Texture("towers/Hackerman/Hackerman3.png")));
 
         spriteMap.put("virus1", new Sprite(new Texture("viruses/virus1Hp.png")));
         spriteMap.put("virus2", new Sprite(new Texture("viruses/virus2Hp.png")));
