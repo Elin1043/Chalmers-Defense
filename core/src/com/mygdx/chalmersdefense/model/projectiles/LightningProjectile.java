@@ -1,5 +1,9 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
+/**
+ * @author Elin Forsberg
+ * Class representing a lightning projectile
+ */
 public class LightningProjectile extends Projectile{
     private static String name = "electroProjectile1"; //Change when have new projectile pictures
     private int range = 150;

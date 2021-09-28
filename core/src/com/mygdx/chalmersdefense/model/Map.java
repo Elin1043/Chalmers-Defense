@@ -18,6 +18,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author Joel Båtsman Hilmmersson
+ * @author Elin Forsberg
+ * @author Daniel Persson
+ * @author Jenny Carlsson
+ *
+ * Class handeling all objects and methods on Map.
+ */
 public class Map {
     private Tower newTower;
     private final List<Tower> towersList = new ArrayList<>();

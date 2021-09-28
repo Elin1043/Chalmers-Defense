@@ -1,5 +1,9 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
+/**
+ * @author Elin Forsberg
+ * Class representing an acid projectile
+ */
 public class AcidProjectile extends Projectile{
     private static String name = "chemistProjectile"; //Change when have new projectile pictures
     private int range = 10;

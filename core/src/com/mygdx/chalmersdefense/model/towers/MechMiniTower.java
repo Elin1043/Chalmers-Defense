@@ -5,6 +5,10 @@ import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import java.util.List;
 
+/**
+ * @author Elin Forsberg
+ * Class representing the MechMiniTowers that MechTower creates
+ */
 public class MechMiniTower extends Tower{
     private static String name = "MechMiniTower";
     private static int cost = 0;

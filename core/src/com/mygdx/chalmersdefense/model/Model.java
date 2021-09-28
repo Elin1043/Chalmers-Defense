@@ -16,11 +16,14 @@ import java.util.List;
  * @author Daniel Persson
  * @author Jenny Carlsson
  *
+ * Class handeling all the models in the game.
  *
  * 2021-09-20 Modified by Elin Forsberg: Added methods to handle towers + collisions
  * 2021-09-20 Modified by Joel Båtsman Hilmersson: Made updateVirus loop syncronized
  * 2021-09-24 Modified by Elin Forsberg: Added methods to handle projectiles
  * 2021-09-25 Modified by Joel Båtsman Hilmersson: Added support for round system
+ * 2021-09-27 Modified by Elin Forsberg: Added methods to handle different attacks from towers
+ * 2021-09-28 Modified by Everyone: Moved methods to Map class
  */
 
 public class Model {

@@ -2,11 +2,15 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
-import com.mygdx.chalmersdefense.utilities.Calculate;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Elin Forsberg
+ * Class representing the MechTower
+ */
 public class MechTower extends Tower {
 
 

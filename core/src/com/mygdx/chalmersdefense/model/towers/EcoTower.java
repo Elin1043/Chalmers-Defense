@@ -5,6 +5,11 @@ import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import java.util.List;
 
+/**
+ * @author Elin Forsberg
+ * Class representing the MechTower
+ */
+
 public class EcoTower extends Tower {
     int moneyEarned;
 
