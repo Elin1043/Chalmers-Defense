@@ -56,12 +56,12 @@ public class Model {
     }
 
     private void checkRoundCompleted() {
-        if (map.getViruses().isEmpty() && !virusSpawner.isSpawning()) {
+        if (map.isVirusCleared() && !virusSpawner.isSpawning()) {
 
             player.increaseMoney((100 * (round.getCurrentRound()/2)));
 
             stopGameUpdate();
-            map.getProjectilesList().clear();
+            map.roundClear();
         }
     }
 
@@ -80,7 +80,7 @@ public class Model {
      * Starts spawning viruses based on which is the current round
      */
     public void startRoundPressed() {
-        if (!virusSpawner.isSpawning() && map.getViruses().isEmpty()) {
+        if (!virusSpawner.isSpawning() && map.isVirusCleared()) {
             startGameUpdate();
             round.incrementToNextRound();
             virusSpawner.spawnRound(round.getCurrentRound());

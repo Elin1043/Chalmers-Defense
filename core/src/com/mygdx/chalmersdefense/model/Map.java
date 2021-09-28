@@ -395,5 +395,14 @@ public class Map {
         return projectilesList;
     }
 
+    /**
+     * Returns if virus list is empty
+     * @return true - if all viruses are cleared, false - if there are viruses left
+     */
+    public boolean isVirusCleared() { return allViruses.isEmpty(); }
 
+    /**
+     * Method to call when round is cleared, makes map ready for next round
+     */
+    public void roundClear() { projectilesList.clear(); }
 }
