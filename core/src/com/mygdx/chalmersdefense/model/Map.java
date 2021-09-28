@@ -1,7 +1,6 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
 import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
@@ -24,15 +23,11 @@ public class Map {
     private final List<Tower> towersList = new ArrayList<>();
     private List<Projectile> projectilesList = new ArrayList<>();
 
+    //Should not have player here
     private final Player player = new Player(100, 300); //Change staring capital later. Just used for testing right now
 
     private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
     private final Path path = new ClassicPath();           // Make a path factory instead?;
-
-    private final SpawnViruses virusSpawner = new SpawnViruses(allViruses);
-
-
-
 
     public void updateMap() {
         updateVirus();
@@ -60,21 +55,6 @@ public class Map {
             }
         }
     }
-
-
-
-    //Check if coordinates are outside the screen
-    private boolean checkIfOutOfBounds(float y, float x) {
-        if (y > 1130 || -50 > y) {
-            return true;
-        }
-        if (x > 1970 || -50 > x) {
-            return true;
-        }
-        return false;
-    }
-
-
 
     //Update all the towers
     private void updateTowers() {
@@ -139,6 +119,17 @@ public class Map {
 
     }
 
+    //Check if coordinates are outside the screen
+    private boolean checkIfOutOfBounds(float y, float x) {
+        if (y > 1130 || -50 > y) {
+            return true;
+        }
+        if (x > 1970 || -50 > x) {
+            return true;
+        }
+        return false;
+    }
+
 
     //Checks if a tower collides with path
     private boolean checkMapAndTowerCollision(Tower tower) {
@@ -189,7 +180,7 @@ public class Map {
         return collided;
     }
 
-    //Collison with lightning projectile
+    //Collision with lightning projectile
     private void collidedWithLightning(Projectile projectile, Virus virus, List<Projectile> list){
         List<Virus> virusToRemove = new ArrayList<>();
         if(!projectile.getIfDealtDamage()){
@@ -225,7 +216,7 @@ public class Map {
     }
 
 
-    //Collison with acid projectile
+    //Collision with acid projectile
     private void collidedWithAcid(Projectile projectile){
         if(!projectile.getIfDealtDamage()){
             for (Virus virus:getViruses()) {
@@ -263,17 +254,6 @@ public class Map {
 
     }
 
-
-
-    /**
-     * Return the list of projectiles
-     * @return list of projectiles
-     */
-    public List<Projectile> getProjectilesList() {
-        return projectilesList;
-    }
-
-
     /**
      * Creates a new tower when user starts dragging from a tower button.
      * @param towerName the name of the tower
@@ -294,42 +274,6 @@ public class Map {
         towersList.add(newTower);
         if(newTower instanceof MechTower){
             towersList.addAll(((MechTower) newTower).createMiniTowers());
-        }
-    }
-    /**
-     * Handles when the tower is let go.
-     * Checks if tower can be placed on current position.
-     * If not: tower is removed
-     * if valid: place the tower
-     * @param buttonWidth The width of the button dragged from
-     * @param buttonHeight The height of the button dragged from
-     * @param x The X-position of the mouse
-     * @param y The Y-position of the mouse
-     * @param windowHeight The height of the window
-     */
-
-    public void dragEnd(int buttonWidth, int buttonHeight, int x, int y, int windowHeight) {
-
-        if(!newTower.getCollision()){
-            if(newTower instanceof MechTower && !((MechTower) newTower).getMiniTowers().get(0).getCollision() && !((MechTower) newTower).getMiniTowers().get(1).getCollision()){
-                ((MechTower) newTower).getMiniTowers().get(0).placeTower();
-                ((MechTower) newTower).getMiniTowers().get(1).placeTower();
-                ((MechTower) newTower).getMiniTowers().get(0).setRectangle();
-                ((MechTower) newTower).getMiniTowers().get(1).setRectangle();
-            }
-            newTower.placeTower();
-            newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
-            newTower.setRectangle();
-            player.decreaseMoney(newTower.getCost());
-        }
-        else{
-            towersList.remove(newTower);
-            if(newTower instanceof MechTower){
-                towersList.remove(((MechTower) newTower).getMiniTowers().get(0));
-                towersList.remove(((MechTower) newTower).getMiniTowers().get(1));
-            }
-
-            ((MechTower) newTower).getMiniTowers().get(1).placeTower();
         }
     }
 
@@ -373,6 +317,43 @@ public class Map {
 
         }
     }
+
+    /**
+     * Handles when the tower is let go.
+     * Checks if tower can be placed on current position.
+     * If not: tower is removed
+     * if valid: place the tower
+     * @param buttonWidth The width of the button dragged from
+     * @param buttonHeight The height of the button dragged from
+     * @param x The X-position of the mouse
+     * @param y The Y-position of the mouse
+     * @param windowHeight The height of the window
+     */
+
+    public void dragEnd(int buttonWidth, int buttonHeight, int x, int y, int windowHeight) {
+
+        if(!newTower.getCollision()){
+            if(newTower instanceof MechTower && !((MechTower) newTower).getMiniTowers().get(0).getCollision() && !((MechTower) newTower).getMiniTowers().get(1).getCollision()){
+                ((MechTower) newTower).getMiniTowers().get(0).placeTower();
+                ((MechTower) newTower).getMiniTowers().get(1).placeTower();
+                ((MechTower) newTower).getMiniTowers().get(0).setRectangle();
+                ((MechTower) newTower).getMiniTowers().get(1).setRectangle();
+            }
+            newTower.placeTower();
+            newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
+            newTower.setRectangle();
+            player.decreaseMoney(newTower.getCost());
+        }
+        else{
+            towersList.remove(newTower);
+            if(newTower instanceof MechTower){
+                towersList.remove(((MechTower) newTower).getMiniTowers().get(0));
+                towersList.remove(((MechTower) newTower).getMiniTowers().get(1));
+            }
+        }
+    }
+
+
     /**
      * Handles when a placed tower is clicked
      */
@@ -397,6 +378,14 @@ public class Map {
      */
     public List<Virus> getViruses() {
         return allViruses;
+    }
+
+    /**
+     * Return the list of projectiles
+     * @return list of projectiles
+     */
+    public List<Projectile> getProjectilesList() {
+        return projectilesList;
     }
 
 
