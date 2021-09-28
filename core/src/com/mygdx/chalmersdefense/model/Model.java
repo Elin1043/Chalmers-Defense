@@ -344,7 +344,7 @@ public class Model {
     }
 
     /**
-     * A delegation for getting title of a tower.
+     * A delegation for getting title of a tower upgrade.
      * @param tower used to get tower name
      * @param upgradeLevel what upgrade to get title of
      * @return a String with towers upgrade title depending on upgrade level.
@@ -354,7 +354,7 @@ public class Model {
     }
 
     /**
-     * A delegation for getting description of a tower.
+     * A delegation for getting description of a tower upgrade.
      * @param tower used to get tower name
      * @param upgradeLevel what upgrade to get description of
      * @return a String with towers upgrade description depending on upgrade level.
@@ -364,7 +364,7 @@ public class Model {
     }
 
     /**
-     * A delegation for getting price of a tower.
+     * A delegation for getting price of a tower upgrade.
      * @param tower used to get tower name
      * @param upgradeLevel what upgrade to get price of
      * @return a String with towers upgrade price depending on upgrade level.
