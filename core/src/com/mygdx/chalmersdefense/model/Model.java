@@ -70,7 +70,6 @@ public class Model {
     private void checkRoundCompleted() {
         if (allViruses.isEmpty() && !virusSpawner.isSpawning()) {
             if (game.isUpdating()) {
-                System.out.println("TJENARE");
                 player.increaseMoney((100 * (round.getCurrentRound() / 2)));
             }
             stopGameUpdate();
@@ -379,6 +378,9 @@ public class Model {
         }
 
         towersList.add(newTower);
+        if(newTower instanceof MechTower){
+            towersList.addAll(((MechTower) newTower).createMiniTowers());
+        }
     }
 
 
