@@ -295,7 +295,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         towerNameLabel.setText(tower.getName());
 
         Sprite towerSpriteUpgradePanel = spriteMap.get(tower.getName() + 1 + "Large");
-        towerSpriteUpgradePanel.setPosition(bottomBarPanelBackground.getWidth() - 1350, bottomBarPanelBackground.getHeight()/2 - towerSpriteUpgradePanel.getHeight()/2);
+        towerSpriteUpgradePanel.setPosition(bottomBarPanelBackground.getWidth() - 1360, bottomBarPanelBackground.getHeight()/2 - towerSpriteUpgradePanel.getHeight()/2);
         towerSpriteUpgradePanel.setRotation(0);
 
         batch.begin();
@@ -317,7 +317,7 @@ public class GameScreen extends AbstractScreen implements Screen {
      */
     private void updateUpgradeButton(Tower tower, int buttonNr, Button upgradeButton, Label titleLabel, Label descLabel, Label priceLabel) {
         Sprite upgradedTowerSprite = spriteMap.get(tower.getName() + (buttonNr + 1));
-        upgradedTowerSprite.setPosition(upgradeButton.getX() + 180 + upgradedTowerSprite.getWidth() , upgradeButton.getY() + upgradedTowerSprite.getHeight()/4 );
+        upgradedTowerSprite.setPosition(upgradeButton.getX() + (268 - upgradedTowerSprite.getWidth()/2), (upgradeButton.getHeight() - upgradeButton.getY())/2 - upgradedTowerSprite.getHeight()/2 + upgradeButton.getY() + 20);
         upgradedTowerSprite.setRotation(0);
 
         // If upgrade is bought disable button input
