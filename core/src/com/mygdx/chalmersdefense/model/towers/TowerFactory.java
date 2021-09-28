@@ -28,7 +28,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateChemist(int startPosX, int startPosY){
-        return new Tower(startPosX,startPosY, "ChemistTower", 10, 100, 200, TargetModeFactory.getTargetModes());
+        return new Tower(startPosX,startPosY, "Chemist", 10, 100, 200, TargetModeFactory.getTargetModes());
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateElectro(int startPosX, int startPosY){
-        return new Tower(startPosX,startPosY, "ElectroTower", 10, 100, 200, TargetModeFactory.getTargetModes());
+        return new Tower(startPosX,startPosY, "Electroman", 10, 100, 200, TargetModeFactory.getTargetModes());
     }
 
 
@@ -60,7 +60,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateMeck(int startPosX, int startPosY){
-        return new Tower(startPosX,startPosY, "MeckTower", 10, 100, 200, TargetModeFactory.getTargetModes());
+        return new Tower(startPosX,startPosY, "Mechoman", 10, 100, 200, TargetModeFactory.getTargetModes());
     }
 
     /**
@@ -70,7 +70,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateEco(int startPosX, int startPosY){
-        return new Tower(startPosX,startPosY, "EcoTower", 10, 100, 200, TargetModeFactory.getTargetModes());
+        return new Tower(startPosX,startPosY, "Economist", 10, 100, 200, TargetModeFactory.getTargetModes());
     }
 
 
