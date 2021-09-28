@@ -1,5 +1,5 @@
 {
-  "SmurfTower": [
+  "IT-Smurf": [
     {
       "title": "Hot zeros",
       "desc": "Increases attack speed by 20%",
@@ -19,7 +19,7 @@
       "projectileSpeedMul": 1.1
     }
   ],
-  "HackerTower": [
+  "Hackerman": [
     {
       "title": "Exploiting virus data",
       "desc": "This is a long description describing the upgrade",
