@@ -4,7 +4,7 @@ import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeExcepti
 
 /**
  * @author Joel Båtsman Hilmersson
- * Class representing the player and thier resorces
+ * Class representing the player and their resorces
  */
 class Player {
 
@@ -34,15 +34,32 @@ class Player {
     int getMoney() { return money; }
 
     /**
+     * Decrease the amount of money
+     * @param amount amount to decrease by
+     */
+    void decreaseMoney(int amount){
+        money -= amount;
+    }
+
+    /**
+     * Increase the amount of money
+     * @param amount amount to increase by
+     */
+    void increaseMoney(int amount){
+        money += amount;
+    }
+
+    /**
      * Method to decrease player life
      * @param livesToDecrease How much to decrease lives by
-     * @throws PlayerLostAllLifeException When the life counter reaches zero
+     * @throws PlayerLostAllLifeException When the life counter reaches zero or below
      */
     void decreaseLivesBy(int livesToDecrease) throws PlayerLostAllLifeException {
-        if (lives == 0){
+        if (lives <= 0){
+            lives = 0;
             throw new PlayerLostAllLifeException();
         } else {
-            lives -= livesToDecrease;
+            lives = Math.max(lives - livesToDecrease, 0);
         }
 
     }
