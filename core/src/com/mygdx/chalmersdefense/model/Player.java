@@ -56,9 +56,10 @@ class Player {
      */
     void decreaseLivesBy(int livesToDecrease) throws PlayerLostAllLifeException {
         if (lives <= 0){
+            lives = 0;
             throw new PlayerLostAllLifeException();
         } else {
-            lives -= livesToDecrease;
+            lives = Math.max(lives - livesToDecrease, 0);
         }
 
     }

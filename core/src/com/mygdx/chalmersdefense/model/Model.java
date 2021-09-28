@@ -63,6 +63,19 @@ public class Model {
         updateVirus();
         updateTowers();
         updateProjectiles();
+
+        checkRoundCompleted();
+    }
+
+    private void checkRoundCompleted() {
+        if (allViruses.isEmpty() && !virusSpawner.isSpawning()) {
+            if (game.isUpdating()) {
+                System.out.println("TJENARE");
+                player.increaseMoney((100 * (round.getCurrentRound() / 2)));
+            }
+            stopGameUpdate();
+            projectilesList.clear();
+        }
     }
 
     //Update the projectiles
@@ -84,44 +97,39 @@ public class Model {
             }
         }
 
-
     }
 
 
     //Update all the towers
     private void updateTowers(){
 
-        synchronized (towersList) {
-            for (Tower tower : towersList) {
-                List<Virus> virusInRange;
+        for (Tower tower : towersList) {
+            List<Virus> virusInRange;
 
-                synchronized (allViruses) {
-                    virusInRange = Calculate.getVirusesInRange(tower.getPosX(), tower.getPosY(), tower.getRange(), allViruses);
-                }
+            synchronized (allViruses) {
+                virusInRange = Calculate.getVirusesInRange(tower.getPosX(), tower.getPosY(), tower.getRange(), allViruses);
+            }
 
-                if (virusInRange.size() > 0) {
-                    Virus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getPosX(), tower.getPosY());
-                    tower.setAngle(Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getPosX(), tower.getPosY()));
-                    tower.haveTarget();
-                } else {
-                    tower.notHaveTarget();
-                }
+            if (virusInRange.size() > 0) {
+                Virus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getPosX(), tower.getPosY());
+                tower.setAngle(Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getPosX(), tower.getPosY()));
+                tower.haveTarget();
+            } else {
+                tower.notHaveTarget();
+            }
 
-                Projectile projectile = tower.shootProjectile();
+            Projectile projectile = tower.shootProjectile();
 
-
-                if (projectile != null) {
-                    projectilesList.add(projectile);
-                    for (Virus virus : allViruses) {
-                        virus.setGotHit(false);
-                    }
-                } else {
-                    if (tower instanceof EcoTower) {
-                        player.increaseMoney(((EcoTower) tower).getMoneyEarned());
-                    }
+            if (projectile != null) {
+                projectilesList.add(projectile);
+                for (Virus virus : allViruses) {virus.setGotHit(false);}
+            } else {
+                if (tower instanceof EcoTower) {
+                    player.increaseMoney(((EcoTower) tower).getMoneyEarned());
                 }
             }
         }
+
     }
 
     //Update all the viruses
@@ -149,11 +157,7 @@ public class Model {
                 allViruses.remove(virus);
             }
 
-            if (allViruses.isEmpty() && !virusSpawner.isSpawning()) {
-                player.increaseMoney((100 * (round.getCurrentRound()/2)));
-                stopGameUpdate();
-                projectilesList.clear();
-            }
+
 
         }
 
@@ -375,10 +379,6 @@ public class Model {
         }
 
         towersList.add(newTower);
-        if(newTower instanceof MechTower){
-            towersList.addAll(((MechTower) newTower).createMiniTowers());
-        }
-
     }
 
 
