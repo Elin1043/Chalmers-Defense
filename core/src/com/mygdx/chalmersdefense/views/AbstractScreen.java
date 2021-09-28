@@ -67,18 +67,21 @@ public abstract class AbstractScreen extends Stage implements Screen {
 
     private void createSprites() {
         spriteMap.put("IT-Smurf1", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1.png")));
-        spriteMap.put("ChemistTower1", new Sprite(new Texture("towers/ChemistTower1.png")));
-        spriteMap.put("ElectroTower1", new Sprite(new Texture("towers/ElectroTower1.png")));
+        spriteMap.put("Chemist1", new Sprite(new Texture("towers/Chemist/Chemist1.png")));
         spriteMap.put("Hackerman1", new Sprite(new Texture("towers/Hackerman/Hackerman1.png")));
-        spriteMap.put("Hackerman1Large", new Sprite(new Texture("towers/Hackerman/Hackerman1Large.png")));
-        spriteMap.put("MeckTower1", new Sprite(new Texture("towers/MeckTower1.png")));
-        spriteMap.put("EcoTower1", new Sprite(new Texture("towers/EcoTower1.png")));
+        spriteMap.put("Electroman1", new Sprite(new Texture("towers/Electroman/Electroman1.png")));
+        spriteMap.put("Mechoman1", new Sprite(new Texture("towers/Mechoman/Mechoman1.png")));
+        spriteMap.put("Economist1", new Sprite(new Texture("towers/Economist/Economist1.png")));
 
         spriteMap.put("IT-Smurf2", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf2.png")));
+        spriteMap.put("Chemist2", new Sprite(new Texture("towers/Chemist/Chemist2.png")));
         spriteMap.put("Hackerman2", new Sprite(new Texture("towers/Hackerman/Hackerman2.png")));
+        spriteMap.put("Electroman2", new Sprite(new Texture("towers/Electroman/Electroman2.png")));
 
         spriteMap.put("IT-Smurf3", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf3.png")));
+        spriteMap.put("Chemist3", new Sprite(new Texture("towers/Chemist/Chemist3.png")));
         spriteMap.put("Hackerman3", new Sprite(new Texture("towers/Hackerman/Hackerman3.png")));
+        spriteMap.put("Electroman3", new Sprite(new Texture("towers/Electroman/Electroman3.png")));
 
         spriteMap.put("virus1", new Sprite(new Texture("viruses/virus1Hp.png")));
         spriteMap.put("virus2", new Sprite(new Texture("viruses/virus2Hp.png")));
@@ -90,7 +93,19 @@ public abstract class AbstractScreen extends Stage implements Screen {
 
 
         largeSpriteMap.put("IT-Smurf1Large", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1Large.png")));
+        largeSpriteMap.put("Chemist1Large", new Sprite(new Texture("towers/Chemist/Chemist1Large.png")));
+        largeSpriteMap.put("Hackerman1Large", new Sprite(new Texture("towers/Hackerman/Hackerman1Large.png")));
+        largeSpriteMap.put("Electroman1Large", new Sprite(new Texture("towers/Electroman/Electroman1Large.png")));
 
+        largeSpriteMap.put("IT-Smurf2Large", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf2Large.png")));
+        largeSpriteMap.put("Chemist2Large", new Sprite(new Texture("towers/Chemist/Chemist2Large.png")));
+        largeSpriteMap.put("Hackerman2Large", new Sprite(new Texture("towers/Hackerman/Hackerman2Large.png")));
+        largeSpriteMap.put("Electroman2Large", new Sprite(new Texture("towers/Electroman/Electroman2Large.png")));
+
+        largeSpriteMap.put("IT-Smurf3Large", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf3Large.png")));
+        largeSpriteMap.put("Chemist3Large", new Sprite(new Texture("towers/Chemist/Chemist3Large.png")));
+        largeSpriteMap.put("Hackerman3Large", new Sprite(new Texture("towers/Hackerman/Hackerman3Large.png")));
+        largeSpriteMap.put("Electroman3Large", new Sprite(new Texture("towers/Electroman/Electroman3Large.png")));
     }
 }
 
