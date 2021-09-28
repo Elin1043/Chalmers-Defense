@@ -20,9 +20,8 @@ public class SpawnViruses {
     //  "1|200"         spawns one virus of type "1 - Red" and then waits "200 milliseconds to next wave in round"
     //  "2*20|250|2000" spawns 20 viruses of type "2 - blue" with 250-millisecond delay and then waits 2000 milliseconds for the next wave
     //  "1/5|300|2000"  spawns a stair of virus types from 1 to 5 with a 300-millisecond delay, then waits 2000 milliseconds for the next wave
-    //TODO Fixa så man inte kan ha tex "a" utan att den ger fel
     private final String[][] spawnInfo = {
-            {"1|600", "2*20|50|400", "1/5|60|400", "a/1|60|200", "5|200", "5|100", "1|100", "5|200"},
+            {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
             {"5*5|250|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
             {"5*5|50|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
             {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
@@ -72,19 +71,27 @@ public class SpawnViruses {
             waveIndex = 0;
             waveAmountSpawned = 0;
             isSpawning = true;
-            parseRound();
+            startSpawnRoundHandler();
         }
     }
 
     public void decrementSpawnTimer(){
         if (spawnTimer <= 0){
-            parseRound();
+            startSpawnRoundHandler();
         } else {
             spawnTimer--;
         }
     }
 
-    private synchronized void parseRound() {
+    private void startSpawnRoundHandler(){
+        try {
+            parseRound();
+        } catch (NumberFormatException e) {
+            throw new IllegalRoundDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound));
+        }
+    }
+
+    private void parseRound() {
         if ((waveIndex < currentRound.length) && isSpawning) {
 
             mainSpawnHandler();
@@ -167,7 +174,7 @@ public class SpawnViruses {
         }
     }
 
-    private synchronized void scheduleNextSpawnTime(String[] splitedWave, int i) {
+    private void scheduleNextSpawnTime(String[] splitedWave, int i) {
         spawnTimer = Integer.parseInt(splitedWave[i]);
     }
 
