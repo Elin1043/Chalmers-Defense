@@ -198,14 +198,11 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         super.batch.begin();
 
-        synchronized (model.getViruses()) {
-            for (Virus virus : model.getViruses()) {
+        for (Virus virus : model.getViruses()) {
 
-                Sprite virusSprite = spriteMap.get(virus.getSpriteKey());
-                virusSprite.setPosition(virus.getX(), virus.getY());
-                virusSprite.draw(super.batch);
-
-            }
+            Sprite virusSprite = spriteMap.get(virus.getSpriteKey());
+            virusSprite.setPosition(virus.getX(), virus.getY());
+            virusSprite.draw(super.batch);
 
         }
 
@@ -214,52 +211,47 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     //Render towers
     private void renderTowers() {
-        synchronized (model.getTowers()) {
-            for (Tower tower : model.getTowers()) {
-                Sprite towerSprite = spriteMap.get(tower.getSpriteKey());
-                towerSprite.setPosition(tower.getPosX(), tower.getPosY());
-                towerSprite.setRotation((float) tower.getAngle());
+        for (Tower tower : model.getTowers()) {
+            Sprite towerSprite = spriteMap.get(tower.getSpriteKey());
+            towerSprite.setPosition(tower.getPosX(), tower.getPosY());
+            towerSprite.setRotation((float) tower.getAngle());
 
-                //If tower is not placed and not colliding: circle around is grey
-                if(!(tower instanceof MechMiniTower)){
-                    if (!tower.isPlaced() && !tower.getCollision()) {
-                        Gdx.gl.glEnable(GL_BLEND);
-                        Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                        shapeRenderer.setColor(new Color(150 / 255F, 150 / 255F, 150 / 255F, 0.8F));
-                        shapeRenderer.circle(tower.getPosX() + tower.getWidth() / 2, tower.getPosY() + tower.getHeight() / 2, tower.getRange());
-                        shapeRenderer.end();
-                        Gdx.gl.glDisable(GL_BLEND);
-                    }
-
-                    //If tower is not placed and colliding: circle around is red
-                    else if (!tower.isPlaced() && tower.getCollision()) {
-                        Gdx.gl.glEnable(GL_BLEND);
-                        Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                        shapeRenderer.setColor(new Color(255 / 255F, 51 / 255F, 51 / 255F, 0.8F));
-                        shapeRenderer.circle(tower.getPosX() + tower.getWidth() / 2, tower.getPosY() + tower.getHeight() / 2, tower.getRange());
-                        shapeRenderer.end();
-                        Gdx.gl.glDisable(GL_BLEND);
-                    }
-
-                    //If tower is placed and dont have button: create a button and set that it's placed
-                    else if (tower.isPlaced() && !tower.getGotButton()) {
-                        ImageButton btn = createInvisButtonsOnTower(towerSprite, tower.getPosX(), tower.getPosY());
-                        btn.addListener(towerClickListener);
-                        tower.setGotButton(true);
-                    }
+            //If tower is not placed and not colliding: circle around is grey
+            if(!(tower instanceof MechMiniTower)){
+                if (!tower.isPlaced() && !tower.getCollision()) {
+                    Gdx.gl.glEnable(GL_BLEND);
+                    Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                    shapeRenderer.setColor(new Color(150 / 255F, 150 / 255F, 150 / 255F, 0.8F));
+                    shapeRenderer.circle(tower.getPosX() + tower.getWidth() / 2, tower.getPosY() + tower.getHeight() / 2, tower.getRange());
+                    shapeRenderer.end();
+                    Gdx.gl.glDisable(GL_BLEND);
                 }
 
+                //If tower is not placed and colliding: circle around is red
+                else if (!tower.isPlaced() && tower.getCollision()) {
+                    Gdx.gl.glEnable(GL_BLEND);
+                    Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                    shapeRenderer.setColor(new Color(255 / 255F, 51 / 255F, 51 / 255F, 0.8F));
+                    shapeRenderer.circle(tower.getPosX() + tower.getWidth() / 2, tower.getPosY() + tower.getHeight() / 2, tower.getRange());shapeRenderer.end();
+                    Gdx.gl.glDisable(GL_BLEND);
+                    }
 
-
-                super.batch.begin();
-                towerSprite.draw(super.batch);
-                super.batch.end();
-
+                //If tower is placed and dont have button: create a button and set that it's placed
+                else if (tower.isPlaced() && !tower.getGotButton()) {
+                    ImageButton btn = createInvisButtonsOnTower(towerSprite, tower.getPosX(), tower.getPosY());
+                    btn.addListener(towerClickListener);
+                    tower.setGotButton(true);
+                }
             }
-        }
 
+
+            super.batch.begin();
+            towerSprite.draw(super.batch);
+            super.batch.end();
+
+        }
     }
 
 
