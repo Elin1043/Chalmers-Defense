@@ -319,10 +319,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         upgradedTowerSprite.setPosition(upgradeButton.getX() + 180 + upgradedTowerSprite.getWidth() , upgradeButton.getY() + upgradedTowerSprite.getHeight()/4 );
         upgradedTowerSprite.setRotation(0);
 
-        batch.begin();
-        upgradedTowerSprite.draw(batch);
-        batch.end();
-
         // If upgrade is bought disable button input
         if ((tower.getUpgradeLevel() >= 1 + buttonNr)) {
             upgradeButton.setChecked(true);
@@ -335,7 +331,17 @@ public class GameScreen extends AbstractScreen implements Screen {
         // If first upgrade not bought disable second button
         if (buttonNr == 2 && tower.getUpgradeLevel() == 1) {
             upgradeButton.setTouchable(Touchable.disabled);
+            upgradeButton.setColor(Color.LIGHT_GRAY);
+            upgradedTowerSprite.setColor(Color.LIGHT_GRAY);
+        } else {
+            upgradeButton.setTouchable(Touchable.enabled);
+            upgradeButton.setColor(Color.WHITE);
+            upgradedTowerSprite.setColor(Color.WHITE);
         }
+
+        batch.begin();
+        upgradedTowerSprite.draw(batch);
+        batch.end();
 
         //upgradeButton.setDisabled(model.getMoney() < model.getTowerUpgradePrice(tower, 1));
 
