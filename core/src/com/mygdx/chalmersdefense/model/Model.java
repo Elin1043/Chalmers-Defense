@@ -457,7 +457,7 @@ public class Model {
                 towersList.remove(((MechTower) newTower).getMiniTowers().get(1));
             }
 
-            ((MechTower) newTower).getMiniTowers().get(1).placeTower();
+
         }
     }
 
