@@ -58,7 +58,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     // Upgrade panel
     private final Group bottomBarPanelUpgradeGroup = new Group();
-    private final Label towerNameLabel = new Label("", generateLabelStyle(36, Color.BLACK));
+    private final Label towerNameLabel = new Label("", generateLabelStyle(36, Color.BLACK, 1));
 
     // Skin for upgrade buttons
     private final TextureAtlas upgradePanelAtlas = new TextureAtlas(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.atlas")); // Load atlas file from skin
@@ -69,12 +69,12 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final Button upgradeButtonSecond = new Button(upgradePanelSkin);
 
     // Labels for upgrade buttons
-    private final Label firstUpgradeButtonTitle = new Label("", generateLabelStyle(24, Color.BLACK));
-    private final Label firstUpgradeButtonDesc = new Label("", generateLabelStyle(20, Color.BLACK));
-    private final Label firstUpgradeButtonPrice = new Label("", generateLabelStyle(20, Color.BLACK));
-    private final Label secondUpgradeButtonTitle = new Label("", generateLabelStyle(24, Color.BLACK));
-    private final Label secondUpgradeButtonDesc = new Label("", generateLabelStyle(20, Color.BLACK));
-    private final Label secondUpgradeButtonPrice = new Label("", generateLabelStyle(20, Color.BLACK));
+    private final Label firstUpgradeButtonTitle = new Label("", generateLabelStyle(24, Color.BLACK, 0.5f));
+    private final Label firstUpgradeButtonDesc = new Label("", generateLabelStyle(20, Color.BLACK, 0));
+    private final Label firstUpgradeButtonPrice = new Label("", generateLabelStyle(20, Color.BLACK, 0));
+    private final Label secondUpgradeButtonTitle = new Label("", generateLabelStyle(24, Color.BLACK, 0.5f));
+    private final Label secondUpgradeButtonDesc = new Label("", generateLabelStyle(20, Color.BLACK, 0));
+    private final Label secondUpgradeButtonPrice = new Label("", generateLabelStyle(20, Color.BLACK, 0));
 
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -113,7 +113,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         lifeIcon.setPosition(1650, 320);
 
         // Generating label style
-        labelStyleBlack36 = generateLabelStyle(36, Color.BLACK);
+        labelStyleBlack36 = generateLabelStyle(36, Color.BLACK, 1);
 
         // START Bottom bar group creation
         createBottomBarPanel();
@@ -215,17 +215,18 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
 
-    private BitmapFont generateBitmapFont(int size) {
+    private BitmapFont generateBitmapFont(int size, float borderWidth) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/CenturyGothic.ttf"));
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
         parameter.size = size;
+        parameter.borderWidth = borderWidth;
         BitmapFont font = generator.generateFont(parameter);
         generator.dispose();
         return font;
     }
 
-    private LabelStyle generateLabelStyle(int size, Color color){
-        BitmapFont font36 = generateBitmapFont(size);
+    private LabelStyle generateLabelStyle(int size, Color color, float borderWidth){
+        BitmapFont font36 = generateBitmapFont(size, borderWidth);
         LabelStyle labelStyle = new LabelStyle();
         labelStyle.font = font36;
         labelStyle.fontColor = color;
