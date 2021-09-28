@@ -182,9 +182,10 @@ public class Model {
      * @param windowHeight The height of the window
      * @param windowWidth  The width of the window
      */
+
     public void onDrag(int buttonWidth, int buttonHeight, int x, int y, int windowHeight, int windowWidth) {
         map.onDrag(buttonWidth, buttonHeight, x, y, windowHeight, windowWidth);
-    }
+    
 
 
     /**
