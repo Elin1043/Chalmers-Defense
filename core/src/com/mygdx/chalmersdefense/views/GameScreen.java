@@ -70,11 +70,11 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     // Labels for upgrade buttons
     private final Label firstUpgradeButtonTitle = new Label("", generateLabelStyle(24, Color.BLACK, 0.5f));
-    private final Label firstUpgradeButtonDesc = new Label("", generateLabelStyle(20, Color.BLACK, 0));
-    private final Label firstUpgradeButtonPrice = new Label("", generateLabelStyle(20, Color.BLACK, 0));
+    private final Label firstUpgradeButtonDesc = new Label("", generateLabelStyle(18, Color.BLACK, 0));
+    private final Label firstUpgradeButtonPrice = new Label("", generateLabelStyle(26, Color.BLACK, 0));
     private final Label secondUpgradeButtonTitle = new Label("", generateLabelStyle(24, Color.BLACK, 0.5f));
-    private final Label secondUpgradeButtonDesc = new Label("", generateLabelStyle(20, Color.BLACK, 0));
-    private final Label secondUpgradeButtonPrice = new Label("", generateLabelStyle(20, Color.BLACK, 0));
+    private final Label secondUpgradeButtonDesc = new Label("", generateLabelStyle(18, Color.BLACK, 0));
+    private final Label secondUpgradeButtonPrice = new Label("", generateLabelStyle(26, Color.BLACK, 0));
 
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -336,7 +336,7 @@ public class GameScreen extends AbstractScreen implements Screen {
             upgradeButton.setTouchable(Touchable.disabled);
             upgradeButton.setColor(Color.LIGHT_GRAY);
             upgradedTowerSprite.setColor(Color.LIGHT_GRAY);
-        } else if (buttonNr == 2 && tower.getUpgradeLevel() == 2) {
+        } else if (buttonNr == 2 && tower.getUpgradeLevel() >= 2) {
             upgradeButton.setTouchable(Touchable.enabled);
             upgradeButton.setColor(Color.WHITE);
             upgradedTowerSprite.setColor(Color.WHITE);
@@ -344,13 +344,14 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         batch.begin();
         upgradedTowerSprite.draw(batch);
+        upgradedTowerSprite.setColor(Color.WHITE);
         batch.end();
 
         //upgradeButton.setDisabled(model.getMoney() < model.getTowerUpgradePrice(tower, 1));
 
-        titleLabel.setText(model.getTowerUpgradeTitle(tower, 1));
-        descLabel.setText(model.getTowerUpgradeDesc(tower, 1));
-        priceLabel.setText("" + model.getTowerUpgradePrice(tower, 1));
+        titleLabel.setText(model.getTowerUpgradeTitle(tower, buttonNr));
+        descLabel.setText(model.getTowerUpgradeDesc(tower, buttonNr));
+        priceLabel.setText("" + model.getTowerUpgradePrice(tower, buttonNr));
     }
 
     private void renderViruses() {
