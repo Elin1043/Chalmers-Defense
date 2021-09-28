@@ -22,6 +22,7 @@ import java.util.HashMap;
 public abstract class AbstractScreen extends Stage implements Screen {
 
     final HashMap<String, Sprite> spriteMap = new HashMap<>();
+    final HashMap<String, Sprite> largeSpriteMap = new HashMap<>();
 
     final Batch batch = new SpriteBatch();
     protected AbstractScreen() {
@@ -66,7 +67,6 @@ public abstract class AbstractScreen extends Stage implements Screen {
 
     private void createSprites() {
         spriteMap.put("IT-Smurf1", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1.png")));
-        spriteMap.put("IT-Smurf1Large", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1Large.png")));
         spriteMap.put("ChemistTower1", new Sprite(new Texture("towers/ChemistTower1.png")));
         spriteMap.put("ElectroTower1", new Sprite(new Texture("towers/ElectroTower1.png")));
         spriteMap.put("Hackerman1", new Sprite(new Texture("towers/Hackerman/Hackerman1.png")));
@@ -87,6 +87,9 @@ public abstract class AbstractScreen extends Stage implements Screen {
         spriteMap.put("virus5", new Sprite(new Texture("viruses/virus5Hp.png")));
 
         spriteMap.put("bullet", new Sprite(new Texture("projectiles/bullet.png")));
+
+
+        largeSpriteMap.put("IT-Smurf1Large", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1Large.png")));
 
     }
 }
