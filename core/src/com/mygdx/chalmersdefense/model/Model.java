@@ -150,7 +150,7 @@ public class Model {
             }
 
             if (allViruses.isEmpty() && !virusSpawner.isSpawning()) {
-                player.increaseMoney((int) (100 * ((double)round.getCurrentRound()/2)));
+                player.increaseMoney((100 * (round.getCurrentRound()/2)));
                 stopGameUpdate();
                 projectilesList.clear();
             }
@@ -450,6 +450,12 @@ public class Model {
         }
         else{
             towersList.remove(newTower);
+            if(newTower instanceof MechTower){
+                towersList.remove(((MechTower) newTower).getMiniTowers().get(0));
+                towersList.remove(((MechTower) newTower).getMiniTowers().get(1));
+            }
+
+            ((MechTower) newTower).getMiniTowers().get(1).placeTower();
         }
     }
 
