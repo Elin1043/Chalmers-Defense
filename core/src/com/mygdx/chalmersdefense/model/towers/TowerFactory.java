@@ -18,7 +18,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateSmurf(int startPosX, int startPosY){
-        return new Tower(startPosX,startPosY, "SmurfTower", 10, 100, 200, TargetModeFactory.getTargetModes());
+        return new Tower(startPosX,startPosY, "IT-Smurf", 10, 100, 200, TargetModeFactory.getTargetModes());
     }
 
     /**
@@ -39,7 +39,7 @@ public abstract class TowerFactory {
      */
     public static Tower CreateHacker(int startPosX, int startPosY){
 
-        return new Tower(startPosX,startPosY, "HackerTower", 10, 100, 200, TargetModeFactory.getTargetModes());
+        return new Tower(startPosX,startPosY, "Hackerman", 10, 100, 200, TargetModeFactory.getTargetModes());
     }
 
     /**
