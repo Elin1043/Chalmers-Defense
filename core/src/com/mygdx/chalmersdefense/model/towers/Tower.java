@@ -60,14 +60,14 @@ public class Tower extends Actor {
 
 
     public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes){
-        this.name=name;
+        this.name = name;
         this.attackSpeed = attackSpeed;
         this.targetModes = targetModes;
         this.currentTargetMode = targetModes.get(0);
         updateSpriteKey();
 
         try{
-            BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("towers/" +spriteKey + ".png")));
+            BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("towers/" + name + "/" + spriteKey + ".png")));
             this.width         = towerImage.getWidth();
             this.height        = towerImage.getHeight();
 
