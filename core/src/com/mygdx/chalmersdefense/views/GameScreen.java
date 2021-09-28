@@ -40,6 +40,7 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * 2021-09-20 Modified by Elin Forsberg: Added methods and variables to handle placing towers
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: All sprites now comes from hashmap when rendering
  * 2021-09-24 Modified by Elin Forsberg: Added methods to render projectiles
+ * 2021-09-28 Modified by Daniel Persson: Added methods and instance variables to render upgrade panel and upgrade buttons
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
@@ -294,7 +295,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private void updateUpgradePanelInfo(Tower tower) {
         towerNameLabel.setText(tower.getName());
 
-        Sprite towerSpriteUpgradePanel = largeSpriteMap.get(tower.getName() + 1 + "Large");
+        Sprite towerSpriteUpgradePanel = largeSpriteMap.get(tower.getName() + tower.getUpgradeLevel() + "Large");
         towerSpriteUpgradePanel.setPosition(bottomBarPanelBackground.getWidth() - 1360, bottomBarPanelBackground.getHeight()/2 - towerSpriteUpgradePanel.getHeight()/2);
         towerSpriteUpgradePanel.setRotation(0);
 
