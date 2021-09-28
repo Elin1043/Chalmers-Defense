@@ -30,12 +30,16 @@ public class Map {
     private Tower newTower;
     private final List<Tower> towersList = new ArrayList<>();
     private List<Projectile> projectilesList = new ArrayList<>();
+    private final List<Virus> allViruses = new ArrayList<>();
 
     //Should not have player here
-    private final Player player = new Player(100, 300); //Change staring capital later. Just used for testing right now
-
-    private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
+    private final Player player;
     private final Path path = new ClassicPath();           // Make a path factory instead?;
+
+
+    public Map(Player player){
+        this.player = player;
+    }
 
     public void updateMap() {
         updateVirus();
@@ -48,21 +52,19 @@ public class Map {
     private void updateProjectiles() {
         List<Projectile> removeProjectiles = new ArrayList<>();
 
-        synchronized (projectilesList) {
-            for (Projectile projectile : projectilesList) {
-                projectile.move();
-                if (checkCollisonOfProjectiles(projectile, removeProjectiles) || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
-                    if (!(projectile instanceof LightningProjectile)) {
-                        removeProjectiles.add(projectile);
-                    }
-
+        for (Projectile projectile : projectilesList) {
+            projectile.move();
+            if (checkCollisonOfProjectiles(projectile, removeProjectiles) || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
+                if (!(projectile instanceof LightningProjectile)) {
+                    removeProjectiles.add(projectile);
                 }
             }
-            for (Projectile projectile : removeProjectiles) {
-                projectilesList.remove(projectile);
-            }
+        }
+        for (Projectile projectile : removeProjectiles) {
+            projectilesList.remove(projectile);
         }
     }
+
 
     //Update all the towers
     private void updateTowers() {
@@ -132,10 +134,7 @@ public class Map {
         if (y > 1130 || -50 > y) {
             return true;
         }
-        if (x > 1970 || -50 > x) {
-            return true;
-        }
-        return false;
+        return x > 1970 || -50 > x;
     }
 
 
@@ -197,7 +196,7 @@ public class Map {
                 projectile.virusHit();
                 virus.setGotHit(true);
 
-                List<Virus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2, virus.getY() + virus.getHeight()/2, ((LightningProjectile) projectile).getRange(), allViruses);
+                List<Virus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2F, virus.getY() + virus.getHeight()/2F, ((LightningProjectile) projectile).getRange(), allViruses);
 
                 for (Virus virusInList: virusInRange) {
                     if(virusInList.getIfGotHit()){
@@ -209,7 +208,7 @@ public class Map {
 
                 if(!virusInRange.isEmpty()){
                     Virus tempVirus = virusInRange.get(0);
-                    projectile.setAngle(Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2, tempVirus.getY() + tempVirus.getHeight()/2,projectile.getX() + projectile.getWidth()/2, projectile.getY() + projectile.getHeight()/2));
+                    projectile.setAngle(Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2F, tempVirus.getY() + tempVirus.getHeight()/2F,projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F));
 
                 }
                 else{
