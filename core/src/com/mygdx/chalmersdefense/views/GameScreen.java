@@ -294,7 +294,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private void updateUpgradePanelInfo(Tower tower) {
         towerNameLabel.setText(tower.getName());
 
-        Sprite towerSpriteUpgradePanel = spriteMap.get(tower.getName() + 1 + "Large");
+        Sprite towerSpriteUpgradePanel = largeSpriteMap.get(tower.getName() + 1 + "Large");
         towerSpriteUpgradePanel.setPosition(bottomBarPanelBackground.getWidth() - 1360, bottomBarPanelBackground.getHeight()/2 - towerSpriteUpgradePanel.getHeight()/2);
         towerSpriteUpgradePanel.setRotation(0);
 
