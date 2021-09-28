@@ -63,6 +63,19 @@ public class Model {
         updateVirus();
         updateTowers();
         updateProjectiles();
+
+        checkRoundCompleted();
+    }
+
+    private void checkRoundCompleted() {
+        if (allViruses.isEmpty() && !virusSpawner.isSpawning()) {
+            if (game.isUpdating()) {
+                System.out.println("TJENARE");
+                player.increaseMoney((100 * (round.getCurrentRound() / 2)));
+            }
+            stopGameUpdate();
+            projectilesList.clear();
+        }
     }
 
     //Update the projectiles
@@ -144,14 +157,7 @@ public class Model {
                 allViruses.remove(virus);
             }
 
-            if (allViruses.isEmpty() && !virusSpawner.isSpawning()) {
-                if (game.isUpdating()) {
-                    System.out.println("TJENARE");
-                    player.increaseMoney((100 * (round.getCurrentRound() / 2)));
-                }
-                stopGameUpdate();
-                projectilesList.clear();
-            }
+
 
         }
 
@@ -256,7 +262,6 @@ public class Model {
         else{
             list.add(projectile);
         }
-        throw new RuntimeException();
     }
 
 
