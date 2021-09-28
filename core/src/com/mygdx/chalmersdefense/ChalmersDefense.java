@@ -12,29 +12,36 @@ import com.mygdx.chalmersdefense.views.MainScreen;
 import com.mygdx.chalmersdefense.views.ScreenEnum;
 import com.mygdx.chalmersdefense.views.ScreenManager;
 
+//import java.util.Timer;
+//import java.util.TimerTask;
+
 /**
- * @author
+ *  @author
  *
  *
- * @Modified by Elin Forsberg
- *  Added a timer to update Model
+ *  2021-09-16 Modified by Elin Forsberg: Added a timer to update Model
+ *  2021-09-23 Modified by Joel Båtsman Hilmersson: Changed timer to use libGDX timer instead of javaswing
  */
 public class ChalmersDefense extends Game {
-	// The delay (s) between when game data is being updated
-	private final float delay = 0.005F;
+	// The delay (ms) between when game data is being updated
+	//private long delay = 5;
+	private float delay = 0.005F;
 	// The timer is started with a listener (see below) that executes the statements
-	// each step between delays.
+	// Timer that calls method to update model
 	private Timer timer;
 
-	Music music;
-	Model model;
+	private Timer.Task task;
+
+	private Music music;
+	private Model model;
+
 
 
 	@Override
 	public void create() {
-		timer =  new Timer();
 		model = new Model(this);
-
+		timer = new Timer();
+		createTask();
 
 		// Creating Controllers
 		MainScreenController mainScreenController = new MainScreenController();
@@ -54,18 +61,15 @@ public class ChalmersDefense extends Game {
 		music.setVolume(0.2F);
 		music.play();
 
-		setupTimer();
-		timer.start();
-
 	}
 
-	private void setupTimer() {
-		timer.scheduleTask(new Timer.Task() {
+	private void createTask() {
+		task = new Timer.Task() {
 			@Override
 			public void run() {
 				model.updateModel();
 			}
-		}, 0, delay);
+		};
 	}
 
 
@@ -73,6 +77,46 @@ public class ChalmersDefense extends Game {
 		return willDouble * 2;
 	}
 
+	/**
+	 * Stops the timer that updates model (Effectively pauses the game state)
+	 */
+	public void stopModelUpdate() {
+		task.cancel();
+		timer.stop();
+		timer.clear();
 
+		System.out.println("STOP TIMER");
+	}
+
+	/**
+	 * Starts the timer that updates model (Effectively un-pauses the game)
+	 */
+	public void startModelUpdate() {
+		setupTimer();
+		System.out.println("START TIMER");
+	}
+
+	private void setupTimer() {
+		createTask();
+		timer.scheduleTask(task, 0, delay);
+		timer.start();
+	}
+
+	/**
+	 * Change model update speed to run simulation faster or slower
+	 */
+	public void changeUpdateSpeed() {
+		if (delay < 0.004F){
+			delay = 0.005F;
+		} else {
+			delay = 0.0028F;
+		}
+		timer.clear();
+		setupTimer();
+	}
+
+	public boolean isUpdating(){
+		return task.isScheduled();
+	}
 
 }

@@ -2,7 +2,6 @@ package com.mygdx.chalmersdefense.model.towers;
 
 
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.chalmersdefense.model.projectiles.BulletProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
@@ -21,13 +20,13 @@ import java.util.Objects;
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: changed class to hold hashmap key for sprite
  */
 
-public class Tower extends Actor {
+public class Tower {
 
     private String spriteKey;
     private int upgradeLevel = 1;
 
     private double angle = 0;
-    private float range;
+    private int range;
     private String name;
     //private Tower upgrade;
     private boolean isPlaced = false;
@@ -39,6 +38,7 @@ public class Tower extends Actor {
 
     private final List<ITargetMode> targetModes;
     private ITargetMode currentTargetMode;
+    private Projectile projectile;
 
     private float width;
     private float height;
@@ -49,20 +49,23 @@ public class Tower extends Actor {
     private boolean collision;
     private boolean gotButton;
 
+
+
     private boolean gotTarget;
 
-    private int reloadTime = 60; //how many updates from model
+    private int reloadTime = 60*3; //how many updates from model
     private int currentReload = 0;
 
 
     private Rectangle rectangle = new Rectangle();
 
 
-    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes){
+    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, Projectile projectile){
         this.name=name;
         this.attackSpeed = attackSpeed;
         this.targetModes = targetModes;
         this.currentTargetMode = targetModes.get(0);
+        this.projectile = projectile;
         updateSpriteKey();
 
         try{
@@ -92,7 +95,7 @@ public class Tower extends Actor {
      */
     public Projectile shootProjectile(){
         if(currentReload < 1 && gotTarget && isPlaced){
-            Projectile projectile = new BulletProjectile(attackSpeed, this.getPosX() + width/2, this.getPosY() + height/2, this.angle);
+            projectile = projectile.createProjectile(attackSpeed, this.getPosX() + this.width/2, this.getPosY() + this.height/2, this.angle);
             currentReload = reloadTime;
             return projectile;
         }
@@ -102,10 +105,6 @@ public class Tower extends Actor {
         return null;
     }
 
-    /**
-     * Update the towers
-     */
-    public void update() { shootProjectile(); }
 
     private void updateSpriteKey() { spriteKey = name + upgradeLevel; }
 
@@ -243,7 +242,7 @@ public class Tower extends Actor {
      * Gets the range of the tower
      * @return range of tower
      */
-    public float getRange(){
+    public int getRange(){
         return range;
     }
 
@@ -253,10 +252,15 @@ public class Tower extends Actor {
      */
     public ITargetMode getCurrentTargetMode() { return currentTargetMode; }
 
+    public boolean GotTarget() {
+        return gotTarget;
+    }
     /**
      * Gets if tower is placed
      * @return if placed
      */
+
+
     public boolean isPlaced(){
         return isPlaced;
     }

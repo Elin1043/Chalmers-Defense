@@ -20,7 +20,14 @@ public abstract class Projectile {
     private String name;
     private float x;
     private float y;
+
+    private int hitCountsLeft = 4;
+
     private double angle;
+
+
+
+    private boolean dealtDamage;
 
     public Projectile(int speed,String name, float x, float y, double angle){
         this.speed = speed;
@@ -52,6 +59,31 @@ public abstract class Projectile {
         x =  x + xLength;
         y =  y + yLength;
 
+    }
+
+    public void setAngle(double angle) {
+        this.angle = angle;
+    }
+
+    public abstract Projectile createProjectile(int speed, float x, float y, double angle);
+
+    public boolean getIfDealtDamage() {
+        return dealtDamage;
+    }
+
+    /**
+     * Method to call when virus is hit (temp for now, used by lightning)
+     */
+    public void virusHit(){
+        if (hitCountsLeft > 0){
+            hitCountsLeft--;
+        } else {
+            dealtDamage = true;
+        }
+    }
+
+    public void setDealtDamage(boolean dealtDamage) {
+        this.dealtDamage = dealtDamage;
     }
 
     /**
