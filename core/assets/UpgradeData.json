@@ -39,7 +39,7 @@
       "projectileSpeedMul": 1.2
     }
   ],
-  "ChemistTower": [
+  "Chemist": [
     {
       "title": "Enhanced acid",
       "desc": "This is a long description describing the upgrade",
@@ -59,7 +59,7 @@
       "projectileSpeedMul": 1.2
     }
   ],
-  "ElectroTower": [
+  "Electroman": [
     {
       "title": "More bounces",
       "desc": "This is a long description describing the upgrade",
@@ -79,7 +79,7 @@
       "projectileSpeedMul": 1.2
     }
   ],
-  "MechTower": [
+  "Mechoman": [
     {
       "title": "More towers",
       "desc": "This is a long description describing the upgrade",
@@ -99,7 +99,7 @@
       "projectileSpeedMul": 1
     }
   ],
-  "EcoTower": [
+  "Economist": [
     {
       "title": "Enhanced acid",
       "desc": "This is a long description describing the upgrade",
