@@ -8,12 +8,12 @@ public class LightningProjectile extends Projectile{
     private static String name = "electroProjectile1"; //Change when have new projectile pictures
     private int range = 150;
 
-    public LightningProjectile(int speed, float x, float y, double angle) {
+    public LightningProjectile(int speed, float x, float y, float angle) {
         super(speed, name, x, y, angle);
     }
 
     @Override
-    public Projectile createProjectile(int speed, float x, float y, double angle) {
+    public Projectile createProjectile(int speed, float x, float y, float angle) {
         return new LightningProjectile(speed, x, y, angle);
     }
 

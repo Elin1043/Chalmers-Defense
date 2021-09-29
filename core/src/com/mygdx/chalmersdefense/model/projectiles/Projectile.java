@@ -10,11 +10,11 @@ import java.util.Objects;
  * @author Elin Forsberg
  * Class defining a projectile object
  */
-public abstract class Projectile {
+public abstract class Projectile implements IProjectile{
 
-    private int width;
-    private int height;
-    private int speed;
+    private float width;
+    private float height;
+    private float speed;
 
 
     private String name;
@@ -23,13 +23,13 @@ public abstract class Projectile {
 
     private int hitCountsLeft = 4;
 
-    private double angle;
+    private float angle;
 
 
 
     private boolean dealtDamage;
 
-    public Projectile(int speed,String name, float x, float y, double angle){
+    public Projectile(int speed,String name, float x, float y, float angle){
         this.speed = speed;
         this.name = name;
         this.x = x;
@@ -53,19 +53,27 @@ public abstract class Projectile {
      * Moves the projectile in calculated direction
      */
     public void move() {
-        float xLength = (float) ((Math.cos(Math.toRadians(angle)) * speed));
-        float yLength = (float) ((Math.sin(Math.toRadians(angle)) * speed));
+        float xLength = (float) (Math.cos(Math.toRadians(angle)) * speed);
+        float yLength = (float) (Math.sin(Math.toRadians(angle)) * speed);
 
         x =  x + xLength;
         y =  y + yLength;
 
     }
 
-    public void setAngle(double angle) {
+    public String getSpriteKey(){
+        return name;
+    }
+
+    public float getAngle(){
+        return angle;
+    }
+
+    public void setAngle(float angle) {
         this.angle = angle;
     }
 
-    public abstract Projectile createProjectile(int speed, float x, float y, double angle);
+    public abstract Projectile createProjectile(int speed, float x, float y, float angle);
 
     public boolean getIfDealtDamage() {
         return dealtDamage;
@@ -90,7 +98,7 @@ public abstract class Projectile {
      * Gets width of projectile
      * @return width of projectile
      */
-    public int getWidth() {
+    public float getWidth() {
         return width;
     }
 
@@ -98,7 +106,7 @@ public abstract class Projectile {
      * Gets height of projectile
      * @return height of projectile
      */
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 

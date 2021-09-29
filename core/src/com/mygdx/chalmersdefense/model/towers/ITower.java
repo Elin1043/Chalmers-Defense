@@ -17,7 +17,6 @@ public interface ITower extends IMapObject {
 
     int getUpgradeLevel();
 
-
     String getSpriteKey();
 
     int getCost();
