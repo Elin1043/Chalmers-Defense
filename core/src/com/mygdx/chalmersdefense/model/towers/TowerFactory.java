@@ -24,7 +24,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateSmurf(int startPosX, int startPosY){
-        return new Tower(startPosX,startPosY, "IT-Smurf", 5, 100, 200, TargetModeFactory.getTargetModes(), new BulletProjectile(0,0,0,0));
+        return new SmurfTower(startPosX,startPosY, "IT-Smurf", 5, 100, 200, TargetModeFactory.getTargetModes(), new BulletProjectile(0,0,0,0));
     }
 
     /**
@@ -34,7 +34,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateChemist(int startPosX, int startPosY){
-        return new Tower(startPosX,startPosY, "Chemist", 5, 200, 200, TargetModeFactory.getTargetModes(), new AcidProjectile(0,0,0,0));
+        return new ChemistTower(startPosX,startPosY, "Chemist", 5, 200, 200, TargetModeFactory.getTargetModes(), new AcidProjectile(0,0,0,0));
     }
 
     /**
@@ -45,7 +45,7 @@ public abstract class TowerFactory {
      */
     public static Tower CreateHacker(int startPosX, int startPosY){
 
-        return new Tower(startPosX,startPosY, "Hackerman", 5, 300, 200, TargetModeFactory.getTargetModes(), new BulletProjectile(0,0,0,0));
+        return new HackerTower(startPosX,startPosY, "Hackerman", 5, 300, 200, TargetModeFactory.getTargetModes(), new BulletProjectile(0,0,0,0));
     }
 
     /**
@@ -55,7 +55,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateElectro(int startPosX, int startPosY){
-        return new Tower(startPosX,startPosY, "Electroman", 5, 400, 200, TargetModeFactory.getTargetModes(), new LightningProjectile(0,0,0,0));
+        return new ElectroTower(startPosX,startPosY, "Electroman", 5, 400, 200, TargetModeFactory.getTargetModes(), new LightningProjectile(0,0,0,0));
     }
 
 
