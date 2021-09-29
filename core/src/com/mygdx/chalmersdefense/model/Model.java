@@ -193,6 +193,9 @@ public class Model {
         upgrades.upgradeTower(map.getClickedTower());
     }
 
+    public boolean getIsGameLost() {
+        return map.getIsGameLost();
+    }
 
     /**
      * Return the list of projectiles
