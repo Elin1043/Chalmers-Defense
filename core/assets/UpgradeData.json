@@ -104,7 +104,7 @@
       "title": "Enhanced acid",
       "desc": "This is a long description describing the upgrade",
       "price": 600,
-      "attackDmgMul": 1.5,
+      "attackDmgMul": 2,
       "attackSpeedMul": 1,
       "attackRangeMul": 1,
       "projectileSpeedMul": 1
@@ -113,7 +113,7 @@
       "title": "Thor's hammer",
       "desc": "This is a long description describing the upgrade",
       "price": 2000,
-      "attackDmgMul": 1.5,
+      "attackDmgMul": 2,
       "attackSpeedMul": 1.5,
       "attackRangeMul": 1,
       "projectileSpeedMul": 1
