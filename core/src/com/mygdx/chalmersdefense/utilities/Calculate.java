@@ -96,7 +96,7 @@ public abstract class Calculate {
      * @param o2 the virus
      * @return if intersects
      */
-    public static boolean objectsIntersects(Projectile o1, IVirus o2) {
+    public static boolean objectsIntersects(IProjectile o1, IVirus o2) {
         double o1Width = o1.getWidth();
         double o1Height = o1.getHeight();
         double o2Width = o2.getWidth();

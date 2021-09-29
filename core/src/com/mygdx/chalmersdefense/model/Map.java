@@ -186,7 +186,7 @@ public class Map {
     }
 
     //Collision with lightning projectile
-    private void collidedWithLightning(IProjectile projectile, Virus virus, List<IProjectile> list){
+    private void collidedWithLightning(IProjectile projectile, IVirus virus, List<IProjectile> list){
         List<IVirus> virusToRemove = new ArrayList<>();
         if(!projectile.getIfDealtDamage()){
             if(!virus.getIfGotHit()){
