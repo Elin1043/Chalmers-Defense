@@ -24,7 +24,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateSmurf(int startPosX, int startPosY){
-        return new Tower(startPosX,startPosY, "SmurfTower", 5, 100, 200, TargetModeFactory.getTargetModes(), new BulletProjectile(0,0,0,0));
+        return new Tower(startPosX,startPosY, "IT-Smurf", 5, 100, 200, TargetModeFactory.getTargetModes(), new BulletProjectile(0,0,0,0));
     }
 
     /**
@@ -34,7 +34,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateChemist(int startPosX, int startPosY){
-        return new Tower(startPosX,startPosY, "ChemistTower", 5, 200, 200, TargetModeFactory.getTargetModes(), new AcidProjectile(0,0,0,0));
+        return new Tower(startPosX,startPosY, "Chemist", 5, 200, 200, TargetModeFactory.getTargetModes(), new AcidProjectile(0,0,0,0));
     }
 
     /**
@@ -45,7 +45,7 @@ public abstract class TowerFactory {
      */
     public static Tower CreateHacker(int startPosX, int startPosY){
 
-        return new Tower(startPosX,startPosY, "HackerTower", 5, 300, 200, TargetModeFactory.getTargetModes(), new BulletProjectile(0,0,0,0));
+        return new Tower(startPosX,startPosY, "Hackerman", 5, 300, 200, TargetModeFactory.getTargetModes(), new BulletProjectile(0,0,0,0));
     }
 
     /**
@@ -55,7 +55,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateElectro(int startPosX, int startPosY){
-        return new Tower(startPosX,startPosY, "ElectroTower", 5, 400, 200, TargetModeFactory.getTargetModes(), new LightningProjectile(0,0,0,0));
+        return new Tower(startPosX,startPosY, "Electroman", 5, 400, 200, TargetModeFactory.getTargetModes(), new LightningProjectile(0,0,0,0));
     }
 
 
@@ -66,7 +66,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateMeck(int startPosX, int startPosY){
-        return new MechTower(startPosX,startPosY, "MechTower", 3, 500, 200, TargetModeFactory.getTargetModes(), new RobotProjectile(0,0,0,0));
+        return new MechTower(startPosX,startPosY, "Mechoman", 3, 500, 200, TargetModeFactory.getTargetModes(), new RobotProjectile(0,0,0,0));
     }
 
     /**
@@ -76,7 +76,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static Tower CreateEco(int startPosX, int startPosY){
-        return new EcoTower(startPosX,startPosY, "EcoTower", 5, 600, 200, TargetModeFactory.getTargetModes());
+        return new EcoTower(startPosX,startPosY, "Economist", 5, 600, 200, TargetModeFactory.getTargetModes());
     }
 
 
