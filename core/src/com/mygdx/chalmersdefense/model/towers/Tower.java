@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.model.towers;
 
 
+import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import javax.imageio.ImageIO;
@@ -38,7 +39,7 @@ public class Tower implements ITower{
 
     private final List<ITargetMode> targetModes;
     private ITargetMode currentTargetMode;
-    private Projectile projectile;
+    private IProjectile projectile;
 
     private float width;
     private float height;
@@ -60,7 +61,7 @@ public class Tower implements ITower{
     private Rectangle rectangle = new Rectangle();
 
 
-    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, Projectile projectile){
+    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, IProjectile projectile){
         this.name = name;
         this.attackSpeed = attackSpeed;
         this.targetModes = targetModes;
@@ -98,7 +99,7 @@ public class Tower implements ITower{
      * Creates a projectile to shoot
      * @return projectile created
      */
-    public Projectile shootProjectile(){
+    public IProjectile shootProjectile(){
         if(currentReload < 1 && gotTarget && isPlaced){
             projectile = projectile.createProjectile(attackSpeed, this.getX() + this.width/2, this.getY() + this.height/2, this.angle);
             currentReload = reloadTime;

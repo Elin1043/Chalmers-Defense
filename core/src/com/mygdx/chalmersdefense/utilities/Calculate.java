@@ -2,6 +2,7 @@ package com.mygdx.chalmersdefense.utilities;
 
 
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
+import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.viruses.Virus;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 
@@ -74,7 +75,7 @@ public abstract class Calculate {
      * @param o2 the rectangle
      * @return if intersects
      */
-    public static boolean objectsIntersects(Projectile o1, Rectangle o2) {
+    public static boolean objectsIntersects(IProjectile o1, Rectangle o2) {
         double o1Width = o1.getWidth();
         double o1Height = o1.getHeight();
         double o2Width = o2.getWidth();

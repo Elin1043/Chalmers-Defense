@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
+import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
+import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.viruses.Virus;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -252,7 +254,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private void renderProjectiles() {
 
         synchronized (model.getProjectilesList()) {
-            for (Projectile projectile : model.getProjectilesList()) {
+            for (IProjectile projectile : model.getProjectilesList()) {
                 Sprite projectileSprite = spriteMap.get(projectile.getName());
                 projectileSprite.setPosition(projectile.getX(), projectile.getY());
 
@@ -303,7 +305,7 @@ public class GameScreen extends AbstractScreen implements Screen {
      * Updates the upgrade panel.
      * @param tower tower name used to get correct sprite
      */
-    private void updateUpgradePanelInfo(Tower tower) {
+    private void updateUpgradePanelInfo(ITower tower) {
         towerNameLabel.setText(tower.getName());
 
         Sprite towerSpriteUpgradePanel = largeSpriteMap.get(tower.getName() + tower.getUpgradeLevel() + "Large");
@@ -327,7 +329,7 @@ public class GameScreen extends AbstractScreen implements Screen {
      * @param descLabel the description label to modify
      * @param priceLabel the price label to modify
      */
-    private void updateUpgradeButton(Tower tower, int buttonNr, Button upgradeButton, Label titleLabel, Label descLabel, Label priceLabel) {
+    private void updateUpgradeButton(ITower tower, int buttonNr, Button upgradeButton, Label titleLabel, Label descLabel, Label priceLabel) {
         Sprite upgradedTowerSprite = spriteMap.get(tower.getName() + (buttonNr + 1));
         upgradedTowerSprite.setPosition(upgradeButton.getX() + (268 - upgradedTowerSprite.getWidth()/2), (upgradeButton.getHeight() - upgradeButton.getY())/2 - upgradedTowerSprite.getHeight()/2 + upgradeButton.getY() + 20);
         upgradedTowerSprite.setRotation(0);
@@ -383,7 +385,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     //Render towers
     private void renderTowers() {
-        for (Tower tower : model.getTowers()) {
+        for (ITower tower : model.getTowers()) {
             Sprite towerSprite = spriteMap.get(tower.getSpriteKey());
             towerSprite.setPosition(tower.getX(), tower.getY());
             towerSprite.setRotation(tower.getAngle());

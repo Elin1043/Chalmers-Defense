@@ -2,7 +2,9 @@ package com.mygdx.chalmersdefense.model;
 
 
 import com.mygdx.chalmersdefense.ChalmersDefense;
+import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
+import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.towers.Tower;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
@@ -152,7 +154,7 @@ public class Model {
         map.towerNotClicked();
     }
 
-    public Tower getClickedTower() {
+    public ITower getClickedTower() {
         return map.getClickedTower();
     }
 
@@ -162,7 +164,7 @@ public class Model {
      * @param upgradeLevel what upgrade to get title of
      * @return a String with towers upgrade title depending on upgrade level.
      */
-    public String getTowerUpgradeTitle(Tower tower, int upgradeLevel) {
+    public String getTowerUpgradeTitle(ITower tower, int upgradeLevel) {
         return upgrades.getTowerUpgradeTitle(tower, upgradeLevel);
     }
 
@@ -173,7 +175,7 @@ public class Model {
      * @param upgradeLevel what upgrade to get description of
      * @return a String with towers upgrade description depending on upgrade level.
      */
-    public String getTowerUpgradeDesc(Tower tower, int upgradeLevel) {
+    public String getTowerUpgradeDesc(ITower tower, int upgradeLevel) {
         return upgrades.getTowerUpgradeDesc(tower, upgradeLevel);
     }
 
@@ -183,7 +185,7 @@ public class Model {
      * @param upgradeLevel what upgrade to get price of
      * @return a String with towers upgrade price depending on upgrade level.
      */
-    public Long getTowerUpgradePrice(Tower tower, int upgradeLevel) {
+    public Long getTowerUpgradePrice(ITower tower, int upgradeLevel) {
         return upgrades.getTowerUpgradePrice(tower, upgradeLevel);
     }
 
@@ -199,7 +201,7 @@ public class Model {
      * Return the list of projectiles
      * @return list of projectiles
      */
-    public List<Projectile> getProjectilesList() {
+    public List<IProjectile> getProjectilesList() {
         return map.getProjectilesList();
     }
 
@@ -225,7 +227,7 @@ public class Model {
      * Return the list of towers on map
      * @return The list of towers
      */
-    public List<Tower> getTowers() {
+    public List<ITower> getTowers() {
         return map.getTowers();
     }
 
