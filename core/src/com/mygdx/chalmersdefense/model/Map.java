@@ -28,6 +28,7 @@ import java.util.List;
  */
 public class Map {
     private Tower newTower;
+    private Tower clickedTower;
     private final List<Tower> towersList = new ArrayList<>();
     private List<Projectile> projectilesList = new ArrayList<>();
     private final List<Virus> allViruses = new ArrayList<>();
@@ -364,23 +365,24 @@ public class Map {
     /**
      * Handles when a placed tower is clicked
      */
-    public void towerClicked() {
-        //TODO fill
-        System.out.println("Tower clicked");
-
-    }
-
-    public Tower getClickedTower(float x, float y) {
-
+    public void towerClicked(float x, float y) {
         // Algorithm for finding which tower is clicked
         for (Tower tower : towersList) {
             float towerCenterX = tower.getPosX() + tower.getWidth()/2;
             float towerCenterY = tower.getPosY() + tower.getHeight()/2;
             if (Math.sqrt(Math.pow(towerCenterX - x, 2) + Math.pow(towerCenterY - y, 2)) <= tower.getWidth()) {
-                return tower;
+                clickedTower = tower;
             }
         }
-        return null;
+
+    }
+
+    public void towerNotClicked() {
+        clickedTower = null;
+    }
+
+    public Tower getClickedTower() {
+        return clickedTower;
     }
 
     /**

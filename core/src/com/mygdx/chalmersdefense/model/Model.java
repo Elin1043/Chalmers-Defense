@@ -33,15 +33,9 @@ public class Model {
     private final ChalmersDefense game;
     private final Rounds round = new Rounds(10);    // 10 is temporary
 
-
-    private Tower newTower;
-    private Tower clickedTower;
-
-
     private final Player player = new Player(100, 3000); //Change staring capital later. Just used for testing right now
     private final Upgrades upgrades = new Upgrades();
 
-    private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
 
     private final Map map = new Map(player);
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());
@@ -148,13 +142,17 @@ public class Model {
     }
 
 
+    // Maybe temporary because it sets the object to null.
     public void towerClicked(float x, float y) {
-        clickedTower = map.getClickedTower(x, y);
+        map.towerClicked(x, y);
     }
 
-    // Maybe temporary because it sets the object to null.
     public void towerNotClicked() {
-        clickedTower = null;
+        map.towerNotClicked();
+    }
+
+    public Tower getClickedTower() {
+        return map.getClickedTower();
     }
 
     /**
@@ -167,14 +165,6 @@ public class Model {
         return upgrades.getTowerUpgradeTitle(tower, upgradeLevel);
     }
 
-
-    /**
-     * Return the list of projectiles
-     * @return list of projectiles
-     */
-    public List<Projectile> getProjectilesList() {
-        return map.getProjectilesList();
-    }
 
     /**
      * A delegation for getting description of a tower upgrade.
@@ -200,11 +190,16 @@ public class Model {
      * Delegates upgrade method to upgrade class.
      */
     public void upgradeClickedTower() {
-        upgrades.upgradeTower(clickedTower);
+        upgrades.upgradeTower(map.getClickedTower());
     }
 
-    public Tower getClickedTower() {
-        return clickedTower;
+
+    /**
+     * Return the list of projectiles
+     * @return list of projectiles
+     */
+    public List<Projectile> getProjectilesList() {
+        return map.getProjectilesList();
     }
 
     /**
