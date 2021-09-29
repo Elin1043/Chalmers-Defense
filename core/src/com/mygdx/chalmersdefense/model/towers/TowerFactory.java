@@ -23,7 +23,7 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static Tower CreateSmurf(int startPosX, int startPosY){
+    public static ITower CreateSmurf(int startPosX, int startPosY){
         return new SmurfTower(startPosX,startPosY, "IT-Smurf", 5, 100, 200, TargetModeFactory.getTargetModes(), new BulletProjectile(0,0,0,0));
     }
 
@@ -33,7 +33,7 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static Tower CreateChemist(int startPosX, int startPosY){
+    public static ITower CreateChemist(int startPosX, int startPosY){
         return new ChemistTower(startPosX,startPosY, "Chemist", 5, 200, 200, TargetModeFactory.getTargetModes(), new AcidProjectile(0,0,0,0));
     }
 
@@ -43,7 +43,7 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static Tower CreateHacker(int startPosX, int startPosY){
+    public static ITower CreateHacker(int startPosX, int startPosY){
 
         return new HackerTower(startPosX,startPosY, "Hackerman", 5, 300, 200, TargetModeFactory.getTargetModes(), new BulletProjectile(0,0,0,0));
     }
@@ -54,7 +54,7 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static Tower CreateElectro(int startPosX, int startPosY){
+    public static ITower CreateElectro(int startPosX, int startPosY){
         return new ElectroTower(startPosX,startPosY, "Electroman", 5, 400, 200, TargetModeFactory.getTargetModes(), new LightningProjectile(0,0,0,0));
     }
 
@@ -65,7 +65,7 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static Tower CreateMeck(int startPosX, int startPosY){
+    public static ITower CreateMeck(int startPosX, int startPosY){
         return new MechTower(startPosX,startPosY, "Mechoman", 3, 500, 200, TargetModeFactory.getTargetModes(), new RobotProjectile(0,0,0,0));
     }
 

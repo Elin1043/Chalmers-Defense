@@ -7,12 +7,9 @@ import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.projectiles.AcidProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
-import com.mygdx.chalmersdefense.model.towers.EcoTower;
-import com.mygdx.chalmersdefense.model.towers.MechTower;
+import com.mygdx.chalmersdefense.model.towers.*;
 import com.mygdx.chalmersdefense.model.viruses.Virus;
 import com.mygdx.chalmersdefense.utilities.Calculate;
-import com.mygdx.chalmersdefense.model.towers.Tower;
-import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -27,9 +24,9 @@ import java.util.List;
  * Class handeling all objects and methods on Map.
  */
 public class Map {
-    private Tower newTower;
-    private Tower clickedTower;
-    private final List<Tower> towersList = new ArrayList<>();
+    private ITower newTower;
+    private ITower clickedTower;
+    private final List<ITower> towersList = new ArrayList<>();
     private List<Projectile> projectilesList = new ArrayList<>();
     private final List<Virus> allViruses = new ArrayList<>();
 
@@ -70,7 +67,7 @@ public class Map {
     //Update all the towers
     private void updateTowers() {
 
-        for (Tower tower : towersList) {
+        for (ITower tower : towersList) {
             List<Virus> virusInRange;
 
             synchronized (allViruses) {
@@ -140,7 +137,7 @@ public class Map {
 
 
     //Checks if a tower collides with path
-    private boolean checkMapAndTowerCollision(Tower tower) {
+    private boolean checkMapAndTowerCollision(ITower tower) {
         for (java.awt.Rectangle rect : path.getCollisionRectangles()) {
             if (tower.getRectangle().intersects(rect)) {
                 return true;
@@ -238,8 +235,8 @@ public class Map {
 
 
     //Checks if towers collide with anything
-    private boolean checkCollisionOfTower(Tower tower, int windowHeight, int windowWidth) {
-        for(Tower checkTower: towersList){
+    private boolean checkCollisionOfTower(ITower tower, int windowHeight, int windowWidth) {
+        for(ITower checkTower: towersList){
             //Check if tower collides with a placed tower
             if(tower.getRectangle().intersects(checkTower.getRectangle()) && !(checkTower.hashCode() == tower.hashCode())){
                 return true;
@@ -308,7 +305,7 @@ public class Map {
         }
 
 
-        for (Tower tower: towersList) {
+        for (ITower tower: towersList) {
 
             if(!tower.isPlaced() && !checkCollisionOfTower(tower, windowHeight, windowWidth)){
                 tower.setCollision(false);
@@ -367,7 +364,7 @@ public class Map {
      */
     public void towerClicked(float x, float y) {
         // Algorithm for finding which tower is clicked
-        for (Tower tower : towersList) {
+        for (ITower tower : towersList) {
             float towerCenterX = tower.getX() + tower.getWidth()/2;
             float towerCenterY = tower.getY() + tower.getHeight()/2;
             if (Math.sqrt(Math.pow(towerCenterX - x, 2) + Math.pow(towerCenterY - y, 2)) <= tower.getWidth()) {
@@ -381,7 +378,7 @@ public class Map {
         clickedTower = null;
     }
 
-    public Tower getClickedTower() {
+    public ITower getClickedTower() {
         return clickedTower;
     }
 
@@ -389,7 +386,7 @@ public class Map {
      * Return the list of towers on map
      * @return The list of towers
      */
-    public List<Tower> getTowers() {
+    public List<ITower> getTowers() {
         return towersList;
     }
 
