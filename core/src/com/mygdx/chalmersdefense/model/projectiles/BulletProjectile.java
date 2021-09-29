@@ -8,13 +8,13 @@ public class BulletProjectile extends Projectile{
     private static String name = "smurfProjectile1";
 
 
-    public BulletProjectile(int speed , float x, float y, double angle) {
+    public BulletProjectile(int speed , float x, float y, float angle) {
         super(speed, name, x, y, angle);
 
     }
 
     @Override
-    public Projectile createProjectile(int speed, float x, float y, double angle) {
+    public IProjectile createProjectile(int speed, float x, float y, float angle) {
         return new BulletProjectile(speed, x, y, angle);
     }
 }

@@ -30,7 +30,7 @@ public class Upgrades {
      * Main method for upgrading a tower.
      * @param tower tower to be upgraded
     */
-    public void upgradeTower(Tower tower) {
+    public void upgradeTower(ITower tower) {
         // If tower is max upgraded dont upgrade
         if (tower.getUpgradeLevel() >= MAX_UPGRADES) return;
 
@@ -45,7 +45,7 @@ public class Upgrades {
      * @param upgradeLevel level of upgrade to get title from
      * @return a String with towers upgrade title depending on upgrade level.
      */
-    public String getTowerUpgradeTitle(Tower tower, int upgradeLevel) {
+    public String getTowerUpgradeTitle(ITower tower, int upgradeLevel) {
         try {
             JSONArray towerUpgradeArray = (JSONArray) mainObject.get(tower.getName());
             JSONObject upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
@@ -62,7 +62,7 @@ public class Upgrades {
      * @param upgradeLevel level up upgrade to get description of
      * @return a String with towers upgrade description depending on upgrade level.
      */
-    public String getTowerUpgradeDesc(Tower tower, int upgradeLevel) {
+    public String getTowerUpgradeDesc(ITower tower, int upgradeLevel) {
         try {
             JSONArray towerUpgradeArray = (JSONArray) mainObject.get(tower.getName());
             JSONObject upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
@@ -79,7 +79,7 @@ public class Upgrades {
      * @param upgradeLevel level of upgrade to get price from
      * @return a Long with towers upgrade price depending on upgrade level.
      */
-    public Long getTowerUpgradePrice(Tower tower, int upgradeLevel) {
+    public Long getTowerUpgradePrice(ITower tower, int upgradeLevel) {
         try {
             JSONArray towerUpgradeArray = (JSONArray) mainObject.get(tower.getName());
             JSONObject upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
@@ -96,7 +96,7 @@ public class Upgrades {
      * @param upgradeLevel upgrade level to get upgrades from
      * @return a HashMap with upgrade data.
      */
-    private HashMap<String, Long> getTowerUpgradeData(Tower tower, int upgradeLevel) {
+    private HashMap<String, Long> getTowerUpgradeData(ITower tower, int upgradeLevel) {
         HashMap<String, Long> upgrades = new HashMap<>();
         try {
             JSONArray towerUpgradeArray = (JSONArray) mainObject.get(tower.getName());
