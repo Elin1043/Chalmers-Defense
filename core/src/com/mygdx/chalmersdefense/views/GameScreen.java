@@ -33,6 +33,7 @@ import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.EcoTower;
 import com.mygdx.chalmersdefense.model.towers.MechMiniTower;
 import com.mygdx.chalmersdefense.model.towers.Tower;
+import com.mygdx.chalmersdefense.views.GameScreenViews.LostPanel;
 
 
 import java.util.HashMap;
@@ -52,9 +53,10 @@ public class GameScreen extends AbstractScreen implements Screen {
     private RightSidePanelController rightSidePanelController;
     private BottomBarPanelController bottomBarPanelController;
     private GameScreenController gameScreenController;
+    private LostPanel lostPanelView;
     private Model model;
 
-    private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));;
+    private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
     private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
     private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
 
@@ -115,6 +117,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         this.rightSidePanelController = new RightSidePanelController(model);
         this.bottomBarPanelController = new BottomBarPanelController(model);
         this.gameScreenController = new GameScreenController(model);
+        this.lostPanelView = new LostPanel(this);
         this.model = model;
 
         // This should come from classicPath class
@@ -209,6 +212,10 @@ public class GameScreen extends AbstractScreen implements Screen {
         }
 
         updateLabels();
+        if (model.getIsGameLost()) {
+            lostPanelView.render();
+        }
+
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             model.getViruses().add(VirusFactory.createVirusOne());
