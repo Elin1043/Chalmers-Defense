@@ -37,9 +37,12 @@ public class Map {
     private final Player player;
     private final Path path = new ClassicPath();           // Make a path factory instead?;
 
+    private boolean isGameLost;
+
 
     public Map(Player player){
         this.player = player;
+        isGameLost = false;
     }
 
     public void updateMap() {
@@ -119,7 +122,7 @@ public class Map {
                 } catch (PlayerLostAllLifeException ignore){
 
                     // Här ska man hantera ifall man förlorar spelet
-
+                    isGameLost = true;
                 }
                 allViruses.remove(virus);
             }
@@ -377,12 +380,27 @@ public class Map {
 
     }
 
+    /**
+     * Clears clickedTower variable.
+     */
     public void towerNotClicked() {
         clickedTower = null;
     }
 
+    /**
+     * Returns currently clicked tower
+     * @return tower object of clicked tower
+     */
     public Tower getClickedTower() {
         return clickedTower;
+    }
+
+    /**
+     * Returns if game has been lost
+     * @return a boolean for game lost status
+     */
+    public boolean getIsGameLost() {
+        return isGameLost;
     }
 
     /**
