@@ -5,15 +5,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Timer;
 import com.mygdx.chalmersdefense.controllers.MainScreenController;
-import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.views.GameScreen;
 import com.mygdx.chalmersdefense.views.MainScreen;
 import com.mygdx.chalmersdefense.views.ScreenEnum;
 import com.mygdx.chalmersdefense.views.ScreenManager;
-
-//import java.util.Timer;
-//import java.util.TimerTask;
 
 /**
  *  @author
@@ -45,11 +41,10 @@ public class ChalmersDefense extends Game {
 
 		// Creating Controllers
 		MainScreenController mainScreenController = new MainScreenController();
-		RightSidePanelController rightSidePanelController = new RightSidePanelController(model);
 
 		// Creating Views
 		MainScreen mainScreen = new MainScreen(mainScreenController);
-		GameScreen gameScreen = new GameScreen(model, rightSidePanelController);
+		GameScreen gameScreen = new GameScreen(model);
 
 		// Init ScreenManager
 		ScreenManager.getInstance().initialize(this, mainScreen, gameScreen);
