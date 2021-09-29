@@ -2,6 +2,7 @@ package com.mygdx.chalmersdefense.model.towers;
 
 
 
+import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.projectiles.BulletProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
@@ -174,7 +175,7 @@ public class Tower {
      * Sets if tower is colliding with something else
      * @param set if tower is colliding
      */
-    public void setCollision(Boolean set){
+    public void setCollision(boolean set){
         collision = set;
     }
 
@@ -274,15 +275,11 @@ public class Tower {
      */
     public ITargetMode getCurrentTargetMode() { return currentTargetMode; }
 
-    public boolean GotTarget() {
-        return gotTarget;
-    }
+
     /**
      * Gets if tower is placed
      * @return if placed
      */
-
-
     public boolean isPlaced(){
         return isPlaced;
     }
