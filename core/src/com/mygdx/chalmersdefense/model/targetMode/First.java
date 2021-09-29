@@ -18,7 +18,7 @@ class First implements ITargetMode{
         Virus firstVirus = virusInRange.get(0);  // Need to have a virus to start comparing against
 
         for (Virus virus : virusInRange){
-            if ((virus.getTotalDistanceTravled() > firstVirus.getTotalDistanceTravled())){
+            if ((virus.getTotalDistanceTraveled() > firstVirus.getTotalDistanceTraveled())){
                 firstVirus = virus;
             }
         }

@@ -179,7 +179,7 @@ public class Virus implements IVirus{
      * @return Total distance trawled
      */
     @Override
-    public float getTotalDistanceTravled() { return totalDistanceTrawled; }
+    public float getTotalDistanceTraveled() { return totalDistanceTrawled; }
 
     /**
      * Gets if virus health is 0, which means it's dead
