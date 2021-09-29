@@ -29,7 +29,7 @@ public class SpawnViruses {
             {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
             {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
             {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"}};
-    private final List<Virus> listToAddVirusesTo;   // What list to add the spawned viruses to
+    private final List<IVirus> listToAddVirusesTo;   // What list to add the spawned viruses to
     private boolean isSpawning = false; // If the class is currently spawning viruses
 
     private String[] currentRound;  // Round data representing current round
@@ -42,7 +42,7 @@ public class SpawnViruses {
      * Creates one instance of spawnViruses class
      * @param listToAddTo The list to spawn viruses in
      */
-    public SpawnViruses(List<Virus> listToAddTo) {
+    public SpawnViruses(List<IVirus> listToAddTo) {
         this.listToAddVirusesTo = listToAddTo;
     }
 

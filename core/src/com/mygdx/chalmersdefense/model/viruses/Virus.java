@@ -67,6 +67,7 @@ public class Virus implements IVirus{
     /**
      * Decrease the health of the virus and update the spriteKey
      */
+    @Override
     public void decreaseHealth() {
         this.health --;
         if (health > 0) {
@@ -84,10 +85,12 @@ public class Virus implements IVirus{
         moveToPoint();
     }
 
+    @Override
     public boolean getIfGotHit() {
         return GotHit;
     }
 
+    @Override
     public void setGotHit(boolean gotHit) {
         GotHit = gotHit;
     }
@@ -166,13 +169,6 @@ public class Virus implements IVirus{
      * @return Amount of damage to be done
      */
     public int getLifeDecreaseAmount() { return health; }
-
-
-
-    @Override
-    public boolean gotHit() {
-        return false;
-    }
 
     /**
      * Gets the total distance trawled by the virus object

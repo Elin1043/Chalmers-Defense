@@ -12,6 +12,10 @@ public interface IVirus extends IMapObject {
 
     float getTotalDistanceTraveled();
 
-    boolean gotHit();
+    boolean getIfGotHit();
+
+    void setGotHit(boolean gotHit);
+
+    void decreaseHealth();
 
 }

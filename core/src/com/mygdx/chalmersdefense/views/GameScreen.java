@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
+import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.Virus;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -369,7 +370,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         super.batch.begin();
 
-        for (Virus virus : model.getViruses()) {
+        for (IVirus virus : model.getViruses()) {
 
             Sprite virusSprite = spriteMap.get(virus.getSpriteKey());
             virusSprite.setPosition(virus.getX(), virus.getY());
@@ -385,7 +386,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         for (Tower tower : model.getTowers()) {
             Sprite towerSprite = spriteMap.get(tower.getSpriteKey());
             towerSprite.setPosition(tower.getX(), tower.getY());
-            towerSprite.setRotation((float) tower.getAngle());
+            towerSprite.setRotation(tower.getAngle());
 
             //If tower is not placed and not colliding: circle around is grey
             if(!(tower instanceof MechMiniTower)){

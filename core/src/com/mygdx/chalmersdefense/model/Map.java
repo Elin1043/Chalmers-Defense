@@ -9,6 +9,7 @@ import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.EcoTower;
 import com.mygdx.chalmersdefense.model.towers.MechTower;
+import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.Virus;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.model.towers.Tower;
@@ -31,7 +32,7 @@ public class Map {
     private Tower clickedTower;
     private final List<Tower> towersList = new ArrayList<>();
     private List<Projectile> projectilesList = new ArrayList<>();
-    private final List<Virus> allViruses = new ArrayList<>();
+    private final List<IVirus> allViruses = new ArrayList<>();
 
     //Should not have player here
     private final Player player;
@@ -71,14 +72,12 @@ public class Map {
     private void updateTowers() {
 
         for (Tower tower : towersList) {
-            List<Virus> virusInRange;
+            List<IVirus> virusInRange;
 
-            synchronized (allViruses) {
-                virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), allViruses);
-            }
+            virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), allViruses);
 
             if (virusInRange.size() > 0) {
-                Virus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getX(), tower.getY());
+                IVirus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getX(), tower.getY());
                 tower.setAngle(Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getX(), tower.getY()));
                 tower.haveTarget();
             } else {
@@ -89,7 +88,7 @@ public class Map {
 
             if (projectile != null) {
                 projectilesList.add(projectile);
-                for (Virus virus : allViruses) {virus.setGotHit(false);}
+                for (IVirus virus : allViruses) {virus.setGotHit(false);}
             } else {
                 if (tower instanceof EcoTower) {
                     player.increaseMoney(((EcoTower) tower).getMoneyEarned());
@@ -102,9 +101,9 @@ public class Map {
     //Update all the viruses
     private void updateVirus(){
         synchronized (allViruses) {
-            List<Virus> virusToRemove = new ArrayList<>();
+            List<IVirus> virusToRemove = new ArrayList<>();
 
-            for (Virus virus : allViruses) {
+            for (IVirus virus : allViruses) {
                 if (virus.getY() > 1130 || virus.isDead()) {
                     virusToRemove.add(virus);
                     if(virus.isDead()){
@@ -113,7 +112,7 @@ public class Map {
                 }
                 virus.update();
             }
-            for (Virus virus : virusToRemove){
+            for (IVirus virus : virusToRemove){
                 try {
                     player.decreaseLivesBy(virus.getLifeDecreaseAmount());
                 } catch (PlayerLostAllLifeException ignore){
@@ -166,7 +165,7 @@ public class Map {
         boolean collided = false;
 
         synchronized (allViruses) {
-            for (Virus virus : allViruses) {
+            for (IVirus virus : allViruses) {
                 if (Calculate.objectsIntersects(projectile, virus)) {
                     if (projectile instanceof AcidProjectile) {
                         collidedWithAcid(projectile);
@@ -189,17 +188,17 @@ public class Map {
     }
 
     //Collision with lightning projectile
-    private void collidedWithLightning(Projectile projectile, Virus virus, List<Projectile> list){
-        List<Virus> virusToRemove = new ArrayList<>();
+    private void collidedWithLightning(Projectile projectile, IVirus virus, List<Projectile> list){
+        List<IVirus> virusToRemove = new ArrayList<>();
         if(!projectile.getIfDealtDamage()){
             if(!virus.getIfGotHit()){
                 virus.decreaseHealth();
                 projectile.virusHit();
                 virus.setGotHit(true);
 
-                List<Virus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2F, virus.getY() + virus.getHeight()/2F, ((LightningProjectile) projectile).getRange(), allViruses);
+                List<IVirus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2F, virus.getY() + virus.getHeight()/2F, ((LightningProjectile) projectile).getRange(), allViruses);
 
-                for (Virus virusInList: virusInRange) {
+                for (IVirus virusInList: virusInRange) {
                     if(virusInList.getIfGotHit()){
                         virusToRemove.add(virusInList);
                     }
@@ -208,7 +207,7 @@ public class Map {
 
 
                 if(!virusInRange.isEmpty()){
-                    Virus tempVirus = virusInRange.get(0);
+                    IVirus tempVirus = virusInRange.get(0);
                     projectile.setAngle(Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2F, tempVirus.getY() + tempVirus.getHeight()/2F,projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F));
 
                 }
@@ -227,7 +226,7 @@ public class Map {
     //Collision with acid projectile
     private void collidedWithAcid(Projectile projectile){
         if(!projectile.getIfDealtDamage()){
-            for (Virus virus:getViruses()) {
+            for (IVirus virus:getViruses()) {
                 if (Calculate.disBetweenPoints(projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F, virus.getX() + virus.getWidth()/2F ,virus.getY() + virus.getHeight()/2F ) < ((AcidProjectile) projectile).getRange() * ((AcidProjectile) projectile).getRange()){
                     virus.decreaseHealth();
                 }
@@ -398,7 +397,7 @@ public class Map {
      * Return the list of viruses on path
      * @return the list of viruses
      */
-    public List<Virus> getViruses() {
+    public List<IVirus> getViruses() {
         return allViruses;
     }
 

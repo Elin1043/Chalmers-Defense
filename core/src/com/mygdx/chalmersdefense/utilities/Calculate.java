@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.utilities;
 
 
+import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.Virus;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 
@@ -24,10 +25,10 @@ public abstract class Calculate {
      * @param allViruses list of all viruses
      * @return a list of viruses in range
      */
-    public static List<Virus> getVirusesInRange(float towerX, float towerY, float towerRange, List<Virus> allViruses) {
-        List<Virus> virusList = new ArrayList<>();
+    public static List<IVirus> getVirusesInRange(float towerX, float towerY, float towerRange, List<IVirus> allViruses) {
+        List<IVirus> virusList = new ArrayList<>();
 
-        for (Virus virus : allViruses) {
+        for (IVirus virus : allViruses) {
             if (disBetweenPoints(towerX, towerY, virus.getX(), virus.getY()) < towerRange) {
                 virusList.add(virus);
             }
@@ -94,7 +95,7 @@ public abstract class Calculate {
      * @param o2 the virus
      * @return if intersects
      */
-    public static boolean objectsIntersects(Projectile o1, Virus o2) {
+    public static boolean objectsIntersects(Projectile o1, IVirus o2) {
         double o1Width = o1.getWidth();
         double o1Height = o1.getHeight();
         double o2Width = o2.getWidth();

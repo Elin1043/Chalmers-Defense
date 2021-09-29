@@ -1,5 +1,6 @@
 package com.mygdx.chalmersdefense.model.targetMode;
 
+import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.Virus;
 
 import java.util.List;
@@ -14,10 +15,10 @@ import java.util.List;
 class First implements ITargetMode{
 
     @Override
-    public Virus getRightVirus(List<Virus> virusInRange, float towerX, float towerY) {
-        Virus firstVirus = virusInRange.get(0);  // Need to have a virus to start comparing against
+    public IVirus getRightVirus(List<IVirus> virusInRange, float towerX, float towerY) {
+        IVirus firstVirus = virusInRange.get(0);  // Need to have a virus to start comparing against
 
-        for (Virus virus : virusInRange){
+        for (IVirus virus : virusInRange){
             if ((virus.getTotalDistanceTraveled() > firstVirus.getTotalDistanceTraveled())){
                 firstVirus = virus;
             }

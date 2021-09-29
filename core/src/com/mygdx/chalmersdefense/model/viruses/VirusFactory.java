@@ -17,7 +17,7 @@ public abstract class VirusFactory {
      * Creates a Virus with one health
      * @return The new Virus object
      */
-    static public synchronized Virus createVirusOne(){
+    static public IVirus createVirusOne(){
         return new Virus(1, path);
     }
 
@@ -25,7 +25,7 @@ public abstract class VirusFactory {
      * Creates a Virus with two health
      * @return The new Virus object
      */
-    static public synchronized Virus createVirusTwo(){
+    static public IVirus createVirusTwo(){
         return new Virus(2, path);
     }
 
@@ -33,7 +33,7 @@ public abstract class VirusFactory {
      * Creates a Virus with three health
      * @return The new Virus object
      */
-    static public synchronized Virus createVirusThree(){
+    static public IVirus createVirusThree(){
         return new Virus(3, path);
     }
 
@@ -41,7 +41,7 @@ public abstract class VirusFactory {
      * Creates a Virus with four health
      * @return The new Virus object
      */
-    static public synchronized Virus createVirusFour(){
+    static public IVirus createVirusFour(){
         return new Virus(4, path);
     }
 
@@ -49,7 +49,7 @@ public abstract class VirusFactory {
      * Creates a Virus with five health
      * @return The new Virus object
      */
-    static public synchronized Virus createVirusFive(){
+    static public IVirus createVirusFive(){
         return new Virus(5, path);
     }
 }

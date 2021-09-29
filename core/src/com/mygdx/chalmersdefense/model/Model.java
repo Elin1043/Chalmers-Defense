@@ -5,6 +5,7 @@ import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.towers.Tower;
+import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
 import com.mygdx.chalmersdefense.model.viruses.Virus;
 
@@ -232,7 +233,7 @@ public class Model {
      * Return the list of viruses on path
      * @return the list of viruses
      */
-    public List<Virus> getViruses() {
+    public List<IVirus> getViruses() {
         return map.getViruses();
     }
 }
