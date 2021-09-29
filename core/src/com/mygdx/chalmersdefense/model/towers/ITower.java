@@ -18,8 +18,6 @@ public interface ITower extends IMapObject {
     int getUpgradeLevel();
 
 
-    String getSpriteKey();
-
     int getCost();
 
     boolean getGotButton();
@@ -37,16 +35,6 @@ public interface ITower extends IMapObject {
     String getName();
 
     void setPos(float x, float y);
-
-    float getPosX();
-
-    float getPosY();
-
-    float getHeight();
-
-    float getWidth();
-
-    float getAngle();
 
     void setAngle(float setAngle);
 

@@ -74,12 +74,12 @@ public class Map {
             List<Virus> virusInRange;
 
             synchronized (allViruses) {
-                virusInRange = Calculate.getVirusesInRange(tower.getPosX(), tower.getPosY(), tower.getRange(), allViruses);
+                virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), allViruses);
             }
 
             if (virusInRange.size() > 0) {
-                Virus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getPosX(), tower.getPosY());
-                tower.setAngle(Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getPosX(), tower.getPosY()));
+                Virus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getX(), tower.getY());
+                tower.setAngle(Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getX(), tower.getY()));
                 tower.haveTarget();
             } else {
                 tower.notHaveTarget();
@@ -245,11 +245,11 @@ public class Map {
                 return true;
             }
             //Check if tower out of bound on X
-            else if(!(0 <= (tower.getPosX())) || (windowWidth - 340 < (tower.getPosX() + tower.getWidth()/2))){
+            else if(!(0 <= (tower.getX())) || (windowWidth - 340 < (tower.getX() + tower.getWidth()/2))){
                 return true;
             }
             //Check if tower out of bound on Y
-            else if(!(windowHeight - 950 < (tower.getPosY() - tower.getHeight()/2)) || (windowHeight < (tower.getPosY()) + tower.getHeight())){
+            else if(!(windowHeight - 950 < (tower.getY() - tower.getHeight()/2)) || (windowHeight < (tower.getY()) + tower.getHeight())){
                 return true;
             }
             //check if tower collide with path
@@ -301,8 +301,8 @@ public class Map {
         newTower.setPos( x - buttonWidth,(windowHeight - y - buttonHeight ));
         newTower.setRectangle();
         if(newTower instanceof MechTower){
-            ((MechTower) newTower).getMiniTowers().get(0).setPos(newTower.getPosX() - 50 , newTower.getPosY() - 50);
-            ((MechTower) newTower).getMiniTowers().get(1).setPos(newTower.getPosX() + 70 , newTower.getPosY() - 50);
+            ((MechTower) newTower).getMiniTowers().get(0).setPos(newTower.getX() - 50 , newTower.getY() - 50);
+            ((MechTower) newTower).getMiniTowers().get(1).setPos(newTower.getX() + 70 , newTower.getY() - 50);
             ((MechTower) newTower).getMiniTowers().get(0).setRectangle();
             ((MechTower) newTower).getMiniTowers().get(1).setRectangle();
         }
@@ -368,8 +368,8 @@ public class Map {
     public void towerClicked(float x, float y) {
         // Algorithm for finding which tower is clicked
         for (Tower tower : towersList) {
-            float towerCenterX = tower.getPosX() + tower.getWidth()/2;
-            float towerCenterY = tower.getPosY() + tower.getHeight()/2;
+            float towerCenterX = tower.getX() + tower.getWidth()/2;
+            float towerCenterY = tower.getY() + tower.getHeight()/2;
             if (Math.sqrt(Math.pow(towerCenterX - x, 2) + Math.pow(towerCenterY - y, 2)) <= tower.getWidth()) {
                 clickedTower = tower;
             }
