@@ -6,7 +6,8 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 /**
- * @author
+ * @author Daniel Persson
+ * @author Jenny Carlsson
  *
  * 2021-09-24 Modified by Elin Forsberg and Joel Båtsman Hilmersson: Elin created createMapCollision and Joel implemented it here.
  */
