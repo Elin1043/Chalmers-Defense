@@ -1,4 +1,17 @@
 package com.mygdx.chalmersdefense.model.viruses;
 
-public interface IVirus {
+import com.mygdx.chalmersdefense.model.IMapObject;
+
+public interface IVirus extends IMapObject {
+
+    void  update();
+
+    boolean isDead();
+
+    int getLifeDecreaseAmount();
+
+    float getTotalDistance();
+
+    boolean gotHit();
+
 }
