@@ -4,9 +4,6 @@ package com.mygdx.chalmersdefense.model;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.*;
-
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 

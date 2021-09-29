@@ -8,6 +8,7 @@ import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.RobotProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
 
+
 /**
  * @author Elin Forsberg
  * A factory class for creating different towers
