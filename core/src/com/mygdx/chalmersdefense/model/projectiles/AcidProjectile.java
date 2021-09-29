@@ -14,7 +14,7 @@ public class AcidProjectile extends Projectile{
     }
 
     @Override
-    public Projectile createProjectile(int speed, float x, float y, float angle) {
+    public IProjectile createProjectile(int speed, float x, float y, float angle) {
         return new AcidProjectile(speed, x, y, angle);
     }
 

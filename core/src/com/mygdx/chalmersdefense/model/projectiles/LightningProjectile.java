@@ -13,7 +13,7 @@ public class LightningProjectile extends Projectile{
     }
 
     @Override
-    public Projectile createProjectile(int speed, float x, float y, float angle) {
+    public IProjectile createProjectile(int speed, float x, float y, float angle) {
         return new LightningProjectile(speed, x, y, angle);
     }
 

@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
+import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.viruses.Virus;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
@@ -252,7 +253,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private void renderProjectiles() {
 
         synchronized (model.getProjectilesList()) {
-            for (Projectile projectile : model.getProjectilesList()) {
+            for (IProjectile projectile : model.getProjectilesList()) {
                 Sprite projectileSprite = spriteMap.get(projectile.getName());
                 projectileSprite.setPosition(projectile.getX(), projectile.getY());
 

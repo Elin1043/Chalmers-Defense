@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.IMapObject;
+import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
@@ -11,7 +12,7 @@ public interface ITower extends IMapObject {
 
     void update();
 
-    Projectile shootProjectile();
+    IProjectile shootProjectile();
 
     void upgradeTower(HashMap<String, Long> upgrades);
 

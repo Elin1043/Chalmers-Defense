@@ -12,7 +12,7 @@ public class RobotProjectile extends Projectile{
     }
 
     @Override
-    public Projectile createProjectile(int speed, float x, float y, float angle) {
+    public IProjectile createProjectile(int speed, float x, float y, float angle) {
         return new RobotProjectile(speed, x, y, angle);
     }
 }

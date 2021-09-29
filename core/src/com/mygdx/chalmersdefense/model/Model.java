@@ -2,6 +2,7 @@ package com.mygdx.chalmersdefense.model;
 
 
 import com.mygdx.chalmersdefense.ChalmersDefense;
+import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
@@ -199,7 +200,7 @@ public class Model {
      * Return the list of projectiles
      * @return list of projectiles
      */
-    public List<Projectile> getProjectilesList() {
+    public List<IProjectile> getProjectilesList() {
         return map.getProjectilesList();
     }
 

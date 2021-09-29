@@ -5,6 +5,7 @@ import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeExcepti
 import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.projectiles.AcidProjectile;
+import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.*;
@@ -27,7 +28,7 @@ public class Map {
     private ITower newTower;
     private ITower clickedTower;
     private final List<ITower> towersList = new ArrayList<>();
-    private List<Projectile> projectilesList = new ArrayList<>();
+    private List<IProjectile> projectilesList = new ArrayList<>();
     private final List<Virus> allViruses = new ArrayList<>();
 
     //Should not have player here
@@ -48,9 +49,9 @@ public class Map {
 
     //Update the projectiles
     private void updateProjectiles() {
-        List<Projectile> removeProjectiles = new ArrayList<>();
+        List<IProjectile> removeProjectiles = new ArrayList<>();
 
-        for (Projectile projectile : projectilesList) {
+        for (IProjectile projectile : projectilesList) {
             projectile.move();
             if (checkCollisonOfProjectiles(projectile, removeProjectiles) || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
                 if (!(projectile instanceof LightningProjectile)) {
@@ -58,7 +59,7 @@ public class Map {
                 }
             }
         }
-        for (Projectile projectile : removeProjectiles) {
+        for (IProjectile projectile : removeProjectiles) {
             projectilesList.remove(projectile);
         }
     }
@@ -82,7 +83,7 @@ public class Map {
                 tower.notHaveTarget();
             }
 
-            Projectile projectile = tower.shootProjectile();
+            IProjectile projectile = tower.shootProjectile();
 
             if (projectile != null) {
                 projectilesList.add(projectile);
@@ -149,7 +150,7 @@ public class Map {
 
 
     //Checks if projectile collided with path, then virus
-    private boolean checkCollisonOfProjectiles(Projectile projectile, List<Projectile> list){
+    private boolean checkCollisonOfProjectiles(IProjectile projectile, List<IProjectile> list){
         for (Rectangle rectangle: path.getCollisionRectangles()) {
             if(Calculate.objectsIntersects(projectile,rectangle)){
                 return checkVirusAndProjectileCollision(projectile, list);
@@ -159,7 +160,7 @@ public class Map {
     }
 
     //Helper method for collision between virus and projectile
-    private boolean checkVirusAndProjectileCollision(Projectile projectile, List<Projectile> list){
+    private boolean checkVirusAndProjectileCollision(IProjectile projectile, List<IProjectile> list){
         boolean collided = false;
 
         synchronized (allViruses) {
@@ -186,7 +187,7 @@ public class Map {
     }
 
     //Collision with lightning projectile
-    private void collidedWithLightning(Projectile projectile, Virus virus, List<Projectile> list){
+    private void collidedWithLightning(IProjectile projectile, Virus virus, List<IProjectile> list){
         List<Virus> virusToRemove = new ArrayList<>();
         if(!projectile.getIfDealtDamage()){
             if(!virus.getIfGotHit()){
@@ -222,7 +223,7 @@ public class Map {
 
 
     //Collision with acid projectile
-    private void collidedWithAcid(Projectile projectile){
+    private void collidedWithAcid(IProjectile projectile){
         if(!projectile.getIfDealtDamage()){
             for (Virus virus:getViruses()) {
                 if (Calculate.disBetweenPoints(projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F, virus.getX() + virus.getWidth()/2F ,virus.getY() + virus.getHeight()/2F ) < ((AcidProjectile) projectile).getRange() * ((AcidProjectile) projectile).getRange()){
@@ -403,7 +404,7 @@ public class Map {
      * Return the list of projectiles
      * @return list of projectiles
      */
-    public List<Projectile> getProjectilesList() {
+    public List<IProjectile> getProjectilesList() {
         return projectilesList;
     }
 

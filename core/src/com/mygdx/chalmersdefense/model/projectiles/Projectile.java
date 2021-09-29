@@ -73,7 +73,7 @@ public abstract class Projectile implements IProjectile{
         this.angle = angle;
     }
 
-    public abstract Projectile createProjectile(int speed, float x, float y, float angle);
+    public abstract IProjectile createProjectile(int speed, float x, float y, float angle);
 
     public boolean getIfDealtDamage() {
         return dealtDamage;
