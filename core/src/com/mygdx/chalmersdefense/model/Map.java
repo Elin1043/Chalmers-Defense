@@ -371,6 +371,19 @@ public class Map {
 
     }
 
+    public Tower getClickedTower(float x, float y) {
+
+        // Algorithm for finding which tower is clicked
+        for (Tower tower : towersList) {
+            float towerCenterX = tower.getPosX() + tower.getWidth()/2;
+            float towerCenterY = tower.getPosY() + tower.getHeight()/2;
+            if (Math.sqrt(Math.pow(towerCenterX - x, 2) + Math.pow(towerCenterY - y, 2)) <= tower.getWidth()) {
+                return tower;
+            }
+        }
+        return null;
+    }
+
     /**
      * Return the list of towers on map
      * @return The list of towers

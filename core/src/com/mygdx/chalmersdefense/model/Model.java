@@ -39,7 +39,6 @@ public class Model {
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());
     private final Rounds round = new Rounds(10);    // 10 is temporary
 
-    private final List<Tower> towersList = new ArrayList<>();
 
     private Tower newTower;
     private Tower clickedTower;
@@ -151,15 +150,7 @@ public class Model {
 
 
     public void towerClicked(float x, float y) {
-
-        // Algorithm for finding which tower is clicked
-        for (Tower tower : towersList) {
-            float towerCenterX = tower.getPosX() + tower.getWidth()/2;
-            float towerCenterY = tower.getPosY() + tower.getHeight()/2;
-            if (Math.sqrt(Math.pow(towerCenterX - x, 2) + Math.pow(towerCenterY - y, 2)) <= tower.getWidth()) {
-                clickedTower = tower;
-            }
-        }
+        clickedTower = map.getClickedTower(x, y);
     }
 
     // Maybe temporary because it sets the object to null.
@@ -211,6 +202,12 @@ public class Model {
      */
     public void upgradeClickedTower() {
         upgrades.upgradeTower(clickedTower);
+    }
+
+    public Tower getClickedTower() {
+        return clickedTower;
+    }
+
     /**
      * Return the current money value
      * @return the money value

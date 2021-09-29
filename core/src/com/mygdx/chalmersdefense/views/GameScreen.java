@@ -54,7 +54,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private GameScreenController gameScreenController;
     private Model model;
 
-    private Image sideBarBackground;
+    private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));;
     private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
     private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
 
@@ -66,6 +66,9 @@ public class GameScreen extends AbstractScreen implements Screen {
     // Upgrade panel
     private final Group bottomBarPanelUpgradeGroup = new Group();
     private final Label towerNameLabel = new Label("", generateLabelStyle(36, Color.BLACK, 1));
+
+    // Generating label style
+    private final LabelStyle labelStyleBlack36 = generateLabelStyle(36, Color.BLACK, 1);
 
     private final Label lifeLabel = createLabel("Test", 700);
     private final Label moneyLabel = createLabel("Test", 800);
@@ -88,7 +91,6 @@ public class GameScreen extends AbstractScreen implements Screen {
 
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
-    private LabelStyle labelStyleBlack36;
     private Label towerLabel;
     private Label powerUpLabel;
 
@@ -123,8 +125,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         lifeIcon.setPosition(1650, 320);
         moneyIcon.setPosition(1650, 220);
 
-        // Generating label style
-        labelStyleBlack36 = generateLabelStyle(36, Color.BLACK, 1);
 
         // START Bottom bar group creation
         createBottomBarPanel();
@@ -142,13 +142,12 @@ public class GameScreen extends AbstractScreen implements Screen {
         // END
 
         // START Right side panel creation
-        createRightSidePanel();
+        sideBarBackground.setPosition(1920 - 320, 0);
         createStartRoundButton();
 
         towerClickListener = new TowerClickListener(model);
 
         towerLabel = createLabel("Towers", 20);
-        lifeLabel = createLabel("Test", 700);
 
         powerUpLabel = createLabel("Power-ups", 620);
 
@@ -200,7 +199,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         renderViruses();
         renderProjectiles();
 
-        updateLifeCounter();
+        updateLabels();
         // If clicked tower is present show upgrade panel.
         if (model.getClickedTower() != null) {
             bottomBarPanelUpgradeGroup.setVisible(true);
@@ -249,11 +248,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         labelStyle.font = font36;
         labelStyle.fontColor = color;
         return labelStyle;
-    }
-
-    private void createRightSidePanel() {
-        sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
-        sideBarBackground.setPosition(1920 - 320, 0);
     }
 
     //Render projectiles
