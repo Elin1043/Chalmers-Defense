@@ -5,9 +5,9 @@ import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.towers.Tower;
+import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
+import com.mygdx.chalmersdefense.model.viruses.Virus;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 

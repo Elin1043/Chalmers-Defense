@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.utilities;
 
 
-import com.mygdx.chalmersdefense.model.Virus;
+import com.mygdx.chalmersdefense.model.viruses.Virus;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 
 import java.awt.Rectangle;

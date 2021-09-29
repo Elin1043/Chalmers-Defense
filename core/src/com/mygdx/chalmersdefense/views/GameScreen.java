@@ -4,16 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
-import com.mygdx.chalmersdefense.model.Virus;
-import com.mygdx.chalmersdefense.model.VirusFactory;
+import com.mygdx.chalmersdefense.model.viruses.Virus;
+import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -30,7 +28,6 @@ import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.controllers.TowerClickListener;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
-import com.mygdx.chalmersdefense.model.towers.EcoTower;
 import com.mygdx.chalmersdefense.model.towers.MechMiniTower;
 import com.mygdx.chalmersdefense.model.towers.Tower;
 
@@ -54,7 +51,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private GameScreenController gameScreenController;
     private Model model;
 
-    private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));;
+    private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
     private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
     private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
 

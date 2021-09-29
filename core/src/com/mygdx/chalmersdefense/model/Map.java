@@ -9,13 +9,13 @@ import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.EcoTower;
 import com.mygdx.chalmersdefense.model.towers.MechTower;
+import com.mygdx.chalmersdefense.model.viruses.Virus;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.model.towers.Tower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**

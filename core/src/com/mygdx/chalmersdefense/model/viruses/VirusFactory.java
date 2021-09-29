@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.model;
+package com.mygdx.chalmersdefense.model.viruses;
 
 
 import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;

@@ -1,6 +1,6 @@
 package com.mygdx.chalmersdefense.model.targetMode;
 
-import com.mygdx.chalmersdefense.model.Virus;
+import com.mygdx.chalmersdefense.model.viruses.Virus;
 
 import java.util.List;
 
