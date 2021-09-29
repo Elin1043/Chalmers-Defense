@@ -23,12 +23,12 @@ import java.util.Objects;
  * 2021-09-25 Modified by Elin Forsberg: added method for shooting projectiles
  */
 
-public class Tower {
+public class Tower implements ITower{
 
     private String spriteKey;
     private int upgradeLevel = 1;
 
-    private double angle = 0;
+    private float angle = 0;
     private int range;
     private String name;
 
@@ -89,6 +89,11 @@ public class Tower {
         this.collision = false;
         this.gotButton = false;
 
+
+    }
+
+    @Override
+    public void update() {
 
     }
 
@@ -249,7 +254,7 @@ public class Tower {
      * Gets the angle of the tower
      * @return angle of tower
      */
-    public double getAngle(){
+    public float getAngle(){
         return angle;
     }
 
