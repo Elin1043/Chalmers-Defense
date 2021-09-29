@@ -3,11 +3,8 @@ package com.mygdx.chalmersdefense.model;
 
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
-import com.mygdx.chalmersdefense.model.towers.*;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
-import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.model.towers.Tower;
-import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,9 +31,6 @@ import java.util.List;
 
 public class Model {
     private final ChalmersDefense game;
-    private final List<Projectile> projectilesList = Collections.synchronizedList(new ArrayList<>());
-    private final Map map = new Map();
-    private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());
     private final Rounds round = new Rounds(10);    // 10 is temporary
 
 
@@ -49,6 +43,8 @@ public class Model {
 
     private final List<Virus> allViruses = Collections.synchronizedList(new ArrayList<>());
 
+    private final Map map = new Map(player);
+    private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());
 
 
     /**
@@ -64,17 +60,20 @@ public class Model {
      * Update all the model components
      */
     public void updateModel() {
-        map.updateMap();
-        checkRoundCompleted();
+        if (game.isUpdating()) {
+            map.updateMap();
+            checkRoundCompleted();
+            virusSpawner.decrementSpawnTimer();
+        }
     }
 
     private void checkRoundCompleted() {
-        if (map.getViruses().isEmpty() && !virusSpawner.isSpawning()) {
-            if (game.isUpdating()) {
-                player.increaseMoney((100 * (round.getCurrentRound()/2)));
-            }
+        if (map.isVirusCleared() && !virusSpawner.isSpawning()) {
+
+            player.increaseMoney((100 * (round.getCurrentRound()/2)));
+
             stopGameUpdate();
-            projectilesList.clear();
+            map.roundClear();
         }
     }
 
@@ -93,7 +92,7 @@ public class Model {
      * Starts spawning viruses based on which is the current round
      */
     public void startRoundPressed() {
-        if (!virusSpawner.isSpawning() && map.getViruses().isEmpty()) {
+        if (!virusSpawner.isSpawning() && map.isVirusCleared()) {
             startGameUpdate();
             round.incrementToNextRound();
             virusSpawner.spawnRound(round.getCurrentRound());

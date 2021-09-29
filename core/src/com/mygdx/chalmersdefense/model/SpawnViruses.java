@@ -6,9 +6,7 @@ import com.mygdx.chalmersdefense.model.customExceptions.IllegalRoundDataExceptio
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+
 
 /**
  * @author Joel Båtsman Hilmersson
@@ -21,23 +19,24 @@ public class SpawnViruses {
     //  "2*20|250|2000" spawns 20 viruses of type "2 - blue" with 250-millisecond delay and then waits 2000 milliseconds for the next wave
     //  "1/5|300|2000"  spawns a stair of virus types from 1 to 5 with a 300-millisecond delay, then waits 2000 milliseconds for the next wave
     private final String[][] spawnInfo = {
-            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
-            {"5*5|250|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
-            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
-            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
-            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
-            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
-            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
-            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
-            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"},
-            {"1|3000", "2*20|250|2000", "1/5|300|2000", "5/1|300|1000", "5|1000", "5|500", "1|500", "2|1000"}};
-    private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();  // New thread that spawns the viruses when a given time has passed
+            {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
+            {"5*5|50|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
+            {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
+            {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
+            {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
+            {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
+            {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
+            {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
+            {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
+            {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"}};
     private final List<Virus> listToAddVirusesTo;   // What list to add the spawned viruses to
     private boolean isSpawning = false; // If the class is currently spawning viruses
 
     private String[] currentRound;  // Round data representing current round
     private int waveIndex = 0;      // What block/wave the spawner is in the round data
     private int waveAmountSpawned;  // If multiple virus is spawned from single block, how many have already spawned
+
+    private int spawnTimer;
 
     /**
      * Creates one instance of spawnViruses class
@@ -70,13 +69,28 @@ public class SpawnViruses {
             waveIndex = 0;
             waveAmountSpawned = 0;
             isSpawning = true;
-            parseRound();
+            startSpawnRoundHandler();
         }
     }
 
-    private synchronized void parseRound() {
+    public void decrementSpawnTimer(){
+        if (spawnTimer <= 0){
+            startSpawnRoundHandler();
+        } else {
+            spawnTimer--;
+        }
+    }
 
-        if (waveIndex < currentRound.length) {
+    private void startSpawnRoundHandler(){
+        try {
+            parseRound();
+        } catch (NumberFormatException e) {
+            throw new IllegalRoundDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound));
+        }
+    }
+
+    private void parseRound() {
+        if (isSpawning && (waveIndex < currentRound.length)) {
 
             mainSpawnHandler();
 
@@ -101,8 +115,8 @@ public class SpawnViruses {
 
     private void singleVirusSpawnHandler(String[] splitedWave) {
         addToList(Integer.parseInt(splitedWave[0]));
-        scheduleNextSpawnTime(splitedWave, 1);
         waveIndex++;
+        scheduleNextSpawnTime(splitedWave, 1);
     }
 
     private void multiVirusSpawnHandler(String[] splitedWave) {
@@ -129,8 +143,8 @@ public class SpawnViruses {
             scheduleNextSpawnTime(splitedWave, 1);
         } else {
             waveAmountSpawned = 0;
-            scheduleNextSpawnTime(splitedWave, 2);
             waveIndex++;
+            scheduleNextSpawnTime(splitedWave, 2);
         }
     }
 
@@ -153,25 +167,13 @@ public class SpawnViruses {
             scheduleNextSpawnTime(splitedWave, 1);
         } else {
             waveAmountSpawned = 0;
-            scheduleNextSpawnTime(splitedWave, 2);
             waveIndex++;
+            scheduleNextSpawnTime(splitedWave, 2);
         }
     }
 
     private void scheduleNextSpawnTime(String[] splitedWave, int i) {
-        executorService.schedule(() -> {
-            try {
-
-                parseRound();
-
-            } catch (IllegalRoundDataException e){
-                e.printStackTrace();
-                waveIndex++;
-                waveAmountSpawned = 0;
-                scheduleNextSpawnTime(splitedWave, i);
-
-            }
-        }, Integer.parseInt(splitedWave[i]), TimeUnit.MILLISECONDS);
+        spawnTimer = Integer.parseInt(splitedWave[i]);
     }
 
     private void addToList(int typeOfVirus) {
