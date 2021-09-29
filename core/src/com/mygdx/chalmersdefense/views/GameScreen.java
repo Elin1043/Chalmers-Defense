@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
@@ -15,6 +17,7 @@ import com.mygdx.chalmersdefense.model.VirusFactory;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -27,6 +30,8 @@ import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.controllers.TowerClickListener;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
+import com.mygdx.chalmersdefense.model.towers.EcoTower;
+import com.mygdx.chalmersdefense.model.towers.MechMiniTower;
 import com.mygdx.chalmersdefense.model.towers.Tower;
 
 
@@ -51,16 +56,20 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private Image sideBarBackground;
     private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
+    private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
+
     private Button startRoundButton;
 
     // Bottom bar
     private Image bottomBarPanelBackground;
-    private final Label lifeLabel;
 
     // Upgrade panel
     private final Group bottomBarPanelUpgradeGroup = new Group();
     private final Label towerNameLabel = new Label("", generateLabelStyle(36, Color.BLACK, 1));
 
+    private final Label lifeLabel = createLabel("Test", 700);
+    private final Label moneyLabel = createLabel("Test", 800);
+    private final Label roundLabel = createLabel("Round: HH", 900);
     // Skin for upgrade buttons
     private final TextureAtlas upgradePanelAtlas = new TextureAtlas(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.atlas")); // Load atlas file from skin
     private final Skin upgradePanelSkin = new Skin(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.json"), upgradePanelAtlas); // Create skin object
@@ -112,6 +121,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         gameScreenController.addMapClickListener(mapImage);
 
         lifeIcon.setPosition(1650, 320);
+        moneyIcon.setPosition(1650, 220);
 
         // Generating label style
         labelStyleBlack36 = generateLabelStyle(36, Color.BLACK, 1);
@@ -149,6 +159,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         towerButtons.put(500, meckButton);
         towerButtons.put(600, ecoButton);
 
+
         addTowerButtonListener();
         // END
     }
@@ -163,6 +174,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         addActor(sideBarBackground);
         addActor(lifeIcon);
+        addActor(moneyIcon);
         addActor(smurfButton);
         addActor(chemistButton);
         addActor(hackerButton);
@@ -174,6 +186,8 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(towerLabel);
         addActor(powerUpLabel);
         addActor(lifeLabel);
+        addActor(moneyLabel);
+        addActor(roundLabel);
         addActor(startRoundButton);
     }
 
@@ -195,18 +209,21 @@ public class GameScreen extends AbstractScreen implements Screen {
             bottomBarPanelUpgradeGroup.setVisible(false);
         }
 
+        updateLabels();
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             model.getViruses().add(VirusFactory.createVirusOne());
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            model.getVirusSpawner().spawnRound(1);
+            model.startRoundPressed();
         }
     }
 
-    private void updateLifeCounter() {
+    private void updateLabels() {
         lifeLabel.setText(model.getLivesLeft());
+        moneyLabel.setText(model.getMoney());
+        roundLabel.setText("Round: " + model.getCurrentRound());
     }
 
     private Label createLabel(String text, float y) {
@@ -241,15 +258,17 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     //Render projectiles
     private void renderProjectiles() {
-        super.batch.begin();
 
-        for (Projectile projectile:model.getProjectilesList()) {
-            Sprite projectileSprite = spriteMap.get(projectile.getName());
-            projectileSprite.setPosition(projectile.getX(), projectile.getY());
-            projectileSprite.draw(super.batch);
+        synchronized (model.getProjectilesList()) {
+            for (Projectile projectile : model.getProjectilesList()) {
+                Sprite projectileSprite = spriteMap.get(projectile.getName());
+                projectileSprite.setPosition(projectile.getX(), projectile.getY());
+
+                super.batch.begin();
+                projectileSprite.draw(super.batch);
+                super.batch.end();
+            }
         }
-
-        super.batch.end();
     }
 
     //Render viruses
@@ -356,6 +375,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
     private void renderViruses() {
+
         super.batch.begin();
 
         synchronized (model.getViruses()) {
@@ -374,46 +394,51 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     //Render towers
     private void renderTowers() {
-        for (Tower tower: model.getTowers()) {
-            Sprite towerSprite = spriteMap.get(tower.getSpriteKey());
-            towerSprite.setPosition(tower.getPosX(), tower.getPosY());
-            towerSprite.setRotation((float) tower.getAngle());
+        synchronized (model.getTowers()) {
+            for (Tower tower : model.getTowers()) {
+                Sprite towerSprite = spriteMap.get(tower.getSpriteKey());
+                towerSprite.setPosition(tower.getPosX(), tower.getPosY());
+                towerSprite.setRotation((float) tower.getAngle());
 
-            //If tower is not placed and not colliding: circle around is grey
-            if(!tower.isPlaced() && !tower.getCollision()){
-                Gdx.gl.glEnable(GL_BLEND);
-                Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setColor(new Color(150/255F, 150/255F, 150/255F, 0.8F));
-                shapeRenderer.circle(tower.getPosX() + tower.getWidth()/2, tower.getPosY() + tower.getHeight()/2, tower.getRange());
-                shapeRenderer.end();
-                Gdx.gl.glDisable(GL_BLEND);
+                //If tower is not placed and not colliding: circle around is grey
+                if(!(tower instanceof MechMiniTower)){
+                    if (!tower.isPlaced() && !tower.getCollision()) {
+                        Gdx.gl.glEnable(GL_BLEND);
+                        Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                        shapeRenderer.setColor(new Color(150 / 255F, 150 / 255F, 150 / 255F, 0.8F));
+                        shapeRenderer.circle(tower.getPosX() + tower.getWidth() / 2, tower.getPosY() + tower.getHeight() / 2, tower.getRange());
+                        shapeRenderer.end();
+                        Gdx.gl.glDisable(GL_BLEND);
+                    }
+
+                    //If tower is not placed and colliding: circle around is red
+                    else if (!tower.isPlaced() && tower.getCollision()) {
+                        Gdx.gl.glEnable(GL_BLEND);
+                        Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                        shapeRenderer.setColor(new Color(255 / 255F, 51 / 255F, 51 / 255F, 0.8F));
+                        shapeRenderer.circle(tower.getPosX() + tower.getWidth() / 2, tower.getPosY() + tower.getHeight() / 2, tower.getRange());
+                        shapeRenderer.end();
+                        Gdx.gl.glDisable(GL_BLEND);
+                    }
+
+                    //If tower is placed and dont have button: create a button and set that it's placed
+                    else if (tower.isPlaced() && !tower.getGotButton()) {
+                        ImageButton btn = createInvisButtonsOnTower(towerSprite, tower.getPosX(), tower.getPosY());
+                        btn.addListener(towerClickListener);
+                        tower.setGotButton(true);
+                    }
+                }
+
+
+
+                super.batch.begin();
+                towerSprite.draw(super.batch);
+                super.batch.end();
+
             }
-
-            //If tower is not placed and colliding: circle around is red
-            else if(!tower.isPlaced() && tower.getCollision()){
-                Gdx.gl.glEnable(GL_BLEND);
-                Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setColor(new Color(255/255F, 51/255F, 51/255F, 0.8F));
-                shapeRenderer.circle(tower.getPosX() + tower.getWidth()/2, tower.getPosY() + tower.getHeight()/2, tower.getRange());
-                shapeRenderer.end();
-                Gdx.gl.glDisable(GL_BLEND);
-            }
-
-            //If tower is placed and dont have button: create a button and set that it's placed
-            else if(tower.isPlaced() && !tower.getGotButton()){
-                ImageButton btn = createInvisButtonsOnTower(towerSprite, tower.getPosX(), tower.getPosY());
-                btn.addListener(towerClickListener);
-                tower.setGotButton(true);
-            }
-
-            super.batch.begin();
-            towerSprite.draw(super.batch);
-            super.batch.end();
-
         }
-
 
     }
 
@@ -471,6 +496,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         for (Integer i : towerButtons.keySet()) {
             if(model.getMoney() >= i && !towerButtons.get(i).isTouchable()){
                 towerButtons.get(i).setTouchable(Touchable.enabled);
+                towerButtons.get(i).getImage().setColor(Color.WHITE);
 
             }
             else if (model.getMoney()< i && towerButtons.get(i).isTouchable()){
