@@ -384,7 +384,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private void renderTowers() {
         for (Tower tower : model.getTowers()) {
             Sprite towerSprite = spriteMap.get(tower.getSpriteKey());
-            towerSprite.setPosition(tower.getPosX(), tower.getPosY());
+            towerSprite.setPosition(tower.getX(), tower.getY());
             towerSprite.setRotation((float) tower.getAngle());
 
             //If tower is not placed and not colliding: circle around is grey
@@ -394,7 +394,7 @@ public class GameScreen extends AbstractScreen implements Screen {
                     Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                     shapeRenderer.setColor(new Color(150 / 255F, 150 / 255F, 150 / 255F, 0.8F));
-                    shapeRenderer.circle(tower.getPosX() + tower.getWidth() / 2, tower.getPosY() + tower.getHeight() / 2, tower.getRange());
+                    shapeRenderer.circle(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());
                     shapeRenderer.end();
                     Gdx.gl.glDisable(GL_BLEND);
                 }
@@ -405,13 +405,13 @@ public class GameScreen extends AbstractScreen implements Screen {
                     Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                     shapeRenderer.setColor(new Color(255 / 255F, 51 / 255F, 51 / 255F, 0.8F));
-                    shapeRenderer.circle(tower.getPosX() + tower.getWidth() / 2, tower.getPosY() + tower.getHeight() / 2, tower.getRange());shapeRenderer.end();
+                    shapeRenderer.circle(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());shapeRenderer.end();
                     Gdx.gl.glDisable(GL_BLEND);
                     }
 
                 //If tower is placed and dont have button: create a button and set that it's placed
                 else if (tower.isPlaced() && !tower.getGotButton()) {
-                    ImageButton btn = createInvisButtonsOnTower(towerSprite, tower.getPosX(), tower.getPosY());
+                    ImageButton btn = createInvisButtonsOnTower(towerSprite, tower.getX(), tower.getY());
                     btn.addListener(towerClickListener);
                     tower.setGotButton(true);
                 }

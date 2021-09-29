@@ -38,14 +38,6 @@ public interface ITower extends IMapObject {
 
     void setPos(float x, float y);
 
-    float getPosX();
-
-    float getPosY();
-
-    float getHeight();
-
-    float getWidth();
-
     void setAngle(float setAngle);
 
     int getRange();

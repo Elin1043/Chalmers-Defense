@@ -1,9 +1,6 @@
 package com.mygdx.chalmersdefense.model.towers;
 
 
-
-import com.mygdx.chalmersdefense.model.IMapObject;
-import com.mygdx.chalmersdefense.model.projectiles.BulletProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import javax.imageio.ImageIO;
@@ -103,7 +100,7 @@ public class Tower implements ITower{
      */
     public Projectile shootProjectile(){
         if(currentReload < 1 && gotTarget && isPlaced){
-            projectile = projectile.createProjectile(attackSpeed, this.getPosX() + this.width/2, this.getPosY() + this.height/2, this.angle);
+            projectile = projectile.createProjectile(attackSpeed, this.getX() + this.width/2, this.getY() + this.height/2, this.angle);
             currentReload = reloadTime;
             return projectile;
         }
@@ -222,7 +219,7 @@ public class Tower implements ITower{
      * Gets the X-position of the tower
      * @return x-coordinate of tower
      */
-    public float getPosX(){
+    public float getX(){
         return x;
     }
 
@@ -230,7 +227,7 @@ public class Tower implements ITower{
      * Gets the Y-position of the tower
      * @return y-coordinate of tower
      */
-    public float getPosY(){
+    public float getY(){
         return y;
     }
 
