@@ -150,7 +150,7 @@ public class Tower {
     }
 
     /**
-     * Stes if tower is colliding with something else
+     * Sets if tower is colliding with something else
      * @param set if tower is colliding
      */
     public void setCollision(Boolean set){
