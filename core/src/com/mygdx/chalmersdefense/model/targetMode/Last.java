@@ -16,7 +16,7 @@ class Last implements ITargetMode {
         Virus leastTraveledVirus = virusInRange.get(0);  // Need to have a virus to start comparing against
 
         for (Virus virus : virusInRange){
-            if ((virus.getTotalDistanceTrawled() < leastTraveledVirus.getTotalDistanceTrawled())){
+            if ((virus.getTotalDistanceTravled() < leastTraveledVirus.getTotalDistanceTravled())){
                 leastTraveledVirus = virus;
             }
         }

@@ -46,8 +46,6 @@ public interface ITower extends IMapObject {
 
     float getWidth();
 
-    float getAngle();
-
     void setAngle(float setAngle);
 
     int getRange();
