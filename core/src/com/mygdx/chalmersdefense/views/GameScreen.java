@@ -363,7 +363,22 @@ public class GameScreen extends AbstractScreen implements Screen {
         }
 
         // Modify second button only
-        if (buttonNr == 2 && !upgradeIsBought) {
+        if (buttonNr == 2) updateSecondUpgradeButton(tower, upgradeButton, upgradedTowerSprite, cantAfford, upgradeIsBought);
+
+
+        batch.begin();
+        upgradedTowerSprite.draw(batch);
+        upgradedTowerSprite.setColor(Color.WHITE);
+        batch.end();
+
+
+        titleLabel.setText(model.getTowerUpgradeTitle(tower.getName(), buttonNr));
+        descLabel.setText(model.getTowerUpgradeDesc(tower.getName(), buttonNr));
+        priceLabel.setText("" + model.getTowerUpgradePrice(tower.getName(), buttonNr));
+    }
+
+    private void updateSecondUpgradeButton(Tower tower, Button upgradeButton, Sprite upgradedTowerSprite, boolean cantAfford, boolean upgradeIsBought) {
+        if (!upgradeIsBought) {
             // If first upgrade not bought disable second button
             if (tower.getUpgradeLevel() == 1) {
                 upgradeButton.setDisabled(true);
@@ -384,16 +399,6 @@ public class GameScreen extends AbstractScreen implements Screen {
                 }
             }
         }
-
-        batch.begin();
-        upgradedTowerSprite.draw(batch);
-        upgradedTowerSprite.setColor(Color.WHITE);
-        batch.end();
-
-
-        titleLabel.setText(model.getTowerUpgradeTitle(tower.getName(), buttonNr));
-        descLabel.setText(model.getTowerUpgradeDesc(tower.getName(), buttonNr));
-        priceLabel.setText("" + model.getTowerUpgradePrice(tower.getName(), buttonNr));
     }
 
     private void renderViruses() {
