@@ -51,11 +51,9 @@ public class Model implements IUpdateModel {
 
     @Override
     public void updateModel() {
-        if (game.isUpdating()) {
-            map.updateMap();
-            checkRoundCompleted();
-            virusSpawner.decrementSpawnTimer();
-        }
+        map.updateMap();
+        checkRoundCompleted();
+        virusSpawner.decrementSpawnTimer();
     }
 
     private void checkRoundCompleted() {

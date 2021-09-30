@@ -61,8 +61,7 @@ public class ChalmersDefense extends Game {
 	private void createTask() {
 		task = new Timer.Task() {
 			@Override
-			public void run() {
-				model.updateModel();
+			public void run() { if (task.isScheduled()) { model.updateModel();}
 			}
 		};
 	}
