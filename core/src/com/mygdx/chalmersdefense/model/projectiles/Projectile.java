@@ -83,7 +83,8 @@ public abstract class Projectile implements IProjectile{
     /**
      * Method to call when virus is hit (temp for now, used by lightning)
      */
-    public void virusHit(){
+    @Override
+    public void virusIsHit(){
         if (hitCountsLeft > 0){
             hitCountsLeft--;
         } else {

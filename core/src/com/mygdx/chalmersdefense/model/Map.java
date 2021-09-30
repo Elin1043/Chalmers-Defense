@@ -51,6 +51,7 @@ public class Map {
     //Update the projectiles
     private void updateProjectiles() {
         List<IProjectile> removeProjectiles = new ArrayList<>();
+        List<IProjectile> addProjectiles = new ArrayList<>();
 
         for (IProjectile projectile : projectilesList) {
             projectile.move();
@@ -76,7 +77,7 @@ public class Map {
             float newAngle = -1;
             boolean towerHasTarget = false;
 
-
+            // If there are virus in range, update the new values accordingly
             if (virusInRange.size() > 0) {
                 IVirus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getX(), tower.getY());
                 newAngle = Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getX(), tower.getY());
@@ -95,34 +96,31 @@ public class Map {
 
     //Update all the viruses
     private void updateVirus(){
-        synchronized (allViruses) {
-            List<IVirus> virusToRemove = new ArrayList<>();
 
-            for (IVirus virus : allViruses) {
-                if (virus.getY() > 1130 || virus.isDead()) {
-                    virusToRemove.add(virus);
-                    if(virus.isDead()){
-                        player.increaseMoney(1); //Change amount later
-                    }
+        List<IVirus> virusToRemove = new ArrayList<>();
+
+        for (IVirus virus : allViruses) {
+            if (virus.getY() > 1130 || virus.isDead()) {
+                virusToRemove.add(virus);
+                if(virus.isDead()){
+                    player.increaseMoney(1); //Change amount later
                 }
-                virus.update();
             }
-            for (IVirus virus : virusToRemove){
-                try {
-                    player.decreaseLivesBy(virus.getLifeDecreaseAmount());
-                } catch (PlayerLostAllLifeException ignore){
+            virus.update();
+        }
+        for (IVirus virus : virusToRemove){
+            try {
+                player.decreaseLivesBy(virus.getLifeDecreaseAmount());
+            } catch (PlayerLostAllLifeException ignore){
 
-                    // Här ska man hantera ifall man förlorar spelet
+                // Här ska man hantera ifall man förlorar spelet
 
-                }
-                allViruses.remove(virus);
             }
-
-
-
+            allViruses.remove(virus);
         }
 
     }
+
 
     //Check if coordinates are outside the screen
     private boolean checkIfOutOfBounds(float y, float x) {
@@ -159,27 +157,27 @@ public class Map {
     private boolean checkVirusAndProjectileCollision(IProjectile projectile, List<IProjectile> list){
         boolean collided = false;
 
-        synchronized (allViruses) {
-            for (IVirus virus : allViruses) {
-                if (Calculate.objectsIntersects(projectile, virus)) {
-                    if (projectile instanceof AcidProjectile) {
-                        collidedWithAcid(projectile);
-                    } else if (projectile instanceof LightningProjectile) {
-                        collidedWithLightning(projectile, virus, list);
 
-                    } else {
-                        if (!projectile.getIfDealtDamage()) {
-                            virus.decreaseHealth();
-                            projectile.setDealtDamage(true);
-                        }
+        for (IVirus virus : allViruses) {
+            if (Calculate.objectsIntersects(projectile, virus)) {
+                if (projectile instanceof AcidProjectile) {
+                    collidedWithAcid(projectile);
+                } else if (projectile instanceof LightningProjectile) {
+                    collidedWithLightning(projectile, virus, list);
 
+                } else {
+                    if (!projectile.getIfDealtDamage()) {
+                        virus.decreaseHealth();
+                        projectile.setDealtDamage(true);
                     }
 
-                    collided = true;
                 }
+
+                collided = true;
             }
         }
-        return collided;
+
+    return collided;
     }
 
     //Collision with lightning projectile
@@ -188,7 +186,7 @@ public class Map {
         if(!projectile.getIfDealtDamage()){
             if(!virus.getIfGotHit()){
                 virus.decreaseHealth();
-                projectile.virusHit();
+                projectile.virusIsHit();
                 virus.setGotHit(true);
 
                 List<IVirus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2F, virus.getY() + virus.getHeight()/2F, ((LightningProjectile) projectile).getRange(), allViruses);
@@ -220,6 +218,8 @@ public class Map {
 
     //Collision with acid projectile
     private void collidedWithAcid(IProjectile projectile){
+        // projectile.virusIsHit(); // Change position of this later
+
         if(!projectile.getIfDealtDamage()){
             for (IVirus virus:getViruses()) {
                 if (Calculate.disBetweenPoints(projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F, virus.getX() + virus.getWidth()/2F ,virus.getY() + virus.getHeight()/2F ) < ((AcidProjectile) projectile).getRange() * ((AcidProjectile) projectile).getRange()){

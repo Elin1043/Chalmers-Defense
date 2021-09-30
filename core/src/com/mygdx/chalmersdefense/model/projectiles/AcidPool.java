@@ -3,7 +3,7 @@ package com.mygdx.chalmersdefense.model.projectiles;
 public class AcidPool extends Projectile implements IProjectile{
 
     public AcidPool(float x, float y, int upgradeLevel) {
-        super(0, "acidPool" + upgradeLevel, x, y, 0);
+        super(0, "chemistAcid" + upgradeLevel, x, y, 0);
     }
 
 

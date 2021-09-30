@@ -10,7 +10,7 @@ public interface IProjectile extends IMapObject {
 
     void setDealtDamage(boolean bool);
 
-    void virusHit();
+    void virusIsHit();
 
     void move();
 

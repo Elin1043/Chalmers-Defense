@@ -7,18 +7,22 @@ import java.util.List;
  * Class representing an acid projectile
  */
 public class AcidProjectile extends Projectile{
+    private final int upgradeLevel;
+    private final List<IProjectile> projectileList;
     private int range = 10;
 
     public AcidProjectile(float x, float y, float angle, int upgradeLevel, List<IProjectile> projectileList) {
         //TODO Speed calc
         super(5 ,"chemistProjectile" + upgradeLevel, x, y, angle);
-
+        this.upgradeLevel = upgradeLevel;
+        this.projectileList = projectileList;
     }
 
-//    @Override
-//    public IProjectile createProjectile(int speed, float x, float y, float angle) {
-//        return new AcidProjectile(speed, x, y, angle, projectileList);
-//    }
+    @Override
+    public void virusIsHit() {
+        System.out.println("Tjenare");
+        projectileList.add(ProjectileFactory.createAcidPool(getX(), getY(), upgradeLevel));
+    }
 
     public int getRange() {
         return range;
