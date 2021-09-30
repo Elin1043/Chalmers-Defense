@@ -190,7 +190,9 @@ public class Model {
      * Delegates upgrade method to upgrade class.
      */
     public void upgradeClickedTower() {
-        upgrades.upgradeTower(map.getClickedTower());
+        if (upgrades.upgradeTower(getClickedTower())) {
+            player.decreaseMoney(upgrades.getTowerUpgradePrice(getClickedTower().getName(), getClickedTower().getUpgradeLevel() - 1).intValue());
+        }
     }
 
     public boolean getIsGameLost() {
