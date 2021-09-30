@@ -341,26 +341,48 @@ public class GameScreen extends AbstractScreen implements Screen {
         upgradedTowerSprite.setPosition(upgradeButton.getX() + (268 - upgradedTowerSprite.getWidth()/2), (upgradeButton.getHeight() - upgradeButton.getY())/2 - upgradedTowerSprite.getHeight()/2 + upgradeButton.getY() + 20);
         upgradedTowerSprite.setRotation(0);
 
-
+        boolean cantAfford = model.getMoney() < model.getTowerUpgradePrice(tower.getName(), buttonNr);
+        boolean upgradeIsBought = (tower.getUpgradeLevel() >= 1 + buttonNr);
 
         // If upgrade is bought disable button input
-        if ((tower.getUpgradeLevel() >= 1 + buttonNr)) {
+        if (upgradeIsBought) {
             upgradeButton.setChecked(true);
             upgradeButton.setTouchable(Touchable.disabled);
         } else {
             upgradeButton.setChecked(false);
             upgradeButton.setTouchable(Touchable.enabled);
+
+            // If player can afford upgrade enable button
+            if (cantAfford) {
+                upgradeButton.setDisabled(true);
+                upgradeButton.setTouchable(Touchable.disabled);
+            } else {
+                upgradeButton.setDisabled(false);
+                upgradeButton.setTouchable(Touchable.enabled);
+            }
         }
 
-        // If first upgrade not bought disable second button
-        if (buttonNr == 2 && tower.getUpgradeLevel() == 1) {
-            upgradeButton.setTouchable(Touchable.disabled);
-            upgradeButton.setColor(Color.LIGHT_GRAY);
-            upgradedTowerSprite.setColor(Color.LIGHT_GRAY);
-        } else if (buttonNr == 2 && tower.getUpgradeLevel() >= 2) {
-            upgradeButton.setTouchable(Touchable.enabled);
-            upgradeButton.setColor(Color.WHITE);
-            upgradedTowerSprite.setColor(Color.WHITE);
+        // Modify second button only
+        if (buttonNr == 2 && !upgradeIsBought) {
+            // If first upgrade not bought disable second button
+            if (tower.getUpgradeLevel() == 1) {
+                upgradeButton.setDisabled(true);
+                upgradeButton.setTouchable(Touchable.disabled);
+                upgradeButton.setColor(Color.LIGHT_GRAY);
+                upgradedTowerSprite.setColor(Color.LIGHT_GRAY);
+            // If first upgrade is bought enable second upgrade button
+            } else if (tower.getUpgradeLevel() >= 2) {
+                upgradeButton.setTouchable(Touchable.enabled);
+                upgradeButton.setColor(Color.WHITE);
+                upgradedTowerSprite.setColor(Color.WHITE);
+
+                // If player can afford enable upgrade button
+                if (!cantAfford) {
+                    upgradeButton.setDisabled(false);
+                } else {
+                    upgradeButton.setTouchable(Touchable.disabled);
+                }
+            }
         }
 
         batch.begin();
@@ -368,7 +390,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         upgradedTowerSprite.setColor(Color.WHITE);
         batch.end();
 
-        //upgradeButton.setDisabled(model.getMoney() < model.getTowerUpgradePrice(tower, 1));
 
         titleLabel.setText(model.getTowerUpgradeTitle(tower.getName(), buttonNr));
         descLabel.setText(model.getTowerUpgradeDesc(tower.getName(), buttonNr));
