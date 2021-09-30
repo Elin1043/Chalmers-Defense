@@ -17,8 +17,6 @@ public class MechMiniTower extends Tower{
 
     public MechMiniTower(float x, float y ,int attackSpeed,int range, List<ITargetMode> targetModes, Projectile projectile) {
         super(x, y, name, attackSpeed, cost, range, targetModes, projectile);
-        this.setGotButton(true);
-
     }
 
 

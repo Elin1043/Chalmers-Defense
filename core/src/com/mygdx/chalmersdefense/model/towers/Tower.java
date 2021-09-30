@@ -91,7 +91,7 @@ public class Tower implements ITower{
     }
 
     @Override
-    public void update(List<IProjectile> projectilesList) {
+    public void update(List<IProjectile> projectilesList, List<ITower> towersList) {
         if(currentReload < 1 && gotTarget && isPlaced){
             currentReload = reloadTime;
             projectilesList.add(projectile.createProjectile(attackSpeed, this.getX() + this.width/2, this.getY() + this.height/2, this.angle));
