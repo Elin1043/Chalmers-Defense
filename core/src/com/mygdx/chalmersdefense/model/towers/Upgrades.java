@@ -30,13 +30,14 @@ public class Upgrades {
      * Main method for upgrading a tower.
      * @param tower tower to be upgraded
     */
-    public void upgradeTower(Tower tower) {
+    public boolean upgradeTower(Tower tower) {
         // If tower is max upgraded dont upgrade
-        if (tower.getUpgradeLevel() >= MAX_UPGRADES) return;
+        if (tower.getUpgradeLevel() >= MAX_UPGRADES) return false;
 
         HashMap<String, Long> upgrades = getTowerUpgradeData(tower.getName(), tower.getUpgradeLevel());
 
         tower.upgradeTower(upgrades);
+        return true;
     }
 
     /**
