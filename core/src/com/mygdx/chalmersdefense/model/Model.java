@@ -7,6 +7,7 @@ import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
+import com.mygdx.chalmersdefense.utilities.GameTimer;
 
 import java.util.List;
 
@@ -27,10 +28,11 @@ import java.util.List;
  * 2021-09-27 Modified by Elin Forsberg: Added methods to handle different attacks from towers
  * 2021-09-27 Modified by Daniel Persson: Added delegation getters for upgrade title, description and price.
  * 2021-09-28 Modified by Everyone: Moved methods to Map class
+ * 2021-09-30 Modified by Joel Båtsman Hilmerson: Added a specifc timer object
  */
 
 public class Model implements IUpdateModel {
-    private final ChalmersDefense game;
+    private final GameTimer timer = new GameTimer(this);
     private final Rounds round = new Rounds(10);    // 10 is temporary
 
     private final Player player = new Player(100, 3000); //Change staring capital later. Just used for testing right now
@@ -39,15 +41,6 @@ public class Model implements IUpdateModel {
 
     private final Map map = new Map(player);
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());
-
-    /**
-     * Constructor of the model class
-     * @param game current game session
-     */
-    public Model(ChalmersDefense game) {
-        this.game = game;
-
-    }
 
     @Override
     public void updateModel() {
@@ -68,12 +61,12 @@ public class Model implements IUpdateModel {
 
 
 
-    private void stopGameUpdate() {
-        game.stopModelUpdate();
+    private void startGameUpdate() {
+        timer.startUpdateTimer();
     }
 
-    private void startGameUpdate() {
-        game.startModelUpdate();
+    private void stopGameUpdate() {
+        timer.stopUpdateTimer();
     }
 
 
@@ -87,7 +80,7 @@ public class Model implements IUpdateModel {
             virusSpawner.spawnRound(round.getCurrentRound());
         } else {
 
-            game.changeUpdateSpeed();
+            timer.changeUpdateSpeed();
 
         }
     }

@@ -35,7 +35,7 @@ public class ChalmersDefense extends Game {
 
 	@Override
 	public void create() {
-		model = new Model(this);
+		model = new Model();
 		timer = new Timer();
 		createTask();
 
@@ -59,11 +59,11 @@ public class ChalmersDefense extends Game {
 	}
 
 	private void createTask() {
-		task = new Timer.Task() {
-			@Override
-			public void run() { if (task.isScheduled()) { model.updateModel();}
-			}
-		};
+//		task = new Timer.Task() {
+//			@Override
+//			public void run() { if (task.isScheduled()) { model.updateModel();}
+//			}
+//		};
 	}
 
 
@@ -92,7 +92,7 @@ public class ChalmersDefense extends Game {
 
 	private void setupTimer() {
 		createTask();
-		timer.scheduleTask(task, 0, delay);
+		//timer.scheduleTask(task, 0, delay);
 		timer.start();
 	}
 

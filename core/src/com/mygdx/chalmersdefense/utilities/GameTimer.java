@@ -16,6 +16,7 @@ public class GameTimer {
 
     public GameTimer(IUpdateModel model) {
         this.model = model;
+        setupTask();
     }
 
     /**
@@ -52,17 +53,13 @@ public class GameTimer {
         setupTask();
     }
 
-    private void createTask() {
+    // Creates new task with current delay
+    private void setupTask() {
         task = new Timer.Task() {
             @Override
             public void run() { if (task.isScheduled()) { model.updateModel(); }
             }
         };
-    }
-
-    // Creates new task with current delay
-    private void setupTask() {
-        createTask();
         timer.scheduleTask(task, 0, delay);
 
     }

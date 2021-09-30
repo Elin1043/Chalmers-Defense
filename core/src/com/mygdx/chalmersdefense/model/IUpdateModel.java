@@ -8,7 +8,7 @@ package com.mygdx.chalmersdefense.model;
 public interface IUpdateModel {
 
     /**
-     * Update the model and it's subcomponents
+     * Update the model and in turn it's subcomponents
      */
     void updateModel();
 }
