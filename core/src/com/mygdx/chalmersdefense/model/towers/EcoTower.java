@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model.towers;
 
+import com.mygdx.chalmersdefense.model.Player;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import java.util.List;
@@ -12,37 +12,33 @@ import java.util.List;
  */
 
 public class EcoTower extends Tower {
-    int moneyEarned;
 
     int currentReload;
     private int reloadTime = 60*10; //how many updates from model
+    private Player player;
 
-    public EcoTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes) {
+    public EcoTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, Player player) {
         super(x, y, name, attackSpeed, cost, range, targetModes, null);
-        moneyEarned = 0;
+        this.player = player;
         currentReload = 0;
 
     }
 
     @Override
-    public IProjectile shootProjectile(){
+    public void update(List<IProjectile> projectilesList){
         if(currentReload < 1 && this.isPlaced()){
             currentReload = reloadTime;
-            moneyEarned = 20;
+            player.increaseMoney(20);
+
+
+
         }
         else{
             currentReload --;
-            moneyEarned = 0;
         }
         this.setAngle(0);
-        return null;
     }
 
-    public int getCurrentReload() {
-        return currentReload;
-    }
 
-    public int getMoneyEarned() {
-        return moneyEarned;
-    }
+
 }
