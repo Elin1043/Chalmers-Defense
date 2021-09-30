@@ -7,13 +7,18 @@ import com.mygdx.chalmersdefense.model.IUpdateModel;
  * @author Joel Båtsman Hilmersson
  *
  * A class containing metods related to the game timer. Wraps a timer object in it
+ * The timer then calls update method in the given model
  */
 public class GameTimer {
-    private final Timer timer = new Timer();
-    private Timer.Task task;
-    private float delay = 0.005F;
-    private final IUpdateModel model;
+    private final Timer timer = new Timer();    // The timer object
+    private Timer.Task task;                    // The runnable task the timer uses to schedule method calls with
+    private float delay = 0.005F;               // Delay in seconds between task calls
+    private final IUpdateModel model;           // The model to update
 
+    /**
+     * Constructor for the GameTimer class
+     * @param model The class to update continuously
+     */
     public GameTimer(IUpdateModel model) {
         this.model = model;
         setupTask();
@@ -61,6 +66,5 @@ public class GameTimer {
             }
         };
         timer.scheduleTask(task, 0, delay);
-
     }
 }
