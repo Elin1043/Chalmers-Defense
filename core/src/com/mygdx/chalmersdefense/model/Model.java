@@ -3,13 +3,10 @@ package com.mygdx.chalmersdefense.model;
 
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
-import com.mygdx.chalmersdefense.model.towers.Tower;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
-import com.mygdx.chalmersdefense.model.viruses.Virus;
 
 import java.util.List;
 
@@ -32,7 +29,7 @@ import java.util.List;
  * 2021-09-28 Modified by Everyone: Moved methods to Map class
  */
 
-public class Model {
+public class Model implements IUpdateModel {
     private final ChalmersDefense game;
     private final Rounds round = new Rounds(10);    // 10 is temporary
 
@@ -52,9 +49,7 @@ public class Model {
 
     }
 
-    /**
-     * Update all the model components
-     */
+    @Override
     public void updateModel() {
         if (game.isUpdating()) {
             map.updateMap();
