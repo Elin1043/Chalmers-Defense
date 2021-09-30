@@ -29,15 +29,18 @@ public abstract class Projectile implements IProjectile{
 
     private boolean dealtDamage;
 
-    public Projectile(int speed,String name, float x, float y, float angle){
+    public Projectile(float speed, String name, float x, float y, float angle){
         this.speed = speed;
         this.name = name;
         this.x = x;
         this.y = y;
         this.angle = angle;
 
+        // TODO Fix speed calc in children
+
+
         try{
-            BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("projectiles/" +name + ".png")));
+            BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("projectiles/" + name + ".png")));
             this.width         = towerImage.getWidth();
             this.height        = towerImage.getHeight();
 
@@ -72,8 +75,6 @@ public abstract class Projectile implements IProjectile{
     public void setAngle(float angle) {
         this.angle = angle;
     }
-
-    public abstract IProjectile createProjectile(int speed, float x, float y, float angle);
 
     public boolean getIfDealtDamage() {
         return dealtDamage;

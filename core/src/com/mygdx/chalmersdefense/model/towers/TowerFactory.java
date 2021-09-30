@@ -3,10 +3,6 @@ package com.mygdx.chalmersdefense.model.towers;
 
 
 import com.mygdx.chalmersdefense.model.Player;
-import com.mygdx.chalmersdefense.model.projectiles.AcidProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.BulletProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.RobotProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
 
 
@@ -27,7 +23,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower CreateSmurf(int startPosX, int startPosY){
-        return new SmurfTower(startPosX,startPosY, "IT-Smurf", 5, 100, 200, TargetModeFactory.getTargetModes(), new BulletProjectile(0,0,0,0));
+        return new SmurfTower(startPosX,startPosY, "IT-Smurf", 5, 100, 200, TargetModeFactory.getTargetModes());
     }
 
     /**
@@ -37,7 +33,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower CreateChemist(int startPosX, int startPosY){
-        return new ChemistTower(startPosX,startPosY, "Chemist", 5, 200, 200, TargetModeFactory.getTargetModes(), new AcidProjectile(0,0,0,0));
+        return new ChemistTower(startPosX,startPosY, "Chemist", 5, 200, 200, TargetModeFactory.getTargetModes());
     }
 
     /**
@@ -48,7 +44,7 @@ public abstract class TowerFactory {
      */
     public static ITower CreateHacker(int startPosX, int startPosY){
 
-        return new HackerTower(startPosX,startPosY, "Hackerman", 5, 300, 200, TargetModeFactory.getTargetModes(), new BulletProjectile(0,0,0,0));
+        return new HackerTower(startPosX,startPosY, "Hackerman", 5, 300, 200, TargetModeFactory.getTargetModes());
     }
 
     /**
@@ -58,7 +54,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower CreateElectro(int startPosX, int startPosY){
-        return new ElectroTower(startPosX,startPosY, "Electroman", 5, 400, 200, TargetModeFactory.getTargetModes(), new LightningProjectile(0,0,0,0));
+        return new ElectroTower(startPosX,startPosY, "Electroman", 5, 400, 200, TargetModeFactory.getTargetModes());
     }
 
 
@@ -69,7 +65,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower CreateMeck(int startPosX, int startPosY){
-        return new MechTower(startPosX,startPosY, "Mechoman", 3, 500, 200, TargetModeFactory.getTargetModes(), new RobotProjectile(0,0,0,0));
+        return new MechTower(startPosX,startPosY, "Mechoman", 3, 500, 200, TargetModeFactory.getTargetModes());
     }
 
     /**

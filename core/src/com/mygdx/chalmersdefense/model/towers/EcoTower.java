@@ -18,9 +18,14 @@ public class EcoTower extends Tower {
     private Player player;
 
     public EcoTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, Player player) {
-        super(x, y, name, attackSpeed, cost, range, targetModes, null);
+        super(x, y, name, attackSpeed, cost, range, targetModes);
         this.player = player;
         currentReload = 0;
+
+    }
+
+    @Override
+    void createProjectile(List<IProjectile> projectileList) {
 
     }
 
@@ -35,6 +40,8 @@ public class EcoTower extends Tower {
         }
         this.setAngle(0);
     }
+
+
 
 
 

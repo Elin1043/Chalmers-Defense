@@ -1,5 +1,6 @@
 package com.mygdx.chalmersdefense.model.towers;
 
+import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
@@ -15,9 +16,13 @@ public class MechMiniTower extends Tower{
 
 
 
-    public MechMiniTower(float x, float y ,int attackSpeed,int range, List<ITargetMode> targetModes, Projectile projectile) {
-        super(x, y, name, attackSpeed, cost, range, targetModes, projectile);
+    public MechMiniTower(float x, float y ,int attackSpeed,int range, List<ITargetMode> targetModes) {
+        super(x, y, name, attackSpeed, cost, range, targetModes);
     }
 
 
+    @Override
+    void createProjectile(List<IProjectile> projectileList) {
+
+    }
 }

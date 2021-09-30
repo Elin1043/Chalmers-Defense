@@ -21,7 +21,7 @@ import java.util.Objects;
  * 2021-09-25 Modified by Elin Forsberg: added method for shooting projectiles
  */
 
-public class Tower implements ITower{
+public abstract class Tower implements ITower{
 
     private String spriteKey;
     private int upgradeLevel = 1;
@@ -39,7 +39,6 @@ public class Tower implements ITower{
 
     private final List<ITargetMode> targetModes;
     private ITargetMode currentTargetMode;
-    private IProjectile projectile;
 
     private float width;
     private float height;
@@ -61,12 +60,11 @@ public class Tower implements ITower{
     private Rectangle rectangle = new Rectangle();
 
 
-    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, IProjectile projectile){
+    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes){
         this.name = name;
         this.attackSpeed = attackSpeed;
         this.targetModes = targetModes;
         this.currentTargetMode = targetModes.get(0);
-        this.projectile = projectile;
         updateSpriteKey();
 
         try{
@@ -90,11 +88,13 @@ public class Tower implements ITower{
 
     }
 
+    abstract void createProjectile(List<IProjectile> projectileList);
+
     @Override
     public void update(List<IProjectile> projectilesList, List<ITower> towersList) {
         if(currentReload < 1 && gotTarget && isPlaced){
             currentReload = reloadTime;
-            projectilesList.add(projectile.createProjectile(attackSpeed, this.getX() + this.width/2, this.getY() + this.height/2, this.angle));
+            createProjectile(projectilesList);
         }
         else{
             currentReload --;
@@ -294,6 +294,5 @@ public class Tower implements ITower{
      * Sets that tower doesn't have a target
      */
     public void notHaveTarget() { gotTarget = false; }
-
 
 }

@@ -21,25 +21,28 @@ public class MechTower extends Tower {
     private int attackSpeed;
     private int range;
     private List<ITargetMode> targetModes;
-    private Projectile projectile;
 
-    public MechTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, Projectile projectile) {
-        super(x, y, name, attackSpeed, cost, range, targetModes, projectile);
+    public MechTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes) {
+        super(x, y, name, attackSpeed, cost, range, targetModes);
         this.attackSpeed = attackSpeed;
         this.targetModes = targetModes;
-        this.projectile = projectile;
         this.range = range;
 
 
     }
 
     public List<ITower> createMiniTowers(){
-            ITower miniTower1 = new MechMiniTower(this.getX() + 100,this.getY() - 100,attackSpeed,range,targetModes,projectile);
-            ITower miniTower2 = new MechMiniTower(this.getX() - 100,this.getY() - 100,attackSpeed,range,targetModes,projectile);
+            ITower miniTower1 = new MechMiniTower(this.getX() + 100,this.getY() - 100,attackSpeed,range,targetModes);
+            ITower miniTower2 = new MechMiniTower(this.getX() - 100,this.getY() - 100,attackSpeed,range,targetModes);
 
             miniTowers.add(miniTower1);
             miniTowers.add(miniTower2);
             return miniTowers;
+    }
+
+    @Override
+    void createProjectile(List<IProjectile> projectileList) {
+
     }
 
     @Override
@@ -55,5 +58,6 @@ public class MechTower extends Tower {
         }
         this.setAngle(0);
     }
+
 
 }
