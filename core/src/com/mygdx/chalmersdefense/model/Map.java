@@ -70,20 +70,20 @@ public class Map {
     private void updateTowers() {
         List<ITower> towersToAdd = new ArrayList<>();
         for (ITower tower : towersList) {
-            List<IVirus> virusInRange;
+            List<IVirus> virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), allViruses);
 
+            // Standard values for when virus is out of range
+            float newAngle = -1;
+            boolean towerHasTarget = false;
 
-            virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), allViruses);
 
             if (virusInRange.size() > 0) {
                 IVirus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getX(), tower.getY());
-                tower.setAngle(Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getX(), tower.getY()));
-                tower.haveTarget();
-            } else {
-                tower.notHaveTarget();
+                newAngle = Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getX(), tower.getY());
+                towerHasTarget = true;
             }
 
-            tower.update(projectilesList, towersToAdd);
+            tower.update(projectilesList, towersToAdd, newAngle, towerHasTarget);
             //for (IVirus virus : allViruses) {virus.setGotHit(false);}
 
 

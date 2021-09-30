@@ -11,8 +11,7 @@ import java.util.List;
 
 public interface ITower extends IMapObject {
 
-    void update(List<IProjectile> projectilesList, List<ITower> towersList);
-
+    void update(List<IProjectile> projectilesList, List<ITower> towersList, float newAgle, boolean hasTarget);
 
     void upgradeTower(HashMap<String, Long> upgrades);
 
@@ -38,8 +37,6 @@ public interface ITower extends IMapObject {
 
     void setPos(float x, float y);
 
-    void setAngle(float setAngle);
-
     int getRange();
 
     ITargetMode getCurrentTargetMode();
@@ -47,10 +44,4 @@ public interface ITower extends IMapObject {
     boolean isPlaced();
 
     void placeTower();
-
-    void haveTarget();
-
-    void notHaveTarget();
-
-
 }

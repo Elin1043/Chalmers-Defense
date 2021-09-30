@@ -45,7 +45,7 @@ public class MechTower extends Tower {
     }
 
     @Override
-    public void update(List<IProjectile> projectilesList, List<ITower> towersList){
+    public void update(List<IProjectile> projectilesList, List<ITower> towersList, float newAngle, boolean hasTarget){
         if(this.isPlaced() && miniTowers.isEmpty()){
             List<ITower> miniTowers = createMiniTowers();
             for (ITower miniTower: miniTowers) {
