@@ -5,6 +5,11 @@ import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import java.util.List;
 
+/**
+ * @author Elin Forsberg
+ * Class representing the HackerTower
+ */
+
 public class HackerTower extends Tower{
     public HackerTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, IProjectile projectile) {
         super(x, y, name, attackSpeed, cost, range, targetModes, projectile);

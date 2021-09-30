@@ -5,6 +5,10 @@ import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import java.util.List;
 
+/**
+ * @author Elin Forsberg
+ * Class representing the SmurfTower
+ */
 public class SmurfTower extends Tower{
     public SmurfTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, IProjectile projectile) {
         super(x, y, name, attackSpeed, cost, range, targetModes, projectile);

@@ -13,7 +13,7 @@ import java.util.Objects;
 
 
 /**
- * @author ELin Forsberg
+ * @author Elin Forsberg
  * A class defining the tower objects
  *
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: changed class to hold hashmap key for sprite
