@@ -370,9 +370,9 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         //upgradeButton.setDisabled(model.getMoney() < model.getTowerUpgradePrice(tower, 1));
 
-        titleLabel.setText(model.getTowerUpgradeTitle(tower, buttonNr));
-        descLabel.setText(model.getTowerUpgradeDesc(tower, buttonNr));
-        priceLabel.setText("" + model.getTowerUpgradePrice(tower, buttonNr));
+        titleLabel.setText(model.getTowerUpgradeTitle(tower.getName(), buttonNr));
+        descLabel.setText(model.getTowerUpgradeDesc(tower.getName(), buttonNr));
+        priceLabel.setText("" + model.getTowerUpgradePrice(tower.getName(), buttonNr));
     }
 
     private void renderViruses() {
