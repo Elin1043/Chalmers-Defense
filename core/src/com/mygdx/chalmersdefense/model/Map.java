@@ -29,7 +29,6 @@ public class Map {
     private ITower newTower;
     private ITower clickedTower;
     private final List<ITower> towersList = new ArrayList<>();
-    private final List<ITower> towersToAdd = new ArrayList<>();
     private List<IProjectile> projectilesList = new ArrayList<>();
     private final List<IVirus> allViruses = new ArrayList<>();
 
@@ -69,9 +68,10 @@ public class Map {
 
     //Update all the towers
     private void updateTowers() {
-
+        List<ITower> towersToAdd = new ArrayList<>();
         for (ITower tower : towersList) {
             List<IVirus> virusInRange;
+
 
             virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), allViruses);
 
@@ -89,6 +89,7 @@ public class Map {
 
         }
         towersList.addAll(towersToAdd);
+
     }
 
 
@@ -291,23 +292,14 @@ public class Map {
 
         newTower.setPos( x - buttonWidth,(windowHeight - y - buttonHeight ));
         newTower.setRectangle();
-//        if(newTower instanceof MechTower){
-//            ((MechTower) newTower).getMiniTowers().get(0).setPos(newTower.getX() - 50 , newTower.getY() - 50);
-//            ((MechTower) newTower).getMiniTowers().get(1).setPos(newTower.getX() + 70 , newTower.getY() - 50);
-//            ((MechTower) newTower).getMiniTowers().get(0).setRectangle();
-//            ((MechTower) newTower).getMiniTowers().get(1).setRectangle();
-//        }
+
 
 
         for (ITower tower: towersList) {
 
             if(!tower.isPlaced() && !checkCollisionOfTower(tower, windowHeight, windowWidth)){
                 tower.setCollision(false);
-//                if(newTower instanceof  MechTower){
-//                    if(checkCollisionOfTower(((MechTower) newTower).getMiniTowers().get(0), windowHeight, windowWidth) || checkCollisionOfTower(((MechTower) newTower).getMiniTowers().get(1), windowHeight, windowWidth)){
-//                        tower.setCollision(true);
-//                    }
-//                }
+
 
             }
             else if(!tower.isPlaced() && checkCollisionOfTower(tower, windowHeight, windowWidth)){
@@ -332,12 +324,7 @@ public class Map {
     public void dragEnd(int buttonWidth, int buttonHeight, int x, int y, int windowHeight) {
 
         if(!newTower.getCollision()){
-//            if(newTower instanceof MechTower && !((MechTower) newTower).getMiniTowers().get(0).getCollision() && !((MechTower) newTower).getMiniTowers().get(1).getCollision()){
-//                ((MechTower) newTower).getMiniTowers().get(0).placeTower();
-//                ((MechTower) newTower).getMiniTowers().get(1).placeTower();
-//                ((MechTower) newTower).getMiniTowers().get(0).setRectangle();
-//                ((MechTower) newTower).getMiniTowers().get(1).setRectangle();
-//            }
+
             newTower.placeTower();
             newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
             newTower.setRectangle();
@@ -345,10 +332,7 @@ public class Map {
         }
         else{
             towersList.remove(newTower);
-//            if(newTower instanceof MechTower){
-//                towersList.remove(((MechTower) newTower).getMiniTowers().get(0));
-//                towersList.remove(((MechTower) newTower).getMiniTowers().get(1));
-//            }
+
         }
     }
 
