@@ -9,7 +9,7 @@ import java.util.List;
 public class AcidProjectile extends Projectile{
     private int range = 10;
 
-    public AcidProjectile(float x, float y, float angle, List<IProjectile> projectileList, int upgradeLevel) {
+    public AcidProjectile(float x, float y, float angle, int upgradeLevel, List<IProjectile> projectileList) {
         //TODO Speed calc
         super(5 ,"chemistProjectile" + upgradeLevel, x, y, angle);
 

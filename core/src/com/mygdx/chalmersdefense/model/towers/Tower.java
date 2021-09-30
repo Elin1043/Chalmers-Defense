@@ -252,10 +252,10 @@ public abstract class Tower implements ITower{
 
     /**
      * Sets the angle of the tower
-     * @param setangle angle of tower to be set
+     * @param setAngle angle of tower to be set
      */
-    public void setAngle(float setangle){
-        if (isPlaced) { angle = setangle; }
+    public void setAngle(float setAngle){
+        if (isPlaced) { angle = setAngle; }
     }
 
     /**

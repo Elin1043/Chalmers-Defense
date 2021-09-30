@@ -1,9 +1,6 @@
 package com.mygdx.chalmersdefense.model.towers;
 
-import com.mygdx.chalmersdefense.model.projectiles.AcidPool;
-import com.mygdx.chalmersdefense.model.projectiles.AcidProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.Projectile;
+import com.mygdx.chalmersdefense.model.projectiles.*;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import java.util.List;
@@ -11,6 +8,8 @@ import java.util.List;
 /**
  * @author Elin Forsberg
  * Class representing the ChemistTower
+ *
+ * 2021-09-30 Modified by Joel Båtsman Hilmersson: Changed to use ProjectileFactory when creating projectile
  */
 public class ChemistTower extends Tower{
 
@@ -20,6 +19,6 @@ public class ChemistTower extends Tower{
 
     @Override
     void createProjectile(List<IProjectile> projectileList) {
-        projectileList.add(new AcidProjectile(super.getX(), super.getY(), super.getAngle(), projectileList, super.getUpgradeLevel()));
+        projectileList.add(ProjectileFactory.createAcidProjectile(getX(), getY(), getAngle(), getUpgradeLevel(), projectileList));
     }
 }

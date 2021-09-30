@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author Joel Båtsman Hilmersson
  *
- * Factory for projectiles
+ * Factory for creating projectiles
  */
 public abstract class ProjectileFactory {
 
@@ -16,17 +16,19 @@ public abstract class ProjectileFactory {
         return new ZeroOneProjectile(towerX, towerY, angle, upgradeLevel);
     }
 
-    static public IProjectile createAcidProjectile(float towerX, float towerY, float angle, List<IProjectile> projectileList, int upgradeLevel){
-        return new AcidProjectile(towerX, towerY, angle, projectileList, upgradeLevel);
+    static public IProjectile createAcidProjectile(float towerX, float towerY, float angle, int upgradeLevel, List<IProjectile> projectileList){
+        return new AcidProjectile(towerX, towerY, angle, upgradeLevel, projectileList);
     }
+
     static public IProjectile createAcidPool(float poolX, float poolY, int upgradeLevel){
         return new AcidPool(poolX, poolY, upgradeLevel);
     }
-//    static public IProjectile createBulletProjectile(int speed, float towerX, float towerY, float angle){
-//        return;
-//    }
-//    static public IProjectile createLightningProjectile(int speed, float towerX, float towerY, float angle){
-//        return;
-//    }
 
+    static public IProjectile createLightningProjectile(float towerX, float towerY, float angle, int upgradeLevel){
+        return new LightningProjectile(towerX, towerY, angle, upgradeLevel);
+    }
+
+    static public IProjectile createRobotProjectile(float towerX, float towerY, float angle, int upgradeLevel){
+        return new RobotProjectile(towerX, towerY, angle, upgradeLevel);
+    }
 }

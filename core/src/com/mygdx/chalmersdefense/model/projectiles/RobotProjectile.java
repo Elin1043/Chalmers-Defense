@@ -7,8 +7,8 @@ package com.mygdx.chalmersdefense.model.projectiles;
 public class RobotProjectile extends Projectile{
     private static String name = "mechaProjectile";
 
-    public RobotProjectile(float x, float y, float angle) {
-        super(5 , name, x, y, angle);
+    public RobotProjectile(float x, float y, float angle, int upgradeLevel) {
+        super(5 , "mechaProjectile" + upgradeLevel, x, y, angle);
     }
 
 //    @Override

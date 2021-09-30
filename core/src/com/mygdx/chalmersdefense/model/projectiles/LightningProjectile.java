@@ -5,11 +5,10 @@ package com.mygdx.chalmersdefense.model.projectiles;
  * Class representing a lightning projectile
  */
 public class LightningProjectile extends Projectile{
-    private static String name = "electroProjectile1"; //Change when have new projectile pictures
     private int range = 150;
 
-    public LightningProjectile(float x, float y, float angle) {
-        super(5 ,name, x, y, angle);
+    public LightningProjectile(float x, float y, float angle, int upgradeLevel) {
+        super(5 , "electroProjectile" + upgradeLevel, x, y, angle);
     }
 
 //    @Override

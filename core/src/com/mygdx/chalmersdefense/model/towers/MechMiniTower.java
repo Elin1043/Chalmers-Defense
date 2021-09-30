@@ -2,6 +2,7 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
+import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import java.util.List;
@@ -23,6 +24,6 @@ public class MechMiniTower extends Tower{
 
     @Override
     void createProjectile(List<IProjectile> projectileList) {
-
+        projectileList.add(ProjectileFactory.createRobotProjectile(getX(), getY(), getAngle(), getUpgradeLevel()));
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 public class MechTower extends Tower {
 
 
-    private List<ITower> miniTowers = new ArrayList<>();
+    private final List<ITower> miniTowers = new ArrayList<>();
 
 
     private int attackSpeed;
@@ -30,9 +30,9 @@ public class MechTower extends Tower {
 
     }
 
-    public List<ITower> createMiniTowers(){
-            ITower miniTower1 = new MechMiniTower(this.getX() + 100,this.getY() - 100,attackSpeed,range,targetModes);
-            ITower miniTower2 = new MechMiniTower(this.getX() - 100,this.getY() - 100,attackSpeed,range,targetModes);
+    private List<ITower> createMiniTowers(){
+            ITower miniTower1 = new MechMiniTower(this.getX() + 100,this.getY() - 100, attackSpeed, range, targetModes);
+            ITower miniTower2 = new MechMiniTower(this.getX() - 100,this.getY() - 100, attackSpeed, range, targetModes);
 
             miniTowers.add(miniTower1);
             miniTowers.add(miniTower2);
@@ -41,7 +41,7 @@ public class MechTower extends Tower {
 
     @Override
     void createProjectile(List<IProjectile> projectileList) {
-
+        // Empty for now, maybe move around robot towers here later?
     }
 
     @Override
