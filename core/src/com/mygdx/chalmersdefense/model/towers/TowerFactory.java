@@ -2,6 +2,7 @@ package com.mygdx.chalmersdefense.model.towers;
 
 
 
+import com.mygdx.chalmersdefense.model.Player;
 import com.mygdx.chalmersdefense.model.projectiles.AcidProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.BulletProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
@@ -15,6 +16,8 @@ import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
  */
 
 public abstract class TowerFactory {
+
+
 
 
     /**
@@ -75,8 +78,8 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static Tower CreateEco(int startPosX, int startPosY){
-        return new EcoTower(startPosX,startPosY, "Economist", 5, 600, 200, TargetModeFactory.getTargetModes());
+    public static ITower CreateEco(int startPosX, int startPosY, Player player){
+        return new EcoTower(startPosX,startPosY, "Economist", 5, 600, 200, TargetModeFactory.getTargetModes(),player);
     }
 
 

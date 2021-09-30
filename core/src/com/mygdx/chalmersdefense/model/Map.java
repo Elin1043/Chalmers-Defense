@@ -82,16 +82,7 @@ public class Map {
                 tower.notHaveTarget();
             }
 
-            IProjectile projectile = tower.shootProjectile();
-
-            if (projectile != null) {
-                projectilesList.add(projectile);
-                for (IVirus virus : allViruses) {virus.setGotHit(false);}
-            } else {
-                if (tower instanceof EcoTower) {
-                    player.increaseMoney(((EcoTower) tower).getMoneyEarned());
-                }
-            }
+            tower.update(projectilesList);
         }
     }
 
@@ -272,7 +263,7 @@ public class Map {
             case "electro" -> newTower = TowerFactory.CreateElectro(x, y);
             case "hacker"  -> newTower = TowerFactory.CreateHacker(x, y);
             case "meck"    -> newTower = TowerFactory.CreateMeck(x, y);
-            case "eco"     -> newTower = TowerFactory.CreateEco(x, y);
+            case "eco"     -> newTower = TowerFactory.CreateEco(x, y, player);
             default        -> { return; }
         }
 

@@ -91,25 +91,16 @@ public class Tower implements ITower{
     }
 
     @Override
-    public void update() {
-
-    }
-
-    /**
-     * Creates a projectile to shoot
-     * @return projectile created
-     */
-    public IProjectile shootProjectile(){
+    public void update(List<IProjectile> projectilesList) {
         if(currentReload < 1 && gotTarget && isPlaced){
-            projectile = projectile.createProjectile(attackSpeed, this.getX() + this.width/2, this.getY() + this.height/2, this.angle);
             currentReload = reloadTime;
-            return projectile;
+            projectilesList.add(projectile.createProjectile(attackSpeed, this.getX() + this.width/2, this.getY() + this.height/2, this.angle));
         }
         else{
             currentReload --;
         }
-        return null;
     }
+
 
 
     /**
