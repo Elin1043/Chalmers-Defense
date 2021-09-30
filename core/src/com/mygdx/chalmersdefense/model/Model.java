@@ -43,7 +43,6 @@ public class Model {
     private final Map map = new Map(player);
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());
 
-
     /**
      * Constructor of the model class
      * @param game current game session
