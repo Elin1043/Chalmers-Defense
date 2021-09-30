@@ -15,10 +15,9 @@ import java.util.List;
 public class MechTower extends Tower {
 
 
-    private List<MechMiniTower> miniTowers = new ArrayList<>();
+    private List<ITower> miniTowers = new ArrayList<>();
 
-    private float x;
-    private float y;
+
     private int attackSpeed;
     private int range;
     private List<ITargetMode> targetModes;
@@ -26,8 +25,6 @@ public class MechTower extends Tower {
 
     public MechTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, Projectile projectile) {
         super(x, y, name, attackSpeed, cost, range, targetModes, projectile);
-        this.x = x;
-        this.y = y;
         this.attackSpeed = attackSpeed;
         this.targetModes = targetModes;
         this.projectile = projectile;
@@ -36,24 +33,27 @@ public class MechTower extends Tower {
 
     }
 
-    public List<MechMiniTower> createMiniTowers(){
-            MechMiniTower miniTower1 = new MechMiniTower(this.getX() + 100,this.getY() - 100,attackSpeed,range,targetModes,projectile);
-            MechMiniTower miniTower2 = new MechMiniTower(this.getX() - 100,this.getY() - 100,attackSpeed,range,targetModes,projectile);
+    public List<ITower> createMiniTowers(){
+            ITower miniTower1 = new MechMiniTower(this.getX() + 100,this.getY() - 100,attackSpeed,range,targetModes,projectile);
+            ITower miniTower2 = new MechMiniTower(this.getX() - 100,this.getY() - 100,attackSpeed,range,targetModes,projectile);
 
             miniTowers.add(miniTower1);
             miniTowers.add(miniTower2);
             return miniTowers;
     }
 
-
-    public IProjectile shootProjectile(){
+    @Override
+    public void update(List<IProjectile> projectilesList, List<ITower> towersList){
+        if(this.isPlaced() && miniTowers.isEmpty()){
+            List<ITower> miniTowers = createMiniTowers();
+            for (ITower miniTower: miniTowers) {
+                miniTower.placeTower();
+                miniTower.setRectangle();
+                miniTower.setGotButton(true);
+            }
+            towersList.addAll(miniTowers);
+        }
         this.setAngle(0);
-        return null;
     }
 
-
-
-    public List<MechMiniTower> getMiniTowers() {
-        return miniTowers;
-    }
 }

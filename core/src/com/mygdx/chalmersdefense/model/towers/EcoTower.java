@@ -25,13 +25,10 @@ public class EcoTower extends Tower {
     }
 
     @Override
-    public void update(List<IProjectile> projectilesList){
+    public void update(List<IProjectile> projectilesList, List<ITower> towersList){
         if(currentReload < 1 && this.isPlaced()){
             currentReload = reloadTime;
             player.increaseMoney(20);
-
-
-
         }
         else{
             currentReload --;
