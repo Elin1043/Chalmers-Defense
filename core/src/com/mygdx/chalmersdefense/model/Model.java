@@ -187,7 +187,7 @@ public class Model {
     }
 
     /**
-     * Delegates upgrade method to upgrade class.
+     * Delegates upgrade method to upgrade class. And decreases players money if upgrade is applied.
      */
     public void upgradeClickedTower() {
         if (upgrades.upgradeTower(getClickedTower())) {
