@@ -2,7 +2,6 @@ package com.mygdx.chalmersdefense.model.towers;
 
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import javax.imageio.ImageIO;
 import java.awt.Rectangle;
@@ -14,7 +13,7 @@ import java.util.Objects;
 
 
 /**
- * @author ELin Forsberg
+ * @author Elin Forsberg
  * A class defining the tower objects
  *
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: changed class to hold hashmap key for sprite
@@ -125,6 +124,10 @@ public abstract class Tower implements ITower{
 
     private void updateSpriteKey() { spriteKey = name + upgradeLevel; }
 
+
+    public boolean isGotTarget() {
+        return gotTarget;
+    }
     /**
      * Get the spriteKey of tower
      * @return the spriteKey

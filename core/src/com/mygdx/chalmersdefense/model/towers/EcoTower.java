@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author Elin Forsberg
- * Class representing the MechTower
+ * Class representing the EcoTower
  */
 
 public class EcoTower extends Tower {

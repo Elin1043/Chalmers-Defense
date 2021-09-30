@@ -8,6 +8,10 @@ import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import java.util.List;
 
+/**
+ * @author Elin Forsberg
+ * Class representing the ChemistTower
+ */
 public class ChemistTower extends Tower{
 
     public ChemistTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes) {
