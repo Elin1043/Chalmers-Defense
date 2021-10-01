@@ -11,6 +11,8 @@ import java.util.ArrayList;
  *
  * 2021-09-24 Modified by Elin Forsberg and Joel Båtsman Hilmersson: Elin created createMapCollision and Joel implemented it here.
  */
+
+
 public abstract class Path {
 
     private final int pathWidth;
