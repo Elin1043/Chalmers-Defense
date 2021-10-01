@@ -90,7 +90,6 @@ public class Map {
             }
 
             tower.update(projectilesList, newAngle, towerHasTarget, allViruses);
-
         }
     }
 
@@ -145,17 +144,17 @@ public class Map {
 
 
     //Checks if projectile collided with path, then virus
-    private boolean checkCollisonOfProjectiles(IProjectile projectile, List<IProjectile> list){
+    private boolean checkCollisonOfProjectiles(IProjectile projectile, List<IProjectile> removeList){
         for (Rectangle rectangle: path.getCollisionRectangles()) {
             if(Calculate.objectsIntersects(projectile,rectangle)){
-                return checkVirusAndProjectileCollision(projectile, list);
+                return checkVirusAndProjectileCollision(projectile, removeList);
             }
         }
         return false;
     }
 
     //Helper method for collision between virus and projectile
-    private boolean checkVirusAndProjectileCollision(IProjectile projectile, List<IProjectile> list){
+    private boolean checkVirusAndProjectileCollision(IProjectile projectile, List<IProjectile> removeListlist){
         boolean collided = false;
 
 

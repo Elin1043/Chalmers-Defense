@@ -22,9 +22,9 @@ public abstract class Projectile implements IProjectile{
     private float y;
 
     private float angle;
-
-
     private boolean dealtDamage;
+
+    boolean canRemove = false;
 
     public Projectile(float speed, String name, float x, float y, float angle){
         this.speed = speed;
@@ -32,7 +32,6 @@ public abstract class Projectile implements IProjectile{
         this.x = x;
         this.y = y;
         this.angle = angle;
-
         // TODO Fix speed calc in children
 
 
@@ -70,6 +69,7 @@ public abstract class Projectile implements IProjectile{
      */
     void virusIsHit( float angle){
         this.setDealtDamage(true);
+        this.canRemove = true;
     }
 
     public String getSpriteKey(){
@@ -90,7 +90,7 @@ public abstract class Projectile implements IProjectile{
 
 
     public boolean canRemove(){
-        return true;
+        return false;
     }
 
     public void setDealtDamage(boolean dealtDamage) {
