@@ -6,8 +6,6 @@ public interface IProjectile extends IMapObject {
 
     void setAngle(float newAngle);
 
-    IProjectile createProjectile(int speed, float x, float y, float angle);
-
     boolean getIfDealtDamage();
 
     void setDealtDamage(boolean bool);

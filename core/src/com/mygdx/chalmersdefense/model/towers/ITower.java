@@ -7,12 +7,12 @@ import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.List;
 
 public interface ITower extends IMapObject {
 
-    void update();
+    void update(List<IProjectile> projectilesList, List<ITower> towersList);
 
-    IProjectile shootProjectile();
 
     void upgradeTower(HashMap<String, Long> upgrades);
 
