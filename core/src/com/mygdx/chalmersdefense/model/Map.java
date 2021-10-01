@@ -56,9 +56,10 @@ public class Map {
         for (IProjectile projectile : projectilesList) {
             projectile.move();
             if (checkCollisonOfProjectiles(projectile, removeProjectiles) || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
-                if (!(projectile instanceof LightningProjectile)) {
+                if(projectile.remove() == true){
                     removeProjectiles.add(projectile);
                 }
+
             }
         }
         for (IProjectile projectile : removeProjectiles) {
@@ -84,7 +85,7 @@ public class Map {
                 towerHasTarget = true;
             }
 
-            tower.update(projectilesList, towersToAdd, newAngle, towerHasTarget);
+            tower.update(projectilesList, towersToAdd, newAngle, towerHasTarget, allViruses);
             //for (IVirus virus : allViruses) {virus.setGotHit(false);}
 
 
@@ -160,60 +161,18 @@ public class Map {
 
         for (IVirus virus : allViruses) {
             if (Calculate.objectsIntersects(projectile, virus)) {
-                if (projectile instanceof AcidProjectile) {
-                    collidedWithAcid(projectile);
-                } else if (projectile instanceof LightningProjectile) {
-                    collidedWithLightning(projectile, virus, list);
-
-                } else {
                     if (!projectile.getIfDealtDamage()) {
-                        virus.decreaseHealth();
-                        projectile.setDealtDamage(true);
+                        projectile.virusIsHit(virus, list, allViruses);
                     }
-
-                }
 
                 collided = true;
             }
         }
 
+
     return collided;
     }
 
-    //Collision with lightning projectile
-    private void collidedWithLightning(IProjectile projectile, IVirus virus, List<IProjectile> list){
-        List<IVirus> virusToRemove = new ArrayList<>();
-        if(!projectile.getIfDealtDamage()){
-            if(!virus.getIfGotHit()){
-                virus.decreaseHealth();
-                projectile.virusIsHit();
-                virus.setGotHit(true);
-
-                List<IVirus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2F, virus.getY() + virus.getHeight()/2F, ((LightningProjectile) projectile).getRange(), allViruses);
-
-                for (IVirus virusInList: virusInRange) {
-                    if(virusInList.getIfGotHit()){
-                        virusToRemove.add(virusInList);
-                    }
-                }
-                virusInRange.removeAll(virusToRemove);
-
-
-                if(!virusInRange.isEmpty()){
-                    IVirus tempVirus = virusInRange.get(0);
-                    projectile.setAngle(Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2F, tempVirus.getY() + tempVirus.getHeight()/2F,projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F));
-
-                }
-                else{
-                    list.add(projectile);
-                }
-            }
-
-        }
-        else{
-            list.add(projectile);
-        }
-    }
 
 
     //Collision with acid projectile

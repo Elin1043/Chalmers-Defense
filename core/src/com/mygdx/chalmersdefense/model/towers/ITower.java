@@ -4,6 +4,7 @@ import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
+import com.mygdx.chalmersdefense.model.viruses.IVirus;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public interface ITower extends IMapObject {
 
-    void update(List<IProjectile> projectilesList, List<ITower> towersList, float newAgle, boolean hasTarget);
+    void update(List<IProjectile> projectilesList, List<ITower> towersList, float newAgle, boolean hasTarget,List<IVirus> viruses);
 
     void upgradeTower(HashMap<String, Long> upgrades);
 

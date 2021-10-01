@@ -1,9 +1,12 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
 
+import com.mygdx.chalmersdefense.model.viruses.IVirus;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -21,7 +24,7 @@ public abstract class Projectile implements IProjectile{
     private float x;
     private float y;
 
-    private int hitCountsLeft = 4;
+
 
     private float angle;
 
@@ -84,14 +87,15 @@ public abstract class Projectile implements IProjectile{
      * Method to call when virus is hit (temp for now, used by lightning)
      */
     @Override
-    public void virusIsHit(){
-        if (hitCountsLeft > 0){
-            hitCountsLeft--;
-        } else {
-            dealtDamage = true;
-        }
+    public void virusIsHit( IVirus virus, List<IProjectile> list, List<IVirus> virusInRange){
+        virus.decreaseHealth();
+        this.setDealtDamage(true);
     }
 
+
+    public boolean remove(){
+        return true;
+    }
     public void setDealtDamage(boolean dealtDamage) {
         this.dealtDamage = dealtDamage;
     }

@@ -3,6 +3,8 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
+import com.mygdx.chalmersdefense.model.viruses.IVirus;
+
 import javax.imageio.ImageIO;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -86,11 +88,11 @@ public abstract class Tower implements ITower{
     abstract void createProjectile(List<IProjectile> projectileList);
 
     @Override
-    public void update(List<IProjectile> projectilesList, List<ITower> towersList, float newAngle, boolean hasTarget) {
+    public void update(List<IProjectile> projectilesList, List<ITower> towersList, float newAngle, boolean hasTarget, List<IVirus> viruses) {
         setAngle(newAngle);
-
         if(currentReload < 1 && hasTarget && isPlaced){
             currentReload = reloadTime;
+            for (IVirus virus : viruses) {virus.setGotHit(false);}
             createProjectile(projectilesList);
         }
         else{

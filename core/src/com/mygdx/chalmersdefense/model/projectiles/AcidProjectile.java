@@ -18,11 +18,11 @@ public class AcidProjectile extends Projectile{
         this.projectileList = projectileList;
     }
 
-    @Override
-    public void virusIsHit() {
-        System.out.println("Tjenare");
-        projectileList.add(ProjectileFactory.createAcidPool(getX(), getY(), upgradeLevel));
-    }
+//    @Override
+//    public void virusIsHit() {
+//        System.out.println("Tjenare");
+//        projectileList.add(ProjectileFactory.createAcidPool(getX(), getY(), upgradeLevel));
+//    }
 
     public int getRange() {
         return range;
