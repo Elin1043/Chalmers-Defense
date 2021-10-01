@@ -63,7 +63,6 @@ public class Map {
 
             List<IVirus> virusThatWasHit = new ArrayList<>();
 
-//            if (checkCollisionOfProjectiles(projectile, angle) || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
             if (checkCollisionOfProjectiles(projectile, virusThatWasHit)) {
                 float angle = getAngle(projectile, virusThatWasHit);
                 projectile.update(true, virusThatWasHit.get(0).hashCode(), angle);
@@ -71,7 +70,7 @@ public class Map {
                 projectile.update(false, -1, -1);
             }
 
-            if(projectile.canRemove()){ removeProjectiles.add(projectile); }
+            if(projectile.canRemove() || checkIfOutOfBounds(projectile.getY(), projectile.getX())){ removeProjectiles.add(projectile); }
         }
 
         projectilesList.removeAll(removeProjectiles);
