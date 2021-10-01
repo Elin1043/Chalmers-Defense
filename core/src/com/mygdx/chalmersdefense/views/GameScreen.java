@@ -404,7 +404,8 @@ public class GameScreen extends AbstractScreen implements Screen {
                 Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                 shapeRenderer.setColor(new Color(255 / 255F, 51 / 255F, 51 / 255F, 0.8F));
-                shapeRenderer.circle(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());shapeRenderer.end();
+                shapeRenderer.circle(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());
+                shapeRenderer.end();
                 Gdx.gl.glDisable(GL_BLEND);
             }
 

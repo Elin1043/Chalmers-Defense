@@ -91,7 +91,6 @@ public abstract class Tower implements ITower{
         setAngle(newAngle);
         if(currentReload < 1 && hasTarget && isPlaced){
             currentReload = reloadTime;
-            //for (IVirus virus : viruses) {virus.setGotHit(false);}
             createProjectile(projectilesList);
         }
         else{
