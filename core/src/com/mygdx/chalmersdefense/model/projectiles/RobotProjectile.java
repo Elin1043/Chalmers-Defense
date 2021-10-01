@@ -11,10 +11,7 @@ public class RobotProjectile extends Projectile{
         super(5 , "mechaProjectile" + upgradeLevel, x, y, angle);
     }
 
-    @Override
-    public int getRange() {
-        return 0;
-    }
+
 
 //    @Override
 //    public IProjectile createProjectile(int speed, float x, float y, float angle) {

@@ -67,7 +67,6 @@ public abstract class Projectile implements IProjectile{
 
     }
 
-     public abstract int getRange();
 
     public String getSpriteKey(){
         return name;

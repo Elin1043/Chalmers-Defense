@@ -19,7 +19,6 @@ public interface IProjectile extends IMapObject {
 
     String getName();
 
-    int getRange();
 
 
     boolean remove();
