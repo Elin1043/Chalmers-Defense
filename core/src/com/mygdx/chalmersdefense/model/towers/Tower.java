@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,7 +30,7 @@ public class Tower {
     private double angle = 0;
     private int range;
     private String name;
-    //private Tower upgrade;
+
     private boolean isPlaced = false;
     private float x;
     private float y;
@@ -62,7 +63,7 @@ public class Tower {
 
 
     public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, Projectile projectile){
-        this.name=name;
+        this.name = name;
         this.attackSpeed = attackSpeed;
         this.targetModes = targetModes;
         this.currentTargetMode = targetModes.get(0);
@@ -70,7 +71,7 @@ public class Tower {
         updateSpriteKey();
 
         try{
-            BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("towers/" +spriteKey + ".png")));
+            BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("towers/" + name + "/" + spriteKey + ".png")));
             this.width         = towerImage.getWidth();
             this.height        = towerImage.getHeight();
 
@@ -106,6 +107,26 @@ public class Tower {
         return null;
     }
 
+
+    /**
+     * Upgrades the tower based on given HashMap with upgrade values
+     * @param upgrades a HashMap with upgrade values.
+     */
+    public void upgradeTower(HashMap<String, Long> upgrades) {
+        // DMG multiplier??
+        attackSpeed *= upgrades.get("attackSpeedMul");
+        range *= upgrades.get("attackRangeMul");
+        upgradeLevel++;
+        updateSpriteKey(); // Add this when all sprites are in the game.
+    }
+
+    /**
+     * Get the upgrade level of tower
+     * @return upgrade level
+     */
+    public int getUpgradeLevel() {
+        return upgradeLevel;
+    }
 
     private void updateSpriteKey() { spriteKey = name + upgradeLevel; }
 
@@ -150,7 +171,7 @@ public class Tower {
     }
 
     /**
-     * Stes if tower is colliding with something else
+     * Sets if tower is colliding with something else
      * @param set if tower is colliding
      */
     public void setCollision(Boolean set){

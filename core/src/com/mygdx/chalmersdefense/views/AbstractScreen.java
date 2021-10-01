@@ -22,6 +22,7 @@ import java.util.HashMap;
 public abstract class AbstractScreen extends Stage implements Screen {
 
     final HashMap<String, Sprite> spriteMap = new HashMap<>();
+    final HashMap<String, Sprite> largeSpriteMap = new HashMap<>();
 
     final Batch batch = new SpriteBatch();
     protected AbstractScreen() {
@@ -65,13 +66,28 @@ public abstract class AbstractScreen extends Stage implements Screen {
     @Override public void resume() {}
 
     private void createSprites() {
-        spriteMap.put("SmurfTower1", new Sprite(new Texture("Towers/SmurfTower1.png")));
-        spriteMap.put("ChemistTower1", new Sprite(new Texture("Towers/ChemistTower1.png")));
-        spriteMap.put("ElectroTower1", new Sprite(new Texture("Towers/ElectroTower1.png")));
-        spriteMap.put("HackerTower1", new Sprite(new Texture("Towers/HackerTower1.png")));
-        spriteMap.put("MechTower1", new Sprite(new Texture("Towers/MechTower1.png")));
-        spriteMap.put("MechMiniTower1", new Sprite(new Texture("Towers/MechMiniTower1.png")));
-        spriteMap.put("EcoTower1", new Sprite(new Texture("Towers/EcoTower1.png")));
+        spriteMap.put("IT-Smurf1", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1.png")));
+        spriteMap.put("Chemist1", new Sprite(new Texture("towers/Chemist/Chemist1.png")));
+        spriteMap.put("Hackerman1", new Sprite(new Texture("towers/Hackerman/Hackerman1.png")));
+        spriteMap.put("Electroman1", new Sprite(new Texture("towers/Electroman/Electroman1.png")));
+        spriteMap.put("Mechoman1", new Sprite(new Texture("towers/Mechoman/Mechoman1.png")));
+        spriteMap.put("MechMiniTower1", new Sprite(new Texture("towers/MechMiniTower/MechMiniTower1.png")));
+        spriteMap.put("Economist1", new Sprite(new Texture("towers/Economist/Economist1.png")));
+
+
+        spriteMap.put("IT-Smurf2", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf2.png")));
+        spriteMap.put("Chemist2", new Sprite(new Texture("towers/Chemist/Chemist2.png")));
+        spriteMap.put("Hackerman2", new Sprite(new Texture("towers/Hackerman/Hackerman2.png")));
+        spriteMap.put("Electroman2", new Sprite(new Texture("towers/Electroman/Electroman2.png")));
+        spriteMap.put("Mechoman2", new Sprite(new Texture("towers/Mechoman/Mechoman1.png")));
+        spriteMap.put("Economist2", new Sprite(new Texture("towers/Economist/Economist2.png")));
+
+        spriteMap.put("IT-Smurf3", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf3.png")));
+        spriteMap.put("Chemist3", new Sprite(new Texture("towers/Chemist/Chemist3.png")));
+        spriteMap.put("Hackerman3", new Sprite(new Texture("towers/Hackerman/Hackerman3.png")));
+        spriteMap.put("Electroman3", new Sprite(new Texture("towers/Electroman/Electroman3.png")));
+        spriteMap.put("Mechoman3", new Sprite(new Texture("towers/Mechoman/Mechoman1.png")));
+        spriteMap.put("Economist3", new Sprite(new Texture("towers/Economist/Economist3.png")));
 
         spriteMap.put("virus1", new Sprite(new Texture("viruses/virus1Hp.png")));
         spriteMap.put("virus2", new Sprite(new Texture("viruses/virus2Hp.png")));
@@ -90,6 +106,27 @@ public abstract class AbstractScreen extends Stage implements Screen {
         spriteMap.put("money", new Sprite(new Texture("projectiles/money.png")));
 
 
+
+        largeSpriteMap.put("IT-Smurf1Large", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1Large.png")));
+        largeSpriteMap.put("Chemist1Large", new Sprite(new Texture("towers/Chemist/Chemist1Large.png")));
+        largeSpriteMap.put("Hackerman1Large", new Sprite(new Texture("towers/Hackerman/Hackerman1Large.png")));
+        largeSpriteMap.put("Electroman1Large", new Sprite(new Texture("towers/Electroman/Electroman1Large.png")));
+        largeSpriteMap.put("Mechoman1Large", new Sprite(new Texture("towers/Mechoman/Mechoman1Large.png")));
+        largeSpriteMap.put("Economist1Large", new Sprite(new Texture("towers/Economist/Economist1Large.png")));
+
+        largeSpriteMap.put("IT-Smurf2Large", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf2Large.png")));
+        largeSpriteMap.put("Chemist2Large", new Sprite(new Texture("towers/Chemist/Chemist2Large.png")));
+        largeSpriteMap.put("Hackerman2Large", new Sprite(new Texture("towers/Hackerman/Hackerman2Large.png")));
+        largeSpriteMap.put("Electroman2Large", new Sprite(new Texture("towers/Electroman/Electroman2Large.png")));
+        largeSpriteMap.put("Mechoman2Large", new Sprite(new Texture("towers/Mechoman/Mechoman2Large.png")));
+        largeSpriteMap.put("Economist2Large", new Sprite(new Texture("towers/Economist/Economist2Large.png")));
+
+        largeSpriteMap.put("IT-Smurf3Large", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf3Large.png")));
+        largeSpriteMap.put("Chemist3Large", new Sprite(new Texture("towers/Chemist/Chemist3Large.png")));
+        largeSpriteMap.put("Hackerman3Large", new Sprite(new Texture("towers/Hackerman/Hackerman3Large.png")));
+        largeSpriteMap.put("Electroman3Large", new Sprite(new Texture("towers/Electroman/Electroman3Large.png")));
+        largeSpriteMap.put("Mechoman3Large", new Sprite(new Texture("towers/Mechoman/Mechoman3Large.png")));
+        largeSpriteMap.put("Economist3Large", new Sprite(new Texture("towers/Economist/Economist3Large.png")));
     }
 }
 
