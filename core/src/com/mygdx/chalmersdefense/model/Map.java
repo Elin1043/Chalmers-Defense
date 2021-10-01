@@ -60,13 +60,15 @@ public class Map {
 
         for (IProjectile projectile : projectilesList) {
             boolean virusIsHit = false;
+            float angle = -1;
             if (checkCollisonOfProjectiles(projectile, removeProjectiles) || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
                 if(projectile.canRemove()){
                     removeProjectiles.add(projectile);
                 }
                 virusIsHit = true;
+                angle = getAngle(projectile);
             }
-            projectile.update(virusIsHit);
+            projectile.update(virusIsHit, angle);
         }
 
         projectilesList.removeAll(removeProjectiles);
@@ -161,14 +163,13 @@ public class Map {
 
         for (IVirus virus : allViruses) {
             if (Calculate.objectsIntersects(projectile, virus)) {
-                float angle = getAngle(projectile);
 
                 if (!projectile.getIfDealtDamage()) {
                     if (!virus.getIfGotHit()) {
                         virus.decreaseHealth();
                         virus.setGotHit(true);
 
-                        projectile.virusIsHit(angle);
+                        projectile.setDealtDamage(true);
                     }
                 }
                 collided = true;

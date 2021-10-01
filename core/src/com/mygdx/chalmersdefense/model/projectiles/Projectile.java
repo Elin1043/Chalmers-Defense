@@ -57,13 +57,11 @@ public abstract class Projectile implements IProjectile{
      */
     public void update(boolean hitVirus, float angle) {
 
-        if (hitVirus){
-            virusIsHit();
-        }
+        if (hitVirus) { virusIsHit(angle); }
 
-        if (hitVirus) { virusIsHit(); }
-        float xLength = (float) (Math.cos(Math.toRadians(angle)) * speed);
-        float yLength = (float) (Math.sin(Math.toRadians(angle)) * speed);
+
+        float xLength = (float) (Math.cos(Math.toRadians(this.angle)) * speed);
+        float yLength = (float) (Math.sin(Math.toRadians(this.angle)) * speed);
 
         x =  x + xLength;
         y =  y + yLength;
@@ -73,11 +71,11 @@ public abstract class Projectile implements IProjectile{
     /**
      * Method to call when virus is hit (temp for now, used by lightning)
      */
-    void virusIsHit(){
-        // Set dead
+    void virusIsHit( float angle){
+        this.setDealtDamage(true);
     }
 
-    public abstract int getRange();
+
 
     public String getSpriteKey(){
         return name;
@@ -93,14 +91,6 @@ public abstract class Projectile implements IProjectile{
 
     public boolean getIfDealtDamage() {
         return dealtDamage;
-    }
-
-    /**
-     * Method to call when virus is hit (temp for now, used by lightning)
-     */
-    @Override
-    public void virusIsHit( float angle){
-        this.setDealtDamage(true);
     }
 
 
