@@ -27,7 +27,7 @@ public class LightningProjectile extends Projectile{
 
     @Override
     public boolean canRemove(){
-        return false;
+        return canRemove;
     }
 
     @Override

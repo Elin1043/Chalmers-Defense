@@ -101,7 +101,6 @@ public abstract class Tower implements ITower{
     }
 
 
-
     /**
      * Upgrades the tower based on given HashMap with upgrade values
      * @param upgrades a HashMap with upgrade values.
