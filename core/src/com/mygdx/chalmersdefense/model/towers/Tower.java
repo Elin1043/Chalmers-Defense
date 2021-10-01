@@ -88,7 +88,7 @@ public abstract class Tower implements ITower{
     abstract void createProjectile(List<IProjectile> projectileList);
 
     @Override
-    public void update(List<IProjectile> projectilesList, List<ITower> towersList, float newAngle, boolean hasTarget, List<IVirus> viruses) {
+    public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget, List<IVirus> viruses) {
         setAngle(newAngle);
         if(currentReload < 1 && hasTarget && isPlaced){
             currentReload = reloadTime;

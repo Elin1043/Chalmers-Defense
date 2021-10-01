@@ -12,13 +12,15 @@ import java.util.List;
  * 2021-09-30 Modified by Joel Båtsman Hilmersson: Changed to use ProjectileFactory when creating projectile
  */
 public class ChemistTower extends Tower{
+    private final List<IProjectile> addToList;
 
-    public ChemistTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes) {
+    public ChemistTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, List<IProjectile> addToList) {
         super(x, y, name, attackSpeed, cost, range, targetModes);
+        this.addToList = addToList;
     }
 
     @Override
     void createProjectile(List<IProjectile> projectileList) {
-        projectileList.add(ProjectileFactory.createAcidProjectile(getX(), getY(), getAngle(), getUpgradeLevel(), projectileList));
+        projectileList.add(ProjectileFactory.createAcidProjectile(getX(), getY(), getAngle(), getUpgradeLevel(), addToList));
     }
 }
