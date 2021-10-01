@@ -63,12 +63,14 @@ public class Map {
         List<IProjectile> removeProjectiles = new ArrayList<>();
 
         for (IProjectile projectile : projectilesList) {
-            projectile.move();
+            boolean virusIsHit = false;
             if (checkCollisonOfProjectiles(projectile, removeProjectiles) || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
                 if (!(projectile instanceof LightningProjectile)) {
                     removeProjectiles.add(projectile);
                 }
+                virusIsHit = true;
             }
+            projectile.update(virusIsHit);
         }
 
         projectilesList.removeAll(removeProjectiles);
@@ -191,7 +193,7 @@ public class Map {
         if(!projectile.getIfDealtDamage()){
             if(!virus.getIfGotHit()){
                 virus.decreaseHealth();
-                projectile.virusIsHit();
+                //projectile.virusIsHit();
                 virus.setGotHit(true);
 
                 List<IVirus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2F, virus.getY() + virus.getHeight()/2F, ((LightningProjectile) projectile).getRange(), allViruses);
@@ -223,7 +225,7 @@ public class Map {
 
     //Collision with acid projectile
     private void collidedWithAcid(IProjectile projectile){
-        projectile.virusIsHit(); // Change position of this later
+        //projectile.virusIsHit(); // Change position of this later
 
         if(!projectile.getIfDealtDamage()){
             for (IVirus virus:getViruses()) {

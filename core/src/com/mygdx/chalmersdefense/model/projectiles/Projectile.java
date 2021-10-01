@@ -55,13 +55,26 @@ public abstract class Projectile implements IProjectile{
     /**
      * Moves the projectile in calculated direction
      */
-    public void move() {
+    public void update(boolean hitVirus) {
+
+        if (hitVirus) { virusIsHit(); }
         float xLength = (float) (Math.cos(Math.toRadians(angle)) * speed);
         float yLength = (float) (Math.sin(Math.toRadians(angle)) * speed);
 
         x =  x + xLength;
         y =  y + yLength;
 
+    }
+
+    /**
+     * Method to call when virus is hit (temp for now, used by lightning)
+     */
+    void virusIsHit(){
+        if (hitCountsLeft > 0){
+            hitCountsLeft--;
+        } else {
+            dealtDamage = true;
+        }
     }
 
     public String getSpriteKey(){
@@ -78,18 +91,6 @@ public abstract class Projectile implements IProjectile{
 
     public boolean getIfDealtDamage() {
         return dealtDamage;
-    }
-
-    /**
-     * Method to call when virus is hit (temp for now, used by lightning)
-     */
-    @Override
-    public void virusIsHit(){
-        if (hitCountsLeft > 0){
-            hitCountsLeft--;
-        } else {
-            dealtDamage = true;
-        }
     }
 
     public void setDealtDamage(boolean dealtDamage) {
