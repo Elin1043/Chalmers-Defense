@@ -61,7 +61,6 @@ public class Map {
     //Update the projectiles
     private void updateProjectiles() {
         List<IProjectile> removeProjectiles = new ArrayList<>();
-        List<IProjectile> addProjectiles = new ArrayList<>();
 
         for (IProjectile projectile : projectilesList) {
             projectile.move();
@@ -71,9 +70,8 @@ public class Map {
                 }
             }
         }
-        for (IProjectile projectile : removeProjectiles) {
-            projectilesList.remove(projectile);
-        }
+
+        projectilesList.removeAll(removeProjectiles);
     }
 
 
@@ -225,7 +223,7 @@ public class Map {
 
     //Collision with acid projectile
     private void collidedWithAcid(IProjectile projectile){
-        // projectile.virusIsHit(); // Change position of this later
+        projectile.virusIsHit(); // Change position of this later
 
         if(!projectile.getIfDealtDamage()){
             for (IVirus virus:getViruses()) {
