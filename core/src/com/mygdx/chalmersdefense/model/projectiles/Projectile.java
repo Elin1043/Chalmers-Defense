@@ -67,6 +67,8 @@ public abstract class Projectile implements IProjectile{
 
     }
 
+     public abstract int getRange();
+
     public String getSpriteKey(){
         return name;
     }
@@ -87,8 +89,7 @@ public abstract class Projectile implements IProjectile{
      * Method to call when virus is hit (temp for now, used by lightning)
      */
     @Override
-    public void virusIsHit( IVirus virus, List<IProjectile> list, List<IVirus> virusInRange){
-        virus.decreaseHealth();
+    public void virusIsHit( float angle){
         this.setDealtDamage(true);
     }
 

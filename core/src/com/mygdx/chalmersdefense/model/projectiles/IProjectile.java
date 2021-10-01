@@ -13,11 +13,13 @@ public interface IProjectile extends IMapObject {
 
     void setDealtDamage(boolean bool);
 
-    void virusIsHit( IVirus virus, List<IProjectile> list, List<IVirus> virusInRange);
+    void virusIsHit(float angle);
 
     void move();
 
     String getName();
+
+    int getRange();
 
 
     boolean remove();

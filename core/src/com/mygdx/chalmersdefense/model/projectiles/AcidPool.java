@@ -6,6 +6,10 @@ public class AcidPool extends Projectile implements IProjectile{
         super(0, "chemistAcid" + upgradeLevel, x, y, 0);
     }
 
+    @Override
+    public int getRange() {
+        return 0;
+    }
 
 
 //    @Override

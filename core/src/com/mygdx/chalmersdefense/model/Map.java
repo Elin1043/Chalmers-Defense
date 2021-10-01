@@ -160,12 +160,32 @@ public class Map {
     //Helper method for collision between virus and projectile
     private boolean checkVirusAndProjectileCollision(IProjectile projectile, List<IProjectile> list){
         boolean collided = false;
-
+        float angle = projectile.getAngle();
+        List<IVirus> virusToRemove = new ArrayList<>();
 
         for (IVirus virus : allViruses) {
             if (Calculate.objectsIntersects(projectile, virus)) {
                     if (!projectile.getIfDealtDamage()) {
-                        projectile.virusIsHit(virus, list, allViruses);
+                        List<IVirus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2F, virus.getY() + virus.getHeight()/2F, projectile.getRange() , allViruses);
+                        for (IVirus virusInList: virusInRange) {
+                            if(virusInList.getIfGotHit()){
+                                virusToRemove.add(virusInList);
+                            }
+                        }
+                        virusInRange.removeAll(virusToRemove);
+
+                        if(!virusInRange.isEmpty()){
+                            IVirus tempVirus = virusInRange.get(0);
+                            angle = Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2F, tempVirus.getY() + tempVirus.getHeight()/2F,projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F);
+                        }
+
+                        if(!virus.getIfGotHit()){
+                            virus.decreaseHealth();
+                            virus.setGotHit(true);
+
+                            projectile.virusIsHit(angle);
+                        }
+
                     }
 
                 collided = true;
