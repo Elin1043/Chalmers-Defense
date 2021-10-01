@@ -1,5 +1,6 @@
 package com.mygdx.chalmersdefense.model.towers;
 
+import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
@@ -36,8 +37,8 @@ public class MechTower extends Tower {
     }
 
     public List<MechMiniTower> createMiniTowers(){
-            MechMiniTower miniTower1 = new MechMiniTower(this.getPosX() + 100,this.getPosY() - 100,attackSpeed,range,targetModes,projectile);
-            MechMiniTower miniTower2 = new MechMiniTower(this.getPosX() - 100,this.getPosY() - 100,attackSpeed,range,targetModes,projectile);
+            MechMiniTower miniTower1 = new MechMiniTower(this.getX() + 100,this.getY() - 100,attackSpeed,range,targetModes,projectile);
+            MechMiniTower miniTower2 = new MechMiniTower(this.getX() - 100,this.getY() - 100,attackSpeed,range,targetModes,projectile);
 
             miniTowers.add(miniTower1);
             miniTowers.add(miniTower2);
@@ -45,7 +46,7 @@ public class MechTower extends Tower {
     }
 
     @Override
-    public Projectile shootProjectile(){
+    public IProjectile shootProjectile(){
         this.setAngle(0);
         return null;
     }

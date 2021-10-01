@@ -1,8 +1,7 @@
 package com.mygdx.chalmersdefense.model.towers;
 
 
-
-import com.mygdx.chalmersdefense.model.projectiles.BulletProjectile;
+import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import javax.imageio.ImageIO;
@@ -22,12 +21,12 @@ import java.util.Objects;
  * 2021-09-25 Modified by Elin Forsberg: added method for shooting projectiles
  */
 
-public class Tower {
+public class Tower implements ITower{
 
     private String spriteKey;
     private int upgradeLevel = 1;
 
-    private double angle = 0;
+    private float angle = 0;
     private int range;
     private String name;
 
@@ -40,7 +39,7 @@ public class Tower {
 
     private final List<ITargetMode> targetModes;
     private ITargetMode currentTargetMode;
-    private Projectile projectile;
+    private IProjectile projectile;
 
     private float width;
     private float height;
@@ -62,7 +61,7 @@ public class Tower {
     private Rectangle rectangle = new Rectangle();
 
 
-    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, Projectile projectile){
+    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, IProjectile projectile){
         this.name = name;
         this.attackSpeed = attackSpeed;
         this.targetModes = targetModes;
@@ -91,13 +90,18 @@ public class Tower {
 
     }
 
+    @Override
+    public void update() {
+
+    }
+
     /**
      * Creates a projectile to shoot
      * @return projectile created
      */
-    public Projectile shootProjectile(){
+    public IProjectile shootProjectile(){
         if(currentReload < 1 && gotTarget && isPlaced){
-            projectile = projectile.createProjectile(attackSpeed, this.getPosX() + this.width/2, this.getPosY() + this.height/2, this.angle);
+            projectile = projectile.createProjectile(attackSpeed, this.getX() + this.width/2, this.getY() + this.height/2, this.angle);
             currentReload = reloadTime;
             return projectile;
         }
@@ -174,7 +178,7 @@ public class Tower {
      * Sets if tower is colliding with something else
      * @param set if tower is colliding
      */
-    public void setCollision(Boolean set){
+    public void setCollision(boolean set){
         collision = set;
     }
 
@@ -216,7 +220,7 @@ public class Tower {
      * Gets the X-position of the tower
      * @return x-coordinate of tower
      */
-    public float getPosX(){
+    public float getX(){
         return x;
     }
 
@@ -224,7 +228,7 @@ public class Tower {
      * Gets the Y-position of the tower
      * @return y-coordinate of tower
      */
-    public float getPosY(){
+    public float getY(){
         return y;
     }
 
@@ -248,7 +252,7 @@ public class Tower {
      * Gets the angle of the tower
      * @return angle of tower
      */
-    public double getAngle(){
+    public float getAngle(){
         return angle;
     }
 
@@ -274,15 +278,11 @@ public class Tower {
      */
     public ITargetMode getCurrentTargetMode() { return currentTargetMode; }
 
-    public boolean GotTarget() {
-        return gotTarget;
-    }
+
     /**
      * Gets if tower is placed
      * @return if placed
      */
-
-
     public boolean isPlaced(){
         return isPlaced;
     }

@@ -4,16 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
-import com.mygdx.chalmersdefense.model.Virus;
-import com.mygdx.chalmersdefense.model.VirusFactory;
+import com.mygdx.chalmersdefense.model.viruses.IVirus;
+import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
+import com.mygdx.chalmersdefense.model.towers.ITower;
+import com.mygdx.chalmersdefense.model.viruses.Virus;
+import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -30,7 +31,6 @@ import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.controllers.TowerClickListener;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
-import com.mygdx.chalmersdefense.model.towers.EcoTower;
 import com.mygdx.chalmersdefense.model.towers.MechMiniTower;
 import com.mygdx.chalmersdefense.model.towers.Tower;
 
@@ -54,7 +54,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private GameScreenController gameScreenController;
     private Model model;
 
-    private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));;
+    private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
     private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
     private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
 
@@ -254,7 +254,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private void renderProjectiles() {
 
         synchronized (model.getProjectilesList()) {
-            for (Projectile projectile : model.getProjectilesList()) {
+            for (IProjectile projectile : model.getProjectilesList()) {
                 Sprite projectileSprite = spriteMap.get(projectile.getName());
                 projectileSprite.setPosition(projectile.getX(), projectile.getY());
 
@@ -305,7 +305,7 @@ public class GameScreen extends AbstractScreen implements Screen {
      * Updates the upgrade panel.
      * @param tower tower name used to get correct sprite
      */
-    private void updateUpgradePanelInfo(Tower tower) {
+    private void updateUpgradePanelInfo(ITower tower) {
         towerNameLabel.setText(tower.getName());
 
         Sprite towerSpriteUpgradePanel = largeSpriteMap.get(tower.getName() + tower.getUpgradeLevel() + "Large");
@@ -329,7 +329,7 @@ public class GameScreen extends AbstractScreen implements Screen {
      * @param descLabel the description label to modify
      * @param priceLabel the price label to modify
      */
-    private void updateUpgradeButton(Tower tower, int buttonNr, Button upgradeButton, Label titleLabel, Label descLabel, Label priceLabel) {
+    private void updateUpgradeButton(ITower tower, int buttonNr, Button upgradeButton, Label titleLabel, Label descLabel, Label priceLabel) {
         Sprite upgradedTowerSprite = spriteMap.get(tower.getName() + (buttonNr + 1));
         upgradedTowerSprite.setPosition(upgradeButton.getX() + (268 - upgradedTowerSprite.getWidth()/2), (upgradeButton.getHeight() - upgradeButton.getY())/2 - upgradedTowerSprite.getHeight()/2 + upgradeButton.getY() + 20);
         upgradedTowerSprite.setRotation(0);
@@ -372,7 +372,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         super.batch.begin();
 
-        for (Virus virus : model.getViruses()) {
+        for (IVirus virus : model.getViruses()) {
 
             Sprite virusSprite = spriteMap.get(virus.getSpriteKey());
             virusSprite.setPosition(virus.getX(), virus.getY());
@@ -385,10 +385,10 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     //Render towers
     private void renderTowers() {
-        for (Tower tower : model.getTowers()) {
+        for (ITower tower : model.getTowers()) {
             Sprite towerSprite = spriteMap.get(tower.getSpriteKey());
-            towerSprite.setPosition(tower.getPosX(), tower.getPosY());
-            towerSprite.setRotation((float) tower.getAngle());
+            towerSprite.setPosition(tower.getX(), tower.getY());
+            towerSprite.setRotation(tower.getAngle());
 
             //If tower is not placed and not colliding: circle around is grey
             if(!(tower instanceof MechMiniTower)){
@@ -397,7 +397,7 @@ public class GameScreen extends AbstractScreen implements Screen {
                     Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                     shapeRenderer.setColor(new Color(150 / 255F, 150 / 255F, 150 / 255F, 0.8F));
-                    shapeRenderer.circle(tower.getPosX() + tower.getWidth() / 2, tower.getPosY() + tower.getHeight() / 2, tower.getRange());
+                    shapeRenderer.circle(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());
                     shapeRenderer.end();
                     Gdx.gl.glDisable(GL_BLEND);
                 }
@@ -408,13 +408,13 @@ public class GameScreen extends AbstractScreen implements Screen {
                     Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                     shapeRenderer.setColor(new Color(255 / 255F, 51 / 255F, 51 / 255F, 0.8F));
-                    shapeRenderer.circle(tower.getPosX() + tower.getWidth() / 2, tower.getPosY() + tower.getHeight() / 2, tower.getRange());shapeRenderer.end();
+                    shapeRenderer.circle(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());shapeRenderer.end();
                     Gdx.gl.glDisable(GL_BLEND);
                     }
 
                 //If tower is placed and dont have button: create a button and set that it's placed
                 else if (tower.isPlaced() && !tower.getGotButton()) {
-                    ImageButton btn = createInvisButtonsOnTower(towerSprite, tower.getPosX(), tower.getPosY());
+                    ImageButton btn = createInvisButtonsOnTower(towerSprite, tower.getX(), tower.getY());
                     btn.addListener(towerClickListener);
                     tower.setGotButton(true);
                 }
