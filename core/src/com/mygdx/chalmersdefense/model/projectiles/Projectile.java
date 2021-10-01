@@ -21,10 +21,7 @@ public abstract class Projectile implements IProjectile{
     private float x;
     private float y;
 
-
-
     private float angle;
-
 
 
     private boolean dealtDamage;
@@ -75,8 +72,6 @@ public abstract class Projectile implements IProjectile{
         this.setDealtDamage(true);
     }
 
-
-
     public String getSpriteKey(){
         return name;
     }
@@ -85,7 +80,7 @@ public abstract class Projectile implements IProjectile{
         return angle;
     }
 
-    public void setAngle(float angle) {
+    void setAngle(float angle) {
         this.angle = angle;
     }
 

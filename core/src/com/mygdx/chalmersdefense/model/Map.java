@@ -62,13 +62,11 @@ public class Map {
             boolean virusIsHit = false;
             float angle = -1;
             if (checkCollisonOfProjectiles(projectile, removeProjectiles) || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
-                if(projectile.canRemove()){
-                    removeProjectiles.add(projectile);
-                }
                 virusIsHit = true;
                 angle = getAngle(projectile);
             }
             projectile.update(virusIsHit, angle);
+            if(projectile.canRemove()){ removeProjectiles.add(projectile); }
         }
 
         projectilesList.removeAll(removeProjectiles);

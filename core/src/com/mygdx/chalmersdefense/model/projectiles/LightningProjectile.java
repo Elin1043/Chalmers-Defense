@@ -9,6 +9,7 @@ public class LightningProjectile extends Projectile{
 
 
     private int hitCountsLeft = 4;
+    private boolean canRemove = false;
 
     public LightningProjectile(float x, float y, float angle, int upgradeLevel) {
         super(5 , "electroProjectile" + upgradeLevel, x, y, angle);
@@ -20,6 +21,7 @@ public class LightningProjectile extends Projectile{
             hitCountsLeft--;
         } else {
             this.setDealtDamage(true);
+            canRemove = true;
         }
     }
 
@@ -31,8 +33,9 @@ public class LightningProjectile extends Projectile{
     @Override
     public void virusIsHit(float angle){
             this.countVirusHit();
-            this.setAngle(angle);
-
+            if (angle >= 0) {
+                this.setAngle(angle);
+            }
     }
 
 
