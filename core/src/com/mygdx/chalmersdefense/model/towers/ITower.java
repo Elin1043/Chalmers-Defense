@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ITower extends IMapObject {
 
-    void update(List<IProjectile> projectilesList, List<ITower> towersList, float newAgle, boolean hasTarget);
+    void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget);
 
     void upgradeTower(HashMap<String, Long> upgrades);
 

@@ -32,6 +32,9 @@ public class Map {
     private List<IProjectile> projectilesList = new ArrayList<>();
     private final List<IVirus> allViruses = new ArrayList<>();
 
+    private final List<ITower> towersToAddList = new ArrayList<>();
+    private List<IProjectile> projectilesToAddList = new ArrayList<>();
+
     //Should not have player here
     private final Player player;
     private final Path path = new ClassicPath();           // Make a path factory instead?;
@@ -45,8 +48,15 @@ public class Map {
         updateVirus();
         updateTowers();
         updateProjectiles();
+        addTempListsToMainLists();
     }
 
+    private void addTempListsToMainLists(){
+        towersList.addAll(towersToAddList);
+        projectilesList.addAll(projectilesToAddList);
+        towersToAddList.clear();
+        projectilesToAddList.clear();
+    }
 
     //Update the projectiles
     private void updateProjectiles() {
@@ -69,7 +79,6 @@ public class Map {
 
     //Update all the towers
     private void updateTowers() {
-        List<ITower> towersToAdd = new ArrayList<>();
         for (ITower tower : towersList) {
             List<IVirus> virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), allViruses);
 
@@ -84,13 +93,11 @@ public class Map {
                 towerHasTarget = true;
             }
 
-            tower.update(projectilesList, towersToAdd, newAngle, towerHasTarget);
+            tower.update(projectilesList, newAngle, towerHasTarget);
             //for (IVirus virus : allViruses) {virus.setGotHit(false);}
 
 
         }
-        towersList.addAll(towersToAdd);
-
     }
 
 
@@ -265,10 +272,10 @@ public class Map {
     public void dragStart(String towerName, int x, int y) {
         switch(towerName){
             case "smurf"   -> newTower = TowerFactory.CreateSmurf(x, y);
-            case "chemist" -> newTower = TowerFactory.CreateChemist(x, y);
+            case "chemist" -> newTower = TowerFactory.CreateChemist(x, y, projectilesToAddList);
             case "electro" -> newTower = TowerFactory.CreateElectro(x, y);
             case "hacker"  -> newTower = TowerFactory.CreateHacker(x, y);
-            case "meck"    -> newTower = TowerFactory.CreateMeck(x, y);
+            case "meck"    -> newTower = TowerFactory.CreateMeck(x, y, towersToAddList);
             case "eco"     -> newTower = TowerFactory.CreateEco(x, y, player);
             default        -> { return; }
         }

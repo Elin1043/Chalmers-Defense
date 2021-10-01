@@ -17,6 +17,7 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
  *
  *  2021-09-16 Modified by Elin Forsberg: Added a timer to update Model
  *  2021-09-23 Modified by Joel Båtsman Hilmersson: Changed timer to use libGDX timer instead of javaswing
+ *  2021-09-30 Modified by Joel Båtsman Hilmersson: Moved timer to GameTimer class instead
  */
 public class ChalmersDefense extends Game {
 

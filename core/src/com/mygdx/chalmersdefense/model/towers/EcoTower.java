@@ -28,7 +28,7 @@ public class EcoTower extends Tower {
     }
 
     @Override
-    public void update(List<IProjectile> projectilesList, List<ITower> towersList, float newAngle, boolean hasTarget){
+    public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget){
         if(currentReload < 1 && this.isPlaced()){
             currentReload = reloadTime;
             createProjectile(projectilesList);

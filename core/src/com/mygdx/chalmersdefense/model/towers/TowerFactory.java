@@ -3,7 +3,10 @@ package com.mygdx.chalmersdefense.model.towers;
 
 
 import com.mygdx.chalmersdefense.model.Player;
+import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
+
+import java.util.List;
 
 
 /**
@@ -32,8 +35,8 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower CreateChemist(int startPosX, int startPosY){
-        return new ChemistTower(startPosX,startPosY, "Chemist", 5, 200, 200, TargetModeFactory.getTargetModes());
+    public static ITower CreateChemist(int startPosX, int startPosY, List<IProjectile> addProjectileToList){
+        return new ChemistTower(startPosX,startPosY, "Chemist", 5, 200, 200, TargetModeFactory.getTargetModes(), addProjectileToList);
     }
 
     /**
@@ -64,8 +67,8 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower CreateMeck(int startPosX, int startPosY){
-        return new MechTower(startPosX,startPosY, "Mechoman", 3, 500, 200, TargetModeFactory.getTargetModes());
+    public static ITower CreateMeck(int startPosX, int startPosY, List<ITower> towerToAddList){
+        return new MechTower(startPosX,startPosY, "Mechoman", 3, 500, 200, TargetModeFactory.getTargetModes(), towerToAddList);
     }
 
     /**
