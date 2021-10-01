@@ -9,9 +9,11 @@ public interface IProjectile extends IMapObject {
 
     void setDealtDamage(boolean bool);
 
-    void update(boolean hitVirus, float angle);
+    void update(boolean hitVirus, int haveHit, float angle);
 
     String getName();
 
     boolean canRemove();
+
+    boolean haveHitBefore(int hashCode);
 }

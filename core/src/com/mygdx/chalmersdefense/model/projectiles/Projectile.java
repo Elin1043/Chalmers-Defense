@@ -4,6 +4,8 @@ package com.mygdx.chalmersdefense.model.projectiles;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -11,6 +13,8 @@ import java.util.Objects;
  * Class defining a projectile object
  */
 public abstract class Projectile implements IProjectile{
+
+    final List<Integer> haveHitList = new ArrayList<>();
 
     private float width;
     private float height;
@@ -51,9 +55,11 @@ public abstract class Projectile implements IProjectile{
     /**
      * Moves the projectile in calculated direction
      */
-    public void update(boolean hitVirus, float angle) {
-
-        if (hitVirus) { virusIsHit(angle); }
+    public void update(boolean hitVirus, int haveHit, float angle) {
+        System.out.println("Börjar att lägga till");
+        System.out.println(haveHit);
+        System.out.println(hitVirus);
+        if (hitVirus) { virusIsHit(haveHit, angle); }
 
 
         float xLength = (float) (Math.cos(Math.toRadians(this.angle)) * speed);
@@ -67,7 +73,10 @@ public abstract class Projectile implements IProjectile{
     /**
      * Method to call when virus is hit (temp for now, used by lightning)
      */
-    void virusIsHit( float angle){
+    void virusIsHit(int haveHit, float angle){
+        haveHitList.add(haveHit);
+        System.out.println(haveHitList);
+        System.out.println("Klar med att lägga till");
         this.setDealtDamage(true);
         this.canRemove = true;
     }
@@ -88,9 +97,15 @@ public abstract class Projectile implements IProjectile{
         return dealtDamage;
     }
 
-
+    @Override
     public boolean canRemove(){
         return canRemove;
+    }
+
+    @Override
+    public boolean haveHitBefore(int hashCode){
+        System.out.println(haveHitList);
+        return haveHitList.contains(hashCode);
     }
 
     public void setDealtDamage(boolean dealtDamage) {

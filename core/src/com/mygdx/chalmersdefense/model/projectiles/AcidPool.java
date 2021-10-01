@@ -9,7 +9,7 @@ public class AcidPool extends Projectile implements IProjectile{
     }
 
     @Override
-    void virusIsHit(float angle){
+    void virusIsHit(int haveHit, float angle){
         if (poolTimer <= 0) {
 
 

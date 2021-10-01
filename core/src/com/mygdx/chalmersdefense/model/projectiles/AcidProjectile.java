@@ -19,7 +19,7 @@ public class AcidProjectile extends Projectile{
     }
 
     @Override
-    public void virusIsHit(float angle) {
+    public void virusIsHit(int haveHit, float angle) {
         // -60 because the acid pool image is 120x120 in size, and it needs to be placed centered
         projectileList.add(ProjectileFactory.createAcidPool(getX() - 60, getY() - 60, upgradeLevel));
     }
