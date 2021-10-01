@@ -11,7 +11,7 @@ import java.util.List;
  * Class representing a lightning projectile
  */
 public class LightningProjectile extends Projectile{
-    private int range = 150;
+
 
     private int hitCountsLeft = 4;
 
@@ -41,7 +41,5 @@ public class LightningProjectile extends Projectile{
 
     }
 
-    public int getRange() {
-        return range;
-    }
+
 }

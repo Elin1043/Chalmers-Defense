@@ -9,7 +9,7 @@ import java.util.List;
 public class AcidProjectile extends Projectile{
     private final int upgradeLevel;
     private final List<IProjectile> projectileList;
-    private int range = 10;
+
 
     public AcidProjectile(float x, float y, float angle, int upgradeLevel, List<IProjectile> projectileList) {
         //TODO Speed calc
@@ -24,9 +24,7 @@ public class AcidProjectile extends Projectile{
         projectileList.add(ProjectileFactory.createAcidPool(getX() - 60, getY() - 60, upgradeLevel));
     }
 
-    public int getRange() {
-        return range;
-    }
+
 
 
 

@@ -93,7 +93,7 @@ public class Map {
                 towerHasTarget = true;
             }
 
-            tower.update(projectilesList, newAngle, towerHasTarget);
+            tower.update(projectilesList, newAngle, towerHasTarget, allViruses);
 
         }
     }
@@ -162,34 +162,22 @@ public class Map {
     private boolean checkVirusAndProjectileCollision(IProjectile projectile, List<IProjectile> list){
         boolean collided = false;
         float angle = projectile.getAngle();
-        List<IVirus> virusToRemove = new ArrayList<>();
+
 
         for (IVirus virus : allViruses) {
             if (Calculate.objectsIntersects(projectile, virus)) {
-                    if (!projectile.getIfDealtDamage()) {
-                        List<IVirus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2F, virus.getY() + virus.getHeight()/2F, projectile.getRange() , allViruses);
-                        for (IVirus virusInList: virusInRange) {
-                            if(virusInList.getIfGotHit()){
-                                virusToRemove.add(virusInList);
-                            }
-                        }
-                        virusInRange.removeAll(virusToRemove);
+                angle = getAngle(projectile, angle, virus);
 
-                        if(!virusInRange.isEmpty()){
-                            IVirus tempVirus = virusInRange.get(0);
-                            angle = Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2F, tempVirus.getY() + tempVirus.getHeight()/2F,projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F);
-                        }
+                if (!projectile.getIfDealtDamage()) {
+                    if (!virus.getIfGotHit()) {
+                        virus.decreaseHealth();
+                        virus.setGotHit(true);
 
-                        if(!virus.getIfGotHit()){
-                            virus.decreaseHealth();
-                            virus.setGotHit(true);
-
-                            projectile.virusIsHit(angle);
-                        }
-
+                        projectile.virusIsHit(angle);
                     }
-
+                }
                 collided = true;
+
             }
         }
 
@@ -197,21 +185,44 @@ public class Map {
     return collided;
     }
 
+    private float getAngle(IProjectile projectile, float angle, IVirus virus) {
+            List<IVirus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2F, virus.getY() + virus.getHeight()/2F, 150 , allViruses);
+
+            removeVirusFromList(virusInRange);
+            if(!virusInRange.isEmpty()){
+                IVirus tempVirus = virusInRange.get(0);
+                angle = Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2F, tempVirus.getY() + tempVirus.getHeight()/2F, projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F);
+            }
+
+        return angle;
+    }
+
+    private void removeVirusFromList(List<IVirus> virusInRange){
+        List<IVirus> virusToRemove = new ArrayList<>();
+
+        for (IVirus virusInList: virusInRange) {
+            if(virusInList.getIfGotHit()){
+                virusToRemove.add(virusInList);
+            }
+        }
+        virusInRange.removeAll(virusToRemove);
+    }
+
 
 
     //Collision with acid projectile
-    private void collidedWithAcid(IProjectile projectile){
-        //projectile.virusIsHit(); // Change position of this later
-
-        if(!projectile.getIfDealtDamage()){
-            for (IVirus virus:getViruses()) {
-                if (Calculate.disBetweenPoints(projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F, virus.getX() + virus.getWidth()/2F ,virus.getY() + virus.getHeight()/2F ) < ((AcidProjectile) projectile).getRange() * ((AcidProjectile) projectile).getRange()){
-                    virus.decreaseHealth();
-                }
-            }
-            projectile.setDealtDamage(true);
-        }
-    }
+//    private void collidedWithAcid(IProjectile projectile){
+//        // projectile.virusIsHit(); // Change position of this later
+//
+//        if(!projectile.getIfDealtDamage()){
+//            for (IVirus virus:getViruses()) {
+//                if (Calculate.disBetweenPoints(projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F, virus.getX() + virus.getWidth()/2F ,virus.getY() + virus.getHeight()/2F ) < ((AcidProjectile) projectile).getRange() * ((AcidProjectile) projectile).getRange()){
+//                    virus.decreaseHealth();
+//                }
+//            }
+//            projectile.setDealtDamage(true);
+//        }
+//    }
 
 
     //Checks if towers collide with anything

@@ -17,9 +17,4 @@ public class AcidPool extends Projectile implements IProjectile{
             poolTimer--;
         }
     }
-
-    @Override
-    public int getRange() {
-        return 0;
-    }
 }
