@@ -11,6 +11,8 @@ import java.util.Objects;
 /**
  * @author Elin Forsberg
  * Class defining a projectile object
+ *
+ * 2021-10-01 Modified by Joel Båtsman Hilmersson: The projectile now holds a list of hashcodes to every virus it has hit before
  */
 public abstract class Projectile implements IProjectile{
 
@@ -21,18 +23,17 @@ public abstract class Projectile implements IProjectile{
     private float speed;
 
 
-    private String name;
+    private String spriteKey;
     private float x;
     private float y;
 
     private float angle;
-    private boolean dealtDamage;
 
     boolean canRemove = false;
 
-    public Projectile(float speed, String name, float x, float y, float angle){
+    public Projectile(float speed, String spriteKey, float x, float y, float angle){
         this.speed = speed;
-        this.name = name;
+        this.spriteKey = spriteKey;
         this.x = x;
         this.y = y;
         this.angle = angle;
@@ -40,7 +41,7 @@ public abstract class Projectile implements IProjectile{
 
 
         try{
-            BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("projectiles/" + name + ".png")));
+            BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("projectiles/" + spriteKey + ".png")));
             this.width         = towerImage.getWidth();
             this.height        = towerImage.getHeight();
 
@@ -72,24 +73,21 @@ public abstract class Projectile implements IProjectile{
      */
     void virusIsHit(int haveHit, float angle){
         haveHitList.add(haveHit);
-        this.setDealtDamage(true);
         this.canRemove = true;
     }
 
+    @Override
     public String getSpriteKey(){
-        return name;
+        return spriteKey;
     }
 
+    @Override
     public float getAngle(){
         return angle;
     }
 
     void setAngle(float angle) {
         this.angle = angle;
-    }
-
-    public boolean getIfDealtDamage() {
-        return dealtDamage;
     }
 
     @Override
@@ -99,12 +97,7 @@ public abstract class Projectile implements IProjectile{
 
     @Override
     public boolean haveHitBefore(int hashCode){
-        System.out.println(haveHitList);
         return haveHitList.contains(hashCode);
-    }
-
-    public void setDealtDamage(boolean dealtDamage) {
-        this.dealtDamage = dealtDamage;
     }
 
     /**
@@ -121,14 +114,6 @@ public abstract class Projectile implements IProjectile{
      */
     public float getHeight() {
         return height;
-    }
-
-    /**
-     * Gets name of projectile
-     * @return name of projectile
-     */
-    public String getName() {
-        return name;
     }
 
     /**

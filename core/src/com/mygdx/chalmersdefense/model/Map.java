@@ -138,7 +138,6 @@ public class Map {
             }
 
             tower.update(projectilesList, newAngle, towerHasTarget);
-            for (IVirus virus : allViruses) {virus.setGotHit(false);}
         }
     }
 

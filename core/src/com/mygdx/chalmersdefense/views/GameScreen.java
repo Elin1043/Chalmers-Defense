@@ -252,7 +252,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         synchronized (model.getProjectilesList()) {
             for (IProjectile projectile : model.getProjectilesList()) {
-                Sprite projectileSprite = spriteMap.get(projectile.getName());
+                Sprite projectileSprite = spriteMap.get(projectile.getSpriteKey());
                 projectileSprite.setPosition(projectile.getX(), projectile.getY());
 
                 super.batch.begin();
