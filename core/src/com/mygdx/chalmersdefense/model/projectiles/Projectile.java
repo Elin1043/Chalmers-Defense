@@ -56,9 +56,6 @@ public abstract class Projectile implements IProjectile{
      * Moves the projectile in calculated direction
      */
     public void update(boolean hitVirus, int haveHit, float angle) {
-        System.out.println("Börjar att lägga till");
-        System.out.println(haveHit);
-        System.out.println(hitVirus);
         if (hitVirus) { virusIsHit(haveHit, angle); }
 
 
@@ -75,8 +72,6 @@ public abstract class Projectile implements IProjectile{
      */
     void virusIsHit(int haveHit, float angle){
         haveHitList.add(haveHit);
-        System.out.println(haveHitList);
-        System.out.println("Klar med att lägga till");
         this.setDealtDamage(true);
         this.canRemove = true;
     }

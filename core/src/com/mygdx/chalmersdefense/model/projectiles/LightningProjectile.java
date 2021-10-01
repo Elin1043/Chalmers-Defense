@@ -30,6 +30,8 @@ public class LightningProjectile extends Projectile{
         this.countVirusHit();
         if (angle >= 0) {
             this.setAngle(angle);
+        } else {
+            super.canRemove = true;
         }
     }
 
