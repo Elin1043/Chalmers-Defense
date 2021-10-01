@@ -12,9 +12,14 @@ public class AcidPool extends Projectile implements IProjectile{
     void virusIsHit(){
         if (poolTimer <= 0) {
 
+
         } else {
             poolTimer--;
         }
     }
 
+    @Override
+    public int getRange() {
+        return 0;
+    }
 }

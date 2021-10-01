@@ -2,6 +2,7 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
+import com.mygdx.chalmersdefense.model.viruses.IVirus;
 
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class MechTower extends Tower {
     }
 
     @Override
-    public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget){
+    public void update(List<IProjectile> projectilesList,  float newAngle, boolean hasTarget, List<IVirus> viruses){
         if(this.isPlaced() && miniTowers.isEmpty()){
             List<ITower> miniTowers = createMiniTowers();
             for (ITower miniTower: miniTowers) {

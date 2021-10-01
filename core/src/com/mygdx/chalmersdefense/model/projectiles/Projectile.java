@@ -1,9 +1,12 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
 
+import com.mygdx.chalmersdefense.model.viruses.IVirus;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -21,7 +24,7 @@ public abstract class Projectile implements IProjectile{
     private float x;
     private float y;
 
-    private int hitCountsLeft = 4;
+
 
     private float angle;
 
@@ -55,7 +58,7 @@ public abstract class Projectile implements IProjectile{
     /**
      * Moves the projectile in calculated direction
      */
-    public void update(boolean hitVirus) {
+    public void update(boolean hitVirus, float angle) {
 
         if (hitVirus){
             virusIsHit();
@@ -77,6 +80,8 @@ public abstract class Projectile implements IProjectile{
         // Set dead
     }
 
+    public abstract int getRange();
+
     public String getSpriteKey(){
         return name;
     }
@@ -95,6 +100,10 @@ public abstract class Projectile implements IProjectile{
 
     public void setDealtDamage(boolean dealtDamage) {
         this.dealtDamage = dealtDamage;
+    }
+
+    public boolean remove(){
+        return true;
     }
 
     /**
