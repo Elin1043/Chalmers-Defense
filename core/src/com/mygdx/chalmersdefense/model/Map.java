@@ -4,13 +4,9 @@ package com.mygdx.chalmersdefense.model;
 import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
 import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
-import com.mygdx.chalmersdefense.model.projectiles.AcidProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.*;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
-import com.mygdx.chalmersdefense.model.viruses.Virus;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 
 import java.awt.*;
@@ -29,11 +25,11 @@ public class Map {
     private ITower newTower;
     private ITower clickedTower;
     private final List<ITower> towersList = new ArrayList<>();
-    private List<IProjectile> projectilesList = new ArrayList<>();
+    private final List<IProjectile> projectilesList = new ArrayList<>();
     private final List<IVirus> allViruses = new ArrayList<>();
 
     private final List<ITower> towersToAddList = new ArrayList<>();
-    private List<IProjectile> projectilesToAddList = new ArrayList<>();
+    private final List<IProjectile> projectilesToAddList = new ArrayList<>();
 
     //Should not have player here
     private final Player player;
@@ -65,7 +61,7 @@ public class Map {
         for (IProjectile projectile : projectilesList) {
             projectile.move();
             if (checkCollisonOfProjectiles(projectile, removeProjectiles) || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
-                if(projectile.remove() == true){
+                if(projectile.canRemove()){
                     removeProjectiles.add(projectile);
                 }
 

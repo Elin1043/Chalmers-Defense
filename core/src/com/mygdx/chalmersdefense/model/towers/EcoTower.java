@@ -15,8 +15,8 @@ import java.util.List;
 public class EcoTower extends Tower {
 
     private int currentReload;
-    private int reloadTime = 60*10; //how many updates from model
-    private Player player;
+    private final int reloadTime = 60*10; //how many updates from model
+    private final Player player;
 
     public EcoTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, Player player) {
         super(x, y, name, attackSpeed, cost, range, targetModes);

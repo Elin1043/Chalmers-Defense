@@ -3,7 +3,6 @@ package com.mygdx.chalmersdefense;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.utils.Timer;
 import com.mygdx.chalmersdefense.controllers.MainScreenController;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.views.GameScreen;

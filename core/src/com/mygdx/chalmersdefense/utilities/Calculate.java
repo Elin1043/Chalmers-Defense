@@ -3,8 +3,6 @@ package com.mygdx.chalmersdefense.utilities;
 
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.viruses.Virus;
-import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;

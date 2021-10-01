@@ -1,10 +1,5 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
-import com.mygdx.chalmersdefense.model.viruses.IVirus;
-import com.mygdx.chalmersdefense.utilities.Calculate;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Elin Forsberg
@@ -29,13 +24,12 @@ public class LightningProjectile extends Projectile{
     }
 
     @Override
-    public boolean remove(){
+    public boolean canRemove(){
         return false;
     }
 
     @Override
     public void virusIsHit(float angle){
-
             this.countVirusHit();
             this.setAngle(angle);
 
