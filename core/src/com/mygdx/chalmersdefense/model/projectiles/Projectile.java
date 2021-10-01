@@ -57,6 +57,10 @@ public abstract class Projectile implements IProjectile{
      */
     public void update(boolean hitVirus) {
 
+        if (hitVirus){
+            virusIsHit();
+        }
+
         if (hitVirus) { virusIsHit(); }
         float xLength = (float) (Math.cos(Math.toRadians(angle)) * speed);
         float yLength = (float) (Math.sin(Math.toRadians(angle)) * speed);
@@ -70,11 +74,7 @@ public abstract class Projectile implements IProjectile{
      * Method to call when virus is hit (temp for now, used by lightning)
      */
     void virusIsHit(){
-        if (hitCountsLeft > 0){
-            hitCountsLeft--;
-        } else {
-            dealtDamage = true;
-        }
+        // Set dead
     }
 
     public String getSpriteKey(){
