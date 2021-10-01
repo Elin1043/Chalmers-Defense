@@ -3,7 +3,7 @@ package com.mygdx.chalmersdefense.model.towers;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
-import com.mygdx.chalmersdefense.model.viruses.IVirus;
+
 
 import java.awt.*;
 import java.util.HashMap;
