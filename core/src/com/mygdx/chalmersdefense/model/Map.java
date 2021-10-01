@@ -166,7 +166,7 @@ public class Map {
 
         for (IVirus virus : allViruses) {
             if (Calculate.objectsIntersects(projectile, virus)) {
-                angle = getAngle(projectile, angle, virus);
+                angle = getAngle(projectile, virus);
 
                 if (!projectile.getIfDealtDamage()) {
                     if (!virus.getIfGotHit()) {
@@ -185,9 +185,9 @@ public class Map {
     return collided;
     }
 
-    private float getAngle(IProjectile projectile, float angle, IVirus virus) {
+    private float getAngle(IProjectile projectile,IVirus virus) {
             List<IVirus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2F, virus.getY() + virus.getHeight()/2F, 150 , allViruses);
-
+            float angle = -1;
             removeVirusFromList(virusInRange);
             if(!virusInRange.isEmpty()){
                 IVirus tempVirus = virusInRange.get(0);
