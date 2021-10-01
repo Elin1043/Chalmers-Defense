@@ -29,10 +29,10 @@ public class EcoTower extends Tower {
     }
 
     @Override
-    public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget, List<IVirus> viruses){
+    public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget){
         if(currentReload < 1 && this.isPlaced()){
             currentReload = reloadTime;
-            for (IVirus virus : viruses) {virus.setGotHit(false);}
+//            for (IVirus virus : viruses) {virus.setGotHit(false);}
             createProjectile(projectilesList);
         }
         else{

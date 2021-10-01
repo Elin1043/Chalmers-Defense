@@ -90,7 +90,7 @@ public abstract class Projectile implements IProjectile{
 
 
     public boolean canRemove(){
-        return false;
+        return canRemove;
     }
 
     public void setDealtDamage(boolean dealtDamage) {

@@ -60,18 +60,39 @@ public class Map {
 
         for (IProjectile projectile : projectilesList) {
             boolean virusIsHit = false;
-            float angle = -1;
-            if (checkCollisonOfProjectiles(projectile, removeProjectiles) || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
+            List<Float> angle = new ArrayList<>();
+            angle.add(-1F);
+//            if (checkCollisionOfProjectiles(projectile, angle) || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
+            if (checkCollisionOfProjectiles(projectile, angle)) {
                 virusIsHit = true;
-                angle = getAngle(projectile);
+                //angle = getAngle(projectile);
             }
-            projectile.update(virusIsHit, angle);
+            projectile.update(virusIsHit, angle.get(0));
             if(projectile.canRemove()){ removeProjectiles.add(projectile); }
         }
 
         projectilesList.removeAll(removeProjectiles);
     }
 
+    private float getAngle2(){
+        return 0;
+    }
+
+    //Checks if projectile collided with path, then virus
+    private boolean checkCollisionOfProjectiles(IProjectile projectile, List<Float> angle){
+        for (Rectangle rectangle: path.getCollisionRectangles()) {
+            if(Calculate.objectsIntersects(projectile,rectangle)){
+                return checkVirusAndProjectileCollision(projectile, angle);
+            }
+        }
+        return false;
+    }
+
+    //Helper method for collision between virus and projectile
+    private boolean checkVirusAndProjectileCollision(IProjectile projectile, List<Float> angle) {
+
+
+    }
 
     //Update all the towers
     private void updateTowers() {
@@ -89,7 +110,8 @@ public class Map {
                 towerHasTarget = true;
             }
 
-            tower.update(projectilesList, newAngle, towerHasTarget, allViruses);
+            tower.update(projectilesList, newAngle, towerHasTarget);
+            for (IVirus virus : allViruses) {virus.setGotHit(false);}
         }
     }
 
@@ -141,82 +163,6 @@ public class Map {
         }
         return false;
     }
-
-
-    //Checks if projectile collided with path, then virus
-    private boolean checkCollisonOfProjectiles(IProjectile projectile, List<IProjectile> removeList){
-        for (Rectangle rectangle: path.getCollisionRectangles()) {
-            if(Calculate.objectsIntersects(projectile,rectangle)){
-                return checkVirusAndProjectileCollision(projectile, removeList);
-            }
-        }
-        return false;
-    }
-
-    //Helper method for collision between virus and projectile
-    private boolean checkVirusAndProjectileCollision(IProjectile projectile, List<IProjectile> removeListlist){
-        boolean collided = false;
-
-
-        for (IVirus virus : allViruses) {
-            if (Calculate.objectsIntersects(projectile, virus)) {
-
-                if (!projectile.getIfDealtDamage()) {
-                    if (!virus.getIfGotHit()) {
-                        virus.decreaseHealth();
-                        virus.setGotHit(true);
-
-                        projectile.setDealtDamage(true);
-                    }
-                }
-                collided = true;
-
-            }
-        }
-
-
-    return collided;
-    }
-
-    private float getAngle(IProjectile projectile) {
-            List<IVirus> virusInRange = Calculate.getVirusesInRange(projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F, 150 , allViruses);
-            float angle = -1;
-            removeVirusFromList(virusInRange);
-            if(!virusInRange.isEmpty()){
-                IVirus tempVirus = virusInRange.get(0);
-                angle = Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2F, tempVirus.getY() + tempVirus.getHeight()/2F, projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F);
-            }
-
-        return angle;
-    }
-
-    private void removeVirusFromList(List<IVirus> virusInRange){
-        List<IVirus> virusToRemove = new ArrayList<>();
-
-        for (IVirus virusInList: virusInRange) {
-            if(virusInList.getIfGotHit()){
-                virusToRemove.add(virusInList);
-            }
-        }
-        virusInRange.removeAll(virusToRemove);
-    }
-
-
-
-    //Collision with acid projectile
-//    private void collidedWithAcid(IProjectile projectile){
-//        // projectile.virusIsHit(); // Change position of this later
-//
-//        if(!projectile.getIfDealtDamage()){
-//            for (IVirus virus:getViruses()) {
-//                if (Calculate.disBetweenPoints(projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F, virus.getX() + virus.getWidth()/2F ,virus.getY() + virus.getHeight()/2F ) < ((AcidProjectile) projectile).getRange() * ((AcidProjectile) projectile).getRange()){
-//                    virus.decreaseHealth();
-//                }
-//            }
-//            projectile.setDealtDamage(true);
-//        }
-//    }
-
 
     //Checks if towers collide with anything
     private boolean checkCollisionOfTower(ITower tower, int windowHeight, int windowWidth) {

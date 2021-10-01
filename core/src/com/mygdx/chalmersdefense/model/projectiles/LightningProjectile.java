@@ -8,8 +8,7 @@ package com.mygdx.chalmersdefense.model.projectiles;
 public class LightningProjectile extends Projectile{
 
 
-    private int hitCountsLeft = 4;
-    private boolean canRemove = false;
+    private int hitCountsLeft = 400000;
 
     public LightningProjectile(float x, float y, float angle, int upgradeLevel) {
         super(5 , "electroProjectile" + upgradeLevel, x, y, angle);
@@ -21,13 +20,8 @@ public class LightningProjectile extends Projectile{
             hitCountsLeft--;
         } else {
             this.setDealtDamage(true);
-            canRemove = true;
+            super.canRemove = true;
         }
-    }
-
-    @Override
-    public boolean canRemove(){
-        return canRemove;
     }
 
     @Override

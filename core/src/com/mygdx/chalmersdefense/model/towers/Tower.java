@@ -88,11 +88,11 @@ public abstract class Tower implements ITower{
     abstract void createProjectile(List<IProjectile> projectileList);
 
     @Override
-    public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget, List<IVirus> viruses) {
+    public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget) {
         setAngle(newAngle);
         if(currentReload < 1 && hasTarget && isPlaced){
             currentReload = reloadTime;
-            for (IVirus virus : viruses) {virus.setGotHit(false);}
+            //for (IVirus virus : viruses) {virus.setGotHit(false);}
             createProjectile(projectilesList);
         }
         else{
