@@ -161,12 +161,11 @@ public class Map {
     //Helper method for collision between virus and projectile
     private boolean checkVirusAndProjectileCollision(IProjectile projectile, List<IProjectile> list){
         boolean collided = false;
-        float angle = projectile.getAngle();
 
 
         for (IVirus virus : allViruses) {
             if (Calculate.objectsIntersects(projectile, virus)) {
-                angle = getAngle(projectile);
+                float angle = getAngle(projectile);
 
                 if (!projectile.getIfDealtDamage()) {
                     if (!virus.getIfGotHit()) {
