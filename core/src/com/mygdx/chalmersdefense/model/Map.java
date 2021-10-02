@@ -2,20 +2,19 @@ package com.mygdx.chalmersdefense.model;
 
 
 import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
-import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.projectiles.AcidProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.EcoTower;
 import com.mygdx.chalmersdefense.model.towers.MechTower;
-import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.model.towers.Tower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
+import com.mygdx.chalmersdefense.utilities.Calculate;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ public class Map {
     private Tower newTower;
     private Tower clickedTower;
     private final List<Tower> towersList = new ArrayList<>();
-    private List<Projectile> projectilesList = new ArrayList<>();
+    private final List<Projectile> projectilesList = new ArrayList<>();
     private final List<Virus> allViruses = new ArrayList<>();
 
     //Should not have player here
@@ -377,6 +376,7 @@ public class Map {
                 clickedTower = tower;
             }
         }
+        isGameLost = true;
 
     }
 
@@ -385,6 +385,7 @@ public class Map {
      */
     public void towerNotClicked() {
         clickedTower = null;
+        isGameLost = false;
     }
 
     /**
