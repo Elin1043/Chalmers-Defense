@@ -56,6 +56,7 @@ public abstract class Projectile implements IProjectile{
     /**
      * Moves the projectile in calculated direction
      */
+    @Override
     public void update(boolean hitVirus, int haveHit, float angle) {
         if (hitVirus) { virusIsHit(haveHit, angle); }
 
@@ -104,6 +105,7 @@ public abstract class Projectile implements IProjectile{
      * Gets width of projectile
      * @return width of projectile
      */
+    @Override
     public float getWidth() {
         return width;
     }
@@ -112,6 +114,7 @@ public abstract class Projectile implements IProjectile{
      * Gets height of projectile
      * @return height of projectile
      */
+    @Override
     public float getHeight() {
         return height;
     }
@@ -120,6 +123,7 @@ public abstract class Projectile implements IProjectile{
      * Gets X-coordinate of projectile
      * @return x-coordinate of projectile
      */
+    @Override
     public float getX() {
         return x;
     }
@@ -128,6 +132,7 @@ public abstract class Projectile implements IProjectile{
      * Gets Y-coordinate of projectile
      * @return y-coordinate of projectile
      */
+    @Override
     public float getY() {
         return y;
     }

@@ -4,6 +4,7 @@ import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.viruses.Virus;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert.*;
@@ -56,6 +57,29 @@ public class TestVirus {
         v1.update();
         v2.update();
         assertTrue(v1.getTotalDistanceTraveled() < v2.getTotalDistanceTraveled());
+    }
+
+    @Test
+    public void testGetVirusAngle(){
+        Virus v = new Virus(1, p);
+        assertEquals(0, v.getAngle(), 0.00000000001);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testValidVirus(){
+        Virus v = new Virus(-1, p);
+    }
+
+    @Test
+    public void testGetXPosition(){
+        Virus v = new Virus(1, p);
+        assertEquals(v.getX(), p.getWaypoint(0).getX() - v.getWidth()/2, 0.0);
+    }
+
+    @Test
+    public void testGetYPosition(){
+        Virus v = new Virus(1, p);
+        assertEquals(v.getY(), p.getWaypoint(0).getY() - v.getHeight()/2, 0.0);
     }
 
 }
