@@ -33,6 +33,7 @@ import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.EcoTower;
 import com.mygdx.chalmersdefense.model.towers.MechMiniTower;
 import com.mygdx.chalmersdefense.model.towers.Tower;
+import com.mygdx.chalmersdefense.utilities.FontFactory;
 import com.mygdx.chalmersdefense.views.GameScreenViews.LostPanel;
 
 
@@ -63,14 +64,11 @@ public class GameScreen extends AbstractScreen implements Screen {
     private Button startRoundButton;
 
     // Bottom bar
-    private Image bottomBarPanelBackground;
+    private final Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
 
     // Upgrade panel
     private final Group bottomBarPanelUpgradeGroup = new Group();
-    private final Label towerNameLabel = new Label("", generateLabelStyle(36, Color.BLACK, 1));
-
-    // Generating label style
-    private final LabelStyle labelStyleBlack36 = generateLabelStyle(36, Color.BLACK, 1);
+    private final Label towerNameLabel = new Label("", FontFactory.getLabelStyle36BlackBold());
 
     private final Label lifeLabel = createLabel("Test", 700);
     private final Label moneyLabel = createLabel("Test", 800);
@@ -84,12 +82,12 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final Button upgradeButtonSecond = new Button(upgradePanelSkin);
 
     // Labels for upgrade buttons
-    private final Label firstUpgradeButtonTitle = new Label("", generateLabelStyle(24, Color.BLACK, 0.5f));
-    private final Label firstUpgradeButtonDesc = new Label("", generateLabelStyle(18, Color.BLACK, 0));
-    private final Label firstUpgradeButtonPrice = new Label("", generateLabelStyle(26, Color.BLACK, 0));
-    private final Label secondUpgradeButtonTitle = new Label("", generateLabelStyle(24, Color.BLACK, 0.5f));
-    private final Label secondUpgradeButtonDesc = new Label("", generateLabelStyle(18, Color.BLACK, 0));
-    private final Label secondUpgradeButtonPrice = new Label("", generateLabelStyle(26, Color.BLACK, 0));
+    private final Label firstUpgradeButtonTitle = new Label("", FontFactory.getLabelStyle24BlackSemiBold());
+    private final Label firstUpgradeButtonDesc = new Label("", FontFactory.getLabelStyle18Black());
+    private final Label firstUpgradeButtonPrice = new Label("", FontFactory.getLabelStyle26Black());
+    private final Label secondUpgradeButtonTitle = new Label("", FontFactory.getLabelStyle24BlackSemiBold());
+    private final Label secondUpgradeButtonDesc = new Label("", FontFactory.getLabelStyle18Black());
+    private final Label secondUpgradeButtonPrice = new Label("", FontFactory.getLabelStyle26Black());
 
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -112,7 +110,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
 
 
-    public GameScreen(Model model){
+    public GameScreen(Model model) {
         super();
         this.rightSidePanelController = new RightSidePanelController(model);
         this.bottomBarPanelController = new BottomBarPanelController(model);
@@ -130,7 +128,6 @@ public class GameScreen extends AbstractScreen implements Screen {
 
 
         // START Bottom bar group creation
-        createBottomBarPanel();
         addActor(bottomBarPanelBackground);
 
         bottomBarPanelUpgradeGroup.setPosition(bottomBarPanelBackground.getWidth() - 1390, 0);
@@ -191,6 +188,8 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(moneyLabel);
         addActor(roundLabel);
         addActor(startRoundButton);
+
+        lostPanelView.initialize();
     }
 
     @Override
@@ -214,6 +213,8 @@ public class GameScreen extends AbstractScreen implements Screen {
         updateLabels();
         if (model.getIsGameLost()) {
             lostPanelView.render();
+        } else {
+            lostPanelView.hideLostPanelGroup();
         }
 
 
@@ -224,6 +225,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             model.startRoundPressed();
         }
+
     }
 
     private void updateLabels() {
@@ -233,28 +235,9 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
     private Label createLabel(String text, float y) {
-        Label label = new Label(text, labelStyleBlack36);
+        Label label = new Label(text, FontFactory.getLabelStyle36BlackBold());
         label.setPosition(1920 - sideBarBackground.getWidth()/2 - label.getWidth()/2, 1080 - label.getHeight() - y);
         return label;
-    }
-
-
-    private BitmapFont generateBitmapFont(int size, float borderWidth) {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/CenturyGothic.ttf"));
-        FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-        parameter.size = size;
-        parameter.borderWidth = borderWidth;
-        BitmapFont font = generator.generateFont(parameter);
-        generator.dispose();
-        return font;
-    }
-
-    private LabelStyle generateLabelStyle(int size, Color color, float borderWidth){
-        BitmapFont font36 = generateBitmapFont(size, borderWidth);
-        LabelStyle labelStyle = new LabelStyle();
-        labelStyle.font = font36;
-        labelStyle.fontColor = color;
-        return labelStyle;
     }
 
     //Render projectiles
@@ -272,11 +255,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         }
     }
 
-    //Render viruses
-    private void createBottomBarPanel() {
-        bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
-        bottomBarPanelBackground.setPosition(0, 0);
-    }
 
     private Actor createBottomBarUpgradePanelBackground() {
         Image bottomBarUpgradePanelBackground = new Image(new Texture("GameScreen/BottomBarUpgradePanel.png"));
