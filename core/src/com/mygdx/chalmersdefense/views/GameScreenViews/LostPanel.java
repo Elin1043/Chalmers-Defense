@@ -26,7 +26,8 @@ public class LostPanel {
 
     private final Image backgroundImage = new Image(new Texture("GameScreen/LostPanelBackgroundImage.png"));
 
-    private final Label testLabel = new Label("You Lost :'(", FontFactory.getLabelStyle36BlackBold());
+    private final Label title = new Label("You Lost :'(", FontFactory.getLabelStyle36BlackBold());
+    private final Label mainText = new Label("You Lost :'(", FontFactory.getLabelStyle36BlackBold());
     private final Button mainMenuButton = new Button(lostButtonSkin);
     private final Button tryAgainButton = new Button(lostButtonSkin);
 
@@ -37,20 +38,23 @@ public class LostPanel {
     public void initialize() {
         stage.addActor(lostPanelGroup);
         lostPanelGroup.addActor(backgroundImage);
-        lostPanelGroup.addActor(testLabel);
+        lostPanelGroup.addActor(title);
         lostPanelGroup.addActor(mainMenuButton);
         lostPanelGroup.addActor(tryAgainButton);
 
         backgroundImage.setPosition(stage.getWidth()/2 - WIDTH/2, stage.getHeight()/2 - HEIGHT/2);
 
-        testLabel.setPosition(
-            backgroundImage.getX() + backgroundImage.getWidth() / 2 - testLabel.getWidth() / 2,
+        title.setPosition(
+            backgroundImage.getX() + backgroundImage.getWidth() / 2 - title.getWidth() / 2,
             backgroundImage.getY() + backgroundImage.getHeight() - 100);
 
         mainMenuButton.setPosition(
             backgroundImage.getX() + backgroundImage.getWidth()/4 - mainMenuButton.getWidth()/2,
             backgroundImage.getY() + 100);
 
+        tryAgainButton.setPosition(
+            backgroundImage.getX() + backgroundImage.getWidth() * 3/4 - mainMenuButton.getWidth()/2,
+            backgroundImage.getY() + 100);
 
         lostPanelGroup.setVisible(false);
     }
