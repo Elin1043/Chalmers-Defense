@@ -16,6 +16,10 @@ import java.util.Objects;
 
 import static org.junit.Assert.*;
 
+/**
+ * @author Joel Båtsman Hilmersson
+ * Test class for Virus class
+ */
 public class TestVirus {
     Path p = new ClassicPath();
 
