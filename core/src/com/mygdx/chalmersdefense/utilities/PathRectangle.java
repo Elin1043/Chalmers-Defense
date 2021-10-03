@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.utilities;
 
 import com.mygdx.chalmersdefense.model.IMapObject;
+import com.mygdx.chalmersdefense.model.customExceptions.IllegalMethodCallException;
 
 
 import java.awt.Rectangle;
@@ -41,14 +42,8 @@ public class PathRectangle implements IMapObject {
     }
 
     @Override
-    public String getSpriteKey() {
-        // Trow?
-        return "If this is called, it should crash";
-    }
+    public String getSpriteKey() { throw new IllegalMethodCallException("getSpriteKey should not be called from pathRectangles"); }
 
     @Override
-    public float getAngle() {
-        // Trow?
-        return 0;
-    }
+    public float getAngle() { throw new IllegalMethodCallException("getAngle should not be called from pathRectangles"); }
 }
