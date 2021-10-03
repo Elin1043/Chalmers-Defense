@@ -48,7 +48,6 @@ class MechTower extends Tower {
             List<ITower> miniTowers = createMiniTowers();
             for (ITower miniTower: miniTowers) {
                 miniTower.placeTower();
-                miniTower.setGotButton(true);
             }
             towersToAddList.addAll(miniTowers);
         }

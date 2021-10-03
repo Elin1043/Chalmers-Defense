@@ -25,17 +25,17 @@ import java.util.List;
 public class Map {
     private ITower newTower;
     private ITower clickedTower;
-    private final List<ITower> towersList = new ArrayList<>();
-    private final List<IProjectile> projectilesList = new ArrayList<>();
-    private final List<IVirus> allViruses = new ArrayList<>();
+    private final List<ITower> towersList = new ArrayList<>();              // The main tower list
+    private final List<IProjectile> projectilesList = new ArrayList<>();    // The main projectile list
+    private final List<IVirus> virusesList = new ArrayList<>();             // The main virus list
 
-    private final List<ITower> towersToAddList = new ArrayList<>();
-    private final List<IProjectile> projectilesToAddList = new ArrayList<>();
+    private final List<ITower> towersToAddList = new ArrayList<>();             // Temporary list for object adding towers to the main list (To avoid concurrent modification issues)
+    private final List<IProjectile> projectilesToAddList = new ArrayList<>();   // Temporary list for object adding projectiles to the main list (To avoid concurrent modification issues)
 
-    private final Player player;
+    private final Player player;                            // A reference to the Player object in the game
     private final Path path = new ClassicPath();           // Make a path factory instead?;
 
-    private final GetRangeCircle rangeCircle = new GetRangeCircle();
+    private final GetRangeCircle rangeCircle = new GetRangeCircle();            // Helper class for showing gray range circle
 
 
     public Map(Player player){
@@ -93,7 +93,7 @@ public class Map {
     //Helper method for collision between virus and projectile
     private boolean checkVirusAndProjectileCollision(IProjectile projectile, List<IVirus> removeList) {
 
-        for (IVirus virus : allViruses){
+        for (IVirus virus : virusesList){
             if (Calculate.objectsIntersects(projectile, virus) && !projectile.haveHitBefore(virus.hashCode())){
                 virus.decreaseHealth();
                 removeList.add(virus);
@@ -104,7 +104,7 @@ public class Map {
     }
 
     private float getAngle(IProjectile projectile, List<IVirus> removeList){
-        List<IVirus> virusInRange = Calculate.getVirusesInRange(projectile.getX(), projectile.getY(), 150, allViruses);
+        List<IVirus> virusInRange = Calculate.getVirusesInRange(projectile.getX(), projectile.getY(), 150, virusesList);
 
         for (IVirus virus : virusInRange){
             if (projectile.haveHitBefore(virus.hashCode())){
@@ -125,7 +125,7 @@ public class Map {
     private void updateTowers() {
         for (ITower tower : towersList) {
 
-            List<IVirus> virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), allViruses);
+            List<IVirus> virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), virusesList);
 
             // Standard values for when virus is out of range
             float newAngle = -1;
@@ -148,7 +148,7 @@ public class Map {
 
         List<IVirus> virusToRemove = new ArrayList<>();
 
-        for (IVirus virus : allViruses) {
+        for (IVirus virus : virusesList) {
             if (virus.getY() > 1130 || virus.isDead()) {
                 virusToRemove.add(virus);
                 if(virus.isDead()){
@@ -165,7 +165,7 @@ public class Map {
                 // Här ska man hantera ifall man förlorar spelet
 
             }
-            allViruses.remove(virus);
+            virusesList.remove(virus);
         }
 
     }
@@ -343,7 +343,7 @@ public class Map {
      * @return the list of viruses
      */
     public List<IVirus> getViruses() {
-        return allViruses;
+        return virusesList;
     }
 
     /**
@@ -353,7 +353,7 @@ public class Map {
     public List<IMapObject> getAllMapObjects() {
         List<IMapObject> allMapObjects = new ArrayList<>();
         allMapObjects.addAll(towersList);
-        allMapObjects.addAll(allViruses);
+        allMapObjects.addAll(virusesList);
         allMapObjects.addAll(projectilesList);
         return allMapObjects;
     }
@@ -362,7 +362,7 @@ public class Map {
      * Returns if virus list is empty
      * @return true - if all viruses are cleared, false - if there are viruses left
      */
-    public boolean isVirusCleared() { return allViruses.isEmpty(); }
+    public boolean isVirusCleared() { return virusesList.isEmpty(); }
 
     /**
      * Method to call when round is cleared, makes map ready for next round

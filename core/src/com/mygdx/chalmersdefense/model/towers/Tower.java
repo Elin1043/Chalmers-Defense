@@ -44,8 +44,7 @@ abstract class Tower implements ITower{
 
     private int cost;
 
-    private boolean collision;
-    private boolean gotButton;
+    private boolean collision = false;
 
 
     private int reloadTime; //how many updates from model
@@ -73,10 +72,6 @@ abstract class Tower implements ITower{
         this.setPos(x,y);
         this.range = range;
         this.cost = cost;
-        this.collision = false;
-        this.gotButton = false;
-
-
     }
 
     abstract void createProjectile(List<IProjectile> projectileList);
@@ -130,22 +125,6 @@ abstract class Tower implements ITower{
      */
     public int getCost() {
         return cost;
-    }
-
-    /**
-     * Gets if tower has a button
-     * @return if tower got button
-     */
-    public boolean getGotButton() {
-        return gotButton;
-    }
-
-    /**
-     * Sets if tower has a button
-     * @param gotButton if tower got button
-     */
-    public void setGotButton(boolean gotButton) {
-        this.gotButton = gotButton;
     }
 
     /**
