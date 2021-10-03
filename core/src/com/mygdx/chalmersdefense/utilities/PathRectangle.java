@@ -27,7 +27,7 @@ public class PathRectangle implements IMapObject {
 
     @Override
     public float getY() {
-        return (float) rectangle.getX();
+        return (float) rectangle.getY();
     }
 
     @Override

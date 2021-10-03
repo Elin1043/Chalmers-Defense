@@ -8,8 +8,8 @@ import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.towers.*;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.utilities.Calculate;
+import com.mygdx.chalmersdefense.utilities.PathRectangle;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +80,7 @@ public class Map {
 
     //Checks if projectile collided with path, then virus
     private boolean checkCollisionOfProjectiles(IProjectile projectile, List<IVirus> removeList){
-        for (Rectangle rectangle: path.getCollisionRectangles()) {
+        for (PathRectangle rectangle: path.getCollisionRectangles()) {
             if(Calculate.objectsIntersects(projectile,rectangle)){
                 return checkVirusAndProjectileCollision(projectile, removeList);
             }
@@ -179,11 +179,10 @@ public class Map {
 
     //Checks if a tower collides with path
     private boolean checkMapAndTowerCollision(ITower tower) {
-        for (java.awt.Rectangle rect : path.getCollisionRectangles()) {
-            if (tower.getRectangle().intersects(rect)) {
+        for (PathRectangle rect : path.getCollisionRectangles()) {
+            if (Calculate.objectsIntersects(tower, rect)){
                 return true;
             }
-
         }
         return false;
     }
@@ -324,7 +323,6 @@ public class Map {
     public List<ITower> getTowers() {
         return towersList;
     }
-
 
     /**
      * Return the list of viruses on path

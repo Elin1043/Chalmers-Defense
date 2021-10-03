@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.utilities;
 
 
+import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 
@@ -67,13 +68,17 @@ public abstract class Calculate {
 
     }
 
+
+
+
+
     /**
      * Checks if a projectile and rectangle intersect
      * @param o1 the projectile
      * @param o2 the rectangle
      * @return if intersects
      */
-    public static boolean objectsIntersects(IProjectile o1, Rectangle o2) {
+    public static boolean objectsIntersects(IMapObject o1, IMapObject o2) {
         double o1Width = o1.getWidth();
         double o1Height = o1.getHeight();
         double o2Width = o2.getWidth();
@@ -86,27 +91,6 @@ public abstract class Calculate {
 
 
         return calculateIntersects(o1Width,o1Height,o2Width,o2Height,o1X,o1Y,o2X,o2Y);
-    }
-
-    /**
-     * Checks if a projectile and virus intersect
-     * @param o1 the projectile
-     * @param o2 the virus
-     * @return if intersects
-     */
-    public static boolean objectsIntersects(IProjectile o1, IVirus o2) {
-        double o1Width = o1.getWidth();
-        double o1Height = o1.getHeight();
-        double o2Width = o2.getWidth();
-        double o2Height = o2.getHeight();
-
-        double o1X = o1.getX();
-        double o1Y = o1.getY();
-        double o2X = o2.getX();
-        double o2Y = o2.getY();
-
-        return calculateIntersects(o1Width,o1Height,o2Width,o2Height,o1X,o1Y,o2X,o2Y);
-
     }
 
     //Calculates if two objects intersect

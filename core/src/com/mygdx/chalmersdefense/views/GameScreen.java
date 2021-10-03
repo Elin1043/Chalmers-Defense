@@ -29,7 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.controllers.TowerClickListener;
 import com.mygdx.chalmersdefense.model.Model;
-
+import com.mygdx.chalmersdefense.utilities.PathRectangle;
 
 
 import java.util.HashMap;
