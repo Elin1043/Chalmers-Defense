@@ -30,10 +30,14 @@ import java.util.List;
  */
 
 public class Model {
-    private final ChalmersDefense game;
-    private final Rounds round = new Rounds(10);    // 10 is temporary
+    private final int WINNING_ROUND = 10;
+    private final int LIVES = 100;
+    private final int START_CAPITAL = 3000;
 
-    private final Player player = new Player(100, 3000); //Change staring capital later. Just used for testing right now
+    private final ChalmersDefense game;
+    private Rounds round = new Rounds(WINNING_ROUND);
+
+    private final Player player = new Player(LIVES, START_CAPITAL); //Change staring capital later. Just used for testing right now
     private final Upgrades upgrades = new Upgrades();
 
 
@@ -59,6 +63,12 @@ public class Model {
             checkRoundCompleted();
             virusSpawner.decrementSpawnTimer();
         }
+    }
+
+    public void resetModel() {
+        round = new Rounds(WINNING_ROUND);
+        player.resetPlayer(LIVES, START_CAPITAL);
+        map.resetMap();
     }
 
     private void checkRoundCompleted() {
