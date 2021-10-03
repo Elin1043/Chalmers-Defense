@@ -1,5 +1,10 @@
 package com.mygdx.chalmersdefense.model;
 
+/**
+ * @author Joel Båtsman Hilmersson
+ * Interface for map objects
+ */
+
 public interface IMapObject {
 
     float getX();
@@ -13,4 +18,6 @@ public interface IMapObject {
     String getSpriteKey();
 
     float getAngle();
+
+
 }

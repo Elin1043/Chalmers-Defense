@@ -9,6 +9,10 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * @author Elin Forsberg
+ * Interface for towers
+ */
 public interface ITower extends IMapObject {
 
     void update(List<IProjectile> projectilesList, float newAgle, boolean hasTarget);
