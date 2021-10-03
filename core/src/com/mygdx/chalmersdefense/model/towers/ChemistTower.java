@@ -14,8 +14,8 @@ import java.util.List;
 public class ChemistTower extends Tower{
     private final List<IProjectile> addToList;
 
-    public ChemistTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, List<IProjectile> addToList) {
-        super(x, y, name, attackSpeed, cost, range, targetModes);
+    public ChemistTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<IProjectile> addToList) {
+        super(x, y, name, reloadSpeed, cost, range, targetModes);
         this.addToList = addToList;
     }
 

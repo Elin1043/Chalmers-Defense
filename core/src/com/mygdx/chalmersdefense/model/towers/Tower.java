@@ -42,7 +42,6 @@ public abstract class Tower implements ITower{
     private float width;
     private float height;
 
-    private int attackSpeed;
     private int cost;
 
     private boolean collision;
@@ -101,7 +100,7 @@ public abstract class Tower implements ITower{
      */
     public void upgradeTower(HashMap<String, Long> upgrades) {
         // DMG multiplier??
-        attackSpeed *= upgrades.get("attackSpeedMul");
+        reloadTime *= upgrades.get("attackSpeedMul");
         range *= upgrades.get("attackRangeMul");
         upgradeLevel++;
         updateSpriteKey(); // Add this when all sprites are in the game.

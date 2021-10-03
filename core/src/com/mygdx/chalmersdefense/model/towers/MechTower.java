@@ -17,22 +17,22 @@ public class MechTower extends Tower {
     private final List<ITower> miniTowers = new ArrayList<>();
 
 
-    private int attackSpeed;
+    private int reloadSpeed;
     private int range;
     private List<ITargetMode> targetModes;
     List<ITower> towersToAddList;
 
-    public MechTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, List<ITower> towersToAddList) {
-        super(x, y, name, attackSpeed, cost, range, targetModes);
-        this.attackSpeed = attackSpeed;
+    public MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<ITower> towersToAddList) {
+        super(x, y, name, reloadSpeed, cost, range, targetModes);
+        this.reloadSpeed = reloadSpeed;
         this.targetModes = targetModes;
         this.range = range;
         this.towersToAddList = towersToAddList;
     }
 
     private List<ITower> createMiniTowers(){
-            ITower miniTower1 = new MechMiniTower(this.getX() + 100,this.getY() - 100, attackSpeed, range, targetModes);
-            ITower miniTower2 = new MechMiniTower(this.getX() - 100,this.getY() - 100, attackSpeed, range, targetModes);
+            ITower miniTower1 = new MechMiniTower(this.getX() + 100,this.getY() - 100, reloadSpeed, range, targetModes);
+            ITower miniTower2 = new MechMiniTower(this.getX() - 100,this.getY() - 100, reloadSpeed, range, targetModes);
 
             miniTowers.add(miniTower1);
             miniTowers.add(miniTower2);

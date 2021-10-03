@@ -16,8 +16,8 @@ public class MechMiniTower extends Tower{
 
 
 
-    public MechMiniTower(float x, float y ,int attackSpeed,int range, List<ITargetMode> targetModes) {
-        super(x, y, name, attackSpeed, cost, range, targetModes);
+    public MechMiniTower(float x, float y ,int reloadSpeed,int range, List<ITargetMode> targetModes) {
+        super(x, y, name, reloadSpeed, cost, range, targetModes);
     }
 
 

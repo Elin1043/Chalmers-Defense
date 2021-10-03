@@ -17,8 +17,8 @@ public class EcoTower extends Tower {
     private final int reloadTime = 60*10; //how many updates from model
     private final Player player;
 
-    public EcoTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, Player player) {
-        super(x, y, name, attackSpeed, cost, range, targetModes);
+    public EcoTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, Player player) {
+        super(x, y, name, reloadSpeed, cost, range, targetModes);
         this.player = player;
     }
 
