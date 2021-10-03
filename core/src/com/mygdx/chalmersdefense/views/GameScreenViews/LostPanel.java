@@ -4,12 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
+
+import static com.badlogic.gdx.graphics.GL20.*;
 
 
 /**
@@ -25,6 +28,7 @@ public class LostPanel {
     private final TextureAtlas lostButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/lostGameButtonSkin/lostGameButtonSkin.atlas")); // Load atlas file from skin
     private final Skin lostButtonSkin = new Skin(Gdx.files.internal("buttons/lostGameButtonSkin/lostGameButtonSkin.json"), lostButtonTexture); // Create skin object
 
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
     private final Group lostPanelGroup = new Group();
 
     private final Image backgroundImage = new Image(new Texture("GameScreen/LostPanelBackgroundImage.png"));
@@ -83,6 +87,14 @@ public class LostPanel {
     public void render() {
         Gdx.input.setInputProcessor(stage);
 
+        // Generate gray transparent overlay background
+        Gdx.gl.glEnable(GL_BLEND);
+        Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(new Color(20 / 255F, 20 / 255F, 20 / 255F, 0.6F));
+        shapeRenderer.rect(0, 0, stage.getWidth(), stage.getHeight());
+        shapeRenderer.end();
+        Gdx.gl.glDisable(GL_BLEND);
 
         stage.act();
         stage.draw();
