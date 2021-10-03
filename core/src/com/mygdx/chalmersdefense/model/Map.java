@@ -50,6 +50,16 @@ public class Map {
         updateProjectiles();
     }
 
+    /**
+     * Resets all of maps variables
+     */
+    void resetMap() {
+        towersList.clear();
+        projectilesList.clear();
+        allViruses.clear();
+        clickedTower = null;
+        isGameLost = false;
+    }
 
     //Update the projectiles
     private void updateProjectiles() {
