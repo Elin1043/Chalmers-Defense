@@ -1,11 +1,11 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
-public class AcidPool extends Projectile implements IProjectile{
+class AcidPool extends Projectile implements IProjectile{
 
     private int poolTimer = 150;
     private int maxVirusHit = 5;
 
-    public AcidPool(float x, float y, int upgradeLevel) {
+    AcidPool(float x, float y, int upgradeLevel) {
         super(0, "chemistAcid" + upgradeLevel, x, y, 0);
     }
 

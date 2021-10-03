@@ -10,9 +10,9 @@ import java.util.List;
  * @author Elin Forsberg
  * Class representing the HackerTower
  */
-public class HackerTower extends Tower{
-    public HackerTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes) {
-        super(x, y, name, attackSpeed, cost, range, targetModes);
+class HackerTower extends Tower{
+    HackerTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes) {
+        super(x, y, name, reloadSpeed, cost, range, targetModes);
     }
 
 

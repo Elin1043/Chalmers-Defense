@@ -8,8 +8,9 @@ import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.towers.*;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.utilities.Calculate;
+
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
-import java.awt.*;
+import com.mygdx.chalmersdefense.utilities.PathRectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,6 @@ public class Map {
     private final List<ITower> towersList = new ArrayList<>();
     private final List<IProjectile> projectilesList = new ArrayList<>();
     private final List<IVirus> allViruses = new ArrayList<>();
-
-    private final List<IMapObject> allMapObjects = new ArrayList<>();
 
     private final List<ITower> towersToAddList = new ArrayList<>();
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();
@@ -83,7 +82,7 @@ public class Map {
 
     //Checks if projectile collided with path, then virus
     private boolean checkCollisionOfProjectiles(IProjectile projectile, List<IVirus> removeList){
-        for (Rectangle rectangle: path.getCollisionRectangles()) {
+        for (PathRectangle rectangle: path.getCollisionRectangles()) {
             if(Calculate.objectsIntersects(projectile,rectangle)){
                 return checkVirusAndProjectileCollision(projectile, removeList);
             }
@@ -183,11 +182,10 @@ public class Map {
 
     //Checks if a tower collides with path
     private boolean checkMapAndTowerCollision(ITower tower) {
-        for (java.awt.Rectangle rect : path.getCollisionRectangles()) {
-            if (tower.getRectangle().intersects(rect)) {
+        for (PathRectangle rect : path.getCollisionRectangles()) {
+            if (Calculate.objectsIntersects(tower, rect)){
                 return true;
             }
-
         }
         return false;
     }
@@ -196,7 +194,7 @@ public class Map {
     private boolean checkCollisionOfTower(ITower tower, int windowHeight, int windowWidth) {
         for(ITower checkTower: towersList){
             //Check if tower collides with a placed tower
-            if(tower.getRectangle().intersects(checkTower.getRectangle()) && !(checkTower.hashCode() == tower.hashCode())){
+            if(Calculate.objectsIntersects(tower, checkTower) && !(checkTower.hashCode() == tower.hashCode())){
                 return true;
             }
             //Check if tower out of bound on X
@@ -252,7 +250,6 @@ public class Map {
     public void onDrag(int buttonWidth, int buttonHeight, int x, int y, int windowHeight, int windowWidth) {
 
         newTower.setPos( x - buttonWidth,(windowHeight - y - buttonHeight ));
-        newTower.setRectangle();
 
         for (ITower tower: towersList) {
 
@@ -292,7 +289,6 @@ public class Map {
         if(!newTower.getCollision()){
             newTower.placeTower();
             newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
-            newTower.setRectangle();
             player.decreaseMoney(newTower.getCost());
 
         }
@@ -355,7 +351,7 @@ public class Map {
      * @return the list of objects
      */
     public List<IMapObject> getAllMapObjects() {
-        allMapObjects.clear();
+        List<IMapObject> allMapObjects = new ArrayList<>();
         allMapObjects.addAll(towersList);
         allMapObjects.addAll(allViruses);
         allMapObjects.addAll(projectilesList);

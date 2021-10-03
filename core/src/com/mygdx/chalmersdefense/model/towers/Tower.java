@@ -5,7 +5,6 @@ import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import javax.imageio.ImageIO;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,7 +20,7 @@ import java.util.Objects;
  * 2021-09-25 Modified by Elin Forsberg: added method for shooting projectiles
  */
 
-public abstract class Tower implements ITower{
+abstract class Tower implements ITower{
 
     private String spriteKey;
     private int upgradeLevel = 1;
@@ -43,23 +42,19 @@ public abstract class Tower implements ITower{
     private float width;
     private float height;
 
-    private int attackSpeed;
     private int cost;
 
     private boolean collision;
     private boolean gotButton;
 
 
-    private int reloadTime = 60*3; //how many updates from model
+    private int reloadTime; //how many updates from model
     private int currentReload = 0;
 
 
-    private Rectangle rectangle = new Rectangle();
-
-
-    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes){
+    Tower(float x, float y, String name, int reloadTime, int cost, int range, List<ITargetMode> targetModes){
         this.name = name;
-        this.attackSpeed = attackSpeed;
+        this.reloadTime = reloadTime;
         this.targetModes = targetModes;
         this.currentTargetMode = targetModes.get(0);
         updateSpriteKey();
@@ -105,7 +100,7 @@ public abstract class Tower implements ITower{
      */
     public void upgradeTower(HashMap<String, Long> upgrades) {
         // DMG multiplier??
-        attackSpeed *= upgrades.get("attackSpeedMul");
+        reloadTime *= upgrades.get("attackSpeedMul");
         range *= upgrades.get("attackRangeMul");
         upgradeLevel++;
         updateSpriteKey(); // Add this when all sprites are in the game.
@@ -167,22 +162,6 @@ public abstract class Tower implements ITower{
      */
     public void setCollision(boolean set){
         collision = set;
-    }
-
-    /**
-     * Sets a rectangle around tower, used for collision
-     */
-    public void setRectangle(){
-        rectangle = new Rectangle();
-        rectangle.setRect(this.x  , this.y  , this.width,this.height);
-    }
-
-    /**
-     * Gets the rectangle around tower for collision
-     * @return rectangle around tower
-     */
-    public Rectangle getRectangle(){
-        return rectangle;
     }
 
     /**
