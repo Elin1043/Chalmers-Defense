@@ -10,7 +10,7 @@ import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
-//import java.awt.*;
+import com.mygdx.chalmersdefense.utilities.PathRectangle;
 import java.util.ArrayList;
 import java.util.List;
 
