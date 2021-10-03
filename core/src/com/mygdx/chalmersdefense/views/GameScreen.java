@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.model.IMapObject;
-import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -371,8 +370,8 @@ public class GameScreen extends AbstractScreen implements Screen {
      * Updates the upgrade panel.
      * @param tower tower name used to get correct sprite
      */
-    private void updateUpgradePanelInfo(ITower tower) {
-        towerNameLabel.setText(tower.getName());
+    private void updateUpgradePanelInfo(IMapObject tower) {
+        towerNameLabel.setText(tower.getSpriteKey().replaceFirst(".$","")); // Removes the upgrade level from the spriteKey to just leave the name left
 
         Sprite towerSpriteUpgradePanel = largeSpriteMap.get(tower.getSpriteKey() + "Large");
         towerSpriteUpgradePanel.setPosition(bottomBarPanelBackground.getWidth() - 1360, bottomBarPanelBackground.getHeight()/2 - towerSpriteUpgradePanel.getHeight()/2);
@@ -395,15 +394,17 @@ public class GameScreen extends AbstractScreen implements Screen {
      * @param descLabel the description label to modify
      * @param priceLabel the price label to modify
      */
-    private void updateUpgradeButton(ITower tower, int buttonNr, Button upgradeButton, Label titleLabel, Label descLabel, Label priceLabel) {
-        Sprite upgradedTowerSprite = spriteMap.get(tower.getSpriteKey().replaceFirst(".$","") + (buttonNr + 1));
+    private void updateUpgradeButton(IMapObject tower, int buttonNr, Button upgradeButton, Label titleLabel, Label descLabel, Label priceLabel) {
+        String towerName = tower.getSpriteKey().replaceFirst(".$","");              // Removes the upgrade level from the spriteKey to just leave the name left
+        int towerUpgradeLevel = Character.getNumericValue(tower.getSpriteKey().charAt(tower.getSpriteKey().length() - 1));     // Gets the last char in the string, and therefore the upgrade level
+
+        Sprite upgradedTowerSprite = spriteMap.get(towerName + (buttonNr + 1));
         upgradedTowerSprite.setPosition(upgradeButton.getX() + (268 - upgradedTowerSprite.getWidth()/2), (upgradeButton.getHeight() - upgradeButton.getY())/2 - upgradedTowerSprite.getHeight()/2 + upgradeButton.getY() + 20);
         upgradedTowerSprite.setRotation(0);
 
 
-
         // If upgrade is bought disable button input
-        if ((tower.getUpgradeLevel() >= 1 + buttonNr)) {
+        if (towerUpgradeLevel >= 1 + buttonNr) {
             upgradeButton.setChecked(true);
             upgradeButton.setTouchable(Touchable.disabled);
         } else {
@@ -412,11 +413,11 @@ public class GameScreen extends AbstractScreen implements Screen {
         }
 
         // If first upgrade not bought disable second button
-        if (buttonNr == 2 && tower.getUpgradeLevel() == 1) {
+        if (buttonNr == 2 && towerUpgradeLevel == 1) {
             upgradeButton.setTouchable(Touchable.disabled);
             upgradeButton.setColor(Color.LIGHT_GRAY);
             upgradedTowerSprite.setColor(Color.LIGHT_GRAY);
-        } else if (buttonNr == 2 && tower.getUpgradeLevel() >= 2) {
+        } else if (buttonNr == 2 && towerUpgradeLevel >= 2) {
             upgradeButton.setTouchable(Touchable.enabled);
             upgradeButton.setColor(Color.WHITE);
             upgradedTowerSprite.setColor(Color.WHITE);
@@ -429,9 +430,9 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         //upgradeButton.setDisabled(model.getMoney() < model.getTowerUpgradePrice(tower, 1));
 
-        titleLabel.setText(model.getTowerUpgradeTitle(tower, buttonNr));
-        descLabel.setText(model.getTowerUpgradeDesc(tower, buttonNr));
-        priceLabel.setText("" + model.getTowerUpgradePrice(tower, buttonNr));
+        titleLabel.setText(model.getTowerUpgradeTitle(towerName, buttonNr));
+        descLabel.setText(model.getTowerUpgradeDesc(towerName, buttonNr));
+        priceLabel.setText("" + model.getTowerUpgradePrice(towerName, buttonNr));
     }
 
 
