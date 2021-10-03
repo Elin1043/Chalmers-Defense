@@ -70,7 +70,7 @@ public abstract class Projectile implements IProjectile{
     }
 
     /**
-     * Method to call when virus is hit (temp for now, used by lightning)
+     * Method to call when virus is hit
      */
     void virusIsHit(int haveHit, float angle){
         haveHitList.add(haveHit);
