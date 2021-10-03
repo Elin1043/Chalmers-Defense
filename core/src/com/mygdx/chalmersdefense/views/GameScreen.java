@@ -115,7 +115,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         this.rightSidePanelController = new RightSidePanelController(model);
         this.bottomBarPanelController = new BottomBarPanelController(model);
         this.gameScreenController = new GameScreenController(model);
-        this.lostPanelView = new LostPanel(this);
+        this.lostPanelView = new LostPanel(this, gameScreenController);
         this.model = model;
 
         // This should come from classicPath class
@@ -195,6 +195,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     @Override
     public void render(float delta) {
         super.render(Gdx.graphics.getDeltaTime());
+        Gdx.input.setInputProcessor(this);
 
         renderTowers();
         checkAffordableTowers();
@@ -226,6 +227,11 @@ public class GameScreen extends AbstractScreen implements Screen {
             model.startRoundPressed();
         }
 
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
     }
 
     private void updateLabels() {
