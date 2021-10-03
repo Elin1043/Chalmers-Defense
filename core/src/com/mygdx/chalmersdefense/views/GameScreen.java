@@ -38,9 +38,10 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * @author Daniel Persson
  *
  * 2021-09-20 Modified by Elin Forsberg: Added methods and variables to handle placing towers
- * 2021-09-23 Modified by Joel Båtsman Hilmersson: All sprites now comes from hashmap when rendering
+ * 2021-09-23 Modified by Joel Båtsman Hilmersson: All sprites now comes from hashmap when rendering and there are life and money labels
  * 2021-09-24 Modified by Elin Forsberg: Added methods to render projectiles
  * 2021-09-28 Modified by Daniel Persson: Added methods and instance variables to render upgrade panel and upgrade buttons
+ * 2021-10-03 Modified by Elin Forsberg: Sprite render now uses general IMapObject and range circle rendering was separated
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
@@ -204,6 +205,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         updateLabels();
 
+        //TODO Remove when not needed
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             model.getViruses().add(VirusFactory.createVirusOne());
         }
@@ -372,7 +374,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private void updateUpgradePanelInfo(ITower tower) {
         towerNameLabel.setText(tower.getName());
 
-        Sprite towerSpriteUpgradePanel = largeSpriteMap.get(tower.getName() + tower.getUpgradeLevel() + "Large");
+        Sprite towerSpriteUpgradePanel = largeSpriteMap.get(tower.getSpriteKey() + "Large");
         towerSpriteUpgradePanel.setPosition(bottomBarPanelBackground.getWidth() - 1360, bottomBarPanelBackground.getHeight()/2 - towerSpriteUpgradePanel.getHeight()/2);
         towerSpriteUpgradePanel.setRotation(0);
 
@@ -394,7 +396,7 @@ public class GameScreen extends AbstractScreen implements Screen {
      * @param priceLabel the price label to modify
      */
     private void updateUpgradeButton(ITower tower, int buttonNr, Button upgradeButton, Label titleLabel, Label descLabel, Label priceLabel) {
-        Sprite upgradedTowerSprite = spriteMap.get(tower.getName() + (buttonNr + 1));
+        Sprite upgradedTowerSprite = spriteMap.get(tower.getSpriteKey().replaceFirst(".$","") + (buttonNr + 1));
         upgradedTowerSprite.setPosition(upgradeButton.getX() + (268 - upgradedTowerSprite.getWidth()/2), (upgradeButton.getHeight() - upgradeButton.getY())/2 - upgradedTowerSprite.getHeight()/2 + upgradeButton.getY() + 20);
         upgradedTowerSprite.setRotation(0);
 

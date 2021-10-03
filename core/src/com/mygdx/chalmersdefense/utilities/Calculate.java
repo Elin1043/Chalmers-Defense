@@ -73,40 +73,30 @@ public abstract class Calculate {
 
 
     /**
-     * Checks if a projectile and rectangle intersect
-     * @param o1 the projectile
-     * @param o2 the rectangle
-     * @return if intersects
+     * Checks if two IMapObjects intersects
+     * @param objOne the first object
+     * @param objTwo the second object
+     * @return True - if the objects intersect, False - if the do not
      */
-    public static boolean objectsIntersects(IMapObject o1, IMapObject o2) {
-        double o1Width = o1.getWidth();
-        double o1Height = o1.getHeight();
-        double o2Width = o2.getWidth();
-        double o2Height = o2.getHeight();
-
-        double o1X = o1.getX();
-        double o1Y = o1.getY();
-        double o2X = o2.getX();
-        double o2Y = o2.getY();
-
-
-        return calculateIntersects(o1Width,o1Height,o2Width,o2Height,o1X,o1Y,o2X,o2Y);
+    public static boolean objectsIntersects(IMapObject objOne, IMapObject objTwo) {
+        return calculateIntersects(objOne.getWidth(), objOne.getHeight(), objTwo.getWidth(), objTwo.getHeight(), objOne.getX(), objOne.getY(), objTwo.getX(), objTwo.getY());
     }
 
     //Calculates if two objects intersect
-    private static boolean calculateIntersects(double o1Width, double o1Height, double o2Width, double o2Height, double o1X, double o1Y, double o2X, double o2Y){
-        if (o2Width <= 0 || o2Height <= 0 || o1Width <= 0 || o1Height <= 0) {
+    private static boolean calculateIntersects(double obj1Width, double obj1Height, double obj2Width, double obj2Height, double obj1X, double obj1Y, double obj2X, double obj2Y){
+        if (obj2Width <= 0 || obj2Height <= 0 || obj1Width <= 0 || obj1Height <= 0) {
             return false;
         }
-        o1Width += o1X;
-        o1Height += o1Y;
-        o2Width += o2X;
-        o2Height += o2Y;
+        obj1Width += obj1X;
+        obj1Height += obj1Y;
+        obj2Width += obj2X;
+        obj2Height += obj2Y;
 
         //      overflow || intersect
-        return ((o2Width < o2X || o2Width > o1X) &&
-                (o2Height < o2Y || o2Height > o1Y) &&
-                (o1Width < o1X || o1Width > o2X) &&
-                (o1Height < o1Y || o1Height > o2Y));
+        return ((obj2Width < obj2X || obj2Width > obj1X) &&
+                (obj2Height < obj2Y || obj2Height > obj1Y) &&
+
+                (obj1Width < obj1X || obj1Width > obj2X) &&
+                (obj1Height < obj1Y || obj1Height > obj2Y));
     }
 }
