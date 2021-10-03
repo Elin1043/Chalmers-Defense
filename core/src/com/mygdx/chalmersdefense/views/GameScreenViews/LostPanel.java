@@ -76,6 +76,7 @@ public class LostPanel {
             backgroundImage.getY() + 65);
         mainMenuButtonText.setPosition(mainMenuButton.getWidth()/2 - mainMenuButtonText.getWidth()/2, mainMenuButton.getHeight()/2 - mainMenuButtonText.getHeight()/2 + 5);
 
+        gameScreenController.addLostPanelTryAgainClickListener(tryAgainButton);
         tryAgainButton.setPosition(
             backgroundImage.getX() + backgroundImage.getWidth() * 3/4 - mainMenuButton.getWidth()/2,
             backgroundImage.getY() + 65);
