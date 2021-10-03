@@ -39,9 +39,10 @@ public class MainScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
+        super.render(Gdx.graphics.getDeltaTime());
         addActor(img);
         addActor(playButton);
-        super.render(Gdx.graphics.getDeltaTime());
+
     }
 
     //rotToX/Y is the coordinates to be rotated to, orgX/Y is the location to be rotated around
