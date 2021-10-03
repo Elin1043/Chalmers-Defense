@@ -20,7 +20,7 @@ import java.util.Objects;
  * 2021-09-25 Modified by Elin Forsberg: added method for shooting projectiles
  */
 
-public abstract class Tower implements ITower{
+abstract class Tower implements ITower{
 
     private String spriteKey;
     private int upgradeLevel = 1;
@@ -52,7 +52,7 @@ public abstract class Tower implements ITower{
     private int currentReload = 0;
 
 
-    public Tower(float x, float y, String name, int reloadTime, int cost, int range, List<ITargetMode> targetModes){
+    Tower(float x, float y, String name, int reloadTime, int cost, int range, List<ITargetMode> targetModes){
         this.name = name;
         this.reloadTime = reloadTime;
         this.targetModes = targetModes;

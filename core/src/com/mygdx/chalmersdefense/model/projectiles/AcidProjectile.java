@@ -6,12 +6,12 @@ import java.util.List;
  * @author Elin Forsberg
  * Class representing an acid projectile
  */
-public class AcidProjectile extends Projectile{
+class AcidProjectile extends Projectile{
     private final int upgradeLevel;
     private final List<IProjectile> projectileList;
 
 
-    public AcidProjectile(float x, float y, float angle, int upgradeLevel, List<IProjectile> projectileList) {
+    AcidProjectile(float x, float y, float angle, int upgradeLevel, List<IProjectile> projectileList) {
         //TODO Speed calc
         super(5 ,"chemistProjectile" + upgradeLevel, x, y, angle);
         this.upgradeLevel = upgradeLevel;

@@ -11,18 +11,16 @@ import java.util.List;
  * @author Elin Forsberg
  * Class representing the MechTower
  */
-public class MechTower extends Tower {
-
+class MechTower extends Tower {
 
     private final List<ITower> miniTowers = new ArrayList<>();
-
-
     private int reloadSpeed;
     private int range;
     private List<ITargetMode> targetModes;
     List<ITower> towersToAddList;
 
-    public MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<ITower> towersToAddList) {
+
+    MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<ITower> towersToAddList) {
         super(x, y, name, reloadSpeed, cost, range, targetModes);
         this.reloadSpeed = reloadSpeed;
         this.targetModes = targetModes;

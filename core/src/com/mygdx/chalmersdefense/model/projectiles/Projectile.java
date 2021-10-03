@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * 2021-10-01 Modified by Joel Båtsman Hilmersson: The projectile now holds a list of hashcodes to every virus it has hit before
  */
-public abstract class Projectile implements IProjectile{
+abstract class Projectile implements IProjectile{
 
     final List<Integer> haveHitList = new ArrayList<>();
 
@@ -31,7 +31,7 @@ public abstract class Projectile implements IProjectile{
 
     boolean canRemove = false;
 
-    public Projectile(float speed, String spriteKey, float x, float y, float angle){
+    Projectile(float speed, String spriteKey, float x, float y, float angle){
         this.speed = speed;
         this.spriteKey = spriteKey;
         this.x = x;

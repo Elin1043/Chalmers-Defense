@@ -20,7 +20,6 @@ public class PathRectangle implements IMapObject {
     }
 
 
-
     @Override
     public float getX() {
         return (float) rectangle.getX();
