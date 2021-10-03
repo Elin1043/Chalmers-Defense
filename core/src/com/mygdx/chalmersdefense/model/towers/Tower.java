@@ -49,13 +49,13 @@ public abstract class Tower implements ITower{
     private boolean gotButton;
 
 
-    private int reloadTime = 60*3; //how many updates from model
+    private int reloadTime; //how many updates from model
     private int currentReload = 0;
 
 
-    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes){
+    public Tower(float x, float y, String name, int reloadTime, int cost, int range, List<ITargetMode> targetModes){
         this.name = name;
-        this.attackSpeed = attackSpeed;
+        this.reloadTime = reloadTime;
         this.targetModes = targetModes;
         this.currentTargetMode = targetModes.get(0);
         updateSpriteKey();
