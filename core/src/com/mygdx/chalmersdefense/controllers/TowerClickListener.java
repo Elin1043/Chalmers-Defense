@@ -27,6 +27,6 @@ public class TowerClickListener extends ClickListener {
      */
     @Override
     public void clicked(InputEvent event, float x, float y) {
-        model.towerClicked(event.getStageX(), event.getStageY());
+        //model.towerClicked(event.getStageX(), event.getStageY());
     }
 }

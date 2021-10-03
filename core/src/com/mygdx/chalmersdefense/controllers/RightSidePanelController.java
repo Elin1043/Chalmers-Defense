@@ -63,6 +63,8 @@ public class RightSidePanelController {
                 int inputY = Gdx.input.getY();
                 int windowHeight = Gdx.graphics.getHeight();
                 model.dragEnd((int) (button.getImage().getWidth()/2),(int) (button.getImage().getHeight()/2) ,inputX,inputY, windowHeight);
+
+
             }
         });
 
