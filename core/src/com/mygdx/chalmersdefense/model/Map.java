@@ -1,7 +1,6 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
 import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
@@ -34,12 +33,10 @@ public class Map {
     private final List<ITower> towersToAddList = new ArrayList<>();
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();
 
-    //Should not have player here
     private final Player player;
     private final Path path = new ClassicPath();           // Make a path factory instead?;
 
     private final GetRangeCircle rangeCircle = new GetRangeCircle();
-
 
 
     public Map(Player player){
@@ -334,13 +331,7 @@ public class Map {
     }
 
 
-    public List<IMapObject> getAllMapObjects() {
-        allMapObjects.clear();
-        allMapObjects.addAll(towersList);
-        allMapObjects.addAll(allViruses);
-        allMapObjects.addAll(projectilesList);
-        return allMapObjects;
-    }
+
 
     public GetRangeCircle getRangeCircle() {
         return rangeCircle;
@@ -348,14 +339,6 @@ public class Map {
 
     public ITower getClickedTower() {
         return clickedTower;
-    }
-
-    /**
-     * Return the list of towers on map
-     * @return The list of towers
-     */
-    public List<ITower> getTowers() {
-        return towersList;
     }
 
 
@@ -368,11 +351,15 @@ public class Map {
     }
 
     /**
-     * Return the list of projectiles
-     * @return list of projectiles
+     * Return the list of objects on map
+     * @return the list of objects
      */
-    public List<IProjectile> getProjectilesList() {
-        return projectilesList;
+    public List<IMapObject> getAllMapObjects() {
+        allMapObjects.clear();
+        allMapObjects.addAll(towersList);
+        allMapObjects.addAll(allViruses);
+        allMapObjects.addAll(projectilesList);
+        return allMapObjects;
     }
 
     /**

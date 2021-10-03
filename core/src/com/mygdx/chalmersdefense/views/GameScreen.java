@@ -44,10 +44,10 @@ import static com.badlogic.gdx.graphics.GL20.*;
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
-    private RightSidePanelController rightSidePanelController;
-    private BottomBarPanelController bottomBarPanelController;
-    private GameScreenController gameScreenController;
-    private Model model;
+    private final RightSidePanelController rightSidePanelController;
+    private final BottomBarPanelController bottomBarPanelController;
+    private final GameScreenController gameScreenController;
+    private final Model model;
 
     private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
     private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
@@ -85,11 +85,11 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final Label secondUpgradeButtonPrice = new Label("", generateLabelStyle(26, Color.BLACK, 0));
 
 
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
-    private Label towerLabel;
-    private Label powerUpLabel;
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private final Label towerLabel;
+    private final Label powerUpLabel;
 
-    private Image mapImage;
+    private final Image mapImage;
 
     private final ImageButton smurfButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
     private final ImageButton chemistButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1770, 830, "chemist");
@@ -99,7 +99,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final ImageButton ecoButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
 
 
-    private Batch batch = super.getBatch();
+    private final Batch batch = super.getBatch();
 
 
     private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();

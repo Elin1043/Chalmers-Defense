@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.chalmersdefense.model.Model;
 
-/*
+/**
 * @author Daniel Persson
 * @date 2021-09-22
 *
@@ -18,7 +18,7 @@ public class GameScreenController {
         this.model = model;
     }
 
-    /*
+    /**
     * Adds listener to map in GamerScreen
     * @param image  GameScreens mapImage
     * */

@@ -187,14 +187,6 @@ public class Model implements IUpdateModel {
 
 
     /**
-     * Return the list of projectiles
-     * @return list of projectiles
-     */
-    public List<IProjectile> getProjectilesList() {
-        return map.getProjectilesList();
-    }
-
-    /**
      * Return the current money value
      * @return the money value
      */
@@ -212,13 +204,7 @@ public class Model implements IUpdateModel {
      */
     public int getCurrentRound() { return round.getCurrentRound(); }
 
-    /**
-     * Return the list of towers on map
-     * @return The list of towers
-     */
-    public List<ITower> getTowers() {
-        return map.getTowers();
-    }
+
 
     /**
      * Return the list of viruses on path
