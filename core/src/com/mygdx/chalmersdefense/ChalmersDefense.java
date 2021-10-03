@@ -42,9 +42,4 @@ public class ChalmersDefense extends Game {
 		music.setVolume(0.2F);
 		music.play();
 	}
-
-
-	public int testJunit(int willDouble) {
-		return willDouble * 2;
-	}
 }
