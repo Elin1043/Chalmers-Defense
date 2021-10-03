@@ -10,8 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
-import com.mygdx.chalmersdefense.model.viruses.IVirus;
-import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
+import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -27,9 +26,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
-import com.mygdx.chalmersdefense.controllers.TowerClickListener;
 import com.mygdx.chalmersdefense.model.Model;
-
+import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 
 
 import java.util.HashMap;
@@ -100,7 +98,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final ImageButton meckButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "meck");
     private final ImageButton ecoButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
 
-    private TowerClickListener towerClickListener;
+
     private Batch batch = super.getBatch();
 
 
@@ -141,8 +139,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         // START Right side panel creation
         sideBarBackground.setPosition(1920 - 320, 0);
         createStartRoundButton();
-
-        towerClickListener = new TowerClickListener(model);
 
         towerLabel = createLabel("Towers", 20);
 
@@ -187,14 +183,15 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(startRoundButton);
     }
 
+
+    //Render methods
     @Override
     public void render(float delta) {
         super.render(Gdx.graphics.getDeltaTime());
 
-        renderTowers();
         checkAffordableTowers();
-        renderViruses();
-        renderProjectiles();
+        renderRangeCircle();
+        renderMapObjects();
 
         updateLabels();
         // If clicked tower is present show upgrade panel.
@@ -216,6 +213,87 @@ public class GameScreen extends AbstractScreen implements Screen {
         }
     }
 
+    private void renderMapObjects(){
+        for (IMapObject mapObject: model.getAllMapObjects()) {
+            Sprite objectSprite = spriteMap.get(mapObject.getSpriteKey());
+            objectSprite.setPosition(mapObject.getX(), mapObject.getY());
+            objectSprite.setRotation(mapObject.getAngle());
+
+            super.batch.begin();
+            objectSprite.draw(super.batch);
+            super.batch.end();
+        }
+
+    }
+
+    private void renderRangeCircle(){
+        GetRangeCircle circle = model.getRangeCircle();
+
+        Gdx.gl.glEnable(GL_BLEND);
+        Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(getColorOfCircle(circle));
+        shapeRenderer.circle(circle.getX(), circle.getY(), circle.getRange());
+        shapeRenderer.end();
+        Gdx.gl.glDisable(GL_BLEND);
+    }
+
+    private Color getColorOfCircle(GetRangeCircle circle){
+        switch (circle.getColor()){
+            case RED -> {
+                return new Color (255 / 255F, 51 / 255F, 51 / 255F, 0.8F);
+            }
+            case GRAY -> {
+                return new Color (150 / 255F, 150 / 255F, 150 / 255F, 0.8F);
+            }
+            default -> {
+                return Color.CLEAR;
+            }
+        }
+    }
+
+
+    //Tower buttons methods
+
+    private ImageButton createRightPanelTowerButtons(Texture texture, int x, int y, String name) {
+        TextureRegion towerButtonTextureRegion = new TextureRegion(texture);
+        TextureRegionDrawable towerButtonRegDrawable = new TextureRegionDrawable(towerButtonTextureRegion);
+        ImageButton towerButton = new ImageButton(towerButtonRegDrawable); //Set the button up
+        towerButton.setPosition(x, y);
+        towerButton.setName(name);
+
+
+        return towerButton;
+
+    }
+
+    private void addTowerButtonListener() {
+        rightSidePanelController.addTowerButtonListener(smurfButton);
+        rightSidePanelController.addTowerButtonListener(chemistButton);
+        rightSidePanelController.addTowerButtonListener(hackerButton);
+        rightSidePanelController.addTowerButtonListener(electroButton);
+        rightSidePanelController.addTowerButtonListener(meckButton);
+        rightSidePanelController.addTowerButtonListener(ecoButton);
+    }
+
+    //Checks what towers the player can afford
+    private void checkAffordableTowers() {
+        for (Integer i : towerButtons.keySet()) {
+            if(model.getMoney() >= i && !towerButtons.get(i).isTouchable()){
+                towerButtons.get(i).setTouchable(Touchable.enabled);
+                towerButtons.get(i).getImage().setColor(Color.WHITE);
+
+            }
+            else if (model.getMoney()< i && towerButtons.get(i).isTouchable()){
+                towerButtons.get(i).setTouchable(Touchable.disabled);
+                towerButtons.get(i).getImage().setColor(Color.LIGHT_GRAY);
+            }
+        }
+    }
+
+
+
+    //Label methods
     private void updateLabels() {
         lifeLabel.setText(model.getLivesLeft());
         moneyLabel.setText(model.getMoney());
@@ -247,22 +325,9 @@ public class GameScreen extends AbstractScreen implements Screen {
         return labelStyle;
     }
 
-    //Render projectiles
-    private void renderProjectiles() {
 
-        synchronized (model.getProjectilesList()) {
-            for (IProjectile projectile : model.getProjectilesList()) {
-                Sprite projectileSprite = spriteMap.get(projectile.getSpriteKey());
-                projectileSprite.setPosition(projectile.getX(), projectile.getY());
 
-                super.batch.begin();
-                projectileSprite.draw(super.batch);
-                super.batch.end();
-            }
-        }
-    }
-
-    //Render viruses
+    //Bottom bar methods
     private void createBottomBarPanel() {
         bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
         bottomBarPanelBackground.setPosition(0, 0);
@@ -273,6 +338,8 @@ public class GameScreen extends AbstractScreen implements Screen {
         bottomBarUpgradePanelBackground.setPosition(0 , 3);
         return bottomBarUpgradePanelBackground;
     }
+
+    //Upgrade methods
 
     /**
      * Sets up the upgrade button with labels and image.
@@ -365,76 +432,8 @@ public class GameScreen extends AbstractScreen implements Screen {
         priceLabel.setText("" + model.getTowerUpgradePrice(tower, buttonNr));
     }
 
-    private void renderViruses() {
 
-        super.batch.begin();
-
-        for (IVirus virus : model.getViruses()) {
-
-            Sprite virusSprite = spriteMap.get(virus.getSpriteKey());
-            virusSprite.setPosition(virus.getX(), virus.getY());
-            virusSprite.draw(super.batch);
-
-        }
-
-        super.batch.end();
-    }
-
-    //Render towers
-    private void renderTowers() {
-        for (ITower tower : model.getTowers()) {
-            Sprite towerSprite = spriteMap.get(tower.getSpriteKey());
-            towerSprite.setPosition(tower.getX(), tower.getY());
-            towerSprite.setRotation(tower.getAngle());
-
-            //If tower is not placed and not colliding: circle around is grey
-            if (!tower.isPlaced() && !tower.getCollision()) {
-                Gdx.gl.glEnable(GL_BLEND);
-                Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setColor(new Color(150 / 255F, 150 / 255F, 150 / 255F, 0.8F));
-                shapeRenderer.circle(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());
-                shapeRenderer.end();
-                Gdx.gl.glDisable(GL_BLEND);
-            }
-
-            //If tower is not placed and colliding: circle around is red
-            else if (!tower.isPlaced() && tower.getCollision()) {
-                Gdx.gl.glEnable(GL_BLEND);
-                Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setColor(new Color(255 / 255F, 51 / 255F, 51 / 255F, 0.8F));
-                shapeRenderer.circle(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());
-                shapeRenderer.end();
-                Gdx.gl.glDisable(GL_BLEND);
-            }
-
-            //If tower is placed and dont have button: create a button and set that it's placed
-            else if (tower.isPlaced() && !tower.getGotButton()) {
-                ImageButton btn = createInvisButtonsOnTower(towerSprite, tower.getX(), tower.getY());
-                btn.addListener(towerClickListener);
-                tower.setGotButton(true);
-            }
-
-
-            super.batch.begin();
-            towerSprite.draw(super.batch);
-            super.batch.end();
-
-        }
-    }
-
-
-    private void addTowerButtonListener() {
-        rightSidePanelController.addTowerButtonListener(smurfButton);
-        rightSidePanelController.addTowerButtonListener(chemistButton);
-        rightSidePanelController.addTowerButtonListener(hackerButton);
-        rightSidePanelController.addTowerButtonListener(electroButton);
-        rightSidePanelController.addTowerButtonListener(meckButton);
-        rightSidePanelController.addTowerButtonListener(ecoButton);
-    }
-
-
+    //Start round button methods
     private void createStartRoundButton() {
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.atlas")); // Load atlas file from skin
         Skin skin = new Skin(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.json"), atlas); // Create skin object
@@ -444,49 +443,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         rightSidePanelController.addStartButtonListener(startRoundButton);
     }
 
-    private ImageButton createRightPanelTowerButtons(Texture texture, int x, int y, String name) {
-        TextureRegion towerButtonTextureRegion = new TextureRegion(texture);
-        TextureRegionDrawable towerButtonRegDrawable = new TextureRegionDrawable(towerButtonTextureRegion);
-        ImageButton towerButton = new ImageButton(towerButtonRegDrawable); //Set the button up
-        towerButton.setPosition(x, y);
-        towerButton.setName(name);
-
-
-        return towerButton;
-
-    }
-
-
-    //Create button on towers placed
-    private ImageButton createInvisButtonsOnTower(Sprite towerSprite,float x, float y) {
-        TextureRegion invisButtonTextureRegion = new TextureRegion(towerSprite);
-        TextureRegionDrawable invisTexRegDrawable = new TextureRegionDrawable(invisButtonTextureRegion);
-
-        ImageButton invisButton = new ImageButton(invisTexRegDrawable); //Set the button up
-        invisButton.setColor(255,255,255,0);
-        invisButton.setSize(towerSprite.getWidth(), towerSprite.getHeight());
-        invisButton.setPosition(x,y);
-
-
-        this.addActor(invisButton);
-        return invisButton;
-    }
-
-
-    //Checks what towers the player can afford
-    private void checkAffordableTowers() {
-        for (Integer i : towerButtons.keySet()) {
-            if(model.getMoney() >= i && !towerButtons.get(i).isTouchable()){
-                towerButtons.get(i).setTouchable(Touchable.enabled);
-                towerButtons.get(i).getImage().setColor(Color.WHITE);
-
-            }
-            else if (model.getMoney()< i && towerButtons.get(i).isTouchable()){
-                towerButtons.get(i).setTouchable(Touchable.disabled);
-                towerButtons.get(i).getImage().setColor(Color.LIGHT_GRAY);
-            }
-        }
-    }
 
 
 

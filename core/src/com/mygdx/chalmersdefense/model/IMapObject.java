@@ -13,4 +13,6 @@ public interface IMapObject {
     String getSpriteKey();
 
     float getAngle();
+
+
 }

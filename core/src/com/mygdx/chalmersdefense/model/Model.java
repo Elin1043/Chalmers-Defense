@@ -7,6 +7,7 @@ import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
 import com.mygdx.chalmersdefense.utilities.GameTimer;
+import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 
 import java.util.List;
 
@@ -130,12 +131,16 @@ public class Model implements IUpdateModel {
 
 
     // Maybe temporary because it sets the object to null.
-    public void towerClicked(float x, float y) {
-        map.towerClicked(x, y);
+    /**
+     * Handles when a placed tower is clicked
+     */
+    public void checkIfTowerClicked(float x, float y) {
+        map.checkIfTowerClicked(x,y);
+
     }
 
-    public void towerNotClicked() {
-        map.towerNotClicked();
+    public GetRangeCircle getRangeCircle() {
+        return map.getRangeCircle();
     }
 
     public ITower getClickedTower() {
@@ -221,5 +226,9 @@ public class Model implements IUpdateModel {
      */
     public List<IVirus> getViruses() {
         return map.getViruses();
+    }
+
+    public List<IMapObject> getAllMapObjects() {
+        return map.getAllMapObjects();
     }
 }
