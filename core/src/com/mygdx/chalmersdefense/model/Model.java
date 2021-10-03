@@ -69,6 +69,7 @@ public class Model {
         round = new Rounds(WINNING_ROUND);
         player.resetPlayer(LIVES, START_CAPITAL);
         map.resetMap();
+        virusSpawner.resetSpawnViruses();
     }
 
     private void checkRoundCompleted() {
