@@ -1,7 +1,6 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
@@ -28,7 +27,7 @@ import java.util.List;
  * 2021-09-27 Modified by Elin Forsberg: Added methods to handle different attacks from towers
  * 2021-09-27 Modified by Daniel Persson: Added delegation getters for upgrade title, description and price.
  * 2021-09-28 Modified by Everyone: Moved methods to Map class
- * 2021-09-30 Modified by Joel Båtsman Hilmerson: Added a specifc timer object
+ * 2021-09-30 Modified by Joel Båtsman Hilmersson: Added a specifc timer object
  */
 
 public class Model implements IUpdateModel {

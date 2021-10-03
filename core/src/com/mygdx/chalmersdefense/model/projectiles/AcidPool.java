@@ -2,14 +2,31 @@ package com.mygdx.chalmersdefense.model.projectiles;
 
 public class AcidPool extends Projectile implements IProjectile{
 
+    private int poolTimer = 150;
+    private int maxVirusHit = 5;
+
     public AcidPool(float x, float y, int upgradeLevel) {
-        super(0, "acidPool" + upgradeLevel, x, y, 0);
+        super(0, "chemistAcid" + upgradeLevel, x, y, 0);
     }
 
+    @Override
+    public void update(boolean hitVirus, int haveHit, float angle){
+        if (poolTimer <= 0) {
+            this.canRemove = true;
+        } else {
+            poolTimer--;
+        }
+        super.update(hitVirus, haveHit, angle);
+    }
 
+    @Override
+    void virusIsHit(int haveHit, float angle){
+        if (maxVirusHit > 0) {
+            maxVirusHit--;
+        } else {
+            this.canRemove = true;
+        }
 
-//    @Override
-//    public IProjectile createProjectile(int speed, float x, float y, float angle) {
-//        return null;
-//    }
+        super.haveHitList.add(haveHit);
+    }
 }

@@ -1,7 +1,5 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
-import com.mygdx.chalmersdefense.model.viruses.IVirus;
-import com.mygdx.chalmersdefense.model.viruses.Virus;
 
 import java.util.List;
 

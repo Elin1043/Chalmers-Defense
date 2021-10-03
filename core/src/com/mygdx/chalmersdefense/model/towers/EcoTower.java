@@ -14,8 +14,8 @@ import java.util.List;
 public class EcoTower extends Tower {
 
     private int currentReload;
-    private int reloadTime = 60*10; //how many updates from model
-    private Player player;
+    private final int reloadTime = 60*10; //how many updates from model
+    private final Player player;
 
     public EcoTower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, Player player) {
         super(x, y, name, attackSpeed, cost, range, targetModes);
@@ -28,7 +28,7 @@ public class EcoTower extends Tower {
     }
 
     @Override
-    public void update(List<IProjectile> projectilesList, List<ITower> towersList){
+    public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget){
         if(currentReload < 1 && this.isPlaced()){
             currentReload = reloadTime;
             createProjectile(projectilesList);

@@ -12,6 +12,8 @@ public class ZeroOneProjectile extends Projectile{
 
     }
 
+
+
 //    @Override
 //    public IProjectile createProjectile(int speed, float x, float y, float angle) {
 //        return new BulletProjectile(speed, x, y, angle);

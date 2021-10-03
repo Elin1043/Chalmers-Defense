@@ -1,7 +1,6 @@
 package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
@@ -12,8 +11,8 @@ import java.util.List;
  * Class representing the MechMiniTowers that MechTower creates
  */
 public class MechMiniTower extends Tower{
-    private static String name = "MechMiniTower";
-    private static int cost = 0;
+    private static final String name = "MechMiniTower";
+    private static final int cost = 0;
 
 
 

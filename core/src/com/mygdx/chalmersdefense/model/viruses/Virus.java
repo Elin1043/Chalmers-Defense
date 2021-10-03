@@ -34,10 +34,6 @@ public class Virus implements IVirus{
     private int currentMoveToVectorIndex = 0;       // Which index to use when new vector is retrieved
 
 
-
-    private boolean GotHit = false;
-
-
     /**
      * Creates Virus object
      * @param health Amount of health the virus start with
@@ -83,16 +79,6 @@ public class Virus implements IVirus{
      */
     public void update() {
         moveToPoint();
-    }
-
-    @Override
-    public boolean getIfGotHit() {
-        return GotHit;
-    }
-
-    @Override
-    public void setGotHit(boolean gotHit) {
-        GotHit = gotHit;
     }
 
     private void moveToPoint() {

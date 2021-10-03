@@ -2,21 +2,12 @@ package com.mygdx.chalmersdefense.model.projectiles;
 
 import com.mygdx.chalmersdefense.model.IMapObject;
 
+
 public interface IProjectile extends IMapObject {
 
-    void setAngle(float newAngle);
+    void update(boolean hitVirus, int haveHit, float angle);
 
-    boolean getIfDealtDamage();
+    boolean canRemove();
 
-    void setDealtDamage(boolean bool);
-
-    void virusHit();
-
-    void move();
-
-    String getName();
-
-
-
-
+    boolean haveHitBefore(int hashCode);
 }

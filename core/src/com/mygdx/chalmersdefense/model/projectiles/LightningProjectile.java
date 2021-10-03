@@ -1,22 +1,39 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
+
 /**
  * @author Elin Forsberg
  * Class representing a lightning projectile
  */
 public class LightningProjectile extends Projectile{
-    private int range = 150;
+
+
+    private int hitCountsLeft = 4;
 
     public LightningProjectile(float x, float y, float angle, int upgradeLevel) {
         super(5 , "electroProjectile" + upgradeLevel, x, y, angle);
     }
 
-//    @Override
-//    public IProjectile createProjectile(int speed, float x, float y, float angle) {
-//        return new LightningProjectile(speed, x, y, angle);
-//    }
 
-    public int getRange() {
-        return range;
+    private void countVirusHit(){
+        if (hitCountsLeft > 0){
+            hitCountsLeft--;
+        } else {
+            super.canRemove = true;
+        }
     }
+
+    @Override
+    public void virusIsHit(int haveHit, float angle){
+        super.haveHitList.add(haveHit);
+        this.countVirusHit();
+
+        if (angle >= 0) {
+            this.setAngle(angle);
+        } else {
+            super.canRemove = true;
+        }
+    }
+
+
 }

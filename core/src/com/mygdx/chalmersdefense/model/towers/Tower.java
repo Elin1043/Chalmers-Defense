@@ -3,6 +3,7 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
+
 import javax.imageio.ImageIO;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -49,9 +50,6 @@ public abstract class Tower implements ITower{
     private boolean gotButton;
 
 
-
-    private boolean gotTarget;
-
     private int reloadTime = 60*3; //how many updates from model
     private int currentReload = 0;
 
@@ -80,7 +78,6 @@ public abstract class Tower implements ITower{
         this.setPos(x,y);
         this.range = range;
         this.cost = cost;
-        this.gotTarget = false;
         this.collision = false;
         this.gotButton = false;
 
@@ -90,8 +87,9 @@ public abstract class Tower implements ITower{
     abstract void createProjectile(List<IProjectile> projectileList);
 
     @Override
-    public void update(List<IProjectile> projectilesList, List<ITower> towersList) {
-        if(currentReload < 1 && gotTarget && isPlaced){
+    public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget) {
+        setAngle(newAngle);
+        if(currentReload < 1 && hasTarget && isPlaced){
             currentReload = reloadTime;
             createProjectile(projectilesList);
         }
@@ -99,7 +97,6 @@ public abstract class Tower implements ITower{
             currentReload --;
         }
     }
-
 
 
     /**
@@ -124,10 +121,6 @@ public abstract class Tower implements ITower{
 
     private void updateSpriteKey() { spriteKey = name + upgradeLevel; }
 
-
-    public boolean isGotTarget() {
-        return gotTarget;
-    }
     /**
      * Get the spriteKey of tower
      * @return the spriteKey
@@ -252,11 +245,9 @@ public abstract class Tower implements ITower{
 
     /**
      * Sets the angle of the tower
-     * @param setAngle angle of tower to be set
+     * @param newAngle angle of tower to be set
      */
-    public void setAngle(float setAngle){
-        if (isPlaced) { angle = setAngle; }
-    }
+    void setAngle(float newAngle) { if (isPlaced && (newAngle >= 0)){ angle = newAngle; }}
 
     /**
      * Gets the range of the tower
@@ -287,15 +278,5 @@ public abstract class Tower implements ITower{
     public void placeTower(){
         isPlaced = true;
     }
-
-    /**
-     * Sets that tower has a target
-     */
-    public void haveTarget() { gotTarget = true; }
-
-    /**
-     * Sets that tower doesn't have a target
-     */
-    public void notHaveTarget() { gotTarget = false; }
 
 }

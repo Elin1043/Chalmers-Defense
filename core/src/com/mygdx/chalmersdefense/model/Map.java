@@ -4,13 +4,9 @@ package com.mygdx.chalmersdefense.model;
 import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
 import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
-import com.mygdx.chalmersdefense.model.projectiles.AcidProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.LightningProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.*;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
-import com.mygdx.chalmersdefense.model.viruses.Virus;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 
 import java.awt.*;
@@ -29,8 +25,11 @@ public class Map {
     private ITower newTower;
     private ITower clickedTower;
     private final List<ITower> towersList = new ArrayList<>();
-    private List<IProjectile> projectilesList = new ArrayList<>();
+    private final List<IProjectile> projectilesList = new ArrayList<>();
     private final List<IVirus> allViruses = new ArrayList<>();
+
+    private final List<ITower> towersToAddList = new ArrayList<>();
+    private final List<IProjectile> projectilesToAddList = new ArrayList<>();
 
     //Should not have player here
     private final Player player;
@@ -45,84 +44,129 @@ public class Map {
         updateVirus();
         updateTowers();
         updateProjectiles();
+        addTempListsToMainLists();
     }
 
+    private void addTempListsToMainLists(){
+        towersList.addAll(towersToAddList);
+        projectilesList.addAll(projectilesToAddList);
+        towersToAddList.clear();
+        projectilesToAddList.clear();
+    }
 
     //Update the projectiles
     private void updateProjectiles() {
         List<IProjectile> removeProjectiles = new ArrayList<>();
 
         for (IProjectile projectile : projectilesList) {
-            projectile.move();
-            if (checkCollisonOfProjectiles(projectile, removeProjectiles) || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
-                if (!(projectile instanceof LightningProjectile)) {
-                    removeProjectiles.add(projectile);
-                }
+
+
+            List<IVirus> virusThatWasHit = new ArrayList<>();
+
+            if (checkCollisionOfProjectiles(projectile, virusThatWasHit)) {
+                float angle = getAngle(projectile, virusThatWasHit);
+                projectile.update(true, virusThatWasHit.get(0).hashCode(), angle);
+            } else {
+                projectile.update(false, -1, -1);
             }
+
+            if(projectile.canRemove() || checkIfOutOfBounds(projectile.getY(), projectile.getX())){ removeProjectiles.add(projectile); }
         }
-        for (IProjectile projectile : removeProjectiles) {
-            projectilesList.remove(projectile);
-        }
+
+        projectilesList.removeAll(removeProjectiles);
     }
 
 
+
+    //Checks if projectile collided with path, then virus
+    private boolean checkCollisionOfProjectiles(IProjectile projectile, List<IVirus> removeList){
+        for (Rectangle rectangle: path.getCollisionRectangles()) {
+            if(Calculate.objectsIntersects(projectile,rectangle)){
+                return checkVirusAndProjectileCollision(projectile, removeList);
+            }
+        }
+        return false;
+    }
+
+    //Helper method for collision between virus and projectile
+    private boolean checkVirusAndProjectileCollision(IProjectile projectile, List<IVirus> removeList) {
+
+        for (IVirus virus : allViruses){
+            if (Calculate.objectsIntersects(projectile, virus) && !projectile.haveHitBefore(virus.hashCode())){
+                virus.decreaseHealth();
+                removeList.add(virus);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private float getAngle(IProjectile projectile, List<IVirus> removeList){
+        List<IVirus> virusInRange = Calculate.getVirusesInRange(projectile.getX(), projectile.getY(), 150, allViruses);
+
+        for (IVirus virus : virusInRange){
+            if (projectile.haveHitBefore(virus.hashCode())){
+                removeList.add(virus);
+            }
+        }
+
+        virusInRange.removeAll(removeList);
+
+        if (virusInRange.size() > 0){
+            IVirus v = virusInRange.get(0);
+            return Calculate.angleDeg(v.getX(), v.getY(), projectile.getX(), projectile.getY());
+        }
+        return -1;
+    }
+
     //Update all the towers
     private void updateTowers() {
-        List<ITower> towersToAdd = new ArrayList<>();
         for (ITower tower : towersList) {
-            List<IVirus> virusInRange;
+            List<IVirus> virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), allViruses);
 
+            // Standard values for when virus is out of range
+            float newAngle = -1;
+            boolean towerHasTarget = false;
 
-            virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), allViruses);
-
+            // If there are virus in range, update the new values accordingly
             if (virusInRange.size() > 0) {
                 IVirus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getX(), tower.getY());
-                tower.setAngle(Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getX(), tower.getY()));
-                tower.haveTarget();
-            } else {
-                tower.notHaveTarget();
+                newAngle = Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getX(), tower.getY());
+                towerHasTarget = true;
             }
 
-            tower.update(projectilesList, towersToAdd);
-            //for (IVirus virus : allViruses) {virus.setGotHit(false);}
-
-
+            tower.update(projectilesList, newAngle, towerHasTarget);
         }
-        towersList.addAll(towersToAdd);
-
     }
 
 
     //Update all the viruses
     private void updateVirus(){
-        synchronized (allViruses) {
-            List<IVirus> virusToRemove = new ArrayList<>();
 
-            for (IVirus virus : allViruses) {
-                if (virus.getY() > 1130 || virus.isDead()) {
-                    virusToRemove.add(virus);
-                    if(virus.isDead()){
-                        player.increaseMoney(1); //Change amount later
-                    }
+        List<IVirus> virusToRemove = new ArrayList<>();
+
+        for (IVirus virus : allViruses) {
+            if (virus.getY() > 1130 || virus.isDead()) {
+                virusToRemove.add(virus);
+                if(virus.isDead()){
+                    player.increaseMoney(1); //Change amount later
                 }
-                virus.update();
             }
-            for (IVirus virus : virusToRemove){
-                try {
-                    player.decreaseLivesBy(virus.getLifeDecreaseAmount());
-                } catch (PlayerLostAllLifeException ignore){
+            virus.update();
+        }
+        for (IVirus virus : virusToRemove){
+            try {
+                player.decreaseLivesBy(virus.getLifeDecreaseAmount());
+            } catch (PlayerLostAllLifeException ignore){
 
-                    // Här ska man hantera ifall man förlorar spelet
+                // Här ska man hantera ifall man förlorar spelet
 
-                }
-                allViruses.remove(virus);
             }
-
-
-
+            allViruses.remove(virus);
         }
 
     }
+
 
     //Check if coordinates are outside the screen
     private boolean checkIfOutOfBounds(float y, float x) {
@@ -143,93 +187,6 @@ public class Map {
         }
         return false;
     }
-
-
-    //Checks if projectile collided with path, then virus
-    private boolean checkCollisonOfProjectiles(IProjectile projectile, List<IProjectile> list){
-        for (Rectangle rectangle: path.getCollisionRectangles()) {
-            if(Calculate.objectsIntersects(projectile,rectangle)){
-                return checkVirusAndProjectileCollision(projectile, list);
-            }
-        }
-        return false;
-    }
-
-    //Helper method for collision between virus and projectile
-    private boolean checkVirusAndProjectileCollision(IProjectile projectile, List<IProjectile> list){
-        boolean collided = false;
-
-        synchronized (allViruses) {
-            for (IVirus virus : allViruses) {
-                if (Calculate.objectsIntersects(projectile, virus)) {
-                    if (projectile instanceof AcidProjectile) {
-                        collidedWithAcid(projectile);
-                    } else if (projectile instanceof LightningProjectile) {
-                        collidedWithLightning(projectile, virus, list);
-
-                    } else {
-                        if (!projectile.getIfDealtDamage()) {
-                            virus.decreaseHealth();
-                            projectile.setDealtDamage(true);
-                        }
-
-                    }
-
-                    collided = true;
-                }
-            }
-        }
-        return collided;
-    }
-
-    //Collision with lightning projectile
-    private void collidedWithLightning(IProjectile projectile, IVirus virus, List<IProjectile> list){
-        List<IVirus> virusToRemove = new ArrayList<>();
-        if(!projectile.getIfDealtDamage()){
-            if(!virus.getIfGotHit()){
-                virus.decreaseHealth();
-                projectile.virusHit();
-                virus.setGotHit(true);
-
-                List<IVirus> virusInRange = Calculate.getVirusesInRange(virus.getX() + virus.getWidth()/2F, virus.getY() + virus.getHeight()/2F, ((LightningProjectile) projectile).getRange(), allViruses);
-
-                for (IVirus virusInList: virusInRange) {
-                    if(virusInList.getIfGotHit()){
-                        virusToRemove.add(virusInList);
-                    }
-                }
-                virusInRange.removeAll(virusToRemove);
-
-
-                if(!virusInRange.isEmpty()){
-                    IVirus tempVirus = virusInRange.get(0);
-                    projectile.setAngle(Calculate.angleDeg(tempVirus.getX() + tempVirus.getWidth()/2F, tempVirus.getY() + tempVirus.getHeight()/2F,projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F));
-
-                }
-                else{
-                    list.add(projectile);
-                }
-            }
-
-        }
-        else{
-            list.add(projectile);
-        }
-    }
-
-
-    //Collision with acid projectile
-    private void collidedWithAcid(IProjectile projectile){
-        if(!projectile.getIfDealtDamage()){
-            for (IVirus virus:getViruses()) {
-                if (Calculate.disBetweenPoints(projectile.getX() + projectile.getWidth()/2F, projectile.getY() + projectile.getHeight()/2F, virus.getX() + virus.getWidth()/2F ,virus.getY() + virus.getHeight()/2F ) < ((AcidProjectile) projectile).getRange() * ((AcidProjectile) projectile).getRange()){
-                    virus.decreaseHealth();
-                }
-            }
-            projectile.setDealtDamage(true);
-        }
-    }
-
 
     //Checks if towers collide with anything
     private boolean checkCollisionOfTower(ITower tower, int windowHeight, int windowWidth) {
@@ -265,10 +222,10 @@ public class Map {
     public void dragStart(String towerName, int x, int y) {
         switch(towerName){
             case "smurf"   -> newTower = TowerFactory.CreateSmurf(x, y);
-            case "chemist" -> newTower = TowerFactory.CreateChemist(x, y);
+            case "chemist" -> newTower = TowerFactory.CreateChemist(x, y, projectilesToAddList);
             case "electro" -> newTower = TowerFactory.CreateElectro(x, y);
             case "hacker"  -> newTower = TowerFactory.CreateHacker(x, y);
-            case "meck"    -> newTower = TowerFactory.CreateMeck(x, y);
+            case "meck"    -> newTower = TowerFactory.CreateMeck(x, y, towersToAddList);
             case "eco"     -> newTower = TowerFactory.CreateEco(x, y, player);
             default        -> { return; }
         }
