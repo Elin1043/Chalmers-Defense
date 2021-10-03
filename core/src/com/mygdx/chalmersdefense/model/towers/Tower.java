@@ -5,7 +5,6 @@ import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import javax.imageio.ImageIO;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
@@ -52,9 +51,6 @@ public abstract class Tower implements ITower{
 
     private int reloadTime = 60*3; //how many updates from model
     private int currentReload = 0;
-
-
-    private Rectangle rectangle = new Rectangle();
 
 
     public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes){
@@ -167,22 +163,6 @@ public abstract class Tower implements ITower{
      */
     public void setCollision(boolean set){
         collision = set;
-    }
-
-    /**
-     * Sets a rectangle around tower, used for collision
-     */
-    public void setRectangle(){
-        rectangle = new Rectangle();
-        rectangle.setRect(this.x  , this.y  , this.width,this.height);
-    }
-
-    /**
-     * Gets the rectangle around tower for collision
-     * @return rectangle around tower
-     */
-    public Rectangle getRectangle(){
-        return rectangle;
     }
 
     /**

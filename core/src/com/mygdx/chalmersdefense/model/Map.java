@@ -191,7 +191,8 @@ public class Map {
     private boolean checkCollisionOfTower(ITower tower, int windowHeight, int windowWidth) {
         for(ITower checkTower: towersList){
             //Check if tower collides with a placed tower
-            if(tower.getRectangle().intersects(checkTower.getRectangle()) && !(checkTower.hashCode() == tower.hashCode())){
+//            if(tower.getRectangle().intersects(checkTower.getRectangle()) && !(checkTower.hashCode() == tower.hashCode())){
+            if(Calculate.objectsIntersects(tower, checkTower) && !(checkTower.hashCode() == tower.hashCode())){
                 return true;
             }
             //Check if tower out of bound on X
@@ -247,9 +248,6 @@ public class Map {
     public void onDrag(int buttonWidth, int buttonHeight, int x, int y, int windowHeight, int windowWidth) {
 
         newTower.setPos( x - buttonWidth,(windowHeight - y - buttonHeight ));
-        newTower.setRectangle();
-
-
 
         for (ITower tower: towersList) {
 
@@ -283,7 +281,6 @@ public class Map {
 
             newTower.placeTower();
             newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
-            newTower.setRectangle();
             player.decreaseMoney(newTower.getCost());
         }
         else{

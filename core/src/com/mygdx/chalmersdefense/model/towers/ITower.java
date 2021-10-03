@@ -29,10 +29,6 @@ public interface ITower extends IMapObject {
 
     void setCollision(boolean set);
 
-    void setRectangle();
-
-    Rectangle getRectangle();
-
     String getName();
 
     void setPos(float x, float y);
