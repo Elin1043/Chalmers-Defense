@@ -120,41 +120,28 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         map.checkIfTowerClicked(x,y);
     }
 
+    @Override
     public GetRangeCircle getRangeCircle() {
         return map.getRangeCircle();
     }
 
+    @Override
     public IMapObject getClickedTower() {
         return map.getClickedTower();
     }
 
-    /**
-     * A delegation for getting title of a tower upgrade.
-     * @param towerName The towers name
-     * @param upgradeLevel what upgrade to get title of
-     * @return a String with towers upgrade title depending on upgrade level.
-     */
+    @Override
     public String getTowerUpgradeTitle(String towerName, int upgradeLevel) {
         return upgrades.getTowerUpgradeTitle(towerName, upgradeLevel);
     }
 
 
-    /**
-     * A delegation for getting description of a tower upgrade.
-     * @param towerName The towers name
-     * @param upgradeLevel what upgrade to get description of
-     * @return a String with towers upgrade description depending on upgrade level.
-     */
+    @Override
     public String getTowerUpgradeDesc(String towerName, int upgradeLevel) {
         return upgrades.getTowerUpgradeDesc(towerName, upgradeLevel);
     }
 
-    /**
-     * A delegation for getting price of a tower upgrade.
-     * @param towerName The towers name
-     * @param upgradeLevel what upgrade to get price of
-     * @return a String with towers upgrade price depending on upgrade level.
-     */
+    @Override
     public Long getTowerUpgradePrice(String towerName, int upgradeLevel) {
         return upgrades.getTowerUpgradePrice(towerName, upgradeLevel);
     }
@@ -166,39 +153,28 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         }
     }
 
+    @Override
     public boolean getIsGameLost() {
         return map.getIsGameLost();
     }
 
-    /**
-     * Return the current money value
-     * @return the money value
-     */
+    @Override
     public int getMoney() { return player.getMoney(); }
 
-    /**
-     * Returns the lives left of player
-     * @return lives left
-     */
+    @Override
     public int getLivesLeft() { return player.getLives(); }
 
-    /**
-     * Returns the current round
-     * @return current round
-     */
+    @Override
     public int getCurrentRound() { return round.getCurrentRound(); }
 
 
-
-    /**
-     * Return the list of viruses on path
-     * @return the list of viruses
-     */
     //TODO Remove THIS when not needed
+    @Override
     public List<IVirus> getViruses() {
         return map.getViruses();
     }
 
+    @Override
     public List<IMapObject> getAllMapObjects() {
         return map.getAllMapObjects();
     }

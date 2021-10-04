@@ -20,7 +20,7 @@ public class RightSidePanelController {
     private IControllModel model;
 
 
-    public RightSidePanelController(Model model) {
+    public RightSidePanelController(IControllModel model) {
         this.model = model;
     }
 
