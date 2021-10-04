@@ -22,7 +22,7 @@ import java.util.List;
  *
  * Class handeling all objects and methods on Map.
  */
-public class Map {
+class Map {
     private ITower newTower;
     private ITower clickedTower;
     private final List<ITower> towersList = new ArrayList<>();              // The main tower list
@@ -40,7 +40,7 @@ public class Map {
     private final GetRangeCircle rangeCircle = new GetRangeCircle();            // Helper class for showing gray range circle
 
 
-    public Map(Player player){
+    Map(Player player){
         this.player = player;
         isGameLost = false;
     }
