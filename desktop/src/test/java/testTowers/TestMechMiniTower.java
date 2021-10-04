@@ -8,23 +8,26 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
  * @author Joel Båtsman Hilmersson
- * Test class for MechTower
  */
-public class TestMechTower {
+public class TestMechMiniTower {
 
     @Test
-    public void testUpdate(){
+    public void testCreateProjectile(){
         List<ITower> addToList = new ArrayList<>();
         ITower t = TowerFactory.CreateMeck(0, 0, addToList);
+        List<IProjectile> pList = new ArrayList<>();
+
         t.placeTower();
-
         t.update(new ArrayList<>(), 10, true);
-        assertTrue(addToList.size() > 0);
-    }
 
+        for (ITower tower : addToList){
+            tower.update(pList, 10, true);
+        }
+
+        assertTrue(pList.size() > 0);
+    }
 }

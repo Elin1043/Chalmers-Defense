@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
  *
  * 2021-09-25 Modified by Elin Forsberg: added testing methods
  */
-public class testModel {
+public class TestModel {
 
     Model model;
 
