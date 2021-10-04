@@ -1,7 +1,5 @@
-package com.mygdx.chalmersdefense.model;
+package com.mygdx.chalmersdefense.model.viruses;
 
-import com.mygdx.chalmersdefense.model.path.Path;
-import com.mygdx.chalmersdefense.utilities.PositionVector;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.utilities.PositionVector;
 
@@ -16,7 +14,7 @@ import java.util.Objects;
  *
  * 2021-09-24 Modified by Elin Forsberg: Added methods to decrease health of virus and check if it's dead
  */
-public class Virus {
+class Virus implements IVirus{
     private int health; // Current health of virus
 
     private String spriteKey;   // The key to the Sprite Hashmap
@@ -26,8 +24,8 @@ public class Virus {
 
 
 
-    private int widthX = 0;     // width of object
-    private int heightY = 0;    // height of object
+    private float widthX = 0;     // width of object
+    private float heightY = 0;    // height of object
 
     private float totalDistanceTrawled = 0;     // Total distance the virus have trawled
 
@@ -36,16 +34,12 @@ public class Virus {
     private int currentMoveToVectorIndex = 0;       // Which index to use when new vector is retrieved
 
 
-
-    private boolean GotHit = false;
-
-
     /**
      * Creates Virus object
      * @param health Amount of health the virus start with
      * @param path  The path to follow
      */
-    public Virus(int health, Path path) {
+    Virus(int health, Path path) {
         this.health = health;
         updateSpriteKey();
         this.path = path;
@@ -69,6 +63,7 @@ public class Virus {
     /**
      * Decrease the health of the virus and update the spriteKey
      */
+    @Override
     public void decreaseHealth() {
         this.health --;
         if (health > 0) {
@@ -84,14 +79,6 @@ public class Virus {
      */
     public void update() {
         moveToPoint();
-    }
-
-    public boolean getIfGotHit() {
-        return GotHit;
-    }
-
-    public void setGotHit(boolean gotHit) {
-        GotHit = gotHit;
     }
 
     private void moveToPoint() {
@@ -142,7 +129,7 @@ public class Virus {
      * Gets width of virus
      * @return width
      */
-    public int getWidth() {
+    public float getWidth() {
         return widthX;
     }
 
@@ -150,7 +137,7 @@ public class Virus {
      * Gets height of virus
      * @return height
      */
-    public int getHeight() {
+    public float getHeight() {
         return heightY;
     }
 
@@ -159,6 +146,9 @@ public class Virus {
      * @return Key to hashmap
      */
     public String getSpriteKey() { return spriteKey; }
+
+    @Override
+    public float getAngle() { return 0; }
 
     /**
      * Gets the amount of damage the virus does when reaching end of path
@@ -170,7 +160,8 @@ public class Virus {
      * Gets the total distance trawled by the virus object
      * @return Total distance trawled
      */
-    public float getTotalDistanceTrawled() { return totalDistanceTrawled; }
+    @Override
+    public float getTotalDistanceTraveled() { return totalDistanceTrawled; }
 
     /**
      * Gets if virus health is 0, which means it's dead

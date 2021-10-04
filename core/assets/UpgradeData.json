@@ -99,6 +99,27 @@
       "projectileSpeedMul": 1
     }
   ],
+  "MechMiniTower": [
+    {
+      "title": "No upgrade for me",
+      "desc": "This is a long description describing the upgrade",
+      "price": 0,
+      "attackDmgMul": 1,
+      "attackSpeedMul": 1,
+      "attackRangeMul": 1,
+      "projectileSpeedMul": 1
+    },
+    {
+      "title": "No upgrade for me",
+      "desc": "This is a long description describing the upgrade",
+      "price": 0,
+      "attackDmgMul": 1,
+      "attackSpeedMul": 1,
+      "attackRangeMul": 1,
+      "projectileSpeedMul": 1
+    }
+  ],
+
   "Economist": [
     {
       "title": "Enhanced acid",

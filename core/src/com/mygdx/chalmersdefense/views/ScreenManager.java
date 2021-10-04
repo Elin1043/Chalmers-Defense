@@ -48,13 +48,10 @@ public class ScreenManager {
     }
 
     private AbstractScreen getScreen(ScreenEnum screenEnum) {
-        switch (screenEnum) {
-            case MAIN_MENU:
-                return mainScreen;
-            case GAME:
-                return gameScreen;
-            default:
-                return null;
-        }
+        return switch (screenEnum) {
+            case MAIN_MENU -> mainScreen;
+            case GAME -> gameScreen;
+            default -> null;
+        };
     }
 }

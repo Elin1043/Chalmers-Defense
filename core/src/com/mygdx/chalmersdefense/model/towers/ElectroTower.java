@@ -8,21 +8,20 @@ import java.util.List;
 
 /**
  * @author Elin Forsberg
- * Class representing the MechMiniTowers that MechTower creates
+ * Class representing the ElectroTower
  */
-class MechMiniTower extends Tower{
-    private static final String name = "MechMiniTower";
-    private static final int cost = 0;
+class ElectroTower extends Tower{
 
 
-
-    MechMiniTower(float x, float y ,int reloadSpeed,int range, List<ITargetMode> targetModes) {
+    ElectroTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes) {
         super(x, y, name, reloadSpeed, cost, range, targetModes);
     }
 
 
     @Override
     void createProjectile(List<IProjectile> projectileList) {
-        projectileList.add(ProjectileFactory.createRobotProjectile(getX(), getY(), getAngle(), getUpgradeLevel()));
+        projectileList.add(ProjectileFactory.createLightningProjectile(getX(), getY(), getAngle(), getUpgradeLevel()));
     }
+
+
 }

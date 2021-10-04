@@ -1,24 +1,32 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
+import java.util.List;
+
 /**
  * @author Elin Forsberg
  * Class representing an acid projectile
  */
-public class AcidProjectile extends Projectile{
-    private static String name = "chemistProjectile"; //Change when have new projectile pictures
-    private int range = 10;
+class AcidProjectile extends Projectile{
+    private final int upgradeLevel;
+    private final List<IProjectile> projectileList;
 
-    public AcidProjectile(int speed, float x, float y, double angle) {
-        super(speed, name, x, y, angle);
 
+    AcidProjectile(float x, float y, float angle, int upgradeLevel, List<IProjectile> projectileList) {
+        //TODO Speed calc
+        super(5 ,"chemistProjectile" + upgradeLevel, x, y, angle);
+        this.upgradeLevel = upgradeLevel;
+        this.projectileList = projectileList;
     }
 
     @Override
-    public Projectile createProjectile(int speed, float x, float y, double angle) {
-        return new AcidProjectile(speed, x, y, angle);
+    public void virusIsHit(int haveHit, float angle) {
+        // -60 because the acid pool image is 120x120 in size, and it needs to be placed centered
+        projectileList.add(ProjectileFactory.createAcidPool(getX() - 60, getY() - 60, upgradeLevel));
+        super.virusIsHit(haveHit, angle);
     }
 
-    public int getRange() {
-        return range;
-    }
+
+
+
+
 }

@@ -1,12 +1,10 @@
 package com.mygdx.chalmersdefense.model.towers;
 
 
-
-import com.mygdx.chalmersdefense.model.projectiles.BulletProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.Projectile;
+import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
+
 import javax.imageio.ImageIO;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,19 +13,19 @@ import java.util.Objects;
 
 
 /**
- * @author ELin Forsberg
+ * @author Elin Forsberg
  * A class defining the tower objects
  *
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: changed class to hold hashmap key for sprite
  * 2021-09-25 Modified by Elin Forsberg: added method for shooting projectiles
  */
 
-public class Tower {
+abstract class Tower implements ITower{
 
     private String spriteKey;
     private int upgradeLevel = 1;
 
-    private double angle = 0;
+    private float angle = 0;
     private int range;
     private String name;
 
@@ -40,34 +38,24 @@ public class Tower {
 
     private final List<ITargetMode> targetModes;
     private ITargetMode currentTargetMode;
-    private Projectile projectile;
 
     private float width;
     private float height;
 
-    private int attackSpeed;
     private int cost;
 
-    private boolean collision;
-    private boolean gotButton;
+    private boolean collision = false;
 
 
-
-    private boolean gotTarget;
-
-    private int reloadTime = 60*3; //how many updates from model
+    private int reloadTime; //how many updates from model
     private int currentReload = 0;
 
 
-    private Rectangle rectangle = new Rectangle();
-
-
-    public Tower(float x, float y, String name, int attackSpeed, int cost, int range, List<ITargetMode> targetModes, Projectile projectile){
+    Tower(float x, float y, String name, int reloadTime, int cost, int range, List<ITargetMode> targetModes){
         this.name = name;
-        this.attackSpeed = attackSpeed;
+        this.reloadTime = reloadTime;
         this.targetModes = targetModes;
         this.currentTargetMode = targetModes.get(0);
-        this.projectile = projectile;
         updateSpriteKey();
 
         try{
@@ -84,27 +72,20 @@ public class Tower {
         this.setPos(x,y);
         this.range = range;
         this.cost = cost;
-        this.gotTarget = false;
-        this.collision = false;
-        this.gotButton = false;
-
-
     }
 
-    /**
-     * Creates a projectile to shoot
-     * @return projectile created
-     */
-    public Projectile shootProjectile(){
-        if(currentReload < 1 && gotTarget && isPlaced){
-            projectile = projectile.createProjectile(attackSpeed, this.getPosX() + this.width/2, this.getPosY() + this.height/2, this.angle);
+    abstract void createProjectile(List<IProjectile> projectileList);
+
+    @Override
+    public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget) {
+        setAngle(newAngle);
+        if(currentReload < 1 && hasTarget && isPlaced){
             currentReload = reloadTime;
-            return projectile;
+            createProjectile(projectilesList);
         }
         else{
             currentReload --;
         }
-        return null;
     }
 
 
@@ -114,7 +95,7 @@ public class Tower {
      */
     public void upgradeTower(HashMap<String, Long> upgrades) {
         // DMG multiplier??
-        attackSpeed *= upgrades.get("attackSpeedMul");
+        reloadTime *= upgrades.get("attackSpeedMul");
         range *= upgrades.get("attackRangeMul");
         upgradeLevel++;
         updateSpriteKey(); // Add this when all sprites are in the game.
@@ -147,22 +128,6 @@ public class Tower {
     }
 
     /**
-     * Gets if tower has a button
-     * @return if tower got button
-     */
-    public boolean getGotButton() {
-        return gotButton;
-    }
-
-    /**
-     * Sets if tower has a button
-     * @param gotButton if tower got button
-     */
-    public void setGotButton(boolean gotButton) {
-        this.gotButton = gotButton;
-    }
-
-    /**
      * Gets if tower is colliding with something else
      * @return tower collision
      */
@@ -174,24 +139,8 @@ public class Tower {
      * Sets if tower is colliding with something else
      * @param set if tower is colliding
      */
-    public void setCollision(Boolean set){
+    public void setCollision(boolean set){
         collision = set;
-    }
-
-    /**
-     * Sets a rectangle around tower, used for collision
-     */
-    public void setRectangle(){
-        rectangle = new Rectangle();
-        rectangle.setRect(this.x  , this.y  , this.width,this.height);
-    }
-
-    /**
-     * Gets the rectangle around tower for collision
-     * @return rectangle around tower
-     */
-    public Rectangle getRectangle(){
-        return rectangle;
     }
 
     /**
@@ -216,7 +165,7 @@ public class Tower {
      * Gets the X-position of the tower
      * @return x-coordinate of tower
      */
-    public float getPosX(){
+    public float getX(){
         return x;
     }
 
@@ -224,7 +173,7 @@ public class Tower {
      * Gets the Y-position of the tower
      * @return y-coordinate of tower
      */
-    public float getPosY(){
+    public float getY(){
         return y;
     }
 
@@ -248,17 +197,15 @@ public class Tower {
      * Gets the angle of the tower
      * @return angle of tower
      */
-    public double getAngle(){
+    public float getAngle(){
         return angle;
     }
 
     /**
      * Sets the angle of the tower
-     * @param setangle angle of tower to be set
+     * @param newAngle angle of tower to be set
      */
-    public void setAngle(float setangle){
-        if (isPlaced) { angle = setangle; }
-    }
+    void setAngle(float newAngle) { if (isPlaced && (newAngle >= 0)){ angle = newAngle; }}
 
     /**
      * Gets the range of the tower
@@ -274,15 +221,11 @@ public class Tower {
      */
     public ITargetMode getCurrentTargetMode() { return currentTargetMode; }
 
-    public boolean GotTarget() {
-        return gotTarget;
-    }
+
     /**
      * Gets if tower is placed
      * @return if placed
      */
-
-
     public boolean isPlaced(){
         return isPlaced;
     }
@@ -293,16 +236,5 @@ public class Tower {
     public void placeTower(){
         isPlaced = true;
     }
-
-    /**
-     * Sets that tower has a target
-     */
-    public void haveTarget() { gotTarget = true; }
-
-    /**
-     * Sets that tower doesn't have a target
-     */
-    public void notHaveTarget() { gotTarget = false; }
-
 
 }
