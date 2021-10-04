@@ -2,6 +2,7 @@ package com.mygdx.chalmersdefense.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -25,6 +26,7 @@ import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 import com.mygdx.chalmersdefense.views.GameScreenViews.BottomBarUpgradePanel;
 import com.mygdx.chalmersdefense.views.GameScreenViews.LostPanel;
+import com.mygdx.chalmersdefense.views.GameScreenViews.RightSidePanel;
 
 import java.util.HashMap;
 
@@ -41,53 +43,33 @@ import static com.badlogic.gdx.graphics.GL20.*;
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
-    private final RightSidePanelController rightSidePanelController;
     private final BottomBarPanelController bottomBarPanelController;
     private final GameScreenController gameScreenController;
     private final LostPanel lostPanelView;
     private final BottomBarUpgradePanel bottomBarUpgradePanel;
+    private final RightSidePanel rightSidePanel;
     private final Model model;
     private final Stage stageHUD;
+
+    private final InputMultiplexer multiplexer = new InputMultiplexer();
 
     private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
     private final Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
 
-    private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
-    private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
-
-    private Button startRoundButton;
-
-    private final Label lifeLabel = createLabel("Test", 700);
-    private final Label moneyLabel = createLabel("Test", 800);
-    private final Label roundLabel = createLabel("Round: HH", 900);
-
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
-    private final Label towerLabel;
-    private final Label powerUpLabel;
 
     private final Image mapImage;
-
-    private final ImageButton smurfButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
-    private final ImageButton chemistButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1770, 830, "chemist");
-    private final ImageButton electroButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ElectroButton.png"), 1770, 650, "electro");
-    private final ImageButton hackerButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/HackerButton.png"), 1620, 650, "hacker");
-    private final ImageButton meckButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "meck");
-    private final ImageButton ecoButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
-
 
     private final Batch batch = super.getBatch();
 
 
-    private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
-
-
     public GameScreen(Model model) {
         super();
-        this.rightSidePanelController = new RightSidePanelController(model);
         this.bottomBarPanelController = new BottomBarPanelController(model);
         this.gameScreenController = new GameScreenController(model);
         this.lostPanelView = new LostPanel(this, gameScreenController);
         this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, bottomBarPanelController, model, spriteMap, largeSpriteMap);
+        this.rightSidePanel = new RightSidePanel(this, model);
         this.model = model;
         this.stageHUD = new Stage(this.getViewport());
 
@@ -98,51 +80,22 @@ public class GameScreen extends AbstractScreen implements Screen {
 
 
         bottomBarPanelBackground.setPosition(0, 0);
-
-        // START Right side panel creation
         sideBarBackground.setPosition(1920 - 320, 0);
 
-        createStartRoundButton();
+        // Enables input from both stages at the same time
+        multiplexer.addProcessor(this);
+        multiplexer.addProcessor(bottomBarUpgradePanel.getStage());
+        multiplexer.addProcessor(rightSidePanel.getStage());
+        Gdx.input.setInputProcessor(multiplexer);
 
-        towerLabel = createLabel("Towers", 20);
-
-        powerUpLabel = createLabel("Power-ups", 620);
-
-        towerButtons.put(100, smurfButton);
-        towerButtons.put(200, chemistButton);
-        towerButtons.put(300, hackerButton);
-        towerButtons.put(400, electroButton);
-        towerButtons.put(500, meckButton);
-        towerButtons.put(600, ecoButton);
-
-        lifeIcon.setPosition(1650, 320);
-        moneyIcon.setPosition(1650, 220);
-
-        addTowerButtonListener();
-        // END
     }
 
     @Override
     public void buildStage() {
         stageHUD.addActor(bottomBarPanelBackground);
-
-        addActor(sideBarBackground);
-        addActor(lifeIcon);
-        addActor(moneyIcon);
-        addActor(smurfButton);
-        addActor(chemistButton);
-        addActor(hackerButton);
-        addActor(electroButton);
-        addActor(meckButton);
-        addActor(ecoButton);
+        stageHUD.addActor(sideBarBackground);
 
         addActor(mapImage);
-        addActor(towerLabel);
-        addActor(powerUpLabel);
-        addActor(lifeLabel);
-        addActor(moneyLabel);
-        addActor(roundLabel);
-        addActor(startRoundButton);
 
         lostPanelView.initialize();
     }
@@ -152,9 +105,8 @@ public class GameScreen extends AbstractScreen implements Screen {
     @Override
     public void render(float delta) {
         super.render(Gdx.graphics.getDeltaTime());
-        Gdx.input.setInputProcessor(this);
+        Gdx.input.setInputProcessor(multiplexer);
 
-        checkAffordableTowers();
         renderRangeCircle();
         renderMapObjects();
 
@@ -162,7 +114,9 @@ public class GameScreen extends AbstractScreen implements Screen {
         stageHUD.act();
         stageHUD.draw();
 
-        updateLabels();
+        // Renders right HUD panel
+        rightSidePanel.render();
+
         // If clicked tower is present show upgrade panel.
         if (model.getClickedTower() != null) {
             bottomBarUpgradePanel.render(model.getClickedTower());
@@ -170,7 +124,6 @@ public class GameScreen extends AbstractScreen implements Screen {
             bottomBarUpgradePanel.hideBottomBar();
         }
 
-        updateLabels();
         if (model.getIsGameLost()) {
             lostPanelView.render();
         } else {
@@ -233,71 +186,4 @@ public class GameScreen extends AbstractScreen implements Screen {
             }
         }
     }
-
-
-    //Tower buttons methods
-
-    private ImageButton createRightPanelTowerButtons(Texture texture, int x, int y, String name) {
-        TextureRegion towerButtonTextureRegion = new TextureRegion(texture);
-        TextureRegionDrawable towerButtonRegDrawable = new TextureRegionDrawable(towerButtonTextureRegion);
-        ImageButton towerButton = new ImageButton(towerButtonRegDrawable); //Set the button up
-        towerButton.setPosition(x, y);
-        towerButton.setName(name);
-
-
-        return towerButton;
-
-    }
-
-    private void addTowerButtonListener() {
-        rightSidePanelController.addTowerButtonListener(smurfButton);
-        rightSidePanelController.addTowerButtonListener(chemistButton);
-        rightSidePanelController.addTowerButtonListener(hackerButton);
-        rightSidePanelController.addTowerButtonListener(electroButton);
-        rightSidePanelController.addTowerButtonListener(meckButton);
-        rightSidePanelController.addTowerButtonListener(ecoButton);
-    }
-
-    //Checks what towers the player can afford
-    private void checkAffordableTowers() {
-        for (Integer i : towerButtons.keySet()) {
-            if(model.getMoney() >= i && !towerButtons.get(i).isTouchable()){
-                towerButtons.get(i).setTouchable(Touchable.enabled);
-                towerButtons.get(i).getImage().setColor(Color.WHITE);
-
-            }
-            else if (model.getMoney()< i && towerButtons.get(i).isTouchable()){
-                towerButtons.get(i).setTouchable(Touchable.disabled);
-                towerButtons.get(i).getImage().setColor(Color.LIGHT_GRAY);
-            }
-        }
-    }
-
-    //Label methods
-    private void updateLabels() {
-        lifeLabel.setText(model.getLivesLeft());
-        moneyLabel.setText(model.getMoney());
-        roundLabel.setText("Round: " + model.getCurrentRound());
-    }
-
-    private Label createLabel(String text, float y) {
-        Label label = new Label(text, FontFactory.getLabelStyle36BlackBold());
-        label.setPosition(1920 - sideBarBackground.getWidth()/2 - label.getWidth()/2, 1080 - label.getHeight() - y);
-        return label;
-    }
-
-    //Start round button methods
-    private void createStartRoundButton() {
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.atlas")); // Load atlas file from skin
-        Skin skin = new Skin(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.json"), atlas); // Create skin object
-        startRoundButton = new Button(skin);
-        startRoundButton.setPosition(1920 - sideBarBackground.getWidth()/2 - startRoundButton.getWidth()/2, 20);
-
-        rightSidePanelController.addStartButtonListener(startRoundButton);
-    }
-
-
-
-
-
 }
