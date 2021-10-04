@@ -2,8 +2,8 @@ package com.mygdx.chalmersdefense.model;
 
 
 import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
-import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.towers.*;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
@@ -35,11 +35,14 @@ public class Map {
     private final Player player;                            // A reference to the Player object in the game
     private final Path path = new ClassicPath();           // Make a path factory instead?;
 
+    private boolean isGameLost;
+
     private final GetRangeCircle rangeCircle = new GetRangeCircle();            // Helper class for showing gray range circle
 
 
     public Map(Player player){
         this.player = player;
+        isGameLost = false;
     }
 
     public void updateMap() {
@@ -47,6 +50,17 @@ public class Map {
         updateTowers();
         updateProjectiles();
         addTempListsToMainLists();
+    }
+
+    /**
+     * Resets all of maps variables
+     */
+    void resetMap() {
+        towersList.clear();
+        projectilesList.clear();
+        virusesList.clear();
+        clickedTower = null;
+        isGameLost = false;
     }
 
     private void addTempListsToMainLists(){
@@ -161,9 +175,7 @@ public class Map {
             try {
                 player.decreaseLivesBy(virus.getLifeDecreaseAmount());
             } catch (PlayerLostAllLifeException ignore){
-
-                // Här ska man hantera ifall man förlorar spelet
-
+                isGameLost = true;
             }
             virusesList.remove(virus);
         }
@@ -333,10 +345,21 @@ public class Map {
         return rangeCircle;
     }
 
+    /**
+     * Returns currently clicked tower
+     * @return tower object of clicked tower
+     */
     public ITower getClickedTower() {
         return clickedTower;
     }
 
+    /**
+     * Returns if game has been lost
+     * @return a boolean for game lost status
+     */
+    public boolean getIsGameLost() {
+        return isGameLost;
+    }
 
     /**
      * Return the list of viruses on path

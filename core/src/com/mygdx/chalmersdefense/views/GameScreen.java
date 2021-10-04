@@ -27,7 +27,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
-
+import com.mygdx.chalmersdefense.utilities.FontFactory;
+import com.mygdx.chalmersdefense.views.GameScreenViews.LostPanel;
 
 import java.util.HashMap;
 
@@ -47,6 +48,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final RightSidePanelController rightSidePanelController;
     private final BottomBarPanelController bottomBarPanelController;
     private final GameScreenController gameScreenController;
+    private final LostPanel lostPanelView;
     private final Model model;
 
     private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
@@ -56,14 +58,11 @@ public class GameScreen extends AbstractScreen implements Screen {
     private Button startRoundButton;
 
     // Bottom bar
-    private Image bottomBarPanelBackground;
+    private final Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
 
     // Upgrade panel
     private final Group bottomBarPanelUpgradeGroup = new Group();
-    private final Label towerNameLabel = new Label("", generateLabelStyle(36, Color.BLACK, 1));
-
-    // Generating label style
-    private final LabelStyle labelStyleBlack36 = generateLabelStyle(36, Color.BLACK, 1);
+    private final Label towerNameLabel = new Label("", FontFactory.getLabelStyle36BlackBold());
 
     private final Label lifeLabel = createLabel("Test", 700);
     private final Label moneyLabel = createLabel("Test", 800);
@@ -77,12 +76,12 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final Button upgradeButtonSecond = new Button(upgradePanelSkin);
 
     // Labels for upgrade buttons
-    private final Label firstUpgradeButtonTitle = new Label("", generateLabelStyle(24, Color.BLACK, 0.5f));
-    private final Label firstUpgradeButtonDesc = new Label("", generateLabelStyle(18, Color.BLACK, 0));
-    private final Label firstUpgradeButtonPrice = new Label("", generateLabelStyle(26, Color.BLACK, 0));
-    private final Label secondUpgradeButtonTitle = new Label("", generateLabelStyle(24, Color.BLACK, 0.5f));
-    private final Label secondUpgradeButtonDesc = new Label("", generateLabelStyle(18, Color.BLACK, 0));
-    private final Label secondUpgradeButtonPrice = new Label("", generateLabelStyle(26, Color.BLACK, 0));
+    private final Label firstUpgradeButtonTitle = new Label("", FontFactory.getLabelStyle24BlackSemiBold());
+    private final Label firstUpgradeButtonDesc = new Label("", FontFactory.getLabelStyle18Black());
+    private final Label firstUpgradeButtonPrice = new Label("", FontFactory.getLabelStyle26Black());
+    private final Label secondUpgradeButtonTitle = new Label("", FontFactory.getLabelStyle24BlackSemiBold());
+    private final Label secondUpgradeButtonDesc = new Label("", FontFactory.getLabelStyle18Black());
+    private final Label secondUpgradeButtonPrice = new Label("", FontFactory.getLabelStyle26Black());
 
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -105,11 +104,12 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
 
 
-    public GameScreen(Model model){
+    public GameScreen(Model model) {
         super();
         this.rightSidePanelController = new RightSidePanelController(model);
         this.bottomBarPanelController = new BottomBarPanelController(model);
         this.gameScreenController = new GameScreenController(model);
+        this.lostPanelView = new LostPanel(this, gameScreenController);
         this.model = model;
 
         // This should come from classicPath class
@@ -122,7 +122,6 @@ public class GameScreen extends AbstractScreen implements Screen {
 
 
         // START Bottom bar group creation
-        createBottomBarPanel();
         addActor(bottomBarPanelBackground);
 
         bottomBarPanelUpgradeGroup.setPosition(bottomBarPanelBackground.getWidth() - 1390, 0);
@@ -181,6 +180,8 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(moneyLabel);
         addActor(roundLabel);
         addActor(startRoundButton);
+
+        lostPanelView.initialize();
     }
 
 
@@ -188,6 +189,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     @Override
     public void render(float delta) {
         super.render(Gdx.graphics.getDeltaTime());
+        Gdx.input.setInputProcessor(this);
 
         checkAffordableTowers();
         renderRangeCircle();
@@ -203,6 +205,12 @@ public class GameScreen extends AbstractScreen implements Screen {
         }
 
         updateLabels();
+        if (model.getIsGameLost()) {
+            lostPanelView.render();
+        } else {
+            lostPanelView.hideLostPanelGroup();
+        }
+
 
         //TODO Remove when not needed
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
@@ -212,6 +220,12 @@ public class GameScreen extends AbstractScreen implements Screen {
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             model.startRoundPressed();
         }
+
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
     }
 
     private void renderMapObjects(){
@@ -303,37 +317,11 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
     private Label createLabel(String text, float y) {
-        Label label = new Label(text, labelStyleBlack36);
+        Label label = new Label(text, FontFactory.getLabelStyle36BlackBold());
         label.setPosition(1920 - sideBarBackground.getWidth()/2 - label.getWidth()/2, 1080 - label.getHeight() - y);
         return label;
     }
 
-
-    private BitmapFont generateBitmapFont(int size, float borderWidth) {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/CenturyGothic.ttf"));
-        FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-        parameter.size = size;
-        parameter.borderWidth = borderWidth;
-        BitmapFont font = generator.generateFont(parameter);
-        generator.dispose();
-        return font;
-    }
-
-    private LabelStyle generateLabelStyle(int size, Color color, float borderWidth){
-        BitmapFont font36 = generateBitmapFont(size, borderWidth);
-        LabelStyle labelStyle = new LabelStyle();
-        labelStyle.font = font36;
-        labelStyle.fontColor = color;
-        return labelStyle;
-    }
-
-
-
-    //Bottom bar methods
-    private void createBottomBarPanel() {
-        bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
-        bottomBarPanelBackground.setPosition(0, 0);
-    }
 
     private Actor createBottomBarUpgradePanelBackground() {
         Image bottomBarUpgradePanelBackground = new Image(new Texture("GameScreen/BottomBarUpgradePanel.png"));
@@ -403,26 +391,30 @@ public class GameScreen extends AbstractScreen implements Screen {
         upgradedTowerSprite.setPosition(upgradeButton.getX() + (268 - upgradedTowerSprite.getWidth()/2), (upgradeButton.getHeight() - upgradeButton.getY())/2 - upgradedTowerSprite.getHeight()/2 + upgradeButton.getY() + 20);
         upgradedTowerSprite.setRotation(0);
 
+        boolean cantAfford = model.getMoney() < model.getTowerUpgradePrice(towerName, buttonNr);
+        boolean upgradeIsBought = (towerUpgradeLevel >= 1 + buttonNr);
 
         // If upgrade is bought disable button input
-        if (towerUpgradeLevel >= 1 + buttonNr) {
+        if (upgradeIsBought) {
             upgradeButton.setChecked(true);
             upgradeButton.setTouchable(Touchable.disabled);
         } else {
             upgradeButton.setChecked(false);
             upgradeButton.setTouchable(Touchable.enabled);
+
+            // If player can afford upgrade enable button
+            if (cantAfford) {
+                upgradeButton.setDisabled(true);
+                upgradeButton.setTouchable(Touchable.disabled);
+            } else {
+                upgradeButton.setDisabled(false);
+                upgradeButton.setTouchable(Touchable.enabled);
+            }
         }
 
-        // If first upgrade not bought disable second button
-        if (buttonNr == 2 && towerUpgradeLevel == 1) {
-            upgradeButton.setTouchable(Touchable.disabled);
-            upgradeButton.setColor(Color.LIGHT_GRAY);
-            upgradedTowerSprite.setColor(Color.LIGHT_GRAY);
-        } else if (buttonNr == 2 && towerUpgradeLevel >= 2) {
-            upgradeButton.setTouchable(Touchable.enabled);
-            upgradeButton.setColor(Color.WHITE);
-            upgradedTowerSprite.setColor(Color.WHITE);
-        }
+        // Modify second button only
+        if (buttonNr == 2) updateSecondUpgradeButton(towerUpgradeLevel, upgradeButton, upgradedTowerSprite, cantAfford, upgradeIsBought);
+
 
         batch.begin();
         upgradedTowerSprite.draw(batch);
@@ -434,6 +426,30 @@ public class GameScreen extends AbstractScreen implements Screen {
         titleLabel.setText(model.getTowerUpgradeTitle(towerName, buttonNr));
         descLabel.setText(model.getTowerUpgradeDesc(towerName, buttonNr));
         priceLabel.setText("" + model.getTowerUpgradePrice(towerName, buttonNr));
+    }
+
+    private void updateSecondUpgradeButton(int towerUpgradeLevel, Button upgradeButton, Sprite upgradedTowerSprite, boolean cantAfford, boolean upgradeIsBought) {
+        if (!upgradeIsBought) {
+            // If first upgrade not bought disable second button
+            if (towerUpgradeLevel == 1) {
+                upgradeButton.setDisabled(true);
+                upgradeButton.setTouchable(Touchable.disabled);
+                upgradeButton.setColor(Color.LIGHT_GRAY);
+                upgradedTowerSprite.setColor(Color.LIGHT_GRAY);
+                // If first upgrade is bought enable second upgrade button
+            } else if (towerUpgradeLevel >= 2) {
+                upgradeButton.setTouchable(Touchable.enabled);
+                upgradeButton.setColor(Color.WHITE);
+                upgradedTowerSprite.setColor(Color.WHITE);
+
+                // If player can afford enable upgrade button
+                if (!cantAfford) {
+                    upgradeButton.setDisabled(false);
+                } else {
+                    upgradeButton.setTouchable(Touchable.disabled);
+                }
+            }
+        }
     }
 
 

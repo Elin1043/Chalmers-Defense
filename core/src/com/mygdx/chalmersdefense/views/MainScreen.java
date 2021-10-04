@@ -37,8 +37,9 @@ public class MainScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
+        super.render(Gdx.graphics.getDeltaTime());
         addActor(img);
         addActor(playButton);
-        super.render(Gdx.graphics.getDeltaTime());
+
     }
 }

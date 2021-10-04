@@ -32,10 +32,14 @@ import java.util.List;
  */
 
 public class Model implements IUpdateModel {
-    private final GameTimer timer = new GameTimer(this);
-    private final Rounds round = new Rounds(10);    // 10 is temporary
+    private final int WINNING_ROUND = 10;
+    private final int LIVES = 100;
+    private final int START_CAPITAL = 3000;
 
-    private final Player player = new Player(100, 3000); //Change staring capital later. Just used for testing right now
+    private final GameTimer timer = new GameTimer(this);
+    private Rounds round = new Rounds(WINNING_ROUND);
+
+    private final Player player = new Player(LIVES, START_CAPITAL); //Change staring capital later. Just used for testing right now
     private final Upgrades upgrades = new Upgrades();
 
 
@@ -47,6 +51,13 @@ public class Model implements IUpdateModel {
         map.updateMap();
         checkRoundCompleted();
         virusSpawner.decrementSpawnTimer();
+    }
+
+    public void resetModel() {
+        round = new Rounds(WINNING_ROUND);
+        player.resetPlayer(LIVES, START_CAPITAL);
+        map.resetMap();
+        virusSpawner.resetSpawnViruses();
     }
 
     private void checkRoundCompleted() {
@@ -179,12 +190,17 @@ public class Model implements IUpdateModel {
     }
 
     /**
-     * Delegates upgrade method to upgrade class.
+     * Delegates upgrade method to upgrade class. And decreases players money if upgrade is applied.
      */
     public void upgradeClickedTower() {
-        upgrades.upgradeTower(map.getClickedTower());
+        if (upgrades.upgradeTower(map.getClickedTower())) {
+            player.decreaseMoney(upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), map.getClickedTower().getUpgradeLevel() - 1).intValue());
+        }
     }
 
+    public boolean getIsGameLost() {
+        return map.getIsGameLost();
+    }
 
     /**
      * Return the current money value
