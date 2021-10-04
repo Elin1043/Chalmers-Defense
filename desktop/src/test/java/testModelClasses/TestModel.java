@@ -5,6 +5,6 @@ package testModelClasses;
  *
  * Test class for model
  */
-public class testModel {
+public class TestModel {
 
 }

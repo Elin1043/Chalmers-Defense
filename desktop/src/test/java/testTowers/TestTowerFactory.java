@@ -1,8 +1,5 @@
 package testTowers;
 
-import com.mygdx.chalmersdefense.model.Map;
-import com.mygdx.chalmersdefense.model.Model;
-import com.mygdx.chalmersdefense.model.Player;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
