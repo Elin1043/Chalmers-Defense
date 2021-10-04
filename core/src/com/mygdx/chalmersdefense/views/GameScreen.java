@@ -14,21 +14,12 @@ import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
-import com.mygdx.chalmersdefense.utilities.FontFactory;
 import com.mygdx.chalmersdefense.views.GameScreenViews.BottomBarUpgradePanel;
 import com.mygdx.chalmersdefense.views.GameScreenViews.LostPanel;
 import com.mygdx.chalmersdefense.views.GameScreenViews.RightSidePanel;
 
-import java.util.HashMap;
 
 import static com.badlogic.gdx.graphics.GL20.*;
 
@@ -43,7 +34,6 @@ import static com.badlogic.gdx.graphics.GL20.*;
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
-    private final BottomBarPanelController bottomBarPanelController;
     private final GameScreenController gameScreenController;
     private final LostPanel lostPanelView;
     private final BottomBarUpgradePanel bottomBarUpgradePanel;
@@ -65,10 +55,9 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     public GameScreen(Model model) {
         super();
-        this.bottomBarPanelController = new BottomBarPanelController(model);
         this.gameScreenController = new GameScreenController(model);
         this.lostPanelView = new LostPanel(this, gameScreenController);
-        this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, bottomBarPanelController, model, spriteMap, largeSpriteMap);
+        this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, spriteMap, largeSpriteMap);
         this.rightSidePanel = new RightSidePanel(this, model);
         this.model = model;
         this.stageHUD = new Stage(this.getViewport());

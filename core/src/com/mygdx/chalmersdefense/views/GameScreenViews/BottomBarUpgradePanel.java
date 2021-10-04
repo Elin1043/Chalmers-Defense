@@ -57,10 +57,10 @@ public class BottomBarUpgradePanel {
     private final Label secondUpgradeButtonDesc = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle18Black());
     private final Label secondUpgradeButtonPrice = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle26Black());
 
-    public BottomBarUpgradePanel(Stage stage, BottomBarPanelController bottomBarPanelController, Model model, HashMap<String, Sprite> spriteMap, HashMap<String, Sprite> largeSpriteMap) {
+    public BottomBarUpgradePanel(Stage stage, Model model, HashMap<String, Sprite> spriteMap, HashMap<String, Sprite> largeSpriteMap) {
         this.stage = new Stage(stage.getViewport());
         this.batch = stage.getBatch();
-        this.bottomBarPanelController = bottomBarPanelController;
+        this.bottomBarPanelController = new BottomBarPanelController(model);
         this.model = model;
         this.spriteMap = spriteMap;
         this.largeSpriteMap = largeSpriteMap;
