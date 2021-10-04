@@ -215,15 +215,16 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
     private void renderMapObjects(){
+        super.batch.begin();
         for (IMapObject mapObject: model.getAllMapObjects()) {
             Sprite objectSprite = spriteMap.get(mapObject.getSpriteKey());
             objectSprite.setPosition(mapObject.getX(), mapObject.getY());
             objectSprite.setRotation(mapObject.getAngle());
 
-            super.batch.begin();
             objectSprite.draw(super.batch);
-            super.batch.end();
+
         }
+        super.batch.end();
 
     }
 
