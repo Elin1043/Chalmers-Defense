@@ -143,39 +143,39 @@ public class Model implements IUpdateModel {
         return map.getRangeCircle();
     }
 
-    public ITower getClickedTower() {
+    public IMapObject getClickedTower() {
         return map.getClickedTower();
     }
 
     /**
      * A delegation for getting title of a tower upgrade.
-     * @param tower used to get tower name
+     * @param towerName The towers name
      * @param upgradeLevel what upgrade to get title of
      * @return a String with towers upgrade title depending on upgrade level.
      */
-    public String getTowerUpgradeTitle(ITower tower, int upgradeLevel) {
-        return upgrades.getTowerUpgradeTitle(tower, upgradeLevel);
+    public String getTowerUpgradeTitle(String towerName, int upgradeLevel) {
+        return upgrades.getTowerUpgradeTitle(towerName, upgradeLevel);
     }
 
 
     /**
      * A delegation for getting description of a tower upgrade.
-     * @param tower used to get tower name
+     * @param towerName The towers name
      * @param upgradeLevel what upgrade to get description of
      * @return a String with towers upgrade description depending on upgrade level.
      */
-    public String getTowerUpgradeDesc(ITower tower, int upgradeLevel) {
-        return upgrades.getTowerUpgradeDesc(tower, upgradeLevel);
+    public String getTowerUpgradeDesc(String towerName, int upgradeLevel) {
+        return upgrades.getTowerUpgradeDesc(towerName, upgradeLevel);
     }
 
     /**
      * A delegation for getting price of a tower upgrade.
-     * @param tower used to get tower name
+     * @param towerName The towers name
      * @param upgradeLevel what upgrade to get price of
      * @return a String with towers upgrade price depending on upgrade level.
      */
-    public Long getTowerUpgradePrice(ITower tower, int upgradeLevel) {
-        return upgrades.getTowerUpgradePrice(tower, upgradeLevel);
+    public Long getTowerUpgradePrice(String towerName, int upgradeLevel) {
+        return upgrades.getTowerUpgradePrice(towerName, upgradeLevel);
     }
 
     /**

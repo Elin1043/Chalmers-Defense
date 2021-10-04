@@ -25,10 +25,6 @@ public interface ITower extends IMapObject {
 
     int getCost();
 
-    boolean getGotButton();
-
-    void setGotButton(boolean gotButton);
-
     boolean getCollision();
 
     void setCollision(boolean set);

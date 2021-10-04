@@ -13,7 +13,7 @@ import java.awt.Rectangle;
  * Class for wraping a java rectangle
  */
 public class PathRectangle implements IMapObject {
-    private final Rectangle rectangle = new Rectangle();
+    private final Rectangle rectangle = new Rectangle();    // The wrapped rectangle object
 
     public PathRectangle(float x, float y, float width, float height){
         rectangle.setRect(x, y, width, height);

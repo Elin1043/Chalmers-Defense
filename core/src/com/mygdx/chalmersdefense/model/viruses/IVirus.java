@@ -4,6 +4,7 @@ import com.mygdx.chalmersdefense.model.IMapObject;
 
 /**
  * @author Joel Båtsman Hilmersson
+ * Interface for virus
  */
 public interface IVirus extends IMapObject {
 

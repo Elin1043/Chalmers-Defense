@@ -11,6 +11,7 @@ import java.util.List;
  * @author
  *
  * 2021-09-24 Modified by Elin Forsberg and Joel Båtsman Hilmersson: Elin created createMapCollision and Joel implemented it here.
+ * 2021-10-03 Modified by Joel Båtsman Hilmersson: Switched to use pathRectangle instead of normal Java rectangle.
  */
 public abstract class Path {
 
