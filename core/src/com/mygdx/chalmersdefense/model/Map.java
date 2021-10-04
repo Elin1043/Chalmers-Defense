@@ -386,7 +386,6 @@ public class Map {
                 clickedTower = tower;
             }
         }
-        isGameLost = true;
 
     }
 
@@ -395,7 +394,6 @@ public class Map {
      */
     public void towerNotClicked() {
         clickedTower = null;
-        isGameLost = false;
     }
 
     /**
