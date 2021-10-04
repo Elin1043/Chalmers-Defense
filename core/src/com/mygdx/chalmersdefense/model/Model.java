@@ -103,7 +103,7 @@ public class Model implements IUpdateModel {
      * @param x the X-position of the button
      * @param y the Y-position of the button
      */
-    public void dragStart(String towerName, int x, int y) {
+    public void dragStart(String towerName, float x, float y) {
        map.dragStart(towerName, x, y);
     }
 
@@ -118,7 +118,7 @@ public class Model implements IUpdateModel {
      * @param windowWidth  The width of the window
      */
 
-    public void onDrag(int buttonWidth, int buttonHeight, int x, int y, int windowHeight, int windowWidth) {
+    public void onDrag(float buttonWidth, float buttonHeight, float x, float y, int windowHeight, int windowWidth) {
         map.onDrag(buttonWidth, buttonHeight, x, y, windowHeight, windowWidth);
 
     }
@@ -133,11 +133,10 @@ public class Model implements IUpdateModel {
      * @param buttonHeight The height of the button dragged from
      * @param x The X-position of the mouse
      * @param y The Y-position of the mouse
-     * @param windowHeight The height of the window
      */
 
-    public void dragEnd(int buttonWidth, int buttonHeight, int x, int y, int windowHeight) {
-        map.dragEnd(buttonWidth, buttonHeight, x, y, windowHeight);
+    public void dragEnd(float buttonWidth, float buttonHeight, float x, float y) {
+        map.dragEnd(buttonWidth, buttonHeight, x, y);
     }
 
 

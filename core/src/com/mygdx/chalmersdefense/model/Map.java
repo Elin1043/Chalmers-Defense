@@ -233,7 +233,7 @@ public class Map {
      * @param x the X-position of the button
      * @param y the Y-position of the button
      */
-    public void dragStart(String towerName, int x, int y) {
+    public void dragStart(String towerName, float x, float y) {
         switch(towerName){
             case "smurf"   -> newTower = TowerFactory.CreateSmurf(x, y);
             case "chemist" -> newTower = TowerFactory.CreateChemist(x, y, projectilesToAddList);
@@ -259,9 +259,9 @@ public class Map {
      * @param windowHeight The height of the window
      * @param windowWidth  The width of the window
      */
-    public void onDrag(int buttonWidth, int buttonHeight, int x, int y, int windowHeight, int windowWidth) {
+    public void onDrag(float buttonWidth, float buttonHeight, float x, float y, int windowHeight, int windowWidth) {
 
-        newTower.setPos( x - buttonWidth,(windowHeight - y - buttonHeight ));
+        newTower.setPos( x - buttonWidth/2f, y - buttonHeight/2f);
 
         for (ITower tower: towersList) {
 
@@ -293,14 +293,13 @@ public class Map {
      * @param buttonHeight The height of the button dragged from
      * @param x The X-position of the mouse
      * @param y The Y-position of the mouse
-     * @param windowHeight The height of the window
      */
 
-    public void dragEnd(int buttonWidth, int buttonHeight, int x, int y, int windowHeight) {
+    public void dragEnd(float buttonWidth, float buttonHeight, float x, float y) {
 
         if(!newTower.getCollision()){
             newTower.placeTower();
-            newTower.setPos(x - buttonWidth,(windowHeight - y - buttonHeight ) );
+            newTower.setPos(x - buttonWidth/2f, y - buttonHeight/2f);
             player.decreaseMoney(newTower.getCost());
 
         }
