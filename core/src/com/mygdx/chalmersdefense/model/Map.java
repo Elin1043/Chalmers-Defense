@@ -233,7 +233,7 @@ class Map {
      * @param x the X-position of the button
      * @param y the Y-position of the button
      */
-    public void dragStart(String towerName, float x, float y) {
+    void dragStart(String towerName, float x, float y) {
         switch(towerName){
             case "smurf"   -> newTower = TowerFactory.CreateSmurf(x, y);
             case "chemist" -> newTower = TowerFactory.CreateChemist(x, y, projectilesToAddList);
@@ -259,7 +259,7 @@ class Map {
      * @param windowHeight The height of the window
      * @param windowWidth  The width of the window
      */
-    public void onDrag(float buttonWidth, float buttonHeight, float x, float y, int windowHeight, int windowWidth) {
+    void onDrag(float buttonWidth, float buttonHeight, float x, float y, int windowHeight, int windowWidth) {
 
         newTower.setPos( x - buttonWidth/2f, y - buttonHeight/2f);
 
@@ -295,7 +295,7 @@ class Map {
      * @param y The Y-position of the mouse
      */
 
-    public void dragEnd(float buttonWidth, float buttonHeight, float x, float y) {
+    void dragEnd(float buttonWidth, float buttonHeight, float x, float y) {
 
         if(!newTower.getCollision()){
             newTower.placeTower();
@@ -315,7 +315,7 @@ class Map {
     /**
      * Handles when a placed tower is clicked
      */
-    public void checkIfTowerClicked(float x, float y) {
+    void checkIfTowerClicked(float x, float y) {
         // Algorithm for finding which tower is clicked
         ITower towerWasClicked = null;
         for (ITower tower : towersList) {
@@ -340,7 +340,7 @@ class Map {
 
 
 
-    public GetRangeCircle getRangeCircle() {
+    GetRangeCircle getRangeCircle() {
         return rangeCircle;
     }
 
@@ -348,7 +348,7 @@ class Map {
      * Returns currently clicked tower
      * @return tower object of clicked tower
      */
-    public ITower getClickedTower() {
+    ITower getClickedTower() {
         return clickedTower;
     }
 
@@ -356,7 +356,7 @@ class Map {
      * Returns if game has been lost
      * @return a boolean for game lost status
      */
-    public boolean getIsGameLost() {
+    boolean getIsGameLost() {
         return isGameLost;
     }
 
@@ -364,7 +364,7 @@ class Map {
      * Return the list of viruses on path
      * @return the list of viruses
      */
-    public List<IVirus> getViruses() {
+    List<IVirus> getViruses() {
         return virusesList;
     }
 
@@ -372,7 +372,7 @@ class Map {
      * Return the list of objects on map
      * @return the list of objects
      */
-    public List<IMapObject> getAllMapObjects() {
+    List<IMapObject> getAllMapObjects() {
         List<IMapObject> allMapObjects = new ArrayList<>();
         allMapObjects.addAll(towersList);
         allMapObjects.addAll(virusesList);
@@ -384,10 +384,10 @@ class Map {
      * Returns if virus list is empty
      * @return true - if all viruses are cleared, false - if there are viruses left
      */
-    public boolean isVirusCleared() { return virusesList.isEmpty(); }
+    boolean isVirusCleared() { return virusesList.isEmpty(); }
 
     /**
      * Method to call when round is cleared, makes map ready for next round
      */
-    public void roundClear() { projectilesList.clear(); }
+    void roundClear() { projectilesList.clear(); }
 }

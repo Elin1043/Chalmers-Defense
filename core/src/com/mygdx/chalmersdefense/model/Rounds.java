@@ -3,7 +3,7 @@ package com.mygdx.chalmersdefense.model;
 /**
  *
  */
-public class Rounds {
+class Rounds {
     private int currentRound = 0;
     private int winningRound;
 
@@ -15,15 +15,15 @@ public class Rounds {
         currentRound++;
     }
 
-    public boolean gameWon() {
+    boolean gameWon() {
         return currentRound == (winningRound + 1);
     }
 
-    public int getCurrentRound() {
+    int getCurrentRound() {
         return Math.max(currentRound, 1);
     }
 
-    public int getWinningRound() {
+    int getWinningRound() {
         return winningRound;
     }
 }
