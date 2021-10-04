@@ -391,7 +391,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         upgradedTowerSprite.setPosition(upgradeButton.getX() + (268 - upgradedTowerSprite.getWidth()/2), (upgradeButton.getHeight() - upgradeButton.getY())/2 - upgradedTowerSprite.getHeight()/2 + upgradeButton.getY() + 20);
         upgradedTowerSprite.setRotation(0);
 
-        boolean cantAfford = model.getMoney() < model.getTowerUpgradePrice(tower.getName(), buttonNr);
+        boolean cantAfford = model.getMoney() < model.getTowerUpgradePrice(towerName, buttonNr);
         boolean upgradeIsBought = (towerUpgradeLevel >= 1 + buttonNr);
 
         // If upgrade is bought disable button input

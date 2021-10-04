@@ -14,7 +14,7 @@ public class TestRounds {
     @Before
     public void init() {
         game = new ChalmersDefense();
-        model = new Model(game);
+        model = new Model();
     }
 
     @Test

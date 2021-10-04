@@ -49,8 +49,7 @@ public class SpawnViruses {
     /**
      * Resets currently spawning queue and resets wave index
      */
-    void resetSpawnViruses() {
-        waveIndex = 0;
+    public void resetSpawnViruses() {
         isSpawning = false;
     }
 

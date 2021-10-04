@@ -3,6 +3,7 @@ package com.mygdx.chalmersdefense.model;
 
 import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
 import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.towers.*;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
@@ -57,7 +58,7 @@ public class Map {
     void resetMap() {
         towersList.clear();
         projectilesList.clear();
-        allViruses.clear();
+        virusesList.clear();
         clickedTower = null;
         isGameLost = false;
     }

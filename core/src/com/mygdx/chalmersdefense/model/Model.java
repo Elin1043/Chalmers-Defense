@@ -193,8 +193,8 @@ public class Model implements IUpdateModel {
      * Delegates upgrade method to upgrade class. And decreases players money if upgrade is applied.
      */
     public void upgradeClickedTower() {
-        if (upgrades.upgradeTower(getClickedTower())) {
-            player.decreaseMoney(upgrades.getTowerUpgradePrice(getClickedTower().getName(), getClickedTower().getUpgradeLevel() - 1).intValue());
+        if (upgrades.upgradeTower(map.getClickedTower())) {
+            player.decreaseMoney(upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), map.getClickedTower().getUpgradeLevel() - 1).intValue());
         }
     }
 
