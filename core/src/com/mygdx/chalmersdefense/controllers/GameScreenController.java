@@ -43,7 +43,8 @@ public class GameScreenController {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU); // Not working atm
+                ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+                model.resetModel();
             }
         });
     }
