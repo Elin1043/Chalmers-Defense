@@ -22,14 +22,14 @@ public class GameScreenController {
     }
 
     /**
-    * Adds listener to map in GamerScreen
-    * @param image  GameScreens mapImage
-    * */
+     * Adds listener to map in GamerScreen
+     * @param image  GameScreens mapImage
+     */
     public void addMapClickListener(Image image) {
         image.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                model.towerNotClicked();
+                model.checkIfTowerClicked(event.getStageX(),event.getStageY());
             }
         });
     }

@@ -1,13 +1,14 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.mygdx.chalmersdefense.ChalmersDefense;
-import com.mygdx.chalmersdefense.model.projectiles.Projectile;
+import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
+import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
-import com.mygdx.chalmersdefense.model.towers.Tower;
+import com.mygdx.chalmersdefense.model.viruses.IVirus;
+import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
+import com.mygdx.chalmersdefense.utilities.GameTimer;
+import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -27,14 +28,15 @@ import java.util.List;
  * 2021-09-27 Modified by Elin Forsberg: Added methods to handle different attacks from towers
  * 2021-09-27 Modified by Daniel Persson: Added delegation getters for upgrade title, description and price.
  * 2021-09-28 Modified by Everyone: Moved methods to Map class
+ * 2021-09-30 Modified by Joel Båtsman Hilmersson: Added a specifc timer object
  */
 
-public class Model {
+public class Model implements IUpdateModel {
     private final int WINNING_ROUND = 10;
     private final int LIVES = 100;
     private final int START_CAPITAL = 3000;
 
-    private final ChalmersDefense game;
+    private final GameTimer timer = new GameTimer(this);
     private Rounds round = new Rounds(WINNING_ROUND);
 
     private final Player player = new Player(LIVES, START_CAPITAL); //Change staring capital later. Just used for testing right now
@@ -44,25 +46,11 @@ public class Model {
     private final Map map = new Map(player);
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());
 
-
-    /**
-     * Constructor of the model class
-     * @param game current game session
-     */
-    public Model(ChalmersDefense game) {
-        this.game = game;
-
-    }
-
-    /**
-     * Update all the model components
-     */
+    @Override
     public void updateModel() {
-        if (game.isUpdating()) {
-            map.updateMap();
-            checkRoundCompleted();
-            virusSpawner.decrementSpawnTimer();
-        }
+        map.updateMap();
+        checkRoundCompleted();
+        virusSpawner.decrementSpawnTimer();
     }
 
     public void resetModel() {
@@ -84,12 +72,12 @@ public class Model {
 
 
 
-    private void stopGameUpdate() {
-        game.stopModelUpdate();
+    private void startGameUpdate() {
+        timer.startUpdateTimer();
     }
 
-    private void startGameUpdate() {
-        game.startModelUpdate();
+    private void stopGameUpdate() {
+        timer.stopUpdateTimer();
     }
 
 
@@ -103,7 +91,7 @@ public class Model {
             virusSpawner.spawnRound(round.getCurrentRound());
         } else {
 
-            game.changeUpdateSpeed();
+            timer.changeUpdateSpeed();
 
         }
     }
@@ -154,21 +142,25 @@ public class Model {
 
 
     // Maybe temporary because it sets the object to null.
-    public void towerClicked(float x, float y) {
-        map.towerClicked(x, y);
+    /**
+     * Handles when a placed tower is clicked
+     */
+    public void checkIfTowerClicked(float x, float y) {
+        map.checkIfTowerClicked(x,y);
+
     }
 
-    public void towerNotClicked() {
-        map.towerNotClicked();
+    public GetRangeCircle getRangeCircle() {
+        return map.getRangeCircle();
     }
 
-    public Tower getClickedTower() {
+    public IMapObject getClickedTower() {
         return map.getClickedTower();
     }
 
     /**
      * A delegation for getting title of a tower upgrade.
-     * @param towerName used to get tower name
+     * @param towerName The towers name
      * @param upgradeLevel what upgrade to get title of
      * @return a String with towers upgrade title depending on upgrade level.
      */
@@ -179,7 +171,7 @@ public class Model {
 
     /**
      * A delegation for getting description of a tower upgrade.
-     * @param towerName used to get tower name
+     * @param towerName The towers name
      * @param upgradeLevel what upgrade to get description of
      * @return a String with towers upgrade description depending on upgrade level.
      */
@@ -189,7 +181,7 @@ public class Model {
 
     /**
      * A delegation for getting price of a tower upgrade.
-     * @param towerName used to get tower name
+     * @param towerName The towers name
      * @param upgradeLevel what upgrade to get price of
      * @return a String with towers upgrade price depending on upgrade level.
      */
@@ -211,14 +203,6 @@ public class Model {
     }
 
     /**
-     * Return the list of projectiles
-     * @return list of projectiles
-     */
-    public List<Projectile> getProjectilesList() {
-        return map.getProjectilesList();
-    }
-
-    /**
      * Return the current money value
      * @return the money value
      */
@@ -236,19 +220,17 @@ public class Model {
      */
     public int getCurrentRound() { return round.getCurrentRound(); }
 
-    /**
-     * Return the list of towers on map
-     * @return The list of towers
-     */
-    public List<Tower> getTowers() {
-        return map.getTowers();
-    }
+
 
     /**
      * Return the list of viruses on path
      * @return the list of viruses
      */
-    public List<Virus> getViruses() {
+    public List<IVirus> getViruses() {
         return map.getViruses();
+    }
+
+    public List<IMapObject> getAllMapObjects() {
+        return map.getAllMapObjects();
     }
 }

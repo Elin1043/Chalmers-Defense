@@ -30,7 +30,7 @@ public class Upgrades {
      * Main method for upgrading a tower.
      * @param tower tower to be upgraded
     */
-    public boolean upgradeTower(Tower tower) {
+    public boolean upgradeTower(ITower tower) {
         // If tower is max upgraded dont upgrade
         if (tower.getUpgradeLevel() >= MAX_UPGRADES) return false;
 
@@ -41,8 +41,8 @@ public class Upgrades {
     }
 
     /**
-     * Gets title of tower upgrade from database with regard to upgrade level.
-     * @param towerName tower name used to get towers name
+     * Gets title of tower upgrade from database in regard to upgrade level.
+     * @param towerName The towers name
      * @param upgradeLevel level of upgrade to get title from
      * @return a String with towers upgrade title depending on upgrade level.
      */
@@ -59,7 +59,7 @@ public class Upgrades {
 
     /**
      * Gets description of tower upgrade from database with regards to upgrade level.
-     * @param towerName tower name used to get towers description
+     * @param towerName used to get towers description
      * @param upgradeLevel level up upgrade to get description of
      * @return a String with towers upgrade description depending on upgrade level.
      */
@@ -76,7 +76,7 @@ public class Upgrades {
 
     /**
      * Gets price of tower upgrade from database with regards to upgrade level.
-     * @param towerName tower name used to get towers price
+     * @param towerName used to get towers price
      * @param upgradeLevel level of upgrade to get price from
      * @return a Long with towers upgrade price depending on upgrade level.
      */
@@ -93,7 +93,7 @@ public class Upgrades {
 
     /**
      * Generates a HashMap with appropriate upgrade data from a JSON object and returns a copy of the HashMap.
-     * @param towerName tower name to get upgrades from
+     * @param towerName to get upgrades from
      * @param upgradeLevel upgrade level to get upgrades from
      * @return a HashMap with upgrade data.
      */

@@ -1,6 +1,6 @@
 package com.mygdx.chalmersdefense.model.targetMode;
 
-import com.mygdx.chalmersdefense.model.Virus;
+import com.mygdx.chalmersdefense.model.viruses.IVirus;
 
 import java.util.List;
 
@@ -18,5 +18,5 @@ public interface ITargetMode {
      * @param towerY The y position of the tower
      * @return The targeted virus
      */
-    Virus getRightVirus(List<Virus> virusInRange, float towerX, float towerY);
+    IVirus getRightVirus(List<IVirus> virusInRange, float towerX, float towerY);
 }
