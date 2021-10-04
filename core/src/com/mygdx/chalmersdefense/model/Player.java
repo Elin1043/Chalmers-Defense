@@ -5,6 +5,7 @@ import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeExcepti
 /**
  * @author Joel Båtsman Hilmersson
  * Class representing the player and their resorces
+ * 2021-10-03 Modified by Daniel Persson: Added reset method for resetting all values in player.
  */
 public class Player {
 
@@ -17,6 +18,16 @@ public class Player {
      * @param startCapital  Amount of money the player has from the start
      */
     Player(int lives, int startCapital){
+        this.lives = lives;
+        money = startCapital;
+    }
+
+    /**
+     * Method for resetting all values in Player object
+     * @param lives Amount of lives the player has after resetting
+     * @param startCapital Amount of money the player after resetting
+     */
+    void resetPlayer(int lives, int startCapital) {
         this.lives = lives;
         money = startCapital;
     }
