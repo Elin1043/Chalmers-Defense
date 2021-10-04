@@ -301,7 +301,6 @@ class Map {
             newTower.placeTower();
             newTower.setPos(x - buttonWidth/2f, y - buttonHeight/2f);
             player.decreaseMoney(newTower.getCost());
-
         }
         else{
             towersList.remove(newTower);
