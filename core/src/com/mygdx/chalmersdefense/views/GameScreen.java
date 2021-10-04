@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
@@ -46,6 +47,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final LostPanel lostPanelView;
     private final BottomBarUpgradePanel bottomBarUpgradePanel;
     private final Model model;
+    private final Stage stageHUD;
 
     private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
     private final Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
@@ -87,6 +89,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         this.lostPanelView = new LostPanel(this, gameScreenController);
         this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, bottomBarPanelController, model, spriteMap, largeSpriteMap);
         this.model = model;
+        this.stageHUD = new Stage(this.getViewport());
 
         // This should come from classicPath class
         mapImage = new Image(new Texture("ClassicMap.png"));
@@ -121,7 +124,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     @Override
     public void buildStage() {
-        addActor(bottomBarPanelBackground);
+        stageHUD.addActor(bottomBarPanelBackground);
 
         addActor(sideBarBackground);
         addActor(lifeIcon);
@@ -154,6 +157,10 @@ public class GameScreen extends AbstractScreen implements Screen {
         checkAffordableTowers();
         renderRangeCircle();
         renderMapObjects();
+
+        // Renders HUD above sprites but below upgrade panel.
+        stageHUD.act();
+        stageHUD.draw();
 
         updateLabels();
         // If clicked tower is present show upgrade panel.
