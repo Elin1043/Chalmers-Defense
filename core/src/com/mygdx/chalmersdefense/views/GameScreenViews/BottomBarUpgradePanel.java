@@ -90,18 +90,29 @@ public class BottomBarUpgradePanel {
         bottomBarPanelUpgradeGroup.setVisible(false);
     }
 
+    /**
+     * Method used to render upgrade panel to the screen
+     */
     public void render(IMapObject tower) {
-        Gdx.input.setInputProcessor(multiplexer);
-
-
         stage.act();
         stage.draw();
         updateUpgradePanelInfo(tower);
         bottomBarPanelUpgradeGroup.setVisible(true);
     }
 
+    /**
+     * Hides upgrade panel
+     */
     public void hideBottomBar() {
         bottomBarPanelUpgradeGroup.setVisible(false);
+    }
+
+    /**
+     * Method used to get stage
+     * @return this stage
+     */
+    public Stage getStage() {
+        return stage;
     }
 
     /**
