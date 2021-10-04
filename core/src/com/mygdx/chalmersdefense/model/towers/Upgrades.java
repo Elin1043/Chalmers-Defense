@@ -57,7 +57,7 @@ public class Upgrades {
     }
 
     /**
-     * Gets description of tower upgrade from database with regards to upgrade level.
+     * Gets description of tower upgrade from database in regard to upgrade level.
      * @param towerName used to get towers description
      * @param upgradeLevel level up upgrade to get description of
      * @return a String with towers upgrade description depending on upgrade level.
@@ -74,7 +74,7 @@ public class Upgrades {
     }
 
     /**
-     * Gets price of tower upgrade from database with regards to upgrade level.
+     * Gets price of tower upgrade from database in regard to upgrade level.
      * @param towerName used to get towers price
      * @param upgradeLevel level of upgrade to get price from
      * @return a Long with towers upgrade price depending on upgrade level.
