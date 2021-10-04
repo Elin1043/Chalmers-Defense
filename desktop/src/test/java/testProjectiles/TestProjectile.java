@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
-public class testProjectile {
+public class TestProjectile {
     List<IProjectile> projectilesList = new ArrayList<>();
     IProjectile projectile;
 
