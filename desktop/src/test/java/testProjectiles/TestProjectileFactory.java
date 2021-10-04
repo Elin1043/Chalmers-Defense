@@ -10,6 +10,12 @@ import java.util.Objects;
 
 import static org.junit.Assert.assertTrue;
 
+
+/**
+ * @author Elin Forsberg
+ *
+ * Test class for ProjectileFactory
+ */
 public class TestProjectileFactory {
     List<IProjectile> projectileList = new ArrayList<>();
     @Test

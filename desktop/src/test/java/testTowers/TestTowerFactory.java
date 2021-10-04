@@ -1,8 +1,6 @@
 package testTowers;
 
-import com.mygdx.chalmersdefense.model.Map;
-import com.mygdx.chalmersdefense.model.Model;
-import com.mygdx.chalmersdefense.model.Player;
+
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
@@ -13,6 +11,12 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
+
+/**
+ * @author Elin Forsberg
+ *
+ * Test class for TowerFactory
+ */
 public class TestTowerFactory {
 
     @Test

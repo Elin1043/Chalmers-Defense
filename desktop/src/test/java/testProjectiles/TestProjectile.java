@@ -12,6 +12,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
+/**
+ * @author Elin Forsberg
+ *
+ * Test class for Projectile
+ */
 public class TestProjectile {
     List<IProjectile> projectilesList = new ArrayList<>();
     IProjectile projectile;

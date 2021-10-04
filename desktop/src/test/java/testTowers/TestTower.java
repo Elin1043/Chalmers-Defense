@@ -12,6 +12,12 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+
+/**
+ * @author Elin Forsberg
+ *
+ * Test class for Tower
+ */
 public class TestTower {
 
     @Test
