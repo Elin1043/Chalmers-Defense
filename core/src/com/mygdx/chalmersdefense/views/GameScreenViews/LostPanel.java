@@ -88,7 +88,17 @@ public class LostPanel {
     public void render() {
         Gdx.input.setInputProcessor(stage);
 
-        // Generate gray transparent overlay background
+        drawTransparentBackground();
+
+        stage.act();
+        stage.draw();
+
+        lostPanelGroup.setVisible(true);
+
+    }
+
+    // Generate gray transparent overlay background
+    private void drawTransparentBackground() {
         Gdx.gl.glEnable(GL_BLEND);
         Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -96,12 +106,6 @@ public class LostPanel {
         shapeRenderer.rect(0, 0, stage.getWidth(), stage.getHeight());
         shapeRenderer.end();
         Gdx.gl.glDisable(GL_BLEND);
-
-        stage.act();
-        stage.draw();
-
-        lostPanelGroup.setVisible(true);
-
     }
 
     public void hideLostPanelGroup() {
