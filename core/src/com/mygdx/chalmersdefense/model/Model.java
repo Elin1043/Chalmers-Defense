@@ -31,7 +31,7 @@ import java.util.List;
  * 2021-09-30 Modified by Joel Båtsman Hilmersson: Added a specifc timer object
  */
 
-public class Model implements IUpdateModel, IControllModel {
+public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final int WINNING_ROUND = 10;
     private final int LIVES = 100;
     private final int START_CAPITAL = 3000;

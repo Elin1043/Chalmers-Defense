@@ -2,7 +2,7 @@ package com.mygdx.chalmersdefense.model;
 
 /**
  * @author Joel Båtsman Hilmersson
- * Interface for model to implement to be controlled by a controller
+ * Interface for model to implement only expose controll methods to the controller
  */
 public interface IControllModel {
 
