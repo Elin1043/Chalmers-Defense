@@ -7,4 +7,7 @@ package com.mygdx.chalmersdefense.model.path;
 public interface IPath {
 
 
+
+
+
 }

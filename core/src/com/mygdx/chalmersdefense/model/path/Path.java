@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 
 
-public abstract class Path {
+public abstract class Path implements IPath{
 
     private final int pathWidth;
 
