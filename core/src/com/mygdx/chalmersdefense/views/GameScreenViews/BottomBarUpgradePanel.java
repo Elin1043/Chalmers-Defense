@@ -24,6 +24,8 @@ import java.util.HashMap;
 /**
  * @author Daniel Persson
  * A class used to render upgrade panel
+ *
+ * 2021-10-05 Created by Daniel Persson
  */
 public class BottomBarUpgradePanel {
     private final Stage stage;
@@ -33,7 +35,6 @@ public class BottomBarUpgradePanel {
     private final HashMap<String, Sprite> spriteMap;
     private final HashMap<String, Sprite> largeSpriteMap;
 
-    private final InputMultiplexer multiplexer = new InputMultiplexer();
 
     private final Image bottomBarUpgradePanelBackground = new Image(new Texture("GameScreen/BottomBarUpgradePanel.png"));
 
@@ -64,10 +65,6 @@ public class BottomBarUpgradePanel {
         this.spriteMap = spriteMap;
         this.largeSpriteMap = largeSpriteMap;
 
-        // Enables input from both stages at the same time
-        multiplexer.addProcessor(stage);
-        multiplexer.addProcessor(this.stage);
-        Gdx.input.setInputProcessor(multiplexer);
 
         initialize();
     }
