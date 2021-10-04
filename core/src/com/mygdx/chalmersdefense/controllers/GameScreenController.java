@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.chalmersdefense.model.IControllModel;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.views.ScreenEnum;
 import com.mygdx.chalmersdefense.views.ScreenManager;
@@ -13,9 +14,10 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
  *
  * 2021-09-22 created by Daniel Persson: A class for handling listener setup for GameScreen.
  * 2021-10-03 Modified by Daniel Persson: Added click listener for main menu and try again buttons.
+ * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model
  */
 public class GameScreenController {
-    private Model model;
+    private IControllModel model;
 
     public GameScreenController(Model model) {
         this.model = model;

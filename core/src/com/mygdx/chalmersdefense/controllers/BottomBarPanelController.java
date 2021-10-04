@@ -3,16 +3,19 @@ package com.mygdx.chalmersdefense.controllers;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.chalmersdefense.model.IControllModel;
 import com.mygdx.chalmersdefense.model.Model;
 
 /**
  * @author Daniel Persson
  * Controller class for bottom bar element in GameScreen
+ *
+ * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model
 */
 public class BottomBarPanelController {
-    private final Model model;
+    private final IControllModel model;
 
-    public BottomBarPanelController(Model model) {
+    public BottomBarPanelController(IControllModel model) {
         this.model = model;
     }
 
