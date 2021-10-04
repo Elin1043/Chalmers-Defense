@@ -1,11 +1,8 @@
 package testTowers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
-import com.mygdx.chalmersdefense.model.viruses.IVirus;
-import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import org.junit.Test;
 
 import java.util.ArrayList;
