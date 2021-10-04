@@ -25,7 +25,7 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower CreateSmurf(int startPosX, int startPosY){
+    public static ITower CreateSmurf(float startPosX, float startPosY){
         return new SmurfTower(startPosX,startPosY, "IT-Smurf", 60*3, 100, 200, TargetModeFactory.getTargetModes());
     }
 
@@ -35,7 +35,7 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower CreateChemist(int startPosX, int startPosY, List<IProjectile> addProjectileToList){
+    public static ITower CreateChemist(float startPosX, float startPosY, List<IProjectile> addProjectileToList){
         return new ChemistTower(startPosX,startPosY, "Chemist", 60*3, 200, 200, TargetModeFactory.getTargetModes(), addProjectileToList);
     }
 
@@ -45,7 +45,7 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower CreateHacker(int startPosX, int startPosY){
+    public static ITower CreateHacker(float startPosX, float startPosY){
 
         return new HackerTower(startPosX,startPosY, "Hackerman", 60*3, 300, 200, TargetModeFactory.getTargetModes());
     }
@@ -56,7 +56,7 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower CreateElectro(int startPosX, int startPosY){
+    public static ITower CreateElectro(float startPosX, float startPosY){
         return new ElectroTower(startPosX,startPosY, "Electroman", 60*3, 400, 200, TargetModeFactory.getTargetModes());
     }
 
@@ -67,7 +67,7 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower CreateMeck(int startPosX, int startPosY, List<ITower> towerToAddList){
+    public static ITower CreateMeck(float startPosX, float startPosY, List<ITower> towerToAddList){
         return new MechTower(startPosX,startPosY, "Mechoman", 60*3, 500, 200, TargetModeFactory.getTargetModes(), towerToAddList);
     }
 
@@ -77,7 +77,7 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower CreateEco(int startPosX, int startPosY, Player player){
+    public static ITower CreateEco(float startPosX, float startPosY, Player player){
         return new EcoTower(startPosX,startPosY, "Economist", 60*3, 600, 200, TargetModeFactory.getTargetModes(),player);
     }
 
