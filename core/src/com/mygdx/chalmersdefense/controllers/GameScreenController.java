@@ -10,7 +10,6 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
 
 /**
  * @author Daniel Persson
- * @date 2021-09-22
  *
  * 2021-09-22 created by Daniel Persson: A class for handling listener setup for GameScreen.
  * 2021-10-03 Modified by Daniel Persson: Added click listener for main menu and try again buttons.
