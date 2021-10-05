@@ -13,6 +13,11 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * @author Elin Forsberg
+ *
+ * Test class for AcidProjectile
+ */
 public class TestAcidProjectile {
     List<IProjectile> projectilesList = new ArrayList<>();
     List<IProjectile> addList = new ArrayList<>();

@@ -5,6 +5,7 @@ import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
 import org.junit.Before;
 import org.junit.Test;
+import org.lwjgl.Sys;
 
 
 import static org.junit.Assert.*;
@@ -28,9 +29,9 @@ public class TestModel {
 
     @Test
     public void testGetAllMapObjects() {
-        model.dragStart("smurf",0,0);
+        model.dragStart("meck",0,0);
         model.dragEnd(100,100,100,100);
-        assertTrue(model.getAllMapObjects().size() > 0);
+        assertEquals(1, model.getAllMapObjects().size());
     }
     
 
@@ -56,7 +57,9 @@ public class TestModel {
         model.dragStart("smurf",0,0);
         model.dragEnd(100,100,100,100);
 
-        model.startRoundPressed();
+        model.startRoundPressed();  // StartRound
+        model.startRoundPressed();  // Speed UP updates     (To get line coverage)
+        model.startRoundPressed();  // Slow Down updates    (To get line coverage)
         assertTrue(model.getAllMapObjects().size() > 0);
         assertEquals(1, model.getCurrentRound());
         for (int i = 0; i < 10000; i++) {
@@ -78,17 +81,21 @@ public class TestModel {
     @Test
     public void testOnDrag(){
         model.dragStart("smurf",0,0);
+        model.dragEnd(2,2,1440,300);   // Places a tower first to get more line coverage
+        model.dragStart("chemist",0,0);
         model.onDrag(10,10, 0, 0, 1080, 1920);
+        model.onDrag(10,10, 1440, 300, 1080, 1920);
         model.onDrag(10,10, -500, 456, 1080, 1920);
+        model.onDrag(10,10, 500, -456, 1080, 1920);
         model.onDrag(10,10, 50, 456, 1080, 1920);
         model.onDrag(10,10, 20, 780, 1080, 1920);
         model.dragEnd(10,10,100,240);
-        assertTrue(model.getAllMapObjects().size() > 0);
+        assertTrue(model.getAllMapObjects().size() > 1);
     }
 
     @Test
     public void testDragEnd(){
-        model.dragStart("smurf",0,0);
+        model.dragStart("electro",0,0);
         assertEquals(1, model.getAllMapObjects().size());
         model.onDrag(10,10, 0, 0, 1080, 1920);
         model.onDrag(10,10, -500, 456, 1080, 1920);
@@ -103,7 +110,7 @@ public class TestModel {
     public void testCheckIfTowerClicked() {
         model.checkIfTowerClicked(0,0);
         assertNull(model.getClickedTower());
-        model.dragStart("smurf",0,0);
+        model.dragStart("hacker",0,0);
         model.dragEnd(100,100,100,100);
         model.checkIfTowerClicked(100,100);
         assertNotNull(model.getClickedTower());
@@ -116,9 +123,12 @@ public class TestModel {
 
     @Test
     public void testGetIsGameLost() {
-        assertFalse(model.getIsGameLost());
+        model.startRoundPressed();
+        while (model.getAllMapObjects().size() > 0){ model.updateModel(); }
+        model.startRoundPressed();
+        while (model.getAllMapObjects().size() > 0){ model.updateModel(); }
 
+        assertTrue(model.getIsGameLost());
     }
-
 
 }

@@ -11,6 +11,11 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * @author Elin Forsberg
+ *
+ * Test class for LightningProjectile
+ */
 public class TestLightningProjectile {
     List<IProjectile> projectilesList = new ArrayList<>();
     IProjectile projectile;
