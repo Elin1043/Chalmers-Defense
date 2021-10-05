@@ -3,12 +3,8 @@ package testTowers;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
-import com.mygdx.chalmersdefense.model.Player;
-import com.mygdx.chalmersdefense.model.towers.ITower;
-import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 import org.junit.Before;
 import org.junit.Test;
-import org.lwjgl.Sys;
 
 import static org.junit.Assert.assertTrue;
 
