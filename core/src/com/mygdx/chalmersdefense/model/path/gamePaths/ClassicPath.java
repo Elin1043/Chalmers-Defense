@@ -3,6 +3,13 @@ package com.mygdx.chalmersdefense.model.path.gamePaths;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.utilities.PositionVector;
 
+/**
+ * @author Daniel Persson
+ * @author Jenny Carlsson
+ */
+
+
+
 public class ClassicPath extends Path {
 
     public ClassicPath() {
@@ -10,6 +17,7 @@ public class ClassicPath extends Path {
         setPathWaypoints();
         super.createMapCollision();
     }
+
 
     @Override
     protected void setPathWaypoints() {
