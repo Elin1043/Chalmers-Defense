@@ -51,8 +51,6 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private final Image mapImage;
 
-    private final Batch batch = super.getBatch();
-
 
     public GameScreen(Model model) {
         super();
