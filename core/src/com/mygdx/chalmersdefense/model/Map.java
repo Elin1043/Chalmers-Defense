@@ -45,7 +45,7 @@ class Map {
         isGameLost = false;
     }
 
-    public void updateMap() {
+    void updateMap() {
         updateVirus();
         updateTowers();
         updateProjectiles();
@@ -297,9 +297,7 @@ class Map {
      * @param x The X-position of the mouse
      * @param y The Y-position of the mouse
      */
-
     void dragEnd(float buttonWidth, float buttonHeight, float x, float y) {
-
         if(!newTower.getCollision()){
             newTower.placeTower();
             newTower.setPos(x - buttonWidth/2f, y - buttonHeight/2f);

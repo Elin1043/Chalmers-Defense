@@ -74,4 +74,16 @@ public class TestModel {
         assertEquals(0, model.getAllMapObjects().size());
     }
 
+    @Test
+    public void testOnDrag(){
+        model.dragStart("smurf",0,0);
+        model.onDrag(10,10, 0, 0, 1080, 1920);
+        model.onDrag(10,10, -500, 456, 1080, 1920);
+        model.onDrag(10,10, 50, 456, 1080, 1920);
+        model.onDrag(10,10, 20, 780, 1080, 1920);
+        model.dragEnd(10,10,100,240);
+
+        assertTrue(model.getAllMapObjects().size() > 0);
+    }
+
 }
