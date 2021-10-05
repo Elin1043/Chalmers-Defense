@@ -41,9 +41,8 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final LostPanel lostPanelView;
     private final BottomBarUpgradePanel bottomBarUpgradePanel;
     private final RightSidePanel rightSidePanel;
-    private final Model model;
-    private final Stage stageHUD;
     private final IViewModel model;
+    private final Stage stageHUD;
 
     private final InputMultiplexer multiplexer = new InputMultiplexer();
 

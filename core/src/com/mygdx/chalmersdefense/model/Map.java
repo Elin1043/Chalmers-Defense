@@ -61,6 +61,8 @@ class Map {
         virusesList.clear();
         clickedTower = null;
         isGameLost = false;
+        // Removes range circle
+        rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
     }
 
     private void addTempListsToMainLists(){
