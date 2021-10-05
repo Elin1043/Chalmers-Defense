@@ -11,6 +11,11 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * @author Elin Forsberg
+ *
+ * Test class for AcidPool
+ */
 public class TestAcidPool {
     List<IProjectile> projectilesList = new ArrayList<>();
     List<IProjectile> addList = new ArrayList<>();
