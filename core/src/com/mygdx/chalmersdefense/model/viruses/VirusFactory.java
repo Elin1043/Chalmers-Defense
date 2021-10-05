@@ -1,8 +1,8 @@
 package com.mygdx.chalmersdefense.model.viruses;
 
 
-import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.model.path.gamePaths.PathFactory;
 
 
 /**
@@ -11,7 +11,7 @@ import com.mygdx.chalmersdefense.model.path.Path;
  */
 public abstract class VirusFactory {
 
-    private static final Path path = new ClassicPath(); // Pointer to the path object
+    private static final Path path = PathFactory.createClassicPath(); // Pointer to the path object
 
     /**
      * Creates a Virus with one health

@@ -2,7 +2,7 @@ package testViruses;
 
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.path.Path;
-import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
+import com.mygdx.chalmersdefense.model.path.gamePaths.PathFactory;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import org.junit.Assert;
@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
  * Test class for Virus class
  */
 public class TestVirus {
-    Path p = new ClassicPath();
+    Path p = PathFactory.createClassicPath();
 
     @Test
     public void testVirusGetHit(){

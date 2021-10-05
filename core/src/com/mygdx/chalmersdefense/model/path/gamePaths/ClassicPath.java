@@ -6,11 +6,13 @@ import com.mygdx.chalmersdefense.utilities.PositionVector;
 /**
  * @author Daniel Persson
  * @author Jenny Carlsson
+ *
+ * 2021-10-05 Modified by Elin Forsberg: Made ClassicPath package-private
  */
 
 
 
-public class ClassicPath extends Path {
+class ClassicPath extends Path {
 
     public ClassicPath() {
         super(80);

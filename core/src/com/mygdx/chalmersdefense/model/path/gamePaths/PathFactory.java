@@ -1,7 +1,8 @@
-package com.mygdx.chalmersdefense.model.path;
+package com.mygdx.chalmersdefense.model.path.gamePaths;
 
 
-import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
+import com.mygdx.chalmersdefense.model.path.Path;
+
 
 /**
  * @author Jenny Carlsson

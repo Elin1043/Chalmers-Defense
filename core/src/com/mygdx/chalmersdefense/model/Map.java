@@ -3,7 +3,7 @@ package com.mygdx.chalmersdefense.model;
 
 import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
 import com.mygdx.chalmersdefense.model.path.Path;
-import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
+import com.mygdx.chalmersdefense.model.path.gamePaths.PathFactory;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.towers.*;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
@@ -33,7 +33,7 @@ class Map {
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();   // Temporary list for object adding projectiles to the main list (To avoid concurrent modification issues)
 
     private final Player player;                            // A reference to the Player object in the game
-    private final Path path = new ClassicPath();           // Make a path factory instead?;
+    private final Path path = PathFactory.createClassicPath();
 
     private boolean isGameLost;
 
