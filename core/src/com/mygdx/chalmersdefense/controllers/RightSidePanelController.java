@@ -6,21 +6,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.mygdx.chalmersdefense.model.IControllModel;
 import com.mygdx.chalmersdefense.model.Model;
 
 /**
  * @author
  *
- *
- * @Modified by Elin Forsberg
- *  Added listener for tower buttons
+ * 2021-09-17 Modified by Elin Forsberg: Added listener for tower buttons
+ * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model
  */
 
 public class RightSidePanelController {
-    private Model model;
+    private IControllModel model;
 
 
-    public RightSidePanelController(Model model) {
+    public RightSidePanelController(IControllModel model) {
         this.model = model;
     }
 
@@ -62,8 +62,6 @@ public class RightSidePanelController {
                 float inputX = event.getStageX();
                 float inputY = event.getStageY();
                 model.dragEnd((button.getImage().getWidth()/2), (button.getImage().getHeight()/2) ,inputX,inputY);
-
-
             }
         });
 

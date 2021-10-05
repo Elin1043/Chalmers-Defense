@@ -6,7 +6,9 @@ import org.json.simple.parser.*;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * @author Daniel Persson
@@ -20,7 +22,7 @@ public class Upgrades {
 
     public Upgrades() {
         try {
-            mainObject = (JSONObject) parser.parse(new FileReader("core/assets/UpgradeData.json"));
+            mainObject = (JSONObject) parser.parse(new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("UpgradeData.json"))));
         } catch (IOException | ParseException exception) {
             exception.printStackTrace();
         }

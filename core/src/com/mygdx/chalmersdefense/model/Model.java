@@ -31,7 +31,7 @@ import java.util.List;
  * 2021-09-30 Modified by Joel Båtsman Hilmersson: Added a specifc timer object
  */
 
-public class Model implements IUpdateModel {
+public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final int WINNING_ROUND = 10;
     private final int LIVES = 100;
     private final int START_CAPITAL = 3000;
@@ -53,6 +53,7 @@ public class Model implements IUpdateModel {
         virusSpawner.decrementSpawnTimer();
     }
 
+    @Override
     public void resetModel() {
         round = new Rounds(WINNING_ROUND);
         player.resetPlayer(LIVES, START_CAPITAL);
@@ -81,9 +82,8 @@ public class Model implements IUpdateModel {
     }
 
 
-    /**
-     * Starts spawning viruses based on which is the current round
-     */
+
+    @Override
     public void startRoundPressed() {
         if (!virusSpawner.isSpawning() && map.isVirusCleared()) {
             startGameUpdate();
@@ -97,138 +97,84 @@ public class Model implements IUpdateModel {
     }
 
 
-    /**
-     * Creates a new tower when user starts dragging from a tower button.
-     * @param towerName the name of the tower
-     * @param x the X-position of the button
-     * @param y the Y-position of the button
-     */
+
+    @Override
     public void dragStart(String towerName, float x, float y) {
        map.dragStart(towerName, x, y);
     }
 
-    /**
-     * Handles a tower being dragged.
-     * Updates the towers position after mouse and check for collision
-     * @param buttonWidth The width of the button dragged from
-     * @param buttonHeight The height of the button dragged from
-     * @param x The X-position of the mouse
-     * @param y The Y-position of the mouse
-     * @param windowHeight The height of the window
-     * @param windowWidth  The width of the window
-     */
-
+    @Override
     public void onDrag(float buttonWidth, float buttonHeight, float x, float y, int windowHeight, int windowWidth) {
         map.onDrag(buttonWidth, buttonHeight, x, y, windowHeight, windowWidth);
-
     }
 
-
-    /**
-     * Handles when the tower is let go.
-     * Checks if tower can be placed on current position.
-     * If not: tower is removed
-     * if valid: place the tower
-     * @param buttonWidth The width of the button dragged from
-     * @param buttonHeight The height of the button dragged from
-     * @param x The X-position of the mouse
-     * @param y The Y-position of the mouse
-     */
-
+    @Override
     public void dragEnd(float buttonWidth, float buttonHeight, float x, float y) {
         map.dragEnd(buttonWidth, buttonHeight, x, y);
     }
 
 
-    // Maybe temporary because it sets the object to null.
-    /**
-     * Handles when a placed tower is clicked
-     */
+    // Maybe temporary because it sets the object to null. (Remove comment?)
+    @Override
     public void checkIfTowerClicked(float x, float y) {
         map.checkIfTowerClicked(x,y);
-
     }
 
+    @Override
     public GetRangeCircle getRangeCircle() {
         return map.getRangeCircle();
     }
 
+    @Override
     public IMapObject getClickedTower() {
         return map.getClickedTower();
     }
 
-    /**
-     * A delegation for getting title of a tower upgrade.
-     * @param towerName The towers name
-     * @param upgradeLevel what upgrade to get title of
-     * @return a String with towers upgrade title depending on upgrade level.
-     */
+    @Override
     public String getTowerUpgradeTitle(String towerName, int upgradeLevel) {
         return upgrades.getTowerUpgradeTitle(towerName, upgradeLevel);
     }
 
 
-    /**
-     * A delegation for getting description of a tower upgrade.
-     * @param towerName The towers name
-     * @param upgradeLevel what upgrade to get description of
-     * @return a String with towers upgrade description depending on upgrade level.
-     */
+    @Override
     public String getTowerUpgradeDesc(String towerName, int upgradeLevel) {
         return upgrades.getTowerUpgradeDesc(towerName, upgradeLevel);
     }
 
-    /**
-     * A delegation for getting price of a tower upgrade.
-     * @param towerName The towers name
-     * @param upgradeLevel what upgrade to get price of
-     * @return a String with towers upgrade price depending on upgrade level.
-     */
+    @Override
     public Long getTowerUpgradePrice(String towerName, int upgradeLevel) {
         return upgrades.getTowerUpgradePrice(towerName, upgradeLevel);
     }
 
-    /**
-     * Delegates upgrade method to upgrade class. And decreases players money if upgrade is applied.
-     */
+    @Override
     public void upgradeClickedTower() {
         if (upgrades.upgradeTower(map.getClickedTower())) {
             player.decreaseMoney(upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), map.getClickedTower().getUpgradeLevel() - 1).intValue());
         }
     }
 
+    @Override
     public boolean getIsGameLost() {
         return map.getIsGameLost();
     }
 
-    /**
-     * Return the current money value
-     * @return the money value
-     */
+    @Override
     public int getMoney() { return player.getMoney(); }
 
-    /**
-     * Returns the lives left of player
-     * @return lives left
-     */
+    @Override
     public int getLivesLeft() { return player.getLives(); }
 
-    /**
-     * Returns the current round
-     * @return current round
-     */
+    @Override
     public int getCurrentRound() { return round.getCurrentRound(); }
 
 
-
-    /**
-     * Return the list of viruses on path
-     * @return the list of viruses
-     */
+    //TODO Remove THIS when not needed
+    @Override
     public List<IVirus> getViruses() {
         return map.getViruses();
     }
 
+    @Override
     public List<IMapObject> getAllMapObjects() {
         return map.getAllMapObjects();
     }

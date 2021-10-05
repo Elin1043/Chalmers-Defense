@@ -11,7 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
+import com.mygdx.chalmersdefense.model.IControllModel;
 import com.mygdx.chalmersdefense.model.IMapObject;
+import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.chalmersdefense.model.Model;
@@ -41,8 +43,10 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final RightSidePanel rightSidePanel;
     private final Model model;
     private final Stage stageHUD;
+    private final IViewModel model;
 
     private final InputMultiplexer multiplexer = new InputMultiplexer();
+
 
     private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
     private final Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
