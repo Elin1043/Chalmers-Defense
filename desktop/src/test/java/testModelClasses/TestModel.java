@@ -32,6 +32,7 @@ public class TestModel {
         model.dragEnd(100,100,100,100);
         assertTrue(model.getAllMapObjects().size() > 0);
     }
+    
 
     @Test
     public void testUpdateModel() {
