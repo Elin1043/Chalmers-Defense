@@ -90,8 +90,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         stageHUD.addActor(sideBarBackground);
 
         addActor(mapImage);
-
-        lostPanelView.initialize();
     }
 
 
@@ -125,7 +123,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         if (model.getIsGameLost()) {
             lostPanelView.render();
         } else {
-            lostPanelView.hideLostPanelGroup();
+            lostPanelView.hideOverlay();
         }
 
 
