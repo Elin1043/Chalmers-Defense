@@ -34,4 +34,14 @@ public class TestUpgrades {
         Long upgradePrice = model.getTowerUpgradePrice("IT-Smurf", 1);
         assertTrue(Math.abs(500 - upgradePrice) < 0.001);
     }
+
+    @Test
+    public void testUpgradeTower() {
+        model.dragStart("eco", 300, 300); // Creates tower
+        model.dragEnd(2, 2, 300, 300);
+
+        model.upgradeClickedTower();
+        int upgradeLevel = Character.getNumericValue(model.getClickedTower().getSpriteKey().charAt(model.getClickedTower().getSpriteKey().length() - 1));
+        assertEquals(2, upgradeLevel);
+    }
 }
