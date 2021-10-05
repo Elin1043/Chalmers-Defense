@@ -53,15 +53,20 @@ public abstract class GameScreenOverlay {
         Gdx.gl.glDisable(GL_BLEND);
     }
 
-    protected void createButtons(Image backgroundImage, Button button, Label buttonLabel, int buttonNr) {
+    protected void createButtons(Image backgroundImage, Button button, Label buttonLabel, int buttonNr, String originPanel) {
         // Offset used to place button in center of left or right part.
         float offsetMulX;
         if (buttonNr == 1) {
             offsetMulX = 1/4f;
-            gameScreenController.addLostPanelMainMenuClickListener(button);
+            gameScreenController.addMainMenuClickListener(button);
         } else {
             offsetMulX = 3/4f;
-            gameScreenController.addLostPanelTryAgainClickListener(button);
+            if (originPanel.equals("WinPanel")) {
+                gameScreenController.addWinPanelContinueClickListener(button);
+            } else {
+                gameScreenController.addLostPanelTryAgainClickListener(button);
+            }
+
         }
 
         button.setPosition(
