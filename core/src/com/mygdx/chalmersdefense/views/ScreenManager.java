@@ -40,21 +40,13 @@ public class ScreenManager {
             newScreen.buildStage();
             game.setScreen(newScreen);
         }
-
-        // Dispose previous screen
-        if (currentScreen != null) {
-            currentScreen.dispose();
-        }
     }
 
     private AbstractScreen getScreen(ScreenEnum screenEnum) {
-        switch (screenEnum) {
-            case MAIN_MENU:
-                return mainScreen;
-            case GAME:
-                return gameScreen;
-            default:
-                return null;
-        }
+        return switch (screenEnum) {
+            case MAIN_MENU -> mainScreen;
+            case GAME -> gameScreen;
+            default -> null;
+        };
     }
 }

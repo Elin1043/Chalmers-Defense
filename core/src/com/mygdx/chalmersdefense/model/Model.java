@@ -1,15 +1,13 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.projectiles.Projectile;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
-import com.mygdx.chalmersdefense.model.towers.Tower;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
-import com.mygdx.chalmersdefense.model.viruses.Virus;
+import com.mygdx.chalmersdefense.utilities.GameTimer;
+import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 
 import java.util.List;
 
@@ -30,38 +28,36 @@ import java.util.List;
  * 2021-09-27 Modified by Elin Forsberg: Added methods to handle different attacks from towers
  * 2021-09-27 Modified by Daniel Persson: Added delegation getters for upgrade title, description and price.
  * 2021-09-28 Modified by Everyone: Moved methods to Map class
+ * 2021-09-30 Modified by Joel Båtsman Hilmersson: Added a specifc timer object
  */
 
-public class Model {
-    private final ChalmersDefense game;
-    private final Rounds round = new Rounds(10);    // 10 is temporary
+public class Model implements IUpdateModel {
+    private final int WINNING_ROUND = 10;
+    private final int LIVES = 100;
+    private final int START_CAPITAL = 3000;
 
-    private final Player player = new Player(100, 3000); //Change staring capital later. Just used for testing right now
+    private final GameTimer timer = new GameTimer(this);
+    private Rounds round = new Rounds(WINNING_ROUND);
+
+    private final Player player = new Player(LIVES, START_CAPITAL); //Change staring capital later. Just used for testing right now
     private final Upgrades upgrades = new Upgrades();
 
 
     private final Map map = new Map(player);
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());
 
-
-    /**
-     * Constructor of the model class
-     * @param game current game session
-     */
-    public Model(ChalmersDefense game) {
-        this.game = game;
-
+    @Override
+    public void updateModel() {
+        map.updateMap();
+        checkRoundCompleted();
+        virusSpawner.decrementSpawnTimer();
     }
 
-    /**
-     * Update all the model components
-     */
-    public void updateModel() {
-        if (game.isUpdating()) {
-            map.updateMap();
-            checkRoundCompleted();
-            virusSpawner.decrementSpawnTimer();
-        }
+    public void resetModel() {
+        round = new Rounds(WINNING_ROUND);
+        player.resetPlayer(LIVES, START_CAPITAL);
+        map.resetMap();
+        virusSpawner.resetSpawnViruses();
     }
 
     private void checkRoundCompleted() {
@@ -76,12 +72,12 @@ public class Model {
 
 
 
-    private void stopGameUpdate() {
-        game.stopModelUpdate();
+    private void startGameUpdate() {
+        timer.startUpdateTimer();
     }
 
-    private void startGameUpdate() {
-        game.startModelUpdate();
+    private void stopGameUpdate() {
+        timer.stopUpdateTimer();
     }
 
 
@@ -95,7 +91,7 @@ public class Model {
             virusSpawner.spawnRound(round.getCurrentRound());
         } else {
 
-            game.changeUpdateSpeed();
+            timer.changeUpdateSpeed();
 
         }
     }
@@ -107,7 +103,7 @@ public class Model {
      * @param x the X-position of the button
      * @param y the Y-position of the button
      */
-    public void dragStart(String towerName, int x, int y) {
+    public void dragStart(String towerName, float x, float y) {
        map.dragStart(towerName, x, y);
     }
 
@@ -122,7 +118,7 @@ public class Model {
      * @param windowWidth  The width of the window
      */
 
-    public void onDrag(int buttonWidth, int buttonHeight, int x, int y, int windowHeight, int windowWidth) {
+    public void onDrag(float buttonWidth, float buttonHeight, float x, float y, int windowHeight, int windowWidth) {
         map.onDrag(buttonWidth, buttonHeight, x, y, windowHeight, windowWidth);
 
     }
@@ -137,72 +133,72 @@ public class Model {
      * @param buttonHeight The height of the button dragged from
      * @param x The X-position of the mouse
      * @param y The Y-position of the mouse
-     * @param windowHeight The height of the window
      */
 
-    public void dragEnd(int buttonWidth, int buttonHeight, int x, int y, int windowHeight) {
-        map.dragEnd(buttonWidth, buttonHeight, x, y, windowHeight);
+    public void dragEnd(float buttonWidth, float buttonHeight, float x, float y) {
+        map.dragEnd(buttonWidth, buttonHeight, x, y);
     }
 
 
     // Maybe temporary because it sets the object to null.
-    public void towerClicked(float x, float y) {
-        map.towerClicked(x, y);
+    /**
+     * Handles when a placed tower is clicked
+     */
+    public void checkIfTowerClicked(float x, float y) {
+        map.checkIfTowerClicked(x,y);
+
     }
 
-    public void towerNotClicked() {
-        map.towerNotClicked();
+    public GetRangeCircle getRangeCircle() {
+        return map.getRangeCircle();
     }
 
-    public ITower getClickedTower() {
+    public IMapObject getClickedTower() {
         return map.getClickedTower();
     }
 
     /**
      * A delegation for getting title of a tower upgrade.
-     * @param tower used to get tower name
+     * @param towerName The towers name
      * @param upgradeLevel what upgrade to get title of
      * @return a String with towers upgrade title depending on upgrade level.
      */
-    public String getTowerUpgradeTitle(ITower tower, int upgradeLevel) {
-        return upgrades.getTowerUpgradeTitle(tower, upgradeLevel);
+    public String getTowerUpgradeTitle(String towerName, int upgradeLevel) {
+        return upgrades.getTowerUpgradeTitle(towerName, upgradeLevel);
     }
 
 
     /**
      * A delegation for getting description of a tower upgrade.
-     * @param tower used to get tower name
+     * @param towerName The towers name
      * @param upgradeLevel what upgrade to get description of
      * @return a String with towers upgrade description depending on upgrade level.
      */
-    public String getTowerUpgradeDesc(ITower tower, int upgradeLevel) {
-        return upgrades.getTowerUpgradeDesc(tower, upgradeLevel);
+    public String getTowerUpgradeDesc(String towerName, int upgradeLevel) {
+        return upgrades.getTowerUpgradeDesc(towerName, upgradeLevel);
     }
 
     /**
      * A delegation for getting price of a tower upgrade.
-     * @param tower used to get tower name
+     * @param towerName The towers name
      * @param upgradeLevel what upgrade to get price of
      * @return a String with towers upgrade price depending on upgrade level.
      */
-    public Long getTowerUpgradePrice(ITower tower, int upgradeLevel) {
-        return upgrades.getTowerUpgradePrice(tower, upgradeLevel);
+    public Long getTowerUpgradePrice(String towerName, int upgradeLevel) {
+        return upgrades.getTowerUpgradePrice(towerName, upgradeLevel);
     }
 
     /**
-     * Delegates upgrade method to upgrade class.
+     * Delegates upgrade method to upgrade class. And decreases players money if upgrade is applied.
      */
     public void upgradeClickedTower() {
-        upgrades.upgradeTower(map.getClickedTower());
+        if (upgrades.upgradeTower(map.getClickedTower())) {
+            player.decreaseMoney(upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), map.getClickedTower().getUpgradeLevel() - 1).intValue());
+        }
     }
 
-
-    /**
-     * Return the list of projectiles
-     * @return list of projectiles
-     */
-    public List<IProjectile> getProjectilesList() {
-        return map.getProjectilesList();
+    public boolean getIsGameLost() {
+        return map.getIsGameLost();
     }
 
     /**
@@ -223,13 +219,7 @@ public class Model {
      */
     public int getCurrentRound() { return round.getCurrentRound(); }
 
-    /**
-     * Return the list of towers on map
-     * @return The list of towers
-     */
-    public List<ITower> getTowers() {
-        return map.getTowers();
-    }
+
 
     /**
      * Return the list of viruses on path
@@ -237,5 +227,9 @@ public class Model {
      */
     public List<IVirus> getViruses() {
         return map.getViruses();
+    }
+
+    public List<IMapObject> getAllMapObjects() {
+        return map.getAllMapObjects();
     }
 }

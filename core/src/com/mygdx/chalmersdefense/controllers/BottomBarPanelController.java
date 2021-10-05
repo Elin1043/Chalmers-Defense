@@ -10,7 +10,7 @@ import com.mygdx.chalmersdefense.model.Model;
  * Controller class for bottom bar element in GameScreen
 */
 public class BottomBarPanelController {
-    private Model model;
+    private final Model model;
 
     public BottomBarPanelController(Model model) {
         this.model = model;
@@ -25,7 +25,6 @@ public class BottomBarPanelController {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // Do something
                 model.upgradeClickedTower();
             }
         });

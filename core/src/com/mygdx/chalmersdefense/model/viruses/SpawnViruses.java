@@ -47,6 +47,13 @@ public class SpawnViruses {
     }
 
     /**
+     * Resets currently spawning queue and resets wave index
+     */
+    public void resetSpawnViruses() {
+        isSpawning = false;
+    }
+
+    /**
      * Returns if the class currently spawns viruses
      * @return the spawning status
      */
