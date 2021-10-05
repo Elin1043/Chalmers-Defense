@@ -31,6 +31,7 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * 2021-09-24 Modified by Elin Forsberg: Added methods to render projectiles
  * 2021-09-28 Modified by Daniel Persson: Added methods and instance variables to render upgrade panel and upgrade buttons
  * 2021-10-03 Modified by Elin Forsberg: Sprite render now uses general IMapObject and range circle rendering was separated
+ * 2021-10-04 Modified by Daniel Persson: Refactored GameScreen into two seperate classes. BottomBarUpgradePanel and RightSidePanel
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
@@ -79,6 +80,9 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     }
 
+    /**
+     * Setup actors
+     */
     @Override
     public void buildStage() {
         stageHUD.addActor(bottomBarPanelBackground);
@@ -90,7 +94,10 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
 
-    //Render methods
+    /**
+     * Renders GameScreen to screen
+     * @param delta the timeframe from previous frame to current frame
+     */
     @Override
     public void render(float delta) {
         super.render(Gdx.graphics.getDeltaTime());
@@ -113,6 +120,7 @@ public class GameScreen extends AbstractScreen implements Screen {
             bottomBarUpgradePanel.hideBottomBar();
         }
 
+        // Render lost game panel if game is lost
         if (model.getIsGameLost()) {
             lostPanelView.render();
         } else {
@@ -129,11 +137,6 @@ public class GameScreen extends AbstractScreen implements Screen {
             model.startRoundPressed();
         }
 
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
     }
 
     private void renderMapObjects(){
