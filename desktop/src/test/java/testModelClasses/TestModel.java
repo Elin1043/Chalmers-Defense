@@ -1,11 +1,8 @@
 package testModelClasses;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mygdx.chalmersdefense.ChalmersDefense;
-import com.mygdx.chalmersdefense.model.IUpdateModel;
 import com.mygdx.chalmersdefense.model.Model;
-import com.mygdx.chalmersdefense.views.GameScreen;
 import org.junit.Before;
 import org.junit.Test;
 

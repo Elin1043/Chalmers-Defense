@@ -6,9 +6,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 
 /**
@@ -21,30 +20,30 @@ public class TestProjectileFactory {
     @Test
     public void testCreateZeroOneProjectile(){
         IProjectile projectile = ProjectileFactory.createZeroOneProjectile(0,0,0,1);
-        assertTrue(Objects.equals(projectile.getSpriteKey(), "smurfProjectile1"));
+        assertEquals("smurfProjectile1", projectile.getSpriteKey());
     }
 
     @Test
     public void testCreateAcidProjectile(){
         IProjectile projectile = ProjectileFactory.createAcidProjectile(0,0,0,1, projectileList);
-        assertTrue(Objects.equals(projectile.getSpriteKey(), "chemistProjectile1"));
+        assertEquals("chemistProjectile1", projectile.getSpriteKey());
     }
 
     @Test
     public void testCreateAcidPool(){
         IProjectile projectile = ProjectileFactory.createAcidPool(0,0,1);
-        assertTrue(Objects.equals(projectile.getSpriteKey(), "chemistAcid1"));
+        assertEquals("chemistAcid1", projectile.getSpriteKey());
     }
 
     @Test
     public void testCreateLightningProjectile(){
         IProjectile projectile = ProjectileFactory.createLightningProjectile(0,0,0,1);
-        assertTrue(Objects.equals(projectile.getSpriteKey(), "electroProjectile1"));
+        assertEquals("electroProjectile1", projectile.getSpriteKey());
     }
 
     @Test
     public void testCreateRobotProjectile(){
         IProjectile projectile = ProjectileFactory.createRobotProjectile(0,0,0,1);
-        assertTrue(Objects.equals(projectile.getSpriteKey(), "mechaProjectile1"));
+        assertEquals("mechaProjectile1", projectile.getSpriteKey());
     }
 }

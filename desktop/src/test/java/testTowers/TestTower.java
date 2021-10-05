@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 /**
@@ -26,9 +25,9 @@ public class TestTower {
         ITower tower = TowerFactory.CreateSmurf(0,0);
         tower.placeTower();
         tower.update(projectilesList, 0, true);
-        assertTrue(projectilesList.size() == 1);
+        assertEquals(1, projectilesList.size());
         tower.update(projectilesList, 0, true);
-        assertTrue(projectilesList.size() ==1);
+        assertEquals(1, projectilesList.size());
 
     }
 
@@ -56,9 +55,9 @@ public class TestTower {
     @Test
     public void testTowerCollision(){
         ITower tower = TowerFactory.CreateSmurf(0,0);
-        assertEquals(tower.getCollision(), false);
+        assertFalse(tower.getCollision());
         tower.setCollision(true);
-        assertEquals(tower.getCollision(), true);
+        assertTrue(tower.getCollision());
 
     }
 
@@ -84,13 +83,13 @@ public class TestTower {
     @Test
     public void testTowerGetTargetMode (){
         ITower tower = TowerFactory.CreateSmurf(0,0);
-        assertTrue(tower.getCurrentTargetMode() != null);
+        assertNotNull(tower.getCurrentTargetMode());
     }
 
     @Test
     public void testTowerIsPlaced (){
         ITower tower = TowerFactory.CreateSmurf(0,0);
-        assertEquals(tower.isPlaced(), false);
+        assertFalse(tower.isPlaced());
     }
 
 
