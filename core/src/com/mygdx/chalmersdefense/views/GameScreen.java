@@ -10,18 +10,16 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
+import com.mygdx.chalmersdefense.model.IControllModel;
 import com.mygdx.chalmersdefense.model.IMapObject;
+import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
@@ -49,7 +47,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final BottomBarPanelController bottomBarPanelController;
     private final GameScreenController gameScreenController;
     private final LostPanel lostPanelView;
-    private final Model model;
+    private final IViewModel model;
 
     private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
     private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
@@ -94,7 +92,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final ImageButton chemistButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1770, 830, "chemist");
     private final ImageButton electroButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ElectroButton.png"), 1770, 650, "electro");
     private final ImageButton hackerButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/HackerButton.png"), 1620, 650, "hacker");
-    private final ImageButton meckButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "meck");
+    private final ImageButton mechButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "meck");
     private final ImageButton ecoButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
 
 
@@ -147,7 +145,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         towerButtons.put(200, chemistButton);
         towerButtons.put(300, hackerButton);
         towerButtons.put(400, electroButton);
-        towerButtons.put(500, meckButton);
+        towerButtons.put(500, mechButton);
         towerButtons.put(600, ecoButton);
 
 
@@ -170,7 +168,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(chemistButton);
         addActor(hackerButton);
         addActor(electroButton);
-        addActor(meckButton);
+        addActor(mechButton);
         addActor(ecoButton);
 
         addActor(mapImage);
@@ -288,7 +286,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         rightSidePanelController.addTowerButtonListener(chemistButton);
         rightSidePanelController.addTowerButtonListener(hackerButton);
         rightSidePanelController.addTowerButtonListener(electroButton);
-        rightSidePanelController.addTowerButtonListener(meckButton);
+        rightSidePanelController.addTowerButtonListener(mechButton);
         rightSidePanelController.addTowerButtonListener(ecoButton);
     }
 

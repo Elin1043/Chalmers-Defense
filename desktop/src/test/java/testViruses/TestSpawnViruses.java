@@ -49,6 +49,14 @@ public class TestSpawnViruses {
     }
 
     @Test
+    public void testManualIsSpawningReset(){
+        sp.spawnRound(1);
+        assertTrue(sp.isSpawning());
+        sp.resetSpawnViruses();
+        assertFalse(sp.isSpawning());
+    }
+
+    @Test
     public void testSpawnWholeRound(){
         sp.spawnRound(1);
         while(sp.isSpawning()) { sp.decrementSpawnTimer(); }
