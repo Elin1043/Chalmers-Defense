@@ -55,7 +55,9 @@ public class TestModel {
         model.dragStart("smurf",0,0);
         model.dragEnd(100,100,100,100);
 
-        model.startRoundPressed();
+        model.startRoundPressed();  // StartRound
+        model.startRoundPressed();  // Speed UP updates     (To get line coverage)
+        model.startRoundPressed();  // Slow Down updates    (To get line coverage)
         assertTrue(model.getAllMapObjects().size() > 0);
         assertEquals(1, model.getCurrentRound());
         for (int i = 0; i < 10000; i++) {
@@ -116,8 +118,6 @@ public class TestModel {
     @Test
     public void testGetIsGameLost() {
         assertFalse(model.getIsGameLost());
-
     }
-
 
 }
