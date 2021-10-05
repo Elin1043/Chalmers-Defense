@@ -1,19 +1,11 @@
 package testViruses;
 
-import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.path.gamePaths.ClassicPath;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert.*;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
 
 import static org.junit.Assert.*;
 
