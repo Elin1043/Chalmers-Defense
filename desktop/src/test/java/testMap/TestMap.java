@@ -19,7 +19,7 @@ public class TestMap {
 
     @Test
     public void testMapProjectileCollision() {
-        model.dragStart("smurf",0,0);
+        model.dragStart("electro",0,0);
         model.dragEnd(100,100,190,640);       // Creates and places smurf
         assertTrue(model.getAllMapObjects().size() > 0);        // To verify Smurf is on the map
         model.startRoundPressed();                                      // Begins to spawn viruses
@@ -28,6 +28,15 @@ public class TestMap {
             model.updateModel();                                        // the only object left on map
         }
 
-        assertEquals(1, model.getAllMapObjects().size());
+        assertEquals(1, model.getAllMapObjects().size());       // To see if it can kill on virus
+
+        int moneyBeforeMoreSpawn = model.getMoney();
+
+        for (int i = 0; i < 10000; i++){                                // To test more lines in map
+            model.updateModel();                                        // Loops so the virus can move and tower shoot more
+        }
+
+        assertTrue(model.getMoney() > moneyBeforeMoreSpawn);    // To see if tower has hit more virus in the update loop
+
     }
 }
