@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 
-public abstract class Path implements IPath{
+public abstract class Path {
 
     private final int pathWidth;
 
