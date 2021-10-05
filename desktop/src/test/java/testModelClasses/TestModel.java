@@ -6,6 +6,7 @@ import com.mygdx.chalmersdefense.model.Model;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -17,11 +18,11 @@ import static org.junit.Assert.assertTrue;
  */
 public class TestModel {
 
+    LwjglApplication app = new LwjglApplication(new ChalmersDefense());
     Model model;
 
     @Before
     public void init() {
-        new LwjglApplication(new ChalmersDefense());
         model = new Model();
     }
 
@@ -31,6 +32,5 @@ public class TestModel {
         model.dragEnd(100,100,100,100);
         assertTrue(model.getAllMapObjects().size() > 0);
     }
-
 
 }
