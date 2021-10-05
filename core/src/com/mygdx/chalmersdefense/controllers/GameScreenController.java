@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.chalmersdefense.model.IControllModel;
+import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.views.ScreenEnum;
 import com.mygdx.chalmersdefense.views.ScreenManager;
@@ -19,7 +20,7 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
 public class GameScreenController {
     private IControllModel model;
 
-    public GameScreenController(Model model) {
+    public GameScreenController(IControllModel model) {
         this.model = model;
     }
 
