@@ -64,8 +64,8 @@ public class LostPanel extends GameScreenOverlay {
                 backgroundImage.getX() + backgroundImage.getWidth() / 2 - 720/2f,
                 backgroundImage.getY() + backgroundImage.getHeight() - 150);
 
-        createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1);
-        createButtons(backgroundImage, tryAgainButton, tryAgainButtonText, 2);
+        createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1, "LostPanel");
+        createButtons(backgroundImage, tryAgainButton, tryAgainButtonText, 2, "LostPanel");
 
         lostPanelGroup.setVisible(false);
     }
