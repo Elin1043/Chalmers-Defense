@@ -46,6 +46,8 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final Map map = new Map(player);
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());
 
+    private boolean showWinPanel = false;
+
     @Override
     public void updateModel() {
         map.updateMap();
@@ -68,6 +70,10 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
             stopGameUpdate();
             map.roundClear();
+
+            if (round.gameWon()) {
+                showWinPanel = true;
+            }
         }
     }
 
@@ -156,6 +162,16 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     @Override
     public boolean getIsGameLost() {
         return map.getIsGameLost();
+    }
+
+    @Override
+    public boolean showWinPanel() {
+        return showWinPanel;
+    }
+
+    @Override
+    public void continueToFreePlay() {
+        showWinPanel = false;
     }
 
     @Override
