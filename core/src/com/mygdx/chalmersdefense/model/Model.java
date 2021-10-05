@@ -114,7 +114,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
 
-    // Maybe temporary because it sets the object to null. (Remove comment?)
+
     @Override
     public void checkIfTowerClicked(float x, float y) {
         map.checkIfTowerClicked(x,y);

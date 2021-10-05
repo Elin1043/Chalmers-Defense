@@ -14,9 +14,9 @@ import java.util.List;
 class MechTower extends Tower {
 
     private final List<ITower> miniTowers = new ArrayList<>();
-    private int reloadSpeed;
-    private int range;
-    private List<ITargetMode> targetModes;
+    private final int reloadSpeed;
+    private final int range;
+    private final List<ITargetMode> targetModes;
     List<ITower> towersToAddList;
 
 

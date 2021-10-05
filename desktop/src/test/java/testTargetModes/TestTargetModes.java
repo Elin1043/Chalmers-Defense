@@ -4,16 +4,13 @@ import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
-import com.mygdx.chalmersdefense.utilities.Calculate;
 import org.junit.Before;
 import org.junit.Test;
-import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author Joel Båtsman Hilmersson

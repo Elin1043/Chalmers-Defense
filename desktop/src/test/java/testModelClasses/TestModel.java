@@ -6,8 +6,8 @@ import com.mygdx.chalmersdefense.model.Model;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.*;
 
 /**
  * @author Joel Båtsman Hilmersson
@@ -82,8 +82,42 @@ public class TestModel {
         model.onDrag(10,10, 50, 456, 1080, 1920);
         model.onDrag(10,10, 20, 780, 1080, 1920);
         model.dragEnd(10,10,100,240);
-
         assertTrue(model.getAllMapObjects().size() > 0);
     }
+
+    @Test
+    public void testDragEnd(){
+        model.dragStart("smurf",0,0);
+        assertEquals(1, model.getAllMapObjects().size());
+        model.onDrag(10,10, 0, 0, 1080, 1920);
+        model.onDrag(10,10, -500, 456, 1080, 1920);
+        model.onDrag(10,10, 50, 456, 1080, 1920);
+        model.onDrag(10,10, 0, 0, 1080, 1920);
+        model.dragEnd(10,10,0,0);
+
+        assertEquals(0, model.getAllMapObjects().size());
+    }
+
+    @Test
+    public void testCheckIfTowerClicked() {
+        model.checkIfTowerClicked(0,0);
+        assertNull(model.getClickedTower());
+        model.dragStart("smurf",0,0);
+        model.dragEnd(100,100,100,100);
+        model.checkIfTowerClicked(100,100);
+        assertNotNull(model.getClickedTower());
+    }
+
+    @Test
+    public void testGetRangeCircle() {
+        assertNotNull(model.getRangeCircle());
+    }
+
+    @Test
+    public void testGetIsGameLost() {
+        assertFalse(model.getIsGameLost());
+
+    }
+
 
 }
