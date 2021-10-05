@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.utilities.FontFactory;
 
 import java.util.HashMap;
 
@@ -151,7 +152,7 @@ public class RightSidePanel {
     }
 
     private Label createLabel(String text, float y) {
-        Label label = new Label(text, com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle36BlackBold());
+        Label label = new Label(text, FontFactory.getLabelStyle36BlackBold());
         label.setPosition(1920 - WIDTH/2 - label.getWidth()/2, 1080 - label.getHeight() - y);
         return label;
     }
