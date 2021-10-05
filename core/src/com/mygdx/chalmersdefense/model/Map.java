@@ -245,6 +245,7 @@ public class Map {
         }
 
         towersList.add(newTower);
+        clickedTower = newTower;
 
     }
 
@@ -305,8 +306,9 @@ public class Map {
         }
         else{
             towersList.remove(newTower);
+            rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
+            clickedTower = null;
         }
-        rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
 
 
     }
