@@ -77,11 +77,11 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
 
 
-    private void startGameUpdate() {
+    public void startGameUpdate() {
         timer.startUpdateTimer();
     }
 
-    private void stopGameUpdate() {
+    public void stopGameUpdate() {
         timer.stopUpdateTimer();
     }
 
