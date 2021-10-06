@@ -1,5 +1,10 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
+
+/**
+ * @author Joel Båtsman Hilmersson
+ * Class representing an acidPool projectile
+ */
 class AcidPool extends Projectile implements IProjectile{
 
     private int poolTimer = 150;

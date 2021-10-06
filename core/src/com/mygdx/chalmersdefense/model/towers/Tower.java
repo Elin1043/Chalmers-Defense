@@ -27,7 +27,7 @@ abstract class Tower implements ITower{
 
     private float angle = 0;
     private int range;
-    private String name;
+    private final String name;
 
     private boolean isPlaced = false;
     private float x;
@@ -37,12 +37,12 @@ abstract class Tower implements ITower{
     //private final TargetMode firstMode = TargetModeFactory.
 
     private final List<ITargetMode> targetModes;
-    private ITargetMode currentTargetMode;
+    private final ITargetMode currentTargetMode;
 
     private float width;
     private float height;
 
-    private int cost;
+    private final int cost;
 
     private boolean collision = false;
 
@@ -89,10 +89,7 @@ abstract class Tower implements ITower{
     }
 
 
-    /**
-     * Upgrades the tower based on given HashMap with upgrade values
-     * @param upgrades a HashMap with upgrade values.
-     */
+
     public void upgradeTower(HashMap<String, Long> upgrades) {
         // DMG multiplier??
         reloadTime *= upgrades.get("attackSpeedMul");
@@ -101,102 +98,65 @@ abstract class Tower implements ITower{
         updateSpriteKey(); // Add this when all sprites are in the game.
     }
 
-    /**
-     * Get the upgrade level of tower
-     * @return upgrade level
-     */
+
     public int getUpgradeLevel() {
         return upgradeLevel;
     }
 
     private void updateSpriteKey() { spriteKey = name + upgradeLevel; }
 
-    /**
-     * Get the spriteKey of tower
-     * @return the spriteKey
-     */
+
     public String getSpriteKey() {
         return spriteKey;
     }
 
-    /**
-     * Gets the cost of tower
-     * @return cost of tower
-     */
+
     public int getCost() {
         return cost;
     }
 
-    /**
-     * Gets if tower is colliding with something else
-     * @return tower collision
-     */
+
     public boolean getCollision(){
         return collision;
     }
 
-    /**
-     * Sets if tower is colliding with something else
-     * @param set if tower is colliding
-     */
+
     public void setCollision(boolean set){
         collision = set;
     }
 
-    /**
-     * Gets name of tower
-     * @return name of tower
-     */
+
     public String getName(){
         return name;
     }
 
-    /**
-     * Sets the position of the tower
-     * @param x The X-coordinate to set
-     * @param y The Y-coordinate to set
-     */
+
     public void setPos(float x, float y){
         this.x = x;
         this.y = y;
     }
 
-    /**
-     * Gets the X-position of the tower
-     * @return x-coordinate of tower
-     */
+
     public float getX(){
         return x;
     }
 
-    /**
-     * Gets the Y-position of the tower
-     * @return y-coordinate of tower
-     */
+
     public float getY(){
         return y;
     }
 
-    /**
-     * Gets the height of tower
-     * @return height of tower
-     */
+
     public float getHeight(){
         return height;
     }
 
-    /**
-     * Gets the width of tower
-     * @return width of tower
-     */
+
     public float getWidth(){
         return width;
     }
 
-    /**
-     * Gets the angle of the tower
-     * @return angle of tower
-     */
+
     public float getAngle(){
         return angle;
     }
@@ -207,32 +167,16 @@ abstract class Tower implements ITower{
      */
     void setAngle(float newAngle) { if (isPlaced && (newAngle >= 0)){ angle = newAngle; }}
 
-    /**
-     * Gets the range of the tower
-     * @return range of tower
-     */
     public int getRange(){
         return range;
     }
 
-    /**
-     * Gets the current targetMode of tower
-     * @return current targetMode
-     */
     public ITargetMode getCurrentTargetMode() { return currentTargetMode; }
 
-
-    /**
-     * Gets if tower is placed
-     * @return if placed
-     */
     public boolean isPlaced(){
         return isPlaced;
     }
 
-    /**
-     * Sets that tower is placed
-     */
     public void placeTower(){
         isPlaced = true;
     }

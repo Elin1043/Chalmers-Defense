@@ -2,6 +2,7 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.Player;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
+import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import java.util.List;
@@ -24,7 +25,13 @@ class EcoTower extends Tower {
 
     @Override
     void createProjectile(List<IProjectile> projectileList) {
-        player.increaseMoney(20);
+        switch (getUpgradeLevel()){
+            case 1 -> player.increaseMoney(20);
+            case 2 -> player.increaseMoney(40);
+            case 3 -> player.increaseMoney(80);
+
+        }
+        projectileList.add(ProjectileFactory.createMoneyProjectile(getX(), getY(), getUpgradeLevel()));
     }
 
     @Override

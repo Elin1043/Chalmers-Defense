@@ -53,9 +53,7 @@ abstract class Projectile implements IProjectile{
 
     }
 
-    /**
-     * Moves the projectile in calculated direction
-     */
+
     @Override
     public void update(boolean hitVirus, int haveHit, float angle) {
         if (hitVirus) { virusIsHit(haveHit, angle); }
@@ -87,6 +85,11 @@ abstract class Projectile implements IProjectile{
         return angle;
     }
 
+
+    /**
+     * Set the angle of the projectile
+     * @param angle to be set
+     */
     void setAngle(float angle) {
         this.angle = angle;
     }

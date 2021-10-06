@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mygdx.chalmersdefense.model.IControllModel;
-import com.mygdx.chalmersdefense.model.Model;
 
 /**
  * @author

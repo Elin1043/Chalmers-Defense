@@ -3,12 +3,11 @@ package com.mygdx.chalmersdefense.model.path;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
 import com.mygdx.chalmersdefense.utilities.PositionVector;
 
-import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author
+ * @author Jenny Carlsson
  *
  * 2021-09-24 Modified by Elin Forsberg and Joel Båtsman Hilmersson: Elin created createMapCollision and Joel implemented it here.
  * 2021-10-03 Modified by Joel Båtsman Hilmersson: Switched to use pathRectangle instead of normal Java rectangle.
@@ -25,6 +24,12 @@ public abstract class Path {
 
     protected abstract void setPathWaypoints();
 
+
+    /**
+     * Returns waypoint of given index
+     * @param index to get waypoint of
+     * @return waypoint
+     */
     public PositionVector getWaypoint(int index) { return pathWaypoints.get(index); }
 
     /**

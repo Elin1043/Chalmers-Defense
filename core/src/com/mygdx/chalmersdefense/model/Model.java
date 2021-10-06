@@ -32,7 +32,7 @@ import java.util.List;
 public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final int WINNING_ROUND = 10;
     private final int LIVES = 100;
-    private final int START_CAPITAL = 3000;
+    private final int START_CAPITAL = 30000;
 
     private final GameTimer timer = new GameTimer(this);
     private Rounds round = new Rounds(WINNING_ROUND);
@@ -44,8 +44,10 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final Map map = new Map(player);
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());
 
+    private boolean showWinPanel = false;
+
     @Override
-    public void updateModel() {
+    public synchronized void updateModel() {
         map.updateMap();
         checkRoundCompleted();
         virusSpawner.decrementSpawnTimer();
@@ -66,16 +68,20 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
             stopGameUpdate();
             map.roundClear();
+
+            if (round.gameWon()) {
+                showWinPanel = true;
+            }
         }
     }
 
 
 
-    private void startGameUpdate() {
+    public void startGameUpdate() {
         timer.startUpdateTimer();
     }
 
-    private void stopGameUpdate() {
+    public void stopGameUpdate() {
         timer.stopUpdateTimer();
     }
 
@@ -157,6 +163,16 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
+    public boolean showWinPanel() {
+        return showWinPanel;
+    }
+
+    @Override
+    public void continueToFreePlay() {
+        showWinPanel = false;
+    }
+
+    @Override
     public int getMoney() { return player.getMoney(); }
 
     @Override
@@ -165,6 +181,10 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     @Override
     public int getCurrentRound() { return round.getCurrentRound(); }
 
+    @Override
+    public int getWinningRound() {
+        return round.getWinningRound();
+    }
 
     //TODO Remove THIS when not needed
     @Override
