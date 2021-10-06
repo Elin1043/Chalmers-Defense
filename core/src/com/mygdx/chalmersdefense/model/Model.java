@@ -15,9 +15,9 @@ import java.util.List;
  * @author Elin Forsberg
  * @author Daniel Persson
  * @author Jenny Carlsson
- *
+ * <p>
  * Class handeling all the models in the game.
- *
+ * <p>
  * 2021-09-20 Modified by Elin Forsberg: Added methods to handle towers + collisions
  * 2021-09-20 Modified by Joel Båtsman Hilmersson: Made updateVirus loop syncronized
  * 2021-09-22 Modified by Daniel Persson: Added support for storing a clicked tower and added algorithm for finding what tower is being clicked.
@@ -64,7 +64,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     private void checkRoundCompleted() {
         if (map.isVirusCleared() && !virusSpawner.isSpawning()) {
 
-            player.increaseMoney((100 * (round.getCurrentRound()/2)));
+            player.increaseMoney((100 * (round.getCurrentRound() / 2)));
 
             stopGameUpdate();
             map.roundClear();
@@ -76,7 +76,6 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
 
-
     public void startGameUpdate() {
         timer.startUpdateTimer();
     }
@@ -84,7 +83,6 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     public void stopGameUpdate() {
         timer.stopUpdateTimer();
     }
-
 
 
     @Override
@@ -101,10 +99,9 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
 
-
     @Override
     public void dragStart(String towerName, float x, float y) {
-       map.dragStart(towerName, x, y);
+        map.dragStart(towerName, x, y);
     }
 
     @Override
@@ -118,10 +115,9 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
 
-
     @Override
     public void checkIfTowerClicked(float x, float y) {
-        map.checkIfTowerClicked(x,y);
+        map.checkIfTowerClicked(x, y);
     }
 
     @Override
@@ -173,13 +169,19 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
-    public int getMoney() { return player.getMoney(); }
+    public int getMoney() {
+        return player.getMoney();
+    }
 
     @Override
-    public int getLivesLeft() { return player.getLives(); }
+    public int getLivesLeft() {
+        return player.getLives();
+    }
 
     @Override
-    public int getCurrentRound() { return round.getCurrentRound(); }
+    public int getCurrentRound() {
+        return round.getCurrentRound();
+    }
 
     @Override
     public int getWinningRound() {

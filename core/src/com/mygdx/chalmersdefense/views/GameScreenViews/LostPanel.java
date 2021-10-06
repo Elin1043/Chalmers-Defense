@@ -1,13 +1,14 @@
 package com.mygdx.chalmersdefense.views.GameScreenViews;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
@@ -50,18 +51,18 @@ public class LostPanel extends GameScreenOverlay {
         initializeActors();
 
         // Set position of background
-        backgroundImage.setPosition(stage.getWidth()/2 - WIDTH/2, stage.getHeight()/2 - HEIGHT/2);
+        backgroundImage.setPosition(stage.getWidth() / 2 - WIDTH / 2, stage.getHeight() / 2 - HEIGHT / 2);
 
         // Set position for main title.
         title.setPosition(
-            backgroundImage.getX() + backgroundImage.getWidth() / 2 - title.getWidth() / 2,
-            backgroundImage.getY() + backgroundImage.getHeight() - 100);
+                backgroundImage.getX() + backgroundImage.getWidth() / 2 - title.getWidth() / 2,
+                backgroundImage.getY() + backgroundImage.getHeight() - 100);
 
         mainText.setWrap(true);
         mainText.setWidth(720);
         mainText.setAlignment(Align.center);
         mainText.setPosition(
-                backgroundImage.getX() + backgroundImage.getWidth() / 2 - 720/2f,
+                backgroundImage.getX() + backgroundImage.getWidth() / 2 - 720 / 2f,
                 backgroundImage.getY() + backgroundImage.getHeight() - 150);
 
         createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1, "LostPanel");
