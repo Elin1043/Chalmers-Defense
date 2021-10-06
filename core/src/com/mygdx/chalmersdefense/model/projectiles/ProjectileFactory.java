@@ -29,4 +29,8 @@ public abstract class ProjectileFactory {
     static public IProjectile createRobotProjectile(float towerX, float towerY, float angle, int upgradeLevel){
         return new RobotProjectile(towerX, towerY, angle, upgradeLevel);
     }
+
+    static public IProjectile createMoneyProjectile(float towerX, float towerY, int upgradeLevel){
+        return new MoneyProjectile(towerX, towerY, upgradeLevel);
+    }
 }

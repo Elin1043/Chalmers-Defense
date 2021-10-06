@@ -32,7 +32,7 @@ import java.util.List;
 public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final int WINNING_ROUND = 10;
     private final int LIVES = 100;
-    private final int START_CAPITAL = 3000;
+    private final int START_CAPITAL = 30000;
 
     private final GameTimer timer = new GameTimer(this);
     private Rounds round = new Rounds(WINNING_ROUND);
