@@ -1,11 +1,14 @@
 package com.mygdx.chalmersdefense.views;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
 
+/**
+ * @author Daniel Persson
+ * A singleton class for mangaging the dirrefent screens.
+ */
 public class ScreenManager {
-    private MainScreen mainScreen;
-    private GameScreen gameScreen;
+    private AbstractScreen mainScreen;
+    private AbstractScreen gameScreen;
 
     private static ScreenManager instance;
 
@@ -15,6 +18,10 @@ public class ScreenManager {
         super();
     }
 
+    /**
+     * Returns this instance
+     * @return the only ScreenManager instance
+     */
     public static ScreenManager getInstance() {
         if (instance == null) {
             instance = new ScreenManager();
@@ -22,19 +29,25 @@ public class ScreenManager {
         return instance;
     }
 
-    public void initialize(Game game, MainScreen mainScreen, GameScreen gameScreen) {
+    /**
+     * Initialize the different screens
+     * @param game the game object to switch screen with
+     * @param mainScreen mainScreen instance
+     * @param gameScreen gameScreen instance
+     */
+    public void initialize(Game game, AbstractScreen mainScreen, AbstractScreen gameScreen) {
         this.game = game;
         this.mainScreen = mainScreen;
         this.gameScreen = gameScreen;
     }
 
     // Show in the game the screen which enum type is received
+
+    /**
+     * Shows the screen based on inputted ScreenEnum
+     * @param screenEnum which screen to switch to
+     */
     public void showScreen(ScreenEnum screenEnum) {
-
-        // Get current screen to dispose it
-        Screen currentScreen = game.getScreen();
-
-        // Show new screen
         AbstractScreen newScreen = getScreen(screenEnum);
         if (newScreen != null) {
             newScreen.buildStage();
@@ -46,7 +59,6 @@ public class ScreenManager {
         return switch (screenEnum) {
             case MAIN_MENU -> mainScreen;
             case GAME -> gameScreen;
-            default -> null;
         };
     }
 }
