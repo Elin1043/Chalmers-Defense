@@ -85,6 +85,11 @@ abstract class Projectile implements IProjectile{
         return angle;
     }
 
+
+    /**
+     * Set the angle of the projectile
+     * @param angle to be set
+     */
     void setAngle(float angle) {
         this.angle = angle;
     }

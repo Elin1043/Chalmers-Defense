@@ -45,6 +45,9 @@ class Map {
         isGameLost = false;
     }
 
+    /**
+     * Update all map components
+     */
     void updateMap() {
         updateVirus();
         updateTowers();
@@ -65,6 +68,7 @@ class Map {
         rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
     }
 
+    //Add all temporary list to the mainlist
     private void addTempListsToMainLists(){
         towersList.addAll(towersToAddList);
         projectilesList.addAll(projectilesToAddList);
