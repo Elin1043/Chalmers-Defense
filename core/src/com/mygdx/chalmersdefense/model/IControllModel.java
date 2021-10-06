@@ -58,4 +58,9 @@ public interface IControllModel {
      */
     void resetModel();
 
+    /**
+     * Sets showWinPanel to false
+     */
+    void continueToFreePlay();
+
 }
