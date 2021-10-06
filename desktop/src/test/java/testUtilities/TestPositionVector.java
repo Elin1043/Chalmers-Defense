@@ -18,8 +18,6 @@ import static org.junit.Assert.*;
 
 public class TestPositionVector {
 
-
-    LwjglApplication app = new LwjglApplication(new ChalmersDefense());
     PositionVector positionVector;
 
     @Before

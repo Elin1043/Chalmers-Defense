@@ -19,7 +19,6 @@ import static org.junit.Assert.assertEquals;
 
 public class TestPathRectangle {
 
-    LwjglApplication app = new LwjglApplication(new ChalmersDefense());
     PathRectangle pathRectangle;
 
     @Before
