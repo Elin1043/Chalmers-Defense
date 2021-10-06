@@ -42,6 +42,12 @@ public interface IViewModel {
     boolean getIsGameLost();
 
     /**
+     * Returns if WinPanel is supposed to show
+     * @return if WinPanel is supposed to show
+     */
+    boolean showWinPanel();
+
+    /**
      * Return the current money value
      * @return the money value
      */
@@ -58,6 +64,12 @@ public interface IViewModel {
      * @return current round
      */
     int getCurrentRound();
+
+    /**
+     * Returns winning round
+     * @return winning round
+     */
+    int getWinningRound();
 
     /**
      * Returns a list of every current active object on the map
