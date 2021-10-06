@@ -15,6 +15,7 @@ import static org.junit.Assert.*;
 /**
  * @author Jenny Carlsson
  *
+ * Test class for GetRangeCircle
  */
 
 public class testGetRangeCircle {
@@ -39,6 +40,6 @@ public class testGetRangeCircle {
         getRangeCircle.setEnumColor(GetRangeCircle.Color.RED);
         assertSame(getRangeCircle.getColor(), GetRangeCircle.Color.RED);
     }
-    
+
 
 }

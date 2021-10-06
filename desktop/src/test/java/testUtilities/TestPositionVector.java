@@ -14,6 +14,7 @@ import static org.junit.Assert.*;
 /**
  * @author Jenny Carlsson
  *
+ * Test Class for PositionVector
  */
 
 public class TestPositionVector {
@@ -27,14 +28,14 @@ public class TestPositionVector {
 
     @Test
     public void testGetAndSetX() {
-        positionVector.setX(4);
-        assertEquals(4, positionVector.getX(), 0.001);
+        PositionVector v = positionVector.setX(4);
+        assertEquals(4, v.getX(), 0.001);
     }
 
     @Test
     public void testGetAndSetY() {
-        positionVector.setY(3);
-        assertEquals(3, positionVector.getY(), 0.001);
+        PositionVector v = positionVector.setY(3);
+        assertEquals(3, v.getY(), 0.001);
     }
 
     @Test

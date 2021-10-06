@@ -15,6 +15,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Jenny Carlsson
  *
+ * Test class for PathRectangle
  */
 
 public class TestPathRectangle {
