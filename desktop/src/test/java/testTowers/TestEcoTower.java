@@ -55,10 +55,23 @@ public class TestEcoTower {
         m.dragEnd(2, 2, 300, 300);
 
         int fixedCapital = m.getMoney();
-        while (m.getMoney() <= fixedCapital) {
-            m.updateModel();
-        }
+        while (m.getMoney() <= fixedCapital) { m.updateModel(); }
 
+        int moneyDiff1 = m.getMoney() - fixedCapital;
+        fixedCapital = m.getMoney();
+        m.upgradeClickedTower();
+
+        while (m.getMoney() <= fixedCapital){ m.updateModel(); }
+
+        int moneyDiff2 = m.getMoney() - fixedCapital;
+        assertTrue(moneyDiff2 > moneyDiff1);
+        fixedCapital = m.getMoney();
+        m.upgradeClickedTower();
+
+        while (m.getMoney() <= fixedCapital){ m.updateModel(); }
+
+        int moneyDiff3 = m.getMoney() - fixedCapital;
+        assertTrue(moneyDiff3 > moneyDiff2);
 
     }
 }
