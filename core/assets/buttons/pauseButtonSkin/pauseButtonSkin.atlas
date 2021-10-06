@@ -1,0 +1,20 @@
+
+pauseButtonSkin.png
+size: 256, 256
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+PauseButton
+  rotate: false
+  xy: 1, 71
+  size: 68, 68
+  orig: 68, 68
+  offset: 0, 0
+  index: -1
+PauseButtonPressed
+  rotate: false
+  xy: 1, 1
+  size: 68, 68
+  orig: 68, 68
+  offset: 0, 0
+  index: -1
