@@ -1,8 +1,6 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
@@ -120,7 +118,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
 
-    // Maybe temporary because it sets the object to null. (Remove comment?)
+
     @Override
     public void checkIfTowerClicked(float x, float y) {
         map.checkIfTowerClicked(x,y);

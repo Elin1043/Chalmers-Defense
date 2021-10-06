@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  */
 public class TestUpgrades {
     LwjglApplication app = new LwjglApplication(new ChalmersDefense());
-    private Model model = new Model();
+    private final Model model = new Model();
 
 
     @Test
