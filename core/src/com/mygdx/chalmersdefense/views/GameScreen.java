@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
@@ -47,6 +49,9 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private final InputMultiplexer multiplexer = new InputMultiplexer();
 
+    private final TextureAtlas pauseButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.atlas")); // Load atlas file from skin
+    private final Skin pauseButtonSkin = new Skin(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.json"), pauseButtonAtlas); // Create skin object
+    private final Button pauseButton = new Button(pauseButtonSkin);
 
     private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
     private final Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
@@ -65,6 +70,9 @@ public class GameScreen extends AbstractScreen implements Screen {
         this.rightSidePanel = new RightSidePanel(this, model);
         this.model = model;
         this.stageHUD = new Stage(this.getViewport());
+
+        pauseButton.setPosition(10, 1070 - pauseButton.getHeight());
+        gameScreenController.addPauseButtonClickListener(pauseButton);
 
         // This should come from classicPath class
         mapImage = new Image(new Texture("ClassicMap.png"));
@@ -92,6 +100,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         stageHUD.addActor(sideBarBackground);
 
         addActor(mapImage);
+        addActor(pauseButton);
     }
 
 

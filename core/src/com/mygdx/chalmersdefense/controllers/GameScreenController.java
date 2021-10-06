@@ -75,4 +75,17 @@ public class GameScreenController {
             }
         });
     }
+
+    /**
+     * Adds click listener to pause button in GameScreen
+     * @param button GameScreens pause button
+     */
+    public void addPauseButtonClickListener(Button button) {
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+            }
+        });
+    }
 }

@@ -11,8 +11,16 @@ import java.util.List;
  */
 public interface IViewModel {
 
+    /**
+     * Return the tower that was clicked
+     * @return clicked tower
+     */
     IMapObject getClickedTower();
 
+    /**
+     * Return the circle used for range
+     * @return the circle
+     */
     GetRangeCircle getRangeCircle();
 
     /**
@@ -39,6 +47,11 @@ public interface IViewModel {
      */
     Long getTowerUpgradePrice(String towerName, int upgradeLevel);
 
+
+    /**
+     * Return if player lost the game
+     * @return if lost
+     */
     boolean getIsGameLost();
 
     /**
