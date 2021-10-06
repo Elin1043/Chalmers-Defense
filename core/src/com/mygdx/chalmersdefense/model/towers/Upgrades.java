@@ -33,7 +33,7 @@ public class Upgrades {
      * @param tower tower to be upgraded
      */
     public boolean upgradeTower(ITower tower) {
-        // If tower is max upgraded dont upgrade
+        // If tower is max upgraded don't upgrade
         if (tower.getUpgradeLevel() >= MAX_UPGRADES) return false;
 
         HashMap<String, Long> upgrades = getTowerUpgradeData(tower.getName(), tower.getUpgradeLevel());
