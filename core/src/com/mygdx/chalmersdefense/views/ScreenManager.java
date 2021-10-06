@@ -41,8 +41,6 @@ public class ScreenManager {
         this.gameScreen = gameScreen;
     }
 
-    // Show in the game the screen which enum type is received
-
     /**
      * Shows the screen based on inputted ScreenEnum
      * @param screenEnum which screen to switch to
