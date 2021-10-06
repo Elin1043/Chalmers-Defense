@@ -48,4 +48,17 @@ public class TestEcoTower {
         }
         assertTrue(m.getMoney() > startCapital);    // The player should now have received money from eco tower
     }
+
+    @Test
+    public void testMoreMoneyWhenUpgraded(){
+        m.dragStart("eco", 300, 300); // Creates tower
+        m.dragEnd(2, 2, 300, 300);
+
+        int fixedCapital = m.getMoney();
+        while (m.getMoney() <= fixedCapital) {
+            m.updateModel();
+        }
+
+
+    }
 }

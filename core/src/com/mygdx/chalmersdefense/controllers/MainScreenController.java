@@ -1,5 +1,6 @@
 package com.mygdx.chalmersdefense.controllers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -17,6 +18,15 @@ public class MainScreenController {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ScreenManager.getInstance().showScreen(ScreenEnum.GAME);
+            }
+        });
+    }
+
+    public void addQuitButtonClickListener(Button button) {
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
             }
         });
     }
