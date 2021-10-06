@@ -28,13 +28,13 @@ public class TestPositionVector {
     @Test
     public void testGetAndSetX() {
         positionVector.setX(4);
-        assertEquals(2, positionVector.getX(), 0.001);
+        assertEquals(4, positionVector.getX(), 0.001);
     }
 
     @Test
     public void testGetAndSetY() {
         positionVector.setY(3);
-        assertEquals(2, positionVector.getY(), 0.001);
+        assertEquals(3, positionVector.getY(), 0.001);
     }
 
     @Test
