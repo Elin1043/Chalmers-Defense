@@ -47,7 +47,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     private boolean showWinPanel = false;
 
     @Override
-    public void updateModel() {
+    public synchronized void updateModel() {
         map.updateMap();
         checkRoundCompleted();
         virusSpawner.decrementSpawnTimer();
@@ -181,6 +181,10 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     @Override
     public int getCurrentRound() { return round.getCurrentRound(); }
 
+    @Override
+    public int getWinningRound() {
+        return round.getWinningRound();
+    }
 
     //TODO Remove THIS when not needed
     @Override

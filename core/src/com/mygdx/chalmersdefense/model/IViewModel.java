@@ -66,6 +66,12 @@ public interface IViewModel {
     int getCurrentRound();
 
     /**
+     * Returns winning round
+     * @return winning round
+     */
+    int getWinningRound();
+
+    /**
      * Returns a list of every current active object on the map
      * @return the list of all objects
      */
