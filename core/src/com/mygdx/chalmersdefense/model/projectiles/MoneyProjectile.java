@@ -2,10 +2,13 @@ package com.mygdx.chalmersdefense.model.projectiles;
 
 /**
  * @author Elin Forsberg
+ *
+ * 2021-10-07 Modified by Joel Båtsman Hilmersson: Made class package private
+ *
  * Class representing a money projectile
  */
 
-public class MoneyProjectile extends Projectile implements IProjectile{
+class MoneyProjectile extends Projectile implements IProjectile{
     private int moneyTimer = 150;
 
 

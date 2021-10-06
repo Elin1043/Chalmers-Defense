@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 /**
  * @author Daniel Persson
  *
- * 2021-09-24 Modified by Joel Båtsman Hilmersson: Now also test exceptions in methods
+ * 2021-10-07 Modified by Joel Båtsman Hilmersson: Now also test exceptions in methods
  *
  * Test class for Upgrades class
  */
