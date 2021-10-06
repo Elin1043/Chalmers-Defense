@@ -59,6 +59,16 @@ public interface IControllModel {
     void resetModel();
 
     /**
+     * Starts the main game timer
+     */
+    void startGameUpdate();
+
+    /**
+     * Stops the main game timer
+     */
+    void stopGameUpdate();
+
+    /**
      * Sets showWinPanel to false
      */
     void continueToFreePlay();
