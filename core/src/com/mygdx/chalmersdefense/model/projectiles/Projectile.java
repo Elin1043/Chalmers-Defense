@@ -53,9 +53,7 @@ abstract class Projectile implements IProjectile{
 
     }
 
-    /**
-     * Moves the projectile in calculated direction
-     */
+
     @Override
     public void update(boolean hitVirus, int haveHit, float angle) {
         if (hitVirus) { virusIsHit(haveHit, angle); }

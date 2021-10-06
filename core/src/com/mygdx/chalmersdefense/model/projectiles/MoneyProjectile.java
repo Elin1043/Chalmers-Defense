@@ -1,5 +1,10 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
+/**
+ * @author Elin Forsberg
+ * Class representing a money projectile
+ */
+
 public class MoneyProjectile extends Projectile implements IProjectile{
     private int moneyTimer = 150;
 
