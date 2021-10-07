@@ -2,7 +2,7 @@ package com.mygdx.chalmersdefense.model.projectiles;
 
 /**
  * @author Elin Forsberg
- * Class representing a specific projectile
+ * Class representing a ZeroOneprojectile
  */
 class ZeroOneProjectile extends Projectile{
 

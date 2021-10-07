@@ -5,10 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.mygdx.chalmersdefense.controllers.MainScreenController;
 import com.mygdx.chalmersdefense.model.Model;
-import com.mygdx.chalmersdefense.views.GameScreen;
-import com.mygdx.chalmersdefense.views.MainScreen;
-import com.mygdx.chalmersdefense.views.ScreenEnum;
-import com.mygdx.chalmersdefense.views.ScreenManager;
+import com.mygdx.chalmersdefense.views.*;
 
 /**
  *  @author
@@ -28,8 +25,8 @@ public class ChalmersDefense extends Game {
 		MainScreenController mainScreenController = new MainScreenController();
 
 		// Creating Views
-		MainScreen mainScreen = new MainScreen(mainScreenController);
-		GameScreen gameScreen = new GameScreen(model);
+		AbstractScreen mainScreen = new MainScreen(mainScreenController);
+		AbstractScreen gameScreen = new GameScreen(model);
 
 		// Init ScreenManager
 		ScreenManager.getInstance().initialize(this, mainScreen, gameScreen);

@@ -8,8 +8,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 /**
@@ -33,7 +32,7 @@ public class TestProjectile {
     public void testProjectileUpdate(){
         projectile.update(false,0,0);
         assertTrue(projectile.getX() > 0);
-        assertTrue(projectile.getY() == 0);
+        assertEquals(0, projectile.getY(), 0.0);
     }
 
     @Test
@@ -49,7 +48,7 @@ public class TestProjectile {
 
     @Test
     public void testProjectileGetAngle(){
-        assertTrue(projectile.getAngle() == 0);
+        assertEquals(0, projectile.getAngle(), 0.0);
     }
 
     @Test
@@ -60,7 +59,7 @@ public class TestProjectile {
 
     @Test
     public void testProjectileHaveHitVirusBefore (){
-        assertTrue(!projectile.haveHitBefore(0));
+        assertFalse(projectile.haveHitBefore(0));
     }
 
     @Test
@@ -70,6 +69,6 @@ public class TestProjectile {
         tower.update(projectilesList, 0, true);
         projectile = projectilesList.get(1);
         projectile.update(true, 0, 10);
-        assertTrue(projectile.getAngle() == 10);
+        assertEquals(10, projectile.getAngle(), 0.0);
     }
 }

@@ -3,12 +3,8 @@ package testTowers;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
-import com.mygdx.chalmersdefense.model.Player;
-import com.mygdx.chalmersdefense.model.towers.ITower;
-import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 import org.junit.Before;
 import org.junit.Test;
-import org.lwjgl.Sys;
 
 import static org.junit.Assert.assertTrue;
 
@@ -51,5 +47,31 @@ public class TestEcoTower {
             m.updateModel();
         }
         assertTrue(m.getMoney() > startCapital);    // The player should now have received money from eco tower
+    }
+
+    @Test
+    public void testMoreMoneyWhenUpgraded(){
+        m.dragStart("eco", 300, 300); // Creates tower
+        m.dragEnd(2, 2, 300, 300);
+
+        int fixedCapital = m.getMoney();
+        while (m.getMoney() <= fixedCapital) { m.updateModel(); }
+
+        int moneyDiff1 = m.getMoney() - fixedCapital;
+        fixedCapital = m.getMoney();
+        m.upgradeClickedTower();
+
+        while (m.getMoney() <= fixedCapital){ m.updateModel(); }
+
+        int moneyDiff2 = m.getMoney() - fixedCapital;
+        assertTrue(moneyDiff2 > moneyDiff1);
+        fixedCapital = m.getMoney();
+        m.upgradeClickedTower();
+
+        while (m.getMoney() <= fixedCapital){ m.updateModel(); }
+
+        int moneyDiff3 = m.getMoney() - fixedCapital;
+        assertTrue(moneyDiff3 > moneyDiff2);
+
     }
 }

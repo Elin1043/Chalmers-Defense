@@ -3,9 +3,10 @@ package com.mygdx.chalmersdefense.model;
 
 import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
 import com.mygdx.chalmersdefense.model.path.Path;
-import com.mygdx.chalmersdefense.model.path.gamePaths.PathFactory;
+import com.mygdx.chalmersdefense.model.path.PathFactory;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.towers.*;
+import com.mygdx.chalmersdefense.model.towers.ITower;
+import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 
@@ -45,7 +46,10 @@ class Map {
         isGameLost = false;
     }
 
-    public void updateMap() {
+    /**
+     * Update all map components
+     */
+    void updateMap() {
         updateVirus();
         updateTowers();
         updateProjectiles();
@@ -61,8 +65,11 @@ class Map {
         virusesList.clear();
         clickedTower = null;
         isGameLost = false;
+        // Removes range circle
+        rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
     }
 
+    //Add all temporary list to the mainlist
     private void addTempListsToMainLists(){
         towersList.addAll(towersToAddList);
         projectilesList.addAll(projectilesToAddList);
@@ -75,8 +82,6 @@ class Map {
         List<IProjectile> removeProjectiles = new ArrayList<>();
 
         for (IProjectile projectile : projectilesList) {
-
-
             List<IVirus> virusThatWasHit = new ArrayList<>();
 
             if (checkCollisionOfProjectiles(projectile, virusThatWasHit)) {
@@ -86,7 +91,9 @@ class Map {
                 projectile.update(false, -1, -1);
             }
 
-            if(projectile.canRemove() || checkIfOutOfBounds(projectile.getY(), projectile.getX())){ removeProjectiles.add(projectile); }
+            if(projectile.canRemove() || checkIfOutOfBounds(projectile.getY(), projectile.getX())){
+                removeProjectiles.add(projectile);
+            }
         }
 
         projectilesList.removeAll(removeProjectiles);
@@ -245,6 +252,7 @@ class Map {
         }
 
         towersList.add(newTower);
+        clickedTower = newTower;
 
     }
 
@@ -294,9 +302,7 @@ class Map {
      * @param x The X-position of the mouse
      * @param y The Y-position of the mouse
      */
-
     void dragEnd(float buttonWidth, float buttonHeight, float x, float y) {
-
         if(!newTower.getCollision()){
             newTower.placeTower();
             newTower.setPos(x - buttonWidth/2f, y - buttonHeight/2f);
@@ -304,8 +310,9 @@ class Map {
         }
         else{
             towersList.remove(newTower);
+            rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
+            clickedTower = null;
         }
-        rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
 
 
     }

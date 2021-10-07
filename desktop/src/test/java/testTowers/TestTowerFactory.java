@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertSame;
 
 
 /**
@@ -22,33 +22,33 @@ public class TestTowerFactory {
     @Test
     public void testCreateSmurf(){
         ITower tower = TowerFactory.CreateSmurf(0,0);
-        assertTrue(tower.getName() == "IT-Smurf");
+        assertSame("IT-Smurf", tower.getName());
     }
     @Test
     public void testCreateChemist(){
         List<IProjectile> list = new ArrayList<>();
         ITower tower = TowerFactory.CreateChemist(0,0, list);
-        assertTrue(tower.getName() == "Chemist");
+        assertSame("Chemist", tower.getName());
     }
     @Test
     public void testCreateHacker(){
         ITower tower = TowerFactory.CreateHacker(0,0);
-        assertTrue(tower.getName() == "Hackerman");
+        assertSame("Hackerman", tower.getName());
     }
     @Test
     public void testCreateElectro(){
         ITower tower = TowerFactory.CreateElectro(0,0);
-        assertTrue(tower.getName() == "Electroman");
+        assertSame("Electroman", tower.getName());
     }
     @Test
     public void testCreateMeck(){
         List<ITower> list = new ArrayList<>();
         ITower tower = TowerFactory.CreateMeck(0,0,list);
-        assertTrue(tower.getName() == "Mechoman");
+        assertSame("Mechoman", tower.getName());
     }
     @Test
     public void testCreateEco(){
         ITower tower = TowerFactory.CreateEco(0,0, null);
-        assertTrue(tower.getName() == "Economist");
+        assertSame("Economist", tower.getName());
     }
 }

@@ -28,6 +28,12 @@ public abstract class Path {
 
     protected abstract void setPathWaypoints();
 
+
+    /**
+     * Returns waypoint of given index
+     * @param index to get waypoint of
+     * @return waypoint
+     */
     public PositionVector getWaypoint(int index) { return pathWaypoints.get(index); }
 
     /**

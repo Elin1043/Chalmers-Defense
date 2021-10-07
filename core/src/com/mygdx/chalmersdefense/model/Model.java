@@ -1,8 +1,6 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
@@ -17,9 +15,9 @@ import java.util.List;
  * @author Elin Forsberg
  * @author Daniel Persson
  * @author Jenny Carlsson
- *
+ * <p>
  * Class handeling all the models in the game.
- *
+ * <p>
  * 2021-09-20 Modified by Elin Forsberg: Added methods to handle towers + collisions
  * 2021-09-20 Modified by Joel Båtsman Hilmersson: Made updateVirus loop syncronized
  * 2021-09-22 Modified by Daniel Persson: Added support for storing a clicked tower and added algorithm for finding what tower is being clicked.
@@ -34,7 +32,7 @@ import java.util.List;
 public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final int WINNING_ROUND = 10;
     private final int LIVES = 100;
-    private final int START_CAPITAL = 3000;
+    private final int START_CAPITAL = 30000;
 
     private final GameTimer timer = new GameTimer(this);
     private Rounds round = new Rounds(WINNING_ROUND);
@@ -46,8 +44,10 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final Map map = new Map(player);
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());
 
+    private boolean showWinPanel = false;
+
     @Override
-    public void updateModel() {
+    public synchronized void updateModel() {
         map.updateMap();
         checkRoundCompleted();
         virusSpawner.decrementSpawnTimer();
@@ -64,23 +64,25 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     private void checkRoundCompleted() {
         if (map.isVirusCleared() && !virusSpawner.isSpawning()) {
 
-            player.increaseMoney((100 * (round.getCurrentRound()/2)));
+            player.increaseMoney((100 * (round.getCurrentRound() / 2)));
 
             stopGameUpdate();
             map.roundClear();
+
+            if (round.gameWon()) {
+                showWinPanel = true;
+            }
         }
     }
 
 
-
-    private void startGameUpdate() {
+    public void startGameUpdate() {
         timer.startUpdateTimer();
     }
 
-    private void stopGameUpdate() {
+    public void stopGameUpdate() {
         timer.stopUpdateTimer();
     }
-
 
 
     @Override
@@ -97,10 +99,9 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
 
-
     @Override
     public void dragStart(String towerName, float x, float y) {
-       map.dragStart(towerName, x, y);
+        map.dragStart(towerName, x, y);
     }
 
     @Override
@@ -114,10 +115,9 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
 
-    // Maybe temporary because it sets the object to null. (Remove comment?)
     @Override
     public void checkIfTowerClicked(float x, float y) {
-        map.checkIfTowerClicked(x,y);
+        map.checkIfTowerClicked(x, y);
     }
 
     @Override
@@ -159,14 +159,34 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
-    public int getMoney() { return player.getMoney(); }
+    public boolean showWinPanel() {
+        return showWinPanel;
+    }
 
     @Override
-    public int getLivesLeft() { return player.getLives(); }
+    public void continueToFreePlay() {
+        showWinPanel = false;
+    }
 
     @Override
-    public int getCurrentRound() { return round.getCurrentRound(); }
+    public int getMoney() {
+        return player.getMoney();
+    }
 
+    @Override
+    public int getLivesLeft() {
+        return player.getLives();
+    }
+
+    @Override
+    public int getCurrentRound() {
+        return round.getCurrentRound();
+    }
+
+    @Override
+    public int getWinningRound() {
+        return round.getWinningRound();
+    }
 
     //TODO Remove THIS when not needed
     @Override

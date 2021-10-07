@@ -1,7 +1,4 @@
-package com.mygdx.chalmersdefense.model.path.gamePaths;
-
-
-import com.mygdx.chalmersdefense.model.path.Path;
+package com.mygdx.chalmersdefense.model.path;
 
 
 /**
