@@ -1,7 +1,6 @@
 package com.mygdx.chalmersdefense.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -17,7 +16,6 @@ import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.Model;
-import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 import com.mygdx.chalmersdefense.views.GameScreenViews.BottomBarUpgradePanel;
 import com.mygdx.chalmersdefense.views.GameScreenViews.LostPanel;

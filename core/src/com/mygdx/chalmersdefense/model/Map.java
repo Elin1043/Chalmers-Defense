@@ -345,6 +345,10 @@ class Map {
     }
 
 
+    /**
+     * Return the circle used for rendering range
+     * @return the circle
+     */
     GetRangeCircle getRangeCircle() {
         return rangeCircle;
     }
@@ -367,15 +371,14 @@ class Map {
         return isGameLost;
     }
 
+
     /**
-     * Return the list of viruses on path
-     *
-     * @return the list of viruses
+     * Returns the list of viruses
+     * @return list of viruses
      */
     List<IVirus> getViruses() {
         return virusesList;
     }
-
     /**
      * Return the list of objects on map
      *
@@ -404,4 +407,6 @@ class Map {
     void roundClear() {
         projectilesList.clear();
     }
+
+
 }

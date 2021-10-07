@@ -30,6 +30,7 @@ class EcoTower extends Tower {
             case 3 -> player.increaseMoney(80);
 
         }
+
         projectileList.add(ProjectileFactory.createMoneyPile(getX(), getY(), getUpgradeLevel()));
     }
 

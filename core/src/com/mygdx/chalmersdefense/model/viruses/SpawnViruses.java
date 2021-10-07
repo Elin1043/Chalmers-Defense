@@ -36,7 +36,7 @@ public class SpawnViruses {
     private int waveIndex = 0;      // What block/wave the spawner is in the round data
     private int waveAmountSpawned;  // If multiple virus is spawned from single block, how many have already spawned
 
-    private int spawnTimer;
+    private int spawnTimer;      //Amount of time between the rounds (decrements with updateCycle)
 
     /**
      * Creates one instance of spawnViruses class
@@ -85,6 +85,10 @@ public class SpawnViruses {
         }
     }
 
+    /**
+     * Decrease the spawnTimer
+     * If spawnTimer = 0, start next round
+     */
     public void decrementSpawnTimer() {
         if (spawnTimer <= 0) {
             startSpawnRoundHandler();

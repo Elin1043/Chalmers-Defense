@@ -2,7 +2,6 @@ package com.mygdx.chalmersdefense.model;
 
 
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
-import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
 import com.mygdx.chalmersdefense.utilities.GameTimer;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
@@ -75,11 +74,12 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         }
     }
 
-
+    @Override
     public void startGameUpdate() {
         timer.startUpdateTimer();
     }
 
+    @Override
     public void stopGameUpdate() {
         timer.stopUpdateTimer();
     }
@@ -186,12 +186,6 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     @Override
     public int getWinningRound() {
         return round.getWinningRound();
-    }
-
-    //TODO Remove THIS when not needed
-    @Override
-    public List<IVirus> getViruses() {
-        return map.getViruses();
     }
 
     @Override

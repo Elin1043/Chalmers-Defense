@@ -39,18 +39,6 @@ public abstract class ProjectileFactory {
 
 
     /**
-     * Creates a projectile of type AcidPool
-     *
-     * @param poolX        the x - coordinate of where the pool should be placed
-     * @param poolY        the y - coordinate of where the pool should be placed
-     * @param upgradeLevel the upgradeLevel of the chemist tower
-     * @return the created projectile
-     */
-    static public IProjectile createAcidPool(float poolX, float poolY, int upgradeLevel) {
-        return new AcidPool(poolX, poolY, upgradeLevel);
-    }
-
-    /**
      * Creates a projectile of type LightningProjectile
      *
      * @param towerX       the x - coordinate of the tower shooting the projectile
