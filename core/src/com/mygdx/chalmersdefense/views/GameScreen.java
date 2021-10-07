@@ -56,6 +56,8 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
     private final Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
 
+
+
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     private final Image mapImage;
