@@ -144,17 +144,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         } else {
             winPanelOverlay.hideOverlay();
         }
-
-
-        //TODO Remove when not needed
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            model.getViruses().add(VirusFactory.createVirusOne());
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            model.startRoundPressed();
-        }
-
     }
 
     private void renderMapObjects() {

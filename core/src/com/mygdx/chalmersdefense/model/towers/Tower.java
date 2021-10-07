@@ -19,42 +19,36 @@ import java.util.Objects;
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: changed class to hold hashmap key for sprite
  * 2021-09-25 Modified by Elin Forsberg: added method for shooting projectiles
  */
-
 abstract class Tower implements ITower {
 
-    private String spriteKey;
-    private int upgradeLevel = 1;
+    private String spriteKey;       // The key to the Sprite Hashmap
+    private int upgradeLevel = 1;   // The current upgradeLevel
 
-    private float angle = 0;
-    private int range;
-    private final String name;
+    private float angle = 0;        // Current angle of tower
+    private int range;              // Current shooting range of tower
+    private final String name;      // Tower Name
 
-    private boolean isPlaced = false;
-    private float x;
-    private float y;
+    private boolean isPlaced = false;   // Boolean over if this tower is placed
+    private float x;                // X coordinate on map
+    private float y;                // y coordinate on map
 
+    private final ITargetMode currentTargetMode;    // Which current targeting mode to use
 
-    //private final TargetMode firstMode = TargetModeFactory.
+    private float width;            // Width of tower object
+    private float height;           // Height of tower object
 
-    private final List<ITargetMode> targetModes;
-    private final ITargetMode currentTargetMode;
+    private final int cost;         // Cost of tower
 
-    private float width;
-    private float height;
-
-    private final int cost;
-
-    private boolean collision = false;
+    private boolean collision = false;  // When tower is placed, this helps model to know if tower collides with anything
 
 
-    private int reloadTime; //how many updates from model
-    private int currentReload = 0;
+    private int reloadTime;         // Reload time of tower. (How many update cycles before tower will shoot)
+    private int currentReload = 0;  // Current reload
 
 
     Tower(float x, float y, String name, int reloadTime, int cost, int range, List<ITargetMode> targetModes) {
         this.name = name;
         this.reloadTime = reloadTime;
-        this.targetModes = targetModes;
         this.currentTargetMode = targetModes.get(0);
         updateSpriteKey();
 

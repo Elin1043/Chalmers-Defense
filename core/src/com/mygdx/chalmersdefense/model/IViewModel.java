@@ -101,15 +101,4 @@ public interface IViewModel {
      * @return the list of all objects
      */
     List<IMapObject> getAllMapObjects();
-
-    /**
-     * Return the list of viruses on path
-     *
-     * @return the list of viruses
-     */
-    //TODO Remove THIS when not needed
-    List<IVirus> getViruses();
-
-    //TODO THIS SHOULD NOT BE HERE, remove when all keyboard stuff is removed in view (Keyboard controller is a better idee)
-    void startRoundPressed();
 }
