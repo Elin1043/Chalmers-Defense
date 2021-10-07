@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+
 import java.util.HashMap;
 
 /**
@@ -26,9 +27,12 @@ public abstract class AbstractScreen extends Stage implements Screen {
 
     final Batch batch = new SpriteBatch();
 
+
     protected AbstractScreen() {
         super(new FitViewport(1920, 1080, new OrthographicCamera(1920, 1080)));
         createSprites();
+
+
     }
 
     /**
@@ -74,6 +78,8 @@ public abstract class AbstractScreen extends Stage implements Screen {
     @Override
     public void resume() {
     }
+
+
 
     private void createSprites() {
         spriteMap.put("IT-Smurf1", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1.png")));

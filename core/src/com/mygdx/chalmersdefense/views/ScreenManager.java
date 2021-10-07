@@ -16,6 +16,7 @@ public class ScreenManager {
 
     private ScreenManager() {
         super();
+
     }
 
     /**

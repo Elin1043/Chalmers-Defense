@@ -1,8 +1,7 @@
 package com.mygdx.chalmersdefense;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
+
 import com.mygdx.chalmersdefense.controllers.MainScreenController;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.views.*;
@@ -29,16 +28,12 @@ public class ChalmersDefense extends Game {
         // Creating Views
         AbstractScreen mainScreen = new MainScreen(mainScreenController);
         AbstractScreen gameScreen = new GameScreen(model);
+        new Sounds();
 
         // Init ScreenManager
         ScreenManager.getInstance().initialize(this, mainScreen, gameScreen);
         ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
 
-        // Setup of music
-        Music music;
-        music = Gdx.audio.newMusic(Gdx.files.internal("backgroundMusic.wav"));
-        music.setLooping(true);
-        music.setVolume(0.2F);
-        music.play();
+
     }
 }
