@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.model.path.gamePaths;
+package com.mygdx.chalmersdefense.model.path;
 
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.utilities.PositionVector;

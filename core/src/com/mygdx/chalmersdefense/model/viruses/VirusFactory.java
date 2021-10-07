@@ -2,7 +2,7 @@ package com.mygdx.chalmersdefense.model.viruses;
 
 
 import com.mygdx.chalmersdefense.model.path.Path;
-import com.mygdx.chalmersdefense.model.path.gamePaths.PathFactory;
+import com.mygdx.chalmersdefense.model.path.PathFactory;
 
 
 /**
