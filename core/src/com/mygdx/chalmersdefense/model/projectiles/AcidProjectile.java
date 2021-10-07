@@ -7,8 +7,8 @@ import java.util.List;
  * Class representing an acid projectile
  */
 class AcidProjectile extends Projectile {
-    private final int upgradeLevel;
-    private final List<IProjectile> projectileList;
+    private final int upgradeLevel;     // Current upgrade level
+    private final List<IProjectile> projectileList; // The list to add acidPool to
 
 
     AcidProjectile(float x, float y, float angle, int upgradeLevel, List<IProjectile> projectileList) {

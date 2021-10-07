@@ -16,20 +16,20 @@ import java.util.Objects;
  */
 abstract class Projectile implements IProjectile {
 
-    final List<Integer> haveHitList = new ArrayList<>();
+    final List<Integer> haveHitList = new ArrayList<>();    // List of hashcodes of all viruses the projectile has hit before
 
-    private float width;
-    private float height;
-    private float speed;
+    private float width;    // Current width of projectile
+    private float height;   // Current height of projectile
+    private float speed;    // Speed of projectile
 
 
-    private String spriteKey;
-    private float x;
-    private float y;
+    private String spriteKey;   // The key to the Sprite Hashmap
+    private float x;            // X coordinate on map
+    private float y;            // y coordinate on map
 
-    private float angle;
+    private float angle;        // Current angle of projectile
 
-    boolean canRemove = false;
+    boolean canRemove = false;  // Boolean over if this projectile can be removed by map
 
     Projectile(float speed, String spriteKey, float x, float y, float angle) {
         this.speed = speed;

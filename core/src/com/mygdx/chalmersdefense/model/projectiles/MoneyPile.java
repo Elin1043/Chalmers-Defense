@@ -9,7 +9,7 @@ package com.mygdx.chalmersdefense.model.projectiles;
  */
 
 class MoneyPile extends Projectile implements IProjectile {
-    private int moneyTimer = 150;
+    private int moneyTimer = 150;   // Timer over how long to show money animation
 
 
     MoneyPile(float x, float y, int upgradeLevel) {
