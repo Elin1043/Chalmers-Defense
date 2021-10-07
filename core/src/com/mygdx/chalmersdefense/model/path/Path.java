@@ -3,6 +3,7 @@ package com.mygdx.chalmersdefense.model.path;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
 import com.mygdx.chalmersdefense.utilities.PositionVector;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
