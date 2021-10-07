@@ -170,6 +170,18 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
+    public void sellClickedTower() {
+        int cost;
+        if(map.getClickedTower().getUpgradeLevel() == 1){
+            cost = (int) (map.getClickedTower().getCost() * 0.7);
+        }
+        else{
+            cost = (int) (upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), map.getClickedTower().getUpgradeLevel() - 1).intValue() * 0.7);
+        }
+        map.sellClickedTower(cost);
+    }
+
+    @Override
     public int getMoney() {
         return player.getMoney();
     }

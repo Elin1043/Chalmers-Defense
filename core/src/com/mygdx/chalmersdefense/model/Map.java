@@ -408,4 +408,15 @@ class Map {
     }
 
 
+    /**
+     * Remove the clicked tower
+     * @param
+     */
+    void sellClickedTower(int cost) {
+        towersList.remove(clickedTower);
+        player.increaseMoney((int) (cost * 0.6));
+        clickedTower = null;
+        rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
+
+    }
 }

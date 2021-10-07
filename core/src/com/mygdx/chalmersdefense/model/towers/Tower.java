@@ -40,7 +40,7 @@ abstract class Tower implements ITower {
     private float width;            // Width of tower object
     private float height;           // Height of tower object
 
-    private final int cost;         // Cost of tower
+    private int cost;         // Cost of tower
 
     private boolean collision = false;  // When tower is placed, this helps model to know if tower collides with anything
 
