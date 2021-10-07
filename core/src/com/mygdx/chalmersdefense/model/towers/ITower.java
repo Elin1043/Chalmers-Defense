@@ -27,7 +27,7 @@ public interface ITower extends IMapObject {
      *
      * @param upgrades a HashMap with upgrade values.
      */
-    void upgradeTower(HashMap<String, Long> upgrades);
+    void upgradeTower(HashMap<String, Double> upgrades);
 
     /**
      * Get the upgrade level of tower

@@ -90,8 +90,8 @@ abstract class Tower implements ITower {
 
 
     @Override
-    public void upgradeTower(HashMap<String, Long> upgrades) {
-        reloadTime *= upgrades.get("attackSpeedMul");
+    public void upgradeTower(HashMap<String, Double> upgrades) {
+        reloadTime *= upgrades.get("attackSpeedMul") ;
         range *= upgrades.get("attackRangeMul");
         upgradeLevel++;
         updateSpriteKey(); // Add this when all sprites are in the game.

@@ -33,10 +33,10 @@ public class TestTower {
 
     @Test
     public void testUpgradeTower() {
-        HashMap<String, Long> upgrades = new HashMap<>();
-        upgrades.put("attackDmgMul", 0L);
-        upgrades.put("attackSpeedMul", 0L);
-        upgrades.put("attackRangeMul", 0L);
+        HashMap<String, Double> upgrades = new HashMap<>();
+        upgrades.put("attackDmgMul", 0.0);
+        upgrades.put("attackSpeedMul", 0.0);
+        upgrades.put("attackRangeMul", 0.0);
         ITower tower = TowerFactory.CreateSmurf(0, 0);
         tower.placeTower();
 

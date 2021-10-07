@@ -36,7 +36,7 @@ public class Upgrades {
         // If tower is max upgraded don't upgrade
         if (tower.getUpgradeLevel() >= MAX_UPGRADES) return false;
 
-        HashMap<String, Long> upgrades = getTowerUpgradeData(tower.getName(), tower.getUpgradeLevel());
+        HashMap<String, Double> upgrades = getTowerUpgradeData(tower.getName(), tower.getUpgradeLevel());
 
         tower.upgradeTower(upgrades);
         return true;
@@ -103,15 +103,16 @@ public class Upgrades {
      * @param upgradeLevel upgrade level to get upgrades from
      * @return a HashMap with upgrade data.
      */
-    private HashMap<String, Long> getTowerUpgradeData(String towerName, int upgradeLevel) {
-        HashMap<String, Long> upgrades = new HashMap<>();
+    private HashMap<String, Double> getTowerUpgradeData(String towerName, int upgradeLevel) {
+        HashMap<String, Double> upgrades = new HashMap<>();
         try {
             JSONArray towerUpgradeArray = (JSONArray) mainObject.get(towerName);
             JSONObject upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
 
-            upgrades.put("attackDmgMul", (Long) upgradeObject.get("attackDmgMul"));
-            upgrades.put("attackSpeedMul", (Long) upgradeObject.get("attackDmgMul"));
-            upgrades.put("attackRangeMul", (Long) upgradeObject.get("attackDmgMul"));
+
+            upgrades.put("attackDmgMul", (double) upgradeObject.get("attackDmgMul"));
+            upgrades.put("attackSpeedMul",  (double) upgradeObject.get("attackSpeedMul"));
+            upgrades.put("attackRangeMul", (double) upgradeObject.get("attackRangeMul"));
         } catch (NullPointerException exception) {
             System.out.println(exception.getMessage());
         }

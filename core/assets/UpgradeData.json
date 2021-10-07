@@ -4,17 +4,17 @@
       "title": "Hot zeros",
       "desc": "Increases attack speed by 20%",
       "price": 500,
-      "attackDmgMul": 1,
+      "attackDmgMul": 1.0,
       "attackSpeedMul": 1.2,
-      "attackRangeMul": 1,
-      "projectileSpeedMul": 1
+      "attackRangeMul": 1.0,
+      "projectileSpeedMul": 1.0
     },
     {
       "title": "Super smurf",
       "desc": "The super smurf is here to save the IT section",
       "price": 3200,
-      "attackDmgMul": 2,
-      "attackSpeedMul": 1.3,
+      "attackDmgMul": 2.0,
+      "attackSpeedMul": 0.3,
       "attackRangeMul": 1.4,
       "projectileSpeedMul": 1.1
     }
@@ -24,18 +24,18 @@
       "title": "Exploiting virus data",
       "desc": "This is a long description describing the upgrade",
       "price": 400,
-      "attackDmgMul": 1,
+      "attackDmgMul": 1.0,
       "attackSpeedMul": 1.2,
-      "attackRangeMul": 1,
+      "attackRangeMul": 1.0,
       "projectileSpeedMul": 1.1
     },
     {
       "title": "Title",
       "desc": "This is a long description describing the upgrade",
       "price": 1000,
-      "attackDmgMul": 2,
+      "attackDmgMul": 2.0,
       "attackSpeedMul": 1.3,
-      "attackRangeMul": 1,
+      "attackRangeMul": 1.0,
       "projectileSpeedMul": 1.2
     }
   ],
@@ -44,7 +44,7 @@
       "title": "Enhanced acid",
       "desc": "This is a long description describing the upgrade",
       "price": 600,
-      "attackDmgMul": 1,
+      "attackDmgMul": 1.0,
       "attackSpeedMul": 1.2,
       "attackRangeMul": 1.1,
       "projectileSpeedMul": 1.1
@@ -53,9 +53,9 @@
       "title": "Title",
       "desc": "This is a long description describing the upgrade",
       "price": 1200,
-      "attackDmgMul": 2,
+      "attackDmgMul": 2.0,
       "attackSpeedMul": 1.3,
-      "attackRangeMul": 1,
+      "attackRangeMul": 1.0,
       "projectileSpeedMul": 1.2
     }
   ],
@@ -64,18 +64,18 @@
       "title": "More bounces",
       "desc": "This is a long description describing the upgrade",
       "price": 800,
-      "attackDmgMul": 1,
+      "attackDmgMul": 1.0,
       "attackSpeedMul": 1.2,
       "attackRangeMul": 1.1,
-      "projectileSpeedMul": 1
+      "projectileSpeedMul": 1.0
     },
     {
       "title": "Thor's hammer",
       "desc": "This is a long description describing the upgrade",
       "price": 1800,
-      "attackDmgMul": 1,
-      "attackSpeedMul": 1,
-      "attackRangeMul": 1,
+      "attackDmgMul": 1.0,
+      "attackSpeedMul": 1.0,
+      "attackRangeMul": 1.0,
       "projectileSpeedMul": 1.2
     }
   ],
@@ -84,19 +84,19 @@
       "title": "More towers",
       "desc": "This is a long description describing the upgrade",
       "price": 200,
-      "attackDmgMul": 1,
-      "attackSpeedMul": 1,
-      "attackRangeMul": 1,
+      "attackDmgMul": 1.0,
+      "attackSpeedMul": 1.0,
+      "attackRangeMul": 1.0,
       "projectileSpeedMul": 1.05
     },
     {
       "title": "Mega robot",
       "desc": "This titan is going to destroy everything",
       "price": 2200,
-      "attackDmgMul": 2,
+      "attackDmgMul": 2.0,
       "attackSpeedMul": 1.6,
       "attackRangeMul": 1.3,
-      "projectileSpeedMul": 1
+      "projectileSpeedMul": 1.0
     }
   ],
   "MechMiniTower": [
@@ -104,19 +104,19 @@
       "title": "No upgrade for me",
       "desc": "This is a long description describing the upgrade",
       "price": 0,
-      "attackDmgMul": 1,
-      "attackSpeedMul": 1,
-      "attackRangeMul": 1,
-      "projectileSpeedMul": 1
+      "attackDmgMul": 1.0,
+      "attackSpeedMul": 1.0,
+      "attackRangeMul": 1.0,
+      "projectileSpeedMul": 1.0
     },
     {
       "title": "No upgrade for me",
       "desc": "This is a long description describing the upgrade",
       "price": 0,
-      "attackDmgMul": 1,
-      "attackSpeedMul": 1,
-      "attackRangeMul": 1,
-      "projectileSpeedMul": 1
+      "attackDmgMul": 1.0,
+      "attackSpeedMul": 1.0,
+      "attackRangeMul": 1.0,
+      "projectileSpeedMul": 1.0
     }
   ],
   "Economist": [
@@ -124,19 +124,19 @@
       "title": "Enhanced acid",
       "desc": "This is a long description describing the upgrade",
       "price": 600,
-      "attackDmgMul": 2,
-      "attackSpeedMul": 1,
-      "attackRangeMul": 1,
-      "projectileSpeedMul": 1
+      "attackDmgMul": 2.0,
+      "attackSpeedMul": 1.0,
+      "attackRangeMul": 1.0,
+      "projectileSpeedMul": 1.0
     },
     {
       "title": "Thor's hammer",
       "desc": "This is a long description describing the upgrade",
       "price": 2000,
-      "attackDmgMul": 2,
+      "attackDmgMul": 2.0,
       "attackSpeedMul": 1.5,
-      "attackRangeMul": 1,
-      "projectileSpeedMul": 1
+      "attackRangeMul": 1.0,
+      "projectileSpeedMul": 1.0
     }
   ]
 }
