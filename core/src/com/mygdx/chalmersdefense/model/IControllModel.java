@@ -76,4 +76,10 @@ public interface IControllModel {
      */
     void continueToFreePlay();
 
+
+    /**
+     * Sell clicked tower
+     */
+    void sellClickedTower();
+
 }

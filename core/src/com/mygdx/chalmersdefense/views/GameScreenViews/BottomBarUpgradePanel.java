@@ -93,6 +93,7 @@ public class BottomBarUpgradePanel {
         sellButton.setPosition(380, 30);
 
         stage.addActor(sellButton);
+        bottomBarPanelController.addClickListenerSellButton(sellButton);
     }
 
     /**
