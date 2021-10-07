@@ -3,7 +3,6 @@ package com.mygdx.chalmersdefense.model.towers;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +12,11 @@ import java.util.List;
  */
 class MechTower extends Tower {
 
-    private final List<ITower> miniTowers = new ArrayList<>();
-    private final int reloadSpeed;
-    private final int range;
-    private final List<ITargetMode> targetModes;
-    List<ITower> towersToAddList;
+    private final List<ITower> miniTowers = new ArrayList<>();  // List to add minitower to
+    private final int reloadSpeed;      // Reload speed
+    private final int range;            // Current range of tower, this will be passed to minimechtowers later
+    private final List<ITargetMode> targetModes;    // All possible targeted
+    List<ITower> towersToAddList;       // The final list to add towers to get them to show up on the map
 
 
     MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<ITower> towersToAddList) {
@@ -28,13 +27,13 @@ class MechTower extends Tower {
         this.towersToAddList = towersToAddList;
     }
 
-    private List<ITower> createMiniTowers(){
-            ITower miniTower1 = new MechMiniTower(this.getX() + 100,this.getY() - 100, reloadSpeed, range, targetModes);
-            ITower miniTower2 = new MechMiniTower(this.getX() - 100,this.getY() - 100, reloadSpeed, range, targetModes);
+    private List<ITower> createMiniTowers() {
+        ITower miniTower1 = new MechMiniTower(this.getX() + 100, this.getY() - 100, reloadSpeed, range, targetModes);
+        ITower miniTower2 = new MechMiniTower(this.getX() - 100, this.getY() - 100, reloadSpeed, range, targetModes);
 
-            miniTowers.add(miniTower1);
-            miniTowers.add(miniTower2);
-            return miniTowers;
+        miniTowers.add(miniTower1);
+        miniTowers.add(miniTower2);
+        return miniTowers;
     }
 
     @Override
@@ -43,10 +42,10 @@ class MechTower extends Tower {
     }
 
     @Override
-    public void update(List<IProjectile> projectilesList,  float newAngle, boolean hasTarget){
-        if(this.isPlaced() && miniTowers.isEmpty()){
+    public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget) {
+        if (this.isPlaced() && miniTowers.isEmpty()) {
             List<ITower> miniTowers = createMiniTowers();
-            for (ITower miniTower: miniTowers) {
+            for (ITower miniTower : miniTowers) {
                 miniTower.placeTower();
             }
             towersToAddList.addAll(miniTowers);

@@ -25,19 +25,21 @@ public class GameScreenController {
 
     /**
      * Adds listener to map in GamerScreen
-     * @param image  GameScreens mapImage
+     *
+     * @param image GameScreens mapImage
      */
     public void addMapClickListener(Image image) {
         image.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                model.checkIfTowerClicked(event.getStageX(),event.getStageY());
+                model.checkIfTowerClicked(event.getStageX(), event.getStageY());
             }
         });
     }
 
     /**
      * Adds click listener to main menu button in LostPanel
+     *
      * @param button LostPanels main menu button
      */
     public void addMainMenuClickListener(Button button) {
@@ -52,6 +54,7 @@ public class GameScreenController {
 
     /**
      * Adds click listener to try again button in LostPanel
+     *
      * @param button LostPanels try again button
      */
     public void addLostPanelTryAgainClickListener(Button button) {
@@ -65,6 +68,7 @@ public class GameScreenController {
 
     /**
      * Adds click listener to continue button in WinPanel
+     *
      * @param button WinPanels continue button
      */
     public void addWinPanelContinueClickListener(Button button) {
@@ -78,6 +82,7 @@ public class GameScreenController {
 
     /**
      * Adds click listener to pause button in GameScreen
+     *
      * @param button GameScreens pause button
      */
     public void addPauseButtonClickListener(Button button) {

@@ -14,15 +14,15 @@ import static org.junit.Assert.*;
 
 /**
  * @author Elin Forsberg
- *
+ * <p>
  * Test class for Tower
  */
 public class TestTower {
 
     @Test
-    public void testUpdateTower(){
+    public void testUpdateTower() {
         List<IProjectile> projectilesList = new ArrayList<>();
-        ITower tower = TowerFactory.CreateSmurf(0,0);
+        ITower tower = TowerFactory.CreateSmurf(0, 0);
         tower.placeTower();
         tower.update(projectilesList, 0, true);
         assertEquals(1, projectilesList.size());
@@ -32,12 +32,12 @@ public class TestTower {
     }
 
     @Test
-    public void testUpgradeTower(){
+    public void testUpgradeTower() {
         HashMap<String, Long> upgrades = new HashMap<>();
         upgrades.put("attackDmgMul", 0L);
         upgrades.put("attackSpeedMul", 0L);
         upgrades.put("attackRangeMul", 0L);
-        ITower tower = TowerFactory.CreateSmurf(0,0);
+        ITower tower = TowerFactory.CreateSmurf(0, 0);
         tower.placeTower();
 
         assertEquals("IT-Smurf1", tower.getSpriteKey());
@@ -47,14 +47,14 @@ public class TestTower {
     }
 
     @Test
-    public void testTowerGetCost(){
-        ITower tower = TowerFactory.CreateSmurf(0,0);
+    public void testTowerGetCost() {
+        ITower tower = TowerFactory.CreateSmurf(0, 0);
         assertTrue(tower.getCost() > 0);
     }
 
     @Test
-    public void testTowerCollision(){
-        ITower tower = TowerFactory.CreateSmurf(0,0);
+    public void testTowerCollision() {
+        ITower tower = TowerFactory.CreateSmurf(0, 0);
         assertFalse(tower.getCollision());
         tower.setCollision(true);
         assertTrue(tower.getCollision());
@@ -62,37 +62,35 @@ public class TestTower {
     }
 
     @Test
-    public void testTowerGetName (){
-        ITower tower = TowerFactory.CreateSmurf(0,0);
+    public void testTowerGetName() {
+        ITower tower = TowerFactory.CreateSmurf(0, 0);
         assertEquals(tower.getName(), "IT-Smurf");
     }
 
     @Test
-    public void testTowerGetWidthAndHeight (){
-        ITower tower = TowerFactory.CreateSmurf(0,0);
+    public void testTowerGetWidthAndHeight() {
+        ITower tower = TowerFactory.CreateSmurf(0, 0);
         assertTrue(tower.getWidth() > 0);
         assertTrue(tower.getHeight() > 0);
     }
 
     @Test
-    public void testTowerGetRange (){
-        ITower tower = TowerFactory.CreateSmurf(0,0);
+    public void testTowerGetRange() {
+        ITower tower = TowerFactory.CreateSmurf(0, 0);
         assertTrue(tower.getRange() > 0);
     }
 
     @Test
-    public void testTowerGetTargetMode (){
-        ITower tower = TowerFactory.CreateSmurf(0,0);
+    public void testTowerGetTargetMode() {
+        ITower tower = TowerFactory.CreateSmurf(0, 0);
         assertNotNull(tower.getCurrentTargetMode());
     }
 
     @Test
-    public void testTowerIsPlaced (){
-        ITower tower = TowerFactory.CreateSmurf(0,0);
+    public void testTowerIsPlaced() {
+        ITower tower = TowerFactory.CreateSmurf(0, 0);
         assertFalse(tower.isPlaced());
     }
-
-
 
 
 }

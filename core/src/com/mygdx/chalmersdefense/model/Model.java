@@ -30,21 +30,21 @@ import java.util.List;
  */
 
 public class Model implements IUpdateModel, IControllModel, IViewModel {
-    private final int WINNING_ROUND = 10;
-    private final int LIVES = 100;
-    private final int START_CAPITAL = 30000;
+    private final int WINNING_ROUND = 10;       // Current vinning round
+    private final int LIVES = 100;              // Current amount of starting lives
+    private final int START_CAPITAL = 30000;    // Current amount of start capital
 
-    private final GameTimer timer = new GameTimer(this);
-    private Rounds round = new Rounds(WINNING_ROUND);
+    private final GameTimer timer = new GameTimer(this);    // Timer object
+    private Rounds round = new Rounds(WINNING_ROUND);              // Round helper
 
-    private final Player player = new Player(LIVES, START_CAPITAL); //Change staring capital later. Just used for testing right now
-    private final Upgrades upgrades = new Upgrades();
+    private final Player player = new Player(LIVES, START_CAPITAL); // Player object
+    private final Upgrades upgrades = new Upgrades();   // Class for controlling upgrades
 
 
-    private final Map map = new Map(player);
-    private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());
+    private final Map map = new Map(player);        // Current map object
+    private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());   // The class for spawning viruses
 
-    private boolean showWinPanel = false;
+    private boolean showWinPanel = false;       // Boolean for views of they should show win panel
 
     @Override
     public synchronized void updateModel() {
@@ -75,11 +75,12 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         }
     }
 
-
+    @Override
     public void startGameUpdate() {
         timer.startUpdateTimer();
     }
 
+    @Override
     public void stopGameUpdate() {
         timer.stopUpdateTimer();
     }

@@ -9,11 +9,12 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Elin Forsberg
- *
+ * <p>
  * Test class for LightningProjectile
  */
 public class TestLightningProjectile {
@@ -21,27 +22,27 @@ public class TestLightningProjectile {
     IProjectile projectile;
 
     @Before
-    public void createProjectile(){
-        ITower tower = TowerFactory.CreateElectro(0,0);
+    public void createProjectile() {
+        ITower tower = TowerFactory.CreateElectro(0, 0);
         tower.placeTower();
         tower.update(projectilesList, 0, true);
         projectile = projectilesList.get(0);
     }
 
     @Test
-    public void testCountVirusHit(){
+    public void testCountVirusHit() {
         assertFalse(projectile.canRemove());
         for (int i = 0; i < 5; i++) {
-            projectile.update(true,0,0);
+            projectile.update(true, 0, 0);
         }
 
         assertTrue(projectile.canRemove());
     }
 
     @Test
-    public void testNegativeAngleRemoval(){
+    public void testNegativeAngleRemoval() {
         assertFalse(projectile.canRemove());
-        projectile.update(true,0,-1);
+        projectile.update(true, 0, -1);
 
         assertTrue(projectile.canRemove());
     }

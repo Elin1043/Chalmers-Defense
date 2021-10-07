@@ -10,7 +10,7 @@ import com.mygdx.chalmersdefense.model.IControllModel;
  * Controller class for bottom bar element in GameScreen
  *
  * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model
-*/
+ */
 public class BottomBarPanelController {
     private final IControllModel model;
 
@@ -22,7 +22,7 @@ public class BottomBarPanelController {
      * @author Daniel Persson
      *
      * Method for adding click listener to upgrade button
-    */
+     */
     public void addClickListenerUpgradeButton(Button button) {
         button.addListener(new ClickListener() {
             @Override

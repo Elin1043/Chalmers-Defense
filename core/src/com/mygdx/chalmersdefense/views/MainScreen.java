@@ -19,18 +19,18 @@ public class MainScreen extends AbstractScreen {
 
     private final TextureAtlas quitButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/quitButtonSkin/QuitButtonSkin.atlas")); // Load atlas file from skin
     private final Skin quitButtonSkin = new Skin(Gdx.files.internal("buttons/quitButtonSkin/QuitButtonSkin.json"), quitButtonAtlas); // Create skin object
-    private Button quitButton = new Button(quitButtonSkin);
+    private final Button quitButton = new Button(quitButtonSkin);
 
     private final MainScreenController mainScreenController;
 
-    public MainScreen(MainScreenController mainScreenController){
+    public MainScreen(MainScreenController mainScreenController) {
         super();
         this.mainScreenController = mainScreenController;
         img = new Image(new Texture("HomeScreen.png"));
         createPlayButton();
     }
 
-    private void createPlayButton(){
+    private void createPlayButton() {
         Texture playButtonTexture = new Texture(Gdx.files.internal("playButton.png"));
         TextureRegion playButtonTextureRegion = new TextureRegion(playButtonTexture);
         TextureRegionDrawable playTexRegDrawable = new TextureRegionDrawable(playButtonTextureRegion);

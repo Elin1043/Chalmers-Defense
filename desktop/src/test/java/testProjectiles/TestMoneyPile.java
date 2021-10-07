@@ -13,10 +13,10 @@ import static org.junit.Assert.assertTrue;
 public class TestMoneyPile {
 
     @Test
-    public void testMoneyUpdate(){
-        IProjectile p = ProjectileFactory.createMoneyPile(1,1,2);
+    public void testMoneyUpdate() {
+        IProjectile p = ProjectileFactory.createMoneyPile(1, 1, 2);
 
-        for (int i = 0; i < 10000; i++){                    // After this amount of time, it should be able to be removed
+        for (int i = 0; i < 10000; i++) {                    // After this amount of time, it should be able to be removed
             p.update(false, 0, 10);
         }
 
@@ -24,8 +24,8 @@ public class TestMoneyPile {
     }
 
     @Test
-    public void testHaveHitBefore(){
-        IProjectile p = ProjectileFactory.createMoneyPile(1,1,2);
+    public void testHaveHitBefore() {
+        IProjectile p = ProjectileFactory.createMoneyPile(1, 1, 2);
         assertTrue(p.haveHitBefore(0)); // Should always return true to not do damage to viruses
     }
 }

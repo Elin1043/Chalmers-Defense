@@ -15,9 +15,9 @@ import java.util.Objects;
  * A class for storing and applying upgrades to towers.
  */
 public class Upgrades {
-    private final JSONParser parser = new JSONParser();
-    private final int MAX_UPGRADES = 3;
-    private JSONObject mainObject;
+    private final JSONParser parser = new JSONParser();     // Current Json parser
+    private final int MAX_UPGRADES = 3;                     // Current max upgrade level
+    private JSONObject mainObject;                          // The parsed json object
 
     public Upgrades() {
         try {

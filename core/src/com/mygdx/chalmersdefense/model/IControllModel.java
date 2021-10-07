@@ -13,19 +13,21 @@ public interface IControllModel {
 
     /**
      * Creates a new tower when user starts dragging from a tower button.
+     *
      * @param towerName the name of the tower
-     * @param x the X-position of the button
-     * @param y the Y-position of the button
+     * @param x         the X-position of the button
+     * @param y         the Y-position of the button
      */
     void dragStart(String towerName, float x, float y);
 
     /**
      * Handles a tower being dragged.
      * Updates the towers position after mouse and check for collision
-     * @param buttonWidth The width of the button dragged from
+     *
+     * @param buttonWidth  The width of the button dragged from
      * @param buttonHeight The height of the button dragged from
-     * @param x The X-position of the mouse
-     * @param y The Y-position of the mouse
+     * @param x            The X-position of the mouse
+     * @param y            The Y-position of the mouse
      * @param windowHeight The height of the window
      * @param windowWidth  The width of the window
      */
@@ -36,10 +38,11 @@ public interface IControllModel {
      * Checks if tower can be placed on current position.
      * If not: tower is removed
      * if valid: place the tower
-     * @param buttonWidth The width of the button dragged from
+     *
+     * @param buttonWidth  The width of the button dragged from
      * @param buttonHeight The height of the button dragged from
-     * @param x The X-position of the mouse
-     * @param y The Y-position of the mouse
+     * @param x            The X-position of the mouse
+     * @param y            The Y-position of the mouse
      */
     void dragEnd(float buttonWidth, float buttonHeight, float x, float y);
 

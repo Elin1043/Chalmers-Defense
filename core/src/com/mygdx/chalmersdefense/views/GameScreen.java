@@ -6,7 +6,9 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -14,21 +16,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
-import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 import com.mygdx.chalmersdefense.views.GameScreenViews.BottomBarUpgradePanel;
 import com.mygdx.chalmersdefense.views.GameScreenViews.LostPanel;
 import com.mygdx.chalmersdefense.views.GameScreenViews.RightSidePanel;
 import com.mygdx.chalmersdefense.views.GameScreenViews.WinPanel;
 
-
 import static com.badlogic.gdx.graphics.GL20.*;
 
 /**
  * @author Daniel Persson
- *
+ * <p>
  * 2021-09-20 Modified by Elin Forsberg: Added methods and variables to handle placing towers
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: All sprites now comes from hashmap when rendering and there are life and money labels
  * 2021-09-24 Modified by Elin Forsberg: Added methods to render projectiles
@@ -106,6 +106,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     /**
      * Renders GameScreen to screen
+     *
      * @param delta the timeframe from previous frame to current frame
      */
     @Override
@@ -156,9 +157,9 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     }
 
-    private void renderMapObjects(){
+    private void renderMapObjects() {
         super.batch.begin();
-        for (IMapObject mapObject: model.getAllMapObjects()) {
+        for (IMapObject mapObject : model.getAllMapObjects()) {
             Sprite objectSprite = spriteMap.get(mapObject.getSpriteKey());
             objectSprite.setPosition(mapObject.getX(), mapObject.getY());
             objectSprite.setRotation(mapObject.getAngle());
@@ -170,7 +171,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     }
 
-    private void renderRangeCircle(){
+    private void renderRangeCircle() {
         GetRangeCircle circle = model.getRangeCircle();
 
         Gdx.gl.glEnable(GL_BLEND);
@@ -182,13 +183,13 @@ public class GameScreen extends AbstractScreen implements Screen {
         Gdx.gl.glDisable(GL_BLEND);
     }
 
-    private Color getColorOfCircle(GetRangeCircle circle){
-        switch (circle.getColor()){
+    private Color getColorOfCircle(GetRangeCircle circle) {
+        switch (circle.getColor()) {
             case RED -> {
-                return new Color (255 / 255F, 51 / 255F, 51 / 255F, 0.8F);
+                return new Color(255 / 255F, 51 / 255F, 51 / 255F, 0.8F);
             }
             case GRAY -> {
-                return new Color (150 / 255F, 150 / 255F, 150 / 255F, 0.8F);
+                return new Color(150 / 255F, 150 / 255F, 150 / 255F, 0.8F);
             }
             default -> {
                 return Color.CLEAR;

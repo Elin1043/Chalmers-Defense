@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class TestMechMiniTower {
 
     @Test
-    public void testCreateProjectile(){
+    public void testCreateProjectile() {
         List<ITower> addToList = new ArrayList<>();
         ITower t = TowerFactory.CreateMeck(0, 0, addToList);
         List<IProjectile> pList = new ArrayList<>();
@@ -24,7 +24,7 @@ public class TestMechMiniTower {
         t.placeTower();
         t.update(new ArrayList<>(), 10, true);
 
-        for (ITower tower : addToList){
+        for (ITower tower : addToList) {
             tower.update(pList, 10, true);
         }
 

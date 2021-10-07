@@ -5,14 +5,14 @@ import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
 import org.junit.Test;
 
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Daniel Persson
- *
+ * <p>
  * 2021-10-07 Modified by Joel Båtsman Hilmersson: Now also test exceptions in methods
- *
+ * <p>
  * Test class for Upgrades class
  */
 public class TestUpgrades {
@@ -49,19 +49,19 @@ public class TestUpgrades {
     }
 
     @Test
-    public void testGetTowerUpgradeTitleException(){
+    public void testGetTowerUpgradeTitleException() {
         String upgradeTitle = model.getTowerUpgradeTitle("This name should not exist and therefore throw exception", 100);
         assertEquals("", upgradeTitle); // If the exception was thrown, it will return an empty string
     }
 
     @Test
-    public void testGetTowerUpgradeDescException(){
+    public void testGetTowerUpgradeDescException() {
         String upgradeDesc = model.getTowerUpgradeDesc("This name should not exist and therefore throw exception", 100);
         assertEquals("", upgradeDesc); // If the exception was thrown, it will return an empty string
     }
 
     @Test
-    public void testGetTowerUpgradePriceException(){
+    public void testGetTowerUpgradePriceException() {
         Long upgradePrice = model.getTowerUpgradePrice("This name should not exist and therefore throw exception", 100);
         assertEquals(0L, (long) upgradePrice); // If the exception was thrown, it will return a long = 0
     }

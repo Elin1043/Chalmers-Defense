@@ -1,19 +1,15 @@
 package testUtilities;
 
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.mygdx.chalmersdefense.ChalmersDefense;
-import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.utilities.PositionVector;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.*;
 
 /**
  * @author Jenny Carlsson
- *
+ * <p>
  * Test Class for PositionVector
  */
 
@@ -40,13 +36,10 @@ public class TestPositionVector {
 
     @Test
     public void testSetVectorPos() {
-        PositionVector v = positionVector.setVectorPos(5,6);
+        PositionVector v = positionVector.setVectorPos(5, 6);
         PositionVector v2 = new PositionVector(v);
         assertEquals(6, v2.getY(), 0.001);
     }
-
-    
-
 
 
 }

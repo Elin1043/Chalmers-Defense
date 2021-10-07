@@ -6,7 +6,6 @@ import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import org.junit.Test;
 
-
 import static org.junit.Assert.*;
 
 /**
@@ -17,14 +16,14 @@ public class TestVirus {
     Path p = PathFactory.createClassicPath();
 
     @Test
-    public void testVirusGetHit(){
+    public void testVirusGetHit() {
         IVirus v = VirusFactory.createVirusTwo();
         v.decreaseHealth();
         assertEquals(1, v.getLifeDecreaseAmount());
     }
 
     @Test
-    public void testVirusUpdateSpriteKey(){
+    public void testVirusUpdateSpriteKey() {
         IVirus v = VirusFactory.createVirusTwo();
         assertEquals("virus2", v.getSpriteKey());
         v.decreaseHealth();
@@ -32,7 +31,7 @@ public class TestVirus {
     }
 
     @Test
-    public void testVirusIsDead(){
+    public void testVirusIsDead() {
         IVirus v = VirusFactory.createVirusOne();
         assertFalse(v.isDead());
         v.decreaseHealth();
@@ -40,14 +39,14 @@ public class TestVirus {
     }
 
     @Test
-    public void testUpdateVirus(){
+    public void testUpdateVirus() {
         IVirus v = VirusFactory.createVirusOne();
         v.update();
         assertTrue(v.getTotalDistanceTraveled() > 0);
     }
 
     @Test
-    public void testDifferentSpeedVirus(){
+    public void testDifferentSpeedVirus() {
         IVirus v1 = VirusFactory.createVirusOne();
         IVirus v2 = VirusFactory.createVirusTwo();
         v1.update();
@@ -56,21 +55,21 @@ public class TestVirus {
     }
 
     @Test
-    public void testGetVirusAngle(){
+    public void testGetVirusAngle() {
         IVirus v = VirusFactory.createVirusOne();
         assertEquals(0, v.getAngle(), 0.00000000001);
     }
 
     @Test
-    public void testGetXPosition(){
+    public void testGetXPosition() {
         IVirus v = VirusFactory.createVirusOne();
-        assertEquals(v.getX(), p.getWaypoint(0).getX() - v.getWidth()/2, 0.0);
+        assertEquals(v.getX(), p.getWaypoint(0).getX() - v.getWidth() / 2, 0.0);
     }
 
     @Test
-    public void testGetYPosition(){
+    public void testGetYPosition() {
         IVirus v = VirusFactory.createVirusOne();
-        assertEquals(v.getY(), p.getWaypoint(0).getY() - v.getHeight()/2, 0.0);
+        assertEquals(v.getY(), p.getWaypoint(0).getY() - v.getHeight() / 2, 0.0);
     }
 
 }

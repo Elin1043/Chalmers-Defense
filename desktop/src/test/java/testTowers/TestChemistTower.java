@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class TestChemistTower {
 
     @Test
-    public void testCreateProjectile(){
+    public void testCreateProjectile() {
         ITower t = TowerFactory.CreateChemist(0, 0, new ArrayList<>());
         List<IProjectile> l = new ArrayList<>();
 

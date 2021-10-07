@@ -15,83 +15,82 @@ import java.util.Objects;
 /**
  * @author Elin Forsberg
  * A class defining the tower objects
- *
+ * <p>
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: changed class to hold hashmap key for sprite
  * 2021-09-25 Modified by Elin Forsberg: added method for shooting projectiles
  */
+abstract class Tower implements ITower {
 
-abstract class Tower implements ITower{
+    private String spriteKey;       // The key to the Sprite Hashmap
+    private int upgradeLevel = 1;   // The current upgradeLevel
 
-    private String spriteKey;
-    private int upgradeLevel = 1;
+    private float angle = 0;        // Current angle of tower
+    private int range;              // Current shooting range of tower
+    private final String name;      // Tower Name
 
-    private float angle = 0;
-    private int range;
-    private final String name;
-
-    private boolean isPlaced = false;
-    private float x;
-    private float y;
-
+    private boolean isPlaced = false;   // Boolean over if this tower is placed
+    private float x;                // X coordinate on map
+    private float y;                // y coordinate on map
 
     //private final TargetMode firstMode = TargetModeFactory.
 
     private final List<ITargetMode> targetModes;
-    private final ITargetMode currentTargetMode;
+    private final ITargetMode currentTargetMode;    // Which current targeting mode to use
 
-    private float width;
-    private float height;
+    private float width;            // Width of tower object
+    private float height;           // Height of tower object
 
-    private final int cost;
+    private final int cost;         // Cost of tower
 
-    private boolean collision = false;
-
-
-    private int reloadTime; //how many updates from model
-    private int currentReload = 0;
+    private boolean collision = false;  // When tower is placed, this helps model to know if tower collides with anything
 
 
-    Tower(float x, float y, String name, int reloadTime, int cost, int range, List<ITargetMode> targetModes){
+    private int reloadTime;         // Reload time of tower. (How many update cycles before tower will shoot)
+    private int currentReload = 0;  // Current reload
+
+
+    Tower(float x, float y, String name, int reloadTime, int cost, int range, List<ITargetMode> targetModes) {
         this.name = name;
-        this.reloadTime = reloadTime;
         this.targetModes = targetModes;
+        this.reloadTime = reloadTime;
         this.currentTargetMode = targetModes.get(0);
         updateSpriteKey();
 
-        try{
+        try {
             BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("towers/" + name + "/" + spriteKey + ".png")));
-            this.width         = towerImage.getWidth();
-            this.height        = towerImage.getHeight();
+            this.width = towerImage.getWidth();
+            this.height = towerImage.getHeight();
 
 
-        }
-        catch (IOException exception){
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
 
-        this.setPos(x,y);
+        this.setPos(x, y);
         this.range = range;
         this.cost = cost;
     }
 
+    /**
+     * Create a new projectile
+     * @param projectileList the list of which the projectile should be added too
+     */
     abstract void createProjectile(List<IProjectile> projectileList);
 
     @Override
     public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget) {
         setAngle(newAngle);
-        if(currentReload < 1 && hasTarget && isPlaced){
+        if (currentReload < 1 && hasTarget && isPlaced) {
             currentReload = reloadTime;
             createProjectile(projectilesList);
-        }
-        else{
-            currentReload --;
+        } else {
+            currentReload--;
         }
     }
 
 
-
+    @Override
     public void upgradeTower(HashMap<String, Long> upgrades) {
-        // DMG multiplier??
         reloadTime *= upgrades.get("attackSpeedMul");
         range *= upgrades.get("attackRangeMul");
         upgradeLevel++;
@@ -99,85 +98,102 @@ abstract class Tower implements ITower{
     }
 
 
+    @Override
     public int getUpgradeLevel() {
         return upgradeLevel;
     }
 
-    private void updateSpriteKey() { spriteKey = name + upgradeLevel; }
+    /**
+     * Update the sprite key
+     */
+    private void updateSpriteKey() {
+        spriteKey = name + upgradeLevel;
+    }
 
-
+    @Override
     public String getSpriteKey() {
         return spriteKey;
     }
 
-
+    @Override
     public int getCost() {
         return cost;
     }
 
-
-    public boolean getCollision(){
+    @Override
+    public boolean getCollision() {
         return collision;
     }
 
-
-    public void setCollision(boolean set){
+    @Override
+    public void setCollision(boolean set) {
         collision = set;
     }
 
-
-    public String getName(){
+    @Override
+    public String getName() {
         return name;
     }
 
-
-    public void setPos(float x, float y){
+    @Override
+    public void setPos(float x, float y) {
         this.x = x;
         this.y = y;
     }
 
-
-    public float getX(){
+    @Override
+    public float getX() {
         return x;
     }
 
-
-    public float getY(){
+    @Override
+    public float getY() {
         return y;
     }
 
-
-    public float getHeight(){
+    @Override
+    public float getHeight() {
         return height;
     }
 
-
-    public float getWidth(){
+    @Override
+    public float getWidth() {
         return width;
     }
 
-
-    public float getAngle(){
+    @Override
+    public float getAngle() {
         return angle;
     }
 
     /**
      * Sets the angle of the tower
+     *
      * @param newAngle angle of tower to be set
      */
-    void setAngle(float newAngle) { if (isPlaced && (newAngle >= 0)){ angle = newAngle; }}
+    void setAngle(float newAngle) {
+        if (isPlaced && (newAngle >= 0)) {
+            angle = newAngle;
+        }
+    }
 
-    public int getRange(){
+    @Override
+    public int getRange() {
         return range;
     }
 
-    public ITargetMode getCurrentTargetMode() { return currentTargetMode; }
+    @Override
+    public ITargetMode getCurrentTargetMode() {
+        return currentTargetMode;
+    }
 
-    public boolean isPlaced(){
+    @Override
+    public boolean isPlaced() {
         return isPlaced;
     }
 
-    public void placeTower(){
+    @Override
+    public void placeTower() {
         isPlaced = true;
     }
 
