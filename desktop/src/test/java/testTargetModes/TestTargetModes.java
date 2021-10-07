@@ -51,8 +51,10 @@ public class TestTargetModes {
 
     @Test
     public void testGetLastTarget(){
+        vList.get(0).update();
+        vList.add(VirusFactory.createVirusOne());
         IVirus lastVirus = lastTarget.getRightVirus(vList, 0 , 0); // Tower position is ignored when calculating last virus
-        assertEquals(lastVirus, vList.get(0));
+        assertEquals(lastVirus, vList.get(5));
     }
 
     @Test

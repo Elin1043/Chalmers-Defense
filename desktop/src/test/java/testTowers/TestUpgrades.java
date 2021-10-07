@@ -10,6 +10,9 @@ import static org.junit.Assert.*;
 
 /**
  * @author Daniel Persson
+ *
+ * 2021-10-07 Modified by Joel Båtsman Hilmersson: Now also test exceptions in methods
+ *
  * Test class for Upgrades class
  */
 public class TestUpgrades {
@@ -43,5 +46,23 @@ public class TestUpgrades {
         model.upgradeClickedTower();
         int upgradeLevel = Character.getNumericValue(model.getClickedTower().getSpriteKey().charAt(model.getClickedTower().getSpriteKey().length() - 1));
         assertEquals(2, upgradeLevel);
+    }
+
+    @Test
+    public void testGetTowerUpgradeTitleException(){
+        String upgradeTitle = model.getTowerUpgradeTitle("This name should not exist and therefore throw exception", 100);
+        assertEquals("", upgradeTitle); // If the exception was thrown, it will return an empty string
+    }
+
+    @Test
+    public void testGetTowerUpgradeDescException(){
+        String upgradeDesc = model.getTowerUpgradeDesc("This name should not exist and therefore throw exception", 100);
+        assertEquals("", upgradeDesc); // If the exception was thrown, it will return an empty string
+    }
+
+    @Test
+    public void testGetTowerUpgradePriceException(){
+        Long upgradePrice = model.getTowerUpgradePrice("This name should not exist and therefore throw exception", 100);
+        assertEquals(0L, (long) upgradePrice); // If the exception was thrown, it will return a long = 0
     }
 }

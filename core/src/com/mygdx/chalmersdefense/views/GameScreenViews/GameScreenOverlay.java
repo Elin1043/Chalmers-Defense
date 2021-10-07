@@ -10,16 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 
 import static com.badlogic.gdx.graphics.GL20.*;
-import static com.badlogic.gdx.graphics.GL20.GL_BLEND;
 
 /**
  * @author Daniel Persson
  */
 public abstract class GameScreenOverlay {
-    protected GameScreenController gameScreenController;
     protected final Stage stage;
-
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
+    protected GameScreenController gameScreenController;
 
     public GameScreenOverlay(GameScreenController gameScreenController, Stage stage) {
         this.gameScreenController = gameScreenController;
@@ -57,10 +55,10 @@ public abstract class GameScreenOverlay {
         // Offset used to place button in center of left or right part.
         float offsetMulX;
         if (buttonNr == 1) {
-            offsetMulX = 1/4f;
+            offsetMulX = 1 / 4f;
             gameScreenController.addMainMenuClickListener(button);
         } else {
-            offsetMulX = 3/4f;
+            offsetMulX = 3 / 4f;
             if (originPanel.equals("WinPanel")) {
                 gameScreenController.addWinPanelContinueClickListener(button);
             } else {
@@ -70,8 +68,8 @@ public abstract class GameScreenOverlay {
         }
 
         button.setPosition(
-                backgroundImage.getX() + (backgroundImage.getWidth() * offsetMulX) - button.getWidth()/2,
+                backgroundImage.getX() + (backgroundImage.getWidth() * offsetMulX) - button.getWidth() / 2,
                 backgroundImage.getY() + 65);
-        buttonLabel.setPosition(button.getWidth()/2 - buttonLabel.getWidth()/2, button.getHeight()/2 - buttonLabel.getHeight()/2 + 5);
+        buttonLabel.setPosition(button.getWidth() / 2 - buttonLabel.getWidth() / 2, button.getHeight() / 2 - buttonLabel.getHeight() / 2 + 5);
     }
 }

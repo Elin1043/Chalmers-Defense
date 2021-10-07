@@ -48,7 +48,7 @@ public class WinPanel extends GameScreenOverlay {
         initializeActors();
 
         // Set position of background
-        backgroundImage.setPosition(stage.getWidth()/2 - WIDTH/2, stage.getHeight()/2 - HEIGHT/2);
+        backgroundImage.setPosition(stage.getWidth() / 2 - WIDTH / 2, stage.getHeight() / 2 - HEIGHT / 2);
 
         // Set position for main title.
         title.setPosition(
@@ -59,7 +59,7 @@ public class WinPanel extends GameScreenOverlay {
         mainText.setWidth(720);
         mainText.setAlignment(Align.center);
         mainText.setPosition(
-                backgroundImage.getX() + backgroundImage.getWidth() / 2 - 720/2f,
+                backgroundImage.getX() + backgroundImage.getWidth() / 2 - 720 / 2f,
                 backgroundImage.getY() + backgroundImage.getHeight() - 150);
 
         createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1, "WinPanel");
