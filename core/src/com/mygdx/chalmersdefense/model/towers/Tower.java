@@ -32,6 +32,9 @@ abstract class Tower implements ITower {
     private float x;                // X coordinate on map
     private float y;                // y coordinate on map
 
+    //private final TargetMode firstMode = TargetModeFactory.
+
+    private final List<ITargetMode> targetModes;
     private final ITargetMode currentTargetMode;    // Which current targeting mode to use
 
     private float width;            // Width of tower object
@@ -48,6 +51,7 @@ abstract class Tower implements ITower {
 
     Tower(float x, float y, String name, int reloadTime, int cost, int range, List<ITargetMode> targetModes) {
         this.name = name;
+        this.targetModes = targetModes;
         this.reloadTime = reloadTime;
         this.currentTargetMode = targetModes.get(0);
         updateSpriteKey();
