@@ -3,13 +3,23 @@ package com.mygdx.chalmersdefense.model.path.gamePaths;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.utilities.PositionVector;
 
-public class ClassicPath extends Path {
+/**
+ * @author Daniel Persson
+ * @author Jenny Carlsson
+ *
+ * 2021-10-05 Modified by Elin Forsberg: Made ClassicPath package-private
+ */
+
+
+
+class ClassicPath extends Path {
 
     public ClassicPath() {
         super(80);
         setPathWaypoints();
         super.createMapCollision();
     }
+
 
     @Override
     protected void setPathWaypoints() {
