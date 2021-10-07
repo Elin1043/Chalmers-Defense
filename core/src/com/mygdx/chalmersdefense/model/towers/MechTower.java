@@ -12,11 +12,11 @@ import java.util.List;
  */
 class MechTower extends Tower {
 
-    private final List<ITower> miniTowers = new ArrayList<>();
-    private final int reloadSpeed;
-    private final int range;
-    private final List<ITargetMode> targetModes;
-    List<ITower> towersToAddList;
+    private final List<ITower> miniTowers = new ArrayList<>();  // List to add minitower to
+    private final int reloadSpeed;      // Reload speed
+    private final int range;            // Current range of tower, this will be passed to minimechtowers later
+    private final List<ITargetMode> targetModes;    // All possible targeted
+    List<ITower> towersToAddList;       // The final list to add towers to get them to show up on the map
 
 
     MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<ITower> towersToAddList) {
