@@ -5,7 +5,7 @@ package com.mygdx.chalmersdefense.model;
  * <p>
  * Exception to use when player lost all lives
  */
-public class PlayerLostAllLifeException extends Exception {
+ class PlayerLostAllLifeException extends Exception {
     public PlayerLostAllLifeException() {
     }
 }
