@@ -1,7 +1,6 @@
 package com.mygdx.chalmersdefense.utilities;
 
 import com.mygdx.chalmersdefense.model.IMapObject;
-import com.mygdx.chalmersdefense.model.customExceptions.IllegalMethodCallException;
 
 import java.awt.*;
 

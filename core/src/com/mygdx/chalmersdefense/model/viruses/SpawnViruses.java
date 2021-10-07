@@ -1,8 +1,6 @@
 package com.mygdx.chalmersdefense.model.viruses;
 
 
-import com.mygdx.chalmersdefense.model.customExceptions.IllegalRoundDataException;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;

@@ -1,6 +1,6 @@
 package testUtilities;
 
-import com.mygdx.chalmersdefense.model.customExceptions.IllegalRoundDataException;
+import com.mygdx.chalmersdefense.model.viruses.IllegalRoundDataException;
 import org.junit.Test;
 
 /**
