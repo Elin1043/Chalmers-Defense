@@ -53,6 +53,8 @@ public interface IViewModel {
     Long getTowerUpgradePrice(String towerName, int upgradeLevel);
 
 
+    int getClickedTowerSellPrice();
+
     /**
      * Return if player lost the game
      *

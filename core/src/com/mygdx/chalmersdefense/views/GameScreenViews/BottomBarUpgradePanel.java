@@ -54,6 +54,8 @@ public class BottomBarUpgradePanel {
     private final Label secondUpgradeButtonDesc = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle18Black());
     private final Label secondUpgradeButtonPrice = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle26Black());
 
+    private final Label sellPriceLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle26Black());
+
 
 
 
@@ -83,16 +85,11 @@ public class BottomBarUpgradePanel {
         createUpgradeButtons(upgradeButtonFirst, firstUpgradeButtonTitle, firstUpgradeButtonDesc, firstUpgradeButtonPrice);
         createUpgradeButtons(upgradeButtonSecond, secondUpgradeButtonTitle, secondUpgradeButtonDesc, secondUpgradeButtonPrice);
 
+        createSellButton();
+
         bottomBarPanelUpgradeGroup.addActor(towerNameLabel);
         bottomBarPanelUpgradeGroup.setVisible(false);
 
-        TextureRegion playButtonTextureRegion = new TextureRegion(new Texture(Gdx.files.internal("buttons/towerSellButton.png")));
-        TextureRegionDrawable playTexRegDrawable = new TextureRegionDrawable(playButtonTextureRegion);
-        ImageButton sellButton = new ImageButton(playTexRegDrawable);
-        sellButton.setPosition(380, 30);
-
-        stage.addActor(sellButton);
-        bottomBarPanelController.addClickListenerSellButton(sellButton);
     }
 
     /**
@@ -102,6 +99,7 @@ public class BottomBarUpgradePanel {
         stage.act();
         stage.draw();
         updateUpgradePanelInfo(tower);
+        updateSellButtonInfo();
         bottomBarPanelUpgradeGroup.setVisible(true);
     }
 
@@ -121,6 +119,25 @@ public class BottomBarUpgradePanel {
         return stage;
     }
 
+
+
+    private void createSellButton() {
+        TextureRegion playButtonTextureRegion = new TextureRegion(new Texture(Gdx.files.internal("buttons/towerSellButton.png")));
+        TextureRegionDrawable playTexRegDrawable = new TextureRegionDrawable(playButtonTextureRegion);
+        ImageButton sellButton = new ImageButton(playTexRegDrawable);
+        sellButton.setPosition(380, 30);
+
+        stage.addActor(sellButton);
+        stage.addActor(sellPriceLabel);
+        bottomBarPanelController.addClickListenerSellButton(sellButton);
+
+
+        sellPriceLabel.setPosition(520, 55);
+    }
+
+    private void updateSellButtonInfo(){
+        sellPriceLabel.setText("+" + "$" + model.getClickedTowerSellPrice());
+    }
     /**
      * Sets up the upgrade button with labels and image.
      *

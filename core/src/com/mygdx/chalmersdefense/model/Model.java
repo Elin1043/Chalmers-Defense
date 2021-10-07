@@ -148,6 +148,18 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
+    public int getClickedTowerSellPrice() {
+        int cost;
+        if(map.getClickedTower().getUpgradeLevel() == 1){
+            cost = (int) (map.getClickedTower().getCost() * 0.6);
+        }
+        else{
+            cost = (int) (upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), map.getClickedTower().getUpgradeLevel() - 1).intValue() * 0.6);
+        }
+        return cost;
+    }
+
+    @Override
     public void upgradeClickedTower() {
         if (upgrades.upgradeTower(map.getClickedTower())) {
             player.decreaseMoney(upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), map.getClickedTower().getUpgradeLevel() - 1).intValue());
@@ -171,14 +183,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public void sellClickedTower() {
-        int cost;
-        if(map.getClickedTower().getUpgradeLevel() == 1){
-            cost = (int) (map.getClickedTower().getCost() * 0.6);
-        }
-        else{
-            cost = (int) (upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), map.getClickedTower().getUpgradeLevel() - 1).intValue() * 0.6);
-        }
-        map.sellClickedTower(cost);
+        map.sellClickedTower(getClickedTowerSellPrice());
     }
 
     @Override
