@@ -26,7 +26,9 @@ public abstract class Path {
         this.pathWidth = pathWidth;
     }
 
-
+    /**
+     * Creates path waypoints
+     */
     protected abstract void setPathWaypoints();
 
 

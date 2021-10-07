@@ -24,8 +24,8 @@ import java.util.List;
  * Class handeling all objects and methods on Map.
  */
 class Map {
-    private ITower newTower;
-    private ITower clickedTower;
+    private ITower newTower;            // Temp helper for when new tower is added
+    private ITower clickedTower;        // The current clicked tower
     private final List<ITower> towersList = new ArrayList<>();              // The main tower list
     private final List<IProjectile> projectilesList = new ArrayList<>();    // The main projectile list
     private final List<IVirus> virusesList = new ArrayList<>();             // The main virus list
@@ -33,12 +33,12 @@ class Map {
     private final List<ITower> towersToAddList = new ArrayList<>();             // Temporary list for object adding towers to the main list (To avoid concurrent modification issues)
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();   // Temporary list for object adding projectiles to the main list (To avoid concurrent modification issues)
 
-    private final Player player;                            // A reference to the Player object in the game
-    private final Path path = PathFactory.createClassicPath();
+    private final Player player;                                   // A reference to the Player object in the game
+    private final Path path = PathFactory.createClassicPath();     // Current path
 
-    private boolean isGameLost;
+    private boolean isGameLost;     // Boolean if game is lost
 
-    private final GetRangeCircle rangeCircle = new GetRangeCircle();            // Helper class for showing gray range circle
+    private final GetRangeCircle rangeCircle = new GetRangeCircle();     // Helper class for showing gray range circle
 
 
     Map(Player player) {

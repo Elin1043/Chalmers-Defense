@@ -5,8 +5,8 @@ package com.mygdx.chalmersdefense.model;
  * A class for representing round mechanic with current round and winning round
  */
 class Rounds {
-    private int currentRound = 0;
-    private int winningRound;
+    private int currentRound = 0;   // Current round
+    private int winningRound;       // Winning round
 
     Rounds(int winningRound) {
         this.winningRound = winningRound;
