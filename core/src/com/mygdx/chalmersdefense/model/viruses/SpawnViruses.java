@@ -99,7 +99,7 @@ public class SpawnViruses {
         try {
             parseRound();
         } catch (NumberFormatException e) {
-            throw new IllegalRoundDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound));
+            throw new IllegalVirusSequenceDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound));
         }
     }
 
@@ -123,7 +123,7 @@ public class SpawnViruses {
         } else if (splitedWave.length == 3) {
             multiVirusSpawnHandler(splitedWave);
         } else {
-            throw new IllegalRoundDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound));
+            throw new IllegalVirusSequenceDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound));
         }
     }
 
@@ -197,7 +197,7 @@ public class SpawnViruses {
             case 3 -> listToAddVirusesTo.add(VirusFactory.createVirusThree());
             case 4 -> listToAddVirusesTo.add(VirusFactory.createVirusFour());
             case 5 -> listToAddVirusesTo.add(VirusFactory.createVirusFive());
-            default -> throw new IllegalRoundDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound));
+            default -> throw new IllegalVirusSequenceDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound));
         }
     }
 
