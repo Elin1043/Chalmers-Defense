@@ -31,8 +31,6 @@ public class GameTimer {
     public void startUpdateTimer() {
         setupTask();
         timer.start();
-
-        System.out.println("START TIMER");
     }
 
     /**
@@ -43,7 +41,6 @@ public class GameTimer {
         timer.stop();   // Stops timer
         timer.clear();  // Clears timer from old tasks
 
-        System.out.println("STOP TIMER");
     }
 
     /**
