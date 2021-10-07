@@ -173,10 +173,10 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     public void sellClickedTower() {
         int cost;
         if(map.getClickedTower().getUpgradeLevel() == 1){
-            cost = (int) (map.getClickedTower().getCost() * 0.7);
+            cost = (int) (map.getClickedTower().getCost() * 0.6);
         }
         else{
-            cost = (int) (upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), map.getClickedTower().getUpgradeLevel() - 1).intValue() * 0.7);
+            cost = (int) (upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), map.getClickedTower().getUpgradeLevel() - 1).intValue() * 0.6);
         }
         map.sellClickedTower(cost);
     }

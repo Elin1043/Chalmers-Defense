@@ -39,4 +39,14 @@ public class TestMap {
         assertTrue(model.getMoney() > moneyBeforeMoreSpawn);    // To see if tower has hit more virus in the update loop
 
     }
+
+    @Test
+    public void testSellTower() {
+        model.dragStart("smurf", 300, 300); // Creates tower
+        model.dragEnd(2, 2, 300, 300);
+
+        assertEquals(1, model.getAllMapObjects().size());
+        model.sellClickedTower();
+        assertEquals(0, model.getAllMapObjects().size());
+    }
 }

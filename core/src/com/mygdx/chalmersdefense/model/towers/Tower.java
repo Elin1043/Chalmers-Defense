@@ -94,7 +94,7 @@ abstract class Tower implements ITower {
         reloadTime *= upgrades.get("attackSpeedMul") ;
         range *= upgrades.get("attackRangeMul");
         upgradeLevel++;
-        updateSpriteKey(); // Add this when all sprites are in the game.
+        updateSpriteKey();
     }
 
 

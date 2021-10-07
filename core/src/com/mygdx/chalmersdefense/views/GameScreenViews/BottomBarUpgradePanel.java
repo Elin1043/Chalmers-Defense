@@ -45,7 +45,6 @@ public class BottomBarUpgradePanel {
     // Buttons
     private final Button upgradeButtonFirst = new Button(upgradePanelSkin);
     private final Button upgradeButtonSecond = new Button(upgradePanelSkin);
-    private ImageButton sellButton;
 
     // Labels for buttons
     private final Label firstUpgradeButtonTitle = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle24BlackSemiBold());
@@ -89,7 +88,7 @@ public class BottomBarUpgradePanel {
 
         TextureRegion playButtonTextureRegion = new TextureRegion(new Texture(Gdx.files.internal("buttons/towerSellButton.png")));
         TextureRegionDrawable playTexRegDrawable = new TextureRegionDrawable(playButtonTextureRegion);
-        sellButton = new ImageButton(playTexRegDrawable);
+        ImageButton sellButton = new ImageButton(playTexRegDrawable);
         sellButton.setPosition(380, 30);
 
         stage.addActor(sellButton);
