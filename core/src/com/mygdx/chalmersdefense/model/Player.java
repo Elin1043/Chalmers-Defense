@@ -1,7 +1,5 @@
 package com.mygdx.chalmersdefense.model;
 
-import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
-
 /**
  * @author Joel Båtsman Hilmersson
  * Class representing the player and their resorces

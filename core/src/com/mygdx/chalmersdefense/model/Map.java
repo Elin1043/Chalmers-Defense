@@ -1,7 +1,6 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.mygdx.chalmersdefense.model.customExceptions.PlayerLostAllLifeException;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
