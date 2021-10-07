@@ -9,9 +9,9 @@ import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.utilities.Calculate;
-
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,7 @@ import java.util.List;
  * @author Elin Forsberg
  * @author Daniel Persson
  * @author Jenny Carlsson
- *
+ * <p>
  * Class handeling all objects and methods on Map.
  */
 class Map {
@@ -41,7 +41,7 @@ class Map {
     private final GetRangeCircle rangeCircle = new GetRangeCircle();            // Helper class for showing gray range circle
 
 
-    Map(Player player){
+    Map(Player player) {
         this.player = player;
         isGameLost = false;
     }
@@ -70,7 +70,7 @@ class Map {
     }
 
     //Add all temporary list to the mainlist
-    private void addTempListsToMainLists(){
+    private void addTempListsToMainLists() {
         towersList.addAll(towersToAddList);
         projectilesList.addAll(projectilesToAddList);
         towersToAddList.clear();
@@ -91,7 +91,7 @@ class Map {
                 projectile.update(false, -1, -1);
             }
 
-            if(projectile.canRemove() || checkIfOutOfBounds(projectile.getY(), projectile.getX())){
+            if (projectile.canRemove() || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
                 removeProjectiles.add(projectile);
             }
         }
@@ -100,11 +100,10 @@ class Map {
     }
 
 
-
     //Checks if projectile collided with path, then virus
-    private boolean checkCollisionOfProjectiles(IProjectile projectile, List<IVirus> removeList){
-        for (PathRectangle rectangle: path.getCollisionRectangles()) {
-            if(Calculate.objectsIntersects(projectile,rectangle)){
+    private boolean checkCollisionOfProjectiles(IProjectile projectile, List<IVirus> removeList) {
+        for (PathRectangle rectangle : path.getCollisionRectangles()) {
+            if (Calculate.objectsIntersects(projectile, rectangle)) {
                 return checkVirusAndProjectileCollision(projectile, removeList);
             }
         }
@@ -114,8 +113,8 @@ class Map {
     //Helper method for collision between virus and projectile
     private boolean checkVirusAndProjectileCollision(IProjectile projectile, List<IVirus> removeList) {
 
-        for (IVirus virus : virusesList){
-            if (Calculate.objectsIntersects(projectile, virus) && !projectile.haveHitBefore(virus.hashCode())){
+        for (IVirus virus : virusesList) {
+            if (Calculate.objectsIntersects(projectile, virus) && !projectile.haveHitBefore(virus.hashCode())) {
                 virus.decreaseHealth();
                 removeList.add(virus);
                 return true;
@@ -124,18 +123,18 @@ class Map {
         return false;
     }
 
-    private float getAngle(IProjectile projectile, List<IVirus> removeList){
+    private float getAngle(IProjectile projectile, List<IVirus> removeList) {
         List<IVirus> virusInRange = Calculate.getVirusesInRange(projectile.getX(), projectile.getY(), 150, virusesList);
 
-        for (IVirus virus : virusInRange){
-            if (projectile.haveHitBefore(virus.hashCode())){
+        for (IVirus virus : virusInRange) {
+            if (projectile.haveHitBefore(virus.hashCode())) {
                 removeList.add(virus);
             }
         }
 
         virusInRange.removeAll(removeList);
 
-        if (virusInRange.size() > 0){
+        if (virusInRange.size() > 0) {
             IVirus v = virusInRange.get(0);
             return Calculate.angleDeg(v.getX(), v.getY(), projectile.getX(), projectile.getY());
         }
@@ -165,23 +164,23 @@ class Map {
 
 
     //Update all the viruses
-    private void updateVirus(){
+    private void updateVirus() {
 
         List<IVirus> virusToRemove = new ArrayList<>();
 
         for (IVirus virus : virusesList) {
             if (virus.getY() > 1130 || virus.isDead()) {
                 virusToRemove.add(virus);
-                if(virus.isDead()){
+                if (virus.isDead()) {
                     player.increaseMoney(1); //Change amount later
                 }
             }
             virus.update();
         }
-        for (IVirus virus : virusToRemove){
+        for (IVirus virus : virusToRemove) {
             try {
                 player.decreaseLivesBy(virus.getLifeDecreaseAmount());
-            } catch (PlayerLostAllLifeException ignore){
+            } catch (PlayerLostAllLifeException ignore) {
                 isGameLost = true;
             }
             virusesList.remove(virus);
@@ -202,7 +201,7 @@ class Map {
     //Checks if a tower collides with path
     private boolean checkMapAndTowerCollision(ITower tower) {
         for (PathRectangle rect : path.getCollisionRectangles()) {
-            if (Calculate.objectsIntersects(tower, rect)){
+            if (Calculate.objectsIntersects(tower, rect)) {
                 return true;
             }
         }
@@ -211,21 +210,21 @@ class Map {
 
     //Checks if towers collide with anything
     private boolean checkCollisionOfTower(ITower tower, int windowHeight, int windowWidth) {
-        for(ITower checkTower: towersList){
+        for (ITower checkTower : towersList) {
             //Check if tower collides with a placed tower
-            if(Calculate.objectsIntersects(tower, checkTower) && !(checkTower.hashCode() == tower.hashCode())){
+            if (Calculate.objectsIntersects(tower, checkTower) && !(checkTower.hashCode() == tower.hashCode())) {
                 return true;
             }
             //Check if tower out of bound on X
-            else if(!(0 <= (tower.getX())) || (windowWidth - 340 < (tower.getX() + tower.getWidth()/2))){
+            else if (!(0 <= (tower.getX())) || (windowWidth - 340 < (tower.getX() + tower.getWidth() / 2))) {
                 return true;
             }
             //Check if tower out of bound on Y
-            else if(!(windowHeight - 950 < (tower.getY() - tower.getHeight()/2)) || (windowHeight < (tower.getY()) + tower.getHeight())){
+            else if (!(windowHeight - 950 < (tower.getY() - tower.getHeight() / 2)) || (windowHeight < (tower.getY()) + tower.getHeight())) {
                 return true;
             }
             //check if tower collide with path
-            else if(checkMapAndTowerCollision(tower)){
+            else if (checkMapAndTowerCollision(tower)) {
                 return true;
             }
 
@@ -236,19 +235,22 @@ class Map {
 
     /**
      * Creates a new tower when user starts dragging from a tower button.
+     *
      * @param towerName the name of the tower
-     * @param x the X-position of the button
-     * @param y the Y-position of the button
+     * @param x         the X-position of the button
+     * @param y         the Y-position of the button
      */
     void dragStart(String towerName, float x, float y) {
-        switch(towerName){
-            case "smurf"   -> newTower = TowerFactory.CreateSmurf(x, y);
+        switch (towerName) {
+            case "smurf" -> newTower = TowerFactory.CreateSmurf(x, y);
             case "chemist" -> newTower = TowerFactory.CreateChemist(x, y, projectilesToAddList);
             case "electro" -> newTower = TowerFactory.CreateElectro(x, y);
-            case "hacker"  -> newTower = TowerFactory.CreateHacker(x, y);
-            case "meck"    -> newTower = TowerFactory.CreateMeck(x, y, towersToAddList);
-            case "eco"     -> newTower = TowerFactory.CreateEco(x, y, player);
-            default        -> { return; }
+            case "hacker" -> newTower = TowerFactory.CreateHacker(x, y);
+            case "meck" -> newTower = TowerFactory.CreateMeck(x, y, towersToAddList);
+            case "eco" -> newTower = TowerFactory.CreateEco(x, y, player);
+            default -> {
+                return;
+            }
         }
 
         towersList.add(newTower);
@@ -260,32 +262,31 @@ class Map {
     /**
      * Handles a tower being dragged.
      * Updates the towers position after mouse and check for collision
-     * @param buttonWidth The width of the button dragged from
+     *
+     * @param buttonWidth  The width of the button dragged from
      * @param buttonHeight The height of the button dragged from
-     * @param x The X-position of the mouse
-     * @param y The Y-position of the mouse
+     * @param x            The X-position of the mouse
+     * @param y            The Y-position of the mouse
      * @param windowHeight The height of the window
      * @param windowWidth  The width of the window
      */
     void onDrag(float buttonWidth, float buttonHeight, float x, float y, int windowHeight, int windowWidth) {
 
-        newTower.setPos( x - buttonWidth/2f, y - buttonHeight/2f);
+        newTower.setPos(x - buttonWidth / 2f, y - buttonHeight / 2f);
 
-        for (ITower tower: towersList) {
+        for (ITower tower : towersList) {
 
-            if(!tower.isPlaced() && !checkCollisionOfTower(tower, windowHeight, windowWidth)){
+            if (!tower.isPlaced() && !checkCollisionOfTower(tower, windowHeight, windowWidth)) {
                 tower.setCollision(false);
                 rangeCircle.updatePos(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());
                 rangeCircle.setEnumColor(GetRangeCircle.Color.GRAY);
 
 
-            }
-            else if(!tower.isPlaced() && checkCollisionOfTower(tower, windowHeight, windowWidth)){
+            } else if (!tower.isPlaced() && checkCollisionOfTower(tower, windowHeight, windowWidth)) {
                 tower.setCollision(true);
                 rangeCircle.updatePos(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());
                 rangeCircle.setEnumColor(GetRangeCircle.Color.RED);
-            }
-            else{
+            } else {
                 rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
             }
 
@@ -297,18 +298,18 @@ class Map {
      * Checks if tower can be placed on current position.
      * If not: tower is removed
      * if valid: place the tower
-     * @param buttonWidth The width of the button dragged from
+     *
+     * @param buttonWidth  The width of the button dragged from
      * @param buttonHeight The height of the button dragged from
-     * @param x The X-position of the mouse
-     * @param y The Y-position of the mouse
+     * @param x            The X-position of the mouse
+     * @param y            The Y-position of the mouse
      */
     void dragEnd(float buttonWidth, float buttonHeight, float x, float y) {
-        if(!newTower.getCollision()){
+        if (!newTower.getCollision()) {
             newTower.placeTower();
-            newTower.setPos(x - buttonWidth/2f, y - buttonHeight/2f);
+            newTower.setPos(x - buttonWidth / 2f, y - buttonHeight / 2f);
             player.decreaseMoney(newTower.getCost());
-        }
-        else{
+        } else {
             towersList.remove(newTower);
             rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
             clickedTower = null;
@@ -325,25 +326,23 @@ class Map {
         // Algorithm for finding which tower is clicked
         ITower towerWasClicked = null;
         for (ITower tower : towersList) {
-            float towerCenterX = tower.getX() + tower.getWidth()/2;
-            float towerCenterY = tower.getY() + tower.getHeight()/2;
+            float towerCenterX = tower.getX() + tower.getWidth() / 2;
+            float towerCenterY = tower.getY() + tower.getHeight() / 2;
 
 
             if (Math.sqrt(Math.pow(towerCenterX - x, 2) + Math.pow(towerCenterY - y, 2)) <= tower.getWidth()) {
-                towerWasClicked =  tower;
-                rangeCircle.updatePos(towerCenterX,towerCenterY,tower.getRange());
+                towerWasClicked = tower;
+                rangeCircle.updatePos(towerCenterX, towerCenterY, tower.getRange());
                 rangeCircle.setEnumColor(GetRangeCircle.Color.GRAY);
 
             }
         }
-        if(towerWasClicked == null){
+        if (towerWasClicked == null) {
             rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
         }
         clickedTower = towerWasClicked;
 
     }
-
-
 
 
     GetRangeCircle getRangeCircle() {
@@ -352,6 +351,7 @@ class Map {
 
     /**
      * Returns currently clicked tower
+     *
      * @return tower object of clicked tower
      */
     ITower getClickedTower() {
@@ -360,6 +360,7 @@ class Map {
 
     /**
      * Returns if game has been lost
+     *
      * @return a boolean for game lost status
      */
     boolean getIsGameLost() {
@@ -368,6 +369,7 @@ class Map {
 
     /**
      * Return the list of viruses on path
+     *
      * @return the list of viruses
      */
     List<IVirus> getViruses() {
@@ -376,6 +378,7 @@ class Map {
 
     /**
      * Return the list of objects on map
+     *
      * @return the list of objects
      */
     List<IMapObject> getAllMapObjects() {
@@ -388,12 +391,17 @@ class Map {
 
     /**
      * Returns if virus list is empty
+     *
      * @return true - if all viruses are cleared, false - if there are viruses left
      */
-    boolean isVirusCleared() { return virusesList.isEmpty(); }
+    boolean isVirusCleared() {
+        return virusesList.isEmpty();
+    }
 
     /**
      * Method to call when round is cleared, makes map ready for next round
      */
-    void roundClear() { projectilesList.clear(); }
+    void roundClear() {
+        projectilesList.clear();
+    }
 }

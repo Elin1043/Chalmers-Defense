@@ -18,7 +18,7 @@ import java.util.HashMap;
 /**
  * @author Daniel Persson
  * A class used to render the right panel
- *
+ * <p>
  * 2021-10-05 Created by Daniel Persson
  */
 public class RightSidePanel {
@@ -102,6 +102,7 @@ public class RightSidePanel {
 
     /**
      * Method used to get stage
+     *
      * @return this stage
      */
     public Stage getStage() {
@@ -132,12 +133,11 @@ public class RightSidePanel {
     //Checks what towers the player can afford
     private void checkAffordableTowers() {
         for (Integer i : towerButtons.keySet()) {
-            if(model.getMoney() >= i && !towerButtons.get(i).isTouchable()){
+            if (model.getMoney() >= i && !towerButtons.get(i).isTouchable()) {
                 towerButtons.get(i).setTouchable(Touchable.enabled);
                 towerButtons.get(i).getImage().setColor(Color.WHITE);
 
-            }
-            else if (model.getMoney()< i && towerButtons.get(i).isTouchable()){
+            } else if (model.getMoney() < i && towerButtons.get(i).isTouchable()) {
                 towerButtons.get(i).setTouchable(Touchable.disabled);
                 towerButtons.get(i).getImage().setColor(Color.LIGHT_GRAY);
             }
@@ -153,7 +153,7 @@ public class RightSidePanel {
 
     private Label createLabel(String text, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle36BlackBold());
-        label.setPosition(1920 - WIDTH/2 - label.getWidth()/2, 1080 - label.getHeight() - y);
+        label.setPosition(1920 - WIDTH / 2 - label.getWidth() / 2, 1080 - label.getHeight() - y);
         return label;
     }
 
@@ -162,7 +162,7 @@ public class RightSidePanel {
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.atlas")); // Load atlas file from skin
         Skin skin = new Skin(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.json"), atlas); // Create skin object
         startRoundButton = new Button(skin);
-        startRoundButton.setPosition(1920 - WIDTH/2 - startRoundButton.getWidth()/2, 20);
+        startRoundButton.setPosition(1920 - WIDTH / 2 - startRoundButton.getWidth() / 2, 20);
 
         rightSidePanelController.addStartButtonListener(startRoundButton);
         stage.addActor(startRoundButton);

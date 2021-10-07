@@ -2,22 +2,22 @@ package com.mygdx.chalmersdefense.model.projectiles;
 
 /**
  * @author Elin Forsberg
- *
+ * <p>
  * 2021-10-07 Modified by Joel Båtsman Hilmersson: Made class package private
- *
+ * <p>
  * Class representing a money projectile
  */
 
-class MoneyPile extends Projectile implements IProjectile{
+class MoneyPile extends Projectile implements IProjectile {
     private int moneyTimer = 150;
 
 
-    MoneyPile(float x, float y , int upgradeLevel) {
-        super(0.1F, "money"+ upgradeLevel, x + 10, y + 80, 90);
+    MoneyPile(float x, float y, int upgradeLevel) {
+        super(0.1F, "money" + upgradeLevel, x + 10, y + 80, 90);
     }
 
     @Override
-    public void update(boolean hitVirus, int haveHit, float angle){
+    public void update(boolean hitVirus, int haveHit, float angle) {
         if (moneyTimer <= 0) {
             this.canRemove = true;
         } else {
@@ -27,7 +27,7 @@ class MoneyPile extends Projectile implements IProjectile{
     }
 
     @Override
-    public boolean haveHitBefore(int hashCode){
+    public boolean haveHitBefore(int hashCode) {
         return true;
     }
 

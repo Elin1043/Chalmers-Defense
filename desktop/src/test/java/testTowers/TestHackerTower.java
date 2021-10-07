@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class TestHackerTower {
 
     @Test
-    public void testCreateProjectile(){
+    public void testCreateProjectile() {
         ITower t = TowerFactory.CreateHacker(0, 0);
         List<IProjectile> l = new ArrayList<>();
 

@@ -1,9 +1,9 @@
 {
-com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
-	default: {
-		up: UpgradeButtonNormal
-		disabled: UpgradeButtonDisabled
-		checked: UpgradeButtonBought
-	}
-}
+  com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+    default: {
+      up: UpgradeButtonNormal
+      disabled: UpgradeButtonDisabled
+      checked: UpgradeButtonBought
+    }
+  }
 }

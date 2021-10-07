@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 /**
  * @author Daniel Persson
- *
+ * <p>
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: Created Hashmap with sprites
  */
 public abstract class AbstractScreen extends Stage implements Screen {
@@ -25,6 +25,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
     final HashMap<String, Sprite> largeSpriteMap = new HashMap<>();
 
     final Batch batch = new SpriteBatch();
+
     protected AbstractScreen() {
         super(new FitViewport(1920, 1080, new OrthographicCamera(1920, 1080)));
         createSprites();
@@ -39,7 +40,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
 
         batch.setProjectionMatrix(this.getCamera().combined); // Renders based on window pixels and not screen pixels.
 
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE) && Gdx.graphics.isFullscreen()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE) && Gdx.graphics.isFullscreen()) {
             Gdx.graphics.setWindowedMode(1920, 1080);
         }
 
@@ -58,11 +59,18 @@ public abstract class AbstractScreen extends Stage implements Screen {
         getViewport().update(width, height, true);
     }
 
-    @Override public void hide() {
+    @Override
+    public void hide() {
         Gdx.input.setInputProcessor(null);
     }
-    @Override public void pause() {}
-    @Override public void resume() {}
+
+    @Override
+    public void pause() {
+    }
+
+    @Override
+    public void resume() {
+    }
 
     private void createSprites() {
         spriteMap.put("IT-Smurf1", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1.png")));
@@ -115,7 +123,6 @@ public abstract class AbstractScreen extends Stage implements Screen {
         spriteMap.put("money1", new Sprite(new Texture("projectiles/money1.png")));
         spriteMap.put("money2", new Sprite(new Texture("projectiles/money2.png")));
         spriteMap.put("money3", new Sprite(new Texture("projectiles/money3.png")));
-
 
 
         largeSpriteMap.put("IT-Smurf1Large", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1Large.png")));

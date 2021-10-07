@@ -5,11 +5,11 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 
 public class DesktopLauncher {
-	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1920;
-		config.height = 1080;
-		config.fullscreen = true;
-		new LwjglApplication(new ChalmersDefense(), config);
-	}
+    public static void main(String[] arg) {
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.width = 1920;
+        config.height = 1080;
+        config.fullscreen = true;
+        new LwjglApplication(new ChalmersDefense(), config);
+    }
 }

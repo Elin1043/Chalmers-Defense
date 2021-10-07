@@ -17,7 +17,7 @@ public class GetRangeCircle {
         NONE
     }
 
-    public void updatePos(float x, float y, float range){
+    public void updatePos(float x, float y, float range) {
         this.x = x;
         this.y = y;
         this.range = range;
@@ -27,7 +27,7 @@ public class GetRangeCircle {
         this.enumColor = enumColor;
     }
 
-    public Color getColor(){
+    public Color getColor() {
         return enumColor;
     }
 

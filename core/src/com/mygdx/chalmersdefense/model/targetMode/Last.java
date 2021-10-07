@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * @author Joel Båtsman Hilmersson
  * Finds the virus that have travled the least distance
- *
  */
 class Last implements ITargetMode {
 
@@ -15,8 +14,8 @@ class Last implements ITargetMode {
     public IVirus getRightVirus(List<IVirus> virusInRange, float towerX, float towerY) {
         IVirus leastTraveledVirus = virusInRange.get(0);  // Need to have a virus to start comparing against
 
-        for (IVirus virus : virusInRange){
-            if ((virus.getTotalDistanceTraveled() < leastTraveledVirus.getTotalDistanceTraveled())){
+        for (IVirus virus : virusInRange) {
+            if ((virus.getTotalDistanceTraveled() < leastTraveledVirus.getTotalDistanceTraveled())) {
                 leastTraveledVirus = virus;
             }
         }

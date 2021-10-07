@@ -20,6 +20,7 @@ public class ScreenManager {
 
     /**
      * Returns this instance
+     *
      * @return the only ScreenManager instance
      */
     public static ScreenManager getInstance() {
@@ -31,7 +32,8 @@ public class ScreenManager {
 
     /**
      * Initialize the different screens
-     * @param game the game object to switch screen with
+     *
+     * @param game       the game object to switch screen with
      * @param mainScreen mainScreen instance
      * @param gameScreen gameScreen instance
      */
@@ -43,6 +45,7 @@ public class ScreenManager {
 
     /**
      * Shows the screen based on inputted ScreenEnum
+     *
      * @param screenEnum which screen to switch to
      */
     public void showScreen(ScreenEnum screenEnum) {

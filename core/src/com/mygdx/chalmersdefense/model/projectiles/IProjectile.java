@@ -15,12 +15,14 @@ public interface IProjectile extends IMapObject {
 
     /**
      * Return if current projectile can be removed
+     *
      * @return if can be removed
      */
     boolean canRemove();
 
     /**
      * Return if the virus with given hashcode has been hit before
+     *
      * @param hashCode of the virus
      * @return if virus have been hit before
      */

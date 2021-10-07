@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mygdx.chalmersdefense.model.IControllModel;
 
 /**
- * @author
+ * @author Daniel Persson
  *
  * 2021-09-17 Modified by Elin Forsberg: Added listener for tower buttons
  * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model
@@ -34,10 +34,11 @@ public class RightSidePanelController {
 
     /**
      * Listener for tower buttons
+     *
      * @param button the tower button that was dragged
      */
     public void addTowerButtonListener(Button button) {
-        button.addListener(new DragListener(){
+        button.addListener(new DragListener() {
             @Override
             public void dragStart(InputEvent event, float x, float y, int pointer) {
                 String towerName = event.getListenerActor().getName();
@@ -52,7 +53,7 @@ public class RightSidePanelController {
                 float inputY = event.getStageY();
                 int windowHeight = Gdx.graphics.getHeight();
                 int windowWidth = Gdx.graphics.getWidth();
-                model.onDrag((button.getImage().getWidth()/2), (button.getImage().getHeight()/2) ,inputX,inputY, windowHeight, windowWidth);
+                model.onDrag((button.getImage().getWidth() / 2), (button.getImage().getHeight() / 2), inputX, inputY, windowHeight, windowWidth);
             }
 
             @Override
@@ -60,7 +61,7 @@ public class RightSidePanelController {
                 ImageButton button = (ImageButton) event.getListenerActor();
                 float inputX = event.getStageX();
                 float inputY = event.getStageY();
-                model.dragEnd((button.getImage().getWidth()/2), (button.getImage().getHeight()/2) ,inputX,inputY);
+                model.dragEnd((button.getImage().getWidth() / 2), (button.getImage().getHeight() / 2), inputX, inputY);
             }
         });
 

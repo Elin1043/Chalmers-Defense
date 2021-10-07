@@ -8,7 +8,7 @@ import com.mygdx.chalmersdefense.model.IMapObject;
  */
 public interface IVirus extends IMapObject {
 
-    void  update();
+    void update();
 
     boolean isDead();
 

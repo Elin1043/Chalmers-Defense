@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 public abstract class FontFactory {
     /**
      * Generates a LabelStyle from CenturyGothic font with size 36px, color black and bold.
+     *
      * @return a LabelStyle with corresponding size, color and border width.
      */
     public static LabelStyle getLabelStyle36BlackBold() {
@@ -21,6 +22,7 @@ public abstract class FontFactory {
 
     /**
      * Generates a LabelStyle from CenturyGothic font with size 26px, color black.
+     *
      * @return a LabelStyle with corresponding size, color and border width.
      */
     public static LabelStyle getLabelStyle26Black() {
@@ -29,6 +31,7 @@ public abstract class FontFactory {
 
     /**
      * Generates a LabelStyle from CenturyGothic font with size 24px, color black and semi bold.
+     *
      * @return a LabelStyle with corresponding size, color and border width.
      */
     public static LabelStyle getLabelStyle24BlackSemiBold() {
@@ -37,6 +40,7 @@ public abstract class FontFactory {
 
     /**
      * Generates a LabelStyle from CenturyGothic font with size 18px, color black.
+     *
      * @return a LabelStyle with corresponding size, color and border width.
      */
     public static LabelStyle getLabelStyle18Black() {
@@ -53,7 +57,7 @@ public abstract class FontFactory {
         return font;
     }
 
-    private static LabelStyle generateLabelStyle(int size, Color color, float borderWidth){
+    private static LabelStyle generateLabelStyle(int size, Color color, float borderWidth) {
         BitmapFont font36 = generateBitmapFont(size, borderWidth);
         LabelStyle labelStyle = new LabelStyle();
         labelStyle.font = font36;

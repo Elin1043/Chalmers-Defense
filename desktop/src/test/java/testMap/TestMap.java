@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * @author Elin Forsberg
- *
+ * <p>
  * Test class for map
  */
 public class TestMap {
@@ -19,12 +19,12 @@ public class TestMap {
 
     @Test
     public void testMapProjectileCollision() {
-        model.dragStart("electro",0,0);
-        model.dragEnd(100,100,190,640);       // Creates and places smurf
+        model.dragStart("electro", 0, 0);
+        model.dragEnd(100, 100, 190, 640);       // Creates and places smurf
         assertTrue(model.getAllMapObjects().size() > 0);        // To verify Smurf is on the map
         model.startRoundPressed();                                      // Begins to spawn viruses
 
-        while(model.getAllMapObjects().size() > 1){                     // Loops until one projectile has hit the first virus so the tower is
+        while (model.getAllMapObjects().size() > 1) {                     // Loops until one projectile has hit the first virus so the tower is
             model.updateModel();                                        // the only object left on map
         }
 
@@ -32,7 +32,7 @@ public class TestMap {
 
         int moneyBeforeMoreSpawn = model.getMoney();
 
-        for (int i = 0; i < 10000; i++){                                // To test more lines in map
+        for (int i = 0; i < 10000; i++) {                                // To test more lines in map
             model.updateModel();                                        // Loops so the virus can move and tower shoot more
         }
 

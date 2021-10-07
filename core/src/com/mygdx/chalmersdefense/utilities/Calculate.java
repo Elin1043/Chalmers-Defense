@@ -3,24 +3,22 @@ package com.mygdx.chalmersdefense.utilities;
 
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
-import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 
-import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Elin Forsberg
  * Util class to help with calculations
- *
+ * <p>
  * 2021-09-24 Modified by Joel Båtsman Hilmersson: Placed getVirusesInRange method here instead of tower class
- *
  */
 public abstract class Calculate {
     /**
      * Gets the viruses in range of a tower
-     * @param towerX x-coorindate of tower
-     * @param towerY y-coorindate of tower
+     *
+     * @param towerX     x-coorindate of tower
+     * @param towerY     y-coorindate of tower
      * @param towerRange range of tower
      * @param allViruses list of all viruses
      * @return a list of viruses in range
@@ -39,15 +37,16 @@ public abstract class Calculate {
 
     /**
      * Calculate the angle between two objects
+     *
      * @param rotToX x-coordinate of object to rotate towards
      * @param rotToY y-coordinate of object to rotate towards
-     * @param orgX x-coordinate of object to rotate
-     * @param orgY y-coordinate of object to rotate
+     * @param orgX   x-coordinate of object to rotate
+     * @param orgY   y-coordinate of object to rotate
      * @return angle to rotate by
      */
-    public static float angleDeg (float rotToX, float rotToY, float orgX, float orgY) {
+    public static float angleDeg(float rotToX, float rotToY, float orgX, float orgY) {
         float angle = (float) Math.toDegrees(Math.atan2(rotToY - orgY, rotToX - orgX));
-        if(angle < 0){
+        if (angle < 0) {
             angle += 360;
         }
         return angle;
@@ -55,6 +54,7 @@ public abstract class Calculate {
 
     /**
      * Calculate distance between two points
+     *
      * @param x1 x-coordinate of first point
      * @param y1 y-coordinate of first point
      * @param x2 x-coordinate of second point
@@ -62,18 +62,16 @@ public abstract class Calculate {
      * @return distance between points
      */
     public static double disBetweenPoints(float x1, float y1, float x2, float y2) {
-        float disX = (x2-x1);
-        float disY = (y2-y1);
+        float disX = (x2 - x1);
+        float disY = (y2 - y1);
         return Math.sqrt(disX * disX + disY * disY);
 
     }
 
 
-
-
-
     /**
      * Checks if two IMapObjects intersects
+     *
      * @param objOne the first object
      * @param objTwo the second object
      * @return True - if the objects intersect, False - if the do not
@@ -83,7 +81,7 @@ public abstract class Calculate {
     }
 
     //Calculates if two objects intersect
-    private static boolean calculateIntersects(double obj1Width, double obj1Height, double obj2Width, double obj2Height, double obj1X, double obj1Y, double obj2X, double obj2Y){
+    private static boolean calculateIntersects(double obj1Width, double obj1Height, double obj2Width, double obj2Height, double obj1X, double obj1Y, double obj2X, double obj2Y) {
         if (obj2Width <= 0 || obj2Height <= 0 || obj1Width <= 0 || obj1Height <= 0) {
             return false;
         }

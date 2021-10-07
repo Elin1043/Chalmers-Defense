@@ -3,8 +3,10 @@ package testTowers;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -14,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class TestMechTower {
 
     @Test
-    public void testUpdate(){
+    public void testUpdate() {
         List<ITower> addToList = new ArrayList<>();
         ITower t = TowerFactory.CreateMeck(0, 0, addToList);
         t.placeTower();

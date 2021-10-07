@@ -15,41 +15,46 @@ public abstract class VirusFactory {
 
     /**
      * Creates a Virus with one health
+     *
      * @return The new Virus object
      */
-    static public IVirus createVirusOne(){
+    static public IVirus createVirusOne() {
         return new Virus(1, path);
     }
 
     /**
      * Creates a Virus with two health
+     *
      * @return The new Virus object
      */
-    static public IVirus createVirusTwo(){
+    static public IVirus createVirusTwo() {
         return new Virus(2, path);
     }
 
     /**
      * Creates a Virus with three health
+     *
      * @return The new Virus object
      */
-    static public IVirus createVirusThree(){
+    static public IVirus createVirusThree() {
         return new Virus(3, path);
     }
 
     /**
      * Creates a Virus with four health
+     *
      * @return The new Virus object
      */
-    static public IVirus createVirusFour(){
+    static public IVirus createVirusFour() {
         return new Virus(4, path);
     }
 
     /**
      * Creates a Virus with five health
+     *
      * @return The new Virus object
      */
-    static public IVirus createVirusFive(){
+    static public IVirus createVirusFive() {
         return new Virus(5, path);
     }
 }

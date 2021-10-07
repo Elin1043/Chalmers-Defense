@@ -9,13 +9,12 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
  * @author Elin Forsberg
- *
+ * <p>
  * Test class for AcidProjectile
  */
 public class TestAcidProjectile {
@@ -24,17 +23,17 @@ public class TestAcidProjectile {
     IProjectile projectile;
 
     @Before
-    public void createProjectile(){
-        ITower tower = TowerFactory.CreateChemist(0,0, addList);
+    public void createProjectile() {
+        ITower tower = TowerFactory.CreateChemist(0, 0, addList);
         tower.placeTower();
         tower.update(projectilesList, 0, true);
         projectile = projectilesList.get(0);
     }
 
     @Test
-    public void testVirusHit(){
+    public void testVirusHit() {
         assertEquals(0, addList.size());
-        projectile.update(true,0,0);
+        projectile.update(true, 0, 0);
         assertTrue(addList.size() > 0);
     }
 

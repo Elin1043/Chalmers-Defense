@@ -11,10 +11,10 @@ import java.util.Objects;
 /**
  * @author Elin Forsberg
  * Class defining a projectile object
- *
+ * <p>
  * 2021-10-01 Modified by Joel Båtsman Hilmersson: The projectile now holds a list of hashcodes to every virus it has hit before
  */
-abstract class Projectile implements IProjectile{
+abstract class Projectile implements IProjectile {
 
     final List<Integer> haveHitList = new ArrayList<>();
 
@@ -31,7 +31,7 @@ abstract class Projectile implements IProjectile{
 
     boolean canRemove = false;
 
-    Projectile(float speed, String spriteKey, float x, float y, float angle){
+    Projectile(float speed, String spriteKey, float x, float y, float angle) {
         this.speed = speed;
         this.spriteKey = spriteKey;
         this.x = x;
@@ -40,14 +40,13 @@ abstract class Projectile implements IProjectile{
         // TODO Fix speed calc in children
 
 
-        try{
+        try {
             BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("projectiles/" + spriteKey + ".png")));
-            this.width         = towerImage.getWidth();
-            this.height        = towerImage.getHeight();
+            this.width = towerImage.getWidth();
+            this.height = towerImage.getHeight();
 
 
-        }
-        catch (IOException exception){
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
 
@@ -56,38 +55,41 @@ abstract class Projectile implements IProjectile{
 
     @Override
     public void update(boolean hitVirus, int haveHit, float angle) {
-        if (hitVirus) { virusIsHit(haveHit, angle); }
+        if (hitVirus) {
+            virusIsHit(haveHit, angle);
+        }
 
 
         float xLength = (float) (Math.cos(Math.toRadians(this.angle)) * speed);
         float yLength = (float) (Math.sin(Math.toRadians(this.angle)) * speed);
 
-        x =  x + xLength;
-        y =  y + yLength;
+        x = x + xLength;
+        y = y + yLength;
 
     }
 
     /**
      * Method to call when virus is hit
      */
-    void virusIsHit(int haveHit, float angle){
+    void virusIsHit(int haveHit, float angle) {
         haveHitList.add(haveHit);
         this.canRemove = true;
     }
 
     @Override
-    public String getSpriteKey(){
+    public String getSpriteKey() {
         return spriteKey;
     }
 
     @Override
-    public float getAngle(){
+    public float getAngle() {
         return angle;
     }
 
 
     /**
      * Set the angle of the projectile
+     *
      * @param angle to be set
      */
     void setAngle(float angle) {
@@ -95,17 +97,18 @@ abstract class Projectile implements IProjectile{
     }
 
     @Override
-    public boolean canRemove(){
+    public boolean canRemove() {
         return canRemove;
     }
 
     @Override
-    public boolean haveHitBefore(int hashCode){
+    public boolean haveHitBefore(int hashCode) {
         return haveHitList.contains(hashCode);
     }
 
     /**
      * Gets width of projectile
+     *
      * @return width of projectile
      */
     @Override
@@ -115,6 +118,7 @@ abstract class Projectile implements IProjectile{
 
     /**
      * Gets height of projectile
+     *
      * @return height of projectile
      */
     @Override
@@ -124,6 +128,7 @@ abstract class Projectile implements IProjectile{
 
     /**
      * Gets X-coordinate of projectile
+     *
      * @return x-coordinate of projectile
      */
     @Override
@@ -133,6 +138,7 @@ abstract class Projectile implements IProjectile{
 
     /**
      * Gets Y-coordinate of projectile
+     *
      * @return y-coordinate of projectile
      */
     @Override

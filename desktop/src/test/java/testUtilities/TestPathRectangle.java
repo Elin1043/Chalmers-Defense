@@ -1,20 +1,17 @@
 package testUtilities;
 
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 /**
  * @author Jenny Carlsson
- *
+ * <p>
  * Test class for PathRectangle
  */
 
@@ -24,7 +21,7 @@ public class TestPathRectangle {
 
     @Before
     public void init() {
-        pathRectangle = new PathRectangle(1,2,3,4);
+        pathRectangle = new PathRectangle(1, 2, 3, 4);
     }
 
     @Rule

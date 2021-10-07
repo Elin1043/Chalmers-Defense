@@ -1,4 +1,5 @@
 package testProjectiles;
+
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
@@ -13,7 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  * @author Elin Forsberg
- *
+ * <p>
  * Test class for Projectile
  */
 public class TestProjectile {
@@ -21,50 +22,50 @@ public class TestProjectile {
     IProjectile projectile;
 
     @Before
-    public void createProjectile(){
-        ITower tower = TowerFactory.CreateSmurf(0,0);
+    public void createProjectile() {
+        ITower tower = TowerFactory.CreateSmurf(0, 0);
         tower.placeTower();
         tower.update(projectilesList, 0, true);
         projectile = projectilesList.get(0);
     }
 
     @Test
-    public void testProjectileUpdate(){
-        projectile.update(false,0,0);
+    public void testProjectileUpdate() {
+        projectile.update(false, 0, 0);
         assertTrue(projectile.getX() > 0);
         assertEquals(0, projectile.getY(), 0.0);
     }
 
     @Test
-    public void testProjectileVirusHit(){
-        projectile.update(true,0,0);
+    public void testProjectileVirusHit() {
+        projectile.update(true, 0, 0);
         assertTrue(projectile.canRemove());
     }
 
     @Test
-    public void testProjectileGetSpriteKey(){
-        assertEquals(projectile.getSpriteKey() , "smurfProjectile1");
+    public void testProjectileGetSpriteKey() {
+        assertEquals(projectile.getSpriteKey(), "smurfProjectile1");
     }
 
     @Test
-    public void testProjectileGetAngle(){
+    public void testProjectileGetAngle() {
         assertEquals(0, projectile.getAngle(), 0.0);
     }
 
     @Test
-    public void testProjectileGetWidthAndHeight (){
+    public void testProjectileGetWidthAndHeight() {
         assertTrue(projectile.getWidth() > 0);
         assertTrue(projectile.getHeight() > 0);
     }
 
     @Test
-    public void testProjectileHaveHitVirusBefore (){
+    public void testProjectileHaveHitVirusBefore() {
         assertFalse(projectile.haveHitBefore(0));
     }
 
     @Test
-    public void testProjectileSetAngle (){
-        ITower tower = TowerFactory.CreateElectro(0,0);
+    public void testProjectileSetAngle() {
+        ITower tower = TowerFactory.CreateElectro(0, 0);
         tower.placeTower();
         tower.update(projectilesList, 0, true);
         projectile = projectilesList.get(1);

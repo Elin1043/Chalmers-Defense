@@ -11,17 +11,16 @@ import java.util.Objects;
 /**
  * @author Joel Båtsman Hilmersson
  * A class that representates the common enemy type for the game
- *
+ * <p>
  * 2021-09-24 Modified by Elin Forsberg: Added methods to decrease health of virus and check if it's dead
  */
-class Virus implements IVirus{
+class Virus implements IVirus {
     private int health; // Current health of virus
 
     private String spriteKey;   // The key to the Sprite Hashmap
 
     private float xPos;         // x position on map
     private float yPos;         // y position on map
-
 
 
     private float widthX = 0;     // width of object
@@ -36,8 +35,9 @@ class Virus implements IVirus{
 
     /**
      * Creates Virus object
+     *
      * @param health Amount of health the virus start with
-     * @param path  The path to follow
+     * @param path   The path to follow
      */
     Virus(int health, Path path) {
         this.health = health;
@@ -65,7 +65,7 @@ class Virus implements IVirus{
      */
     @Override
     public void decreaseHealth() {
-        this.health --;
+        this.health--;
         if (health > 0) {
             updateSpriteKey();
         } else {
@@ -82,23 +82,27 @@ class Virus implements IVirus{
     }
 
     private void moveToPoint() {
-        double totalSpeed = (3F + health)/4F;      // Calculates speed based on health of virus
+        double totalSpeed = (3F + health) / 4F;      // Calculates speed based on health of virus
 
         // Gets length to next move to point
         double diffX = xPos + widthX / 2F - currentMoveToVector.getX();
         double diffY = yPos + heightY / 2F - currentMoveToVector.getY();
 
-        double totalLengthToVector = Math.sqrt(Math.pow(diffX,2) + Math.pow(diffY,2));
+        double totalLengthToVector = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
 
         // Gets ratio of speed to length
-        double lengthDiff = totalSpeed/totalLengthToVector;
+        double lengthDiff = totalSpeed / totalLengthToVector;
 
         // Multiplies this to get how much in x and y
         double addedDiffX = (diffX * lengthDiff);
         double addedDiffY = (diffY * lengthDiff);
 
-        if (Double.isNaN(addedDiffX)) { addedDiffX = 0; }
-        if (Double.isNaN(addedDiffY)) { addedDiffY = 0; }
+        if (Double.isNaN(addedDiffX)) {
+            addedDiffX = 0;
+        }
+        if (Double.isNaN(addedDiffY)) {
+            addedDiffY = 0;
+        }
 
         // Subtract this from current position
         xPos -= addedDiffX;
@@ -111,22 +115,31 @@ class Virus implements IVirus{
         totalDistanceTrawled += totalSpeed;
     }
 
-    private void updateSpriteKey() { spriteKey = "virus" + health; } // Updates the key to Sprite hashmap
+    private void updateSpriteKey() {
+        spriteKey = "virus" + health;
+    } // Updates the key to Sprite hashmap
 
     /**
      * Gets Virus x position
+     *
      * @return Virus x position
      */
-    public float getX() { return xPos; }
+    public float getX() {
+        return xPos;
+    }
 
     /**
      * Gets Virus y position
+     *
      * @return Virus y position
      */
-    public float getY() { return yPos; }
+    public float getY() {
+        return yPos;
+    }
 
     /**
      * Gets width of virus
+     *
      * @return width
      */
     public float getWidth() {
@@ -135,6 +148,7 @@ class Virus implements IVirus{
 
     /**
      * Gets height of virus
+     *
      * @return height
      */
     public float getHeight() {
@@ -143,28 +157,40 @@ class Virus implements IVirus{
 
     /**
      * Gets the key to Sprite hashmap for rendering
+     *
      * @return Key to hashmap
      */
-    public String getSpriteKey() { return spriteKey; }
+    public String getSpriteKey() {
+        return spriteKey;
+    }
 
     @Override
-    public float getAngle() { return 0; }
+    public float getAngle() {
+        return 0;
+    }
 
     /**
      * Gets the amount of damage the virus does when reaching end of path
+     *
      * @return Amount of damage to be done
      */
-    public int getLifeDecreaseAmount() { return health; }
+    public int getLifeDecreaseAmount() {
+        return health;
+    }
 
     /**
      * Gets the total distance trawled by the virus object
+     *
      * @return Total distance trawled
      */
     @Override
-    public float getTotalDistanceTraveled() { return totalDistanceTrawled; }
+    public float getTotalDistanceTraveled() {
+        return totalDistanceTrawled;
+    }
 
     /**
      * Gets if virus health is 0, which means it's dead
+     *
      * @return if health is 0
      */
     public boolean isDead() {

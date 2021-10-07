@@ -23,14 +23,14 @@ public class MainScreen extends AbstractScreen {
 
     private final MainScreenController mainScreenController;
 
-    public MainScreen(MainScreenController mainScreenController){
+    public MainScreen(MainScreenController mainScreenController) {
         super();
         this.mainScreenController = mainScreenController;
         img = new Image(new Texture("HomeScreen.png"));
         createPlayButton();
     }
 
-    private void createPlayButton(){
+    private void createPlayButton() {
         Texture playButtonTexture = new Texture(Gdx.files.internal("playButton.png"));
         TextureRegion playButtonTextureRegion = new TextureRegion(playButtonTexture);
         TextureRegionDrawable playTexRegDrawable = new TextureRegionDrawable(playButtonTextureRegion);

@@ -13,31 +13,31 @@ import static org.junit.Assert.assertEquals;
 public class TestVirusFactory {
 
     @Test
-    public void testCreateVirusOne(){
+    public void testCreateVirusOne() {
         IVirus v = VirusFactory.createVirusOne();
         assertEquals(1, v.getLifeDecreaseAmount());
     }
 
     @Test
-    public void testCreateVirusTwo(){
+    public void testCreateVirusTwo() {
         IVirus v = VirusFactory.createVirusTwo();
         assertEquals(2, v.getLifeDecreaseAmount());
     }
 
     @Test
-    public void testCreateVirusThree(){
+    public void testCreateVirusThree() {
         IVirus v = VirusFactory.createVirusThree();
         assertEquals(3, v.getLifeDecreaseAmount());
     }
 
     @Test
-    public void testCreateVirusFour(){
+    public void testCreateVirusFour() {
         IVirus v = VirusFactory.createVirusFour();
         assertEquals(4, v.getLifeDecreaseAmount());
     }
 
     @Test
-    public void testCreateVirusFive(){
+    public void testCreateVirusFive() {
         IVirus v = VirusFactory.createVirusFive();
         assertEquals(5, v.getLifeDecreaseAmount());
     }

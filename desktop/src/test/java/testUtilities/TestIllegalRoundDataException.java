@@ -9,7 +9,7 @@ import org.junit.Test;
  */
 public class TestIllegalRoundDataException {
 
-    @Test (expected = IllegalRoundDataException.class)
+    @Test(expected = IllegalRoundDataException.class)
     public void testIllegalRoundDataException() {
         throw new IllegalRoundDataException("This is just to test the class and should normally never be thrown if data is correct format");
     }

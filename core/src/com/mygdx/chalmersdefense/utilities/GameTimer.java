@@ -5,7 +5,7 @@ import com.mygdx.chalmersdefense.model.IUpdateModel;
 
 /**
  * @author Joel Båtsman Hilmersson
- *
+ * <p>
  * A class containing metods related to the game timer. Wraps a timer object in it
  * The timer then calls update method in the given model
  */
@@ -17,6 +17,7 @@ public class GameTimer {
 
     /**
      * Constructor for the GameTimer class
+     *
      * @param model The class to update continuously
      */
     public GameTimer(IUpdateModel model) {
@@ -49,7 +50,7 @@ public class GameTimer {
      * Change model update speed to run simulation faster or slower based on current speed
      */
     public void changeUpdateSpeed() {
-        if (delay < 0.004F){
+        if (delay < 0.004F) {
             delay = 0.005F;
         } else {
             delay = 0.0028F;
@@ -62,7 +63,10 @@ public class GameTimer {
     private void setupTask() {
         task = new Timer.Task() {
             @Override
-            public void run() { if (task.isScheduled()) { model.updateModel(); }
+            public void run() {
+                if (task.isScheduled()) {
+                    model.updateModel();
+                }
             }
         };
         timer.scheduleTask(task, 0, delay);

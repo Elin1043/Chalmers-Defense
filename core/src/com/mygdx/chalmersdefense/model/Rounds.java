@@ -21,6 +21,7 @@ class Rounds {
 
     /**
      * Checks if the current round is the winning round
+     *
      * @return true if current and winning round is equal
      */
     boolean gameWon() {
@@ -29,6 +30,7 @@ class Rounds {
 
     /**
      * Returns the greatest number of currentRound or 1.
+     *
      * @return the greatest int
      */
     int getCurrentRound() {
@@ -37,6 +39,7 @@ class Rounds {
 
     /**
      * Returns which round is the winning round
+     *
      * @return an int with winning round
      */
     int getWinningRound() {

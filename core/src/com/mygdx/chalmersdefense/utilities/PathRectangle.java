@@ -3,19 +3,18 @@ package com.mygdx.chalmersdefense.utilities;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.customExceptions.IllegalMethodCallException;
 
-
-import java.awt.Rectangle;
+import java.awt.*;
 
 
 /**
  * @author Joel Båtsman Hilmersson
- *
+ * <p>
  * Class for wraping a java rectangle
  */
 public class PathRectangle implements IMapObject {
     private final Rectangle rectangle = new Rectangle();    // The wrapped rectangle object
 
-    public PathRectangle(float x, float y, float width, float height){
+    public PathRectangle(float x, float y, float width, float height) {
         rectangle.setRect(x, y, width, height);
     }
 
@@ -41,8 +40,12 @@ public class PathRectangle implements IMapObject {
     }
 
     @Override
-    public String getSpriteKey() { throw new IllegalMethodCallException("getSpriteKey should not be called from pathRectangles"); }
+    public String getSpriteKey() {
+        throw new IllegalMethodCallException("getSpriteKey should not be called from pathRectangles");
+    }
 
     @Override
-    public float getAngle() { throw new IllegalMethodCallException("getAngle should not be called from pathRectangles"); }
+    public float getAngle() {
+        throw new IllegalMethodCallException("getAngle should not be called from pathRectangles");
+    }
 }

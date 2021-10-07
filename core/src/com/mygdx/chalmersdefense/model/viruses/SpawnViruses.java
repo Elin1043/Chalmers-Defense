@@ -40,6 +40,7 @@ public class SpawnViruses {
 
     /**
      * Creates one instance of spawnViruses class
+     *
      * @param listToAddTo The list to spawn viruses in
      */
     public SpawnViruses(List<IVirus> listToAddTo) {
@@ -55,12 +56,16 @@ public class SpawnViruses {
 
     /**
      * Returns if the class currently spawns viruses
+     *
      * @return the spawning status
      */
-    public boolean isSpawning() { return isSpawning; }
+    public boolean isSpawning() {
+        return isSpawning;
+    }
 
     /**
      * Method to start the virus spawning sequence for a given round
+     *
      * @param round the round to spawn
      */
     public void spawnRound(int round) {
@@ -70,7 +75,7 @@ public class SpawnViruses {
                 currentRound = spawnInfo[round - 1];        // If there exist specific round data, Takes it
             } else {
                 Random rand = new Random();
-                currentRound = spawnInfo[rand.nextInt(spawnInfo.length-1)];     // Otherwise, randomizes a round from round data
+                currentRound = spawnInfo[rand.nextInt(spawnInfo.length - 1)];     // Otherwise, randomizes a round from round data
             }
 
             waveIndex = 0;
@@ -80,15 +85,15 @@ public class SpawnViruses {
         }
     }
 
-    public void decrementSpawnTimer(){
-        if (spawnTimer <= 0){
+    public void decrementSpawnTimer() {
+        if (spawnTimer <= 0) {
             startSpawnRoundHandler();
         } else {
             spawnTimer--;
         }
     }
 
-    private void startSpawnRoundHandler(){
+    private void startSpawnRoundHandler() {
         try {
             parseRound();
         } catch (NumberFormatException e) {
@@ -128,7 +133,7 @@ public class SpawnViruses {
 
     private void multiVirusSpawnHandler(String[] splitedWave) {
 
-        if(splitedWave[0].split("[*]").length == 2) {
+        if (splitedWave[0].split("[*]").length == 2) {
 
             sameTypeVirusSpawner(splitedWave);
 
@@ -161,7 +166,7 @@ public class SpawnViruses {
 
         int currentVirusType;
 
-        if (Integer.parseInt(spawnInfo[0]) < Integer.parseInt(spawnInfo[1])){
+        if (Integer.parseInt(spawnInfo[0]) < Integer.parseInt(spawnInfo[1])) {
             currentVirusType = Integer.parseInt(spawnInfo[0]) + waveAmountSpawned;
         } else {
             currentVirusType = Integer.parseInt(spawnInfo[0]) - waveAmountSpawned;

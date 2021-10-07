@@ -3,7 +3,6 @@ package com.mygdx.chalmersdefense.model.towers;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,13 +27,13 @@ class MechTower extends Tower {
         this.towersToAddList = towersToAddList;
     }
 
-    private List<ITower> createMiniTowers(){
-            ITower miniTower1 = new MechMiniTower(this.getX() + 100,this.getY() - 100, reloadSpeed, range, targetModes);
-            ITower miniTower2 = new MechMiniTower(this.getX() - 100,this.getY() - 100, reloadSpeed, range, targetModes);
+    private List<ITower> createMiniTowers() {
+        ITower miniTower1 = new MechMiniTower(this.getX() + 100, this.getY() - 100, reloadSpeed, range, targetModes);
+        ITower miniTower2 = new MechMiniTower(this.getX() - 100, this.getY() - 100, reloadSpeed, range, targetModes);
 
-            miniTowers.add(miniTower1);
-            miniTowers.add(miniTower2);
-            return miniTowers;
+        miniTowers.add(miniTower1);
+        miniTowers.add(miniTower2);
+        return miniTowers;
     }
 
     @Override
@@ -43,10 +42,10 @@ class MechTower extends Tower {
     }
 
     @Override
-    public void update(List<IProjectile> projectilesList,  float newAngle, boolean hasTarget){
-        if(this.isPlaced() && miniTowers.isEmpty()){
+    public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget) {
+        if (this.isPlaced() && miniTowers.isEmpty()) {
             List<ITower> miniTowers = createMiniTowers();
-            for (ITower miniTower: miniTowers) {
+            for (ITower miniTower : miniTowers) {
                 miniTower.placeTower();
             }
             towersToAddList.addAll(miniTowers);

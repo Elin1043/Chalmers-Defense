@@ -1,13 +1,11 @@
 package com.mygdx.chalmersdefense.views.GameScreenViews;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -24,7 +22,7 @@ import java.util.HashMap;
 /**
  * @author Daniel Persson
  * A class used to render upgrade panel
- *
+ * <p>
  * 2021-10-05 Created by Daniel Persson
  */
 public class BottomBarUpgradePanel {
@@ -106,6 +104,7 @@ public class BottomBarUpgradePanel {
 
     /**
      * Method used to get stage
+     *
      * @return this stage
      */
     public Stage getStage() {
@@ -114,10 +113,11 @@ public class BottomBarUpgradePanel {
 
     /**
      * Sets up the upgrade button with labels and image.
+     *
      * @param upgradeButton the button to set up
-     * @param titleLabel the title label to set up
-     * @param descLabel the description label to set up
-     * @param priceLabel the price label to set up
+     * @param titleLabel    the title label to set up
+     * @param descLabel     the description label to set up
+     * @param priceLabel    the price label to set up
      */
     private void createUpgradeButtons(Button upgradeButton, Label titleLabel, Label descLabel, Label priceLabel) {
         bottomBarPanelUpgradeGroup.addActor(upgradeButton);
@@ -127,9 +127,9 @@ public class BottomBarUpgradePanel {
         upgradeButton.addActor(descLabel);
         upgradeButton.addActor(priceLabel);
 
-        titleLabel.setPosition(110,120);
+        titleLabel.setPosition(110, 120);
 
-        descLabel.setPosition(110,80);
+        descLabel.setPosition(110, 80);
         descLabel.setWrap(true);
         descLabel.setWidth(240);
 
@@ -138,13 +138,14 @@ public class BottomBarUpgradePanel {
 
     /**
      * Updates the upgrade panel.
+     *
      * @param tower tower name used to get correct sprite
      */
     private void updateUpgradePanelInfo(IMapObject tower) {
-        towerNameLabel.setText(tower.getSpriteKey().replaceFirst(".$","")); // Removes the upgrade level from the spriteKey to just leave the name left
+        towerNameLabel.setText(tower.getSpriteKey().replaceFirst(".$", "")); // Removes the upgrade level from the spriteKey to just leave the name left
 
         Sprite towerSpriteUpgradePanel = largeSpriteMap.get(tower.getSpriteKey() + "Large");
-        towerSpriteUpgradePanel.setPosition(bottomBarPanelUpgradeGroup.getX() + (85 - towerSpriteUpgradePanel.getWidth()/2), bottomBarUpgradePanelBackground.getHeight()/2 - towerSpriteUpgradePanel.getHeight()/2);
+        towerSpriteUpgradePanel.setPosition(bottomBarPanelUpgradeGroup.getX() + (85 - towerSpriteUpgradePanel.getWidth() / 2), bottomBarUpgradePanelBackground.getHeight() / 2 - towerSpriteUpgradePanel.getHeight() / 2);
         towerSpriteUpgradePanel.setRotation(0);
 
         batch.begin();
@@ -157,19 +158,20 @@ public class BottomBarUpgradePanel {
 
     /**
      * Updates button labels and button data. Also sets button to correct state depending on available money and current upgrade level.
-     * @param tower tower to get data from
-     * @param buttonNr frist or second upgrade button
+     *
+     * @param tower         tower to get data from
+     * @param buttonNr      frist or second upgrade button
      * @param upgradeButton the button to modify
-     * @param titleLabel the title label to modify
-     * @param descLabel the description label to modify
-     * @param priceLabel the price label to modify
+     * @param titleLabel    the title label to modify
+     * @param descLabel     the description label to modify
+     * @param priceLabel    the price label to modify
      */
     private void updateUpgradeButton(IMapObject tower, int buttonNr, Button upgradeButton, Label titleLabel, Label descLabel, Label priceLabel) {
-        String towerName = tower.getSpriteKey().replaceFirst(".$","");              // Removes the upgrade level from the spriteKey to just leave the name left
+        String towerName = tower.getSpriteKey().replaceFirst(".$", "");              // Removes the upgrade level from the spriteKey to just leave the name left
         int towerUpgradeLevel = Character.getNumericValue(tower.getSpriteKey().charAt(tower.getSpriteKey().length() - 1));     // Gets the last char in the string, and therefore the upgrade level
 
         Sprite upgradedTowerSprite = spriteMap.get(towerName + (buttonNr + 1));
-        upgradedTowerSprite.setPosition(upgradeButton.getX() + (268 - upgradedTowerSprite.getWidth()/2), (upgradeButton.getHeight() - upgradeButton.getY())/2 - upgradedTowerSprite.getHeight()/2 + upgradeButton.getY() + 20);
+        upgradedTowerSprite.setPosition(upgradeButton.getX() + (268 - upgradedTowerSprite.getWidth() / 2), (upgradeButton.getHeight() - upgradeButton.getY()) / 2 - upgradedTowerSprite.getHeight() / 2 + upgradeButton.getY() + 20);
         upgradedTowerSprite.setRotation(0);
 
         boolean cantAfford = model.getMoney() < model.getTowerUpgradePrice(towerName, buttonNr);
@@ -194,7 +196,8 @@ public class BottomBarUpgradePanel {
         }
 
         // Modify second button only
-        if (buttonNr == 2) updateSecondUpgradeButton(towerUpgradeLevel, upgradeButton, upgradedTowerSprite, cantAfford, upgradeIsBought);
+        if (buttonNr == 2)
+            updateSecondUpgradeButton(towerUpgradeLevel, upgradeButton, upgradedTowerSprite, cantAfford, upgradeIsBought);
 
 
         batch.begin();
