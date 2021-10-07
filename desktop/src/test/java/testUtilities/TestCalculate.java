@@ -10,13 +10,13 @@ import static org.junit.Assert.*;
  *
  * Test class for PathRectangle
  */
-public class testCalculate {
+public class TestCalculate {
 
     @Test
     public void testCalculateIntersects(){
         PathRectangle rectangle = new PathRectangle(2,2,-1,-1);
         PathRectangle rectangle2 = new PathRectangle(100,100,-2,-1);
-        Boolean bool = Calculate.objectsIntersects(rectangle, rectangle2);
+        boolean bool = Calculate.objectsIntersects(rectangle, rectangle2);
         assertFalse(bool);
     }
 

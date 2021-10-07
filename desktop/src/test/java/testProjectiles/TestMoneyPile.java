@@ -8,13 +8,13 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * @author Joel Båtsman Hilmersson
- * Test class for MoneyProjectile
+ * Test class for MoneyPile
  */
-public class testMoneyProjectile {
+public class TestMoneyPile {
 
     @Test
     public void testMoneyUpdate(){
-        IProjectile p = ProjectileFactory.createMoneyProjectile(1,1,2);
+        IProjectile p = ProjectileFactory.createMoneyPile(1,1,2);
 
         for (int i = 0; i < 10000; i++){                    // After this amount of time, it should be able to be removed
             p.update(false, 0, 10);
@@ -25,7 +25,7 @@ public class testMoneyProjectile {
 
     @Test
     public void testHaveHitBefore(){
-        IProjectile p = ProjectileFactory.createMoneyProjectile(1,1,2);
+        IProjectile p = ProjectileFactory.createMoneyPile(1,1,2);
         assertTrue(p.haveHitBefore(0)); // Should always return true to not do damage to viruses
     }
 }

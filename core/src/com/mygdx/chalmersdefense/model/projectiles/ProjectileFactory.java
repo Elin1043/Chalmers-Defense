@@ -78,7 +78,7 @@ public abstract class ProjectileFactory {
      * @param upgradeLevel the upgradeLevel of the tower shooting the projectile
      * @return the created projectile
      */
-    static public IProjectile createMoneyProjectile(float towerX, float towerY, int upgradeLevel){
-        return new MoneyProjectile(towerX, towerY, upgradeLevel);
+    static public IProjectile createMoneyPile(float towerX, float towerY, int upgradeLevel){
+        return new MoneyPile(towerX, towerY, upgradeLevel);
     }
 }

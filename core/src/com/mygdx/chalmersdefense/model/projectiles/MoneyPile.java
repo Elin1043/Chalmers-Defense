@@ -8,11 +8,11 @@ package com.mygdx.chalmersdefense.model.projectiles;
  * Class representing a money projectile
  */
 
-class MoneyProjectile extends Projectile implements IProjectile{
+class MoneyPile extends Projectile implements IProjectile{
     private int moneyTimer = 150;
 
 
-    MoneyProjectile(float x, float y , int upgradeLevel) {
+    MoneyPile(float x, float y , int upgradeLevel) {
         super(0.1F, "money"+ upgradeLevel, x + 10, y + 80, 90);
     }
 

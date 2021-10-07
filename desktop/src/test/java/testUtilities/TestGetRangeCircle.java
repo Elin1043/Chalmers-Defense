@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  * Test class for GetRangeCircle
  */
 
-public class testGetRangeCircle {
+public class TestGetRangeCircle {
 
     GetRangeCircle getRangeCircle;
 
