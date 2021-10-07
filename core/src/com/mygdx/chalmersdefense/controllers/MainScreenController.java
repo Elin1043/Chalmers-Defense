@@ -7,12 +7,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.chalmersdefense.views.ScreenEnum;
 import com.mygdx.chalmersdefense.views.ScreenManager;
 
+
+/**
+ * @author Daniel Persson
+ * @author Elin Forsberg
+ * @author Joel Båtsman Hilmersson
+ * @author Jenny Carlsson
+ *
+ */
 public class MainScreenController {
 
-    public MainScreenController() {
-
-    }
-
+    /**
+     * Listener for playButoon
+     * @param button the play button
+     */
     public void addPlayButtonListener(Button button) {
         button.addListener(new ClickListener() {
             @Override
@@ -22,6 +30,10 @@ public class MainScreenController {
         });
     }
 
+    /**
+     * Listener for QuitButton
+     * @param button the quit button
+     */
     public void addQuitButtonClickListener(Button button) {
         button.addListener(new ClickListener() {
             @Override

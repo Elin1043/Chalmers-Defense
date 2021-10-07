@@ -60,9 +60,7 @@ class Virus implements IVirus {
         yPos = currentMoveToVector.getY() - heightY / 2F;
     }
 
-    /**
-     * Decrease the health of the virus and update the spriteKey
-     */
+
     @Override
     public void decreaseHealth() {
         this.health--;
@@ -74,9 +72,7 @@ class Virus implements IVirus {
     }
 
 
-    /**
-     * Updates position of virus
-     */
+    @Override
     public void update() {
         moveToPoint();
     }

@@ -31,6 +31,9 @@ public abstract class AbstractScreen extends Stage implements Screen {
         createSprites();
     }
 
+    /**
+     * Builds the stage
+     */
     public abstract void buildStage();
 
     @Override

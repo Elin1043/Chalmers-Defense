@@ -40,9 +40,7 @@ public class WinPanel extends GameScreenOverlay {
         initialize();
     }
 
-    /**
-     * Method used to setup LostPanel GUI components
-     */
+    @Override
     void initialize() {
         stage.addActor(winPanelGroup);
         initializeActors();
@@ -78,9 +76,7 @@ public class WinPanel extends GameScreenOverlay {
         continueButton.addActor(continueButtonText);
     }
 
-    /**
-     * Renders lost panel overlay
-     */
+    @Override
     public void render() {
         Gdx.input.setInputProcessor(stage);
 
@@ -92,6 +88,7 @@ public class WinPanel extends GameScreenOverlay {
         winPanelGroup.setVisible(true);
     }
 
+   @Override
     public void hideOverlay() {
         winPanelGroup.setVisible(false);
     }

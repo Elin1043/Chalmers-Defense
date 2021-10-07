@@ -73,6 +73,10 @@ abstract class Tower implements ITower {
         this.cost = cost;
     }
 
+    /**
+     * Create a new projectile
+     * @param projectileList the list of which the projectile should be added too
+     */
     abstract void createProjectile(List<IProjectile> projectileList);
 
     @Override
@@ -87,8 +91,8 @@ abstract class Tower implements ITower {
     }
 
 
+    @Override
     public void upgradeTower(HashMap<String, Long> upgrades) {
-        // DMG multiplier??
         reloadTime *= upgrades.get("attackSpeedMul");
         range *= upgrades.get("attackRangeMul");
         upgradeLevel++;
@@ -96,66 +100,70 @@ abstract class Tower implements ITower {
     }
 
 
+    @Override
     public int getUpgradeLevel() {
         return upgradeLevel;
     }
 
+    /**
+     * Update the sprite key
+     */
     private void updateSpriteKey() {
         spriteKey = name + upgradeLevel;
     }
 
-
+    @Override
     public String getSpriteKey() {
         return spriteKey;
     }
 
-
+    @Override
     public int getCost() {
         return cost;
     }
 
-
+    @Override
     public boolean getCollision() {
         return collision;
     }
 
-
+    @Override
     public void setCollision(boolean set) {
         collision = set;
     }
 
-
+    @Override
     public String getName() {
         return name;
     }
 
-
+    @Override
     public void setPos(float x, float y) {
         this.x = x;
         this.y = y;
     }
 
-
+    @Override
     public float getX() {
         return x;
     }
 
-
+    @Override
     public float getY() {
         return y;
     }
 
-
+    @Override
     public float getHeight() {
         return height;
     }
 
-
+    @Override
     public float getWidth() {
         return width;
     }
 
-
+    @Override
     public float getAngle() {
         return angle;
     }
@@ -171,18 +179,22 @@ abstract class Tower implements ITower {
         }
     }
 
+    @Override
     public int getRange() {
         return range;
     }
 
+    @Override
     public ITargetMode getCurrentTargetMode() {
         return currentTargetMode;
     }
 
+    @Override
     public boolean isPlaced() {
         return isPlaced;
     }
 
+    @Override
     public void placeTower() {
         isPlaced = true;
     }

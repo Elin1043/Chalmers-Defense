@@ -24,6 +24,9 @@ public abstract class GameScreenOverlay {
         this.stage = new Stage(stage.getViewport());
     }
 
+    /**
+     * Initialize the ScreenOverlay
+     */
     abstract void initialize();
 
     /**
@@ -36,11 +39,11 @@ public abstract class GameScreenOverlay {
      */
     public abstract void hideOverlay();
 
-    public Stage getStage() {
-        return stage;
-    }
 
-    // Generate gray transparent overlay background
+
+    /**
+     * Generate gray transparent overlay background
+     */
     protected void drawTransparentBackground() {
         Gdx.gl.glEnable(GL_BLEND);
         Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -51,6 +54,14 @@ public abstract class GameScreenOverlay {
         Gdx.gl.glDisable(GL_BLEND);
     }
 
+    /**
+     * Setup a new button
+     * @param backgroundImage of the new button
+     * @param button the button to be setup
+     * @param buttonLabel of the new button
+     * @param buttonNr of the new button
+     * @param originPanel name of panel where button should be
+     */
     protected void createButtons(Image backgroundImage, Button button, Label buttonLabel, int buttonNr, String originPanel) {
         // Offset used to place button in center of left or right part.
         float offsetMulX;

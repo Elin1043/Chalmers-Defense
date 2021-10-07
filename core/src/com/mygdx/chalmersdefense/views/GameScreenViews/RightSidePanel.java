@@ -153,7 +153,7 @@ public class RightSidePanel {
 
     private Label createLabel(String text, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle36BlackBold());
-        label.setPosition(1920 - WIDTH / 2 - label.getWidth() / 2, 1080 - label.getHeight() - y);
+        label.setPosition(1920 - WIDTH / 2F - label.getWidth() / 2, 1080 - label.getHeight() - y);
         return label;
     }
 
@@ -162,7 +162,7 @@ public class RightSidePanel {
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.atlas")); // Load atlas file from skin
         Skin skin = new Skin(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.json"), atlas); // Create skin object
         startRoundButton = new Button(skin);
-        startRoundButton.setPosition(1920 - WIDTH / 2 - startRoundButton.getWidth() / 2, 20);
+        startRoundButton.setPosition(1920 - WIDTH / 2F - startRoundButton.getWidth() / 2, 20);
 
         rightSidePanelController.addStartButtonListener(startRoundButton);
         stage.addActor(startRoundButton);

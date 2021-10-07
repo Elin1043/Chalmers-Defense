@@ -31,12 +31,6 @@ public class TestProjectileFactory {
     }
 
     @Test
-    public void testCreateAcidPool() {
-        IProjectile projectile = ProjectileFactory.createAcidPool(0, 0, 1);
-        assertEquals("chemistAcid1", projectile.getSpriteKey());
-    }
-
-    @Test
     public void testCreateLightningProjectile() {
         IProjectile projectile = ProjectileFactory.createLightningProjectile(0, 0, 0, 1);
         assertEquals("electroProjectile1", projectile.getSpriteKey());

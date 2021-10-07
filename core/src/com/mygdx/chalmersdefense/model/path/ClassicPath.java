@@ -12,7 +12,7 @@ import com.mygdx.chalmersdefense.utilities.PositionVector;
 
 class ClassicPath extends Path {
 
-    public ClassicPath() {
+     ClassicPath() {
         super(80);
         setPathWaypoints();
         super.createMapCollision();
