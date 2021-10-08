@@ -17,7 +17,7 @@ import com.mygdx.chalmersdefense.utilities.FontFactory;
  * @author Daniel Persson
  * A class used to render an overlay when a player lose the game
  */
-public class LostPanel extends GameScreenOverlay {
+public class LostPanelOverlay extends AbstractOverlay {
     private final float WIDTH = 810;
     private final float HEIGHT = 400;
 
@@ -37,7 +37,7 @@ public class LostPanel extends GameScreenOverlay {
     private final Button tryAgainButton = new Button(lostButtonSkin);
     private final Label tryAgainButtonText = new Label("Try again", FontFactory.getLabelStyle24BlackSemiBold());
 
-    public LostPanel(Stage stage, GameScreenController gameScreenController) {
+    public LostPanelOverlay(Stage stage, GameScreenController gameScreenController) {
         super(gameScreenController, stage);
 
         initialize();
@@ -63,8 +63,8 @@ public class LostPanel extends GameScreenOverlay {
                 backgroundImage.getX() + backgroundImage.getWidth() / 2 - 720 / 2f,
                 backgroundImage.getY() + backgroundImage.getHeight() - 150);
 
-        createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1, "LostPanel");
-        createButtons(backgroundImage, tryAgainButton, tryAgainButtonText, 2, "LostPanel");
+        createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1, "LostPanelOverlay");
+        createButtons(backgroundImage, tryAgainButton, tryAgainButtonText, 2, "LostPanelOverlay");
 
         lostPanelGroup.setVisible(false);
     }
