@@ -154,7 +154,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
             cost = (map.getClickedTower().getCost() * 0.6);
         }
         else{
-            cost += (map.getClickedTower().getCost() * 0.6);
+            cost += map.getClickedTower().getCost();
             for (int i = 2; i < map.getClickedTower().getUpgradeLevel() + 1; i++) {
                 cost += upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), i-1).intValue();
             }
