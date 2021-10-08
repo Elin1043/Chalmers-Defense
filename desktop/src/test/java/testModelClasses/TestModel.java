@@ -32,6 +32,16 @@ public class TestModel {
         assertEquals(1, model.getAllMapObjects().size());
     }
 
+    @Test
+    public void testGetTowerSellprice() {
+        model.dragStart("smurf", 0, 0);
+        model.dragEnd(100, 100, 100, 100);
+        assertEquals(60, model.getClickedTowerSellPrice());
+
+        model.upgradeClickedTower();
+        assertEquals(360, model.getClickedTowerSellPrice());
+    }
+
 
     @Test
     public void testUpdateModel() {
