@@ -99,7 +99,7 @@
       "projectileSpeedMul": 1.0
     }
   ],
-  "MechMiniTower": [
+  "MechMini": [
     {
       "title": "No upgrade for me",
       "desc": "This is a long description describing the upgrade",

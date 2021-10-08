@@ -12,7 +12,7 @@ import java.util.List;
  */
 class MechMiniTower extends Tower {
     MechMiniTower(float x, float y, int reloadSpeed, int range, List<ITargetMode> targetModes) {
-        super(x, y, "MechMiniTower", reloadSpeed, 0, range, targetModes);
+        super(x, y, "MechMini", reloadSpeed, 0, range, targetModes);
     }
 
 
