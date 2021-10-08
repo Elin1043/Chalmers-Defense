@@ -17,8 +17,8 @@ public abstract class Calculate {
     /**
      * Gets the viruses in range of a tower
      *
-     * @param towerX     x-coorindate of tower
-     * @param towerY     y-coorindate of tower
+     * @param towerX     x-coordinate of tower
+     * @param towerY     y-coordinate of tower
      * @param towerRange range of tower
      * @param allViruses list of all viruses
      * @return a list of viruses in range
