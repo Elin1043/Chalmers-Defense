@@ -8,8 +8,8 @@ package com.mygdx.chalmersdefense.utilities;
 
 public class PositionVector {
 
-    private final float x;
-    private final float y;
+    private final float x;  // The x coordinate
+    private final float y;  // The y coordinate
 
     public PositionVector(float x, float y) {
         this.x = x;

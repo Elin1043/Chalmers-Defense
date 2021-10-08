@@ -5,9 +5,9 @@ package com.mygdx.chalmersdefense.utilities;
  * Class used to know where and how to draw the gray circle around towers
  */
 public class GetRangeCircle {
-    private float x;
-    private float y;
-    private float range;
+    private float x;    // The x coordinate
+    private float y;    // The y coordinate
+    private float range;    // The range of the circle
 
     private Color enumColor = Color.NONE;
 
