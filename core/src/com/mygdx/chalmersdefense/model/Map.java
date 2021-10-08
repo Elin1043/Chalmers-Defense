@@ -343,6 +343,20 @@ class Map {
 
     }
 
+    /**
+     * Sell the clicked tower
+     * Also gives the player some money back
+     *
+     * @param cost cost of tower sold
+     */
+    void sellClickedTower(int cost) {
+        towersList.remove(clickedTower);
+        player.increaseMoney(cost);
+        clickedTower = null;
+        rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
+
+    }
+
 
     /**
      * Return the circle used for rendering range
@@ -406,6 +420,5 @@ class Map {
     void roundClear() {
         projectilesList.clear();
     }
-
 
 }

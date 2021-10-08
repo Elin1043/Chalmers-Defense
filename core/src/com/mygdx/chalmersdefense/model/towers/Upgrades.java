@@ -88,6 +88,7 @@ public class Upgrades {
     public Long getTowerUpgradePrice(String towerName, int upgradeLevel) {
         try {
             JSONArray towerUpgradeArray = (JSONArray) mainObject.get(towerName);
+
             JSONObject upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
             return (Long) upgradeObject.get("price");
         } catch (NullPointerException exception) {

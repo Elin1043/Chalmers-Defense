@@ -6,13 +6,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.Model;
@@ -43,17 +42,22 @@ public class BottomBarUpgradePanel {
     private final TextureAtlas upgradePanelAtlas = new TextureAtlas(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.atlas")); // Load atlas file from skin
     private final Skin upgradePanelSkin = new Skin(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.json"), upgradePanelAtlas); // Create skin object
 
-    // Upgrade button
+    // Buttons
     private final Button upgradeButtonFirst = new Button(upgradePanelSkin);
     private final Button upgradeButtonSecond = new Button(upgradePanelSkin);
 
-    // Labels for upgrade buttons
+    // Labels for buttons
     private final Label firstUpgradeButtonTitle = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle24BlackSemiBold());
     private final Label firstUpgradeButtonDesc = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle18Black());
     private final Label firstUpgradeButtonPrice = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle26Black());
     private final Label secondUpgradeButtonTitle = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle24BlackSemiBold());
     private final Label secondUpgradeButtonDesc = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle18Black());
     private final Label secondUpgradeButtonPrice = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle26Black());
+
+    private final Label sellPriceLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle26Black());
+
+
+
 
     public BottomBarUpgradePanel(Stage stage, Model model, HashMap<String, Sprite> spriteMap, HashMap<String, Sprite> largeSpriteMap) {
         this.stage = new Stage(stage.getViewport());
@@ -81,8 +85,11 @@ public class BottomBarUpgradePanel {
         createUpgradeButtons(upgradeButtonFirst, firstUpgradeButtonTitle, firstUpgradeButtonDesc, firstUpgradeButtonPrice);
         createUpgradeButtons(upgradeButtonSecond, secondUpgradeButtonTitle, secondUpgradeButtonDesc, secondUpgradeButtonPrice);
 
+        createSellButton();
+
         bottomBarPanelUpgradeGroup.addActor(towerNameLabel);
         bottomBarPanelUpgradeGroup.setVisible(false);
+
     }
 
     /**
@@ -92,6 +99,7 @@ public class BottomBarUpgradePanel {
         stage.act();
         stage.draw();
         updateUpgradePanelInfo(tower);
+        updateSellButtonInfo();
         bottomBarPanelUpgradeGroup.setVisible(true);
     }
 
@@ -111,6 +119,25 @@ public class BottomBarUpgradePanel {
         return stage;
     }
 
+
+
+    private void createSellButton() {
+        TextureRegion playButtonTextureRegion = new TextureRegion(new Texture(Gdx.files.internal("buttons/towerSellButton.png")));
+        TextureRegionDrawable playTexRegDrawable = new TextureRegionDrawable(playButtonTextureRegion);
+        ImageButton sellButton = new ImageButton(playTexRegDrawable);
+        sellButton.setPosition(380, 30);
+
+        stage.addActor(sellButton);
+        stage.addActor(sellPriceLabel);
+        bottomBarPanelController.addClickListenerSellButton(sellButton);
+
+
+        sellPriceLabel.setPosition(520, 55);
+    }
+
+    private void updateSellButtonInfo(){
+        sellPriceLabel.setText("+" + "$" + model.getClickedTowerSellPrice());
+    }
     /**
      * Sets up the upgrade button with labels and image.
      *
