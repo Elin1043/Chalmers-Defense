@@ -11,8 +11,13 @@ import java.util.List;
  * Class representing the MechMiniTowers that MechTower creates
  */
 class MechMiniTower extends Tower {
-    MechMiniTower(float x, float y, int reloadSpeed, int range, List<ITargetMode> targetModes) {
+
+
+    MechMiniTower(float x, float y, int reloadSpeed, int range, List<ITargetMode> targetModes, int upgradeLevel) {
         super(x, y, "MechMini", reloadSpeed, 0, range, targetModes);
+
+        this.upgradeLevel = upgradeLevel;
+        this.updateSpriteKey();
     }
 
 
@@ -20,4 +25,5 @@ class MechMiniTower extends Tower {
     void createProjectile(List<IProjectile> projectileList) {
         projectileList.add(ProjectileFactory.createRobotProjectile(getX(), getY(), getAngle(), getUpgradeLevel()));
     }
+
 }

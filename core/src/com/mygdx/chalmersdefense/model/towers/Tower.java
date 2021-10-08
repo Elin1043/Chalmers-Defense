@@ -22,7 +22,7 @@ import java.util.Objects;
 abstract class Tower implements ITower {
 
     private String spriteKey;       // The key to the Sprite Hashmap
-    private int upgradeLevel = 1;   // The current upgradeLevel
+    int upgradeLevel = 1;   // The current upgradeLevel
 
     private float angle = 0;        // Current angle of tower
     private int range;              // Current shooting range of tower
@@ -133,7 +133,7 @@ abstract class Tower implements ITower {
     /**
      * Update the sprite key
      */
-    private void updateSpriteKey() {
+    void updateSpriteKey() {
         spriteKey = name + upgradeLevel;
     }
 

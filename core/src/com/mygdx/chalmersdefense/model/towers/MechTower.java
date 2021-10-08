@@ -8,6 +8,7 @@ import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,8 +18,8 @@ import java.util.List;
 class MechTower extends Tower {
 
     private final List<ITower> miniTowers = new ArrayList<>();  // List to add minitower to
-    private final int reloadSpeed;      // Reload speed
-    private final int range;            // Current range of tower, this will be passed to minimechtowers later
+    private int reloadSpeed;      // Reload speed
+    private int range;            // Current range of tower, this will be passed to minimechtowers later
     private final List<ITargetMode> targetModes;    // All possible targeted
     List<ITower> towersToAddList;       // The final list to add towers to get them to show up on the map
     private final List<ITower> allTowers;
@@ -26,6 +27,8 @@ class MechTower extends Tower {
 
     private int robotLifeTimer = 2000;    // Lifetime of a robot
     private int robotCooldownTimer = 500;    // Cooldown of a robot
+
+    private int upgradeLevel = 1;   // The current upgradeLevel
 
     MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<ITower> towersToAddList,List<ITower> allTowers, Path path) {
         super(x, y, name, reloadSpeed, cost, range, targetModes);
@@ -41,20 +44,17 @@ class MechTower extends Tower {
         float[] point1 = checkPointCollision();
         float[] point2 = checkPointCollision();
         if(getUpgradeLevel() == 1 || getUpgradeLevel() == 3 ){
-            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, range, targetModes);
+            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, range, targetModes, this.getUpgradeLevel());
             miniTowers.add(miniTower1);
         }
         if(getUpgradeLevel() == 2){
-            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, range, targetModes);
-            ITower miniTower2 = new MechMiniTower(point2[0], point2[1], reloadSpeed, range, targetModes);
+            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, range, targetModes, this.getUpgradeLevel());
+            ITower miniTower2 = new MechMiniTower(point2[0], point2[1], reloadSpeed, range, targetModes, this.getUpgradeLevel());
             miniTowers.add(miniTower1);
             miniTowers.add(miniTower2);
         }
-
         return miniTowers;
     }
-
-
 
     @Override
     void createProjectile(List<IProjectile> projectileList) {
