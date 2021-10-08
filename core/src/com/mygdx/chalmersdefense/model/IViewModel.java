@@ -67,9 +67,9 @@ public interface IViewModel {
     boolean getIsGameLost();
 
     /**
-     * Returns if WinPanel is supposed to show
+     * Returns if WinPanelOverlay is supposed to show
      *
-     * @return if WinPanel is supposed to show
+     * @return if WinPanelOverlay is supposed to show
      */
     boolean showWinPanel();
 

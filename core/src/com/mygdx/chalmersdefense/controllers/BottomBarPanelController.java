@@ -10,8 +10,8 @@ import com.mygdx.chalmersdefense.model.IControllModel;
  * @author Daniel Persson
  * Controller class for bottom bar element in GameScreen
  *
- * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model
- * 2021-10-07 Modified by Elin Forsberg: Added listener for SellButton.
+ * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model <br>
+ * 2021-10-07 Modified by Elin Forsberg: Added listener for SellButton. <br>
  */
 public class BottomBarPanelController {
     private final IControllModel model;

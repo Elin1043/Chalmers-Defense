@@ -20,28 +20,28 @@ import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 import com.mygdx.chalmersdefense.views.GameScreenViews.BottomBarUpgradePanel;
-import com.mygdx.chalmersdefense.views.GameScreenViews.LostPanel;
+import com.mygdx.chalmersdefense.views.GameScreenViews.LostPanelOverlay;
 import com.mygdx.chalmersdefense.views.GameScreenViews.RightSidePanel;
-import com.mygdx.chalmersdefense.views.GameScreenViews.WinPanel;
+import com.mygdx.chalmersdefense.views.GameScreenViews.WinPanelOverlay;
 
 import static com.badlogic.gdx.graphics.GL20.*;
 
 /**
  * @author Daniel Persson
  * <p>
- * 2021-09-20 Modified by Elin Forsberg: Added methods and variables to handle placing towers
- * 2021-09-23 Modified by Joel Båtsman Hilmersson: All sprites now comes from hashmap when rendering and there are life and money labels
- * 2021-09-24 Modified by Elin Forsberg: Added methods to render projectiles
- * 2021-09-28 Modified by Daniel Persson: Added methods and instance variables to render upgrade panel and upgrade buttons
- * 2021-10-03 Modified by Elin Forsberg: Sprite render now uses general IMapObject and range circle rendering was separated
- * 2021-10-04 Modified by Daniel Persson: Refactored GameScreen into two seperate classes. BottomBarUpgradePanel and RightSidePanel
- * 2021-10-05 Modified by Daniel Persson: Added WinPanel rendering if game is won
+ * 2021-09-20 Modified by Elin Forsberg: Added methods and variables to handle placing towers <br>
+ * 2021-09-23 Modified by Joel Båtsman Hilmersson: All sprites now comes from hashmap when rendering and there are life and money labels <br>
+ * 2021-09-24 Modified by Elin Forsberg: Added methods to render projectiles <br>
+ * 2021-09-28 Modified by Daniel Persson: Added methods and instance variables to render upgrade panel and upgrade buttons <br>
+ * 2021-10-03 Modified by Elin Forsberg: Sprite render now uses general IMapObject and range circle rendering was separated <br>
+ * 2021-10-04 Modified by Daniel Persson: Refactored GameScreen into two seperate classes. BottomBarUpgradePanel and RightSidePanel <br>
+ * 2021-10-05 Modified by Daniel Persson: Added WinPanelOverlay rendering if game is won <br>
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
     private final GameScreenController gameScreenController;
-    private final LostPanel lostPanelOverlay;
-    private final WinPanel winPanelOverlay;
+    private final LostPanelOverlay lostPanelOverlay;
+    private final WinPanelOverlay winPanelOverlay;
     private final BottomBarUpgradePanel bottomBarUpgradePanel;
     private final RightSidePanel rightSidePanel;
     private final IViewModel model;
@@ -66,8 +66,8 @@ public class GameScreen extends AbstractScreen implements Screen {
     public GameScreen(Model model) {
         super();
         this.gameScreenController = new GameScreenController(model);
-        this.lostPanelOverlay = new LostPanel(this, gameScreenController);
-        this.winPanelOverlay = new WinPanel(this, gameScreenController);
+        this.lostPanelOverlay = new LostPanelOverlay(this, gameScreenController);
+        this.winPanelOverlay = new WinPanelOverlay(this, gameScreenController);
         this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, spriteMap, largeSpriteMap);
         this.rightSidePanel = new RightSidePanel(this, model);
         this.model = model;

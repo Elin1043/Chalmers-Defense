@@ -22,7 +22,7 @@ import java.util.HashMap;
  * @author Daniel Persson
  * A class used to render upgrade panel
  * <p>
- * 2021-10-05 Created by Daniel Persson
+ * 2021-10-05 Created by Daniel Persson <br>
  */
 public class BottomBarUpgradePanel {
     private final Stage stage;

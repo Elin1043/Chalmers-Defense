@@ -18,7 +18,7 @@ import java.util.HashMap;
 /**
  * @author Daniel Persson
  * <p>
- * 2021-09-23 Modified by Joel Båtsman Hilmersson: Created Hashmap with sprites
+ * 2021-09-23 Modified by Joel Båtsman Hilmersson: Created Hashmap with sprites <br>
  */
 public abstract class AbstractScreen extends Stage implements Screen {
 

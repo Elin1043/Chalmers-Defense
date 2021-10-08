@@ -16,8 +16,8 @@ import java.util.Objects;
  * @author Elin Forsberg
  * A class defining the tower objects
  * <p>
- * 2021-09-23 Modified by Joel Båtsman Hilmersson: changed class to hold hashmap key for sprite
- * 2021-09-25 Modified by Elin Forsberg: added method for shooting projectiles
+ * 2021-09-23 Modified by Joel Båtsman Hilmersson: changed class to hold hashmap key for sprite <br>
+ * 2021-09-25 Modified by Elin Forsberg: added method for shooting projectiles <br>
  */
 abstract class Tower implements ITower {
 

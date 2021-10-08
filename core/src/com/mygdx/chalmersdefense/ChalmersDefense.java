@@ -12,9 +12,9 @@ import com.mygdx.chalmersdefense.views.*;
  * @author Joel Båtsman Hilmersson
  * @author Jenny Carlsson
  *
- * 2021-09-16 Modified by Elin Forsberg: Added a timer to update Model
- * 2021-09-23 Modified by Joel Båtsman Hilmersson: Changed timer to use libGDX timer instead of javaswing
- * 2021-09-30 Modified by Joel Båtsman Hilmersson: Moved timer to GameTimer class instead
+ * 2021-09-16 Modified by Elin Forsberg: Added a timer to update Model <br>
+ * 2021-09-23 Modified by Joel Båtsman Hilmersson: Changed timer to use libGDX timer instead of javaswing <br>
+ * 2021-09-30 Modified by Joel Båtsman Hilmersson: Moved timer to GameTimer class instead <br>
  */
 public class ChalmersDefense extends Game {
 

@@ -14,12 +14,12 @@ import static com.badlogic.gdx.graphics.GL20.*;
 /**
  * @author Daniel Persson
  */
-public abstract class GameScreenOverlay {
+public abstract class AbstractOverlay {
     protected final Stage stage;
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
     protected GameScreenController gameScreenController;
 
-    public GameScreenOverlay(GameScreenController gameScreenController, Stage stage) {
+    public AbstractOverlay(GameScreenController gameScreenController, Stage stage) {
         this.gameScreenController = gameScreenController;
         this.stage = new Stage(stage.getViewport());
     }
@@ -70,7 +70,7 @@ public abstract class GameScreenOverlay {
             gameScreenController.addMainMenuClickListener(button);
         } else {
             offsetMulX = 3 / 4f;
-            if (originPanel.equals("WinPanel")) {
+            if (originPanel.equals("WinPanelOverlay")) {
                 gameScreenController.addWinPanelContinueClickListener(button);
             } else {
                 gameScreenController.addLostPanelTryAgainClickListener(button);

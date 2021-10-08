@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 
-public class WinPanel extends GameScreenOverlay {
+public class WinPanelOverlay extends AbstractOverlay {
     private final float WIDTH = 810;
     private final float HEIGHT = 400;
 
@@ -34,7 +34,7 @@ public class WinPanel extends GameScreenOverlay {
     private final Button continueButton = new Button(winButtonSkin);
     private final Label continueButtonText = new Label("Continue", FontFactory.getLabelStyle24BlackSemiBold());
 
-    public WinPanel(Stage stage, GameScreenController gameScreenController) {
+    public WinPanelOverlay(Stage stage, GameScreenController gameScreenController) {
         super(gameScreenController, stage);
 
         initialize();
@@ -60,8 +60,8 @@ public class WinPanel extends GameScreenOverlay {
                 backgroundImage.getX() + backgroundImage.getWidth() / 2 - 720 / 2f,
                 backgroundImage.getY() + backgroundImage.getHeight() - 150);
 
-        createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1, "WinPanel");
-        createButtons(backgroundImage, continueButton, continueButtonText, 2, "WinPanel");
+        createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1, "WinPanelOverlay");
+        createButtons(backgroundImage, continueButton, continueButtonText, 2, "WinPanelOverlay");
 
         winPanelGroup.setVisible(false);
     }

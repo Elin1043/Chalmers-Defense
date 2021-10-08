@@ -13,3 +13,6 @@ Danilll01     | Daniel Persson
 Turbobus      | Joel Båtsman Hilmersson
 Elin1043      | Elin Forsberg
 jennycarlsson | Jenny Carlsson
+
+## Current UML class-diagram
+![UML class-diagram](/Documents/UMLclass-diagramChalmersDefense.png)

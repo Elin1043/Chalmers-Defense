@@ -19,7 +19,7 @@ import java.util.HashMap;
  * @author Daniel Persson
  * A class used to render the right panel
  * <p>
- * 2021-10-05 Created by Daniel Persson
+ * 2021-10-05 Created by Daniel Persson <br>
  */
 public class RightSidePanel {
     private final int WIDTH = 320;
