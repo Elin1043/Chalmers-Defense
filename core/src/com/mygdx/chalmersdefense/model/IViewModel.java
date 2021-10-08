@@ -1,5 +1,6 @@
 package com.mygdx.chalmersdefense.model;
 
+import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 
@@ -58,6 +59,13 @@ public interface IViewModel {
      * @return price
      */
     int getClickedTowerSellPrice();
+
+
+    /**
+     * Get target mode of clicked tower
+     * @return target mode
+     */
+    ITargetMode getClickedTowerTargetMode();
 
     /**
      * Return if player lost the game

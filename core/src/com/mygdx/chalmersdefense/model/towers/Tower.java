@@ -35,7 +35,8 @@ abstract class Tower implements ITower {
     //private final TargetMode firstMode = TargetModeFactory.
 
     private final List<ITargetMode> targetModes;
-    private final ITargetMode currentTargetMode;    // Which current targeting mode to use
+
+    private ITargetMode currentTargetMode;    // Which current targeting mode to use
 
     private float width;            // Width of tower object
     private float height;           // Height of tower object
@@ -89,6 +90,26 @@ abstract class Tower implements ITower {
     }
 
     @Override
+    public void changeTargetMode(boolean goRight){
+        if(goRight){
+            if(targetModes.indexOf(currentTargetMode) >= targetModes.size()-1){
+                currentTargetMode = targetModes.get(0);
+            }
+            else{
+                currentTargetMode = targetModes.get(targetModes.indexOf(currentTargetMode) + 1);
+            }
+        }
+        else{
+            if(targetModes.indexOf(currentTargetMode) <= 0){
+                currentTargetMode = targetModes.get(targetModes.size()-1);
+            }
+            else{
+                currentTargetMode = targetModes.get(targetModes.indexOf(currentTargetMode) - 1);
+            }
+        }
+    }
+
+    @Override
     public void remove(List<ITower> towersList){
         towersList.remove(this);
     }
@@ -101,6 +122,7 @@ abstract class Tower implements ITower {
         upgradeLevel++;
         updateSpriteKey();
     }
+
 
 
     @Override

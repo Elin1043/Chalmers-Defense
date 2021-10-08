@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 /**
  * @author Daniel Persson
@@ -47,6 +48,15 @@ public abstract class FontFactory {
         return generateLabelStyle(18, Color.BLACK, 0);
     }
 
+    /**
+     * Generates a LabelStyle from CenturyGothic font with size 20px, color black.
+     *
+     * @return a LabelStyle with corresponding size, color and border width.
+     */
+    public static LabelStyle getLabelStyle20Black() {
+        return generateLabelStyle(20, Color.BLACK, 0.25f);
+    }
+
     private static BitmapFont generateBitmapFont(int size, float borderWidth) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/CenturyGothic.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -64,4 +74,6 @@ public abstract class FontFactory {
         labelStyle.fontColor = color;
         return labelStyle;
     }
+
+
 }

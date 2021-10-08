@@ -43,4 +43,22 @@ public class BottomBarPanelController {
             }
         });
     }
+
+    /**
+     * Method for adding click listener to changeTargetMode button
+     */
+    public void addClickListenerTargetModeButton(ImageButton button) {
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(event.getListenerActor().getName().equals("right")){
+                    model.changeTargetMode(true);
+                }
+                else{
+                    model.changeTargetMode(false);
+                }
+
+            }
+        });
+    }
 }

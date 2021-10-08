@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
 
+import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
@@ -76,6 +77,11 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
+    public ITargetMode getClickedTowerTargetMode() {
+        return map.getClickedTowerTargetMode();
+    }
+
+    @Override
     public void startGameUpdate() {
         timer.startUpdateTimer();
     }
@@ -148,6 +154,11 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
+    public void changeTargetMode(boolean goRight){
+        map.changeTargetMode(goRight);
+    }
+
+    @Override
     public int getClickedTowerSellPrice() {
         double cost = 0;
         if(map.getClickedTower().getUpgradeLevel() == 1){
@@ -162,6 +173,8 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         }
         return (int)cost;
     }
+
+
 
     @Override
     public void upgradeClickedTower() {

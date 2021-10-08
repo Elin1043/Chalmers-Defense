@@ -4,6 +4,7 @@ package com.mygdx.chalmersdefense.model;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
+import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
@@ -356,6 +357,13 @@ class Map {
         rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
     }
 
+    /**
+     * Change the targetMode of the clicked tower
+     */
+    void changeTargetMode(boolean goRight){
+        clickedTower.changeTargetMode(goRight);
+    }
+
 
     /**
      * Return the circle used for rendering range
@@ -372,6 +380,15 @@ class Map {
      */
     ITower getClickedTower() {
         return clickedTower;
+    }
+
+    /**
+     * Returns currently clicked towers target mode
+     *
+     * @return target mode of clicked tower
+     */
+    ITargetMode getClickedTowerTargetMode() {
+        return clickedTower.getCurrentTargetMode();
     }
 
     /**
