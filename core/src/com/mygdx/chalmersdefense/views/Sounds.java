@@ -3,6 +3,10 @@ package com.mygdx.chalmersdefense.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
+/**
+ * @author Elin Forsberg
+ * Class representing Sounds
+ */
 public class Sounds {
 
     public Sounds(){

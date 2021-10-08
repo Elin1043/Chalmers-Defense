@@ -4,6 +4,8 @@ package com.mygdx.chalmersdefense.utilities;
 /**
  * @author Daniel Persson
  * @author Jenny Carlsson
+ *
+ * Class representing a positionVector
  */
 
 public class PositionVector {

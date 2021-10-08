@@ -3,6 +3,7 @@ package com.mygdx.chalmersdefense.model;
 /**
  * @author Joel Båtsman Hilmersson
  * Class representing the player and their resorces
+ *
  * 2021-10-03 Modified by Daniel Persson: Added reset method for resetting all values in player.
  */
 public class Player {

@@ -14,6 +14,7 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
  * @author Joel Båtsman Hilmersson
  * @author Jenny Carlsson
  *
+ * Controller class for MainScreen
  */
 public class MainScreenController {
 

@@ -13,6 +13,8 @@ import static com.badlogic.gdx.graphics.GL20.*;
 
 /**
  * @author Daniel Persson
+ *
+ * Class representing an AbstractOverlay
  */
 public abstract class AbstractOverlay {
     protected final Stage stage;

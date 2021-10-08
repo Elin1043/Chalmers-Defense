@@ -9,6 +9,8 @@ import java.util.List;
 /**
  * @author Daniel Persson
  * @author Jenny Carlsson
+ *
+ * Class representing a Path
  * <p>
  * 2021-09-24 Modified by Elin Forsberg and Joel Båtsman Hilmersson: Elin created createMapCollision and Joel implemented it here. <br>
  * 2021-10-03 Modified by Joel Båtsman Hilmersson: Switched to use pathRectangle instead of normal Java rectangle. <br>

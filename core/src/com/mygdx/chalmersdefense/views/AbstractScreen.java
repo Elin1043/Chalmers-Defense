@@ -17,6 +17,7 @@ import java.util.HashMap;
 
 /**
  * @author Daniel Persson
+ * Class respresenting an AbstractScreen
  * <p>
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: Created Hashmap with sprites <br>
  */

@@ -8,7 +8,7 @@ import java.awt.*;
 /**
  * @author Joel Båtsman Hilmersson
  * <p>
- * Class for wraping a java rectangle
+ * Class for wrapping a java rectangle
  */
 public class PathRectangle implements IMapObject {
     private final Rectangle rectangle = new Rectangle();    // The wrapped rectangle object

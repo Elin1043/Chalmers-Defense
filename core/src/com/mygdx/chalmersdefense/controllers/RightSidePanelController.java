@@ -10,6 +10,7 @@ import com.mygdx.chalmersdefense.model.IControllModel;
 
 /**
  * @author Daniel Persson
+ * Controller class for RightSidePanel in GameScreen
  *
  * 2021-09-17 Modified by Elin Forsberg: Added listener for tower buttons <br>
  * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model <br>

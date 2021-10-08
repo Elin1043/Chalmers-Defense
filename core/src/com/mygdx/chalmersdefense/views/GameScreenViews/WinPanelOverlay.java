@@ -13,6 +13,10 @@ import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 
+/**
+ * @author Daniel Persson
+ * A class used to render an overlay when a player win the game
+ */
 public class WinPanelOverlay extends AbstractOverlay {
     private final float WIDTH = 810;
     private final float HEIGHT = 400;

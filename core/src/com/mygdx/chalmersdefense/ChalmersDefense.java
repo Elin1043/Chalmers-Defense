@@ -11,6 +11,7 @@ import com.mygdx.chalmersdefense.views.*;
  * @author Elin Forsberg
  * @author Joel Båtsman Hilmersson
  * @author Jenny Carlsson
+ * The starup class of the application
  *
  * 2021-09-16 Modified by Elin Forsberg: Added a timer to update Model <br>
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: Changed timer to use libGDX timer instead of javaswing <br>
