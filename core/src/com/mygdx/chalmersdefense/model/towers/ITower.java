@@ -103,4 +103,10 @@ public interface ITower extends IMapObject {
      * @param towersList to remove from
      */
     void remove(List<ITower> towersList);
+
+    /**
+     * Change the targetMode of the tower
+     * @param goRight which way in array to go
+     */
+    void changeTargetMode(boolean goRight);
 }

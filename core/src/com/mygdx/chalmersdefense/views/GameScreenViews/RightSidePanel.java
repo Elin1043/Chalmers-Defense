@@ -45,7 +45,7 @@ public class RightSidePanel {
     private final ImageButton chemistButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1770, 830, "chemist");
     private final ImageButton electroButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ElectroButton.png"), 1770, 650, "electro");
     private final ImageButton hackerButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/HackerButton.png"), 1620, 650, "hacker");
-    private final ImageButton meckButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "meck");
+    private final ImageButton mechButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "mech");
     private final ImageButton ecoButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
 
     private Button startRoundButton;
@@ -63,7 +63,7 @@ public class RightSidePanel {
         towerButtons.put(200, chemistButton);
         towerButtons.put(300, hackerButton);
         towerButtons.put(400, electroButton);
-        towerButtons.put(500, meckButton);
+        towerButtons.put(500, mechButton);
         towerButtons.put(600, ecoButton);
 
         addTowerButtonListener();
@@ -72,7 +72,7 @@ public class RightSidePanel {
         stage.addActor(chemistButton);
         stage.addActor(hackerButton);
         stage.addActor(electroButton);
-        stage.addActor(meckButton);
+        stage.addActor(mechButton);
         stage.addActor(ecoButton);
 
         stage.addActor(towerLabel);
@@ -126,7 +126,7 @@ public class RightSidePanel {
         rightSidePanelController.addTowerButtonListener(chemistButton);
         rightSidePanelController.addTowerButtonListener(hackerButton);
         rightSidePanelController.addTowerButtonListener(electroButton);
-        rightSidePanelController.addTowerButtonListener(meckButton);
+        rightSidePanelController.addTowerButtonListener(mechButton);
         rightSidePanelController.addTowerButtonListener(ecoButton);
     }
 

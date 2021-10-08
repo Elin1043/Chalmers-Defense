@@ -3,6 +3,7 @@ package testModelClasses;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +28,7 @@ public class TestModel {
 
     @Test
     public void testGetAllMapObjects() {
-        model.dragStart("meck", 0, 0);
+        model.dragStart("mech", 0, 0);
         model.dragEnd(100, 100, 100, 100);
         assertEquals(1, model.getAllMapObjects().size());
     }
@@ -41,6 +42,48 @@ public class TestModel {
         model.upgradeClickedTower();
         assertEquals(360, model.getClickedTowerSellPrice());
     }
+
+    @Test
+    public void testGetTowerTargetMode() {
+        model.dragStart("smurf", 0, 0);
+        model.dragEnd(100, 100, 100, 100);
+
+        String[] namesArray = model.getClickedTowerTargetMode().getClass().getName().split("[.]");
+        assertEquals((namesArray[namesArray.length - 1]), "First");
+
+    }
+
+    @Test
+    public void testChangeTowerTargetModeRight() {
+        model.dragStart("smurf", 0, 0);
+        model.dragEnd(100, 100, 100, 100);
+
+        String[] namesArray = model.getClickedTowerTargetMode().getClass().getName().split("[.]");
+        assertEquals((namesArray[namesArray.length - 1]), "First");
+
+        model.changeTargetMode(true);
+
+        namesArray = model.getClickedTowerTargetMode().getClass().getName().split("[.]");
+        assertEquals((namesArray[namesArray.length - 1]), "Last");
+
+    }
+
+    @Test
+    public void testChangeTowerTargetModeLeft() {
+        model.dragStart("smurf", 0, 0);
+        model.dragEnd(100, 100, 100, 100);
+
+        String[] namesArray = model.getClickedTowerTargetMode().getClass().getName().split("[.]");
+        assertEquals((namesArray[namesArray.length - 1]), "First");
+
+        model.changeTargetMode(false);
+
+        namesArray = model.getClickedTowerTargetMode().getClass().getName().split("[.]");
+        assertEquals((namesArray[namesArray.length - 1]), "Closest");
+
+    }
+
+
 
 
     @Test

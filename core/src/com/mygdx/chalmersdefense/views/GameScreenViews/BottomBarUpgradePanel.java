@@ -12,10 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.Model;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -55,6 +57,7 @@ public class BottomBarUpgradePanel {
     private final Label secondUpgradeButtonPrice = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle26Black());
 
     private final Label sellPriceLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle26Black());
+    private final Label targetModeLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle20Black());
 
 
 
@@ -86,6 +89,7 @@ public class BottomBarUpgradePanel {
         createUpgradeButtons(upgradeButtonSecond, secondUpgradeButtonTitle, secondUpgradeButtonDesc, secondUpgradeButtonPrice);
 
         createSellButton();
+        createChangeTargetModeButton();
 
         bottomBarPanelUpgradeGroup.addActor(towerNameLabel);
         bottomBarPanelUpgradeGroup.setVisible(false);
@@ -99,7 +103,7 @@ public class BottomBarUpgradePanel {
         stage.act();
         stage.draw();
         updateUpgradePanelInfo(tower);
-        updateSellButtonInfo();
+        updateButtonInfo();
         bottomBarPanelUpgradeGroup.setVisible(true);
     }
 
@@ -120,11 +124,38 @@ public class BottomBarUpgradePanel {
     }
 
 
+    private void createChangeTargetModeButton(){
+        TextureRegion changeTargetTextureRegion1 = new TextureRegion(new Texture(Gdx.files.internal("buttons/changeTargetModeButton.png")));
+        TextureRegionDrawable changeTargetTexRegDrawable1 = new TextureRegionDrawable(changeTargetTextureRegion1);
+
+        TextureRegion changeTargetTextureRegion2 = new TextureRegion(new Texture(Gdx.files.internal("buttons/changeTargetModeButton.png")));
+        changeTargetTextureRegion2.flip(true,false);
+        TextureRegionDrawable changeTargetTexRegDrawable2 = new TextureRegionDrawable(changeTargetTextureRegion2);
+
+        ImageButton changeTarget1 = new ImageButton(changeTargetTexRegDrawable1);
+        ImageButton changeTarget2 = new ImageButton(changeTargetTexRegDrawable2);
+        changeTarget1.setPosition(753, 115);
+        changeTarget2.setPosition(620, 115);
+
+        changeTarget1.setName("right");
+        changeTarget2.setName("left");
+
+        stage.addActor(changeTarget1);
+        stage.addActor(changeTarget2);
+        stage.addActor(targetModeLabel);
+        bottomBarPanelController.addClickListenerTargetModeButton(changeTarget1);
+        bottomBarPanelController.addClickListenerTargetModeButton(changeTarget2);
+
+        targetModeLabel.setPosition(653, 133);
+        targetModeLabel.setWidth(100);
+        targetModeLabel.setAlignment(Align.center);
+
+    }
 
     private void createSellButton() {
-        TextureRegion playButtonTextureRegion = new TextureRegion(new Texture(Gdx.files.internal("buttons/towerSellButton.png")));
-        TextureRegionDrawable playTexRegDrawable = new TextureRegionDrawable(playButtonTextureRegion);
-        ImageButton sellButton = new ImageButton(playTexRegDrawable);
+        TextureRegion sellButtonTextureRegion = new TextureRegion(new Texture(Gdx.files.internal("buttons/towerSellButton.png")));
+        TextureRegionDrawable sellTexRegDrawable = new TextureRegionDrawable(sellButtonTextureRegion);
+        ImageButton sellButton = new ImageButton(sellTexRegDrawable);
         sellButton.setPosition(380, 30);
 
         stage.addActor(sellButton);
@@ -135,8 +166,10 @@ public class BottomBarUpgradePanel {
         sellPriceLabel.setPosition(520, 55);
     }
 
-    private void updateSellButtonInfo(){
+    private void updateButtonInfo(){
         sellPriceLabel.setText("+" + "$" + model.getClickedTowerSellPrice());
+        String[] namesArray = model.getClickedTowerTargetMode().getClass().getName().split("[.]");
+        targetModeLabel.setText(namesArray[namesArray.length - 1]);
     }
     /**
      * Sets up the upgrade button with labels and image.

@@ -82,4 +82,8 @@ public interface IControllModel {
      */
     void sellClickedTower();
 
+    /**
+     * Change tower targetMode
+     */
+    void changeTargetMode(boolean goRight);
 }
