@@ -17,13 +17,13 @@ class MoneyPile extends Projectile implements IProjectile {
     }
 
     @Override
-    public void update(boolean hitVirus, int haveHit, float angle) {
+    public void update(boolean hasVirusBeenHit, int hitVirusHashCode, float angle) {
         if (moneyTimer <= 0) {
             this.canRemove = true;
         } else {
             moneyTimer--;
         }
-        super.update(false, haveHit, angle);
+        super.update(false, hitVirusHashCode, angle);
     }
 
     @Override

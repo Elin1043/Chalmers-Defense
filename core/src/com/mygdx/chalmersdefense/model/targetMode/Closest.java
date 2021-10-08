@@ -14,7 +14,7 @@ import java.util.List;
 class Closest implements ITargetMode {
 
     @Override
-    public IVirus getRightVirus(List<IVirus> virusInRange, float towerX, float towerY) {
+    public IVirus getCorrectVirus(List<IVirus> virusInRange, float towerX, float towerY) {
         IVirus closestVirus = virusInRange.get(0);   // Need to hold the closes virus
         double closestDistance = Calculate.disBetweenPoints(towerX, towerY, closestVirus.getX(), closestVirus.getY());
 

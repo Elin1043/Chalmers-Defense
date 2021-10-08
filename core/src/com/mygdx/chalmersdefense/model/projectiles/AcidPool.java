@@ -15,13 +15,13 @@ class AcidPool extends Projectile implements IProjectile {
     }
 
     @Override
-    public void update(boolean hitVirus, int haveHit, float angle) {
+    public void update(boolean hasVirusBeenHit, int hitVirusHashCode, float angle) {
         if (poolTimer <= 0) {
             this.canRemove = true;
         } else {
             poolTimer--;
         }
-        super.update(hitVirus, haveHit, angle);
+        super.update(hasVirusBeenHit, hitVirusHashCode, angle);
     }
 
     @Override

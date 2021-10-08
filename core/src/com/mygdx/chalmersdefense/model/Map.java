@@ -152,7 +152,7 @@ class Map {
 
             // If there are virus in range, update the new values accordingly
             if (virusInRange.size() > 0) {
-                IVirus targetVirus = tower.getCurrentTargetMode().getRightVirus(virusInRange, tower.getX(), tower.getY());
+                IVirus targetVirus = tower.getCurrentTargetMode().getCorrectVirus(virusInRange, tower.getX(), tower.getY());
                 newAngle = Calculate.angleDeg(targetVirus.getX(), targetVirus.getY(), tower.getX(), tower.getY());
                 towerHasTarget = true;
             }

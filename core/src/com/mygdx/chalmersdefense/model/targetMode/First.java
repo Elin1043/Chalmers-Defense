@@ -13,7 +13,7 @@ import java.util.List;
 class First implements ITargetMode {
 
     @Override
-    public IVirus getRightVirus(List<IVirus> virusInRange, float towerX, float towerY) {
+    public IVirus getCorrectVirus(List<IVirus> virusInRange, float towerX, float towerY) {
         IVirus firstVirus = virusInRange.get(0);  // Need to have a virus to start comparing against
 
         for (IVirus virus : virusInRange) {

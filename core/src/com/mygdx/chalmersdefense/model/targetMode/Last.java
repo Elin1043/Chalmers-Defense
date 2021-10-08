@@ -11,7 +11,7 @@ import java.util.List;
 class Last implements ITargetMode {
 
     @Override
-    public IVirus getRightVirus(List<IVirus> virusInRange, float towerX, float towerY) {
+    public IVirus getCorrectVirus(List<IVirus> virusInRange, float towerX, float towerY) {
         IVirus leastTraveledVirus = virusInRange.get(0);  // Need to have a virus to start comparing against
 
         for (IVirus virus : virusInRange) {

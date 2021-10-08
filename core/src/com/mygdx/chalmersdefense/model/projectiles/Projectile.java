@@ -54,9 +54,9 @@ abstract class Projectile implements IProjectile {
 
 
     @Override
-    public void update(boolean hitVirus, int haveHit, float angle) {
-        if (hitVirus) {
-            virusIsHit(haveHit, angle);
+    public void update(boolean hasVirusBeenHit, int hitVirusHashCode, float angle) {
+        if (hasVirusBeenHit) {
+            virusIsHit(hitVirusHashCode, angle);
         }
 
 

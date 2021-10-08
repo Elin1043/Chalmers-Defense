@@ -18,5 +18,5 @@ public interface ITargetMode {
      * @param towerY       The y position of the tower
      * @return The targeted virus
      */
-    IVirus getRightVirus(List<IVirus> virusInRange, float towerX, float towerY);
+    IVirus getCorrectVirus(List<IVirus> virusInRange, float towerX, float towerY);
 }

@@ -45,7 +45,7 @@ public class TestTargetModes {
 
     @Test
     public void testGetFirstTarget() {
-        IVirus lastVirus = firstTarget.getRightVirus(vList, 0, 0); // Tower position is ignored when calculating first virus
+        IVirus lastVirus = firstTarget.getCorrectVirus(vList, 0, 0); // Tower position is ignored when calculating first virus
         assertEquals(lastVirus, vList.get(4));
     }
 
@@ -53,13 +53,13 @@ public class TestTargetModes {
     public void testGetLastTarget() {
         vList.get(0).update();
         vList.add(VirusFactory.createVirusOne());
-        IVirus lastVirus = lastTarget.getRightVirus(vList, 0, 0); // Tower position is ignored when calculating last virus
+        IVirus lastVirus = lastTarget.getCorrectVirus(vList, 0, 0); // Tower position is ignored when calculating last virus
         assertEquals(lastVirus, vList.get(5));
     }
 
     @Test
     public void testGetClosestTarget() {
-        IVirus closestVirus = closestTarget.getRightVirus(vList, vList.get(2).getX(), vList.get(2).getY()); // This will put the "tower" directly on virus three, and therefore it should be the closest
+        IVirus closestVirus = closestTarget.getCorrectVirus(vList, vList.get(2).getX(), vList.get(2).getY()); // This will put the "tower" directly on virus three, and therefore it should be the closest
         assertEquals(closestVirus, vList.get(2));
     }
 }
