@@ -5,7 +5,7 @@ package com.mygdx.chalmersdefense.model.projectiles;
  * @author Joel Båtsman Hilmersson
  * Class representing an acidPool projectile
  */
-class AcidPool extends Projectile implements IProjectile {
+class AcidPool extends Projectile{
 
     private int poolTimer = 150;    // Max Lifetime off acid pool
     private int maxVirusHit = 5;    // Max amount of virus that can be hit with the pool

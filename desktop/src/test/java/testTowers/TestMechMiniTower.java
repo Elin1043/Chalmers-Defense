@@ -18,7 +18,7 @@ public class TestMechMiniTower {
     @Test
     public void testCreateProjectile() {
         List<ITower> addToList = new ArrayList<>();
-        ITower t = TowerFactory.CreateMeck(0, 0, addToList);
+        ITower t = TowerFactory.CreateMech(0, 0, addToList);
         List<IProjectile> pList = new ArrayList<>();
 
         t.placeTower();

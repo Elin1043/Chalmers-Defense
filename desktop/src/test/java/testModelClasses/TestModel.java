@@ -27,7 +27,7 @@ public class TestModel {
 
     @Test
     public void testGetAllMapObjects() {
-        model.dragStart("meck", 0, 0);
+        model.dragStart("mech", 0, 0);
         model.dragEnd(100, 100, 100, 100);
         assertEquals(1, model.getAllMapObjects().size());
     }

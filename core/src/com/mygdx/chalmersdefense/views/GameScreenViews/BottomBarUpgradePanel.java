@@ -55,6 +55,7 @@ public class BottomBarUpgradePanel {
     private final Label secondUpgradeButtonPrice = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle26Black());
 
     private final Label sellPriceLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle26Black());
+    private final Label TargetModeLabel = new Label("Strongest", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle18Black());
 
 
 
@@ -86,6 +87,7 @@ public class BottomBarUpgradePanel {
         createUpgradeButtons(upgradeButtonSecond, secondUpgradeButtonTitle, secondUpgradeButtonDesc, secondUpgradeButtonPrice);
 
         createSellButton();
+        createChangeTargetModeButton();
 
         bottomBarPanelUpgradeGroup.addActor(towerNameLabel);
         bottomBarPanelUpgradeGroup.setVisible(false);
@@ -120,11 +122,33 @@ public class BottomBarUpgradePanel {
     }
 
 
+    private void createChangeTargetModeButton(){
+        TextureRegion changeTargetTextureRegion1 = new TextureRegion(new Texture(Gdx.files.internal("buttons/changeTargetModeButton.png")));
+        TextureRegionDrawable changeTargetTexRegDrawable1 = new TextureRegionDrawable(changeTargetTextureRegion1);
+
+        TextureRegion changeTargetTextureRegion2 = new TextureRegion(new Texture(Gdx.files.internal("buttons/changeTargetModeButton.png")));
+        changeTargetTextureRegion2.flip(true,false);
+        TextureRegionDrawable changeTargetTexRegDrawable2 = new TextureRegionDrawable(changeTargetTextureRegion2);
+
+        ImageButton changeTarget1 = new ImageButton(changeTargetTexRegDrawable1);
+        ImageButton changeTarget2 = new ImageButton(changeTargetTexRegDrawable2);
+        changeTarget1.setPosition(730, 115);
+        changeTarget2.setPosition(620, 115);
+
+
+        stage.addActor(changeTarget1);
+        stage.addActor(changeTarget2);
+        stage.addActor(TargetModeLabel);
+        bottomBarPanelController.addClickListenerSellButton(changeTarget1);
+        bottomBarPanelController.addClickListenerSellButton(changeTarget2);
+
+        TargetModeLabel.setPosition(650, 122);
+    }
 
     private void createSellButton() {
-        TextureRegion playButtonTextureRegion = new TextureRegion(new Texture(Gdx.files.internal("buttons/towerSellButton.png")));
-        TextureRegionDrawable playTexRegDrawable = new TextureRegionDrawable(playButtonTextureRegion);
-        ImageButton sellButton = new ImageButton(playTexRegDrawable);
+        TextureRegion sellButtonTextureRegion = new TextureRegion(new Texture(Gdx.files.internal("buttons/towerSellButton.png")));
+        TextureRegionDrawable sellTexRegDrawable = new TextureRegionDrawable(sellButtonTextureRegion);
+        ImageButton sellButton = new ImageButton(sellTexRegDrawable);
         sellButton.setPosition(380, 30);
 
         stage.addActor(sellButton);

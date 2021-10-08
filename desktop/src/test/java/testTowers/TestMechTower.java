@@ -18,7 +18,7 @@ public class TestMechTower {
     @Test
     public void testUpdate() {
         List<ITower> addToList = new ArrayList<>();
-        ITower t = TowerFactory.CreateMeck(0, 0, addToList);
+        ITower t = TowerFactory.CreateMech(0, 0, addToList);
         t.placeTower();
 
         t.update(new ArrayList<>(), 10, true);

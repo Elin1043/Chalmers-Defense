@@ -47,7 +47,7 @@ public class TestTowerFactory {
     @Test
     public void testCreateMeck() {
         List<ITower> list = new ArrayList<>();
-        ITower tower = TowerFactory.CreateMeck(0, 0, list);
+        ITower tower = TowerFactory.CreateMech(0, 0, list);
         assertSame("Mechoman", tower.getName());
     }
 

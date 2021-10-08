@@ -63,13 +63,13 @@ public abstract class TowerFactory {
 
 
     /**
-     * Creates a meckTower
+     * Creates a mechTower
      *
      * @param startPosX x-coordinate to create tower
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower CreateMeck(float startPosX, float startPosY, List<ITower> towerToAddList) {
+    public static ITower CreateMech(float startPosX, float startPosY, List<ITower> towerToAddList) {
         return new MechTower(startPosX, startPosY, "Mechoman", 60 * 3, 500, 200, TargetModeFactory.getTargetModes(), towerToAddList);
     }
 
