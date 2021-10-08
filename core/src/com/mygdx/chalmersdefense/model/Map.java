@@ -350,11 +350,10 @@ class Map {
      * @param cost cost of tower sold
      */
     void sellClickedTower(int cost) {
-        towersList.remove(clickedTower);
+        clickedTower.remove(towersList);
         player.increaseMoney(cost);
         clickedTower = null;
         rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
-
     }
 
 

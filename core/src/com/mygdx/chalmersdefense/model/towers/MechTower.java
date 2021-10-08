@@ -42,6 +42,12 @@ class MechTower extends Tower {
     }
 
     @Override
+    public void remove(List<ITower> towersList){
+        towersList.removeAll(miniTowers);
+        towersList.remove(this);
+    }
+
+    @Override
     public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget) {
         if (this.isPlaced() && miniTowers.isEmpty()) {
             List<ITower> miniTowers = createMiniTowers();

@@ -88,6 +88,11 @@ abstract class Tower implements ITower {
         }
     }
 
+    @Override
+    public void remove(List<ITower> towersList){
+        towersList.remove(this);
+    }
+
 
     @Override
     public void upgradeTower(HashMap<String, Double> upgrades) {
