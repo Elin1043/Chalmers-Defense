@@ -29,13 +29,13 @@ import static com.badlogic.gdx.graphics.GL20.*;
 /**
  * @author Daniel Persson
  * <p>
- * 2021-09-20 Modified by Elin Forsberg: Added methods and variables to handle placing towers
- * 2021-09-23 Modified by Joel Båtsman Hilmersson: All sprites now comes from hashmap when rendering and there are life and money labels
- * 2021-09-24 Modified by Elin Forsberg: Added methods to render projectiles
- * 2021-09-28 Modified by Daniel Persson: Added methods and instance variables to render upgrade panel and upgrade buttons
- * 2021-10-03 Modified by Elin Forsberg: Sprite render now uses general IMapObject and range circle rendering was separated
- * 2021-10-04 Modified by Daniel Persson: Refactored GameScreen into two seperate classes. BottomBarUpgradePanel and RightSidePanel
- * 2021-10-05 Modified by Daniel Persson: Added WinPanelOverlay rendering if game is won
+ * 2021-09-20 Modified by Elin Forsberg: Added methods and variables to handle placing towers <br>
+ * 2021-09-23 Modified by Joel Båtsman Hilmersson: All sprites now comes from hashmap when rendering and there are life and money labels <br>
+ * 2021-09-24 Modified by Elin Forsberg: Added methods to render projectiles <br>
+ * 2021-09-28 Modified by Daniel Persson: Added methods and instance variables to render upgrade panel and upgrade buttons <br>
+ * 2021-10-03 Modified by Elin Forsberg: Sprite render now uses general IMapObject and range circle rendering was separated <br>
+ * 2021-10-04 Modified by Daniel Persson: Refactored GameScreen into two seperate classes. BottomBarUpgradePanel and RightSidePanel <br>
+ * 2021-10-05 Modified by Daniel Persson: Added WinPanelOverlay rendering if game is won <br>
  */
 public class GameScreen extends AbstractScreen implements Screen {
 

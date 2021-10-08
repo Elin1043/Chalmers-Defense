@@ -11,10 +11,10 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
 /**
  * @author Daniel Persson
  *
- * 2021-09-22 Created by Daniel Persson: A class for handling listener setup for GameScreen.
- * 2021-10-03 Modified by Daniel Persson: Added click listener for main menu and try again buttons.
- * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model
- * 2021-10-05 Modified by Daniel Persson: Added click listener for continue button in WinPanelOverlay
+ * 2021-09-22 Created by Daniel Persson: A class for handling listener setup for GameScreen. <br>
+ * 2021-10-03 Modified by Daniel Persson: Added click listener for main menu and try again buttons. <br>
+ * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model <br>
+ * 2021-10-05 Modified by Daniel Persson: Added click listener for continue button in WinPanelOverlay <br>
  */
 public class GameScreenController {
     private IControllModel model;

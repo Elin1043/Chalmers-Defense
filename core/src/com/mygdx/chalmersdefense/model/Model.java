@@ -18,15 +18,15 @@ import java.util.List;
  * <p>
  * Class handeling all the models in the game.
  * <p>
- * 2021-09-20 Modified by Elin Forsberg: Added methods to handle towers + collisions
- * 2021-09-20 Modified by Joel Båtsman Hilmersson: Made updateVirus loop syncronized
- * 2021-09-22 Modified by Daniel Persson: Added support for storing a clicked tower and added algorithm for finding what tower is being clicked.
- * 2021-09-24 Modified by Elin Forsberg: Added methods to handle projectiles
- * 2021-09-25 Modified by Joel Båtsman Hilmersson: Added support for round system
- * 2021-09-27 Modified by Elin Forsberg: Added methods to handle different attacks from towers
- * 2021-09-27 Modified by Daniel Persson: Added delegation getters for upgrade title, description and price.
- * 2021-09-28 Modified by Everyone: Moved methods to Map class
- * 2021-09-30 Modified by Joel Båtsman Hilmersson: Added a specifc timer object
+ * 2021-09-20 Modified by Elin Forsberg: Added methods to handle towers + collisions <br>
+ * 2021-09-20 Modified by Joel Båtsman Hilmersson: Made updateVirus loop syncronized <br>
+ * 2021-09-22 Modified by Daniel Persson: Added support for storing a clicked tower and added algorithm for finding what tower is being clicked. <br>
+ * 2021-09-24 Modified by Elin Forsberg: Added methods to handle projectiles <br>
+ * 2021-09-25 Modified by Joel Båtsman Hilmersson: Added support for round system <br>
+ * 2021-09-27 Modified by Elin Forsberg: Added methods to handle different attacks from towers <br>
+ * 2021-09-27 Modified by Daniel Persson: Added delegation getters for upgrade title, description and price. <br>
+ * 2021-09-28 Modified by Everyone: Moved methods to Map class <br>
+ * 2021-09-30 Modified by Joel Båtsman Hilmersson: Added a specifc timer object <br>
  */
 
 public class Model implements IUpdateModel, IControllModel, IViewModel {

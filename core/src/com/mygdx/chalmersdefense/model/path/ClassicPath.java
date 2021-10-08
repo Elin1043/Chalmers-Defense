@@ -6,7 +6,7 @@ import com.mygdx.chalmersdefense.utilities.PositionVector;
  * @author Daniel Persson
  * @author Jenny Carlsson
  * <p>
- * 2021-10-05 Modified by Elin Forsberg: Made ClassicPath package-private
+ * 2021-10-05 Modified by Elin Forsberg: Made ClassicPath package-private <br>
  */
 
 

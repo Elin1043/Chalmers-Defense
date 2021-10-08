@@ -11,7 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.controllers.MainScreenController;
 
-
+/**
+ * @author Daniel Persson
+ * A class for rendering the main screen in the game
+ */
 public class MainScreen extends AbstractScreen {
     Image img;
 

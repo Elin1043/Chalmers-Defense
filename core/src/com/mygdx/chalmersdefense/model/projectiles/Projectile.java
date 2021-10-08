@@ -12,7 +12,7 @@ import java.util.Objects;
  * @author Elin Forsberg
  * Class defining a projectile object
  * <p>
- * 2021-10-01 Modified by Joel Båtsman Hilmersson: The projectile now holds a list of hashcodes to every virus it has hit before
+ * 2021-10-01 Modified by Joel Båtsman Hilmersson: The projectile now holds a list of hashcodes to every virus it has hit before <br>
  */
 abstract class Projectile implements IProjectile {
 
