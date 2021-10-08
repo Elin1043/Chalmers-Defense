@@ -53,6 +53,10 @@ public interface IViewModel {
     Long getTowerUpgradePrice(String towerName, int upgradeLevel);
 
 
+    /**
+     * Get the sell price of the clicked tower
+     * @return price
+     */
     int getClickedTowerSellPrice();
 
     /**

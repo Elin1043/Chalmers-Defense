@@ -97,4 +97,10 @@ public interface ITower extends IMapObject {
      * Sets that tower is placed
      */
     void placeTower();
+
+    /**
+     * Remove the tower from list
+     * @param towersList to remove from
+     */
+    void remove(List<ITower> towersList);
 }
