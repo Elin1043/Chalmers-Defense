@@ -180,6 +180,9 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     public void upgradeClickedTower() {
         if (upgrades.upgradeTower(map.getClickedTower())) {
             player.decreaseMoney(upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), map.getClickedTower().getUpgradeLevel() - 1).intValue());
+
+            GetRangeCircle circle = map.getRangeCircle();
+            circle.updatePos(map.getClickedTower().getX() + getClickedTower().getWidth()/2, map.getClickedTower().getY() + getClickedTower().getHeight()/2, map.getClickedTower().getRange());
         }
     }
 
