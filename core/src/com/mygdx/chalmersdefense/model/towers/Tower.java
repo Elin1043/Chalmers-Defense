@@ -36,7 +36,7 @@ abstract class Tower implements ITower {
 
     private final List<ITargetMode> targetModes;
 
-    private ITargetMode currentTargetMode;    // Which current targeting mode to use
+    ITargetMode currentTargetMode;    // Which current targeting mode to use
 
     private float width;            // Width of tower object
     private float height;           // Height of tower object

@@ -13,6 +13,7 @@ import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,6 +32,7 @@ class Map {
     private final List<IVirus> virusesList = new ArrayList<>();             // The main virus list
 
     private final List<ITower> towersToAddList = new ArrayList<>();             // Temporary list for object adding towers to the main list (To avoid concurrent modification issues)
+    private final List<ITower> towersToRemoveList = new ArrayList<>();          // Temporary list for object removing towers from the main list (To avoid concurrent modification issues)
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();   // Temporary list for object adding projectiles to the main list (To avoid concurrent modification issues)
 
     private final Player player;                                   // A reference to the Player object in the game
@@ -72,8 +74,10 @@ class Map {
     //Add all temporary list to the mainlist
     private void addTempListsToMainLists() {
         towersList.addAll(towersToAddList);
+        towersList.removeAll(towersToRemoveList);
         projectilesList.addAll(projectilesToAddList);
         towersToAddList.clear();
+        towersToRemoveList.clear();
         projectilesToAddList.clear();
     }
 
@@ -246,7 +250,7 @@ class Map {
             case "chemist" -> newTower = TowerFactory.CreateChemist(x, y, projectilesToAddList);
             case "electro" -> newTower = TowerFactory.CreateElectro(x, y);
             case "hacker" -> newTower = TowerFactory.CreateHacker(x, y);
-            case "mech" -> newTower = TowerFactory.CreateMech(x, y, towersToAddList,towersList, path);
+            case "mech" -> newTower = TowerFactory.CreateMech(x, y, towersToAddList,towersToRemoveList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
             case "eco" -> newTower = TowerFactory.CreateEco(x, y, player);
             default -> {
                 return;

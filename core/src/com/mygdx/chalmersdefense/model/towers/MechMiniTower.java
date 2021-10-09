@@ -4,6 +4,7 @@ import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -12,14 +13,33 @@ import java.util.List;
  */
 class MechMiniTower extends Tower {
 
+    HashMap<String, Double> upgrades = new HashMap<>();
+    private int reloadSpeed;
+    private int range;
 
-    MechMiniTower(float x, float y, int reloadSpeed, int range, List<ITargetMode> targetModes, int upgradeLevel) {
+    MechMiniTower(float x, float y, int reloadSpeed, int range, List<ITargetMode> targetModes,ITargetMode currentTargetMode, int upgradeLevel) {
         super(x, y, "MechMini", reloadSpeed, 0, range, targetModes);
+        this.reloadSpeed = reloadSpeed;
+        this.range = range;
+        this.currentTargetMode = currentTargetMode;
 
-        this.upgradeLevel = upgradeLevel;
+        if(upgradeLevel == 3){
+            upgrades.put("attackSpeedMul",0.2);
+            upgrades.put("attackRangeMul",2.0);
+            super.upgradeTower(upgrades);
+            this.upgradeLevel = 3;
+        }
+
         this.updateSpriteKey();
     }
 
+    @Override
+    public void upgradeTower(HashMap<String, Double> upgrades) {
+        reloadSpeed *= upgrades.get("attackSpeedMul") ;
+        range *= upgrades.get("attackRangeMul");
+        upgradeLevel++;
+
+    }
 
     @Override
     void createProjectile(List<IProjectile> projectileList) {

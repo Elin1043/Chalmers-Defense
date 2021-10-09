@@ -1,14 +1,12 @@
 package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.IMapObject;
-import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,34 +20,35 @@ class MechTower extends Tower {
     private int range;            // Current range of tower, this will be passed to minimechtowers later
     private final List<ITargetMode> targetModes;    // All possible targeted
     List<ITower> towersToAddList;       // The final list to add towers to get them to show up on the map
+    private List<ITower> towersToRemoveList;
     private final List<ITower> allTowers;
-    private final Path path;
+    private List<PathRectangle> pathRectangles;
 
     private int robotLifeTimer = 2000;    // Lifetime of a robot
     private int robotCooldownTimer = 500;    // Cooldown of a robot
 
-    private int upgradeLevel = 1;   // The current upgradeLevel
 
-    MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<ITower> towersToAddList,List<ITower> allTowers, Path path) {
+    MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<ITower> towersToAddList, List<ITower> towersToRemoveList,List<ITower> allTowers,  List<PathRectangle> pathRectangles) {
         super(x, y, name, reloadSpeed, cost, range, targetModes);
         this.reloadSpeed = reloadSpeed;
         this.targetModes = targetModes;
         this.range = range;
         this.towersToAddList = towersToAddList;
+        this.towersToRemoveList = towersToRemoveList;
         this.allTowers = allTowers;
-        this.path = path;
+        this.pathRectangles = pathRectangles;
     }
 
     private List<ITower> createMiniTowers() {
         float[] point1 = checkPointCollision();
         float[] point2 = checkPointCollision();
         if(getUpgradeLevel() == 1 || getUpgradeLevel() == 3 ){
-            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, range, targetModes, this.getUpgradeLevel());
+            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, range, targetModes,this.getCurrentTargetMode(), this.getUpgradeLevel());
             miniTowers.add(miniTower1);
         }
         if(getUpgradeLevel() == 2){
-            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, range, targetModes, this.getUpgradeLevel());
-            ITower miniTower2 = new MechMiniTower(point2[0], point2[1], reloadSpeed, range, targetModes, this.getUpgradeLevel());
+            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, range, targetModes,this.getCurrentTargetMode(), this.getUpgradeLevel());
+            ITower miniTower2 = new MechMiniTower(point2[0], point2[1], reloadSpeed, range, targetModes,this.getCurrentTargetMode(), this.getUpgradeLevel());
             miniTowers.add(miniTower1);
             miniTowers.add(miniTower2);
         }
@@ -74,11 +73,11 @@ class MechTower extends Tower {
             for (ITower miniTower : miniTowers) {
                 miniTower.placeTower();
             }
-            robotLifeTimer = 2000;
+            robotLifeTimer = 1000;
             towersToAddList.addAll(miniTowers);
         }
         else if(this.isPlaced() && !miniTowers.isEmpty() && robotLifeTimer <= 0){
-            allTowers.removeAll(miniTowers);
+            towersToRemoveList.addAll(miniTowers);
             miniTowers.clear();
             robotCooldownTimer = 500;
         }
@@ -94,27 +93,25 @@ class MechTower extends Tower {
 
     private float[] checkPointCollision() {
         float[] point = randPoint();
-        IMapObject obj = new PathRectangle(point[0],point[1],this.getWidth(),this.getHeight());
-        while(pathCollision(obj) || towerCollision(obj)){
+        while(pathCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || towerCollision(this.getWidth(),this.getHeight(), point[0],point[1])){
             point = randPoint();
-            obj = new PathRectangle(point[0],point[1],this.getWidth(),this.getHeight());
         }
         return point;
 
     }
 
-    private boolean pathCollision(IMapObject obj){
-        for (PathRectangle rectangle : path.getCollisionRectangles()) {
-            if (Calculate.objectsIntersects(obj, rectangle)) {
+    private boolean pathCollision(double width, double height,double x, double y){
+        for (PathRectangle rectangle : pathRectangles) {
+            if (Calculate.calculateIntersects(width , height, rectangle.getWidth(), rectangle.getHeight(), x, y, rectangle.getX(),rectangle.getY())) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean towerCollision(IMapObject obj){
+    private boolean towerCollision(double width, double height,double x, double y){
         for (ITower tower : allTowers) {
-            if (Calculate.objectsIntersects(obj, tower)) {
+            if (Calculate.calculateIntersects(width , height, tower.getWidth(), tower.getHeight(), x, y, tower.getX(),tower.getY())) {
                 return true;
             }
         }
