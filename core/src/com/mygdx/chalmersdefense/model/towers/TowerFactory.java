@@ -47,7 +47,7 @@ public abstract class TowerFactory {
      */
     public static ITower CreateHacker(float startPosX, float startPosY) {
 
-        return new HackerTower(startPosX, startPosY, "Hackerman", 60 * 3, 300, 200, TargetModeFactory.getTargetModes());
+        return new HackerTower(startPosX, startPosY, "Hackerman", 60 * 3, 300, 700, TargetModeFactory.getTargetModes());
     }
 
     /**
