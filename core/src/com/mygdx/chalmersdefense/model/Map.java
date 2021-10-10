@@ -245,7 +245,7 @@ class Map {
             case "smurf" -> newTower = TowerFactory.CreateSmurf(x, y);
             case "chemist" -> newTower = TowerFactory.CreateChemist(x, y, projectilesToAddList);
             case "electro" -> newTower = TowerFactory.CreateElectro(x, y);
-            case "hacker" -> newTower = TowerFactory.CreateHacker(x, y);
+            case "hacker" -> newTower = TowerFactory.CreateHacker(x, y, projectilesToAddList);
             case "mech" -> newTower = TowerFactory.CreateMech(x, y, towersToAddList);
             case "eco" -> newTower = TowerFactory.CreateEco(x, y, player);
             default -> {

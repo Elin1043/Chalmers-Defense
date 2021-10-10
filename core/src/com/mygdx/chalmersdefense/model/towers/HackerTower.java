@@ -14,13 +14,17 @@ import java.util.List;
  * 2021-10-10 Modified by Joel Båtsman Hilmersson: Made Hackertower use MatrixProjectile <br>
  */
 class HackerTower extends Tower {
-    HackerTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes) {
+
+    private final List<IProjectile> addToList;  // List to add new projectiles to
+
+    HackerTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<IProjectile> addToList) {
         super(x, y, name, reloadSpeed, cost, range, targetModes);
+        this.addToList = addToList;
     }
 
 
     @Override
     void createProjectile(List<IProjectile> projectileList) {
-        projectileList.add(ProjectileFactory.createMatrixProjectile(getX(), getY(), getAngle(), getUpgradeLevel()));
+        projectileList.add(ProjectileFactory.createMatrixProjectile(getX(), getY(), getAngle(), getUpgradeLevel(), addToList));
     }
 }

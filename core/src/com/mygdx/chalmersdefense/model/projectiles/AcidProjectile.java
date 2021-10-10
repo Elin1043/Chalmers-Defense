@@ -7,20 +7,19 @@ import java.util.List;
  * Class representing an acid projectile
  */
 class AcidProjectile extends Projectile {
-    private final int upgradeLevel;     // Current upgrade level
     private final List<IProjectile> projectileList; // The list to add acidPool to
 
 
     AcidProjectile(float x, float y, float angle, int upgradeLevel, List<IProjectile> projectileList) {
         //TODO Speed calc
         super(5, "chemistProjectile" + upgradeLevel, x, y, angle);
-        this.upgradeLevel = upgradeLevel;
         this.projectileList = projectileList;
     }
 
     @Override
     public void virusIsHit(int haveHit, float angle) {
         // -60 because the acid pool image is 120x120 in size, and it needs to be placed centered
+        int upgradeLevel = getSpriteKey().charAt(getSpriteKey().length()-1);
         projectileList.add(new AcidPool(getX() - 60, getY() - 60, upgradeLevel));
         super.virusIsHit(haveHit, angle);
     }

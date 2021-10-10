@@ -32,8 +32,8 @@ public abstract class ProjectileFactory {
      * @param upgradeLevel the upgradeLevel of the tower shooting the projectile
      * @return the created projectile
      */
-    static public IProjectile createMatrixProjectile(float towerX, float towerY, float angle, int upgradeLevel) {
-        return new MatrixProjectile(towerX, towerY, angle, upgradeLevel);
+    static public IProjectile createMatrixProjectile(float towerX, float towerY, float angle, int upgradeLevel, List<IProjectile> projectileList) {
+        return new MatrixProjectile(towerX, towerY, angle, upgradeLevel, projectileList);
     }
 
     /**

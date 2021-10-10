@@ -1,5 +1,7 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
+import java.util.List;
+
 /**
  * @author Joel Båtsman Hilmersson
  *
@@ -7,8 +9,11 @@ package com.mygdx.chalmersdefense.model.projectiles;
  */
 class MatrixProjectile extends Projectile{
 
-    MatrixProjectile(float x, float y, float angle, int upgradeLevel) {
+    private final List<IProjectile> projectileList; // The list to add the MatrixArea to
+
+    MatrixProjectile(float x, float y, float angle, int upgradeLevel, List<IProjectile> projectileList) {
         super(7, "hackerProjectile" + upgradeLevel, x, y, angle);
+        this.projectileList = projectileList;
     }
 
 

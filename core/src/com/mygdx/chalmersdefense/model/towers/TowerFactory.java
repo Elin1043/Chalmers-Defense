@@ -45,9 +45,8 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower CreateHacker(float startPosX, float startPosY) {
-
-        return new HackerTower(startPosX, startPosY, "Hackerman", 60 * 3, 300, 700, TargetModeFactory.getTargetModes());
+    public static ITower CreateHacker(float startPosX, float startPosY, List<IProjectile> addProjectileToList) {
+        return new HackerTower(startPosX, startPosY, "Hackerman", 60 * 3, 300, 700, TargetModeFactory.getTargetModes(), addProjectileToList);
     }
 
     /**
