@@ -5,5 +5,11 @@ package com.mygdx.chalmersdefense.model.projectiles;
  *
  * Class representing Hackerman / HackerTowers shooting projectile
  */
-public class MatrixProjectile {
+class MatrixProjectile extends Projectile{
+
+    MatrixProjectile(float x, float y, float angle, int upgradeLevel) {
+        super(7, "hackerProjectile" + upgradeLevel, x, y, angle);
+    }
+
+
 }
