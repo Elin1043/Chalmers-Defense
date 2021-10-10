@@ -16,5 +16,11 @@ class MatrixProjectile extends Projectile{
         this.projectileList = projectileList;
     }
 
-
+    @Override
+    public void virusIsHit(int haveHit, float angle) {
+        // -50 because the matrix area is around 100 x 100 in size
+        int upgradeLevel = Character.getNumericValue(getSpriteKey().charAt(getSpriteKey().length() - 1));
+        projectileList.add(new MatrixArea(getX() - 50, getY() - 50, upgradeLevel));
+        super.virusIsHit(haveHit, angle);
+    }
 }
