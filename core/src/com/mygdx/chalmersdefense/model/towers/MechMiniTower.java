@@ -38,7 +38,6 @@ class MechMiniTower extends Tower {
         reloadSpeed *= upgrades.get("attackSpeedMul") ;
         range *= upgrades.get("attackRangeMul");
         upgradeLevel++;
-
     }
 
     @Override

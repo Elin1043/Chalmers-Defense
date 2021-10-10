@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model.towers;
 
-import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
+import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
@@ -16,16 +16,18 @@ import java.util.List;
 class MechTower extends Tower {
 
     private final List<ITower> miniTowers = new ArrayList<>();  // List to add minitower to
-    private int reloadSpeed;      // Reload speed
-    private int range;            // Current range of tower, this will be passed to minimechtowers later
+    private final int reloadSpeed;      // Reload speed
+    private final int range;            // Current range of tower, this will be passed to minimechtowers later
     private final List<ITargetMode> targetModes;    // All possible targeted
     List<ITower> towersToAddList;       // The final list to add towers to get them to show up on the map
-    private List<ITower> towersToRemoveList;
+    private final List<ITower> towersToRemoveList;
     private final List<ITower> allTowers;
-    private List<PathRectangle> pathRectangles;
+    private final List<PathRectangle> pathRectangles;
 
     private int robotLifeTimer = 2000;    // Lifetime of a robot
     private int robotCooldownTimer = 500;    // Cooldown of a robot
+
+    private int currentReload = 0;  // Current reload
 
 
     MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<ITower> towersToAddList, List<ITower> towersToRemoveList,List<ITower> allTowers,  List<PathRectangle> pathRectangles) {
@@ -56,8 +58,9 @@ class MechTower extends Tower {
     }
 
     @Override
-    void createProjectile(List<IProjectile> projectileList) {
-        // Empty for now, maybe move around robot towers here later?
+    void createProjectile(List<IProjectile> projectileList){
+        projectileList.add(ProjectileFactory.createRobotProjectile(super.getX(), super.getY(), getAngle(), getUpgradeLevel()));
+
     }
 
     @Override
@@ -68,6 +71,25 @@ class MechTower extends Tower {
 
     @Override
     public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget) {
+
+        spawnMiniTowers();
+
+        if(this.upgradeLevel == 3){
+            setAngle(newAngle);
+            if (currentReload < 1 && hasTarget && this.isPlaced()) {
+                currentReload = reloadSpeed;
+                createProjectile(projectilesList);
+            } else {
+                currentReload--;
+            }
+        }
+        else{
+            this.setAngle(0);
+        }
+
+    }
+
+    private void spawnMiniTowers(){
         if (this.isPlaced() && miniTowers.isEmpty() && robotCooldownTimer <= 0) {
             List<ITower> miniTowers = createMiniTowers();
             for (ITower miniTower : miniTowers) {
@@ -88,7 +110,6 @@ class MechTower extends Tower {
         else{
             robotCooldownTimer--;
         }
-        this.setAngle(0);
     }
 
     private float[] checkPointCollision() {
@@ -123,8 +144,6 @@ class MechTower extends Tower {
         double deg= Math.random()*2*Math.PI;
         float x = (float) (this.getX()+len*Math.cos(deg));
         float y = (float) (this.getY()+len*Math.sin(deg));
-
-
 
         return new float[]{x,y};
     }
