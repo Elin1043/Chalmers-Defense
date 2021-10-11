@@ -72,4 +72,19 @@ public class TestVirus {
         assertEquals(v.getY(), p.getWaypoint(0).getY() - v.getHeight() / 2, 0.0);
     }
 
+    @Test
+    public void testVirusSlowDown(){
+        IVirus v1 = VirusFactory.createVirusOne();
+        IVirus v2 = VirusFactory.createVirusOne();
+
+        v1.decreaseHealth(0.7F);    // If damage under zero it will be slowed down
+
+        for (int i = 0; i < 10; i++){
+            v1.update();
+            v2.update();
+        }
+
+        assertTrue(v1.getTotalDistanceTraveled() < v2.getTotalDistanceTraveled());
+    }
+
 }
