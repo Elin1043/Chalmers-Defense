@@ -290,10 +290,7 @@ class Map {
                 tower.setCollision(true);
                 rangeCircle.updatePos(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());
                 rangeCircle.setEnumColor(GetRangeCircle.Color.RED);
-            } else {
-                rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
             }
-
         }
     }
 
