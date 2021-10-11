@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
 
+import com.mygdx.chalmersdefense.utilities.GameScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
@@ -45,7 +46,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final Map map = new Map(player);        // Current map object
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());   // The class for spawning viruses
 
-    private boolean showWinPanel = false;       // Boolean for views of they should show win panel
+    private GameScreenOverlayEnum showOverlay = GameScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
 
     @Override
     public synchronized void updateModel() {
@@ -71,7 +72,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
             map.roundClear();
 
             if (round.gameWon()) {
-                showWinPanel = true;
+                showOverlay = GameScreenOverlayEnum.WINPANEL;
             }
         }
     }
@@ -192,13 +193,13 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
-    public boolean showWinPanel() {
-        return showWinPanel;
+    public GameScreenOverlayEnum showOverlay() {
+        return showOverlay;
     }
 
     @Override
-    public void continueToFreePlay() {
-        showWinPanel = false;
+    public void setShowOverlay(GameScreenOverlayEnum overlay) {
+        showOverlay = overlay;
     }
 
     @Override
