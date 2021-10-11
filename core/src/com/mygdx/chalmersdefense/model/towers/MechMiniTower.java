@@ -13,9 +13,9 @@ import java.util.List;
  */
 class MechMiniTower extends Tower {
 
-    HashMap<String, Double> upgrades = new HashMap<>();
-    private int reloadSpeed;
-    private int range;
+    private HashMap<String, Double> upgrades = new HashMap<>();  //Hashmap that contains the information of upgrades
+    private int reloadSpeed;                                     //reloadSpeed of the tower
+    private int range;                                           //range of the tower
 
     MechMiniTower(float x, float y, int reloadSpeed, int range, List<ITargetMode> targetModes,ITargetMode currentTargetMode, int upgradeLevel) {
         super(x, y, "MechMini", reloadSpeed, 0, range, targetModes);

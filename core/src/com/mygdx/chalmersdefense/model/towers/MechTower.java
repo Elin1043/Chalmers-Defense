@@ -19,10 +19,10 @@ class MechTower extends Tower {
     private final int reloadSpeed;      // Reload speed
     private final int range;            // Current range of tower, this will be passed to minimechtowers later
     private final List<ITargetMode> targetModes;    // All possible targeted
-    List<ITower> towersToAddList;       // The final list to add towers to get them to show up on the map
-    private final List<ITower> towersToRemoveList;
-    private final List<ITower> allTowers;
-    private final List<PathRectangle> pathRectangles;
+    private final List<ITower> towersToAddList;       // The list to add towers to get them to show up on the map
+    private final List<ITower> towersToRemoveList; // The list to add towers to remove them from map
+    private final List<ITower> allTowers;           // The list of all towers on the map
+    private final List<PathRectangle> pathRectangles;  // The list of all pathRectangles on current map
 
     private int robotLifeTimer = 2000;    // Lifetime of a robot
     private int robotCooldownTimer = 0;    // Cooldown of a robot
@@ -114,7 +114,7 @@ class MechTower extends Tower {
 
     private float[] checkPointCollision() {
         float[] point = randPoint();
-        while(pathCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || towerCollision(this.getWidth(),this.getHeight(), point[0],point[1])){
+        while(pathCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || towerCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || checkIfOutOfBounds(point[0],point[1])){
             point = randPoint();
         }
         return point;
@@ -137,6 +137,13 @@ class MechTower extends Tower {
             }
         }
         return false;
+    }
+
+    private boolean checkIfOutOfBounds(float y, float x) {
+        if (y > 1130 || -50 > y) {
+            return true;
+        }
+        return x > 1970 || -50 > x;
     }
 
     private float[] randPoint() {
