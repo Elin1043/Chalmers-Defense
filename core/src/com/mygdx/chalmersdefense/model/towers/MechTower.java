@@ -7,6 +7,7 @@ import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -44,15 +45,20 @@ class MechTower extends Tower {
     private List<ITower> createMiniTowers() {
         float[] point1 = checkPointCollision();
         float[] point2 = checkPointCollision();
-        if(getUpgradeLevel() == 1 || getUpgradeLevel() == 3 ){
-            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, range, targetModes,this.getCurrentTargetMode(), this.getUpgradeLevel());
-            miniTowers.add(miniTower1);
+        if(getUpgradeLevel() == 1 || getUpgradeLevel() == 3){
+            if(point1[0] != -1){
+                ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, range, targetModes,this.getCurrentTargetMode(), this.getUpgradeLevel());
+                miniTowers.add(miniTower1);
+            }
+
         }
         if(getUpgradeLevel() == 2){
-            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, range, targetModes,this.getCurrentTargetMode(), this.getUpgradeLevel());
-            ITower miniTower2 = new MechMiniTower(point2[0], point2[1], reloadSpeed, range, targetModes,this.getCurrentTargetMode(), this.getUpgradeLevel());
-            miniTowers.add(miniTower1);
-            miniTowers.add(miniTower2);
+            if(point1[0] != -1 && point2[0] != -1){
+                ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, range, targetModes,this.getCurrentTargetMode(), this.getUpgradeLevel());
+                ITower miniTower2 = new MechMiniTower(point2[0], point2[1], reloadSpeed, range, targetModes,this.getCurrentTargetMode(), this.getUpgradeLevel());
+                miniTowers.add(miniTower1);
+                miniTowers.add(miniTower2);
+            }
         }
         return miniTowers;
     }
@@ -114,9 +120,18 @@ class MechTower extends Tower {
 
     private float[] checkPointCollision() {
         float[] point = randPoint();
-        while(pathCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || towerCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || checkIfOutOfBounds(point[0],point[1])){
-            point = randPoint();
+        for (int i = 0; i < 100; i++) {
+            if(pathCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || towerCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || checkIfOutOfBounds(point[0],point[1])){
+                point = randPoint();
+            }
+            else{
+                return point;
+            }
+            if(i == 99){
+                point = new float[]{-1, -1};
+            }
         }
+
         return point;
 
     }
