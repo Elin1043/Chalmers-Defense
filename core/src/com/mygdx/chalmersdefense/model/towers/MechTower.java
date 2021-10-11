@@ -25,7 +25,7 @@ class MechTower extends Tower {
     private final List<PathRectangle> pathRectangles;
 
     private int robotLifeTimer = 2000;    // Lifetime of a robot
-    private int robotCooldownTimer = 500;    // Cooldown of a robot
+    private int robotCooldownTimer = 0;    // Cooldown of a robot
 
     private int currentReload = 0;  // Current reload
 
