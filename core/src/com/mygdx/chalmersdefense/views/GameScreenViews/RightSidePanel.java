@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
+import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 
@@ -26,15 +27,12 @@ public class RightSidePanel {
 
     private final Stage stage;
     private final RightSidePanelController rightSidePanelController;
-    private final Model model;
+    private final IViewModel model;
 
 
     private final Label towerLabel = createLabel("Towers", 20);
     private final Label powerUpLabel = createLabel("Power-ups", 620);
 
-
-
-    private final Label roundLabel = createLabel("Round: HH", 920);
 
     private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
 
@@ -108,9 +106,6 @@ public class RightSidePanel {
         stage.addActor(vaccinatedLabelPrice);
 
 
-
-        stage.addActor(roundLabel);
-
         addButtonListener();
 
         createStartRoundButton();
@@ -121,7 +116,6 @@ public class RightSidePanel {
      */
     public void render() {
         checkAffordableTowers();
-        updateLabels();
 
         stage.act();
         stage.draw();
@@ -178,9 +172,6 @@ public class RightSidePanel {
     }
 
     //Label methods
-    private void updateLabels() {
-        roundLabel.setText("Round: " + model.getCurrentRound());
-    }
 
     private Label createLabel(String text, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle36BlackBold());

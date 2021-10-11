@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
@@ -61,6 +62,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
     private final Label lifeLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle36Black());
     private final Label moneyLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle36Black());
+    private final Label roundLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle36Black());
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
@@ -195,7 +197,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private void updateButtonInfo(){
         lifeLabel.setText(model.getLivesLeft());
         moneyLabel.setText(model.getMoney());
-
+        roundLabel.setText("Round: " + model.getCurrentRound());
     }
 
     private void createLifeAndMoneyIcon(){
@@ -205,11 +207,14 @@ public class GameScreen extends AbstractScreen implements Screen {
         lifeLabel.setPosition(96, 140);
         moneyLabel.setPosition(96, 60);
 
+        roundLabel.setAlignment(Align.right);
+        roundLabel.setPosition(1570, 140);
 
         stageHUD.addActor(lifeLabel);
         stageHUD.addActor(moneyLabel);
         stageHUD.addActor(lifeIcon);
         stageHUD.addActor(moneyIcon);
+        stageHUD.addActor(roundLabel);
     }
 
     private Color getColorOfCircle(GetRangeCircle circle) {
