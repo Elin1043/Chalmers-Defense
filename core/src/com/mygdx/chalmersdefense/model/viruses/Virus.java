@@ -29,6 +29,7 @@ class Virus implements IVirus {
     private float totalDistanceTrawled = 0;     // Total distance the virus have trawled
 
     private float slowdown = 1;                 // Amount of slow down that gets applied to the virus speed
+    private int slowDownTimer = 0;
 
     private final Path path;    // pointer to path object
     private PositionVector currentMoveToVector;     // Current vector (coordinates) to move to
@@ -80,12 +81,14 @@ class Virus implements IVirus {
 
     private void slowDownEffect(float slowdown){
         this.slowdown = slowdown;
+        slowDownTimer = 1000;
     }
 
 
     @Override
     public void update() {
         moveToPoint();
+        updateSlowTimer();
     }
 
     private void moveToPoint() {
@@ -120,6 +123,14 @@ class Virus implements IVirus {
         }
 
         totalDistanceTrawled += totalSpeed;
+    }
+
+    private void updateSlowTimer(){
+        if (slowDownTimer <= 0){
+            slowdown = 1;
+        } else {
+            slowDownTimer--;
+        }
     }
 
     private void updateSpriteKey() {
