@@ -119,7 +119,7 @@ class Map {
 
         for (IVirus virus : virusesList) {
             if (Calculate.objectsIntersects(projectile, virus) && !projectile.haveHitBefore(virus.hashCode())) {
-                virus.decreaseHealth(projectile.getDamageAmount());     // TODO Lägg till float över hur mycket damage den ska göra. Om under 1 blir det en slowdown på virusets hastighet istället
+                virus.decreaseHealth(projectile.getDamageAmount());
                 removeList.add(virus);
                 return true;
             }

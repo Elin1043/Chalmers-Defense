@@ -25,7 +25,7 @@ class MechTower extends Tower {
     private final List<PathRectangle> pathRectangles;  // The list of all pathRectangles on current map
 
     private int robotLifeTimer = 2000;    // Lifetime of a robot
-    private int robotCooldownTimer = 0;    // Cooldown of a robot
+    private int robotCoolDownTimer = 0;    // Cool down of a robot
 
     private int currentReload = 0;  // Current reload
 
@@ -79,7 +79,7 @@ class MechTower extends Tower {
 
         spawnMiniTowers();
 
-        if(this.upgradeLevel == 3){
+        if(getUpgradeLevel() == 3){
             setAngle(newAngle);
             if (currentReload < 1 && hasTarget && this.isPlaced()) {
                 currentReload = reloadSpeed;
@@ -95,7 +95,7 @@ class MechTower extends Tower {
     }
 
     private void spawnMiniTowers(){
-        if (this.isPlaced() && miniTowers.isEmpty() && robotCooldownTimer <= 0) {
+        if (this.isPlaced() && miniTowers.isEmpty() && robotCoolDownTimer <= 0) {
             List<ITower> miniTowers = createMiniTowers();
             for (ITower miniTower : miniTowers) {
                 miniTower.placeTower();
@@ -106,14 +106,14 @@ class MechTower extends Tower {
         else if(this.isPlaced() && !miniTowers.isEmpty() && robotLifeTimer <= 0){
             towersToRemoveList.addAll(miniTowers);
             miniTowers.clear();
-            robotCooldownTimer = 500;
+            robotCoolDownTimer = 500;
         }
 
         else if(this.isPlaced() && !miniTowers.isEmpty()){
             robotLifeTimer--;
         }
         else{
-            robotCooldownTimer--;
+            robotCoolDownTimer--;
         }
     }
 
