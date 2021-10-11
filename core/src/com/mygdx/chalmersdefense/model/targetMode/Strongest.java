@@ -7,7 +7,8 @@ import java.util.List;
 /**
  * @author Joel Båtsman Hilmersson
  * <p>
- * Finds the stronges virus of the virus in the given list
+ * Finds the stronges virus of the virus in the given list. If two viruses are equal in strength
+ * it will choose the virus that has travled the farthest
  */
 class Strongest implements ITargetMode {
 
@@ -19,14 +20,14 @@ class Strongest implements ITargetMode {
             if ((virus.getLifeDecreaseAmount() > strongestVirus.getLifeDecreaseAmount())) {
                 strongestVirus = virus;
             } else if (virus.getLifeDecreaseAmount() == strongestVirus.getLifeDecreaseAmount()){
-                strongestVirus = getMostTravledVirus(strongestVirus, virus);
+                strongestVirus = getMostTraveledVirus(strongestVirus, virus);
             }
         }
 
         return strongestVirus;
     }
 
-    private IVirus getMostTravledVirus(IVirus strongestVirus, IVirus virus) {
+    private IVirus getMostTraveledVirus(IVirus strongestVirus, IVirus virus) {
         if (virus.getTotalDistanceTraveled() > strongestVirus.getTotalDistanceTraveled()){
             strongestVirus = virus;
         }

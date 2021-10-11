@@ -20,7 +20,8 @@ public class TestTargetModes {
 
     private final ITargetMode firstTarget = TargetModeFactory.getTargetModes().get(0); // Index 0 represents First target mode
     private final ITargetMode lastTarget = TargetModeFactory.getTargetModes().get(1); // Index 1 represents Last target mode
-    private final ITargetMode closestTarget = TargetModeFactory.getTargetModes().get(2); // Index 2 represents Closest target mode
+    private final ITargetMode closestTarget = TargetModeFactory.getTargetModes().get(2); // Index 2 represents Closest target
+    private final ITargetMode strongestTarget = TargetModeFactory.getTargetModes().get(3); // Index 3 represents Strongest target// mode
 
     private final List<IVirus> vList = new ArrayList<>();
 
@@ -61,5 +62,20 @@ public class TestTargetModes {
     public void testGetClosestTarget() {
         IVirus closestVirus = closestTarget.getCorrectVirus(vList, vList.get(2).getX(), vList.get(2).getY()); // This will put the "tower" directly on virus three, and therefore it should be the closest
         assertEquals(closestVirus, vList.get(2));
+    }
+
+    @Test
+    public void testGetStrongestTarget(){
+        vList.add(VirusFactory.createVirusFive());  // To have two of the same virus types
+        vList.get(5).update();
+        vList.get(5).update();
+        vList.get(3).update();
+        vList.get(3).update();
+        vList.get(3).update();
+        vList.get(3).update();  // Now this virus has traveled the most just to make sure it does not choose the furthest virus only
+
+        IVirus strongestVirus = strongestTarget.getCorrectVirus(vList, 0, 0); // Tower position is ignored when calculating strongest virus
+        assertEquals(vList.get(5), strongestVirus);
+
     }
 }
