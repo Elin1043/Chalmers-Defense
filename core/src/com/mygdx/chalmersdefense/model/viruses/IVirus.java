@@ -27,13 +27,14 @@ public interface IVirus extends IMapObject {
 
     /**
      * Return the total distance traveled by the virus
-     * @return
+     * @return returns total distance traveled
      */
     float getTotalDistanceTraveled();
 
     /**
      * Decrease the health of the virus
+     * @param damage the amount of damage done to the virus. If under 1, the virus gets slowed down instead
      */
-    void decreaseHealth();
+    void decreaseHealth(float damage);
 
 }

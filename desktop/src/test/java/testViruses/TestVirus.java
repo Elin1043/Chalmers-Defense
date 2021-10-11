@@ -18,7 +18,7 @@ public class TestVirus {
     @Test
     public void testVirusGetHit() {
         IVirus v = VirusFactory.createVirusTwo();
-        v.decreaseHealth();
+        v.decreaseHealth(1);
         assertEquals(1, v.getLifeDecreaseAmount());
     }
 
@@ -26,7 +26,7 @@ public class TestVirus {
     public void testVirusUpdateSpriteKey() {
         IVirus v = VirusFactory.createVirusTwo();
         assertEquals("virus2", v.getSpriteKey());
-        v.decreaseHealth();
+        v.decreaseHealth(1);
         assertEquals("virus1", v.getSpriteKey());
     }
 
@@ -34,7 +34,7 @@ public class TestVirus {
     public void testVirusIsDead() {
         IVirus v = VirusFactory.createVirusOne();
         assertFalse(v.isDead());
-        v.decreaseHealth();
+        v.decreaseHealth(1);
         assertTrue(v.isDead());
     }
 

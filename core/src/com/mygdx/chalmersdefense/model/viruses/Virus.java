@@ -28,6 +28,8 @@ class Virus implements IVirus {
 
     private float totalDistanceTrawled = 0;     // Total distance the virus have trawled
 
+    private float slowdown = 1;                 // Amount of slow down that gets applied to the virus speed
+
     private final Path path;    // pointer to path object
     private PositionVector currentMoveToVector;     // Current vector (coordinates) to move to
     private int currentMoveToVectorIndex = 0;       // Which index to use when new vector is retrieved
@@ -47,7 +49,7 @@ class Virus implements IVirus {
         currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex);
 
 
-        // Kanske vill göra detta när man ändrar liv. Iallafall om man har något virus av annan storlek
+        // TODO Kanske vill göra detta när man ändrar liv. Iallafall om man har något virus av annan storlek
         try {
             BufferedImage img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("viruses/virus" + health + "Hp.png")));
             this.widthX = img.getWidth();
@@ -62,13 +64,22 @@ class Virus implements IVirus {
 
 
     @Override
-    public void decreaseHealth() {
-        this.health--;
+    public void decreaseHealth(float damage) {
+        if (damage < 1){
+            slowDownEffect(damage);
+        } else {
+            this.health -= damage;
+        }
+
         if (health > 0) {
             updateSpriteKey();
         } else {
             health = 0;
         }
+    }
+
+    private void slowDownEffect(float slowdown){
+        this.slowdown = slowdown;
     }
 
 
@@ -78,7 +89,7 @@ class Virus implements IVirus {
     }
 
     private void moveToPoint() {
-        double totalSpeed = (3F + health) / 4F;      // Calculates speed based on health of virus
+        double totalSpeed = ((3F + health) / 4F) * slowdown;      // Calculates speed based on health of virus
 
         // Gets length to next move to point
         double diffX = xPos + widthX / 2F - currentMoveToVector.getX();
