@@ -4,6 +4,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
+import com.mygdx.chalmersdefense.utilities.GameScreenOverlayEnum;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -183,7 +184,7 @@ public class TestModel {
             model.updateModel();
         }
 
-        assertTrue(model.getIsGameLost());
+        assertSame(model.showOverlay(), GameScreenOverlayEnum.LOSEPANEL);
     }
 
 }
