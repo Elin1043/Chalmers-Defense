@@ -32,10 +32,7 @@ abstract class Tower implements ITower {
     private float x;                // X coordinate on map
     private float y;                // y coordinate on map
 
-    //private final TargetMode firstMode = TargetModeFactory.
-
-    private final List<ITargetMode> targetModes;
-
+    private final List<ITargetMode> targetModes;    // List that holds references to the targetmodes
     private ITargetMode currentTargetMode;    // Which current targeting mode to use
 
     private float width;            // Width of tower object
