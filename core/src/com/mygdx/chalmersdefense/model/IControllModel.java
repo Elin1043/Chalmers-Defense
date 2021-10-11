@@ -86,4 +86,10 @@ public interface IControllModel {
      * Change tower targetMode
      */
     void changeTargetMode(boolean goRight);
+
+    /**
+     * Handle a powerUp button being clicked
+     * @param powerUpName
+     */
+    void powerUpClicked(String powerUpName);
 }

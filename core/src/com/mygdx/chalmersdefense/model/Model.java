@@ -128,6 +128,11 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
+    public void powerUpClicked(String powerUpName){
+        map.powerUpClicked(powerUpName);
+    }
+
+    @Override
     public GetRangeCircle getRangeCircle() {
         return map.getRangeCircle();
     }

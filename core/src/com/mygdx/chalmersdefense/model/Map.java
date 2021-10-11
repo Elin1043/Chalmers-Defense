@@ -441,4 +441,15 @@ class Map {
         projectilesList.clear();
     }
 
+    /**
+     * Method to handle a powerUp button being clicked
+     * @param powerUpName name of the button that was clicked
+     */
+    void powerUpClicked(String powerUpName) {
+        switch (powerUpName) {
+            case "cleanHands" -> System.out.println("Clean your hands!");
+            case "maskedUp"   -> System.out.println("Put your mask on!");
+            case "vaccinated" -> System.out.println("Get the vaccine!");
+        }
+    }
 }
