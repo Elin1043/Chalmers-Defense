@@ -32,10 +32,7 @@ public class RightSidePanel {
     private final Label towerLabel = createLabel("Towers", 20);
     private final Label powerUpLabel = createLabel("Power-ups", 620);
 
-    private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
-    private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
-    private final Label lifeLabel = createLabel("Test", 700);
-    private final Label moneyLabel = createLabel("Test", 800);
+
 
     private final Label roundLabel = createLabel("Round: HH", 900);
 
@@ -77,14 +74,10 @@ public class RightSidePanel {
 
         stage.addActor(towerLabel);
         stage.addActor(powerUpLabel);
-        stage.addActor(lifeLabel);
-        stage.addActor(moneyLabel);
-        stage.addActor(lifeIcon);
-        stage.addActor(moneyIcon);
+
         stage.addActor(roundLabel);
 
-        lifeIcon.setPosition(1650, 320);
-        moneyIcon.setPosition(1650, 220);
+
 
         createStartRoundButton();
     }
@@ -146,8 +139,6 @@ public class RightSidePanel {
 
     //Label methods
     private void updateLabels() {
-        lifeLabel.setText(model.getLivesLeft());
-        moneyLabel.setText(model.getMoney());
         roundLabel.setText("Round: " + model.getCurrentRound());
     }
 

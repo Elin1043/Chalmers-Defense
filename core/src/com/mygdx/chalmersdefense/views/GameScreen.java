@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.model.IMapObject;
@@ -56,7 +57,10 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
     private final Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
 
-
+    private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
+    private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
+    private final Label lifeLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle24BlackSemiBold());
+    private final Label moneyLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle24BlackSemiBold());
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
@@ -103,6 +107,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         addActor(mapImage);
         addActor(pauseButton);
+        createLifeAndMoneyIcon();
     }
 
 
@@ -118,6 +123,8 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         renderRangeCircle();
         renderMapObjects();
+
+        updateButtonInfo();
 
         // Renders HUD above sprites but below upgrade panel.
         stageHUD.act();
@@ -183,6 +190,26 @@ public class GameScreen extends AbstractScreen implements Screen {
         shapeRenderer.circle(circle.getX(), circle.getY(), circle.getRange());
         shapeRenderer.end();
         Gdx.gl.glDisable(GL_BLEND);
+    }
+
+    private void updateButtonInfo(){
+        lifeLabel.setText(model.getLivesLeft());
+        moneyLabel.setText(model.getMoney());
+
+    }
+
+    private void createLifeAndMoneyIcon(){
+        lifeIcon.setPosition(23, 100);
+        moneyIcon.setPosition(23, 20);
+
+        lifeLabel.setPosition(96, 140);
+        moneyLabel.setPosition(96, 60);
+
+
+        stageHUD.addActor(lifeLabel);
+        stageHUD.addActor(moneyLabel);
+        stageHUD.addActor(lifeIcon);
+        stageHUD.addActor(moneyIcon);
     }
 
     private Color getColorOfCircle(GetRangeCircle circle) {

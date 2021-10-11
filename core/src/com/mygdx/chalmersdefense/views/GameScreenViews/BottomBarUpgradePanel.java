@@ -17,7 +17,6 @@ import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.Model;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -33,6 +32,7 @@ public class BottomBarUpgradePanel {
     private final Model model;
     private final HashMap<String, Sprite> spriteMap;
     private final HashMap<String, Sprite> largeSpriteMap;
+
 
 
     private final Image bottomBarUpgradePanelBackground = new Image(new Texture("GameScreen/BottomBarUpgradePanel.png"));
@@ -90,6 +90,8 @@ public class BottomBarUpgradePanel {
 
         createSellButton();
         createChangeTargetModeButton();
+        createPowerUpButtons();
+
 
         bottomBarPanelUpgradeGroup.addActor(towerNameLabel);
         bottomBarPanelUpgradeGroup.setVisible(false);
@@ -165,6 +167,12 @@ public class BottomBarUpgradePanel {
 
         sellPriceLabel.setPosition(520, 55);
     }
+
+    private void createPowerUpButtons(){
+
+    }
+
+
 
     private void updateButtonInfo(){
         sellPriceLabel.setText("+" + "$" + model.getClickedTowerSellPrice());
