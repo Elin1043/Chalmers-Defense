@@ -80,8 +80,10 @@ class Virus implements IVirus {
     }
 
     private void slowDownEffect(float slowdown){
-        this.slowdown = slowdown;
-        slowDownTimer = 1000;
+        if (this.slowdown > slowdown) {
+            this.slowdown = slowdown;
+        }
+        slowDownTimer = 800;
     }
 
 
