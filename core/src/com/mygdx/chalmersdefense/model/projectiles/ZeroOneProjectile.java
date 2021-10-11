@@ -7,7 +7,7 @@ package com.mygdx.chalmersdefense.model.projectiles;
 class ZeroOneProjectile extends Projectile {
 
     ZeroOneProjectile(float x, float y, float angle, int upgradelevel) {
-        super(5, "smurfProjectile" + upgradelevel, x, y, angle);
+        super(5, "smurfProjectile" + upgradelevel, x, y, angle, 1);
     }
 
 }

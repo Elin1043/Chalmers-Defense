@@ -27,4 +27,10 @@ public interface IProjectile extends IMapObject {
      * @return if virus have been hit before
      */
     boolean haveHitBefore(int hashCode);
+
+    /**
+     * Returns how much damage the projectile does
+     * @return amount of damage
+     */
+    float getDamageAmount();
 }

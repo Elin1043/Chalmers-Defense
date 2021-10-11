@@ -12,7 +12,7 @@ class AcidProjectile extends Projectile {
 
     AcidProjectile(float x, float y, float angle, int upgradeLevel, List<IProjectile> projectileList) {
         //TODO Speed calc
-        super(5, "chemistProjectile" + upgradeLevel, x, y, angle);
+        super(5, "chemistProjectile" + upgradeLevel, x, y, angle, 1);
         this.projectileList = projectileList;
     }
 

@@ -10,7 +10,7 @@ public class MatrixArea extends Projectile {
     private int matrixTimer = 50;    // Lifetime of MatrixArea
 
     MatrixArea(float x, float y, int upgradeLevel) {
-        super(0, "hackerArea" + upgradeLevel, x, y, 0);
+        super(0, "hackerArea" + upgradeLevel, x, y, 0, 1);
     }
 
     @Override

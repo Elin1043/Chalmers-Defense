@@ -20,7 +20,8 @@ abstract class Projectile implements IProjectile {
 
     private float width;    // Current width of projectile
     private float height;   // Current height of projectile
-    private float speed;    // Speed of projectile
+    private final float speed;    // Speed of projectile
+    private final float damage;   // Damage of projectile
 
 
     private String spriteKey;   // The key to the Sprite Hashmap
@@ -31,12 +32,13 @@ abstract class Projectile implements IProjectile {
 
     boolean canRemove = false;  // Boolean over if this projectile can be removed by map
 
-    Projectile(float speed, String spriteKey, float x, float y, float angle) {
+    Projectile(float speed, String spriteKey, float x, float y, float angle, float damage) {
         this.speed = speed;
         this.spriteKey = spriteKey;
         this.x = x;
         this.y = y;
         this.angle = angle;
+        this.damage = damage;
         // TODO Fix speed calc in children
 
 
@@ -106,44 +108,27 @@ abstract class Projectile implements IProjectile {
         return haveHitList.contains(hashCode);
     }
 
-    /**
-     * Gets width of projectile
-     *
-     * @return width of projectile
-     */
     @Override
     public float getWidth() {
         return width;
     }
 
-    /**
-     * Gets height of projectile
-     *
-     * @return height of projectile
-     */
     @Override
     public float getHeight() {
         return height;
     }
 
-    /**
-     * Gets X-coordinate of projectile
-     *
-     * @return x-coordinate of projectile
-     */
     @Override
     public float getX() {
         return x;
     }
 
-    /**
-     * Gets Y-coordinate of projectile
-     *
-     * @return y-coordinate of projectile
-     */
     @Override
     public float getY() {
         return y;
     }
+
+    @Override
+    public float getDamageAmount(){ return damage; }
 
 }
