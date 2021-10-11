@@ -7,7 +7,6 @@ import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
