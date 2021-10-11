@@ -80,8 +80,19 @@ public abstract class Calculate {
         return calculateIntersects(objOne.getWidth(), objOne.getHeight(), objTwo.getWidth(), objTwo.getHeight(), objOne.getX(), objOne.getY(), objTwo.getX(), objTwo.getY());
     }
 
-    //Calculates if two objects intersect
-    private static boolean calculateIntersects(double obj1Width, double obj1Height, double obj2Width, double obj2Height, double obj1X, double obj1Y, double obj2X, double obj2Y) {
+    /**
+     * Check if two objects values intersects
+     * @param obj1Width width of object 1
+     * @param obj1Height height of object 1
+     * @param obj2Width width of object 2
+     * @param obj2Height height of object 2
+     * @param obj1X x-coordinate of object 1
+     * @param obj1Y y-coordinate of object 1
+     * @param obj2X x-coordinate of object 2
+     * @param obj2Y y-coordinate of object 2
+     * @return if they collide
+     */
+    public static boolean calculateIntersects(double obj1Width, double obj1Height, double obj2Width, double obj2Height, double obj1X, double obj1Y, double obj2X, double obj2Y) {
         if (obj2Width <= 0 || obj2Height <= 0 || obj1Width <= 0 || obj1Height <= 0) {
             return false;
         }
