@@ -14,6 +14,7 @@ import com.mygdx.chalmersdefense.model.IControllModel;
  *
  * 2021-09-17 Modified by Elin Forsberg: Added listener for tower buttons <br>
  * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model <br>
+ * 2021-10-11 Modified by Elin Forsberg: Added listener for powerUp buttons <br>
  */
 
 public class RightSidePanelController {

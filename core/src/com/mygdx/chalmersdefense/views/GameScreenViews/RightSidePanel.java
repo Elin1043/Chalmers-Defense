@@ -49,6 +49,10 @@ public class RightSidePanel {
     private final ImageButton maskedUpPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/MaskedUp.png"), 1620, 245, "maskedUp");
     private final ImageButton vaccinatedPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/Vaccinated.png"), 1620, 161, "vaccinated");
 
+    private final Label cleanHandsLabel = createPowerUpLabel("Clean hands",1685, 379);
+    private final Label maskedUpLabel = createPowerUpLabel("Masked-up",1685, 295);
+    private final Label vaccinatedLabel = createPowerUpLabel("Vaccinated",1685, 211);
+
     private Button startRoundButton;
 
     public RightSidePanel(Stage stage, Model model) {
@@ -82,6 +86,10 @@ public class RightSidePanel {
 
         stage.addActor(towerLabel);
         stage.addActor(powerUpLabel);
+
+        stage.addActor(cleanHandsLabel);
+        stage.addActor(maskedUpLabel);
+        stage.addActor(vaccinatedLabel);
 
         stage.addActor(roundLabel);
 
@@ -159,6 +167,12 @@ public class RightSidePanel {
     private Label createLabel(String text, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle36BlackBold());
         label.setPosition(1920 - WIDTH / 2F - label.getWidth() / 2, 1080 - label.getHeight() - y);
+        return label;
+    }
+
+    private Label createPowerUpLabel(String text, float x, float y) {
+        Label label = new Label(text, FontFactory.getLabelStyle20Black());
+        label.setPosition(x,y);
         return label;
     }
 
