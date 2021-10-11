@@ -10,6 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 /**
  * @author Daniel Persson
  * Utility class for getting LabelStyle for font usage.
+ *
+ *
+ * 2021-10-11 Modified by Elin Forsberg: Added more labelstyles
  */
 public abstract class FontFactory {
     /**

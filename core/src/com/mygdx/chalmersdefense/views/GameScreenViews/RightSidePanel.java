@@ -49,9 +49,17 @@ public class RightSidePanel {
     private final ImageButton maskedUpPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/MaskedUp.png"), 1620, 245, "maskedUp");
     private final ImageButton vaccinatedPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/Vaccinated.png"), 1620, 161, "vaccinated");
 
-    private final Label cleanHandsLabel = createPowerUpLabel("Clean hands",1685, 379);
-    private final Label maskedUpLabel = createPowerUpLabel("Masked-up",1685, 295);
-    private final Label vaccinatedLabel = createPowerUpLabel("Vaccinated",1685, 211);
+    private final Label cleanHandsLabel = createPowerUpLabel("Clean hands",1685, 385);
+    private final Label maskedUpLabel = createPowerUpLabel("Masked-up",1685, 300);
+    private final Label vaccinatedLabel = createPowerUpLabel("Vaccinated",1685, 216);
+
+    private final Label cleanHandsLabelDesc = createPowerUpDesc("Gives your tower a temporary boost",1685, 356);
+    private final Label maskedUpLabelDesc = createPowerUpDesc("Increases range of your towers for 20 sec",1685, 272);
+    private final Label vaccinatedLabelDesc = createPowerUpDesc("Vaccinate all the viruses on screen",1685, 188);
+
+    private final Label cleanHandsLabelPrice = createPowerUpLabel("$50",1855, 385);
+    private final Label maskedUpLabelPrice = createPowerUpLabel("$80",1855, 300);
+    private final Label vaccinatedLabelPrice = createPowerUpLabel("$180",1855, 216);
 
     private Button startRoundButton;
 
@@ -90,6 +98,16 @@ public class RightSidePanel {
         stage.addActor(cleanHandsLabel);
         stage.addActor(maskedUpLabel);
         stage.addActor(vaccinatedLabel);
+
+        stage.addActor(cleanHandsLabelDesc);
+        stage.addActor(maskedUpLabelDesc);
+        stage.addActor(vaccinatedLabelDesc);
+
+        stage.addActor(cleanHandsLabelPrice);
+        stage.addActor(maskedUpLabelPrice);
+        stage.addActor(vaccinatedLabelPrice);
+
+
 
         stage.addActor(roundLabel);
 
@@ -173,6 +191,14 @@ public class RightSidePanel {
     private Label createPowerUpLabel(String text, float x, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle20BlackSemiBold());
         label.setPosition(x,y);
+        return label;
+    }
+
+    private Label createPowerUpDesc(String text, float x, float y) {
+        Label label = new Label(text, FontFactory.getLabelStyle18Black());
+        label.setPosition(x,y);
+        label.setWrap(true);
+        label.setWidth(217);
         return label;
     }
 
