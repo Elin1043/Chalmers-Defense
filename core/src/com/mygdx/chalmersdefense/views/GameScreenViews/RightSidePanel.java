@@ -37,12 +37,12 @@ public class RightSidePanel {
 
     private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
 
-    private final ImageButton smurfButton = createRightPanelButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
-    private final ImageButton chemistButton = createRightPanelButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1770, 830, "chemist");
-    private final ImageButton electroButton = createRightPanelButtons(new Texture("buttons/TowerButtons/ElectroButton.png"), 1770, 650, "electro");
-    private final ImageButton hackerButton = createRightPanelButtons(new Texture("buttons/TowerButtons/HackerButton.png"), 1620, 650, "hacker");
-    private final ImageButton mechButton = createRightPanelButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "mech");
-    private final ImageButton ecoButton = createRightPanelButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
+    private final ImageButton smurfButton = createRightPanelButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1616, 830, "smurf");
+    private final ImageButton chemistButton = createRightPanelButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1766, 830, "chemist");
+    private final ImageButton electroButton = createRightPanelButtons(new Texture("buttons/TowerButtons/ElectroButton.png"), 1766, 650, "electro");
+    private final ImageButton hackerButton = createRightPanelButtons(new Texture("buttons/TowerButtons/HackerButton.png"), 1616, 650, "hacker");
+    private final ImageButton mechButton = createRightPanelButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1616, 470, "mech");
+    private final ImageButton ecoButton = createRightPanelButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1766, 470, "eco");
 
     private final ImageButton cleanHandsPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/CleanHands.png"), 1620, 329, "cleanHands");
     private final ImageButton maskedUpPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/MaskedUp.png"), 1620, 245, "maskedUp");
