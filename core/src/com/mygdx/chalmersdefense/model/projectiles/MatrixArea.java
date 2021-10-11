@@ -5,7 +5,7 @@ package com.mygdx.chalmersdefense.model.projectiles;
  *
  * Class representing an area effected by the matrix. Slows down viruses that comes in contact
  */
-public class MatrixArea extends Projectile {
+class MatrixArea extends Projectile {
 
     private int matrixTimer = 50;    // Lifetime of MatrixArea
 
