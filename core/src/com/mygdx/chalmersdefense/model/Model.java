@@ -53,6 +53,9 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         map.updateMap();
         checkRoundCompleted();
         virusSpawner.decrementSpawnTimer();
+        if (map.getIsGameLost()) {
+            showOverlay = GameScreenOverlayEnum.LOSEPANEL;
+        }
     }
 
     @Override
@@ -61,6 +64,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         player.resetPlayer(LIVES, START_CAPITAL);
         map.resetMap();
         virusSpawner.resetSpawnViruses();
+        showOverlay = GameScreenOverlayEnum.NONE;
     }
 
     private void checkRoundCompleted() {
@@ -185,11 +189,6 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
             GetRangeCircle circle = map.getRangeCircle();
             circle.updatePos(map.getClickedTower().getX() + getClickedTower().getWidth()/2, map.getClickedTower().getY() + getClickedTower().getHeight()/2, map.getClickedTower().getRange());
         }
-    }
-
-    @Override
-    public boolean getIsGameLost() {
-        return map.getIsGameLost();
     }
 
     @Override
