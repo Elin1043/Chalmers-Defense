@@ -24,6 +24,10 @@ public class RightSidePanelController {
         this.model = model;
     }
 
+    /**
+     * Listener for startButton
+     * @param button the startbutton
+     */
     public void addStartButtonListener(Button button) {
         button.addListener(new ClickListener() {
             @Override
@@ -33,6 +37,19 @@ public class RightSidePanelController {
         });
     }
 
+    /**
+     * Listener for powerUpButtons
+     * @param button
+     */
+    public void addPowerUpButtonListener(Button button) {
+        String powerUpName = button.getName();
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println(powerUpName + "button Clicked");
+            }
+        });
+    }
     /**
      * Listener for tower buttons
      *

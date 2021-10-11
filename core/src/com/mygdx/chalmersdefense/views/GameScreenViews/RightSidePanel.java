@@ -34,16 +34,20 @@ public class RightSidePanel {
 
 
 
-    private final Label roundLabel = createLabel("Round: HH", 900);
+    private final Label roundLabel = createLabel("Round: HH", 920);
 
     private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
 
-    private final ImageButton smurfButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
-    private final ImageButton chemistButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1770, 830, "chemist");
-    private final ImageButton electroButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/ElectroButton.png"), 1770, 650, "electro");
-    private final ImageButton hackerButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/HackerButton.png"), 1620, 650, "hacker");
-    private final ImageButton mechButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "mech");
-    private final ImageButton ecoButton = createRightPanelTowerButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
+    private final ImageButton smurfButton = createRightPanelButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1620, 830, "smurf");
+    private final ImageButton chemistButton = createRightPanelButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1770, 830, "chemist");
+    private final ImageButton electroButton = createRightPanelButtons(new Texture("buttons/TowerButtons/ElectroButton.png"), 1770, 650, "electro");
+    private final ImageButton hackerButton = createRightPanelButtons(new Texture("buttons/TowerButtons/HackerButton.png"), 1620, 650, "hacker");
+    private final ImageButton mechButton = createRightPanelButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1620, 470, "mech");
+    private final ImageButton ecoButton = createRightPanelButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1770, 470, "eco");
+
+    private final ImageButton cleanHandsPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/CleanHands.png"), 1620, 329, "cleanHands");
+    private final ImageButton maskedUpPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/MaskedUp.png"), 1620, 245, "maskedUp");
+    private final ImageButton vaccinatedPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/Vaccinated.png"), 1620, 161, "vaccinated");
 
     private Button startRoundButton;
 
@@ -63,7 +67,7 @@ public class RightSidePanel {
         towerButtons.put(500, mechButton);
         towerButtons.put(600, ecoButton);
 
-        addTowerButtonListener();
+
 
         stage.addActor(smurfButton);
         stage.addActor(chemistButton);
@@ -72,12 +76,16 @@ public class RightSidePanel {
         stage.addActor(mechButton);
         stage.addActor(ecoButton);
 
+        stage.addActor(cleanHandsPowerUpButton);
+        stage.addActor(maskedUpPowerUpButton);
+        stage.addActor(vaccinatedPowerUpButton);
+
         stage.addActor(towerLabel);
         stage.addActor(powerUpLabel);
 
         stage.addActor(roundLabel);
 
-
+        addButtonListener();
 
         createStartRoundButton();
     }
@@ -102,25 +110,31 @@ public class RightSidePanel {
         return stage;
     }
 
-    private ImageButton createRightPanelTowerButtons(Texture texture, int x, int y, String name) {
-        TextureRegion towerButtonTextureRegion = new TextureRegion(texture);
-        TextureRegionDrawable towerButtonRegDrawable = new TextureRegionDrawable(towerButtonTextureRegion);
-        ImageButton towerButton = new ImageButton(towerButtonRegDrawable); //Set the button up
-        towerButton.setPosition(x, y);
-        towerButton.setName(name);
+    private ImageButton createRightPanelButtons(Texture texture, int x, int y, String name) {
+        TextureRegion buttonTextureRegion = new TextureRegion(texture);
+        TextureRegionDrawable buttonRegDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        ImageButton button = new ImageButton(buttonRegDrawable); //Set the button up
+        button.setPosition(x, y);
+        button.setName(name);
 
-
-        return towerButton;
+        return button;
 
     }
 
-    private void addTowerButtonListener() {
+
+    private void addButtonListener() {
         rightSidePanelController.addTowerButtonListener(smurfButton);
         rightSidePanelController.addTowerButtonListener(chemistButton);
         rightSidePanelController.addTowerButtonListener(hackerButton);
         rightSidePanelController.addTowerButtonListener(electroButton);
         rightSidePanelController.addTowerButtonListener(mechButton);
         rightSidePanelController.addTowerButtonListener(ecoButton);
+
+        rightSidePanelController.addPowerUpButtonListener(cleanHandsPowerUpButton);
+        rightSidePanelController.addPowerUpButtonListener(maskedUpPowerUpButton);
+        rightSidePanelController.addPowerUpButtonListener(vaccinatedPowerUpButton);
+
+
     }
 
     //Checks what towers the player can afford
