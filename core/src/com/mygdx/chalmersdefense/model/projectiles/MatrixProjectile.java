@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @author Joel Båtsman Hilmersson
- *
+ * <p>
  * Class representing Hackerman / HackerTowers shooting projectile
  */
 class MatrixProjectile extends Projectile{
