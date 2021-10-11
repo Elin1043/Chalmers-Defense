@@ -66,7 +66,7 @@ class Virus implements IVirus {
 
     @Override
     public void decreaseHealth(float damage) {
-        if (damage < 1){
+        if (damage < 1 && damage > 0.1F){
             slowDownEffect(damage);
         } else {
             this.health -= damage;

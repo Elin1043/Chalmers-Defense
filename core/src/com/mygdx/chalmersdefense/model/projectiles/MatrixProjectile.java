@@ -12,7 +12,7 @@ class MatrixProjectile extends Projectile{
     private final List<IProjectile> projectileList; // The list to add the MatrixArea to
 
     MatrixProjectile(float x, float y, float angle, int upgradeLevel, List<IProjectile> projectileList) {
-        super(7, "hackerProjectile" + upgradeLevel, x, y, angle, 1);
+        super(7, "hackerProjectile" + upgradeLevel, x, y, angle, upgradeLevel - 1);
         this.projectileList = projectileList;
     }
 
