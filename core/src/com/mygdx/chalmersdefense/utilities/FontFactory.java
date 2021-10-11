@@ -22,6 +22,14 @@ public abstract class FontFactory {
     }
 
     /**
+     * Generates a LabelStyle from CenturyGothic font with size 36px and color.
+     *
+     * @return a LabelStyle with corresponding size, color and border width.
+     */
+    public static LabelStyle getLabelStyle36Black() {
+        return generateLabelStyle(36, Color.BLACK, 0);
+    }
+    /**
      * Generates a LabelStyle from CenturyGothic font with size 26px, color black.
      *
      * @return a LabelStyle with corresponding size, color and border width.
@@ -55,6 +63,15 @@ public abstract class FontFactory {
      */
     public static LabelStyle getLabelStyle20Black() {
         return generateLabelStyle(20, Color.BLACK, 0.25f);
+    }
+
+    /**
+     * Generates a LabelStyle from CenturyGothic font with size 20px, color black and semibold.
+     *
+     * @return a LabelStyle with corresponding size, color and border width.
+     */
+    public static LabelStyle getLabelStyle20BlackSemiBold() {
+        return generateLabelStyle(20, Color.BLACK, 0.5f);
     }
 
     private static BitmapFont generateBitmapFont(int size, float borderWidth) {

@@ -171,7 +171,7 @@ public class RightSidePanel {
     }
 
     private Label createPowerUpLabel(String text, float x, float y) {
-        Label label = new Label(text, FontFactory.getLabelStyle20Black());
+        Label label = new Label(text, FontFactory.getLabelStyle20BlackSemiBold());
         label.setPosition(x,y);
         return label;
     }
