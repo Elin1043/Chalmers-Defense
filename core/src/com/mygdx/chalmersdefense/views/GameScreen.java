@@ -54,12 +54,12 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
     private final Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
 
-
-
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     private final Image mapImage;
 
+    private AbstractOverlay currentOverlay;
+    private AbstractOverlay prevOverlay;
 
     public GameScreen(Model model) {
         super();
@@ -124,7 +124,6 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         // Renders right HUD panel
         rightSidePanel.render();
-        //pauseMenuOverlay.render();
 
         // If clicked tower is present show upgrade panel.
         if (model.getClickedTower() != null) {
@@ -133,19 +132,19 @@ public class GameScreen extends AbstractScreen implements Screen {
             bottomBarUpgradePanel.hideBottomBar();
         }
 
-        // Render lost game panel if game is lost
-        if (model.getIsGameLost()) {
-            lostPanelOverlay.render();
-        } else {
-            lostPanelOverlay.hideOverlay();
-        }
+        // Render current overlay to be shown
+        currentOverlay = switch (model.showOverlay()) {
+            case PAUSE_MENU -> pauseMenuOverlay;
+            case WINPANEL -> winPanelOverlay;
+            case LOSEPANEL -> lostPanelOverlay;
+            case NONE -> null;
+        };
 
-        // Render win game overlay if game is won
-        if (model.showWinPanel()) {
-            winPanelOverlay.render();
-        } else {
-            winPanelOverlay.hideOverlay();
+        if (currentOverlay != null) {
+            if (prevOverlay != null && prevOverlay != currentOverlay) prevOverlay.hideOverlay();
+            currentOverlay.render();
         }
+        prevOverlay = currentOverlay;
 
 
         //TODO Remove when not needed
