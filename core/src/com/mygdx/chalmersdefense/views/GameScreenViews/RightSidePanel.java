@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.Model;
@@ -55,9 +56,9 @@ public class RightSidePanel {
     private final Label maskedUpLabelDesc = createPowerUpDesc("Increases range of your towers for 20 sec", 272);
     private final Label vaccinatedLabelDesc = createPowerUpDesc("Vaccinate all the viruses on screen", 188);
 
-    private final Label cleanHandsLabelPrice = createPowerUpLabel("$50",1855, 385);
-    private final Label maskedUpLabelPrice = createPowerUpLabel("$80",1855, 300);
-    private final Label vaccinatedLabelPrice = createPowerUpLabel("$180",1855, 216);
+    private final Label cleanHandsLabelPrice = createPowerUpPriceLabel("$50",1900, 385);
+    private final Label maskedUpLabelPrice = createPowerUpPriceLabel("$80",1900, 300);
+    private final Label vaccinatedLabelPrice = createPowerUpPriceLabel("$180",1900, 216);
 
     private Button startRoundButton;
 
@@ -182,6 +183,13 @@ public class RightSidePanel {
     private Label createPowerUpLabel(String text, float x, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle20BlackSemiBold());
         label.setPosition(x,y);
+        return label;
+    }
+
+    private Label createPowerUpPriceLabel(String text, float x, float y) {
+        Label label = new Label(text, FontFactory.getLabelStyle20BlackSemiBold());
+        label.setAlignment(Align.right);
+        label.setPosition(x - label.getWidth(),y);
         return label;
     }
 
