@@ -19,10 +19,7 @@ import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
-import com.mygdx.chalmersdefense.views.GameScreenViews.BottomBarUpgradePanel;
-import com.mygdx.chalmersdefense.views.GameScreenViews.LostPanelOverlay;
-import com.mygdx.chalmersdefense.views.GameScreenViews.RightSidePanel;
-import com.mygdx.chalmersdefense.views.GameScreenViews.WinPanelOverlay;
+import com.mygdx.chalmersdefense.views.GameScreenViews.*;
 
 import static com.badlogic.gdx.graphics.GL20.*;
 
@@ -42,6 +39,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final GameScreenController gameScreenController;
     private final LostPanelOverlay lostPanelOverlay;
     private final WinPanelOverlay winPanelOverlay;
+    private final PauseMenuOverlay pauseMenuOverlay;
     private final BottomBarUpgradePanel bottomBarUpgradePanel;
     private final RightSidePanel rightSidePanel;
     private final IViewModel model;
@@ -68,6 +66,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         this.gameScreenController = new GameScreenController(model);
         this.lostPanelOverlay = new LostPanelOverlay(this, gameScreenController);
         this.winPanelOverlay = new WinPanelOverlay(this, gameScreenController);
+        this.pauseMenuOverlay = new PauseMenuOverlay(this, gameScreenController);
         this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, spriteMap, largeSpriteMap);
         this.rightSidePanel = new RightSidePanel(this, model);
         this.model = model;
@@ -125,6 +124,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         // Renders right HUD panel
         rightSidePanel.render();
+        //pauseMenuOverlay.render();
 
         // If clicked tower is present show upgrade panel.
         if (model.getClickedTower() != null) {
