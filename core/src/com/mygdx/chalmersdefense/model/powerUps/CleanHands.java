@@ -1,5 +1,9 @@
 package com.mygdx.chalmersdefense.model.powerUps;
 
+import com.mygdx.chalmersdefense.model.towers.ITower;
+
+import java.util.List;
+
 /**
  * @author Joel Båtsman Hilmersson
  * Class representing CleanHands powerup, doubles attackspeed of towers
@@ -10,10 +14,13 @@ public class CleanHands {
     private boolean canBeUsed = true;   // If this powerup can be used att the moment
     private boolean powerUpIsActive = false;   // If this powerup can be used att the moment
 
+    private List<ITower> allTowers;
 
 
-    public void activatePowerUp(){
+
+    public void activatePowerUp(List<ITower> allTowers){
         if (canBeUsed) {
+            this.allTowers = allTowers;
             canBeUsed = false;
             powerUpIsActive = true;
         }
