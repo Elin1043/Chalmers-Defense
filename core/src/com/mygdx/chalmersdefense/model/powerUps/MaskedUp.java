@@ -11,13 +11,13 @@ import java.util.List;
 public class MaskedUp {
     private int cooldown = 0;    // Cooldown of the powerUp
     private int powerUpTimer = 500;    // Lifetime of the powerUp
-    private List<ITower> alltowers;
+    private List<ITower> allTowers;
     private boolean isActivated = false;
     private boolean canActivate = false;
 
 
-    public void powerUpClicked(List<ITower> alltowers){
-        this.alltowers = alltowers;
+    public void powerUpClicked(List<ITower> allTowers){
+        this.allTowers = allTowers;
         if(canActivate){
             activatePowerUp();
             powerUpTimer = 500;
@@ -27,13 +27,13 @@ public class MaskedUp {
     }
 
     private void activatePowerUp(){
-        for (ITower tower:alltowers) {
+        for (ITower tower: allTowers) {
             tower.powerUpTower(true);
         }
     }
 
     private void deActivatePowerUp(){
-        for (ITower tower:alltowers) {
+        for (ITower tower: allTowers) {
             tower.powerUpTower(false);
         }
     }

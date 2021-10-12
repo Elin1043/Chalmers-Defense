@@ -5,8 +5,8 @@ package com.mygdx.chalmersdefense.model.powerUps;
  * Class representing CleanHands powerup, doubles attackspeed of towers
  */
 public class CleanHands {
-    private int coolDownTimer = 750;    // Cool down timer
-    private int powerUpTimer = 500;    // Cool down timer
+    private int cooldownTimer = 750;    // Cooldown timer
+    private int powerUpTimer = 500;    // Cooldown timer
     private boolean canBeUsed = true;   // If this powerup can be used att the moment
     private boolean powerUpIsActive = false;   // If this powerup can be used att the moment
 
@@ -29,11 +29,11 @@ public class CleanHands {
         }
 
 
-        if (coolDownTimer > 0 && !canBeUsed){
-            coolDownTimer--;
+        if (cooldownTimer > 0 && !canBeUsed){
+            cooldownTimer--;
         } else {
             canBeUsed = true;
-            coolDownTimer = 750;
+            cooldownTimer = 750;
         }
     }
 
