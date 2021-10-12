@@ -2,7 +2,10 @@ package com.mygdx.chalmersdefense;
 
 import com.badlogic.gdx.Game;
 
+import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
+import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.controllers.MainScreenController;
+import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.views.*;
 
@@ -26,9 +29,13 @@ public class ChalmersDefense extends Game {
         // Creating Controllers
         MainScreenController mainScreenController = new MainScreenController();
 
+        GameScreenController gameScreenController = new GameScreenController(model);
+        RightSidePanelController rightSidePanelController = new RightSidePanelController(model);
+        BottomBarPanelController bottomBarPanelController = new BottomBarPanelController(model);
+
         // Creating Views
         AbstractScreen mainScreen = new MainScreen(mainScreenController);
-        AbstractScreen gameScreen = new GameScreen(model);
+        AbstractScreen gameScreen = new GameScreen(model, gameScreenController, rightSidePanelController, bottomBarPanelController);
         new Sounds();
 
         // Init ScreenManager

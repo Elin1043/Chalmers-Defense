@@ -13,7 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
+import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.Model;
@@ -68,15 +70,15 @@ public class GameScreen extends AbstractScreen implements Screen {
     private AbstractOverlay currentOverlay;
     private AbstractOverlay prevOverlay;
 
-    public GameScreen(Model model) {
+    public GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
         super();
-        this.gameScreenController = new GameScreenController(model);
+        this.gameScreenController = gameScreenController;
         this.lostPanelOverlay = new LostPanelOverlay(this, gameScreenController);
         this.winPanelOverlay = new WinPanelOverlay(this, gameScreenController);
         this.pauseMenuOverlay = new PauseMenuOverlay(this, gameScreenController);
         this.settingsOverlay = new SettingsOverlay(this, gameScreenController);
-        this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, spriteMap, largeSpriteMap);
-        this.rightSidePanel = new RightSidePanel(this, model);
+        this.rightSidePanel = new RightSidePanel(this, model, rightSidePanelController);
+        this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, bottomBarPanelController, spriteMap, largeSpriteMap);
         this.model = model;
         this.stageHUD = new Stage(this.getViewport());
 
