@@ -16,7 +16,6 @@ public class CleanHands {
         if (canBeUsed) {
             canBeUsed = false;
             powerUpIsActive = true;
-            System.out.println("Powerup start");
         }
     }
 
@@ -27,7 +26,6 @@ public class CleanHands {
         } else {
             powerUpTimer = 500;
             powerUpIsActive = false;
-            System.out.println("Not active");
         }
 
 
@@ -36,7 +34,6 @@ public class CleanHands {
         } else {
             canBeUsed = true;
             coolDownTimer = 750;
-            System.out.println("Can be used again");
         }
     }
 

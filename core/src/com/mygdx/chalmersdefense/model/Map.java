@@ -59,18 +59,13 @@ class Map {
      */
     void updateMap() {
         updateVirus();
-
-        if (cleanHands.isActive()){
-            updateTowers();
-            updateTowers();
-            updateTowers();
-        }
-        updateRangeCircle();
         updateTowers();
         updateProjectiles();
+        updateRangeCircle();
         updatePowerUps();
         addTempListsToMainLists();
     }
+
 
     /**
      * Resets all of maps variables
@@ -169,6 +164,11 @@ class Map {
     private void updatePowerUps() {
         maskedUpPowerUp.decreaseTimer();
         cleanHands.decreaseTimer();
+        if (cleanHands.isActive()){
+            updateTowers();
+            updateTowers();
+            updateTowers();
+        }
     }
 
     //Update all the towers
