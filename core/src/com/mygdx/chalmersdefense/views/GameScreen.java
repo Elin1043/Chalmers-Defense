@@ -33,16 +33,22 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * 2021-10-03 Modified by Elin Forsberg: Sprite render now uses general IMapObject and range circle rendering was separated <br>
  * 2021-10-04 Modified by Daniel Persson: Refactored GameScreen into two seperate classes. BottomBarUpgradePanel and RightSidePanel <br>
  * 2021-10-05 Modified by Daniel Persson: Added WinPanelOverlay rendering if game is won <br>
+ * 2021-10-11 Modified by Daniel Persson: Added overlay enums for displaying overlays <br>
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
     private final GameScreenController gameScreenController;
+
+    // All overlays. Maybe move to separate class OverlayManager
     private final LostPanelOverlay lostPanelOverlay;
     private final WinPanelOverlay winPanelOverlay;
     private final PauseMenuOverlay pauseMenuOverlay;
     private final SettingsOverlay settingsOverlay;
+
+    // Panels
     private final BottomBarUpgradePanel bottomBarUpgradePanel;
     private final RightSidePanel rightSidePanel;
+
     private final IViewModel model;
     private final Stage stageHUD;
 
