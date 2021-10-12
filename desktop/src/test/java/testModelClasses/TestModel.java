@@ -79,7 +79,7 @@ public class TestModel {
         model.changeTargetMode(false);
 
         namesArray = model.getClickedTowerTargetMode().getClass().getName().split("[.]");
-        assertEquals((namesArray[namesArray.length - 1]), "Closest");
+        assertEquals((namesArray[namesArray.length - 1]), "Strongest");
 
     }
 

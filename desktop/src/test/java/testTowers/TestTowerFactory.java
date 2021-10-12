@@ -34,7 +34,8 @@ public class TestTowerFactory {
 
     @Test
     public void testCreateHacker() {
-        ITower tower = TowerFactory.CreateHacker(0, 0);
+        List<IProjectile> pList = new ArrayList<>();
+        ITower tower = TowerFactory.CreateHacker(0, 0, pList);
         assertSame("Hackerman", tower.getName());
     }
 

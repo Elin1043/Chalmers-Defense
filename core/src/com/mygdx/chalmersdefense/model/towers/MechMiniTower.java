@@ -10,35 +10,40 @@ import java.util.List;
 /**
  * @author Elin Forsberg
  * Class representing the MechMiniTowers that MechTower creates
+ * <p>
+ * 2021-10-11 Modified by Joel Båtsman Hilmersson: Changed creation of minimech to only use public methods in Tower <br>
  */
 class MechMiniTower extends Tower {
 
-    private HashMap<String, Double> upgrades = new HashMap<>();  //Hashmap that contains the information of upgrades
-    private int reloadSpeed;                                     //reloadSpeed of the tower
-    private int range;                                           //range of the tower
-
     MechMiniTower(float x, float y, int reloadSpeed, int range, List<ITargetMode> targetModes,ITargetMode currentTargetMode, int upgradeLevel) {
         super(x, y, "MechMini", reloadSpeed, 0, range, targetModes);
-        this.reloadSpeed = reloadSpeed;
-        this.range = range;
-        this.currentTargetMode = currentTargetMode;
+
+
+
+        for (int i = 0; i < targetModes.indexOf(currentTargetMode); i++){
+            super.changeTargetMode(true);
+        }
+
+
+        HashMap<String, Double> upgrades = new HashMap<>();
+        upgrades.put("attackSpeedMul", 1.0);
+        upgrades.put("attackRangeMul", 1.0);
+        super.upgradeTower(upgrades);
+
 
         if(upgradeLevel == 3){
+            upgrades.clear();
             upgrades.put("attackSpeedMul",0.2);
             upgrades.put("attackRangeMul",2.0);
             super.upgradeTower(upgrades);
-            this.upgradeLevel = 3;
         }
 
-        this.updateSpriteKey();
     }
 
+
+
     @Override
-    public void upgradeTower(HashMap<String, Double> upgrades) {
-        reloadSpeed *= upgrades.get("attackSpeedMul") ;
-        range *= upgrades.get("attackRangeMul");
-        upgradeLevel++;
-    }
+    public void upgradeTower(HashMap<String, Double> upgrades) {}
 
     @Override
     void createProjectile(List<IProjectile> projectileList) {

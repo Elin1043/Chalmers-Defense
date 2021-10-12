@@ -119,7 +119,7 @@ class Map {
 
         for (IVirus virus : virusesList) {
             if (Calculate.objectsIntersects(projectile, virus) && !projectile.haveHitBefore(virus.hashCode())) {
-                virus.decreaseHealth();
+                virus.decreaseHealth(projectile.getDamageAmount());
                 removeList.add(virus);
                 return true;
             }
@@ -249,8 +249,8 @@ class Map {
             case "smurf" -> newTower = TowerFactory.CreateSmurf(x, y);
             case "chemist" -> newTower = TowerFactory.CreateChemist(x, y, projectilesToAddList);
             case "electro" -> newTower = TowerFactory.CreateElectro(x, y);
-            case "hacker" -> newTower = TowerFactory.CreateHacker(x, y);
-            case "mech" -> newTower = TowerFactory.CreateMech(x, y, towersToAddList,towersToRemoveList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
+            case "hacker" -> newTower = TowerFactory.CreateHacker(x, y, projectilesToAddList);
+            case "mech" -> newTower = TowerFactory.CreateMech(x, y, towersToAddList, towersToRemoveList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
             case "eco" -> newTower = TowerFactory.CreateEco(x, y, player);
             default -> {
                 return;

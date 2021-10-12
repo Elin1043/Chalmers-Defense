@@ -11,7 +11,7 @@ class AcidPool extends Projectile{
     private int maxVirusHit = 5;    // Max amount of virus that can be hit with the pool
 
     AcidPool(float x, float y, int upgradeLevel) {
-        super(0, "chemistAcid" + upgradeLevel, x, y, 0);
+        super(0, "chemistAcid" + upgradeLevel, x, y, 0, 1);
     }
 
     @Override
