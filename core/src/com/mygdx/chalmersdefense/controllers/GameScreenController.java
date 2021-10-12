@@ -114,7 +114,7 @@ public class GameScreenController {
                         model.setShowOverlay(GameScreenOverlayEnum.NONE);
                         break;
                     case "Settings":
-                        // to be added
+                        model.setShowOverlay(GameScreenOverlayEnum.SETTINGS);
                         break;
                     case "Quit":
                         model.stopGameUpdate();
