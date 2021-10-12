@@ -27,21 +27,26 @@ class MechMiniTower extends Tower {
             super.changeTargetMode(true);
         }
 
-        if (upgradeLevel >= 2){
-            HashMap<String, Double> upgrades = new HashMap<>();
-            upgrades.put("attackSpeedMul", 1.0);
-            upgrades.put("attackRangeMul", 1.0);
-            super.upgradeTower(upgrades);
-        }
+
+        HashMap<String, Double> upgrades = new HashMap<>();
+        upgrades.put("attackSpeedMul", 1.0);
+        upgrades.put("attackRangeMul", 1.0);
+        super.upgradeTower(upgrades);
+
 
         if(upgradeLevel == 3){
-            HashMap<String, Double> upgrades = new HashMap<>();
+            upgrades.clear();
             upgrades.put("attackSpeedMul",0.2);
             upgrades.put("attackRangeMul",2.0);
             super.upgradeTower(upgrades);
         }
 
     }
+
+
+
+    @Override
+    public void upgradeTower(HashMap<String, Double> upgrades) {}
 
     @Override
     void createProjectile(List<IProjectile> projectileList) {
