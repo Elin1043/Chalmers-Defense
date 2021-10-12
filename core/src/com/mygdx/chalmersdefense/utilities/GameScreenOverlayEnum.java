@@ -5,5 +5,5 @@ package com.mygdx.chalmersdefense.utilities;
  * Enums for different overlays
  */
 public enum GameScreenOverlayEnum {
-    NONE, PAUSE_MENU, WINPANEL, LOSEPANEL
+    NONE, PAUSE_MENU, WINPANEL, LOSEPANEL, SETTINGS
 }
