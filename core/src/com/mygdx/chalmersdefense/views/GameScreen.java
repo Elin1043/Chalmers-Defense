@@ -40,6 +40,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final LostPanelOverlay lostPanelOverlay;
     private final WinPanelOverlay winPanelOverlay;
     private final PauseMenuOverlay pauseMenuOverlay;
+    private final SettingsOverlay settingsOverlay;
     private final BottomBarUpgradePanel bottomBarUpgradePanel;
     private final RightSidePanel rightSidePanel;
     private final IViewModel model;
@@ -67,6 +68,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         this.lostPanelOverlay = new LostPanelOverlay(this, gameScreenController);
         this.winPanelOverlay = new WinPanelOverlay(this, gameScreenController);
         this.pauseMenuOverlay = new PauseMenuOverlay(this, gameScreenController);
+        this.settingsOverlay = new SettingsOverlay(this, gameScreenController);
         this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, spriteMap, largeSpriteMap);
         this.rightSidePanel = new RightSidePanel(this, model);
         this.model = model;
@@ -137,7 +139,9 @@ public class GameScreen extends AbstractScreen implements Screen {
             case PAUSE_MENU -> pauseMenuOverlay;
             case WINPANEL -> winPanelOverlay;
             case LOSEPANEL -> lostPanelOverlay;
+            case SETTINGS -> settingsOverlay;
             case NONE -> null;
+
         };
 
         if (currentOverlay != null) {
