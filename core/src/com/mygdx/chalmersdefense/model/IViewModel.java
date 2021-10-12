@@ -1,5 +1,6 @@
 package com.mygdx.chalmersdefense.model;
 
+import com.mygdx.chalmersdefense.utilities.GameScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
@@ -68,18 +69,11 @@ public interface IViewModel {
     ITargetMode getClickedTowerTargetMode();
 
     /**
-     * Return if player lost the game
+     * Returns which overlay is supposed to show
      *
-     * @return if lost
+     * @return which overlay is supposed to show
      */
-    boolean getIsGameLost();
-
-    /**
-     * Returns if WinPanelOverlay is supposed to show
-     *
-     * @return if WinPanelOverlay is supposed to show
-     */
-    boolean showWinPanel();
+    GameScreenOverlayEnum showOverlay();
 
     /**
      * Return the current money value

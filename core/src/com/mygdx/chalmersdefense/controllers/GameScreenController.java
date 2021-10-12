@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.chalmersdefense.utilities.GameScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.IControllModel;
 import com.mygdx.chalmersdefense.views.ScreenEnum;
 import com.mygdx.chalmersdefense.views.ScreenManager;
@@ -77,7 +78,7 @@ public class GameScreenController {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                model.continueToFreePlay();
+                model.setShowOverlay(GameScreenOverlayEnum.NONE);
             }
         });
     }
