@@ -13,7 +13,7 @@ import com.mygdx.chalmersdefense.utilities.FontFactory;
 
 public class SettingsOverlay extends AbstractOverlay {
 
-    private final Group pauseMenuGroup = new Group();
+    private final Group settingsMenuGroup = new Group();
     private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/SettingsBackgroundImage.png"));
 
     public SettingsOverlay(Stage stage, GameScreenController gameScreenController) {
@@ -24,8 +24,8 @@ public class SettingsOverlay extends AbstractOverlay {
 
     @Override
     void initialize() {
-        stage.addActor(pauseMenuGroup);
-        pauseMenuGroup.addActor(backgroundImage);
+        stage.addActor(settingsMenuGroup);
+        settingsMenuGroup.addActor(backgroundImage);
         backgroundImage.setPosition(stage.getWidth()/2 - backgroundImage.getWidth()/2, stage.getHeight()/2 - backgroundImage.getHeight()/2);
         createExitPauseMenuButton();
     }
@@ -38,19 +38,19 @@ public class SettingsOverlay extends AbstractOverlay {
 
         stage.act();
         stage.draw();
-        pauseMenuGroup.setVisible(true);
+        settingsMenuGroup.setVisible(true);
     }
 
     @Override
     public void hideOverlay() {
-        pauseMenuGroup.setVisible(false);
+        settingsMenuGroup.setVisible(false);
     }
 
     private void createExitPauseMenuButton() {
         TextureRegion exitButtonTextureRegion = new TextureRegion(new Texture("GameScreen/overlays/ExitPauseMenuButton.png"));
         TextureRegionDrawable exitButtonRegDrawable = new TextureRegionDrawable(exitButtonTextureRegion);
         ImageButton exitButton = new ImageButton(exitButtonRegDrawable); //Set the button up
-        pauseMenuGroup.addActor(exitButton);
+        settingsMenuGroup.addActor(exitButton);
         exitButton.setPosition(backgroundImage.getX() + backgroundImage.getWidth() - exitButton.getWidth() - 20, backgroundImage.getY() + backgroundImage.getHeight() - exitButton.getHeight() - 20);
         gameScreenController.addExitPauseMenuButtonClickListener(exitButton);
     }
