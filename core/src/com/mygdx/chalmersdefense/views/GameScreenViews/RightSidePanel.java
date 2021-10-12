@@ -48,6 +48,10 @@ public class RightSidePanel {
     private final ImageButton maskedUpPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/MaskedUp.png"), 1620, 245, "maskedUp");
     private final ImageButton vaccinatedPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/Vaccinated.png"), 1620, 161, "vaccinated");
 
+    private final Label cleanHandsTimerLabel = createPowerUpPriceLabel("10",1660, 364);
+    private final Label maskedUpTimerLabel = createPowerUpPriceLabel("10",1660, 280);
+    private final Label vaccinatedTimerLabel = createPowerUpPriceLabel("10",1660, 196);
+
     private final Label cleanHandsLabel = createPowerUpLabel("Clean hands",1685, 385);
     private final Label maskedUpLabel = createPowerUpLabel("Masked-up",1685, 300);
     private final Label vaccinatedLabel = createPowerUpLabel("Vaccinated",1685, 216);
@@ -78,8 +82,6 @@ public class RightSidePanel {
         towerButtons.put(500, mechButton);
         towerButtons.put(600, ecoButton);
 
-
-
         stage.addActor(smurfButton);
         stage.addActor(chemistButton);
         stage.addActor(hackerButton);
@@ -93,6 +95,10 @@ public class RightSidePanel {
 
         stage.addActor(towerLabel);
         stage.addActor(powerUpLabel);
+
+        stage.addActor(cleanHandsTimerLabel);
+        stage.addActor(maskedUpTimerLabel);
+        stage.addActor(vaccinatedTimerLabel);
 
         stage.addActor(cleanHandsLabel);
         stage.addActor(maskedUpLabel);
@@ -110,6 +116,7 @@ public class RightSidePanel {
         addButtonListener();
 
         createStartRoundButton();
+
     }
 
     /**
@@ -117,6 +124,7 @@ public class RightSidePanel {
      */
     public void render() {
         checkAffordableTowers();
+        checkPowerUpButtonCooldown();
 
         stage.act();
         stage.draw();
@@ -156,6 +164,40 @@ public class RightSidePanel {
         rightSidePanelController.addPowerUpButtonListener(vaccinatedPowerUpButton);
 
 
+    }
+
+    private void checkPowerUpButtonCooldown(){
+        int[] timers = model.getPowerUpTimer();
+        boolean[] active = model.getPowerUpActive();
+
+        updatePowerUpButtons(timers[0], cleanHandsPowerUpButton, cleanHandsTimerLabel, active[0]);
+        updatePowerUpButtons(timers[1], maskedUpPowerUpButton, maskedUpTimerLabel, active[1]);
+        updatePowerUpButtons(timers[2], vaccinatedPowerUpButton, vaccinatedTimerLabel, active[2]);
+
+    }
+
+
+    private void updatePowerUpButtons(int timer, ImageButton powerUpButton, Label label, boolean active){
+        if(timer == -1){
+            powerUpButton.setTouchable(Touchable.enabled);
+            powerUpButton.getImage().setColor(Color.WHITE);
+
+            label.setVisible(false);
+
+        }
+        else if (active){
+            powerUpButton.setTouchable(Touchable.disabled);
+            label.setVisible(true);
+            label.setText(timer + 1);
+        }
+        else{
+            powerUpButton.setTouchable(Touchable.disabled);
+            powerUpButton.getImage().setColor(Color.LIGHT_GRAY);
+
+
+            label.setVisible(true);
+            label.setText(timer + 1);
+        }
     }
 
     //Checks what towers the player can afford

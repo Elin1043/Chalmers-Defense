@@ -169,6 +169,27 @@ class Map {
             updateTowers();
             updateTowers();
         }
+
+    }
+
+
+    int[] getPowerUpTimer(){
+        int[] timers = new int[3];
+        timers[0] = -1;
+        timers[1] = maskedUpPowerUp.getTimer();
+        timers[2] = -1;
+
+        return timers;
+    }
+
+
+    boolean[] getPowerUpActive(){
+        boolean[] powerUpsActive = new boolean[3];
+        powerUpsActive[0] = false;
+        powerUpsActive[1] = maskedUpPowerUp.getIsActive();
+        powerUpsActive[2] = false;
+
+        return powerUpsActive;
     }
 
     //Update all the towers

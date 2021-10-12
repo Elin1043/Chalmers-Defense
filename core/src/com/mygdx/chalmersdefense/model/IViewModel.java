@@ -116,6 +116,19 @@ public interface IViewModel {
      */
     List<IMapObject> getAllMapObjects();
 
+
+    /**
+     * Return the active timer of the powerUps
+     * @return active timer
+     */
+    int[] getPowerUpTimer();
+
+    /**
+     * Return if the different powerUps are active
+     * @return active or not
+     */
+    boolean[] getPowerUpActive();
+
     /**
      * Return the list of viruses on path
      * @return the list of viruses

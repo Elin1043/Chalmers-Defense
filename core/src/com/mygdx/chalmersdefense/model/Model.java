@@ -179,6 +179,16 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         return (int)cost;
     }
 
+    @Override
+    public int[] getPowerUpTimer(){
+        return map.getPowerUpTimer();
+    }
+
+    @Override
+    public boolean[] getPowerUpActive(){
+        return map.getPowerUpActive();
+    }
+
 
 
     @Override
