@@ -69,6 +69,7 @@ public class PauseMenuOverlay extends AbstractOverlay {
             Label buttonLabel = new Label(buttonTexts[i], FontFactory.getLabelStyle20Black());
             button.addActor(buttonLabel);
             buttonLabel.setPosition(button.getWidth() / 2 - buttonLabel.getWidth() / 2, button.getHeight() / 2 - buttonLabel.getHeight() / 2);
+            gameScreenController.addPauseMenuClickListeners(button, buttonTexts[i]);
         }
     }
 }
