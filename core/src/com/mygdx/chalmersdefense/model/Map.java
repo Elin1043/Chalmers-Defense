@@ -3,6 +3,7 @@ package com.mygdx.chalmersdefense.model;
 
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
+import com.mygdx.chalmersdefense.model.powerUps.CleanHands;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.ITower;
@@ -42,6 +43,8 @@ class Map {
 
     private final GetRangeCircle rangeCircle = new GetRangeCircle();     // Helper class for showing gray range circle
 
+    private final CleanHands cleanHands = new CleanHands();
+
 
     Map(Player player) {
         this.player = player;
@@ -53,9 +56,21 @@ class Map {
      */
     void updateMap() {
         updateVirus();
+
+        if (cleanHands.isActive()){
+            updateTowers();
+            updateTowers();
+            updateTowers();
+        }
         updateTowers();
+
         updateProjectiles();
+        updatePowerUps();
         addTempListsToMainLists();
+    }
+
+    void updatePowerUps(){
+        cleanHands.decreaseTimer();
     }
 
     /**
@@ -444,7 +459,7 @@ class Map {
      */
     void powerUpClicked(String powerUpName) {
         switch (powerUpName) {
-            case "cleanHands" -> System.out.println("Clean your hands!");
+            case "cleanHands" -> cleanHands.activatePowerUp();
             case "maskedUp"   -> System.out.println("Put your mask on!");
             case "vaccinated" -> System.out.println("Get the vaccine!");
         }
