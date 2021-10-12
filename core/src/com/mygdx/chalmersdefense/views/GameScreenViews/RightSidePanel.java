@@ -187,6 +187,7 @@ public class RightSidePanel {
         }
         else if (active){
             powerUpButton.setTouchable(Touchable.disabled);
+            powerUpButton.getImage().setColor(new Color(Color.GOLD));
             label.setVisible(true);
             label.setText(timer + 1);
         }
