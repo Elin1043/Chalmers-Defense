@@ -16,6 +16,7 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
  * 2021-10-03 Modified by Daniel Persson: Added click listener for main menu and try again buttons. <br>
  * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model <br>
  * 2021-10-05 Modified by Daniel Persson: Added click listener for continue button in WinPanelOverlay <br>
+ * 2021-10-11 Modified by Jenny Carlsson: added click listener for pause meny buttons <br>
  */
 public class GameScreenController {
     private IControllModel model;
@@ -94,4 +95,25 @@ public class GameScreenController {
             }
         });
     }
+
+    public void addPauseMenuClickListeners(Button button, String buttonName) {
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                switch (buttonName) {
+                    case "Continue":
+                        model.startGameUpdate();
+                        break;
+                    case "Settings":
+                        // to be added
+                        break;
+                    case "Quit":
+                        model.stopGameUpdate();
+                        ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+                        break;
+                }
+            }
+        });
+    }
+
 }
