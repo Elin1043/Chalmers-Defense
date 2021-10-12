@@ -18,10 +18,7 @@ class MechMiniTower extends Tower {
     MechMiniTower(float x, float y, int reloadSpeed, int range, List<ITargetMode> targetModes,ITargetMode currentTargetMode, int upgradeLevel) {
         super(x, y, "MechMini", reloadSpeed, 0, range, targetModes);
 
-//        Om man hade bara kunnat ändra i super hade man kunnat skicka in dessa i reload och range
-//        reloadSpeed - reloadSpeed * (Math.max(0, upgradeLevel-2) * 0.8)
-//
-//        range + range * (Math.max(0, upgradeLevel-2))
+
 
         for (int i = 0; i < targetModes.indexOf(currentTargetMode); i++){
             super.changeTargetMode(true);
