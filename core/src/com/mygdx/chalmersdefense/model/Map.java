@@ -3,6 +3,7 @@ package com.mygdx.chalmersdefense.model;
 
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
+import com.mygdx.chalmersdefense.model.powerUps.MaskedUp;
 import com.mygdx.chalmersdefense.model.powerUps.CleanHands;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
@@ -45,6 +46,8 @@ class Map {
 
     private final CleanHands cleanHands = new CleanHands();
 
+    private final MaskedUp maskedUpPowerUp = new MaskedUp();
+
 
     Map(Player player) {
         this.player = player;
@@ -62,15 +65,11 @@ class Map {
             updateTowers();
             updateTowers();
         }
+        updateRangeCircle();
         updateTowers();
-
         updateProjectiles();
         updatePowerUps();
         addTempListsToMainLists();
-    }
-
-    void updatePowerUps(){
-        cleanHands.decreaseTimer();
     }
 
     /**
@@ -158,6 +157,18 @@ class Map {
             return Calculate.angleDeg(v.getX(), v.getY(), projectile.getX(), projectile.getY());
         }
         return -1;
+    }
+
+    private void updateRangeCircle() {
+        if(clickedTower != null){
+            rangeCircle.updatePos(clickedTower.getX() + clickedTower.getWidth()/2,clickedTower.getY() + clickedTower.getHeight()/2,clickedTower.getRange());
+        }
+
+    }
+
+    private void updatePowerUps() {
+        maskedUpPowerUp.decreaseTimer();
+        cleanHands.decreaseTimer();
     }
 
     //Update all the towers
@@ -460,7 +471,7 @@ class Map {
     void powerUpClicked(String powerUpName) {
         switch (powerUpName) {
             case "cleanHands" -> cleanHands.activatePowerUp();
-            case "maskedUp"   -> System.out.println("Put your mask on!");
+            case "maskedUp"   -> maskedUpPowerUp.powerUpClicked(towersList);
             case "vaccinated" -> System.out.println("Get the vaccine!");
         }
     }
