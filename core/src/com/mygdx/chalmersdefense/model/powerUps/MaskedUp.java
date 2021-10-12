@@ -9,9 +9,13 @@ import java.util.List;
  * Class representing MaskedUp powerup, increases range of towers
  */
 public class MaskedUp {
+
+
     private int cooldown = 0;    // Cooldown of the powerUp
     private int powerUpTimer = 500;    // Lifetime of the powerUp
     private List<ITower> allTowers;
+
+
     private boolean isActivated = false;
     private boolean canActivate = false;
 
@@ -58,5 +62,30 @@ public class MaskedUp {
 
     }
 
+    /**
+     * Return the active timer amount
+     * @return active timer
+     */
+    public int getTimer() {
+        if(isActivated && !canActivate){
+            return (powerUpTimer * 5) / 1000;
+        }
+        else if(isActivated ){
+            return -1;
+        }
+        else if(!isActivated && !canActivate){
+            return (cooldown * 5) / 1000;
+        }
+        else{
+            return -1;
+        }
+    }
 
+    /**
+     * Return if the powerUp is active
+     * @return if activated
+     */
+    public boolean getIsActive() {
+        return isActivated;
+    }
 }
