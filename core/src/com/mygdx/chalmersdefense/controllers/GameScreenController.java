@@ -17,7 +17,8 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
  * 2021-10-03 Modified by Daniel Persson: Added click listener for main menu and try again buttons. <br>
  * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model <br>
  * 2021-10-05 Modified by Daniel Persson: Added click listener for continue button in WinPanelOverlay <br>
- * 2021-10-11 Modified by Jenny Carlsson: added click listener for pause meny buttons <br>
+ * 2021-10-11 Modified by Jenny Carlsson and Daniel Persson: added click listener for pause meny buttons <br>
+ * 2021-10-12 Modified by Jenny Carlsson and Daniel Persson: added click listener for pause menu exit button <br>
  */
 public class GameScreenController {
     private IControllModel model;
@@ -92,11 +93,17 @@ public class GameScreenController {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+                model.stopGameUpdate();
+                model.setShowOverlay(GameScreenOverlayEnum.PAUSE_MENU);
             }
         });
     }
 
+    /**
+     * Add click listener for pause menu buttons
+     * @param button pause menu button
+     * @param buttonName type of button
+     */
     public void addPauseMenuClickListeners(Button button, String buttonName) {
         button.addListener(new ClickListener() {
             @Override
@@ -104,6 +111,7 @@ public class GameScreenController {
                 switch (buttonName) {
                     case "Continue":
                         model.startGameUpdate();
+                        model.setShowOverlay(GameScreenOverlayEnum.NONE);
                         break;
                     case "Settings":
                         // to be added
@@ -115,6 +123,21 @@ public class GameScreenController {
                 }
             }
         });
+    }
+
+    /**
+     * Added click listener for exit pause menu button
+     * @param button exit button
+     */
+    public void addExitPauseMenuButtonClickListener(Button button) {
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                model.startGameUpdate();
+                model.setShowOverlay(GameScreenOverlayEnum.NONE);
+            }
+        });
+
     }
 
 }
