@@ -31,4 +31,12 @@ public class CountDownTimer {
             return true;
         }
     }
+
+    /**
+     * Returns the current state of the timer
+     * @return Current timer status
+     */
+    public int getCurrentCountTime(){
+        return timerCountDown;
+    }
 }

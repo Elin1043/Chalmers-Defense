@@ -493,7 +493,7 @@ class Map {
      */
     void powerUpClicked(String powerUpName) {
         switch (powerUpName) {
-            case "cleanHands" -> cleanHands.activatePowerUp(towersList);
+            case "cleanHands" -> cleanHands.activatePowerUp();
             case "maskedUp"   -> maskedUpPowerUp.powerUpClicked(towersList);
             case "vaccinated" -> vaccinated.activatePowerUp(virusesList);
         }
