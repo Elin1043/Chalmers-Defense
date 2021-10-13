@@ -1,5 +1,7 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
+import com.mygdx.chalmersdefense.utilities.CountDownTimer;
+
 /**
  * @author Elin Forsberg
  * <p>
@@ -9,8 +11,8 @@ package com.mygdx.chalmersdefense.model.projectiles;
  */
 
 class MoneyPile extends Projectile{
-    private int moneyTimer = 150;   // Timer over how long to show money animation
-
+    //private int moneyTimer = 150;   // Timer over how long to show money animation
+    private final CountDownTimer timer = new CountDownTimer(150);
 
     MoneyPile(float x, float y, int upgradeLevel) {
         super(0.1F, "money" + upgradeLevel, x + 10, y + 80, 90);
@@ -18,10 +20,8 @@ class MoneyPile extends Projectile{
 
     @Override
     public void update(boolean hasVirusBeenHit, int hitVirusHashCode, float angle) {
-        if (moneyTimer <= 0) {
+        if (timer.haveReachedZero()) {
             this.canRemove = true;
-        } else {
-            moneyTimer--;
         }
         super.update(false, hitVirusHashCode, angle);
     }
