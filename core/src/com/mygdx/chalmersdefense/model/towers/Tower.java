@@ -23,7 +23,7 @@ import java.util.Objects;
 abstract class Tower implements ITower {
 
     private String spriteKey;       // The key to the Sprite Hashmap
-    int upgradeLevel = 1;   // The current upgradeLevel
+    private int upgradeLevel = 1;   // The current upgradeLevel
 
     private float angle = 0;        // Current angle of tower
     private int range;              // Current shooting range of tower
@@ -33,16 +33,13 @@ abstract class Tower implements ITower {
     private float x;                // X coordinate on map
     private float y;                // y coordinate on map
 
-    //private final TargetMode firstMode = TargetModeFactory.
-
-    private final List<ITargetMode> targetModes;
-
-    ITargetMode currentTargetMode;    // Which current targeting mode to use
+    private final List<ITargetMode> targetModes;    // List that holds references to the targetmodes
+    private ITargetMode currentTargetMode;    // Which current targeting mode to use
 
     private float width;            // Width of tower object
     private float height;           // Height of tower object
 
-    private int cost;         // Cost of tower
+    private final int cost;         // Cost of tower
 
     private boolean collision = false;  // When tower is placed, this helps model to know if tower collides with anything
 
@@ -159,7 +156,7 @@ abstract class Tower implements ITower {
     /**
      * Update the sprite key
      */
-    void updateSpriteKey() {
+    private void updateSpriteKey() {
         spriteKey = name + upgradeLevel;
     }
 

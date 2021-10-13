@@ -11,7 +11,7 @@ public interface IProjectile extends IMapObject {
     /**
      * Moves the projectile in calculated direction
      */
-    void update(boolean hitVirus, int haveHit, float angle);
+    void update(boolean hasVirusBeenHit, int hitVirusHashCode, float angle);
 
     /**
      * Return if current projectile can be removed
@@ -27,4 +27,10 @@ public interface IProjectile extends IMapObject {
      * @return if virus have been hit before
      */
     boolean haveHitBefore(int hashCode);
+
+    /**
+     * Returns how much damage the projectile does
+     * @return amount of damage
+     */
+    float getDamageAmount();
 }

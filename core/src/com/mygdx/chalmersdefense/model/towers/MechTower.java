@@ -17,7 +17,6 @@ class MechTower extends Tower {
 
     private final List<ITower> miniTowers = new ArrayList<>();  // List to add minitower to
     private final int reloadSpeed;      // Reload speed
-    private final int range;            // Current range of tower, this will be passed to minimechtowers later
     private final List<ITargetMode> targetModes;    // All possible targeted
     private final List<ITower> towersToAddList;       // The list to add towers to get them to show up on the map
     private final List<ITower> towersToRemoveList; // The list to add towers to remove them from map
@@ -25,16 +24,13 @@ class MechTower extends Tower {
     private final List<PathRectangle> pathRectangles;  // The list of all pathRectangles on current map
 
     private int robotLifeTimer = 2000;    // Lifetime of a robot
-    private int robotCooldownTimer = 0;    // Cooldown of a robot
-
-    private int currentReload = 0;  // Current reload
+    private int robotCoolDownTimer = 0;    // Cool down of a robot
 
 
     MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<ITower> towersToAddList, List<ITower> towersToRemoveList,List<ITower> allTowers,  List<PathRectangle> pathRectangles) {
         super(x, y, name, reloadSpeed, cost, range, targetModes);
         this.reloadSpeed = reloadSpeed;
         this.targetModes = targetModes;
-        this.range = range;
         this.towersToAddList = towersToAddList;
         this.towersToRemoveList = towersToRemoveList;
         this.allTowers = allTowers;
@@ -46,15 +42,15 @@ class MechTower extends Tower {
         float[] point2 = checkPointCollision();
         if(getUpgradeLevel() == 1 || getUpgradeLevel() == 3){
             if(point1[0] != -1){
-                ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, range, targetModes,this.getCurrentTargetMode(), this.getUpgradeLevel());
+                ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, getRange(), targetModes, super.getCurrentTargetMode(), super.getUpgradeLevel());
                 miniTowers.add(miniTower1);
             }
 
         }
         if(getUpgradeLevel() == 2){
             if(point1[0] != -1 && point2[0] != -1){
-                ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, range, targetModes,this.getCurrentTargetMode(), this.getUpgradeLevel());
-                ITower miniTower2 = new MechMiniTower(point2[0], point2[1], reloadSpeed, range, targetModes,this.getCurrentTargetMode(), this.getUpgradeLevel());
+                ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, getRange(), targetModes, super.getCurrentTargetMode(), super.getUpgradeLevel());
+                ITower miniTower2 = new MechMiniTower(point2[0], point2[1], reloadSpeed, getRange(), targetModes, super.getCurrentTargetMode(), super.getUpgradeLevel());
                 miniTowers.add(miniTower1);
                 miniTowers.add(miniTower2);
             }
@@ -79,23 +75,17 @@ class MechTower extends Tower {
 
         spawnMiniTowers();
 
-        if(this.upgradeLevel == 3){
-            setAngle(newAngle);
-            if (currentReload < 1 && hasTarget && this.isPlaced()) {
-                currentReload = reloadSpeed;
-                createProjectile(projectilesList);
-            } else {
-                currentReload--;
-            }
+        if(getUpgradeLevel() == 3){
+            super.update(projectilesList, newAngle, hasTarget);
         }
-        else{
+        else {
             this.setAngle(0);
         }
 
     }
 
     private void spawnMiniTowers(){
-        if (this.isPlaced() && miniTowers.isEmpty() && robotCooldownTimer <= 0) {
+        if (this.isPlaced() && miniTowers.isEmpty() && robotCoolDownTimer <= 0) {
             List<ITower> miniTowers = createMiniTowers();
             for (ITower miniTower : miniTowers) {
                 miniTower.placeTower();
@@ -106,14 +96,14 @@ class MechTower extends Tower {
         else if(this.isPlaced() && !miniTowers.isEmpty() && robotLifeTimer <= 0){
             towersToRemoveList.addAll(miniTowers);
             miniTowers.clear();
-            robotCooldownTimer = 500;
+            robotCoolDownTimer = 500;
         }
 
         else if(this.isPlaced() && !miniTowers.isEmpty()){
             robotLifeTimer--;
         }
         else{
-            robotCooldownTimer--;
+            robotCoolDownTimer--;
         }
     }
 
@@ -126,12 +116,9 @@ class MechTower extends Tower {
             else{
                 return point;
             }
-            if(i == 99){
-                point = new float[]{-1, -1};
-            }
         }
 
-        return point;
+        return new float[]{-1, -1};
 
     }
 
@@ -161,7 +148,7 @@ class MechTower extends Tower {
     }
 
     private float[] randPoint() {
-        double len= Math.sqrt(Math.random())*range;
+        double len= Math.sqrt(Math.random())*getRange();
         double deg= Math.random()*2*Math.PI;
         float x = (float) (this.getX()+len*Math.cos(deg));
         float y = (float) (this.getY()+len*Math.sin(deg));

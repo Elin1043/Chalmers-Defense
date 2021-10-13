@@ -7,6 +7,6 @@ package com.mygdx.chalmersdefense.model.projectiles;
 class RobotProjectile extends Projectile {
 
     RobotProjectile(float x, float y, float angle, int upgradeLevel) {
-        super(5, "mechaProjectile" + upgradeLevel, x, y, angle);
+        super(5, "mechaProjectile" + upgradeLevel, x, y, angle, 1);
     }
 }

@@ -13,7 +13,7 @@ class LightningProjectile extends Projectile {
     private final CountDownTimer hitCountsLeft = new CountDownTimer(4);
 
     LightningProjectile(float x, float y, float angle, int upgradeLevel) {
-        super(5, "electroProjectile" + upgradeLevel, x, y, angle);
+        super(5, "electroProjectile" + upgradeLevel, x, y, angle, 1);
     }
 
 

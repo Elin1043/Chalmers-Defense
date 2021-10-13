@@ -17,7 +17,7 @@ class MoneyPile extends Projectile{
     private final CountDownTimer timer = new CountDownTimer(150);
 
     MoneyPile(float x, float y, int upgradeLevel) {
-        super(0.1F, "money" + upgradeLevel, x + 10, y + 80, 90);
+        super(0.1F, "money" + upgradeLevel, x + 10, y + 80, 90, 1);
     }
 
     @Override

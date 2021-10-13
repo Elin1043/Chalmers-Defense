@@ -16,7 +16,7 @@ class AcidPool extends Projectile{
     private final CountDownTimer maxVirusHit = new CountDownTimer(5);
 
     AcidPool(float x, float y, int upgradeLevel) {
-        super(0, "chemistAcid" + upgradeLevel, x, y, 0);
+        super(0, "chemistAcid" + upgradeLevel, x, y, 0, 1);
     }
 
     @Override
