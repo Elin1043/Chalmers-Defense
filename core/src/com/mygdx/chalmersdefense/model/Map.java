@@ -5,6 +5,7 @@ import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
 import com.mygdx.chalmersdefense.model.powerUps.MaskedUp;
 import com.mygdx.chalmersdefense.model.powerUps.CleanHands;
+import com.mygdx.chalmersdefense.model.powerUps.Vaccinated;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.ITower;
@@ -45,8 +46,8 @@ class Map {
     private final GetRangeCircle rangeCircle = new GetRangeCircle();     // Helper class for showing gray range circle
 
     private final CleanHands cleanHands = new CleanHands();
-
     private final MaskedUp maskedUpPowerUp = new MaskedUp();
+    private final Vaccinated vaccinated = new Vaccinated();
 
 
     Map(Player player) {
@@ -164,11 +165,33 @@ class Map {
     private void updatePowerUps() {
         maskedUpPowerUp.decreaseTimer();
         cleanHands.decreaseTimer();
+        vaccinated.decreaseTimer();
         if (cleanHands.isActive()){
             updateTowers();
             updateTowers();
             updateTowers();
         }
+
+    }
+
+
+    int[] getPowerUpTimer(){
+        int[] timers = new int[3];
+        timers[0] = -1;
+        timers[1] = maskedUpPowerUp.getTimer();
+        timers[2] = -1;
+
+        return timers;
+    }
+
+
+    boolean[] getPowerUpActive(){
+        boolean[] powerUpsActive = new boolean[3];
+        powerUpsActive[0] = false;
+        powerUpsActive[1] = maskedUpPowerUp.getIsActive();
+        powerUpsActive[2] = false;
+
+        return powerUpsActive;
     }
 
     //Update all the towers
@@ -470,9 +493,9 @@ class Map {
      */
     void powerUpClicked(String powerUpName) {
         switch (powerUpName) {
-            case "cleanHands" -> cleanHands.activatePowerUp();
+            case "cleanHands" -> cleanHands.activatePowerUp(towersList);
             case "maskedUp"   -> maskedUpPowerUp.powerUpClicked(towersList);
-            case "vaccinated" -> System.out.println("Get the vaccine!");
+            case "vaccinated" -> vaccinated.activatePowerUp(virusesList);
         }
     }
 }
