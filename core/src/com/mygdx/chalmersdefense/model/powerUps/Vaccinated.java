@@ -27,7 +27,7 @@ public class Vaccinated {
 
     private void decreaseLife(List<IVirus> allViruses){
         for (IVirus virus : allViruses){
-            virus.decreaseHealth();
+            virus.decreaseHealth(1);
         }
     }
 
