@@ -174,7 +174,10 @@ class Map {
 
     }
 
-
+    /**
+     * Returns the timers for all power-ups
+     * @return Array with all timers in it
+     */
     int[] getPowerUpTimer(){
         int[] timers = new int[3];
         timers[0] = -1;
@@ -184,7 +187,10 @@ class Map {
         return timers;
     }
 
-
+    /**
+     * Returns a list with the active status of all power-ups
+     * @return Array with current active status of power-ups
+     */
     boolean[] getPowerUpActive(){
         boolean[] powerUpsActive = new boolean[3];
         powerUpsActive[0] = false;

@@ -15,7 +15,7 @@ public class MaskedUp {
 
 
     //private int cooldown = 0;    // Cooldown of the powerUp
-    private final CountDownTimer cooldown = new CountDownTimer(500);
+    private final CountDownTimer cooldown = new CountDownTimer(500, 0);
 
     //private int powerUpTimer = 500;    // Lifetime of the powerUp
     private final CountDownTimer powerUpTimer = new CountDownTimer(500);
@@ -55,7 +55,7 @@ public class MaskedUp {
             deActivatePowerUp();
             isActivated = false;
         }
-        else if (!canActivate && cooldown.haveReachedZero()) {
+        else if (!isActivated && !canActivate && cooldown.haveReachedZero()) {
             canActivate = true;
         }
 
