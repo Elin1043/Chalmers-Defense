@@ -71,8 +71,8 @@ abstract class Projectile implements IProjectile {
     /**
      * Method to call when virus is hit
      */
-    void virusIsHit(int haveHit, float angle) {
-        haveHitList.add(haveHit);
+    void virusIsHit(int hitVirusHashCode, float angle) {
+        haveHitList.add(hitVirusHashCode);
         this.canRemove = true;
     }
 

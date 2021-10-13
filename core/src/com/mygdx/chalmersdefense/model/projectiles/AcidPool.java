@@ -26,8 +26,8 @@ class AcidPool extends Projectile{
     }
 
     @Override
-    void virusIsHit(int haveHit, float angle) {
+    void virusIsHit(int hitVirusHashCode, float angle) {
         if (maxVirusHit.haveReachedZero()) { this.canRemove = true; }
-        super.haveHitList.add(haveHit);
+        super.haveHitList.add(hitVirusHashCode);
     }
 }
