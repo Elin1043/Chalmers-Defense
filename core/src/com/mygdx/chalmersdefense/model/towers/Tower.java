@@ -41,7 +41,7 @@ abstract class Tower implements ITower {
 
     private final int cost;         // Cost of tower
 
-    private boolean collision = false;  // When tower is placed, this helps model to know if tower collides with anything
+    private boolean canRemove = false;  // This variable is set when the tower should be removed
 
 
     //private int reloadTime;         // Reload time of tower. (How many update cycles before tower will shoot)
@@ -171,13 +171,13 @@ abstract class Tower implements ITower {
     }
 
     @Override
-    public boolean getCollision() {
-        return collision;
+    public boolean canRemove() {
+        return canRemove;
     }
 
     @Override
-    public void setCollision(boolean set) {
-        collision = set;
+    public void setIfCanRemove(boolean set) {
+        canRemove = set;
     }
 
     @Override

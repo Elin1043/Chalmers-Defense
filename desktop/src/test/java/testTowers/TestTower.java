@@ -59,9 +59,9 @@ public class TestTower {
     @Test
     public void testTowerCollision() {
         ITower tower = TowerFactory.CreateSmurf(0, 0);
-        assertFalse(tower.getCollision());
-        tower.setCollision(true);
-        assertTrue(tower.getCollision());
+        assertFalse(tower.canRemove());
+        tower.setIfCanRemove(true);
+        assertTrue(tower.canRemove());
 
     }
 

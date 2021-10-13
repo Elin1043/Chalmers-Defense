@@ -202,6 +202,8 @@ class Map {
 
     //Update all the towers
     private void updateTowers() {
+        List<ITower> removeTowers = new ArrayList<>();
+
         for (ITower tower : towersList) {
 
             List<IVirus> virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), virusesList);
@@ -218,7 +220,11 @@ class Map {
             }
 
             tower.update(projectilesList, newAngle, towerHasTarget);
+
+            if (tower.canRemove()) { removeTowers.add(tower); }
         }
+
+        towersList.removeAll(removeTowers);
     }
 
 
@@ -333,21 +339,18 @@ class Map {
 
         newTower.setPos(x - buttonWidth / 2f, y - buttonHeight / 2f);
 
-        for (ITower tower : towersList) {
+        if (!checkCollisionOfTower(newTower, windowHeight, windowWidth)) {
+            newTower.setIfCanRemove(false);
+            rangeCircle.updatePos(newTower.getX() + newTower.getWidth() / 2, newTower.getY() + newTower.getHeight() / 2, newTower.getRange());
+            rangeCircle.setEnumColor(GetRangeCircle.Color.GRAY);
 
-            if (!tower.isPlaced() && !checkCollisionOfTower(tower, windowHeight, windowWidth)) {
-                tower.setCollision(false);
-                rangeCircle.updatePos(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());
-                rangeCircle.setEnumColor(GetRangeCircle.Color.GRAY);
-
-
-            } else if (!tower.isPlaced() && checkCollisionOfTower(tower, windowHeight, windowWidth)) {
-                tower.setCollision(true);
-                rangeCircle.updatePos(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());
-                rangeCircle.setEnumColor(GetRangeCircle.Color.RED);
-            }
+        } else {
+            newTower.setIfCanRemove(true);
+            rangeCircle.updatePos(newTower.getX() + newTower.getWidth() / 2, newTower.getY() + newTower.getHeight() / 2, newTower.getRange());
+            rangeCircle.setEnumColor(GetRangeCircle.Color.RED);
         }
     }
+
 
     /**
      * Handles when the tower is let go.
@@ -361,7 +364,7 @@ class Map {
      * @param y            The Y-position of the mouse
      */
     void dragEnd(float buttonWidth, float buttonHeight, float x, float y) {
-        if (!newTower.getCollision()) {
+        if (!newTower.canRemove()) {
             newTower.placeTower();
             newTower.setPos(x - buttonWidth / 2f, y - buttonHeight / 2f);
             player.decreaseMoney(newTower.getCost());
@@ -407,7 +410,7 @@ class Map {
      * @param cost cost of tower sold
      */
     void sellClickedTower(int cost) {
-        clickedTower.remove(towersList);
+        towersList.remove(clickedTower);
         player.increaseMoney(cost);
         clickedTower = null;
         rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);

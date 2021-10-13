@@ -54,14 +54,14 @@ public interface ITower extends IMapObject {
      *
      * @return tower collision
      */
-    boolean getCollision();
+    boolean canRemove();
 
     /**
      * Sets if tower is colliding with something else
      *
      * @param set if tower is colliding
      */
-    void setCollision(boolean set);
+    void setIfCanRemove(boolean set);
 
     /**
      * Gets name of tower
