@@ -7,6 +7,7 @@ import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.controllers.MainScreenController;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.views.*;
 
 /**
@@ -19,12 +20,14 @@ import com.mygdx.chalmersdefense.views.*;
  * 2021-09-16 Modified by Elin Forsberg: Added a timer to update Model <br>
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: Changed timer to use libGDX timer instead of javaswing <br>
  * 2021-09-30 Modified by Joel Båtsman Hilmersson: Moved timer to GameTimer class instead <br>
+ * 2021-10-13 Modified by Daniel Persson: Added preferences
  */
 public class ChalmersDefense extends Game {
 
     @Override
     public void create() {
         Model model = new Model();
+        Preferences preferences = new Preferences();
 
         // Creating Controllers
         MainScreenController mainScreenController = new MainScreenController();
