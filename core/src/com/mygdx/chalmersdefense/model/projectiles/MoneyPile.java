@@ -12,6 +12,8 @@ import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
 class MoneyPile extends Projectile{
     //private int moneyTimer = 150;   // Timer over how long to show money animation
+
+    // Timer over how long to show money animation
     private final CountDownTimer timer = new CountDownTimer(150);
 
     MoneyPile(float x, float y, int upgradeLevel) {
