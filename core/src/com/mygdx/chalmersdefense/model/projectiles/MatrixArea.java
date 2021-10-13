@@ -1,5 +1,7 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
+import com.mygdx.chalmersdefense.utilities.CountDownTimer;
+
 /**
  * @author Joel Båtsman Hilmersson
  *
@@ -7,7 +9,8 @@ package com.mygdx.chalmersdefense.model.projectiles;
  */
 class MatrixArea extends Projectile {
 
-    private int matrixTimer = 50;    // Lifetime of MatrixArea
+    //private int matrixTimer = 50;    // Lifetime of MatrixArea
+    private final CountDownTimer matrixTimer = new CountDownTimer(50);
 
     MatrixArea(float x, float y, int upgradeLevel) {
         super(0, "hackerArea" + upgradeLevel, x, y, 0, new float[] {0.75F, 0.75F, 0.5F}[upgradeLevel - 1]);
@@ -15,11 +18,7 @@ class MatrixArea extends Projectile {
 
     @Override
     public void update(boolean hasVirusBeenHit, int hitVirusHashCode, float angle) {
-        if (matrixTimer <= 0) {
-            this.canRemove = true;
-        } else {
-            matrixTimer--;
-        }
+        if (matrixTimer.haveReachedZero()) { this.canRemove = true; }
         super.update(hasVirusBeenHit, hitVirusHashCode, angle);
     }
 
