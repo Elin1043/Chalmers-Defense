@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.model.powerUps;
 
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
+import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
 import java.util.List;
 
@@ -10,7 +11,10 @@ import java.util.List;
  * Class representing Vaccinated powerup
  */
 public class Vaccinated {
-    private int cooldownTimer = 750;    // Cooldown timer
+    //private int cooldownTimer = 750;    // Cooldown timer
+    private final CountDownTimer cooldownTimer = new CountDownTimer(750);
+
+
     private boolean canBeUsed = true;   // If this powerup can be used att the moment
 
     public void activatePowerUp(List<IVirus> allViruses){
@@ -28,11 +32,8 @@ public class Vaccinated {
     }
 
     public void decreaseTimer(){
-        if (cooldownTimer > 0 && !canBeUsed){
-            cooldownTimer--;
-        } else {
+        if (!canBeUsed && cooldownTimer.haveReachedZero()){
             canBeUsed = true;
-            cooldownTimer = 750;
         }
     }
 }
