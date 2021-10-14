@@ -16,12 +16,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
+import com.mygdx.chalmersdefense.controllers.overlays.SettingsOverlayController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
-import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 import com.mygdx.chalmersdefense.views.GameScreenViews.*;
+import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
 
 import static com.badlogic.gdx.graphics.GL20.*;
 
@@ -41,11 +42,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private final GameScreenController gameScreenController;
 
-    // All overlays. Maybe move to separate class OverlayManager
-    private final LostPanelOverlay lostPanelOverlay;
-    private final WinPanelOverlay winPanelOverlay;
-    private final PauseMenuOverlay pauseMenuOverlay;
-    private final SettingsOverlay settingsOverlay;
+
 
     // Panels
     private final BottomBarUpgradePanel bottomBarUpgradePanel;
@@ -67,16 +64,9 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private final Image mapImage;
 
-    private AbstractOverlay currentOverlay;
-    private AbstractOverlay prevOverlay;
-
-    public GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
+    public GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController, SettingsOverlayController settingsOverlayController) {
         super();
         this.gameScreenController = gameScreenController;
-        this.lostPanelOverlay = new LostPanelOverlay(this, gameScreenController);
-        this.winPanelOverlay = new WinPanelOverlay(this, gameScreenController);
-        this.pauseMenuOverlay = new PauseMenuOverlay(this, gameScreenController);
-        this.settingsOverlay = new SettingsOverlay(this, gameScreenController);
         this.rightSidePanel = new RightSidePanel(this, model, rightSidePanelController);
         this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, bottomBarPanelController, spriteMap, largeSpriteMap);
         this.model = model;
@@ -142,21 +132,12 @@ public class GameScreen extends AbstractScreen implements Screen {
             bottomBarUpgradePanel.hideBottomBar();
         }
 
-        // Render current overlay to be shown
-        currentOverlay = switch (model.showOverlay()) {
-            case PAUSE_MENU -> pauseMenuOverlay;
-            case WINPANEL -> winPanelOverlay;
-            case LOSEPANEL -> lostPanelOverlay;
-            case SETTINGS -> settingsOverlay;
-            case NONE -> null;
+        OverlayManager.getInstance().showOverlay(model.showOverlay());
 
-        };
-
-        if (currentOverlay != null) {
-            if (prevOverlay != null && prevOverlay != currentOverlay) prevOverlay.hideOverlay();
-            currentOverlay.render();
+        AbstractOverlay abstractOverlay = OverlayManager.getInstance().getCurrentOverlay();
+        if (abstractOverlay != null) {
+            abstractOverlay.render();
         }
-        prevOverlay = currentOverlay;
 
 
         //TODO Remove when not needed
