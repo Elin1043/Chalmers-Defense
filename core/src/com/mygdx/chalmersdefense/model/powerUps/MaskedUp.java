@@ -14,11 +14,8 @@ import java.util.List;
 public class MaskedUp {
 
 
-    //private int cooldown = 0;    // Cooldown of the powerUp
-    private final CountDownTimer cooldown = new CountDownTimer(500, 0);
-
-    //private int powerUpTimer = 500;    // Lifetime of the powerUp
-    private final CountDownTimer powerUpTimer = new CountDownTimer(500);
+    private final CountDownTimer cooldown = new CountDownTimer(500, 0); // Cooldown of the powerUp
+    private final CountDownTimer powerUpTimer = new CountDownTimer(500);        // Lifetime of the powerUp
 
     private List<ITower> allTowers;
 
@@ -27,6 +24,9 @@ public class MaskedUp {
     private boolean canActivate = false;
 
 
+    /**
+     * Activates the power-up if the power-up can be used
+     */
     public void powerUpClicked(List<ITower> allTowers){
         this.allTowers = allTowers;
         if(canActivate){
@@ -49,6 +49,9 @@ public class MaskedUp {
         }
     }
 
+    /**
+     * Decreases the power-up timer cooldowns
+     */
     public void decreaseTimer(){
 
         if (isActivated && powerUpTimer.haveReachedZero()) {

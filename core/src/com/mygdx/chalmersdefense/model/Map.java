@@ -1,7 +1,5 @@
 package com.mygdx.chalmersdefense.model;
 
-
-import com.mygdx.chalmersdefense.model.genericMapObjects.GenericMapObject;
 import com.mygdx.chalmersdefense.model.genericMapObjects.GenericMapObjectFactory;
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.model.path.Path;
@@ -213,7 +211,7 @@ class Map {
         boolean[] powerUpsActive = new boolean[3];
         powerUpsActive[0] = cleanHands.isActive();
         powerUpsActive[1] = maskedUpPowerUp.getIsActive();
-        powerUpsActive[2] = vaccinated.isActivated();
+        powerUpsActive[2] = vaccinated.isActive();
 
         return powerUpsActive;
     }

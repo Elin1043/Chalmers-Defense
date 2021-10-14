@@ -12,7 +12,7 @@ import java.util.Objects;
  * Class defining a generic MapObject
  *
  */
-public class GenericMapObject implements IGenericMapObject {
+class GenericMapObject implements IGenericMapObject {
 
 
     private float width;    // Current width of object
@@ -31,7 +31,7 @@ public class GenericMapObject implements IGenericMapObject {
 
     private final CountDownTimer animationTimer ;
 
-    public GenericMapObject(float speed, String spriteKey, float x, float y, float angle, int time) {
+    GenericMapObject(float speed, String spriteKey, float x, float y, float angle, int time) {
         this.speed = speed;
         this.spriteKey = spriteKey;
         this.x = x;

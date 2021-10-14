@@ -15,7 +15,9 @@ public class CleanHands {
     private boolean powerUpIsActive = false;   // If this powerup is activated at the moment
 
 
-
+    /**
+     * Activates the power-up if the power-up can be used
+     */
     public void activatePowerUp(){
         if (canBeUsed) {
             canBeUsed = false;
@@ -23,6 +25,9 @@ public class CleanHands {
         }
     }
 
+    /**
+     * Decreases the power-up timer cooldowns
+     */
     public void decreaseTimer(){
 
         if (powerUpIsActive && powerUpTimer.haveReachedZero()){
@@ -35,6 +40,10 @@ public class CleanHands {
         }
     }
 
+    /**
+     * Returns if the power-up is active at the moment
+     * @return Status of power-up
+     */
     public boolean isActive(){
         return powerUpIsActive;
     }

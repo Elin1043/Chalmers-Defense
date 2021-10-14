@@ -11,18 +11,20 @@ import java.util.List;
  * Class representing Vaccinated powerup
  */
 public class Vaccinated {
-    //private int cooldownTimer = 750;    // Cooldown timer
-    private final CountDownTimer cooldownTimer = new CountDownTimer(1000);
-    private final CountDownTimer activeTimer = new CountDownTimer(380);
+
+    private final CountDownTimer cooldownTimer = new CountDownTimer(1000);  // Cooldown timer
+    private final CountDownTimer activeTimer = new CountDownTimer(380);     // Active timer
 
 
-    private boolean canBeUsed = true;   // If this powerup can be used at the moment
-    private boolean activated = false;   // If this powerup is activated at the moment
+    private boolean canBeUsed = true;   // If this power-up can be used at the moment
+    private boolean activated = false;   // If this power-up is activated at the moment
 
     private boolean hurtVirus = false;
-
     private List<IVirus> viruses;
 
+    /**
+     * Activates the power-up if the power-up can be used
+     */
     public void activatePowerUp(List<IVirus> allViruses){
         if (canBeUsed) {
             canBeUsed = false;
@@ -37,6 +39,9 @@ public class Vaccinated {
         }
     }
 
+    /**
+     * Decreases the power-up timer cooldowns
+     */
     public void decreaseTimer(){
 
         if (activated && activeTimer.haveReachedZero()){
@@ -76,7 +81,11 @@ public class Vaccinated {
         }
     }
 
-    public boolean isActivated() {
+    /**
+     * Returns if the power-up is active at the moment
+     * @return Status of power-up
+     */
+    public boolean isActive() {
         return activated;
     }
 }
