@@ -40,4 +40,23 @@ public class CleanHands {
     public boolean isActive(){
         return powerUpIsActive;
     }
+
+    /**
+     * Return the active timer amount
+     * @return active timer
+     */
+    public int getTimer() {
+        if(powerUpIsActive && !canBeUsed){
+            return (powerUpTimer.getCurrentCountTime() * 5) / 1000;
+        }
+        else if(powerUpIsActive){
+            return -1;
+        }
+        else if(!canBeUsed){
+            return (cooldownTimer.getCurrentCountTime() * 5) / 1000;
+        }
+        else{
+            return -1;
+        }
+    }
 }

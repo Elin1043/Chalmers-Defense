@@ -180,9 +180,9 @@ class Map {
      */
     int[] getPowerUpTimer(){
         int[] timers = new int[3];
-        timers[0] = -1;
+        timers[0] = cleanHands.getTimer();
         timers[1] = maskedUpPowerUp.getTimer();
-        timers[2] = -1;
+        timers[2] = vaccinated.getTimer();
 
         return timers;
     }
@@ -193,7 +193,7 @@ class Map {
      */
     boolean[] getPowerUpActive(){
         boolean[] powerUpsActive = new boolean[3];
-        powerUpsActive[0] = false;
+        powerUpsActive[0] = cleanHands.isActive();
         powerUpsActive[1] = maskedUpPowerUp.getIsActive();
         powerUpsActive[2] = false;
 

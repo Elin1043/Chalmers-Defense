@@ -18,7 +18,6 @@ public class Vaccinated {
     private boolean canBeUsed = true;   // If this powerup can be used att the moment
 
     public void activatePowerUp(List<IVirus> allViruses){
-        System.out.println(canBeUsed);
         if (canBeUsed) {
             canBeUsed = false;
             decreaseLife(allViruses);
@@ -34,6 +33,20 @@ public class Vaccinated {
     public void decreaseTimer(){
         if (!canBeUsed && cooldownTimer.haveReachedZero()){
             canBeUsed = true;
+        }
+    }
+
+
+    /**
+     * Return the active timer amount
+     * @return active timer
+     */
+    public int getTimer() {
+        if(!canBeUsed){
+            return (cooldownTimer.getCurrentCountTime() * 5) / 1000;
+        }
+        else{
+            return -1;
         }
     }
 }
