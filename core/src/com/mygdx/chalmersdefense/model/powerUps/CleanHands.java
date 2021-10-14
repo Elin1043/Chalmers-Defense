@@ -1,6 +1,10 @@
 package com.mygdx.chalmersdefense.model.powerUps;
 
+import com.mygdx.chalmersdefense.model.genericMapObjects.GenericMapObjectFactory;
+import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.utilities.CountDownTimer;
+
+import java.util.List;
 
 /**
  * @author Joel Båtsman Hilmersson
@@ -18,11 +22,19 @@ public class CleanHands {
     /**
      * Activates the power-up if the power-up can be used
      */
-    public void activatePowerUp(){
+    public void activatePowerUp(List<IGenericMapObject> addGraphicsList){
         if (canBeUsed) {
             canBeUsed = false;
             powerUpIsActive = true;
+            addGraphicObject(addGraphicsList);
         }
+    }
+
+    private void addGraphicObject(List<IGenericMapObject> addGraphicsList){
+        addGraphicsList.add(GenericMapObjectFactory.createBubbles(700, 400, 90));
+        addGraphicsList.add(GenericMapObjectFactory.createBubbles(700, 400, 10));
+        addGraphicsList.add(GenericMapObjectFactory.createBubbles(700, 400, -120));
+        addGraphicsList.add(GenericMapObjectFactory.createBubbles(700, 400, 160));
     }
 
     /**

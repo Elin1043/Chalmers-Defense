@@ -1,5 +1,7 @@
 package com.mygdx.chalmersdefense.model.powerUps;
 
+import com.mygdx.chalmersdefense.model.genericMapObjects.GenericMapObjectFactory;
+import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
@@ -27,13 +29,18 @@ public class MaskedUp {
     /**
      * Activates the power-up if the power-up can be used
      */
-    public void powerUpClicked(List<ITower> allTowers){
+    public void powerUpClicked(List<ITower> allTowers, List<IGenericMapObject> addGraphicsList){
         this.allTowers = allTowers;
         if(canActivate){
-            activatePowerUp();
             canActivate = false;
             isActivated = true;
+            activatePowerUp();
+            addGraphicObject(addGraphicsList);
         }
+    }
+
+    private void addGraphicObject(List<IGenericMapObject> addGraphicsList){
+        addGraphicsList.add(GenericMapObjectFactory.createMaskedUpSmurf(-500, 500, 0));
     }
 
     private void activatePowerUp(){

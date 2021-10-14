@@ -1,5 +1,7 @@
 package com.mygdx.chalmersdefense.model.powerUps;
 
+import com.mygdx.chalmersdefense.model.genericMapObjects.GenericMapObjectFactory;
+import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
@@ -25,12 +27,17 @@ public class Vaccinated {
     /**
      * Activates the power-up if the power-up can be used
      */
-    public void activatePowerUp(List<IVirus> allViruses){
+    public void activatePowerUp(List<IVirus> allViruses, List<IGenericMapObject> addGraphicsList){
         if (canBeUsed) {
             canBeUsed = false;
             activated = true;
             viruses = allViruses;
+            addGraphicObject(addGraphicsList);
         }
+    }
+
+    private void addGraphicObject(List<IGenericMapObject> addGraphicsList){
+        addGraphicsList.add(GenericMapObjectFactory.createVaccinationStorm());
     }
 
     private void decreaseLife(List<IVirus> allViruses){

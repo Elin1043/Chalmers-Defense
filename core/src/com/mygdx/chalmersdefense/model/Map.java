@@ -526,26 +526,11 @@ class Map {
         }
     }
 
-    private void cleanHandsPowerUpClicked(){
-        cleanHands.activatePowerUp();
-        genericObjectsList.add(GenericMapObjectFactory.createBubbles(700, 400, 90));
-        genericObjectsList.add(GenericMapObjectFactory.createBubbles(700, 400, 10));
-        genericObjectsList.add(GenericMapObjectFactory.createBubbles(700, 400, -120));
-        genericObjectsList.add(GenericMapObjectFactory.createBubbles(700, 400, 160));
+    private void cleanHandsPowerUpClicked(){ cleanHands.activatePowerUp(genericObjectsList); }
 
-    }
+    private void maskedPowerUpClicked(){ maskedUpPowerUp.powerUpClicked(towersList, genericObjectsList); }
 
-    private void maskedPowerUpClicked(){
-        maskedUpPowerUp.powerUpClicked(towersList);
-        genericObjectsList.add(GenericMapObjectFactory.createMaskedUpSmurf(-500, 500, 0));
-
-    }
-
-    private void vaccinePowerUpClicked(){
-        vaccinated.activatePowerUp(virusesList);
-        genericObjectsList.add(GenericMapObjectFactory.createVaccinationStorm());
-
-    }
+    private void vaccinePowerUpClicked(){ vaccinated.activatePowerUp(virusesList, genericObjectsList); }
 
 
 
