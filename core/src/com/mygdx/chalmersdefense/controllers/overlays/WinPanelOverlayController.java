@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.chalmersdefense.model.IControllModel;
-import com.mygdx.chalmersdefense.views.overlays.ScreenOverlayEnum;
+import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.views.ScreenEnum;
 import com.mygdx.chalmersdefense.views.ScreenManager;
 

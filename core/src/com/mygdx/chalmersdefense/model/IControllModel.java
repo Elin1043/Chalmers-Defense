@@ -1,6 +1,6 @@
 package com.mygdx.chalmersdefense.model;
 
-import com.mygdx.chalmersdefense.views.overlays.ScreenOverlayEnum;
+import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 
 /**
  * @author Joel Båtsman Hilmersson

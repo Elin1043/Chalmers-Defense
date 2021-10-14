@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.views.overlays;
+package com.mygdx.chalmersdefense.utilities;
 
 /**
  * @author Daniel Persson

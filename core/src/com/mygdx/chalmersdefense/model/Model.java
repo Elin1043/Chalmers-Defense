@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.mygdx.chalmersdefense.views.overlays.ScreenOverlayEnum;
+import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;

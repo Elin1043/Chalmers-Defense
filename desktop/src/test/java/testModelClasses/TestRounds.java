@@ -2,7 +2,7 @@ package testModelClasses;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
-import com.mygdx.chalmersdefense.views.overlays.ScreenOverlayEnum;
+import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.Model;
 import org.junit.Before;
 import org.junit.Test;

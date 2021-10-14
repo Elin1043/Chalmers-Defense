@@ -6,8 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.chalmersdefense.model.IControllModel;
 import com.mygdx.chalmersdefense.views.ScreenEnum;
 import com.mygdx.chalmersdefense.views.ScreenManager;
-import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
-import com.mygdx.chalmersdefense.views.overlays.ScreenOverlayEnum;
+import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 
 /**
  * @author Daniel Persson
