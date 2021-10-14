@@ -527,13 +527,20 @@ class Map {
 
     private void cleanHandsPowerUpClicked(){
         cleanHands.activatePowerUp();
-        ;
+        IGenericMapObject bubbles1 = new GenericMapObject(1,"bubbles", 700,400,90, 500);
+        IGenericMapObject bubbles2 = new GenericMapObject(1,"bubbles", 700,400,45, 500);
+        IGenericMapObject bubbles3 = new GenericMapObject(1,"bubbles", 700,400,-120, 500);
+        IGenericMapObject bubbles4 = new GenericMapObject(1,"bubbles", 700,400,160, 500);
+
+        genericObjectsList.add(bubbles1);
+        genericObjectsList.add(bubbles2);
+        genericObjectsList.add(bubbles3);
+        genericObjectsList.add(bubbles4);
 
     }
 
     private void maskedPowerUpClicked(){
         maskedUpPowerUp.powerUpClicked(towersList);
-        ;
 
     }
 
