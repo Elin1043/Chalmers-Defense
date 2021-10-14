@@ -7,7 +7,7 @@ public class Preferences {
     private HashMap<String, Float> floatHashMap = new HashMap<>();
 
     public Preferences() {
-        putFloat("musicVolume", 0.5f);
+        putFloat("musicVolume", 0.2f);
     }
 
     public void putBoolean(String key, boolean value) {
