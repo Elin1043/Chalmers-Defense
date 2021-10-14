@@ -13,7 +13,7 @@ import java.util.List;
 public class Vaccinated {
     //private int cooldownTimer = 750;    // Cooldown timer
     private final CountDownTimer cooldownTimer = new CountDownTimer(1000);
-    private final CountDownTimer activeTimer = new CountDownTimer(500);
+    private final CountDownTimer activeTimer = new CountDownTimer(380);
 
 
     private boolean canBeUsed = true;   // If this powerup can be used at the moment
