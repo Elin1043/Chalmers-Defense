@@ -221,7 +221,7 @@ class Map {
 
             tower.update(projectilesList, newAngle, towerHasTarget);
 
-            if (tower.canRemove()) { removeTowers.add(tower); }
+            if (tower.canRemove() && !tower.equals(newTower)) { removeTowers.add(tower); }
         }
 
         towersList.removeAll(removeTowers);
