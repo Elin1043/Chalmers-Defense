@@ -1,6 +1,6 @@
 package com.mygdx.chalmersdefense.model;
 
-import com.mygdx.chalmersdefense.utilities.GameScreenOverlayEnum;
+import com.mygdx.chalmersdefense.views.overlays.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
@@ -73,7 +73,7 @@ public interface IViewModel {
      *
      * @return which overlay is supposed to show
      */
-    GameScreenOverlayEnum showOverlay();
+    ScreenOverlayEnum showOverlay();
 
     /**
      * Return the current money value

@@ -1,6 +1,6 @@
 package com.mygdx.chalmersdefense.model;
 
-import com.mygdx.chalmersdefense.utilities.GameScreenOverlayEnum;
+import com.mygdx.chalmersdefense.views.overlays.ScreenOverlayEnum;
 
 /**
  * @author Joel Båtsman Hilmersson
@@ -77,7 +77,7 @@ public interface IControllModel {
      * Sets showOverlay to supplied overlay enum
      * @param overlay enum of overlay to show
      */
-    void setShowOverlay(GameScreenOverlayEnum overlay);
+    void setShowOverlay(ScreenOverlayEnum overlay);
 
     /**
      * Sell clicked tower
