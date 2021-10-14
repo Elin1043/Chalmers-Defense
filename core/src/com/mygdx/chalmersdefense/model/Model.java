@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
 
+import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
@@ -48,6 +49,12 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     private ScreenOverlayEnum showOverlay = ScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
 
+    private Preferences preferences;
+
+    public Model(Preferences preferences) {
+        this.preferences = preferences;
+    }
+
     @Override
     public synchronized void updateModel() {
         map.updateMap();
@@ -78,6 +85,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
             if (round.gameWon()) {
                 showOverlay = ScreenOverlayEnum.WINPANEL;
             }
+            if (preferences.getBoolean("autoplay") && getCurrentRound() != 1) startRoundPressed();
         }
     }
 

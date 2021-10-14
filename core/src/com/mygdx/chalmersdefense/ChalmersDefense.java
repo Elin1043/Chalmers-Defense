@@ -32,8 +32,8 @@ public class ChalmersDefense extends Game {
 
     @Override
     public void create() {
-        Model model = new Model();
         Preferences preferences = new Preferences();
+        Model model = new Model(preferences);
 
         // Creating Controllers
         MainScreenController mainScreenController = new MainScreenController();
