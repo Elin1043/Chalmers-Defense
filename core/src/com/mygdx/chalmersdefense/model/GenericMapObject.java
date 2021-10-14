@@ -1,5 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
+import com.mygdx.chalmersdefense.utilities.CountDownTimer;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -10,7 +12,7 @@ import java.util.Objects;
  * Class defining a generic MapObject
  *
  */
-public class GenericMapObject implements IMapObject {
+public class GenericMapObject implements IGenericMapObject {
 
 
     private float width;    // Current width of object
@@ -27,12 +29,16 @@ public class GenericMapObject implements IMapObject {
 
     boolean canRemove = false;  // Boolean over if this object can be removed by map
 
-    GenericMapObject(float speed, String spriteKey, float x, float y, float angle) {
+    private final CountDownTimer animationTimer ;
+
+    GenericMapObject(float speed, String spriteKey, float x, float y, float angle, int time) {
         this.speed = speed;
         this.spriteKey = spriteKey;
         this.x = x;
         this.y = y;
         this.angle = angle;
+
+        animationTimer = new CountDownTimer(time);
 
 
         try {
@@ -49,12 +55,17 @@ public class GenericMapObject implements IMapObject {
 
 
 
-    public void update(float angle) {
+    @Override
+    public void update() {
         float xLength = (float) (Math.cos(Math.toRadians(this.angle)) * speed);
         float yLength = (float) (Math.sin(Math.toRadians(this.angle)) * speed);
 
         x = x + xLength;
         y = y + yLength;
+
+        if(animationTimer.haveReachedZero()){
+            canRemove = true;
+        }
 
     }
 
@@ -70,17 +81,7 @@ public class GenericMapObject implements IMapObject {
         return angle;
     }
 
-
-    /**
-     * Set the angle of the object
-     *
-     * @param angle to be set
-     */
-    public void setAngle(float angle) {
-        this.angle = angle;
-    }
-
-
+    @Override
     public boolean canRemove() {
         return canRemove;
     }

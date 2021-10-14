@@ -12,15 +12,22 @@ import java.util.List;
  */
 public class Vaccinated {
     //private int cooldownTimer = 750;    // Cooldown timer
-    private final CountDownTimer cooldownTimer = new CountDownTimer(750);
+    private final CountDownTimer cooldownTimer = new CountDownTimer(1000);
+    private final CountDownTimer activeTimer = new CountDownTimer(500);
 
 
-    private boolean canBeUsed = true;   // If this powerup can be used att the moment
+    private boolean canBeUsed = true;   // If this powerup can be used at the moment
+    private boolean activated = false;   // If this powerup is activated at the moment
+
+    private boolean hurtVirus = false;
+
+    private List<IVirus> viruses;
 
     public void activatePowerUp(List<IVirus> allViruses){
         if (canBeUsed) {
             canBeUsed = false;
-            decreaseLife(allViruses);
+            activated = true;
+            viruses = allViruses;
         }
     }
 
@@ -31,9 +38,22 @@ public class Vaccinated {
     }
 
     public void decreaseTimer(){
+
+        if (activated && activeTimer.haveReachedZero()){
+            activated = false;
+            hurtVirus = false;
+        }
+
         if (!canBeUsed && cooldownTimer.haveReachedZero()){
             canBeUsed = true;
         }
+
+        if(activated && activeTimer.getCurrentCountTime() <= 325 && !hurtVirus){
+            decreaseLife(viruses);
+            hurtVirus = true;
+
+        }
+
     }
 
 
@@ -42,11 +62,21 @@ public class Vaccinated {
      * @return active timer
      */
     public int getTimer() {
-        if(!canBeUsed){
+        if(activated && !canBeUsed){
+            return (activeTimer.getCurrentCountTime() * 5) / 1000;
+        }
+        else if(activated){
+            return -1;
+        }
+        else if(!canBeUsed){
             return (cooldownTimer.getCurrentCountTime() * 5) / 1000;
         }
         else{
             return -1;
         }
+    }
+
+    public boolean isActivated() {
+        return activated;
     }
 }

@@ -13,8 +13,8 @@ public class CleanHands {
     //private int powerUpTimer = 500;    // Cooldown timer
     private final CountDownTimer powerUpTimer = new CountDownTimer(500);
 
-    private boolean canBeUsed = true;   // If this powerup can be used att the moment
-    private boolean powerUpIsActive = false;   // If this powerup can be used att the moment
+    private boolean canBeUsed = true;   // If this powerup can be used at the moment
+    private boolean powerUpIsActive = false;   // If this powerup is activated at the moment
 
 
 
