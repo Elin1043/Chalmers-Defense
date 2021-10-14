@@ -117,6 +117,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
 
         spriteMap.put("vaccinationStorm", new Sprite(new Texture("genericMapObjects/vaccinationStorm.png")));
         spriteMap.put("bubbles", new Sprite(new Texture("genericMapObjects/bubbles.png")));
+        spriteMap.put("maskedUpSmurf", new Sprite(new Texture("genericMapObjects/maskedUpSmurf.png")));
 
 
         spriteMap.put("smurfProjectile1", new Sprite(new Texture("projectiles/smurfProjectile1.png")));
