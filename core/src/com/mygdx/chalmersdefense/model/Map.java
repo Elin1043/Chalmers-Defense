@@ -121,11 +121,11 @@ class Map {
     }
 
     private void updateGenericObjects(){
-        for (IGenericMapObject object:genericObjectsList) {
+        for (IGenericMapObject object : genericObjectsList) {
+
             object.update();
-            if(object.canRemove()){
-                genericObjectsToRemoveList.add(object);
-            }
+
+            if(object.canRemove()){ genericObjectsToRemoveList.add(object); }
         }
     }
 
@@ -182,10 +182,9 @@ class Map {
         maskedUpPowerUp.decreaseTimer();
         cleanHands.decreaseTimer();
         vaccinated.decreaseTimer();
+
         if (cleanHands.isActive()){
-            updateTowers();
-            updateTowers();
-            updateTowers();
+            for (int i = 0; i < 3; i++) { updateTowers(); }
         }
 
     }

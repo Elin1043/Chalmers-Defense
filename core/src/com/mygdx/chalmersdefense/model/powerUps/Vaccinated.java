@@ -21,7 +21,6 @@ public class Vaccinated {
     private boolean canBeUsed = true;   // If this power-up can be used at the moment
     private boolean activated = false;   // If this power-up is activated at the moment
 
-    private boolean hurtVirus = false;
     private List<IVirus> viruses;
 
     /**
@@ -40,8 +39,8 @@ public class Vaccinated {
         addGraphicsList.add(GenericMapObjectFactory.createVaccinationStorm());
     }
 
-    private void decreaseLife(List<IVirus> allViruses){
-        for (IVirus virus : allViruses){
+    private void decreaseLife(){
+        for (IVirus virus : viruses){
             virus.decreaseHealth(1);
         }
     }
@@ -53,17 +52,14 @@ public class Vaccinated {
 
         if (activated && activeTimer.haveReachedZero()){
             activated = false;
-            hurtVirus = false;
         }
 
         if (!canBeUsed && cooldownTimer.haveReachedZero()){
             canBeUsed = true;
         }
 
-        if(activated && activeTimer.getCurrentCountTime() <= 325 && !hurtVirus){
-            decreaseLife(viruses);
-            hurtVirus = true;
-
+        if(activeTimer.getCurrentCountTime() == 205){
+            decreaseLife();
         }
 
     }
