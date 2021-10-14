@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.overlays.SettingsOverlayController;
+import com.mygdx.chalmersdefense.utilities.FontFactory;
 
 import javax.swing.*;
 
@@ -31,7 +32,6 @@ public class SettingsOverlay extends AbstractOverlay {
             settingsOverlayController.addExitPauseMenuButtonClickListener(exitButton);
             createMusicSlider();
 
-            createExitPauseMenuButton();
             createLabels("Music:", backgroundImage.getX() + 250, backgroundImage.getY() + 275);
             createLabels("Sound effects:", backgroundImage.getX() + 250, backgroundImage.getY() + 200);
             createLabels("Autoplay:", backgroundImage.getX() + 250, backgroundImage.getY() + 125);
@@ -68,15 +68,6 @@ public class SettingsOverlay extends AbstractOverlay {
         musicSlider.setPosition(834, 707);
         musicSlider.setSize(364, 25);
         settingsOverlayController.addMusicVolumeSliderListener(musicSlider);
-    }
-
-    private void createExitPauseMenuButton() {
-        TextureRegion exitButtonTextureRegion = new TextureRegion(new Texture("GameScreen/overlays/ExitCrossButton.png"));
-        TextureRegionDrawable exitButtonRegDrawable = new TextureRegionDrawable(exitButtonTextureRegion);
-        ImageButton exitButton = new ImageButton(exitButtonRegDrawable); //Set the button up
-        settingsMenuGroup.addActor(exitButton);
-        exitButton.setPosition(backgroundImage.getX() + backgroundImage.getWidth() - exitButton.getWidth() - 20, backgroundImage.getY() + backgroundImage.getHeight() - exitButton.getHeight() - 20);
-        gameScreenController.addExitPauseMenuButtonClickListener(exitButton);
     }
 
     private void createLabels(String text, float x, float y){

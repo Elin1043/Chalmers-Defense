@@ -64,7 +64,7 @@ public abstract class AbstractOverlay {
     }
 
     protected ImageButton createExitPauseMenuButton(Group group, Image backgroundImage) {
-        TextureRegion exitButtonTextureRegion = new TextureRegion(new Texture("GameScreen/overlays/ExitPauseMenuButton.png"));
+        TextureRegion exitButtonTextureRegion = new TextureRegion(new Texture("GameScreen/overlays/ExitCrossButton.png"));
         TextureRegionDrawable exitButtonRegDrawable = new TextureRegionDrawable(exitButtonTextureRegion);
         ImageButton exitButton = new ImageButton(exitButtonRegDrawable); //Set the button up
         group.addActor(exitButton);
