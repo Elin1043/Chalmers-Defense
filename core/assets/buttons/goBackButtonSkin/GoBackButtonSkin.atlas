@@ -1,0 +1,27 @@
+
+GoBackButtonSkin.png
+size: 256, 256
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+GoBackButtonDefault
+  rotate: false
+  xy: 1, 93
+  size: 135, 41
+  orig: 135, 41
+  offset: 0, 0
+  index: -1
+GoBackButtonHover
+  rotate: false
+  xy: 1, 50
+  size: 135, 41
+  orig: 135, 41
+  offset: 0, 0
+  index: -1
+GoBackButtonPressed
+  rotate: false
+  xy: 1, 7
+  size: 135, 41
+  orig: 135, 41
+  offset: 0, 0
+  index: -1
