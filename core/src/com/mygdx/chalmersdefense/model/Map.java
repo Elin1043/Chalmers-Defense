@@ -33,10 +33,12 @@ class Map {
     private final List<ITower> towersList = new ArrayList<>();              // The main tower list
     private final List<IProjectile> projectilesList = new ArrayList<>();    // The main projectile list
     private final List<IVirus> virusesList = new ArrayList<>();             // The main virus list
+    private final List<IGenericMapObject> genericObjectsList = new ArrayList<>();             // The main genericObjects list
 
     private final List<ITower> towersToAddList = new ArrayList<>();             // Temporary list for object adding towers to the main list (To avoid concurrent modification issues)
     private final List<ITower> towersToRemoveList = new ArrayList<>();          // Temporary list for object removing towers from the main list (To avoid concurrent modification issues)
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();   // Temporary list for object adding projectiles to the main list (To avoid concurrent modification issues)
+    private final List<IGenericMapObject> genericObjectsToRemoveList = new ArrayList<>();   // Temporary list for object removing genericObjects from the main list (To avoid concurrent modification issues)
 
     private final Player player;                                   // A reference to the Player object in the game
     private final Path path = PathFactory.createClassicPath();     // Current path
@@ -64,6 +66,7 @@ class Map {
         updateProjectiles();
         updateRangeCircle();
         updatePowerUps();
+        updateGenericObjects();
         addTempListsToMainLists();
     }
 
@@ -86,9 +89,12 @@ class Map {
         towersList.addAll(towersToAddList);
         towersList.removeAll(towersToRemoveList);
         projectilesList.addAll(projectilesToAddList);
+        genericObjectsList.removeAll(genericObjectsToRemoveList);
+
         towersToAddList.clear();
         towersToRemoveList.clear();
         projectilesToAddList.clear();
+        genericObjectsToRemoveList.clear();
     }
 
     //Update the projectiles
@@ -111,6 +117,15 @@ class Map {
         }
 
         projectilesList.removeAll(removeProjectiles);
+    }
+
+    private void updateGenericObjects(){
+        for (IGenericMapObject object:genericObjectsList) {
+            object.update();
+            if(object.canRemove()){
+                genericObjectsToRemoveList.add(object);
+            }
+        }
     }
 
 
@@ -180,9 +195,9 @@ class Map {
      */
     int[] getPowerUpTimer(){
         int[] timers = new int[3];
-        timers[0] = -1;
+        timers[0] = cleanHands.getTimer();
         timers[1] = maskedUpPowerUp.getTimer();
-        timers[2] = -1;
+        timers[2] = vaccinated.getTimer();
 
         return timers;
     }
@@ -193,9 +208,9 @@ class Map {
      */
     boolean[] getPowerUpActive(){
         boolean[] powerUpsActive = new boolean[3];
-        powerUpsActive[0] = false;
+        powerUpsActive[0] = cleanHands.isActive();
         powerUpsActive[1] = maskedUpPowerUp.getIsActive();
-        powerUpsActive[2] = false;
+        powerUpsActive[2] = vaccinated.isActivated();
 
         return powerUpsActive;
     }
@@ -477,6 +492,7 @@ class Map {
         allMapObjects.addAll(towersList);
         allMapObjects.addAll(virusesList);
         allMapObjects.addAll(projectilesList);
+        allMapObjects.addAll(genericObjectsList);
         return allMapObjects;
     }
 
@@ -496,15 +512,37 @@ class Map {
         projectilesList.clear();
     }
 
+
     /**
      * Method to handle a powerUp button being clicked
      * @param powerUpName name of the button that was clicked
      */
     void powerUpClicked(String powerUpName) {
         switch (powerUpName) {
-            case "cleanHands" -> cleanHands.activatePowerUp();
-            case "maskedUp"   -> maskedUpPowerUp.powerUpClicked(towersList);
-            case "vaccinated" -> vaccinated.activatePowerUp(virusesList);
+            case "cleanHands" -> cleanHandsPowerUpClicked();
+            case "maskedUp"   -> maskedPowerUpClicked();
+            case "vaccinated" -> vaccinePowerUpClicked();
         }
     }
+
+    private void cleanHandsPowerUpClicked(){
+        cleanHands.activatePowerUp();
+        ;
+
+    }
+
+    private void maskedPowerUpClicked(){
+        maskedUpPowerUp.powerUpClicked(towersList);
+        ;
+
+    }
+
+    private void vaccinePowerUpClicked(){
+        vaccinated.activatePowerUp(virusesList);
+        IGenericMapObject vaccinationStorm = new GenericMapObject(7,"vaccinationStorm", 0,-1500,90, 500);
+        genericObjectsList.add(vaccinationStorm);
+    }
+
+
+
 }
