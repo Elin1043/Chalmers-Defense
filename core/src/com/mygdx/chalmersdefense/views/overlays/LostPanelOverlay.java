@@ -21,23 +21,11 @@ public class LostPanelOverlay extends AbstractOverlay {
     private final float WIDTH = 810;
     private final float HEIGHT = 400;
 
-    private final LostPanelOverlayController lostPanelOverlayController;
+    private final LostPanelOverlayController lostPanelOverlayController; // Controller used for adding listeners
 
-    private final TextureAtlas lostButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/lostGameButtonSkin/lostGameButtonSkin.atlas")); // Load atlas file from skin
-    private final Skin lostButtonSkin = new Skin(Gdx.files.internal("buttons/lostGameButtonSkin/lostGameButtonSkin.json"), lostButtonTexture); // Create skin object
+    private final Group lostPanelGroup = new Group(); // Group to att all actors to
 
-    private final Group lostPanelGroup = new Group();
-
-    private final Image backgroundImage = new Image(new Texture("GameScreen/LostPanelBackgroundImage.png"));
-
-    private final Label title = new Label("You Lost :'(", FontFactory.getLabelStyle36BlackBold());
-    private final Label mainText = new Label("The evil Corona viruses have won. Chalmers have fallen and will now be the center of the new wave of even more powerful virus variants.", FontFactory.getLabelStyle18Black());
-
-    private final Button mainMenuButton = new Button(lostButtonSkin);
-    private final Label mainMenuButtonText = new Label("Main menu", FontFactory.getLabelStyle24BlackSemiBold());
-
-    private final Button tryAgainButton = new Button(lostButtonSkin);
-    private final Label tryAgainButtonText = new Label("Try again", FontFactory.getLabelStyle24BlackSemiBold());
+    private final Image backgroundImage = new Image(new Texture("GameScreen/LostPanelBackgroundImage.png")); // Background image of overlay
 
     public LostPanelOverlay(LostPanelOverlayController lostPanelOverlayController) {
         this.lostPanelOverlayController = lostPanelOverlayController;
@@ -46,12 +34,37 @@ public class LostPanelOverlay extends AbstractOverlay {
     @Override
     protected void initialize() {
         stage.addActor(lostPanelGroup);
-        initializeActors();
+        lostPanelGroup.addActor(backgroundImage);
 
         // Set position of background
         backgroundImage.setPosition(stage.getWidth() / 2 - WIDTH / 2, stage.getHeight() / 2 - HEIGHT / 2);
 
-        // Set position for main title.
+        createLabels();
+
+        // Button skin
+        TextureAtlas lostButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/lostGameButtonSkin/lostGameButtonSkin.atlas")); // Load atlas file from skin
+        Skin lostButtonSkin = new Skin(Gdx.files.internal("buttons/lostGameButtonSkin/lostGameButtonSkin.json"), lostButtonTexture); // Create skin object
+
+        // Create first button
+        Button mainMenuButton = new Button(lostButtonSkin);
+        Label mainMenuButtonText = new Label("Main menu", FontFactory.getLabelStyle24BlackSemiBold());
+
+        // Create second button
+        Button tryAgainButton = new Button(lostButtonSkin);
+        Label tryAgainButtonText = new Label("Try again", FontFactory.getLabelStyle24BlackSemiBold());
+
+        createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1);
+        createButtons(backgroundImage, tryAgainButton, tryAgainButtonText, 2);
+
+        lostPanelGroup.setVisible(false);
+    }
+
+    private void createLabels() {
+        Label title = new Label("You Lost :'(", FontFactory.getLabelStyle36BlackBold());
+        Label mainText = new Label("The evil Corona viruses have won. Chalmers have fallen and will now be the center of the new wave of even more powerful virus variants.", FontFactory.getLabelStyle18Black());
+        lostPanelGroup.addActor(title);
+        lostPanelGroup.addActor(mainText);
+
         title.setPosition(
                 backgroundImage.getX() + backgroundImage.getWidth() / 2 - title.getWidth() / 2,
                 backgroundImage.getY() + backgroundImage.getHeight() - 100);
@@ -62,21 +75,6 @@ public class LostPanelOverlay extends AbstractOverlay {
         mainText.setPosition(
                 backgroundImage.getX() + backgroundImage.getWidth() / 2 - 720 / 2f,
                 backgroundImage.getY() + backgroundImage.getHeight() - 150);
-
-        createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1);
-        createButtons(backgroundImage, tryAgainButton, tryAgainButtonText, 2);
-
-        lostPanelGroup.setVisible(false);
-    }
-
-    private void initializeActors() {
-        lostPanelGroup.addActor(backgroundImage);
-        lostPanelGroup.addActor(title);
-        lostPanelGroup.addActor(mainText);
-        lostPanelGroup.addActor(mainMenuButton);
-        mainMenuButton.addActor(mainMenuButtonText);
-        lostPanelGroup.addActor(tryAgainButton);
-        tryAgainButton.addActor(tryAgainButtonText);
     }
 
     @Override
@@ -117,5 +115,7 @@ public class LostPanelOverlay extends AbstractOverlay {
                 backgroundImage.getX() + (backgroundImage.getWidth() * offsetMulX) - button.getWidth() / 2,
                 backgroundImage.getY() + 65);
         buttonLabel.setPosition(button.getWidth() / 2 - buttonLabel.getWidth() / 2, button.getHeight() / 2 - buttonLabel.getHeight() / 2 + 5);
+        lostPanelGroup.addActor(button);
+        button.addActor(buttonLabel);
     }
 }
