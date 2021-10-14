@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.views.GameScreenViews;
+package com.mygdx.chalmersdefense.views.overlays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -29,7 +29,7 @@ public abstract class AbstractOverlay {
     /**
      * Initialize the ScreenOverlay
      */
-    abstract void initialize();
+    protected abstract void initialize();
 
     /**
      * Renders overlay panel

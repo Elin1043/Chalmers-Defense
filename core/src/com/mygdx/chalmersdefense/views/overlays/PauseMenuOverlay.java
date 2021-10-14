@@ -1,14 +1,10 @@
-package com.mygdx.chalmersdefense.views.GameScreenViews;
+package com.mygdx.chalmersdefense.views.overlays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.controllers.overlays.PauseMenuOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 
@@ -35,7 +31,7 @@ public class PauseMenuOverlay extends AbstractOverlay {
     }
 
     @Override
-    void initialize() {
+    protected void initialize() {
         stage.addActor(pauseMenuGroup);
         if (!pauseMenuGroup.hasChildren()) {
             pauseMenuGroup.addActor(backgroundImage);

@@ -1,10 +1,9 @@
-package com.mygdx.chalmersdefense.views.GameScreenViews;
+package com.mygdx.chalmersdefense.views.overlays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -12,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.overlays.LostPanelOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
+import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
 
 /**
  * @author Daniel Persson
@@ -44,7 +44,7 @@ public class LostPanelOverlay extends AbstractOverlay {
     }
 
     @Override
-    void initialize() {
+    protected void initialize() {
         stage.addActor(lostPanelGroup);
         initializeActors();
 

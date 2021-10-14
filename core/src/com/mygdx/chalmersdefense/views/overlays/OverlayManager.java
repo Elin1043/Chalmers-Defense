@@ -2,7 +2,6 @@ package com.mygdx.chalmersdefense.views.overlays;
 
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.views.AbstractScreen;
-import com.mygdx.chalmersdefense.views.GameScreenViews.*;
 import com.mygdx.chalmersdefense.views.ScreenManager;
 
 public class OverlayManager {

@@ -22,6 +22,7 @@ import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 import com.mygdx.chalmersdefense.views.GameScreenViews.*;
+import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
 import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
 
 import static com.badlogic.gdx.graphics.GL20.*;
