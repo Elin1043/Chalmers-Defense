@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.mygdx.chalmersdefense.utilities.GameScreenOverlayEnum;
+import com.mygdx.chalmersdefense.views.overlays.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
@@ -46,7 +46,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final Map map = new Map(player);        // Current map object
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());   // The class for spawning viruses
 
-    private GameScreenOverlayEnum showOverlay = GameScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
+    private ScreenOverlayEnum showOverlay = ScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
 
     @Override
     public synchronized void updateModel() {
@@ -54,7 +54,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         checkRoundCompleted();
         virusSpawner.decrementSpawnTimer();
         if (map.getIsGameLost()) {
-            showOverlay = GameScreenOverlayEnum.LOSEPANEL;
+            showOverlay = ScreenOverlayEnum.LOSEPANEL;
         }
     }
 
@@ -64,7 +64,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         player.resetPlayer(LIVES, START_CAPITAL);
         map.resetMap();
         virusSpawner.resetSpawnViruses();
-        showOverlay = GameScreenOverlayEnum.NONE;
+        showOverlay = ScreenOverlayEnum.NONE;
     }
 
     private void checkRoundCompleted() {
@@ -76,7 +76,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
             map.roundClear();
 
             if (round.gameWon()) {
-                showOverlay = GameScreenOverlayEnum.WINPANEL;
+                showOverlay = ScreenOverlayEnum.WINPANEL;
             }
         }
     }
@@ -192,12 +192,12 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
-    public GameScreenOverlayEnum showOverlay() {
+    public ScreenOverlayEnum showOverlay() {
         return showOverlay;
     }
 
     @Override
-    public void setShowOverlay(GameScreenOverlayEnum overlay) {
+    public void setShowOverlay(ScreenOverlayEnum overlay) {
         showOverlay = overlay;
     }
 
