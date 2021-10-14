@@ -3,8 +3,7 @@ package testModelClasses;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
-import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
-import com.mygdx.chalmersdefense.utilities.GameScreenOverlayEnum;
+import com.mygdx.chalmersdefense.views.overlays.ScreenOverlayEnum;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -184,7 +183,7 @@ public class TestModel {
             model.updateModel();
         }
 
-        assertSame(model.showOverlay(), GameScreenOverlayEnum.LOSEPANEL);
+        assertSame(model.showOverlay(), ScreenOverlayEnum.LOSEPANEL);
     }
 
 }

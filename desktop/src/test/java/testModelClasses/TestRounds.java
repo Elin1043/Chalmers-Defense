@@ -2,7 +2,7 @@ package testModelClasses;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
-import com.mygdx.chalmersdefense.utilities.GameScreenOverlayEnum;
+import com.mygdx.chalmersdefense.views.overlays.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.Model;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,16 +37,16 @@ public class TestRounds {
 
         model.startRoundPressed();
 
-        while (model.showOverlay() != GameScreenOverlayEnum.WINPANEL) {
+        while (model.showOverlay() != ScreenOverlayEnum.WINPANEL) {
             while (model.getAllMapObjects().size() > 4) {
                 model.updateModel();
             }
             model.startRoundPressed();
         }
 
-        assertSame(model.showOverlay(), GameScreenOverlayEnum.WINPANEL);
-        model.setShowOverlay(GameScreenOverlayEnum.NONE);
-        assertNotSame(model.showOverlay(), GameScreenOverlayEnum.WINPANEL);
+        assertSame(model.showOverlay(), ScreenOverlayEnum.WINPANEL);
+        model.setShowOverlay(ScreenOverlayEnum.NONE);
+        assertNotSame(model.showOverlay(), ScreenOverlayEnum.WINPANEL);
     }
 
 
