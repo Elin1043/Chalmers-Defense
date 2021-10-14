@@ -3,31 +3,32 @@ package com.mygdx.chalmersdefense.views.GameScreenViews;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.mygdx.chalmersdefense.controllers.GameScreenController;
-import com.mygdx.chalmersdefense.utilities.FontFactory;
+import com.mygdx.chalmersdefense.controllers.overlays.SettingsOverlayController;
 
 public class SettingsOverlay extends AbstractOverlay {
+    private final SettingsOverlayController settingsOverlayController;
 
     private final Group settingsMenuGroup = new Group();
     private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/SettingsBackgroundImage.png"));
 
-    public SettingsOverlay(Stage stage, GameScreenController gameScreenController) {
-        super(gameScreenController, stage);
-
-        initialize();
+    public SettingsOverlay(SettingsOverlayController settingsOverlayController) {
+        this.settingsOverlayController = settingsOverlayController;
     }
 
     @Override
     void initialize() {
         stage.addActor(settingsMenuGroup);
-        settingsMenuGroup.addActor(backgroundImage);
-        backgroundImage.setPosition(stage.getWidth()/2 - backgroundImage.getWidth()/2, stage.getHeight()/2 - backgroundImage.getHeight()/2);
-        createExitPauseMenuButton();
+        if (!settingsMenuGroup.hasChildren()) {
+
+            settingsMenuGroup.addActor(backgroundImage);
+            backgroundImage.setPosition(stage.getWidth() / 2 - backgroundImage.getWidth() / 2, stage.getHeight() / 2 - backgroundImage.getHeight() / 2);
+
+            ImageButton exitButton = createExitPauseMenuButton(settingsMenuGroup, backgroundImage);
+            settingsOverlayController.addExitPauseMenuButtonClickListener(exitButton);
+            createMusicSlider();
+        }
     }
 
     @Override
@@ -46,12 +47,14 @@ public class SettingsOverlay extends AbstractOverlay {
         settingsMenuGroup.setVisible(false);
     }
 
-    private void createExitPauseMenuButton() {
-        TextureRegion exitButtonTextureRegion = new TextureRegion(new Texture("GameScreen/overlays/ExitPauseMenuButton.png"));
-        TextureRegionDrawable exitButtonRegDrawable = new TextureRegionDrawable(exitButtonTextureRegion);
-        ImageButton exitButton = new ImageButton(exitButtonRegDrawable); //Set the button up
-        settingsMenuGroup.addActor(exitButton);
-        exitButton.setPosition(backgroundImage.getX() + backgroundImage.getWidth() - exitButton.getWidth() - 20, backgroundImage.getY() + backgroundImage.getHeight() - exitButton.getHeight() - 20);
-        gameScreenController.addExitPauseMenuButtonClickListener(exitButton);
+    private void createMusicSlider() {
+        TextureAtlas settingsSliderTexture = new TextureAtlas(Gdx.files.internal("settingsSlider/SettingsSliderSkin.atlas")); // Load atlas file from skin
+        Skin settingsSliderSkin = new Skin(Gdx.files.internal("settingsSlider/SettingsSliderSkin.json"), settingsSliderTexture); // Create skin object
+
+        Slider musicSlider = new Slider(0, 100, 1, false, settingsSliderSkin);
+        settingsMenuGroup.addActor(musicSlider);
+        musicSlider.setPosition(834, 707);
+        musicSlider.setSize(364, 25);
+        settingsOverlayController.addMusicVolumeSliderListener(musicSlider);
     }
 }

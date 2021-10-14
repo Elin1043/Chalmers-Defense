@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
+import com.mygdx.chalmersdefense.controllers.overlays.PauseMenuOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 
 /**
@@ -20,6 +21,7 @@ import com.mygdx.chalmersdefense.utilities.FontFactory;
  * 2021-10-12 Modified by Jenny Carlsson and Daniel Persson: Added pause menu exit button
  */
 public class PauseMenuOverlay extends AbstractOverlay {
+    private final PauseMenuOverlayController pauseMenuOverlayController;
 
     private final Group pauseMenuGroup = new Group();
     private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/PauseMenuBackgroundImage.png"));
@@ -28,19 +30,21 @@ public class PauseMenuOverlay extends AbstractOverlay {
     private final TextureAtlas pauseMenuButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/pauseMenuButtonSkin/PauseMenuButtonSkin.atlas")); // Load atlas file from skin
     private final Skin pauseMenuButtonSkin = new Skin(Gdx.files.internal("buttons/pauseMenuButtonSkin/PauseMenuButtonSkin.json"), pauseMenuButtonTexture); // Create skin object
 
-    public PauseMenuOverlay(Stage stage, GameScreenController gameScreenController) {
-        super(gameScreenController, stage);
-
-        initialize();
+    public PauseMenuOverlay(PauseMenuOverlayController pauseMenuOverlayController) {
+        this.pauseMenuOverlayController = pauseMenuOverlayController;
     }
 
     @Override
     void initialize() {
         stage.addActor(pauseMenuGroup);
-        pauseMenuGroup.addActor(backgroundImage);
-        backgroundImage.setPosition(stage.getWidth()/2 - backgroundImage.getWidth()/2, stage.getHeight()/2 - backgroundImage.getHeight()/2);
-        createButtons();
-        createExitPauseMenuButton();
+        if (!pauseMenuGroup.hasChildren()) {
+            pauseMenuGroup.addActor(backgroundImage);
+
+            backgroundImage.setPosition(stage.getWidth()/2 - backgroundImage.getWidth()/2, stage.getHeight()/2 - backgroundImage.getHeight()/2);
+            createButtons();
+            ImageButton exitButton = createExitPauseMenuButton(pauseMenuGroup, backgroundImage);
+            pauseMenuOverlayController.addExitPauseMenuButtonClickListener(exitButton);
+        }
     }
 
     @Override
@@ -72,17 +76,8 @@ public class PauseMenuOverlay extends AbstractOverlay {
             Label buttonLabel = new Label(buttonTexts[i], FontFactory.getLabelStyle20Black());
             button.addActor(buttonLabel);
             buttonLabel.setPosition(button.getWidth() / 2 - buttonLabel.getWidth() / 2, button.getHeight() / 2 - buttonLabel.getHeight() / 2);
-            gameScreenController.addPauseMenuClickListeners(button, buttonTexts[i]);
+            pauseMenuOverlayController.addPauseMenuClickListeners(button, buttonTexts[i]);
         }
-    }
-
-    private void createExitPauseMenuButton() {
-        TextureRegion exitButtonTextureRegion = new TextureRegion(new Texture("GameScreen/overlays/ExitPauseMenuButton.png"));
-        TextureRegionDrawable exitButtonRegDrawable = new TextureRegionDrawable(exitButtonTextureRegion);
-        ImageButton exitButton = new ImageButton(exitButtonRegDrawable); //Set the button up
-        pauseMenuGroup.addActor(exitButton);
-        exitButton.setPosition(backgroundImage.getX() + backgroundImage.getWidth() - exitButton.getWidth() - 20, backgroundImage.getY() + backgroundImage.getHeight() - exitButton.getHeight() - 20);
-        gameScreenController.addExitPauseMenuButtonClickListener(exitButton);
     }
 
 }
