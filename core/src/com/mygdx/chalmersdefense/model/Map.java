@@ -129,7 +129,7 @@ class Map {
 
         for (IVirus virus : virusesList) {
             if (Calculate.objectsIntersects(projectile, virus) && !projectile.haveHitBefore(virus.hashCode())) {
-                virus.decreaseHealth();
+                virus.decreaseHealth(projectile.getDamageAmount());
                 removeList.add(virus);
                 return true;
             }
@@ -174,7 +174,10 @@ class Map {
 
     }
 
-
+    /**
+     * Returns the timers for all power-ups
+     * @return Array with all timers in it
+     */
     int[] getPowerUpTimer(){
         int[] timers = new int[3];
         timers[0] = -1;
@@ -184,7 +187,10 @@ class Map {
         return timers;
     }
 
-
+    /**
+     * Returns a list with the active status of all power-ups
+     * @return Array with current active status of power-ups
+     */
     boolean[] getPowerUpActive(){
         boolean[] powerUpsActive = new boolean[3];
         powerUpsActive[0] = false;
@@ -196,6 +202,8 @@ class Map {
 
     //Update all the towers
     private void updateTowers() {
+        List<ITower> removeTowers = new ArrayList<>();
+
         for (ITower tower : towersList) {
 
             List<IVirus> virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), virusesList);
@@ -212,7 +220,11 @@ class Map {
             }
 
             tower.update(projectilesList, newAngle, towerHasTarget);
+
+            if (tower.canRemove() && !tower.equals(newTower)) { removeTowers.add(tower); }
         }
+
+        towersList.removeAll(removeTowers);
     }
 
 
@@ -298,8 +310,8 @@ class Map {
             case "smurf" -> newTower = TowerFactory.CreateSmurf(x, y);
             case "chemist" -> newTower = TowerFactory.CreateChemist(x, y, projectilesToAddList);
             case "electro" -> newTower = TowerFactory.CreateElectro(x, y);
-            case "hacker" -> newTower = TowerFactory.CreateHacker(x, y);
-            case "mech" -> newTower = TowerFactory.CreateMech(x, y, towersToAddList,towersToRemoveList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
+            case "hacker" -> newTower = TowerFactory.CreateHacker(x, y, projectilesToAddList);
+            case "mech" -> newTower = TowerFactory.CreateMech(x, y, towersToAddList, towersToRemoveList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
             case "eco" -> newTower = TowerFactory.CreateEco(x, y, player);
             default -> {
                 return;
@@ -327,21 +339,18 @@ class Map {
 
         newTower.setPos(x - buttonWidth / 2f, y - buttonHeight / 2f);
 
-        for (ITower tower : towersList) {
+        if (!checkCollisionOfTower(newTower, windowHeight, windowWidth)) {
+            newTower.setIfCanRemove(false);
+            rangeCircle.updatePos(newTower.getX() + newTower.getWidth() / 2, newTower.getY() + newTower.getHeight() / 2, newTower.getRange());
+            rangeCircle.setEnumColor(GetRangeCircle.Color.GRAY);
 
-            if (!tower.isPlaced() && !checkCollisionOfTower(tower, windowHeight, windowWidth)) {
-                tower.setCollision(false);
-                rangeCircle.updatePos(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());
-                rangeCircle.setEnumColor(GetRangeCircle.Color.GRAY);
-
-
-            } else if (!tower.isPlaced() && checkCollisionOfTower(tower, windowHeight, windowWidth)) {
-                tower.setCollision(true);
-                rangeCircle.updatePos(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());
-                rangeCircle.setEnumColor(GetRangeCircle.Color.RED);
-            }
+        } else {
+            newTower.setIfCanRemove(true);
+            rangeCircle.updatePos(newTower.getX() + newTower.getWidth() / 2, newTower.getY() + newTower.getHeight() / 2, newTower.getRange());
+            rangeCircle.setEnumColor(GetRangeCircle.Color.RED);
         }
     }
+
 
     /**
      * Handles when the tower is let go.
@@ -355,7 +364,7 @@ class Map {
      * @param y            The Y-position of the mouse
      */
     void dragEnd(float buttonWidth, float buttonHeight, float x, float y) {
-        if (!newTower.getCollision()) {
+        if (!newTower.canRemove()) {
             newTower.placeTower();
             newTower.setPos(x - buttonWidth / 2f, y - buttonHeight / 2f);
             player.decreaseMoney(newTower.getCost());
@@ -401,7 +410,7 @@ class Map {
      * @param cost cost of tower sold
      */
     void sellClickedTower(int cost) {
-        clickedTower.remove(towersList);
+        towersList.remove(clickedTower);
         player.increaseMoney(cost);
         clickedTower = null;
         rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
@@ -493,7 +502,7 @@ class Map {
      */
     void powerUpClicked(String powerUpName) {
         switch (powerUpName) {
-            case "cleanHands" -> cleanHands.activatePowerUp(towersList);
+            case "cleanHands" -> cleanHands.activatePowerUp();
             case "maskedUp"   -> maskedUpPowerUp.powerUpClicked(towersList);
             case "vaccinated" -> vaccinated.activatePowerUp(virusesList);
         }

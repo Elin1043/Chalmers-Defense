@@ -3,6 +3,7 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
+import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -22,7 +23,7 @@ import java.util.Objects;
 abstract class Tower implements ITower {
 
     private String spriteKey;       // The key to the Sprite Hashmap
-    int upgradeLevel = 1;   // The current upgradeLevel
+    private int upgradeLevel = 1;   // The current upgradeLevel
 
     private float angle = 0;        // Current angle of tower
     private int range;              // Current shooting range of tower
@@ -32,28 +33,29 @@ abstract class Tower implements ITower {
     private float x;                // X coordinate on map
     private float y;                // y coordinate on map
 
-    //private final TargetMode firstMode = TargetModeFactory.
-
-    private final List<ITargetMode> targetModes;
-
-    ITargetMode currentTargetMode;    // Which current targeting mode to use
+    private final List<ITargetMode> targetModes;    // List that holds references to the targetmodes
+    private ITargetMode currentTargetMode;    // Which current targeting mode to use
 
     private float width;            // Width of tower object
     private float height;           // Height of tower object
 
-    private int cost;         // Cost of tower
+    private final int cost;         // Cost of tower
 
-    private boolean collision = false;  // When tower is placed, this helps model to know if tower collides with anything
+    private boolean canRemove = false;  // This variable is set when the tower should be removed
 
 
-    private int reloadTime;         // Reload time of tower. (How many update cycles before tower will shoot)
-    private int currentReload = 0;  // Current reload
+    //private int reloadTime;         // Reload time of tower. (How many update cycles before tower will shoot)
+    //private int currentReload = 0;  // Current reload
+
+    private CountDownTimer reloadTimer;
+    private int reloadTime;                 // Variable to calculate new reload time when upgrading
 
 
     Tower(float x, float y, String name, int reloadTime, int cost, int range, List<ITargetMode> targetModes) {
         this.name = name;
         this.targetModes = targetModes;
         this.reloadTime = reloadTime;
+        this.reloadTimer = new CountDownTimer(reloadTime, 0);
         this.currentTargetMode = targetModes.get(0);
         updateSpriteKey();
 
@@ -81,11 +83,18 @@ abstract class Tower implements ITower {
     @Override
     public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget) {
         setAngle(newAngle);
-        if (currentReload < 1 && hasTarget && isPlaced) {
-            currentReload = reloadTime;
+
+        updateReloadTimer();
+
+        if (hasTarget && isPlaced && reloadTimer.getCurrentCountTime() <= 0) { // Here we only look to see if timer is 0, Not count down
+            reloadTimer.haveReachedZero();          // Need to reset the timer for next countdown
             createProjectile(projectilesList);
-        } else {
-            currentReload--;
+        }
+    }
+
+    private void updateReloadTimer() {
+        if (reloadTimer.getCurrentCountTime() > 0){ // If the timer is over 0 it should count down
+            reloadTimer.haveReachedZero();
         }
     }
 
@@ -118,6 +127,10 @@ abstract class Tower implements ITower {
     @Override
     public void upgradeTower(HashMap<String, Double> upgrades) {
         reloadTime *= upgrades.get("attackSpeedMul") ;
+
+        // Creates new timer object with new timer
+        reloadTimer = new CountDownTimer(reloadTime, reloadTimer.getCurrentCountTime());
+
         range *= upgrades.get("attackRangeMul");
         upgradeLevel++;
         updateSpriteKey();
@@ -143,7 +156,7 @@ abstract class Tower implements ITower {
     /**
      * Update the sprite key
      */
-    void updateSpriteKey() {
+    private void updateSpriteKey() {
         spriteKey = name + upgradeLevel;
     }
 
@@ -158,13 +171,13 @@ abstract class Tower implements ITower {
     }
 
     @Override
-    public boolean getCollision() {
-        return collision;
+    public boolean canRemove() {
+        return canRemove;
     }
 
     @Override
-    public void setCollision(boolean set) {
-        collision = set;
+    public void setIfCanRemove(boolean set) {
+        canRemove = set;
     }
 
     @Override

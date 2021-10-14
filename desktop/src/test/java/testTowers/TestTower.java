@@ -1,6 +1,8 @@
 package testTowers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
+import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
+import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 import org.junit.Test;
@@ -16,6 +18,8 @@ import static org.junit.Assert.*;
  * @author Elin Forsberg
  * <p>
  * Test class for Tower
+ * <p>
+ * 2021-10-11 Modified by Joel Båtsman Hilmersson: Added tests for changing target modes <br>
  */
 public class TestTower {
 
@@ -55,9 +59,9 @@ public class TestTower {
     @Test
     public void testTowerCollision() {
         ITower tower = TowerFactory.CreateSmurf(0, 0);
-        assertFalse(tower.getCollision());
-        tower.setCollision(true);
-        assertTrue(tower.getCollision());
+        assertFalse(tower.canRemove());
+        tower.setIfCanRemove(true);
+        assertTrue(tower.canRemove());
 
     }
 
@@ -92,5 +96,26 @@ public class TestTower {
         assertFalse(tower.isPlaced());
     }
 
+    @Test
+    public void testChangeTargetModeRight(){
+        ITower tower = TowerFactory.CreateSmurf(0, 0);
+        List<ITargetMode> targetModes = TargetModeFactory.getTargetModes();
+
+        for (int i = 0; i < targetModes.size(); i++) {    // This should spinn target modes around completely and be on the same as it started on
+            tower.changeTargetMode(true);
+        }
+        assertEquals(targetModes.get(0), tower.getCurrentTargetMode());
+    }
+
+    @Test
+    public void testChangeTargetModeLeft(){
+        ITower tower = TowerFactory.CreateSmurf(0, 0);
+        List<ITargetMode> targetModes = TargetModeFactory.getTargetModes();
+
+        for (int i = 0; i < targetModes.size(); i++) {    // This should spinn target modes around completely and be on the same as it started on
+            tower.changeTargetMode(false);
+        }
+        assertEquals(targetModes.get(0), tower.getCurrentTargetMode());
+    }
 
 }

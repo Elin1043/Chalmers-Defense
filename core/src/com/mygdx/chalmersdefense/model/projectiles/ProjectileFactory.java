@@ -24,6 +24,19 @@ public abstract class ProjectileFactory {
     }
 
     /**
+     * Creates a projectile of type ZeroOneProjectile
+     *
+     * @param towerX       the x - coordinate of the tower shooting the projectile
+     * @param towerY       the y - coordinate of the tower shooting the projectile
+     * @param angle        the angle of the tower shooting the projectile
+     * @param upgradeLevel the upgradeLevel of the tower shooting the projectile
+     * @return the created projectile
+     */
+    static public IProjectile createMatrixProjectile(float towerX, float towerY, float angle, int upgradeLevel, List<IProjectile> projectileList) {
+        return new MatrixProjectile(towerX, towerY, angle, upgradeLevel, projectileList);
+    }
+
+    /**
      * Creates a projectile of type AcidProjectile
      *
      * @param towerX         the x - coordinate of the tower shooting the projectile

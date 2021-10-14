@@ -18,7 +18,7 @@ public class TestVirus {
     @Test
     public void testVirusGetHit() {
         IVirus v = VirusFactory.createVirusTwo();
-        v.decreaseHealth();
+        v.decreaseHealth(1);
         assertEquals(1, v.getLifeDecreaseAmount());
     }
 
@@ -26,7 +26,7 @@ public class TestVirus {
     public void testVirusUpdateSpriteKey() {
         IVirus v = VirusFactory.createVirusTwo();
         assertEquals("virus2", v.getSpriteKey());
-        v.decreaseHealth();
+        v.decreaseHealth(1);
         assertEquals("virus1", v.getSpriteKey());
     }
 
@@ -34,7 +34,7 @@ public class TestVirus {
     public void testVirusIsDead() {
         IVirus v = VirusFactory.createVirusOne();
         assertFalse(v.isDead());
-        v.decreaseHealth();
+        v.decreaseHealth(1);
         assertTrue(v.isDead());
     }
 
@@ -70,6 +70,21 @@ public class TestVirus {
     public void testGetYPosition() {
         IVirus v = VirusFactory.createVirusOne();
         assertEquals(v.getY(), p.getWaypoint(0).getY() - v.getHeight() / 2, 0.0);
+    }
+
+    @Test
+    public void testVirusSlowDown(){
+        IVirus v1 = VirusFactory.createVirusOne();
+        IVirus v2 = VirusFactory.createVirusOne();
+
+        v1.decreaseHealth(0.7F);    // If damage under zero it will be slowed down
+
+        for (int i = 0; i < 10; i++){
+            v1.update();
+            v2.update();
+        }
+
+        assertTrue(v1.getTotalDistanceTraveled() < v2.getTotalDistanceTraveled());
     }
 
 }

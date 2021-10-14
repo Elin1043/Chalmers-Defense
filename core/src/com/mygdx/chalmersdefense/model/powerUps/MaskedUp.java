@@ -1,18 +1,25 @@
 package com.mygdx.chalmersdefense.model.powerUps;
 
 import com.mygdx.chalmersdefense.model.towers.ITower;
+import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
 import java.util.List;
 
 /**
  * @author Elin Forsberg
  * Class representing MaskedUp powerup, increases range of towers
+ *
+ * 2021-10-13 Modified by Joel Båtsman Hilmersson: Changed class to use CountDownTimer <br>
  */
 public class MaskedUp {
 
 
-    private int cooldown = 0;    // Cooldown of the powerUp
-    private int powerUpTimer = 500;    // Lifetime of the powerUp
+    //private int cooldown = 0;    // Cooldown of the powerUp
+    private final CountDownTimer cooldown = new CountDownTimer(500, 0);
+
+    //private int powerUpTimer = 500;    // Lifetime of the powerUp
+    private final CountDownTimer powerUpTimer = new CountDownTimer(500);
+
     private List<ITower> allTowers;
 
 
@@ -24,7 +31,7 @@ public class MaskedUp {
         this.allTowers = allTowers;
         if(canActivate){
             activatePowerUp();
-            powerUpTimer = 500;
+            //powerUpTimer = 500;
             canActivate = false;
             isActivated = true;
         }
@@ -43,21 +50,13 @@ public class MaskedUp {
     }
 
     public void decreaseTimer(){
-        if(isActivated){
-            if (powerUpTimer <= 0) {
-                deActivatePowerUp();
-                isActivated = false;
-                cooldown = 500;
-            } else {
-                powerUpTimer --;
-            }
+
+        if (isActivated && powerUpTimer.haveReachedZero()) {
+            deActivatePowerUp();
+            isActivated = false;
         }
-        else{
-            if (cooldown <= 0) {
-                canActivate = true;
-            } else {
-                cooldown --;
-            }
+        else if (!isActivated && !canActivate && cooldown.haveReachedZero()) {
+            canActivate = true;
         }
 
     }
@@ -68,13 +67,13 @@ public class MaskedUp {
      */
     public int getTimer() {
         if(isActivated && !canActivate){
-            return (powerUpTimer * 5) / 1000;
+            return (powerUpTimer.getCurrentCountTime() * 5) / 1000;
         }
-        else if(isActivated ){
+        else if(isActivated){
             return -1;
         }
-        else if(!isActivated && !canActivate){
-            return (cooldown * 5) / 1000;
+        else if(!canActivate){
+            return (cooldown.getCurrentCountTime() * 5) / 1000;
         }
         else{
             return -1;
