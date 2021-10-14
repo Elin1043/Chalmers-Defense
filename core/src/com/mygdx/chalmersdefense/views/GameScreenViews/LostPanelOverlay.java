@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
-import com.mygdx.chalmersdefense.controllers.GameScreenController;
+import com.mygdx.chalmersdefense.controllers.overlays.LostPanelOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 
 /**
@@ -20,6 +20,8 @@ import com.mygdx.chalmersdefense.utilities.FontFactory;
 public class LostPanelOverlay extends AbstractOverlay {
     private final float WIDTH = 810;
     private final float HEIGHT = 400;
+
+    private final LostPanelOverlayController lostPanelOverlayController;
 
     private final TextureAtlas lostButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/lostGameButtonSkin/lostGameButtonSkin.atlas")); // Load atlas file from skin
     private final Skin lostButtonSkin = new Skin(Gdx.files.internal("buttons/lostGameButtonSkin/lostGameButtonSkin.json"), lostButtonTexture); // Create skin object
@@ -37,10 +39,8 @@ public class LostPanelOverlay extends AbstractOverlay {
     private final Button tryAgainButton = new Button(lostButtonSkin);
     private final Label tryAgainButtonText = new Label("Try again", FontFactory.getLabelStyle24BlackSemiBold());
 
-    public LostPanelOverlay(Stage stage, GameScreenController gameScreenController) {
-        super(gameScreenController, stage);
-
-        initialize();
+    public LostPanelOverlay(LostPanelOverlayController lostPanelOverlayController) {
+        this.lostPanelOverlayController = lostPanelOverlayController;
     }
 
     @Override
@@ -63,8 +63,8 @@ public class LostPanelOverlay extends AbstractOverlay {
                 backgroundImage.getX() + backgroundImage.getWidth() / 2 - 720 / 2f,
                 backgroundImage.getY() + backgroundImage.getHeight() - 150);
 
-        createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1, "LostPanelOverlay");
-        createButtons(backgroundImage, tryAgainButton, tryAgainButtonText, 2, "LostPanelOverlay");
+        createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1);
+        createButtons(backgroundImage, tryAgainButton, tryAgainButtonText, 2);
 
         lostPanelGroup.setVisible(false);
     }
@@ -95,5 +95,27 @@ public class LostPanelOverlay extends AbstractOverlay {
     @Override
     public void hideOverlay() {
         lostPanelGroup.setVisible(false);
+    }
+
+    /**
+     * Setup a new button
+     * @param backgroundImage of the new button
+     * @param button the button to be setup
+     * @param buttonLabel of the new button
+     * @param buttonNr of the new button
+     */
+    private void createButtons(Image backgroundImage, Button button, Label buttonLabel, int buttonNr) {
+        // Offset used to place button in center of left or right part.
+        float offsetMulX = buttonNr == 1 ? 1 / 4f : 3/ 4f;
+        if (buttonNr == 1) {
+            lostPanelOverlayController.addMainMenuClickListener(button);
+        } else {
+            lostPanelOverlayController.addLostPanelTryAgainClickListener(button);
+        }
+
+        button.setPosition(
+                backgroundImage.getX() + (backgroundImage.getWidth() * offsetMulX) - button.getWidth() / 2,
+                backgroundImage.getY() + 65);
+        buttonLabel.setPosition(button.getWidth() / 2 - buttonLabel.getWidth() / 2, button.getHeight() / 2 - buttonLabel.getHeight() / 2 + 5);
     }
 }

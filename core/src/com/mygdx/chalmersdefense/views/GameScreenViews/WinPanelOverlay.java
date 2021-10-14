@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
-import com.mygdx.chalmersdefense.controllers.GameScreenController;
+import com.mygdx.chalmersdefense.controllers.overlays.WinPanelOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 
 /**
@@ -20,6 +20,8 @@ import com.mygdx.chalmersdefense.utilities.FontFactory;
 public class WinPanelOverlay extends AbstractOverlay {
     private final float WIDTH = 810;
     private final float HEIGHT = 400;
+
+    private final WinPanelOverlayController winPanelOverlayController;
 
     private final TextureAtlas winButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/winGameButtonSkin/winGameButtonSkin.atlas")); // Load atlas file from skin
     private final Skin winButtonSkin = new Skin(Gdx.files.internal("buttons/winGameButtonSkin/winGameButtonSkin.json"), winButtonTexture); // Create skin object
@@ -38,10 +40,8 @@ public class WinPanelOverlay extends AbstractOverlay {
     private final Button continueButton = new Button(winButtonSkin);
     private final Label continueButtonText = new Label("Continue", FontFactory.getLabelStyle24BlackSemiBold());
 
-    public WinPanelOverlay(Stage stage, GameScreenController gameScreenController) {
-        super(gameScreenController, stage);
-
-        initialize();
+    public WinPanelOverlay(WinPanelOverlayController winPanelOverlayController) {
+        this.winPanelOverlayController = winPanelOverlayController;
     }
 
     @Override
@@ -64,8 +64,8 @@ public class WinPanelOverlay extends AbstractOverlay {
                 backgroundImage.getX() + backgroundImage.getWidth() / 2 - 720 / 2f,
                 backgroundImage.getY() + backgroundImage.getHeight() - 150);
 
-        createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1, "WinPanelOverlay");
-        createButtons(backgroundImage, continueButton, continueButtonText, 2, "WinPanelOverlay");
+        createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1);
+        createButtons(backgroundImage, continueButton, continueButtonText, 2);
 
         winPanelGroup.setVisible(false);
     }
@@ -95,5 +95,27 @@ public class WinPanelOverlay extends AbstractOverlay {
    @Override
     public void hideOverlay() {
         winPanelGroup.setVisible(false);
+    }
+
+    /**
+     * Setup a new button
+     * @param backgroundImage of the new button
+     * @param button the button to be setup
+     * @param buttonLabel of the new button
+     * @param buttonNr of the new button
+     */
+    private void createButtons(Image backgroundImage, Button button, Label buttonLabel, int buttonNr) {
+        // Offset used to place button in center of left or right part.
+        float offsetMulX = buttonNr == 1 ? 1 / 4f : 3/ 4f;
+        if (buttonNr == 1) {
+            winPanelOverlayController.addMainMenuClickListener(button);
+        } else {
+            winPanelOverlayController.addWinPanelContinueClickListener(button);
+        }
+
+        button.setPosition(
+                backgroundImage.getX() + (backgroundImage.getWidth() * offsetMulX) - button.getWidth() / 2,
+                backgroundImage.getY() + 65);
+        buttonLabel.setPosition(button.getWidth() / 2 - buttonLabel.getWidth() / 2, button.getHeight() / 2 - buttonLabel.getHeight() / 2 + 5);
     }
 }
