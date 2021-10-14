@@ -13,6 +13,8 @@ import java.util.List;
 /**
  * @author Elin Forsberg
  * Class representing the MechTower
+ *
+ * 2021-10-14 Modified by Joel Båtsman Hilmersson: MechTower now only spawns MinimechTowers and do not remove them <br>
  */
 class MechTower extends Tower {
 
@@ -22,8 +24,7 @@ class MechTower extends Tower {
     private final List<ITower> allTowers;           // The list of all towers on the map
     private final List<PathRectangle> pathRectangles;  // The list of all pathRectangles on current map
 
-    //private int robotCoolDownTimer = 0;    // Cool down of a robot
-    private final CountDownTimer robotCoolDownTimer = new CountDownTimer(1500,0);
+    private final CountDownTimer robotCoolDownTimer = new CountDownTimer(1500,0); // Timer for robot spawning cooldown
 
 
     MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<ITower> towersToAddList, List<ITower> allTowers,  List<PathRectangle> pathRectangles) {

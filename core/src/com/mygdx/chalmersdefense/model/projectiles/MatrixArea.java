@@ -9,8 +9,7 @@ import com.mygdx.chalmersdefense.utilities.CountDownTimer;
  */
 class MatrixArea extends Projectile {
 
-    //private int matrixTimer = 50;    // Lifetime of MatrixArea
-    private final CountDownTimer matrixTimer = new CountDownTimer(50);
+    private final CountDownTimer matrixTimer = new CountDownTimer(50); // Lifetime of MatrixArea
 
     MatrixArea(float x, float y, int upgradeLevel) {
         super(0, "hackerArea" + upgradeLevel, x, y, 0, new float[] {0.75F, 0.75F, 0.5F}[upgradeLevel - 1]);

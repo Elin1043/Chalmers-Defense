@@ -43,11 +43,7 @@ abstract class Tower implements ITower {
 
     private boolean canRemove = false;  // This variable is set when the tower should be removed
 
-
-    //private int reloadTime;         // Reload time of tower. (How many update cycles before tower will shoot)
-    //private int currentReload = 0;  // Current reload
-
-    private CountDownTimer reloadTimer;
+    private CountDownTimer reloadTimer;     // Reload timer of tower. (How many update cycles before tower will shoot)
     private int reloadTime;                 // Variable to calculate new reload time when upgrading
 
 
