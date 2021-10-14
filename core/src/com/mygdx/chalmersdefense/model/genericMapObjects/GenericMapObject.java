@@ -45,8 +45,6 @@ public class GenericMapObject implements IGenericMapObject {
             BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("genericMapObjects/" + spriteKey + ".png")));
             this.width = towerImage.getWidth();
             this.height = towerImage.getHeight();
-
-
         } catch (IOException exception) {
             exception.printStackTrace();
         }
