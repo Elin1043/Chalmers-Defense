@@ -4,10 +4,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.mygdx.chalmersdefense.utilities.GameScreenOverlayEnum;
+import com.mygdx.chalmersdefense.views.overlays.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.IControllModel;
-import com.mygdx.chalmersdefense.views.ScreenEnum;
-import com.mygdx.chalmersdefense.views.ScreenManager;
 
 /**
  * @author Daniel Persson
@@ -42,49 +40,6 @@ public class GameScreenController {
     }
 
     /**
-     * Adds click listener to main menu button in LostPanelOverlay
-     *
-     * @param button LostPanels main menu button
-     */
-    public void addMainMenuClickListener(Button button) {
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
-                model.resetModel();
-            }
-        });
-    }
-
-    /**
-     * Adds click listener to try again button in LostPanelOverlay
-     *
-     * @param button LostPanels try again button
-     */
-    public void addLostPanelTryAgainClickListener(Button button) {
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                model.resetModel();
-            }
-        });
-    }
-
-    /**
-     * Adds click listener to continue button in WinPanelOverlay
-     *
-     * @param button WinPanels continue button
-     */
-    public void addWinPanelContinueClickListener(Button button) {
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                model.setShowOverlay(GameScreenOverlayEnum.NONE);
-            }
-        });
-    }
-
-    /**
      * Adds click listener to pause button in GameScreen
      *
      * @param button GameScreens pause button
@@ -94,50 +49,9 @@ public class GameScreenController {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 model.stopGameUpdate();
-                model.setShowOverlay(GameScreenOverlayEnum.PAUSE_MENU);
+                model.setShowOverlay(ScreenOverlayEnum.PAUSE_MENU);
             }
         });
-    }
-
-    /**
-     * Add click listener for pause menu buttons
-     * @param button pause menu button
-     * @param buttonName type of button
-     */
-    public void addPauseMenuClickListeners(Button button, String buttonName) {
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                switch (buttonName) {
-                    case "Continue":
-                        model.startGameUpdate();
-                        model.setShowOverlay(GameScreenOverlayEnum.NONE);
-                        break;
-                    case "Settings":
-                        model.setShowOverlay(GameScreenOverlayEnum.SETTINGS);
-                        break;
-                    case "Quit":
-                        model.stopGameUpdate();
-                        ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
-                        break;
-                }
-            }
-        });
-    }
-
-    /**
-     * Added click listener for exit pause menu button
-     * @param button exit button
-     */
-    public void addExitPauseMenuButtonClickListener(Button button) {
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                model.startGameUpdate();
-                model.setShowOverlay(GameScreenOverlayEnum.NONE);
-            }
-        });
-
     }
 
 }
