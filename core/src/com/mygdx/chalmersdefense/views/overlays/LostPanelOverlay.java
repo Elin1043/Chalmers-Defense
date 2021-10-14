@@ -48,12 +48,11 @@ public class LostPanelOverlay extends AbstractOverlay {
         // Create first button
         Button mainMenuButton = new Button(lostButtonSkin);
         Label mainMenuButtonText = new Label("Main menu", FontFactory.getLabelStyle24BlackSemiBold());
+        createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1);
 
         // Create second button
         Button tryAgainButton = new Button(lostButtonSkin);
         Label tryAgainButtonText = new Label("Try again", FontFactory.getLabelStyle24BlackSemiBold());
-
-        createButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1);
         createButtons(backgroundImage, tryAgainButton, tryAgainButtonText, 2);
 
         lostPanelGroup.setVisible(false);
