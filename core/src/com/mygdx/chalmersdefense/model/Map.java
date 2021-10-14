@@ -311,7 +311,7 @@ class Map {
             case "chemist" -> newTower = TowerFactory.CreateChemist(x, y, projectilesToAddList);
             case "electro" -> newTower = TowerFactory.CreateElectro(x, y);
             case "hacker" -> newTower = TowerFactory.CreateHacker(x, y, projectilesToAddList);
-            case "mech" -> newTower = TowerFactory.CreateMech(x, y, towersToAddList, towersToRemoveList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
+            case "mech" -> newTower = TowerFactory.CreateMech(x, y, towersToAddList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
             case "eco" -> newTower = TowerFactory.CreateEco(x, y, player);
             default -> {
                 return;

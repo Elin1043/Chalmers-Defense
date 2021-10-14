@@ -4,6 +4,7 @@ import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.utilities.Calculate;
+import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
 
 import java.util.ArrayList;
@@ -15,59 +16,31 @@ import java.util.List;
  */
 class MechTower extends Tower {
 
-    private final List<ITower> miniTowers = new ArrayList<>();  // List to add minitower to
     private final int reloadSpeed;      // Reload speed
     private final List<ITargetMode> targetModes;    // All possible targeted
     private final List<ITower> towersToAddList;       // The list to add towers to get them to show up on the map
-    private final List<ITower> towersToRemoveList; // The list to add towers to remove them from map
     private final List<ITower> allTowers;           // The list of all towers on the map
     private final List<PathRectangle> pathRectangles;  // The list of all pathRectangles on current map
 
-    private int robotLifeTimer = 2000;    // Lifetime of a robot
-    private int robotCoolDownTimer = 0;    // Cool down of a robot
+    //private int robotCoolDownTimer = 0;    // Cool down of a robot
+    private final CountDownTimer robotCoolDownTimer = new CountDownTimer(1500,0);
 
 
-    MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<ITower> towersToAddList, List<ITower> towersToRemoveList,List<ITower> allTowers,  List<PathRectangle> pathRectangles) {
+    MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<ITower> towersToAddList, List<ITower> allTowers,  List<PathRectangle> pathRectangles) {
         super(x, y, name, reloadSpeed, cost, range, targetModes);
         this.reloadSpeed = reloadSpeed;
         this.targetModes = targetModes;
         this.towersToAddList = towersToAddList;
-        this.towersToRemoveList = towersToRemoveList;
+
         this.allTowers = allTowers;
         this.pathRectangles = pathRectangles;
     }
 
-    private List<ITower> createMiniTowers() {
-        float[] point1 = checkPointCollision();
-        float[] point2 = checkPointCollision();
-        if(getUpgradeLevel() == 1 || getUpgradeLevel() == 3){
-            if(point1[0] != -1){
-                ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, getRange(), targetModes, super.getCurrentTargetMode(), super.getUpgradeLevel());
-                miniTowers.add(miniTower1);
-            }
-
-        }
-        if(getUpgradeLevel() == 2){
-            if(point1[0] != -1 && point2[0] != -1){
-                ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, getRange(), targetModes, super.getCurrentTargetMode(), super.getUpgradeLevel());
-                ITower miniTower2 = new MechMiniTower(point2[0], point2[1], reloadSpeed, getRange(), targetModes, super.getCurrentTargetMode(), super.getUpgradeLevel());
-                miniTowers.add(miniTower1);
-                miniTowers.add(miniTower2);
-            }
-        }
-        return miniTowers;
-    }
 
     @Override
     void createProjectile(List<IProjectile> projectileList){
         projectileList.add(ProjectileFactory.createRobotProjectile(super.getX(), super.getY(), getAngle(), getUpgradeLevel()));
 
-    }
-
-    @Override
-    public void remove(List<ITower> towersList){
-        towersList.removeAll(miniTowers);
-        towersList.remove(this);
     }
 
     @Override
@@ -85,27 +58,48 @@ class MechTower extends Tower {
     }
 
     private void spawnMiniTowers(){
-        if (this.isPlaced() && miniTowers.isEmpty() && robotCoolDownTimer <= 0) {
-            List<ITower> miniTowers = createMiniTowers();
-            for (ITower miniTower : miniTowers) {
-                miniTower.placeTower();
-            }
-            robotLifeTimer = 1000;
-            towersToAddList.addAll(miniTowers);
-        }
-        else if(this.isPlaced() && !miniTowers.isEmpty() && robotLifeTimer <= 0){
-            towersToRemoveList.addAll(miniTowers);
-            miniTowers.clear();
-            robotCoolDownTimer = 500;
-        }
-
-        else if(this.isPlaced() && !miniTowers.isEmpty()){
-            robotLifeTimer--;
-        }
-        else{
-            robotCoolDownTimer--;
+        if (this.isPlaced() && robotCoolDownTimer.haveReachedZero()){
+            createMiniTowers();
         }
     }
+
+    private void createMiniTowers() {
+        float[] point1 = checkPointCollision();
+        float[] point2 = checkPointCollision();
+
+        if(getUpgradeLevel() == 1 || getUpgradeLevel() == 3){
+            createOneTower(point1);
+        }
+
+        if(getUpgradeLevel() == 2){
+            createTwoTowers(point1, point2);
+        }
+    }
+
+    private void createOneTower(float[] point1) {
+        if(point1[0] != -1){
+            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, getRange(), targetModes, super.getCurrentTargetMode(), super.getUpgradeLevel());
+
+            towersToAddList.add(miniTower1);
+
+            miniTower1.placeTower();
+        }
+    }
+
+    private void createTwoTowers(float[] point1, float[] point2) {
+        if(point1[0] != -1 && point2[0] != -1){
+            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, getRange(), targetModes, super.getCurrentTargetMode(), super.getUpgradeLevel());
+            ITower miniTower2 = new MechMiniTower(point2[0], point2[1], reloadSpeed, getRange(), targetModes, super.getCurrentTargetMode(), super.getUpgradeLevel());
+
+            towersToAddList.add(miniTower1);
+            towersToAddList.add(miniTower2);
+
+            miniTower1.placeTower();
+            miniTower2.placeTower();
+        }
+    }
+
+
 
     private float[] checkPointCollision() {
         float[] point = randPoint();
@@ -119,7 +113,6 @@ class MechTower extends Tower {
         }
 
         return new float[]{-1, -1};
-
     }
 
     private boolean pathCollision(double width, double height,double x, double y){

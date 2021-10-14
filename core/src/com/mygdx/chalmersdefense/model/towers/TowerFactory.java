@@ -70,8 +70,8 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower CreateMech(float startPosX, float startPosY, List<ITower> towerToAddList, List<ITower> towerToRemoveList, List<ITower> allTowers, List<PathRectangle> pathRectangles) {
-        return new MechTower(startPosX, startPosY, "Mechoman", 60 * 3, 500, 200, TargetModeFactory.getTargetModes(), towerToAddList, towerToRemoveList,allTowers, pathRectangles);
+    public static ITower CreateMech(float startPosX, float startPosY, List<ITower> towerToAddList, List<ITower> allTowers, List<PathRectangle> pathRectangles) {
+        return new MechTower(startPosX, startPosY, "Mechoman", 60 * 3, 500, 200, TargetModeFactory.getTargetModes(), towerToAddList, allTowers, pathRectangles);
     }
 
     /**

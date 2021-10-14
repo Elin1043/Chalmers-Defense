@@ -57,7 +57,7 @@ public interface ITower extends IMapObject {
     boolean canRemove();
 
     /**
-     * Sets if tower is colliding with something else
+     * Sets if tower should be removed
      *
      * @param set if tower is colliding
      */
@@ -103,12 +103,6 @@ public interface ITower extends IMapObject {
      * Sets that tower is placed
      */
     void placeTower();
-
-    /**
-     * Remove the tower from list
-     * @param towersList to remove from
-     */
-    void remove(List<ITower> towersList);
 
     /**
      * Change the targetMode of the tower

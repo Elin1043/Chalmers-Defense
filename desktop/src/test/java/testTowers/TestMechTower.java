@@ -30,7 +30,7 @@ public class TestMechTower {
     @Test
     public void testUpdate() {
         towersList.add(tSmurf);
-        ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,towersList,path.getCollisionRectangles());
+        ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,path.getCollisionRectangles());
         t.placeTower();
 
         t.update(new ArrayList<>(), 10, true);
@@ -40,12 +40,12 @@ public class TestMechTower {
     @Test
     public void testRemove() {
         List<ITower> addToList = new ArrayList<>();
-        ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,towersList,path.getCollisionRectangles());
+        ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,path.getCollisionRectangles());
         t.placeTower();
 
         t.update(new ArrayList<>(), 10, true);
         assertTrue(addToList.size() > 0);
-        t.remove(addToList);
+        //t.remove(addToList);
         assertEquals(0, addToList.size());
     }
 
@@ -56,7 +56,7 @@ public class TestMechTower {
         upgrades.put("attackRangeMul",2.0);
         towersList.add(tSmurf);
         List<ITower> addToList = new ArrayList<>();
-        ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,towersList,path.getCollisionRectangles());
+        ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,path.getCollisionRectangles());
         List<IProjectile> pList = new ArrayList<>();
 
         t.placeTower();
