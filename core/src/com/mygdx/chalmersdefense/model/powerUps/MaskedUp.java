@@ -31,7 +31,6 @@ public class MaskedUp {
         this.allTowers = allTowers;
         if(canActivate){
             activatePowerUp();
-            //powerUpTimer = 500;
             canActivate = false;
             isActivated = true;
         }

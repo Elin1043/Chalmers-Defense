@@ -129,7 +129,9 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public void powerUpClicked(String powerUpName){
-        map.powerUpClicked(powerUpName);
+        if (virusSpawner.isSpawning() || !map.isVirusCleared()) {
+            map.powerUpClicked(powerUpName);
+        }
     }
 
     @Override
