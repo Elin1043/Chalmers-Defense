@@ -2,6 +2,11 @@ package com.mygdx.chalmersdefense.model.genericMapObjects;
 
 import com.mygdx.chalmersdefense.model.IMapObject;
 
+/**
+ * @author Elin Forsberg
+ *
+ * Interface for GenericMapObject
+ */
 public interface IGenericMapObject extends IMapObject {
 
     /**

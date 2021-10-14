@@ -2,6 +2,7 @@ package com.mygdx.chalmersdefense.model;
 
 
 import com.mygdx.chalmersdefense.model.genericMapObjects.GenericMapObject;
+import com.mygdx.chalmersdefense.model.genericMapObjects.GenericMapObjectFactory;
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
@@ -529,29 +530,23 @@ class Map {
 
     private void cleanHandsPowerUpClicked(){
         cleanHands.activatePowerUp();
-        IGenericMapObject bubbles1 = new GenericMapObject(2,"bubbles", 700,400,90, 500);
-        IGenericMapObject bubbles2 = new GenericMapObject(2,"bubbles", 700,400,10, 500);
-        IGenericMapObject bubbles3 = new GenericMapObject(2,"bubbles", 700,400,-120, 500);
-        IGenericMapObject bubbles4 = new GenericMapObject(2,"bubbles", 700,400,160, 500);
-
-        genericObjectsList.add(bubbles1);
-        genericObjectsList.add(bubbles2);
-        genericObjectsList.add(bubbles3);
-        genericObjectsList.add(bubbles4);
+        genericObjectsList.add(GenericMapObjectFactory.createBubbles(700, 400, 90));
+        genericObjectsList.add(GenericMapObjectFactory.createBubbles(700, 400, 10));
+        genericObjectsList.add(GenericMapObjectFactory.createBubbles(700, 400, -120));
+        genericObjectsList.add(GenericMapObjectFactory.createBubbles(700, 400, 160));
 
     }
 
     private void maskedPowerUpClicked(){
         maskedUpPowerUp.powerUpClicked(towersList);
-        IGenericMapObject maskedUpSmurf = new GenericMapObject(4,"maskedUpSmurf", -500,500,0, 500);
-        genericObjectsList.add(maskedUpSmurf);
+        genericObjectsList.add(GenericMapObjectFactory.createMaskedUpSmurf(-500, 500, 0));
 
     }
 
     private void vaccinePowerUpClicked(){
         vaccinated.activatePowerUp(virusesList);
-        IGenericMapObject vaccinationStorm = new GenericMapObject(7,"vaccinationStorm", 0,-1500,90, 500);
-        genericObjectsList.add(vaccinationStorm);
+        genericObjectsList.add(GenericMapObjectFactory.createVaccinationStorm());
+
     }
 
 
