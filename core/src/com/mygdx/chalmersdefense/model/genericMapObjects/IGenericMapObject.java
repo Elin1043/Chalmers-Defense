@@ -1,6 +1,8 @@
-package com.mygdx.chalmersdefense.model;
+package com.mygdx.chalmersdefense.model.genericMapObjects;
 
-public interface IGenericMapObject extends  IMapObject{
+import com.mygdx.chalmersdefense.model.IMapObject;
+
+public interface IGenericMapObject extends IMapObject {
 
     /**
      * Moves the projectile in calculated direction

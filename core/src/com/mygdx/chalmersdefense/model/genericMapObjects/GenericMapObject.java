@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.model;
+package com.mygdx.chalmersdefense.model.genericMapObjects;
 
 import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
@@ -31,7 +31,7 @@ public class GenericMapObject implements IGenericMapObject {
 
     private final CountDownTimer animationTimer ;
 
-    GenericMapObject(float speed, String spriteKey, float x, float y, float angle, int time) {
+    public GenericMapObject(float speed, String spriteKey, float x, float y, float angle, int time) {
         this.speed = speed;
         this.spriteKey = spriteKey;
         this.x = x;

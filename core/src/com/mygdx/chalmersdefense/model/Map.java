@@ -1,6 +1,8 @@
 package com.mygdx.chalmersdefense.model;
 
 
+import com.mygdx.chalmersdefense.model.genericMapObjects.GenericMapObject;
+import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
 import com.mygdx.chalmersdefense.model.powerUps.MaskedUp;
@@ -528,7 +530,7 @@ class Map {
     private void cleanHandsPowerUpClicked(){
         cleanHands.activatePowerUp();
         IGenericMapObject bubbles1 = new GenericMapObject(1,"bubbles", 700,400,90, 500);
-        IGenericMapObject bubbles2 = new GenericMapObject(1,"bubbles", 700,400,45, 500);
+        IGenericMapObject bubbles2 = new GenericMapObject(1,"bubbles", 700,400,10, 500);
         IGenericMapObject bubbles3 = new GenericMapObject(1,"bubbles", 700,400,-120, 500);
         IGenericMapObject bubbles4 = new GenericMapObject(1,"bubbles", 700,400,160, 500);
 
