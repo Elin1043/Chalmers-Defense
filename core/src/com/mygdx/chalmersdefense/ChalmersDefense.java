@@ -13,8 +13,7 @@ import com.mygdx.chalmersdefense.controllers.overlays.WinPanelOverlayController;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.views.*;
-import com.mygdx.chalmersdefense.views.GameScreenViews.*;
-import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
+import com.mygdx.chalmersdefense.views.overlays.*;
 
 /**
  * @author Daniel Persson
@@ -27,6 +26,7 @@ import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: Changed timer to use libGDX timer instead of javaswing <br>
  * 2021-09-30 Modified by Joel Båtsman Hilmersson: Moved timer to GameTimer class instead <br>
  * 2021-10-13 Modified by Daniel Persson: Added preferences
+ * 2021-10-14 Modified by Daniel Persson: Moved controller creation to this class
  */
 public class ChalmersDefense extends Game {
 
