@@ -2,12 +2,14 @@ package com.mygdx.chalmersdefense.views.GameScreenViews;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.mygdx.chalmersdefense.controllers.GameScreenController;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import static com.badlogic.gdx.graphics.GL20.*;
 
@@ -17,13 +19,11 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * Class representing an AbstractOverlay
  */
 public abstract class AbstractOverlay {
-    protected final Stage stage;
+    protected Stage stage;
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
-    protected GameScreenController gameScreenController;
 
-    public AbstractOverlay(GameScreenController gameScreenController, Stage stage) {
-        this.gameScreenController = gameScreenController;
-        this.stage = new Stage(stage.getViewport());
+    public AbstractOverlay() {
+
     }
 
     /**
@@ -41,6 +41,13 @@ public abstract class AbstractOverlay {
      */
     public abstract void hideOverlay();
 
+    public void setStage(Stage stage) {
+        if (this.stage == null || !this.stage.equals(stage)) {
+            this.stage = new Stage(stage.getViewport());
+            initialize();
+            System.out.println("Yesing");
+        }
+    }
 
 
     /**
@@ -56,33 +63,12 @@ public abstract class AbstractOverlay {
         Gdx.gl.glDisable(GL_BLEND);
     }
 
-    /**
-     * Setup a new button
-     * @param backgroundImage of the new button
-     * @param button the button to be setup
-     * @param buttonLabel of the new button
-     * @param buttonNr of the new button
-     * @param originPanel name of panel where button should be
-     */
-    protected void createButtons(Image backgroundImage, Button button, Label buttonLabel, int buttonNr, String originPanel) {
-        // Offset used to place button in center of left or right part.
-        float offsetMulX;
-        if (buttonNr == 1) {
-            offsetMulX = 1 / 4f;
-            gameScreenController.addMainMenuClickListener(button);
-        } else {
-            offsetMulX = 3 / 4f;
-            if (originPanel.equals("WinPanelOverlay")) {
-                gameScreenController.addWinPanelContinueClickListener(button);
-            } else {
-                gameScreenController.addLostPanelTryAgainClickListener(button);
-            }
-
-        }
-
-        button.setPosition(
-                backgroundImage.getX() + (backgroundImage.getWidth() * offsetMulX) - button.getWidth() / 2,
-                backgroundImage.getY() + 65);
-        buttonLabel.setPosition(button.getWidth() / 2 - buttonLabel.getWidth() / 2, button.getHeight() / 2 - buttonLabel.getHeight() / 2 + 5);
+    protected ImageButton createExitPauseMenuButton(Group group, Image backgroundImage) {
+        TextureRegion exitButtonTextureRegion = new TextureRegion(new Texture("GameScreen/overlays/ExitPauseMenuButton.png"));
+        TextureRegionDrawable exitButtonRegDrawable = new TextureRegionDrawable(exitButtonTextureRegion);
+        ImageButton exitButton = new ImageButton(exitButtonRegDrawable); //Set the button up
+        group.addActor(exitButton);
+        exitButton.setPosition(backgroundImage.getX() + backgroundImage.getWidth() - exitButton.getWidth() - 20, backgroundImage.getY() + backgroundImage.getHeight() - exitButton.getHeight() - 20);
+        return exitButton;
     }
 }
