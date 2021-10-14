@@ -16,7 +16,7 @@ import java.util.List;
 class EcoTower extends Tower {
 
     //private int currentReload;      // Reload time of this tower
-    private final CountDownTimer currentReload = new CountDownTimer(600, 300);
+    private final CountDownTimer currentReload = new CountDownTimer(600, 0);
     private final Player player;    // Player to add money to
 
     EcoTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, Player player) {
