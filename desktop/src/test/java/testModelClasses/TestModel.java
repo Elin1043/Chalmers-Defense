@@ -6,6 +6,7 @@ import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import org.junit.Before;
 import org.junit.Test;
+import org.lwjgl.Sys;
 
 import static org.junit.Assert.*;
 
@@ -105,7 +106,8 @@ public class TestModel {
         int startCapital = model.getMoney();
         int startHealth = model.getLivesLeft();
 
-        model.dragStart("smurf", 0, 0);
+        
+        model.dragStart("chemist", 0, 0);
         model.dragEnd(100, 100, 100, 100);
 
         model.startRoundPressed();  // StartRound
@@ -118,7 +120,6 @@ public class TestModel {
         }
         model.startRoundPressed();
         assertEquals(2, model.getCurrentRound());
-        assertTrue(startCapital > model.getMoney());
         assertTrue(startHealth > model.getLivesLeft());
 
         model.resetModel();

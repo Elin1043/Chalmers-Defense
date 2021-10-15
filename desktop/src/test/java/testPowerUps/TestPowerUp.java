@@ -11,10 +11,11 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * @author Joel Båtsman Hilmersson
+ * Test class for testing PowerUp
  */
 public class TestPowerUp {
 
@@ -34,5 +35,29 @@ public class TestPowerUp {
         assertTrue(powerUp.getIsActive());
     }
 
+    @Test
+    public void testDecreaseTimer(){
+        powerUp.powerUpClicked(genericMapObjectList);
 
+        for (int i = 0; i < 10000; i++){
+            powerUp.decreaseTimer();
+        }
+
+        assertFalse(powerUp.getIsActive());
+    }
+
+    @Test
+    public void testGetTimer(){
+        assertEquals(-1, powerUp.getTimer());
+
+        powerUp.powerUpClicked(genericMapObjectList);
+
+        assertEquals(2, powerUp.getTimer());
+
+        while (powerUp.getIsActive()){
+            powerUp.decreaseTimer();
+        }
+
+        assertEquals(2, powerUp.getTimer());
+    }
 }
