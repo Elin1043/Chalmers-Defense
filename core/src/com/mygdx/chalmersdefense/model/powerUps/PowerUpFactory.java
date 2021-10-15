@@ -9,6 +9,8 @@ import java.util.List;
 /**
  * @author Elin Forsberg
  * Factory for power-ups
+ *
+ * 2021-10-15 Modified by Joel Båtsman Hilmersson: Factory now only returns a list <br>
  */
 public class PowerUpFactory {
 

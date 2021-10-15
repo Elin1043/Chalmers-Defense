@@ -5,14 +5,16 @@ import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
 import java.util.List;
 
+/**
+ * @author Elin Forsberg
+ * Class representing an abstract power-up class holding common functions.
+ */
 abstract class PowerUp implements  IPowerUp{
     private boolean isActivated = false;              // If powerUp is activated
     private boolean canActivate = true;              // If powerUp can be activated
 
     private final CountDownTimer cooldown;            // Cooldown of the powerUp
     private final CountDownTimer powerUpTimer;        // Lifetime of the powerUp
-
-
 
     private final int cost;         // Cost of powerUp
 
