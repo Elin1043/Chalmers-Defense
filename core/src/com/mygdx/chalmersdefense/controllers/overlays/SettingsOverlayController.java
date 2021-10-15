@@ -51,4 +51,15 @@ public class SettingsOverlayController {
             }
         });
     }
+
+    public void addGoBackButton(Button button) {
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                model.setShowOverlay(ScreenOverlayEnum.PAUSE_MENU);
+            }
+        });
+    }
+
+
 }
