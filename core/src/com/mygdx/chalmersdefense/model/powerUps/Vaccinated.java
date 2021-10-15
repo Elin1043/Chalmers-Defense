@@ -16,7 +16,7 @@ class Vaccinated extends PowerUp{
     private List<IVirus> allViruses;        // List of viruses
 
     Vaccinated(List<IVirus> allViruses) {
-        super(1000, 380);
+        super(1000, 380, 500);
         this.allViruses = allViruses;
     }
 

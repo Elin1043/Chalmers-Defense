@@ -1,6 +1,5 @@
 package com.mygdx.chalmersdefense.model;
 
-import com.mygdx.chalmersdefense.model.genericMapObjects.GenericMapObjectFactory;
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
@@ -524,15 +523,25 @@ class Map {
     }
 
     private void cleanHandsPowerUpClicked(){
-        cleanHands.powerUpClicked(genericObjectsList);
+        if(player.getMoney() >= cleanHands.getCost()){
+            cleanHands.powerUpClicked(genericObjectsList);
+            player.decreaseMoney(cleanHands.getCost());
+        }
+
     }
 
     private void maskedPowerUpClicked(){
-        maskedUpPowerUp.powerUpClicked(genericObjectsList);
+        if(player.getMoney() >= maskedUpPowerUp.getCost()){
+            maskedUpPowerUp.powerUpClicked(genericObjectsList);
+            player.decreaseMoney(maskedUpPowerUp.getCost());
+        }
     }
 
     private void vaccinePowerUpClicked(){
-        vaccinatedPowerUp.powerUpClicked(genericObjectsList);
+        if(player.getMoney() >= vaccinatedPowerUp.getCost()){
+            vaccinatedPowerUp.powerUpClicked(genericObjectsList);
+            player.decreaseMoney(vaccinatedPowerUp.getCost());
+        }
     }
 
 

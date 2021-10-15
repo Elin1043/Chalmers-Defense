@@ -18,7 +18,7 @@ class MaskedUp extends PowerUp{
     private List<ITower> allTowers;
 
     MaskedUp(List<ITower> allTowers) {
-        super(500, 500);
+        super(500, 500, 100);
         this.allTowers = allTowers;
     }
 
