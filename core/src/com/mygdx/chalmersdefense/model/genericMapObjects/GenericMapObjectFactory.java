@@ -20,7 +20,7 @@ public abstract class GenericMapObjectFactory {
     }
 
     /**
-     * Creates an object representing a smurf flying on a face mask   // TODO Ändra kommentar eller? haha.
+     * Creates an object representing a MaskedUpSmurf
      * @param startPosX The starting x coordinate
      * @param startPosY The starting y coordinate
      * @param angle The angle to move in
@@ -31,7 +31,7 @@ public abstract class GenericMapObjectFactory {
     }
 
     /**
-     * Creates an object representing a big storm of flying syringes moving upward on the screen
+     * Creates an object representing a big storm of flying syringes moving upwards on the screen
      * @return The object representing the storm
      */
     public static IGenericMapObject createVaccinationStorm() {
