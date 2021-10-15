@@ -9,12 +9,15 @@ import com.mygdx.chalmersdefense.utilities.CountDownTimer;
  */
 class LightningProjectile extends Projectile {
 
-    private final CountDownTimer hitCountsLeft = new CountDownTimer(4); // Hit amount left before projectile can be removed
+    private CountDownTimer hitCountsLeft = new CountDownTimer(3); // Hit amount left before projectile can be removed
 
     LightningProjectile(float x, float y, float angle, int upgradeLevel) {
         super(5, "electroProjectile" + upgradeLevel, x, y, angle, 1);
+        hitCountsLeft = switch (upgradeLevel) {
+            case 3 -> new CountDownTimer(7);
+            default -> new CountDownTimer(3);
+        };
     }
-
 
     /**
      * Helper method for counting how many viruses have been hit
