@@ -12,7 +12,7 @@ import java.util.Random;
  * Class representing MaskedUp powerup, increases range of towers
  *
  * 2021-10-13 Modified by Joel Båtsman Hilmersson: Changed class to use CountDownTimer <br>
- * 2021-10-15 Modified by Elin Forsberg: Implemented use of PowerUp factory and abstract PowerUp class
+ * 2021-10-15 Modified by Elin Forsberg: Implemented use of PowerUp factory and abstract PowerUp class <br>
  */
 class MaskedUp extends PowerUp{
     private List<ITower> allTowers;
