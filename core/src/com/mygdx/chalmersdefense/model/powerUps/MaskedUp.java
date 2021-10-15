@@ -23,11 +23,6 @@ class MaskedUp extends PowerUp{
     }
 
     @Override
-    void addGraphicObject(List<IGenericMapObject> addGraphicsList){
-        addGraphicsList.add(GenericMapObjectFactory.createMaskedUpSmurf(-500, 500, 0));
-    }
-
-    @Override
     public void powerUpClicked(List<IGenericMapObject> addGraphicsList){
         super.powerUpClicked(addGraphicsList);
         if(getIsActive()){
@@ -36,19 +31,21 @@ class MaskedUp extends PowerUp{
     }
 
     @Override
-    public void decreaseTimer(){
+    public void decreaseTimer() {
         super.decreaseTimer();
         if (getIsActive() && getCurrentTime() <= 0) {
             deActivatePowerUp();
         }
+    }
 
-    private void addGraphicObject(List<IGenericMapObject> addGraphicsList){
+    @Override
+    void addGraphicObject(List<IGenericMapObject> addGraphicsList){
         Random rand = new Random();
 
         addGraphicsList.add(GenericMapObjectFactory.createMaskedUpSmurf(-500, 500, 0));
 
         for (int i = 0; i < 7; i++) {
-            addGraphicsList.add(GenericMapObjectFactory.createHappyMask(-50, rand.nextInt(1501) - 200, rand.nextInt(91) - 45));
+            addGraphicsList.add(GenericMapObjectFactory.createHappyMask(-300, rand.nextInt(1501) - 200, rand.nextInt(91) - 45));
         }
     }
 
@@ -57,10 +54,11 @@ class MaskedUp extends PowerUp{
             tower.powerUpTower(true);
         }
     }
+
     private void deActivatePowerUp(){
         for (ITower tower: allTowers) {
             tower.powerUpTower(false);
         }
     }
-
 }
+
