@@ -151,7 +151,7 @@ class Map {
     }
 
     private float getAngle(IProjectile projectile, List<IVirus> removeList) {
-        List<IVirus> virusInRange = Calculate.getVirusesInRange(projectile.getX(), projectile.getY(), 150, virusesList);
+        List<IVirus> virusInRange = Calculate.getVirusesInRange(projectile.getX(), projectile.getY(), 250, virusesList);
 
         for (IVirus virus : virusInRange) {
             if (projectile.haveHitBefore(virus.hashCode())) {
