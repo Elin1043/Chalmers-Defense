@@ -57,9 +57,9 @@ public class RightSidePanel {
     private final Label maskedUpLabel = createPowerUpLabel("Masked-up",1685, 300);
     private final Label vaccinatedLabel = createPowerUpLabel("Vaccinated",1685, 216);
 
-    private final Label cleanHandsLabelDesc = createPowerUpDesc("Triples attack speed of your towers for 5 sec", 356);
-    private final Label maskedUpLabelDesc = createPowerUpDesc("Increases range of your towers for 20 sec", 272);
-    private final Label vaccinatedLabelDesc = createPowerUpDesc("Fire a vaccination storm that damages all viruses on screen", 188);
+    private final Label cleanHandsLabelDesc = createPowerUpDesc("Triples attack speed of your towers for 5 sec", 352);
+    private final Label maskedUpLabelDesc = createPowerUpDesc("Increases range of your towers for 20 sec", 268);
+    private final Label vaccinatedLabelDesc = createPowerUpDesc("Fires a vaccination storm to damage all viruses", 184);
 
     private final Label cleanHandsLabelPrice = createPowerUpPriceLabel("$300",1900, 385);
     private final Label maskedUpLabelPrice = createPowerUpPriceLabel("$100",1900, 300);
@@ -268,9 +268,9 @@ public class RightSidePanel {
 
     private Label createPowerUpDesc(String text, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle18Black());
-        label.setPosition(1685,y);
+        label.setPosition(1688,y);
         label.setWrap(true);
-        label.setWidth(217);
+        label.setWidth(220);
         return label;
     }
 
