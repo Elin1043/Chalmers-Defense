@@ -48,9 +48,9 @@ public class RightSidePanel {
     private final ImageButton maskedUpPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/MaskedUp.png"), 1620, 245, "maskedUp");
     private final ImageButton vaccinatedPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/Vaccinated.png"), 1620, 161, "vaccinated");
 
-    private final Label cleanHandsTimerLabel = createPowerUpPriceLabel("10",1660, 364);
-    private final Label maskedUpTimerLabel = createPowerUpPriceLabel("10",1660, 280);
-    private final Label vaccinatedTimerLabel = createPowerUpPriceLabel("10",1660, 196);
+    private final Label cleanHandsTimerLabel = createPowerUpTimeLabel("10",1615, 355);
+    private final Label maskedUpTimerLabel = createPowerUpTimeLabel("10",1615, 275);
+    private final Label vaccinatedTimerLabel = createPowerUpTimeLabel("10",1615, 187);
 
     private final Label cleanHandsLabel = createPowerUpLabel("Clean hands",1685, 385);
     private final Label maskedUpLabel = createPowerUpLabel("Masked-up",1685, 300);
@@ -233,6 +233,13 @@ public class RightSidePanel {
         Label label = new Label(text, FontFactory.getLabelStyle20BlackSemiBold());
         label.setAlignment(Align.right);
         label.setPosition(x - label.getWidth(),y);
+        return label;
+    }
+
+    private Label createPowerUpTimeLabel(String text, float x, float y) {
+        Label label = new Label(text, FontFactory.getLabelStyle34SkyBold());
+        label.setAlignment(Align.center);
+        label.setPosition(x + label.getWidth()/2, y);
         return label;
     }
 
