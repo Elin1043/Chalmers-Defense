@@ -4,9 +4,7 @@ import com.mygdx.chalmersdefense.model.genericMapObjects.GenericMapObjectFactory
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
-import com.mygdx.chalmersdefense.model.powerUps.MaskedUp;
-import com.mygdx.chalmersdefense.model.powerUps.CleanHands;
-import com.mygdx.chalmersdefense.model.powerUps.Vaccinated;
+import com.mygdx.chalmersdefense.model.powerUps.*;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.ITower;
@@ -48,9 +46,9 @@ class Map {
 
     private final GetRangeCircle rangeCircle = new GetRangeCircle();     // Helper class for showing gray range circle
 
-    private final CleanHands cleanHands = new CleanHands();
-    private final MaskedUp maskedUpPowerUp = new MaskedUp();
-    private final Vaccinated vaccinated = new Vaccinated();
+    private final IPowerUp cleanHands = PowerUpFactory.createCleanHandsPowerUp();
+    private final IPowerUp maskedUpPowerUp = PowerUpFactory.createMaskedUpPowerUp(towersList);
+    private final IPowerUp vaccinatedPowerUp = PowerUpFactory.createVaccinatedPowerUp(virusesList);
 
 
     Map(Player player) {
@@ -181,9 +179,9 @@ class Map {
     private void updatePowerUps() {
         maskedUpPowerUp.decreaseTimer();
         cleanHands.decreaseTimer();
-        vaccinated.decreaseTimer();
+        vaccinatedPowerUp.decreaseTimer();
 
-        if (cleanHands.isActive()){
+        if (cleanHands.getIsActive()){
             for (int i = 0; i < 3; i++) { updateTowers(); }
         }
 
@@ -197,7 +195,7 @@ class Map {
         int[] timers = new int[3];
         timers[0] = cleanHands.getTimer();
         timers[1] = maskedUpPowerUp.getTimer();
-        timers[2] = vaccinated.getTimer();
+        timers[2] = vaccinatedPowerUp.getTimer();
 
         return timers;
     }
@@ -208,9 +206,9 @@ class Map {
      */
     boolean[] getPowerUpActive(){
         boolean[] powerUpsActive = new boolean[3];
-        powerUpsActive[0] = cleanHands.isActive();
+        powerUpsActive[0] = cleanHands.getIsActive();
         powerUpsActive[1] = maskedUpPowerUp.getIsActive();
-        powerUpsActive[2] = vaccinated.isActive();
+        powerUpsActive[2] = vaccinatedPowerUp.getIsActive();
 
         return powerUpsActive;
     }
@@ -525,11 +523,17 @@ class Map {
         }
     }
 
-    private void cleanHandsPowerUpClicked(){ cleanHands.activatePowerUp(genericObjectsList); }
+    private void cleanHandsPowerUpClicked(){
+        cleanHands.powerUpClicked(genericObjectsList);
+    }
 
-    private void maskedPowerUpClicked(){ maskedUpPowerUp.powerUpClicked(towersList, genericObjectsList); }
+    private void maskedPowerUpClicked(){
+        maskedUpPowerUp.powerUpClicked(genericObjectsList);
+    }
 
-    private void vaccinePowerUpClicked(){ vaccinated.activatePowerUp(virusesList, genericObjectsList); }
+    private void vaccinePowerUpClicked(){
+        vaccinatedPowerUp.powerUpClicked(genericObjectsList);
+    }
 
 
 

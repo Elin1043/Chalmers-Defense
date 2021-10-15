@@ -10,28 +10,17 @@ import java.util.Random;
 /**
  * @author Joel Båtsman Hilmersson
  * Class representing CleanHands powerup, doubles attackspeed of towers
+ *
+ * Modified 2021-10-15 by Elin Forsberg: Implemented use of PowerUp factory and abstract PowerUp class
  */
-public class CleanHands {
+class CleanHands extends PowerUp{
 
-    private final CountDownTimer cooldownTimer = new CountDownTimer(750); // Cooldown timer
-    private final CountDownTimer powerUpTimer = new CountDownTimer(500); // Power-up timer
-
-    private boolean canBeUsed = true;   // If this powerup can be used at the moment
-    private boolean powerUpIsActive = false;   // If this powerup is activated at the moment
-
-
-    /**
-     * Activates the power-up if the power-up can be used
-     */
-    public void activatePowerUp(List<IGenericMapObject> addGraphicsList){
-        if (canBeUsed) {
-            canBeUsed = false;
-            powerUpIsActive = true;
-            addGraphicObject(addGraphicsList);
-        }
+    CleanHands() {
+        super(500, 500);
     }
 
-    private void addGraphicObject(List<IGenericMapObject> addGraphicsList){
+    @Override
+    void addGraphicObject(List<IGenericMapObject> addGraphicsList) {
         Random rand = new Random();
 
         addGraphicsList.add(GenericMapObjectFactory.createBubbles(700, 400, 90));
@@ -44,45 +33,4 @@ public class CleanHands {
         }
     }
 
-    /**
-     * Decreases the power-up timer cooldowns
-     */
-    public void decreaseTimer(){
-
-        if (powerUpIsActive && powerUpTimer.haveReachedZero()){
-            powerUpIsActive = false;
-        }
-
-
-        if (!canBeUsed && cooldownTimer.haveReachedZero() && !canBeUsed){
-            canBeUsed = true;
-        }
-    }
-
-    /**
-     * Returns if the power-up is active at the moment
-     * @return Status of power-up
-     */
-    public boolean isActive(){
-        return powerUpIsActive;
-    }
-
-    /**
-     * Return the active timer amount
-     * @return active timer
-     */
-    public int getTimer() {
-        if(powerUpIsActive && !canBeUsed){
-            return (powerUpTimer.getCurrentCountTime() * 5) / 1000;
-        }
-        else if(powerUpIsActive){
-            return -1;
-        }
-        else if(!canBeUsed){
-            return (cooldownTimer.getCurrentCountTime() * 5) / 1000;
-        }
-        else{
-            return -1;
-        }
-    }
 }

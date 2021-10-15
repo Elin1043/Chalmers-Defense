@@ -3,7 +3,6 @@ package com.mygdx.chalmersdefense.model.powerUps;
 import com.mygdx.chalmersdefense.model.genericMapObjects.GenericMapObjectFactory;
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
-import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
 import java.util.List;
 
@@ -11,84 +10,35 @@ import java.util.List;
  * @author Joel Båtsman Hilmersson
  *
  * Class representing Vaccinated powerup
+ * Modified 2021-10-15 by Elin Forsberg: Implemented use of PowerUp factory and abstract PowerUp class
  */
-public class Vaccinated {
+class Vaccinated extends PowerUp{
+    private List<IVirus> allViruses;        // List of viruses
 
-    private final CountDownTimer cooldownTimer = new CountDownTimer(1000);  // Cooldown timer
-    private final CountDownTimer activeTimer = new CountDownTimer(380);     // Active timer
-
-
-    private boolean canBeUsed = true;   // If this power-up can be used at the moment
-    private boolean activated = false;   // If this power-up is activated at the moment
-
-    private List<IVirus> viruses;
-
-    /**
-     * Activates the power-up if the power-up can be used
-     */
-    public void activatePowerUp(List<IVirus> allViruses, List<IGenericMapObject> addGraphicsList){
-        if (canBeUsed) {
-            canBeUsed = false;
-            activated = true;
-            viruses = allViruses;
-            addGraphicObject(addGraphicsList);
-        }
+    Vaccinated(List<IVirus> allViruses) {
+        super(1000, 380);
+        this.allViruses = allViruses;
     }
 
-    private void addGraphicObject(List<IGenericMapObject> addGraphicsList){
+    @Override
+    void addGraphicObject(List<IGenericMapObject> addGraphicsList) {
         addGraphicsList.add(GenericMapObjectFactory.createVaccinationStorm());
     }
 
-    private void decreaseLife(){
-        for (IVirus virus : viruses){
+
+    @Override
+    public void decreaseTimer(){
+        super.decreaseTimer();
+
+        if(getCurrentTime() == 205){
+            damageVirus();
+        }
+    }
+
+    private void damageVirus(){
+        for (IVirus virus : allViruses){
             virus.decreaseHealth(1);
         }
     }
 
-    /**
-     * Decreases the power-up timer cooldowns
-     */
-    public void decreaseTimer(){
-
-        if (activated && activeTimer.haveReachedZero()){
-            activated = false;
-        }
-
-        if (!canBeUsed && cooldownTimer.haveReachedZero()){
-            canBeUsed = true;
-        }
-
-        if(activeTimer.getCurrentCountTime() == 205){
-            decreaseLife();
-        }
-
-    }
-
-
-    /**
-     * Return the active timer amount
-     * @return active timer
-     */
-    public int getTimer() {
-        if(activated && !canBeUsed){
-            return (activeTimer.getCurrentCountTime() * 5) / 1000;
-        }
-        else if(activated){
-            return -1;
-        }
-        else if(!canBeUsed){
-            return (cooldownTimer.getCurrentCountTime() * 5) / 1000;
-        }
-        else{
-            return -1;
-        }
-    }
-
-    /**
-     * Returns if the power-up is active at the moment
-     * @return Status of power-up
-     */
-    public boolean isActive() {
-        return activated;
-    }
 }

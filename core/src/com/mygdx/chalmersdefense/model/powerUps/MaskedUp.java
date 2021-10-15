@@ -3,7 +3,6 @@ package com.mygdx.chalmersdefense.model.powerUps;
 import com.mygdx.chalmersdefense.model.genericMapObjects.GenericMapObjectFactory;
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.model.towers.ITower;
-import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
 import java.util.List;
 import java.util.Random;
@@ -13,32 +12,35 @@ import java.util.Random;
  * Class representing MaskedUp powerup, increases range of towers
  *
  * 2021-10-13 Modified by Joel Båtsman Hilmersson: Changed class to use CountDownTimer <br>
+ * Modified 2021-10-15 by Elin Forsberg: Implemented use of PowerUp factory and abstract PowerUp class
  */
-public class MaskedUp {
-
-
-    private final CountDownTimer cooldown = new CountDownTimer(500, 0); // Cooldown of the powerUp
-    private final CountDownTimer powerUpTimer = new CountDownTimer(500);        // Lifetime of the powerUp
-
+class MaskedUp extends PowerUp{
     private List<ITower> allTowers;
 
-
-    private boolean isActivated = false;
-    private boolean canActivate = false;
-
-
-    /**
-     * Activates the power-up if the power-up can be used
-     */
-    public void powerUpClicked(List<ITower> allTowers, List<IGenericMapObject> addGraphicsList){
+    MaskedUp(List<ITower> allTowers) {
+        super(500, 500);
         this.allTowers = allTowers;
-        if(canActivate){
-            canActivate = false;
-            isActivated = true;
+    }
+
+    @Override
+    void addGraphicObject(List<IGenericMapObject> addGraphicsList){
+        addGraphicsList.add(GenericMapObjectFactory.createMaskedUpSmurf(-500, 500, 0));
+    }
+
+    @Override
+    public void powerUpClicked(List<IGenericMapObject> addGraphicsList){
+        super.powerUpClicked(addGraphicsList);
+        if(getIsActive()){
             activatePowerUp();
-            addGraphicObject(addGraphicsList);
         }
     }
+
+    @Override
+    public void decreaseTimer(){
+        super.decreaseTimer();
+        if (getIsActive() && getCurrentTime() <= 0) {
+            deActivatePowerUp();
+        }
 
     private void addGraphicObject(List<IGenericMapObject> addGraphicsList){
         Random rand = new Random();
@@ -50,57 +52,15 @@ public class MaskedUp {
         }
     }
 
-    private void activatePowerUp(){
+     private void activatePowerUp(){
         for (ITower tower: allTowers) {
             tower.powerUpTower(true);
         }
     }
-
     private void deActivatePowerUp(){
         for (ITower tower: allTowers) {
             tower.powerUpTower(false);
         }
     }
 
-    /**
-     * Decreases the power-up timer cooldowns
-     */
-    public void decreaseTimer(){
-
-        if (isActivated && powerUpTimer.haveReachedZero()) {
-            deActivatePowerUp();
-            isActivated = false;
-        }
-        else if (!isActivated && !canActivate && cooldown.haveReachedZero()) {
-            canActivate = true;
-        }
-
-    }
-
-    /**
-     * Return the active timer amount
-     * @return active timer
-     */
-    public int getTimer() {
-        if(isActivated && !canActivate){
-            return (powerUpTimer.getCurrentCountTime() * 5) / 1000;
-        }
-        else if(isActivated){
-            return -1;
-        }
-        else if(!canActivate){
-            return (cooldown.getCurrentCountTime() * 5) / 1000;
-        }
-        else{
-            return -1;
-        }
-    }
-
-    /**
-     * Return if the powerUp is active
-     * @return if activated
-     */
-    public boolean getIsActive() {
-        return isActivated;
-    }
 }
