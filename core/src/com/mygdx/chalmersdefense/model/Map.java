@@ -523,25 +523,18 @@ class Map {
     }
 
     private void cleanHandsPowerUpClicked(){
-        if(player.getMoney() >= cleanHands.getCost()){
-            cleanHands.powerUpClicked(genericObjectsList);
-            player.decreaseMoney(cleanHands.getCost());
-        }
-
+        cleanHands.powerUpClicked(genericObjectsList);
+        player.decreaseMoney(cleanHands.getCost());
     }
 
     private void maskedPowerUpClicked(){
-        if(player.getMoney() >= maskedUpPowerUp.getCost()){
-            maskedUpPowerUp.powerUpClicked(genericObjectsList);
-            player.decreaseMoney(maskedUpPowerUp.getCost());
-        }
+        maskedUpPowerUp.powerUpClicked(genericObjectsList);
+        player.decreaseMoney(maskedUpPowerUp.getCost());
     }
 
     private void vaccinePowerUpClicked(){
-        if(player.getMoney() >= vaccinatedPowerUp.getCost()){
-            vaccinatedPowerUp.powerUpClicked(genericObjectsList);
-            player.decreaseMoney(vaccinatedPowerUp.getCost());
-        }
+        vaccinatedPowerUp.powerUpClicked(genericObjectsList);
+        player.decreaseMoney(vaccinatedPowerUp.getCost());
     }
 
 

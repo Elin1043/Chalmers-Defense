@@ -36,6 +36,7 @@ public class RightSidePanel {
 
 
     private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
+    private final HashMap<Integer, ImageButton> powerUpButtons = new HashMap<>();
 
     private final ImageButton smurfButton = createRightPanelButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1616, 830, "smurf");
     private final ImageButton chemistButton = createRightPanelButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1766, 830, "chemist");
@@ -60,9 +61,9 @@ public class RightSidePanel {
     private final Label maskedUpLabelDesc = createPowerUpDesc("Increases range of your towers for 20 sec", 272);
     private final Label vaccinatedLabelDesc = createPowerUpDesc("Vaccinate all the viruses on screen", 188);
 
-    private final Label cleanHandsLabelPrice = createPowerUpPriceLabel("$50",1900, 385);
-    private final Label maskedUpLabelPrice = createPowerUpPriceLabel("$80",1900, 300);
-    private final Label vaccinatedLabelPrice = createPowerUpPriceLabel("$180",1900, 216);
+    private final Label cleanHandsLabelPrice = createPowerUpPriceLabel("$300",1900, 385);
+    private final Label maskedUpLabelPrice = createPowerUpPriceLabel("$100",1900, 300);
+    private final Label vaccinatedLabelPrice = createPowerUpPriceLabel("$500",1900, 216);
 
     private Button startRoundButton;
 
@@ -81,6 +82,10 @@ public class RightSidePanel {
         towerButtons.put(400, electroButton);
         towerButtons.put(500, mechButton);
         towerButtons.put(600, ecoButton);
+
+        powerUpButtons.put(100, maskedUpPowerUpButton);
+        powerUpButtons.put(300, cleanHandsPowerUpButton);
+        powerUpButtons.put(500, vaccinatedPowerUpButton);
 
         stage.addActor(smurfButton);
         stage.addActor(chemistButton);
@@ -125,6 +130,8 @@ public class RightSidePanel {
     public void render() {
         checkAffordableTowers();
         checkPowerUpButtonCooldown();
+        checkAffordablePowerUps();
+
 
         stage.act();
         stage.draw();
@@ -199,6 +206,21 @@ public class RightSidePanel {
             label.setVisible(true);
             label.setText(timer + 1);
         }
+    }
+
+    //Checks what powerUps the player can afford
+    private void checkAffordablePowerUps(){
+        for (Integer i : powerUpButtons.keySet()) {
+            if (model.getMoney() >= i && !powerUpButtons.get(i).isTouchable()) {
+                powerUpButtons.get(i).setTouchable(Touchable.enabled);
+                powerUpButtons.get(i).getImage().setColor(Color.WHITE);
+
+            } else if (model.getMoney() < i && powerUpButtons.get(i).isTouchable()) {
+                powerUpButtons.get(i).setTouchable(Touchable.disabled);
+                powerUpButtons.get(i).getImage().setColor(Color.LIGHT_GRAY);
+            }
+        }
+
     }
 
     //Checks what towers the player can afford
