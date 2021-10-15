@@ -218,7 +218,7 @@ public class RightSidePanel {
 
         } else if (model.getMoney() < i && powerUpButton.isTouchable()) {
             powerUpButton.setTouchable(Touchable.disabled);
-            powerUpButton.getImage().setColor(Color.CYAN);
+            powerUpButton.getImage().setColor(new Color(Color.rgba8888(255/255f, 143/255f, 154/255f,1)));
         }
 
 
@@ -233,7 +233,7 @@ public class RightSidePanel {
 
             } else if (model.getMoney() < i && towerButtons.get(i).isTouchable()) {
                 towerButtons.get(i).setTouchable(Touchable.disabled);
-                towerButtons.get(i).getImage().setColor(Color.LIGHT_GRAY);
+                towerButtons.get(i).getImage().setColor(new Color(Color.rgba8888(255/255f, 143/255f, 154/255f,1)));
             }
         }
     }

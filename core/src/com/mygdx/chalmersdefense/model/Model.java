@@ -33,7 +33,7 @@ import java.util.List;
 public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final int WINNING_ROUND = 10;       // Current vinning round
     private final int LIVES = 100;              // Current amount of starting lives
-    private final int START_CAPITAL = 100;    // Current amount of start capital
+    private final int START_CAPITAL = 400;    // Current amount of start capital
 
     private final GameTimer timer = new GameTimer(this);    // Timer object
     private Rounds round = new Rounds(WINNING_ROUND);              // Round helper
