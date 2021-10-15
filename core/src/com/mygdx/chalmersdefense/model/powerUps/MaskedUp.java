@@ -6,6 +6,7 @@ import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Elin Forsberg
@@ -40,7 +41,13 @@ public class MaskedUp {
     }
 
     private void addGraphicObject(List<IGenericMapObject> addGraphicsList){
+        Random rand = new Random();
+
         addGraphicsList.add(GenericMapObjectFactory.createMaskedUpSmurf(-500, 500, 0));
+
+        for (int i = 0; i < 7; i++) {
+            addGraphicsList.add(GenericMapObjectFactory.createHappyMask(-50, rand.nextInt(1501) - 200, rand.nextInt(91) - 45));
+        }
     }
 
     private void activatePowerUp(){
