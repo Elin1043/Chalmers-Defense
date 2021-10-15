@@ -7,7 +7,7 @@ import java.util.List;
 
 abstract class PowerUp implements  IPowerUp{
     private boolean isActivated = false;              // If powerUp is activated
-    private boolean canActivate = false;              // If powerUp can be activated
+    private boolean canActivate = true;              // If powerUp can be activated
 
     private final CountDownTimer cooldown;            // Cooldown of the powerUp
     private final CountDownTimer powerUpTimer;        // Lifetime of the powerUp
@@ -18,7 +18,7 @@ abstract class PowerUp implements  IPowerUp{
 
 
     PowerUp(int lengthOfCooldown, int lengthOfPowerUp, int cost){
-        cooldown = new CountDownTimer(lengthOfCooldown, 0);
+        cooldown = new CountDownTimer(lengthOfCooldown);
         powerUpTimer = new CountDownTimer(lengthOfPowerUp);
 
         this.cost = cost;
@@ -43,6 +43,7 @@ abstract class PowerUp implements  IPowerUp{
     public void decreaseTimer(){
         if (isActivated && powerUpTimer.haveReachedZero()) {
             isActivated = false;
+
         }
         else if (!isActivated && !canActivate && cooldown.haveReachedZero()) {
             canActivate = true;
@@ -54,9 +55,7 @@ abstract class PowerUp implements  IPowerUp{
         if(isActivated && !canActivate){
             return (powerUpTimer.getCurrentCountTime() * 5) / 1000;
         }
-        else if(isActivated){
-            return -1;
-        }
+
         else if(!canActivate){
             return (cooldown.getCurrentCountTime() * 5) / 1000;
         }
@@ -71,7 +70,7 @@ abstract class PowerUp implements  IPowerUp{
     }
 
     /**
-     * Get current ime of powerUpTimer
+     * Get current time of powerUpTimer
      * @return current time
      */
     int getCurrentTime(){

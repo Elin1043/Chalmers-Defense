@@ -129,8 +129,9 @@ public class RightSidePanel {
      */
     public void render() {
         checkAffordableTowers();
+        //checkAffordablePowerUps();
         checkPowerUpButtonCooldown();
-        checkAffordablePowerUps();
+
 
 
         stage.act();
@@ -177,6 +178,7 @@ public class RightSidePanel {
         int[] timers = model.getPowerUpTimer();
         boolean[] active = model.getPowerUpActive();
 
+
         updatePowerUpButtons(timers[0], cleanHandsPowerUpButton, cleanHandsTimerLabel, active[0]);
         updatePowerUpButtons(timers[1], maskedUpPowerUpButton, maskedUpTimerLabel, active[1]);
         updatePowerUpButtons(timers[2], vaccinatedPowerUpButton, vaccinatedTimerLabel, active[2]);
@@ -188,7 +190,6 @@ public class RightSidePanel {
         if(timer == -1){
             powerUpButton.setTouchable(Touchable.enabled);
             powerUpButton.getImage().setColor(Color.WHITE);
-
             label.setVisible(false);
 
         }
