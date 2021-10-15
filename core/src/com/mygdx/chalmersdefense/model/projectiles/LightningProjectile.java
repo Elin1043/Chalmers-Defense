@@ -6,6 +6,8 @@ import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 /**
  * @author Elin Forsberg
  * Class representing a lightning projectile
+ *
+ * 2021-10-15 Modified by Jenny Carlsson: Fixed longer chains when upgraded ElectroTower
  */
 class LightningProjectile extends Projectile {
 
