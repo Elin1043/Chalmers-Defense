@@ -189,6 +189,7 @@ public class RightSidePanel {
     private void updatePowerUpButtons(int timer, ImageButton powerUpButton, Label label, boolean active){
         if(timer == -1){
             label.setVisible(false);
+            powerUpButton.setTouchable(Touchable.enabled);
             checkAffordablePowerUp(powerUpButton);
 
         }
@@ -217,7 +218,7 @@ public class RightSidePanel {
 
         } else if (model.getMoney() < i && powerUpButton.isTouchable()) {
             powerUpButton.setTouchable(Touchable.disabled);
-            powerUpButton.getImage().setColor(new Color(Color.rgba8888(161/250f, 0/250f, 27/250f,1)));
+            powerUpButton.getImage().setColor(Color.CYAN);
         }
 
 
