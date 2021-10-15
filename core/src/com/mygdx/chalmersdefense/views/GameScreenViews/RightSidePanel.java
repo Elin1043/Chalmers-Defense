@@ -56,9 +56,9 @@ public class RightSidePanel {
     private final Label maskedUpLabel = createPowerUpLabel("Masked-up",1685, 300);
     private final Label vaccinatedLabel = createPowerUpLabel("Vaccinated",1685, 216);
 
-    private final Label cleanHandsLabelDesc = createPowerUpDesc("Gives your tower a temporary boost", 356);
+    private final Label cleanHandsLabelDesc = createPowerUpDesc("Triples attack speed of your towers for 5 sec", 356);
     private final Label maskedUpLabelDesc = createPowerUpDesc("Increases range of your towers for 20 sec", 272);
-    private final Label vaccinatedLabelDesc = createPowerUpDesc("Vaccinate all the viruses on screen", 188);
+    private final Label vaccinatedLabelDesc = createPowerUpDesc("Fire a vaccination storm that damages all viruses on screen", 188);
 
     private final Label cleanHandsLabelPrice = createPowerUpPriceLabel("$50",1900, 385);
     private final Label maskedUpLabelPrice = createPowerUpPriceLabel("$80",1900, 300);

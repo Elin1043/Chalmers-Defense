@@ -45,7 +45,7 @@ class MaskedUp extends PowerUp{
         addGraphicsList.add(GenericMapObjectFactory.createMaskedUpSmurf(-500, 500, 0));
 
         for (int i = 0; i < 7; i++) {
-            addGraphicsList.add(GenericMapObjectFactory.createHappyMask(-300, rand.nextInt(1501) - 200, rand.nextInt(91) - 45));
+            addGraphicsList.add(GenericMapObjectFactory.createHappyMask(-100, rand.nextInt(1501) - 200, rand.nextInt(91) - 45));
         }
     }
 
