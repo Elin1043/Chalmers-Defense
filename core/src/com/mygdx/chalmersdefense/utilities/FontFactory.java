@@ -77,6 +77,15 @@ public abstract class FontFactory {
         return generateLabelStyle(20, Color.BLACK, 0.5f);
     }
 
+    /**
+     * Generates a LabelStyle from CenturyGothic font with size 24px, color light gray and semi bold.
+     *
+     * @return a LabelStyle with corresponding size, color and border width.
+     */
+    public static LabelStyle getLabelStyle34SkyBold() {
+        return generateLabelStyle(34, Color.SKY, 1f);
+    }
+
     private static BitmapFont generateBitmapFont(int size, float borderWidth) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/CenturyGothic.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
