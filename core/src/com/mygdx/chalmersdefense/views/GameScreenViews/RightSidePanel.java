@@ -36,7 +36,7 @@ public class RightSidePanel {
 
 
     private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
-    private final HashMap<Integer, ImageButton> powerUpButtons = new HashMap<>();
+    private final HashMap<ImageButton, Integer> powerUpButtons = new HashMap<>();
 
     private final ImageButton smurfButton = createRightPanelButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1616, 830, "smurf");
     private final ImageButton chemistButton = createRightPanelButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1766, 830, "chemist");
@@ -83,9 +83,9 @@ public class RightSidePanel {
         towerButtons.put(500, mechButton);
         towerButtons.put(600, ecoButton);
 
-        powerUpButtons.put(100, maskedUpPowerUpButton);
-        powerUpButtons.put(300, cleanHandsPowerUpButton);
-        powerUpButtons.put(500, vaccinatedPowerUpButton);
+        powerUpButtons.put(maskedUpPowerUpButton,100);
+        powerUpButtons.put(cleanHandsPowerUpButton,300);
+        powerUpButtons.put(vaccinatedPowerUpButton,500 );
 
         stage.addActor(smurfButton);
         stage.addActor(chemistButton);
@@ -129,7 +129,7 @@ public class RightSidePanel {
      */
     public void render() {
         checkAffordableTowers();
-        //checkAffordablePowerUps();
+
         checkPowerUpButtonCooldown();
 
 
@@ -188,9 +188,8 @@ public class RightSidePanel {
 
     private void updatePowerUpButtons(int timer, ImageButton powerUpButton, Label label, boolean active){
         if(timer == -1){
-            powerUpButton.setTouchable(Touchable.enabled);
-            powerUpButton.getImage().setColor(Color.WHITE);
             label.setVisible(false);
+            checkAffordablePowerUp(powerUpButton);
 
         }
         else if (active){
@@ -210,17 +209,17 @@ public class RightSidePanel {
     }
 
     //Checks what powerUps the player can afford
-    private void checkAffordablePowerUps(){
-        for (Integer i : powerUpButtons.keySet()) {
-            if (model.getMoney() >= i && !powerUpButtons.get(i).isTouchable()) {
-                powerUpButtons.get(i).setTouchable(Touchable.enabled);
-                powerUpButtons.get(i).getImage().setColor(Color.WHITE);
+    private void checkAffordablePowerUp(ImageButton powerUpButton){
+        int i = powerUpButtons.get(powerUpButton);
+        if (model.getMoney() >=i  && !powerUpButton.isTouchable()) {
+            powerUpButton.setTouchable(Touchable.enabled);
+            powerUpButton.getImage().setColor(Color.WHITE);
 
-            } else if (model.getMoney() < i && powerUpButtons.get(i).isTouchable()) {
-                powerUpButtons.get(i).setTouchable(Touchable.disabled);
-                powerUpButtons.get(i).getImage().setColor(Color.LIGHT_GRAY);
-            }
+        } else if (model.getMoney() < i && powerUpButton.isTouchable()) {
+            powerUpButton.setTouchable(Touchable.disabled);
+            powerUpButton.getImage().setColor(new Color(Color.rgba8888(161/250f, 0/250f, 27/250f,1)));
         }
+
 
     }
 

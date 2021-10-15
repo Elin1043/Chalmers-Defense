@@ -10,7 +10,7 @@ import java.util.Random;
  * @author Joel Båtsman Hilmersson
  * Class representing CleanHands powerup, doubles attackspeed of towers
  *
- * Modified 2021-10-15 by Elin Forsberg: Implemented use of PowerUp factory and abstract PowerUp class
+ * 2021-10-15 Modified by Elin Forsberg: Implemented use of PowerUp factory and abstract PowerUp class
  */
 class CleanHands extends PowerUp{
 
