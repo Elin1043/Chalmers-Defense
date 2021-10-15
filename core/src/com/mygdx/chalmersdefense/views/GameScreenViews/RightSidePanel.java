@@ -190,6 +190,7 @@ public class RightSidePanel {
         if(timer == -1){
             label.setVisible(false);
             powerUpButton.setTouchable(Touchable.enabled);
+            powerUpButton.getImage().setColor(Color.WHITE);
             checkAffordablePowerUp(powerUpButton);
 
         }
