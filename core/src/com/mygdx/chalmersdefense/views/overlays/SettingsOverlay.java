@@ -27,6 +27,8 @@ public class SettingsOverlay extends AbstractOverlay {
             settingsMenuGroup.addActor(backgroundImage);
             backgroundImage.setPosition(stage.getWidth() / 2 - backgroundImage.getWidth() / 2, stage.getHeight() / 2 - backgroundImage.getHeight() / 2);
 
+            createGoBackButton();
+
             ImageButton exitButton = createExitPauseMenuButton(settingsMenuGroup, backgroundImage);
             settingsOverlayController.addExitPauseMenuButtonClickListener(exitButton);
             createMusicSlider();
@@ -82,11 +84,9 @@ public class SettingsOverlay extends AbstractOverlay {
 
         Button goBackButton = new Button(goBackButtonSkin);
         settingsMenuGroup.addActor(goBackButton);
-        goBackButton.setPosition(backgroundImage.getX(), backgroundImage.getY());
-
-
+        goBackButton.setPosition(backgroundImage.getX() + 15, backgroundImage.getY() + 340);
+        settingsOverlayController.addGoBackButton(goBackButton);
     }
-
 
 
 }
