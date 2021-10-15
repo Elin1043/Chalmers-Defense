@@ -22,7 +22,7 @@ public class GameTimer {
      */
     public GameTimer(IUpdateModel model) {
         this.model = model;
-        setupTask();
+        //setupTask();
     }
 
     /**
