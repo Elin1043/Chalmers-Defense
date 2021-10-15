@@ -1,7 +1,6 @@
 package com.mygdx.chalmersdefense.model.powerUps;
 
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
-import com.mygdx.chalmersdefense.model.towers.ITower;
 
 import java.util.List;
 

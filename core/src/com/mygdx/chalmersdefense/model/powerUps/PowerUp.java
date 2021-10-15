@@ -6,8 +6,8 @@ import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 import java.util.List;
 
 abstract class PowerUp implements  IPowerUp{
-    private boolean isActivated = false;
-    private boolean canActivate = false;
+    private boolean isActivated = false;              // If powerUp is activated
+    private boolean canActivate = false;              // If powerUp can be activated
 
     private final CountDownTimer cooldown;            // Cooldown of the powerUp
     private final CountDownTimer powerUpTimer;        // Lifetime of the powerUp
@@ -24,22 +24,19 @@ abstract class PowerUp implements  IPowerUp{
         if(canActivate){
             canActivate = false;
             isActivated = true;
-            activatePowerUp();
             addGraphicObject(addGraphicsList);
         }
     }
 
+    /**
+     * Add graphicObject to the given list
+     * @param addGraphicsList list to add object to
+     */
     abstract void addGraphicObject(List<IGenericMapObject> addGraphicsList);
-
-    abstract void activatePowerUp();
-
-    abstract void deActivatePowerUp();
-
 
     @Override
     public void decreaseTimer(){
         if (isActivated && powerUpTimer.haveReachedZero()) {
-            deActivatePowerUp();
             isActivated = false;
         }
         else if (!isActivated && !canActivate && cooldown.haveReachedZero()) {
@@ -68,6 +65,10 @@ abstract class PowerUp implements  IPowerUp{
         return isActivated;
     }
 
+    /**
+     * Get current ime of powerUpTimer
+     * @return current time
+     */
     int getCurrentTime(){
         return powerUpTimer.getCurrentCountTime();
     }

@@ -26,16 +26,29 @@ class MaskedUp extends PowerUp{
         addGraphicsList.add(GenericMapObjectFactory.createMaskedUpSmurf(-500, 500, 0));
     }
 
-
     @Override
-     void activatePowerUp(){
-        for (ITower tower: allTowers) {
-            tower.powerUpTower(true);
+    public void powerUpClicked(List<IGenericMapObject> addGraphicsList){
+        super.powerUpClicked(addGraphicsList);
+        if(getIsActive()){
+            activatePowerUp();
         }
     }
 
     @Override
-     void deActivatePowerUp(){
+    public void decreaseTimer(){
+        super.decreaseTimer();
+        if (getIsActive() && getCurrentTime() <= 0) {
+            deActivatePowerUp();
+        }
+
+    }
+
+     private void activatePowerUp(){
+        for (ITower tower: allTowers) {
+            tower.powerUpTower(true);
+        }
+    }
+    private void deActivatePowerUp(){
         for (ITower tower: allTowers) {
             tower.powerUpTower(false);
         }

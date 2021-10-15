@@ -26,13 +26,4 @@ class CleanHands extends PowerUp{
         addGraphicsList.add(GenericMapObjectFactory.createBubbles(700, 400, 160));
     }
 
-    @Override
-    void activatePowerUp() {
-
-    }
-
-    @Override
-    void deActivatePowerUp() {
-
-    }
 }

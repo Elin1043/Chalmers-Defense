@@ -13,7 +13,7 @@ import java.util.List;
  * Modified 2021-10-15 by Elin Forsberg: Implemented use of PowerUp factory and abstract PowerUp class
  */
 class Vaccinated extends PowerUp{
-    private List<IVirus> allViruses;// Active timer
+    private List<IVirus> allViruses;        // List of viruses
 
     Vaccinated(List<IVirus> allViruses) {
         super(1000, 380);
@@ -25,15 +25,6 @@ class Vaccinated extends PowerUp{
         addGraphicsList.add(GenericMapObjectFactory.createVaccinationStorm());
     }
 
-    @Override
-    void activatePowerUp() {
-
-    }
-
-    @Override
-    void deActivatePowerUp() {
-
-    }
 
     @Override
     public void decreaseTimer(){
