@@ -11,7 +11,7 @@ import com.mygdx.chalmersdefense.utilities.CountDownTimer;
  */
 class LightningProjectile extends Projectile {
 
-    private CountDownTimer hitCountsLeft = new CountDownTimer(3); // Hit amount left before projectile can be removed
+    private CountDownTimer hitCountsLeft; // Hit amount left before projectile can be removed
 
     LightningProjectile(float x, float y, float angle, int upgradeLevel) {
         super(5, "electroProjectile" + upgradeLevel, x, y, angle, 1);
