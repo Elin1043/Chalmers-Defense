@@ -36,6 +36,7 @@ public class RightSidePanel {
 
 
     private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
+    private final HashMap<Integer, ImageButton> powerUpButtons = new HashMap<>();
 
     private final ImageButton smurfButton = createRightPanelButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1616, 830, "smurf");
     private final ImageButton chemistButton = createRightPanelButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1766, 830, "chemist");
@@ -48,21 +49,21 @@ public class RightSidePanel {
     private final ImageButton maskedUpPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/MaskedUp.png"), 1620, 245, "maskedUp");
     private final ImageButton vaccinatedPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/Vaccinated.png"), 1620, 161, "vaccinated");
 
-    private final Label cleanHandsTimerLabel = createPowerUpPriceLabel("10",1660, 364);
-    private final Label maskedUpTimerLabel = createPowerUpPriceLabel("10",1660, 280);
-    private final Label vaccinatedTimerLabel = createPowerUpPriceLabel("10",1660, 196);
+    private final Label cleanHandsTimerLabel = createPowerUpTimeLabel("10",1615, 355);
+    private final Label maskedUpTimerLabel = createPowerUpTimeLabel("10",1615, 275);
+    private final Label vaccinatedTimerLabel = createPowerUpTimeLabel("10",1615, 187);
 
     private final Label cleanHandsLabel = createPowerUpLabel("Clean hands",1685, 385);
     private final Label maskedUpLabel = createPowerUpLabel("Masked-up",1685, 300);
     private final Label vaccinatedLabel = createPowerUpLabel("Vaccinated",1685, 216);
 
-    private final Label cleanHandsLabelDesc = createPowerUpDesc("Gives your tower a temporary boost", 356);
+    private final Label cleanHandsLabelDesc = createPowerUpDesc("Triples attack speed of your towers for 5 sec", 356);
     private final Label maskedUpLabelDesc = createPowerUpDesc("Increases range of your towers for 20 sec", 272);
-    private final Label vaccinatedLabelDesc = createPowerUpDesc("Vaccinate all the viruses on screen", 188);
+    private final Label vaccinatedLabelDesc = createPowerUpDesc("Fire a vaccination storm that damages all viruses on screen", 188);
 
-    private final Label cleanHandsLabelPrice = createPowerUpPriceLabel("$50",1900, 385);
-    private final Label maskedUpLabelPrice = createPowerUpPriceLabel("$80",1900, 300);
-    private final Label vaccinatedLabelPrice = createPowerUpPriceLabel("$180",1900, 216);
+    private final Label cleanHandsLabelPrice = createPowerUpPriceLabel("$300",1900, 385);
+    private final Label maskedUpLabelPrice = createPowerUpPriceLabel("$100",1900, 300);
+    private final Label vaccinatedLabelPrice = createPowerUpPriceLabel("$500",1900, 216);
 
     private Button startRoundButton;
 
@@ -81,6 +82,10 @@ public class RightSidePanel {
         towerButtons.put(400, electroButton);
         towerButtons.put(500, mechButton);
         towerButtons.put(600, ecoButton);
+
+        powerUpButtons.put(100, maskedUpPowerUpButton);
+        powerUpButtons.put(300, cleanHandsPowerUpButton);
+        powerUpButtons.put(500, vaccinatedPowerUpButton);
 
         stage.addActor(smurfButton);
         stage.addActor(chemistButton);
@@ -125,6 +130,8 @@ public class RightSidePanel {
     public void render() {
         checkAffordableTowers();
         checkPowerUpButtonCooldown();
+        checkAffordablePowerUps();
+
 
         stage.act();
         stage.draw();
@@ -201,6 +208,21 @@ public class RightSidePanel {
         }
     }
 
+    //Checks what powerUps the player can afford
+    private void checkAffordablePowerUps(){
+        for (Integer i : powerUpButtons.keySet()) {
+            if (model.getMoney() >= i && !powerUpButtons.get(i).isTouchable()) {
+                powerUpButtons.get(i).setTouchable(Touchable.enabled);
+                powerUpButtons.get(i).getImage().setColor(Color.WHITE);
+
+            } else if (model.getMoney() < i && powerUpButtons.get(i).isTouchable()) {
+                powerUpButtons.get(i).setTouchable(Touchable.disabled);
+                powerUpButtons.get(i).getImage().setColor(Color.LIGHT_GRAY);
+            }
+        }
+
+    }
+
     //Checks what towers the player can afford
     private void checkAffordableTowers() {
         for (Integer i : towerButtons.keySet()) {
@@ -233,6 +255,13 @@ public class RightSidePanel {
         Label label = new Label(text, FontFactory.getLabelStyle20BlackSemiBold());
         label.setAlignment(Align.right);
         label.setPosition(x - label.getWidth(),y);
+        return label;
+    }
+
+    private Label createPowerUpTimeLabel(String text, float x, float y) {
+        Label label = new Label(text, FontFactory.getLabelStyle34SkyBold());
+        label.setAlignment(Align.center);
+        label.setPosition(x + label.getWidth()/2, y);
         return label;
     }
 

@@ -65,7 +65,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     private void checkRoundCompleted() {
         if (map.isVirusCleared() && !virusSpawner.isSpawning()) {
 
-            player.increaseMoney((100 * (round.getCurrentRound() / 2)));
+            player.increaseMoney((int) (100 * (round.getCurrentRound() / 2f)));
 
             stopGameUpdate();
             map.roundClear();
