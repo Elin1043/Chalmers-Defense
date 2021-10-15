@@ -34,7 +34,6 @@ class Map {
     private final List<IGenericMapObject> genericObjectsList = new ArrayList<>();             // The main genericObjects list
 
     private final List<ITower> towersToAddList = new ArrayList<>();             // Temporary list for object adding towers to the main list (To avoid concurrent modification issues)
-    private final List<ITower> towersToRemoveList = new ArrayList<>();          // Temporary list for object removing towers from the main list (To avoid concurrent modification issues)
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();   // Temporary list for object adding projectiles to the main list (To avoid concurrent modification issues)
     private final List<IGenericMapObject> genericObjectsToRemoveList = new ArrayList<>();   // Temporary list for object removing genericObjects from the main list (To avoid concurrent modification issues)
 
@@ -85,14 +84,10 @@ class Map {
     //Add all temporary list to the mainlist
     private void addTempListsToMainLists() {
         towersList.addAll(towersToAddList);
-        towersList.removeAll(towersToRemoveList);
         projectilesList.addAll(projectilesToAddList);
-        genericObjectsList.removeAll(genericObjectsToRemoveList);
 
         towersToAddList.clear();
-        towersToRemoveList.clear();
         projectilesToAddList.clear();
-        genericObjectsToRemoveList.clear();
     }
 
     //Update the projectiles
@@ -118,12 +113,14 @@ class Map {
     }
 
     private void updateGenericObjects(){
+        List<IGenericMapObject> removeList = new ArrayList<>();
+
         for (IGenericMapObject object : genericObjectsList) {
-
             object.update();
-
-            if(object.canRemove()){ genericObjectsToRemoveList.add(object); }
+            if(object.canRemove()){ removeList.add(object); }
         }
+
+        genericObjectsList.removeAll(removeList);
     }
 
 
