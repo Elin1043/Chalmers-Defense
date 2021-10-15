@@ -13,10 +13,15 @@ abstract class PowerUp implements  IPowerUp{
     private final CountDownTimer powerUpTimer;        // Lifetime of the powerUp
 
 
-    PowerUp(int lengthOfCooldown, int lengthOfPowerUp){
+
+    private final int cost;         // Cost of powerUp
+
+
+    PowerUp(int lengthOfCooldown, int lengthOfPowerUp, int cost){
         cooldown = new CountDownTimer(lengthOfCooldown, 0);
         powerUpTimer = new CountDownTimer(lengthOfPowerUp);
 
+        this.cost = cost;
     }
 
     @Override
@@ -71,5 +76,10 @@ abstract class PowerUp implements  IPowerUp{
      */
     int getCurrentTime(){
         return powerUpTimer.getCurrentCountTime();
+    }
+
+    @Override
+    public int getCost() {
+        return cost;
     }
 }

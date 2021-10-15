@@ -2,7 +2,6 @@ package com.mygdx.chalmersdefense.model.powerUps;
 
 import com.mygdx.chalmersdefense.model.genericMapObjects.GenericMapObjectFactory;
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
-import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
 class CleanHands extends PowerUp{
 
     CleanHands() {
-        super(500, 500);
+        super(500, 500, 300);
     }
 
     @Override

@@ -27,4 +27,10 @@ public interface IPowerUp {
      * @return if activated
      */
     boolean getIsActive();
+
+    /**
+     * Return the cost of the PowerUP
+     * @return cost
+     */
+    int getCost();
 }
