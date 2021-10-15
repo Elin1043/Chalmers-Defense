@@ -1,12 +1,12 @@
 {
   "IT-Smurf": [
     {
-      "title": "Hot zeros",
+      "title": "Hot binaries",
       "desc": "Increases attack speed by 20%",
       "price": 500,
       "attackDmgMul": 1.0,
-      "attackSpeedMul": 1.2,
-      "attackRangeMul": 1.0,
+      "attackSpeedMul": 0.9,
+      "attackRangeMul": 1.1,
       "projectileSpeedMul": 1.0
     },
     {
@@ -14,7 +14,7 @@
       "desc": "The super smurf is here to save the IT section",
       "price": 3200,
       "attackDmgMul": 2.0,
-      "attackSpeedMul": 0.3,
+      "attackSpeedMul": 0.5,
       "attackRangeMul": 1.4,
       "projectileSpeedMul": 1.1
     }
@@ -22,67 +22,67 @@
   "Hackerman": [
     {
       "title": "Exploiting virus data",
-      "desc": "This is a long description describing the upgrade",
+      "desc": "The hacking causes damage",
       "price": 400,
       "attackDmgMul": 1.0,
-      "attackSpeedMul": 1.2,
+      "attackSpeedMul": 0.8,
       "attackRangeMul": 1.0,
       "projectileSpeedMul": 1.1
     },
     {
-      "title": "Title",
-      "desc": "This is a long description describing the upgrade",
+      "title": "Into the matrix",
+      "desc": "Manipulating the viruses more efficiently",
       "price": 1000,
-      "attackDmgMul": 2.0,
-      "attackSpeedMul": 1.3,
+      "attackDmgMul": 1.0,
+      "attackSpeedMul": 0.7,
       "attackRangeMul": 1.0,
       "projectileSpeedMul": 1.2
     }
   ],
   "Chemist": [
     {
-      "title": "Enhanced acid",
-      "desc": "This is a long description describing the upgrade",
+      "title": "Stronger acid",
+      "desc": "Faster acid mixing",
       "price": 600,
       "attackDmgMul": 1.0,
-      "attackSpeedMul": 1.2,
+      "attackSpeedMul": 0.9,
       "attackRangeMul": 1.1,
       "projectileSpeedMul": 1.1
     },
     {
-      "title": "Title",
-      "desc": "This is a long description describing the upgrade",
+      "title": "Crazy Einstein",
+      "desc": "Super fast acid mixing",
       "price": 1200,
-      "attackDmgMul": 2.0,
-      "attackSpeedMul": 1.3,
-      "attackRangeMul": 1.0,
+      "attackDmgMul": 1.0,
+      "attackSpeedMul": 0.8,
+      "attackRangeMul": 1.2,
       "projectileSpeedMul": 1.2
     }
   ],
   "Electroman": [
     {
-      "title": "More bounces",
-      "desc": "This is a long description describing the upgrade",
+      "title": "Faster lightning bolts",
+      "desc": "Increased attack speed",
       "price": 800,
       "attackDmgMul": 1.0,
-      "attackSpeedMul": 1.2,
-      "attackRangeMul": 1.1,
+      "attackSpeedMul": 0.8,
+      "attackRangeMul": 1.2,
       "projectileSpeedMul": 1.0
     },
     {
       "title": "Thor's hammer",
-      "desc": "This is a long description describing the upgrade",
+      "desc": "Lightning travels further",
       "price": 1800,
       "attackDmgMul": 1.0,
-      "attackSpeedMul": 1.0,
+      "attackSpeedMul": 0.8,
       "attackRangeMul": 1.0,
-      "projectileSpeedMul": 1.2
+      "projectileSpeedMul": 1.0
     }
   ],
   "Mechoman": [
     {
       "title": "More towers",
-      "desc": "This is a long description describing the upgrade",
+      "desc": "One more mini mech",
       "price": 200,
       "attackDmgMul": 1.0,
       "attackSpeedMul": 1.0,
@@ -93,8 +93,8 @@
       "title": "Mega robot",
       "desc": "This titan is going to destroy everything",
       "price": 2200,
-      "attackDmgMul": 2.0,
-      "attackSpeedMul": 1.6,
+      "attackDmgMul": 3.0,
+      "attackSpeedMul": 1.1,
       "attackRangeMul": 1.3,
       "projectileSpeedMul": 1.0
     }
@@ -121,20 +121,20 @@
   ],
   "Economist": [
     {
-      "title": "Enhanced acid",
-      "desc": "This is a long description describing the upgrade",
+      "title": "More cash",
+      "desc": "Increased money production",
       "price": 600,
-      "attackDmgMul": 2.0,
+      "attackDmgMul": 1.0,
       "attackSpeedMul": 1.0,
       "attackRangeMul": 1.0,
       "projectileSpeedMul": 1.0
     },
     {
-      "title": "Thor's hammer",
-      "desc": "This is a long description describing the upgrade",
+      "title": "Wallstreet piggy",
+      "desc": "Increased and efficient money production",
       "price": 2000,
-      "attackDmgMul": 2.0,
-      "attackSpeedMul": 1.5,
+      "attackDmgMul": 1.0,
+      "attackSpeedMul": 0.7,
       "attackRangeMul": 1.0,
       "projectileSpeedMul": 1.0
     }
