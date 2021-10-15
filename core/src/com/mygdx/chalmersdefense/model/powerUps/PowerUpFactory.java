@@ -6,6 +6,10 @@ import com.mygdx.chalmersdefense.model.viruses.IVirus;
 
 import java.util.List;
 
+/**
+ * @author Elin Forsberg
+ * Factory for power-ups
+ */
 public class PowerUpFactory {
 
     /**
@@ -13,7 +17,7 @@ public class PowerUpFactory {
      * @param allTowers towers to power up
      * @return new MaskedUp object
      */
-    public static IPowerUp createMaskedUpPowerUp(List<ITower> allTowers) {
+    private static IPowerUp createMaskedUpPowerUp(List<ITower> allTowers) {
         return new MaskedUp(allTowers);
     }
 
@@ -21,7 +25,7 @@ public class PowerUpFactory {
      * Create a powerUp of the type CleanHands
      * @return new CleanHands object
      */
-    public static IPowerUp createCleanHandsPowerUp() {
+    private static IPowerUp createCleanHandsPowerUp() {
         return new CleanHands();
     }
 
@@ -30,8 +34,18 @@ public class PowerUpFactory {
      * @param viruses viruses to hurt
      * @return new Vaccinated object
      */
-    public static IPowerUp createVaccinatedPowerUp(List<IVirus> viruses) {
+    private static IPowerUp createVaccinatedPowerUp(List<IVirus> viruses) {
         return new Vaccinated(viruses);
+    }
+
+    /**
+     * Creates a list of all different power-ups
+     * @param allTowers towers to power up
+     * @param viruses viruses to hurt
+     * @return the list with all power-ups
+     */
+    public static List<IPowerUp> createPowerUps(List<ITower> allTowers, List<IVirus> viruses) {
+        return List.of(createCleanHandsPowerUp(), createMaskedUpPowerUp(allTowers), createVaccinatedPowerUp(viruses));
     }
 
 }

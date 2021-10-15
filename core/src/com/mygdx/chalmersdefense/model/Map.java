@@ -31,28 +31,20 @@ class Map {
     private final List<ITower> towersList = new ArrayList<>();              // The main tower list
     private final List<IProjectile> projectilesList = new ArrayList<>();    // The main projectile list
     private final List<IVirus> virusesList = new ArrayList<>();             // The main virus list
-    private final List<IGenericMapObject> genericObjectsList = new ArrayList<>();             // The main genericObjects list
+    private final List<IGenericMapObject> genericObjectsList = new ArrayList<>();    // The main genericObjects list
+    private List<IPowerUp> powerUpList = PowerUpFactory.createPowerUps(towersList, virusesList); // List containing all power-ups
 
     private final List<ITower> towersToAddList = new ArrayList<>();             // Temporary list for object adding towers to the main list (To avoid concurrent modification issues)
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();   // Temporary list for object adding projectiles to the main list (To avoid concurrent modification issues)
-    private final List<IGenericMapObject> genericObjectsToRemoveList = new ArrayList<>();   // Temporary list for object removing genericObjects from the main list (To avoid concurrent modification issues)
 
     private final Player player;                                   // A reference to the Player object in the game
     private final Path path = PathFactory.createClassicPath();     // Current path
 
-    private boolean isGameLost;     // Boolean if game is lost
+    private boolean isGameLost = false;     // Boolean if game is lost
 
     private final GetRangeCircle rangeCircle = new GetRangeCircle();     // Helper class for showing gray range circle
 
-    private final IPowerUp cleanHands = PowerUpFactory.createCleanHandsPowerUp();
-    private final IPowerUp maskedUpPowerUp = PowerUpFactory.createMaskedUpPowerUp(towersList);
-    private final IPowerUp vaccinatedPowerUp = PowerUpFactory.createVaccinatedPowerUp(virusesList);
-
-
-    Map(Player player) {
-        this.player = player;
-        isGameLost = false;
-    }
+    Map(Player player) { this.player = player; }
 
     /**
      * Update all map components
@@ -75,6 +67,8 @@ class Map {
         towersList.clear();
         projectilesList.clear();
         virusesList.clear();
+        genericObjectsList.clear();
+        powerUpList = PowerUpFactory.createPowerUps(towersList, virusesList);
         clickedTower = null;
         isGameLost = false;
         // Removes range circle
@@ -173,11 +167,12 @@ class Map {
     }
 
     private void updatePowerUps() {
-        maskedUpPowerUp.decreaseTimer();
-        cleanHands.decreaseTimer();
-        vaccinatedPowerUp.decreaseTimer();
 
-        if (cleanHands.getIsActive()){
+        for (IPowerUp powerUp : powerUpList){
+            powerUp.decreaseTimer();
+        }
+
+        if (powerUpList.get(0).getIsActive()){
             for (int i = 0; i < 3; i++) { updateTowers(); }
         }
 
@@ -188,10 +183,11 @@ class Map {
      * @return Array with all timers in it
      */
     int[] getPowerUpTimer(){
-        int[] timers = new int[3];
-        timers[0] = cleanHands.getTimer();
-        timers[1] = maskedUpPowerUp.getTimer();
-        timers[2] = vaccinatedPowerUp.getTimer();
+        int[] timers = new int[powerUpList.size()];
+
+        for (int i = 0; i < powerUpList.size(); i++){
+            timers[i] = powerUpList.get(i).getTimer();
+        }
 
         return timers;
     }
@@ -201,10 +197,11 @@ class Map {
      * @return Array with current active status of power-ups
      */
     boolean[] getPowerUpActive(){
-        boolean[] powerUpsActive = new boolean[3];
-        powerUpsActive[0] = cleanHands.getIsActive();
-        powerUpsActive[1] = maskedUpPowerUp.getIsActive();
-        powerUpsActive[2] = vaccinatedPowerUp.getIsActive();
+        boolean[] powerUpsActive = new boolean[powerUpList.size()];
+
+        for (int i = 0; i < powerUpList.size(); i++){
+            powerUpsActive[i] = powerUpList.get(i).getIsActive();
+        }
 
         return powerUpsActive;
     }
@@ -504,6 +501,8 @@ class Map {
      */
     void roundClear() {
         projectilesList.clear();
+        genericObjectsList.clear();
+        powerUpList = PowerUpFactory.createPowerUps(towersList, virusesList);
     }
 
 
@@ -520,18 +519,18 @@ class Map {
     }
 
     private void cleanHandsPowerUpClicked(){
-        cleanHands.powerUpClicked(genericObjectsList);
-        player.decreaseMoney(cleanHands.getCost());
+        powerUpList.get(0).powerUpClicked(genericObjectsList);
+        player.decreaseMoney(powerUpList.get(0).getCost());
     }
 
     private void maskedPowerUpClicked(){
-        maskedUpPowerUp.powerUpClicked(genericObjectsList);
-        player.decreaseMoney(maskedUpPowerUp.getCost());
+        powerUpList.get(1).powerUpClicked(genericObjectsList);
+        player.decreaseMoney(powerUpList.get(1).getCost());
     }
 
     private void vaccinePowerUpClicked(){
-        vaccinatedPowerUp.powerUpClicked(genericObjectsList);
-        player.decreaseMoney(vaccinatedPowerUp.getCost());
+        powerUpList.get(2).powerUpClicked(genericObjectsList);
+        player.decreaseMoney(powerUpList.get(1).getCost());
     }
 
 

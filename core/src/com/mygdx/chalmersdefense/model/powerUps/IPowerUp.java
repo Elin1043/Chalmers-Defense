@@ -4,6 +4,10 @@ import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 
 import java.util.List;
 
+/**
+ * @author Elin Forsberg
+ * Interface for use by power-ups
+ */
 public interface IPowerUp {
 
     /**
