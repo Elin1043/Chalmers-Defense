@@ -65,7 +65,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private final Image mapImage;
 
-    public GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController, SettingsOverlayController settingsOverlayController) {
+    public GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
         super();
         this.gameScreenController = gameScreenController;
         this.rightSidePanel = new RightSidePanel(this, model, rightSidePanelController);
