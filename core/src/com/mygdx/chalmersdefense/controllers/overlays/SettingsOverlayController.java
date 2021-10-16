@@ -3,6 +3,7 @@ package com.mygdx.chalmersdefense.controllers.overlays;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -46,12 +47,29 @@ public class SettingsOverlayController {
         slider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Slider: " + slider.getValue());
                 preferences.putFloat("musicVolume", slider.getValue() / 100f);
             }
         });
     }
 
+    /**
+     * Add change listener to sound effects volume slider
+     * @param slider to add listener to
+     */
+    public void addSoundEffectsVolumeSliderListener(Slider slider) {
+        slider.setValue(preferences.getFloat("soundEffectsVolume") * 100);
+        slider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                preferences.putFloat("soundEffectsVolume", slider.getValue() / 100f);
+            }
+        });
+    }
+
+    /**
+     * Add click listener to back button in settings
+     * @param button to add listener to
+     */
     public void addGoBackButton(Button button) {
         button.addListener(new ClickListener() {
             @Override
@@ -61,5 +79,46 @@ public class SettingsOverlayController {
         });
     }
 
+    /**
+     * Add change listener to music volume slider
+     * @param checkBox to add listener to
+     */
+    public void addMuteMusicClickListener(CheckBox checkBox) {
+        checkBox.setChecked(preferences.getBoolean("muteMusic"));
+        checkBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                preferences.putBoolean("muteMusic", checkBox.isChecked());
+            }
+        });
+    }
+
+    /**
+     * Add change listener to sound effects mute checkbox
+     * @param checkBox to add listener to
+     */
+    public void addMuteSoundEffectsClickListener(CheckBox checkBox) {
+        checkBox.setChecked(preferences.getBoolean("muteSoundEffects"));
+        checkBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                preferences.putBoolean("muteSoundEffects", checkBox.isChecked());
+            }
+        });
+    }
+
+    /**
+     * Add change listener to autoplay checkbox
+     * @param checkBox to add listener to
+     */
+    public void addAutoplayClickListener(CheckBox checkBox) {
+        checkBox.setChecked(preferences.getBoolean("autoplay"));
+        checkBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                preferences.putBoolean("autoplay", checkBox.isChecked());
+            }
+        });
+    }
 
 }
