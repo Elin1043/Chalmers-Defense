@@ -50,6 +50,8 @@ public class PauseMenuOverlayController {
                 case "Settings" -> model.setShowOverlay(ScreenOverlayEnum.SETTINGS);
                 case "Quit" -> {
                     model.stopGameUpdate();
+                    model.resetModel();
+                    model.setShowOverlay(ScreenOverlayEnum.NONE);
                     ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
                 }
             }
