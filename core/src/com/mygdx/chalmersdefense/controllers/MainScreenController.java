@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.chalmersdefense.model.IControllModel;
+import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.views.ScreenEnum;
 import com.mygdx.chalmersdefense.views.ScreenManager;
 
@@ -17,6 +19,11 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
  * Controller class for MainScreen
  */
 public class MainScreenController {
+    private final IControllModel model;
+
+    public MainScreenController(IControllModel model){
+        this.model = model;
+    }
 
     /**
      * Listener for playButoon
@@ -40,6 +47,19 @@ public class MainScreenController {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();
+            }
+        });
+    }
+
+    /**
+     * Listener for settings button
+     * @param button the settings button
+     */
+    public void addSettingsButtonClickListener(Button button) {
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                model.setShowOverlay(ScreenOverlayEnum.SETTINGS);
             }
         });
     }
