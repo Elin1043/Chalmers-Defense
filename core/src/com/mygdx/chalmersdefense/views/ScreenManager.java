@@ -11,6 +11,7 @@ public class ScreenManager {
     private AbstractScreen gameScreen;
 
     private AbstractScreen currentScreen;
+    private ScreenEnum currentScreenEnum;
 
     private static ScreenManager instance;
 
@@ -53,6 +54,7 @@ public class ScreenManager {
      */
     public void showScreen(ScreenEnum screenEnum) {
         currentScreen = getScreen(screenEnum);
+        currentScreenEnum = screenEnum;
         if (currentScreen != null) {
             currentScreen.buildStage();
             game.setScreen(currentScreen);
@@ -66,7 +68,19 @@ public class ScreenManager {
         };
     }
 
+    /**
+     * A getter for which screen is currently showing
+     * @return current screen
+     */
     public AbstractScreen getCurrentScreen() {
         return currentScreen;
+    }
+
+    /**
+     * A getter for which screen enum is currently showing
+     * @return an enum for current screen
+     */
+    public ScreenEnum getCurrentScreenEnum() {
+        return currentScreenEnum;
     }
 }

@@ -8,12 +8,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.overlays.SettingsOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
+import com.mygdx.chalmersdefense.views.ScreenEnum;
+import com.mygdx.chalmersdefense.views.ScreenManager;
 
 public class SettingsOverlay extends AbstractOverlay {
     private final SettingsOverlayController settingsOverlayController;
 
     private final Group settingsMenuGroup = new Group();
     private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/SettingsBackgroundImage.png"));
+    private Button goBackButton;
 
     public SettingsOverlay(SettingsOverlayController settingsOverlayController) {
         this.settingsOverlayController = settingsOverlayController;
@@ -26,7 +29,7 @@ public class SettingsOverlay extends AbstractOverlay {
             settingsMenuGroup.addActor(backgroundImage);
             backgroundImage.setPosition(stage.getWidth() / 2 - backgroundImage.getWidth() / 2, stage.getHeight() / 2 - backgroundImage.getHeight() / 2);
 
-            createGoBackButton();
+            goBackButton = createGoBackButton();
 
             ImageButton exitButton = createExitPauseMenuButton(settingsMenuGroup, backgroundImage);
             settingsOverlayController.addExitPauseMenuButtonClickListener(exitButton);
@@ -66,6 +69,8 @@ public class SettingsOverlay extends AbstractOverlay {
 
         drawTransparentBackground();
 
+        goBackButton.setVisible(ScreenManager.getInstance().getCurrentScreenEnum() != ScreenEnum.MAIN_MENU);
+
         stage.act();
         stage.draw();
         settingsMenuGroup.setVisible(true);
@@ -94,7 +99,7 @@ public class SettingsOverlay extends AbstractOverlay {
         label.setAlignment(Align.right);
     }
 
-    private void createGoBackButton() {
+    private Button createGoBackButton() {
         TextureAtlas GoBackButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/goBackButtonSkin/GoBackButtonSkin.atlas")); // Load atlas file from skin
         Skin goBackButtonSkin = new Skin(Gdx.files.internal("buttons/goBackButtonSkin/GoBackButtonSkin.json"), GoBackButtonTexture); // Create skin object
 
@@ -102,6 +107,7 @@ public class SettingsOverlay extends AbstractOverlay {
         settingsMenuGroup.addActor(goBackButton);
         goBackButton.setPosition(backgroundImage.getX() + 15, backgroundImage.getY() + 340);
         settingsOverlayController.addGoBackButton(goBackButton);
+        return goBackButton;
     }
 
 
