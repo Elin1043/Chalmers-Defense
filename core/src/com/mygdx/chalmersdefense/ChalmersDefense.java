@@ -49,10 +49,10 @@ public class ChalmersDefense extends Game {
 
         // Creating Views
         AbstractScreen mainScreen = new MainScreen(model, mainScreenController);
-        AbstractScreen gameScreen = new GameScreen(model, gameScreenController, rightSidePanelController, bottomBarPanelController, settingsOverlayController);
+        AbstractScreen gameScreen = new GameScreen(model, gameScreenController, rightSidePanelController, bottomBarPanelController);
 
         AbstractOverlay pauseMenuOverlay = new PauseMenuOverlay(pauseMenuOverlayController);
-        AbstractOverlay settingsMenuOverlay = new SettingsOverlay(settingsOverlayController);
+        AbstractOverlay settingsMenuOverlay = new SettingsOverlay(settingsOverlayController, preferences);
         AbstractOverlay lostPanelOverlay = new LostPanelOverlay(lostPanelOverlayController);
         AbstractOverlay winPanelOverlay = new WinPanelOverlay(winPanelOverlayController);
 
