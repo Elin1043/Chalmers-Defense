@@ -36,7 +36,7 @@ public class ChalmersDefense extends Game {
         Model model = new Model(preferences);
 
         // Creating Controllers
-        MainScreenController mainScreenController = new MainScreenController();
+        MainScreenController mainScreenController = new MainScreenController(model);
 
         GameScreenController gameScreenController = new GameScreenController(model);
         RightSidePanelController rightSidePanelController = new RightSidePanelController(model);
@@ -48,7 +48,7 @@ public class ChalmersDefense extends Game {
         WinPanelOverlayController winPanelOverlayController = new WinPanelOverlayController(model);
 
         // Creating Views
-        AbstractScreen mainScreen = new MainScreen(mainScreenController);
+        AbstractScreen mainScreen = new MainScreen(model, mainScreenController);
         AbstractScreen gameScreen = new GameScreen(model, gameScreenController, rightSidePanelController, bottomBarPanelController, settingsOverlayController);
 
         AbstractOverlay pauseMenuOverlay = new PauseMenuOverlay(pauseMenuOverlayController);
