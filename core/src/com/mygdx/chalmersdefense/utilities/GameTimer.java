@@ -11,7 +11,10 @@ import com.mygdx.chalmersdefense.model.IUpdateModel;
  */
 public class GameTimer {
     private final Timer timer = new Timer();    // The timer object
-    private Timer.Task task;                    // The runnable task the timer uses to schedule method calls with
+    private Timer.Task task = new Timer.Task() {
+        @Override
+        public void run() {}
+    }; // The runnable task the timer uses to schedule method calls with
     private float delay = 0.005F;               // Delay in seconds between task calls
     private final IUpdateModel model;           // The model to update
 
@@ -39,7 +42,6 @@ public class GameTimer {
         task.cancel();  // Cancels current task so the update method won't be called
         timer.stop();   // Stops timer
         timer.clear();  // Clears timer from old tasks
-
     }
 
     /**
