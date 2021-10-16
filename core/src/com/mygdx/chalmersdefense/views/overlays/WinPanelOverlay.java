@@ -74,7 +74,7 @@ public class WinPanelOverlay extends AbstractOverlay {
         mainText.setAlignment(Align.center);
         mainText.setPosition(
                 backgroundImage.getX() + backgroundImage.getWidth() / 2 - 720 / 2f,
-                backgroundImage.getY() + backgroundImage.getHeight() - 150);
+                backgroundImage.getY() + backgroundImage.getHeight() - 170);
     }
 
     @Override
