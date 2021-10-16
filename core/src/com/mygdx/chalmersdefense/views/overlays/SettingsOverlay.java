@@ -43,7 +43,10 @@ public class SettingsOverlay extends AbstractOverlay {
             settingsOverlayController.addMuteSoundEffectsClickListener(createCheckBox(" Mute sound effects", 270, 170));
 
             createLabels("Autoplay:", backgroundImage.getX() + 250, backgroundImage.getY() + 125);
-            settingsOverlayController.addAutoplayClickListener(createCheckBox("", 270, 127));
+            settingsOverlayController.addAutoplayClickListener(createCheckBox("", 270, 129));
+
+            createLabels("Fullscreen:", backgroundImage.getX() + 590, backgroundImage.getY() + 125);
+            settingsOverlayController.addFullscreenClickListener(createCheckBox("", 610, 129));
 
             createLabels("Resolution:", backgroundImage.getX() + 250, backgroundImage.getY() + 50);
             Label settingsTitleLabel = new Label("Settings", FontFactory.getLabelStyle36BlackBold());

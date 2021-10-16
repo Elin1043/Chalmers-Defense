@@ -1,5 +1,7 @@
 package com.mygdx.chalmersdefense.controllers.overlays;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -117,6 +119,24 @@ public class SettingsOverlayController {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 preferences.putBoolean("autoplay", checkBox.isChecked());
+            }
+        });
+    }
+
+    /**
+     * Add change listener to fullscreen checkbox
+     * @param checkBox to add listener to
+     */
+    public void addFullscreenClickListener(CheckBox checkBox) {
+        checkBox.setChecked(Gdx.app.getGraphics().isFullscreen());
+        checkBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (checkBox.isChecked()) {
+                    Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+                } else {
+                    Gdx.graphics.setWindowedMode(1920, 1080);
+                }
             }
         });
     }
