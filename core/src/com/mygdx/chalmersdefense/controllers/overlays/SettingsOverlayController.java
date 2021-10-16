@@ -141,4 +141,18 @@ public class SettingsOverlayController {
         });
     }
 
+    /**
+     * Add change listener to refresh rate checkbox
+     * @param checkBox to add listener to
+     */
+    public void addRefreshRateClickListener(CheckBox checkBox, int refreshRate) {
+        checkBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                preferences.putInteger("refreshRate", refreshRate);
+                Gdx.graphics.setForegroundFPS(refreshRate);
+            }
+        });
+    }
+
 }
