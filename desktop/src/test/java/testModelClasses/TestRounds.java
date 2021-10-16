@@ -20,6 +20,7 @@ public class TestRounds {
 
     @Before
     public void init() {
+        preferences.putBoolean("autoplay", false);
         model = new Model(preferences);
     }
 

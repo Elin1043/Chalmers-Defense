@@ -25,6 +25,7 @@ public class TestModel {
 
     @Before
     public void init() {
+        preferences.putBoolean("autoplay", false);
         model = new Model(preferences);
     }
 
