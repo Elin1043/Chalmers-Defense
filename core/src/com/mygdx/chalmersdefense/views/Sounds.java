@@ -32,6 +32,10 @@ public class Sounds {
     }
 
     private void updateMusicVolume() {
-        music.setVolume(preferences.getFloat("musicVolume"));
+        if (preferences.getBoolean("muteMusic")){
+            music.setVolume(0);
+        } else {
+            music.setVolume(preferences.getFloat("musicVolume"));
+        }
     }
 }
