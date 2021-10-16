@@ -18,6 +18,12 @@ public class SettingsOverlay extends AbstractOverlay {
     private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/SettingsBackgroundImage.png"));
     private Button goBackButton;
 
+    private Slider musicSlider;
+    private final Label musicPercentLabel = new Label("100%", FontFactory.getLabelStyle18Black());
+
+    private Slider soundEffectsSlider;
+    private final Label soundEffectsPercentLabel = new Label("100%", FontFactory.getLabelStyle18Black());
+
     public SettingsOverlay(SettingsOverlayController settingsOverlayController) {
         this.settingsOverlayController = settingsOverlayController;
     }
@@ -34,13 +40,23 @@ public class SettingsOverlay extends AbstractOverlay {
             ImageButton exitButton = createExitPauseMenuButton(settingsMenuGroup, backgroundImage);
             settingsOverlayController.addExitPauseMenuButtonClickListener(exitButton);
 
+            // Creates music slider and peripheral components
             createLabels("Music:", backgroundImage.getX() + 250, backgroundImage.getY() + 275);
-            settingsOverlayController.addMusicVolumeSliderListener(createSlider(270, 275));
+            musicSlider = createSlider(270, 275);
+            settingsOverlayController.addMusicVolumeSliderListener(musicSlider);
             settingsOverlayController.addMuteMusicClickListener(createCheckBox(" Mute sound", 270, 245));
+            settingsMenuGroup.addActor(musicPercentLabel);
+            musicPercentLabel.setPosition(backgroundImage.getX() + 270 + 320,backgroundImage.getY() + 245);
+            musicPercentLabel.setAlignment(Align.right);
 
+            // Creates sound effects slider and peripheral components
             createLabels("Sound effects:", backgroundImage.getX() + 250, backgroundImage.getY() + 200);
-            settingsOverlayController.addSoundEffectsVolumeSliderListener(createSlider(270, 200));
+            soundEffectsSlider = createSlider(270, 200);
+            settingsOverlayController.addSoundEffectsVolumeSliderListener(soundEffectsSlider);
             settingsOverlayController.addMuteSoundEffectsClickListener(createCheckBox(" Mute sound effects", 270, 170));
+            settingsMenuGroup.addActor(soundEffectsPercentLabel);
+            soundEffectsPercentLabel.setPosition(backgroundImage.getX() + 270 + 320,backgroundImage.getY() + 170);
+            soundEffectsPercentLabel.setAlignment(Align.right);
 
             createLabels("Autoplay:", backgroundImage.getX() + 250, backgroundImage.getY() + 125);
             settingsOverlayController.addAutoplayClickListener(createCheckBox("", 270, 129));
@@ -73,6 +89,8 @@ public class SettingsOverlay extends AbstractOverlay {
         drawTransparentBackground();
 
         goBackButton.setVisible(ScreenManager.getInstance().getCurrentScreenEnum() != ScreenEnum.MAIN_MENU);
+
+        updateValueLabels();
 
         stage.act();
         stage.draw();
@@ -113,5 +131,9 @@ public class SettingsOverlay extends AbstractOverlay {
         return goBackButton;
     }
 
+    private void updateValueLabels() {
+        musicPercentLabel.setText("" + (int) musicSlider.getValue() + "%");
+        soundEffectsPercentLabel.setText("" + (int) soundEffectsSlider.getValue() + "%");
+    }
 
 }
