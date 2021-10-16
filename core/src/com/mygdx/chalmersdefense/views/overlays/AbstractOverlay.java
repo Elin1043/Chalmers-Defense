@@ -45,7 +45,6 @@ public abstract class AbstractOverlay {
         if (this.stage == null || !this.stage.equals(stage)) {
             this.stage = new Stage(stage.getViewport());
             initialize();
-            System.out.println("Yesing");
         }
     }
 
