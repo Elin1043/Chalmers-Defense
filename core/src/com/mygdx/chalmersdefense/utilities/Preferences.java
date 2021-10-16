@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class Preferences {
     private HashMap<String, Boolean> booleanHashMap = new HashMap<>();
     private HashMap<String, Float> floatHashMap = new HashMap<>();
+    private HashMap<String, Integer> integerHashMap = new HashMap<>();
 
     public Preferences() {
         putFloat("musicVolume", 0.2f);
@@ -12,6 +13,7 @@ public class Preferences {
         putBoolean("autoplay", true);
         putBoolean("muteMusic", true);
         putBoolean("muteSoundEffects", false);
+        putInteger("refreshRate", 60);
     }
 
     public void putBoolean(String key, boolean value) {
@@ -28,5 +30,13 @@ public class Preferences {
 
     public float getFloat(String key) {
         return floatHashMap.get(key);
+    }
+
+    public void putInteger(String key, int value) {
+        integerHashMap.put(key, value);
+    }
+
+    public float getInteger(String key) {
+        return integerHashMap.get(key);
     }
 }
