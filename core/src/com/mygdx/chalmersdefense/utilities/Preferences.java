@@ -8,7 +8,10 @@ public class Preferences {
 
     public Preferences() {
         putFloat("musicVolume", 0.2f);
+        putFloat("soundEffectsVolume", 0);
         putBoolean("autoplay", true);
+        putBoolean("muteMusic", true);
+        putBoolean("muteSoundEffects", false);
     }
 
     public void putBoolean(String key, boolean value) {
