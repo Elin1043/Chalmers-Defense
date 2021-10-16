@@ -91,20 +91,12 @@ public class GameScreen extends AbstractScreen implements Screen {
         multiplexer.addProcessor(rightSidePanel.getStage());
         Gdx.input.setInputProcessor(multiplexer);
 
-    }
-
-    /**
-     * Setup actors
-     */
-    @Override
-    public void buildStage() {
         stageHUD.addActor(bottomBarPanelBackground);
         stageHUD.addActor(sideBarBackground);
 
         addActor(mapImage);
         addActor(pauseButton);
     }
-
 
     /**
      * Renders GameScreen to screen

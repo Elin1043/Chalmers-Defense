@@ -37,6 +37,12 @@ public class MainScreen extends AbstractScreen {
         this.mainScreenController = mainScreenController;
         img = new Image(new Texture("HomeScreen.png"));
 
+        createPlayButton();
+        createSettingsButton();
+        addActor(img);
+        addActor(playButton);
+        addActor(quitButton);
+        addActor(settingsButton);
     }
 
     private void createPlayButton() {
@@ -59,16 +65,6 @@ public class MainScreen extends AbstractScreen {
         settingsButton = new Button(settingsButtonSkin);
         mainScreenController.addSettingsButtonClickListener(settingsButton);
         settingsButton.setPosition(430,110);
-    }
-
-    @Override
-    public void buildStage() {
-        createPlayButton();
-        createSettingsButton();
-        addActor(img);
-        addActor(playButton);
-        addActor(quitButton);
-        addActor(settingsButton);
     }
 
     /**
