@@ -1,0 +1,27 @@
+
+CheckboxSkin.png
+size: 512, 512
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+CentryGothicFont
+  rotate: false
+  xy: 1, 441
+  size: 505, 63
+  orig: 505, 63
+  offset: 0, 0
+  index: -1
+CheckboxChecked
+  rotate: false
+  xy: 1, 419
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+CheckboxDefault
+  rotate: false
+  xy: 1, 397
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
