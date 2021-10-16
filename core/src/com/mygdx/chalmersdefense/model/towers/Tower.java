@@ -32,16 +32,13 @@ abstract class Tower implements ITower {
     private float x;                // X coordinate on map
     private float y;                // y coordinate on map
 
-    //private final TargetMode firstMode = TargetModeFactory.
-
-    private final List<ITargetMode> targetModes;
-
+    private final List<ITargetMode> targetModes;    // List that holds references to the targetmodes
     private ITargetMode currentTargetMode;    // Which current targeting mode to use
 
     private float width;            // Width of tower object
     private float height;           // Height of tower object
 
-    private int cost;         // Cost of tower
+    private final int cost;         // Cost of tower
 
     private boolean collision = false;  // When tower is placed, this helps model to know if tower collides with anything
 

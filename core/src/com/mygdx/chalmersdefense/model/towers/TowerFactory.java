@@ -2,8 +2,10 @@ package com.mygdx.chalmersdefense.model.towers;
 
 
 import com.mygdx.chalmersdefense.model.Player;
+import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
+import com.mygdx.chalmersdefense.utilities.PathRectangle;
 
 import java.util.List;
 
@@ -45,9 +47,8 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower CreateHacker(float startPosX, float startPosY) {
-
-        return new HackerTower(startPosX, startPosY, "Hackerman", 60 * 3, 300, 200, TargetModeFactory.getTargetModes());
+    public static ITower CreateHacker(float startPosX, float startPosY, List<IProjectile> addProjectileToList) {
+        return new HackerTower(startPosX, startPosY, "Hackerman", 60 * 3, 300, 700, TargetModeFactory.getTargetModes(), addProjectileToList);
     }
 
     /**
@@ -69,8 +70,8 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower CreateMech(float startPosX, float startPosY, List<ITower> towerToAddList) {
-        return new MechTower(startPosX, startPosY, "Mechoman", 60 * 3, 500, 200, TargetModeFactory.getTargetModes(), towerToAddList);
+    public static ITower CreateMech(float startPosX, float startPosY, List<ITower> towerToAddList, List<ITower> towerToRemoveList, List<ITower> allTowers, List<PathRectangle> pathRectangles) {
+        return new MechTower(startPosX, startPosY, "Mechoman", 60 * 3, 500, 200, TargetModeFactory.getTargetModes(), towerToAddList, towerToRemoveList,allTowers, pathRectangles);
     }
 
     /**

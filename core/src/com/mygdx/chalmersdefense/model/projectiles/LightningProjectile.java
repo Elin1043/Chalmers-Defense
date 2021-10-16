@@ -10,7 +10,7 @@ class LightningProjectile extends Projectile {
     private int hitCountsLeft = 4;  // Hit amount left before projectile can be removed
 
     LightningProjectile(float x, float y, float angle, int upgradeLevel) {
-        super(5, "electroProjectile" + upgradeLevel, x, y, angle);
+        super(5, "electroProjectile" + upgradeLevel, x, y, angle, 1);
     }
 
 
