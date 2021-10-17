@@ -8,10 +8,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
@@ -51,6 +53,9 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private final IViewModel model;
     private final Stage stageHUD;
+
+    private ProgressBar progressBar;
+    private final TextureRegion progressBarFilled = new TextureRegion(new Texture(Gdx.files.internal("GameScreen/progressbar/ProgressBarFilled.png")));
 
     private final InputMultiplexer multiplexer = new InputMultiplexer();
 
@@ -94,6 +99,8 @@ public class GameScreen extends AbstractScreen implements Screen {
         stageHUD.addActor(bottomBarPanelBackground);
         stageHUD.addActor(sideBarBackground);
 
+        createProgressBar();
+
         addActor(mapImage);
         addActor(pauseButton);
     }
@@ -117,6 +124,12 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         // Renders right HUD panel
         rightSidePanel.render();
+
+        progressBar.setValue(model.getCurrentRound());
+        progressBarFilled.setRegion(0, 0,(int) ((progressBar.getWidth()/progressBar.getMaxValue()) * progressBar.getValue()) - 4 , 46);
+        batch.begin();
+        batch.draw(progressBarFilled, progressBar.getX() + 3, progressBar.getY() + 3);
+        batch.end();
 
         // If clicked tower is present show upgrade panel.
         if (model.getClickedTower() != null) {
@@ -142,6 +155,15 @@ public class GameScreen extends AbstractScreen implements Screen {
             model.startRoundPressed();
         }
 
+    }
+
+    private void createProgressBar() {
+        TextureAtlas progressBarAtlas = new TextureAtlas(Gdx.files.internal("GameScreen/progressbar/ProgressBarSkin.atlas")); // Load atlas file from skin
+        Skin progressBarSkin = new Skin(Gdx.files.internal("GameScreen/progressbar/ProgressBarSkin.json"), progressBarAtlas); // Create skin object
+        progressBar = new ProgressBar(0, model.getWinningRound(), 1, false, progressBarSkin);
+        progressBar.setSize(921, 52);
+        progressBar.setPosition(280, 70);
+        stageHUD.addActor(progressBar);
     }
 
     private void renderMapObjects() {
