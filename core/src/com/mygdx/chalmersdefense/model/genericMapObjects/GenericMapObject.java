@@ -14,12 +14,9 @@ import java.util.Objects;
  */
 class GenericMapObject implements IGenericMapObject {
 
-
     private float width;    // Current width of object
     private float height;   // Current height of object
     private final float speed;    // Speed of object
-
-
 
     private String spriteKey;   // The key to the Sprite Hashmap
     private float x;            // X coordinate on map
@@ -68,7 +65,6 @@ class GenericMapObject implements IGenericMapObject {
     }
 
 
-
     @Override
     public String getSpriteKey() {
         return spriteKey;
@@ -103,6 +99,5 @@ class GenericMapObject implements IGenericMapObject {
     public float getY() {
         return y;
     }
-
 
 }
