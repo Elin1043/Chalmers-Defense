@@ -32,6 +32,7 @@ public class SettingsOverlay extends AbstractOverlay {
 
     private CheckBox refreshRateCheckbox60;
     private CheckBox refreshRateCheckbox144;
+    private CheckBox refreshRateCheckbox165;
 
     public SettingsOverlay(SettingsOverlayController settingsOverlayController, Preferences preferences) {
         this.settingsOverlayController = settingsOverlayController;
@@ -122,6 +123,11 @@ public class SettingsOverlay extends AbstractOverlay {
         horizontalGroup.addActor(refreshRateCheckbox144);
         settingsOverlayController.addRefreshRateClickListener(refreshRateCheckbox144, 144);
         refreshRateCheckbox144.setChecked(preferences.getInteger("refreshRate") == 144);
+
+        refreshRateCheckbox165 = new CheckBox(" 165", checkBoxSkin);
+        horizontalGroup.addActor(refreshRateCheckbox165);
+        settingsOverlayController.addRefreshRateClickListener(refreshRateCheckbox165, 165);
+        refreshRateCheckbox165.setChecked(preferences.getInteger("refreshRate") == 165);
     }
 
     private CheckBox createCheckBox(String string, float x, float y) {
@@ -171,6 +177,7 @@ public class SettingsOverlay extends AbstractOverlay {
     private void updateRefreshRateCheckBoxes() {
         refreshRateCheckbox60.setChecked(preferences.getInteger("refreshRate") == 60);
         refreshRateCheckbox144.setChecked(preferences.getInteger("refreshRate") == 144);
+        refreshRateCheckbox165.setChecked(preferences.getInteger("refreshRate") == 165);
     }
 
 }
