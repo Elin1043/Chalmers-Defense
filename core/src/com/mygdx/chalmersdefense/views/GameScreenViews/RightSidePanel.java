@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
+import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 
@@ -26,7 +27,7 @@ public class RightSidePanel {
 
     private final Stage stage;
     private final RightSidePanelController rightSidePanelController;
-    private final Model model;
+    private final IViewModel model;
 
 
     private final Label towerLabel = createLabel("Towers", 20);
@@ -50,10 +51,10 @@ public class RightSidePanel {
 
     private Button startRoundButton;
 
-    public RightSidePanel(Stage stage, Model model) {
+    public RightSidePanel(Stage stage, IViewModel model, RightSidePanelController rightSidePanelController) {
         this.stage = new Stage(stage.getViewport());
-        this.rightSidePanelController = new RightSidePanelController(model);
         this.model = model;
+        this.rightSidePanelController = rightSidePanelController;
 
         initialize();
     }

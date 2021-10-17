@@ -1,6 +1,8 @@
 package com.mygdx.chalmersdefense.model;
 
 
+import com.mygdx.chalmersdefense.utilities.Preferences;
+import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
@@ -45,13 +47,22 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final Map map = new Map(player);        // Current map object
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());   // The class for spawning viruses
 
-    private boolean showWinPanel = false;       // Boolean for views of they should show win panel
+    private ScreenOverlayEnum showOverlay = ScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
+
+    private Preferences preferences;
+
+    public Model(Preferences preferences) {
+        this.preferences = preferences;
+    }
 
     @Override
     public synchronized void updateModel() {
         map.updateMap();
         checkRoundCompleted();
         virusSpawner.decrementSpawnTimer();
+        if (map.getIsGameLost()) {
+            showOverlay = ScreenOverlayEnum.LOSEPANEL;
+        }
     }
 
     @Override
@@ -60,6 +71,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         player.resetPlayer(LIVES, START_CAPITAL);
         map.resetMap();
         virusSpawner.resetSpawnViruses();
+        showOverlay = ScreenOverlayEnum.NONE;
     }
 
     private void checkRoundCompleted() {
@@ -71,8 +83,9 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
             map.roundClear();
 
             if (round.gameWon()) {
-                showWinPanel = true;
+                showOverlay = ScreenOverlayEnum.WINPANEL;
             }
+            if (preferences.getBoolean("autoplay") && getCurrentRound() != 1) startRoundPressed();
         }
     }
 
@@ -187,18 +200,13 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
-    public boolean getIsGameLost() {
-        return map.getIsGameLost();
+    public ScreenOverlayEnum showOverlay() {
+        return showOverlay;
     }
 
     @Override
-    public boolean showWinPanel() {
-        return showWinPanel;
-    }
-
-    @Override
-    public void continueToFreePlay() {
-        showWinPanel = false;
+    public void setShowOverlay(ScreenOverlayEnum overlay) {
+        showOverlay = overlay;
     }
 
     @Override

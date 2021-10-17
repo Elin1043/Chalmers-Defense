@@ -32,14 +32,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
     protected AbstractScreen() {
         super(new FitViewport(1920, 1080, new OrthographicCamera(1920, 1080)));
         createSprites();
-
-
     }
-
-    /**
-     * Builds the stage
-     */
-    public abstract void buildStage();
 
     @Override
     public void render(float delta) {
