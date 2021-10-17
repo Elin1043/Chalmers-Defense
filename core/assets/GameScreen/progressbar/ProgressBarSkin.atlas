@@ -1,0 +1,20 @@
+
+ProgressBarSkin.png
+size: 1024, 1024
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+Background
+  rotate: false
+  xy: 1, 868
+  size: 921, 52
+  orig: 921, 52
+  offset: 0, 0
+  index: -1
+Knob
+  rotate: false
+  xy: 1, 806
+  size: 3, 60
+  orig: 3, 60
+  offset: 0, 0
+  index: -1
