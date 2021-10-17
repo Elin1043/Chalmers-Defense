@@ -27,14 +27,30 @@ public class TestMechTower {
     List<ITower> towersList = new ArrayList<>();
 
     ITower tSmurf = TowerFactory.CreateSmurf(100, 200);
+
     @Test
-    public void testUpdate() {
+    public void testUpdateAndCreateOneTower() {
         towersList.add(tSmurf);
         ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,path.getCollisionRectangles());
         t.placeTower();
 
         t.update(new ArrayList<>(), 10, true);
-        assertTrue(addToList.size() > 0);
+        assertEquals(1, addToList.size());
+    }
+
+    @Test
+    public void testUpdateAndCreateTwoTower() {
+        towersList.add(tSmurf);
+        ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,path.getCollisionRectangles());
+        t.placeTower();
+
+        HashMap<String, Double> upgrades = new HashMap<>();
+        upgrades.put("attackSpeedMul",0.2);
+        upgrades.put("attackRangeMul",2.0);
+        t.upgradeTower(upgrades);
+
+        t.update(new ArrayList<>(), 10, true);
+        assertEquals(2, addToList.size());
     }
 
     @Test
