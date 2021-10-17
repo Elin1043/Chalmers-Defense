@@ -84,8 +84,17 @@ public class TestModel {
 
     }
 
+    @Test
+    public void testAllPowerUpClicked(){
+        model.startRoundPressed();
+        model.powerUpClicked("cleanHands");
+        model.powerUpClicked("maskedUp");
+        model.powerUpClicked("vaccinated");
+        model.updateModel();
 
-
+        assertTrue(model.getPowerUpActive()[0] && model.getPowerUpActive()[1] && model.getPowerUpActive()[2]);
+        assertTrue(model.getPowerUpTimer()[0] > 0 && model.getPowerUpTimer()[1] > 0 && model.getPowerUpTimer()[2] > 0);
+    }
 
     @Test
     public void testUpdateModel() {

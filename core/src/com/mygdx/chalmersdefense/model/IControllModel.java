@@ -62,16 +62,6 @@ public interface IControllModel {
     void resetModel();
 
     /**
-     * Starts the main game timer
-     */
-    void startGameUpdate();
-
-    /**
-     * Stops the main game timer
-     */
-    void stopGameUpdate();
-
-    /**
      * Sets showWinPanel to false
      */
     void continueToFreePlay();
@@ -89,7 +79,7 @@ public interface IControllModel {
 
     /**
      * Handle a powerUp button being clicked
-     * @param powerUpName
+     * @param powerUpName The name of the power-up to be activated
      */
     void powerUpClicked(String powerUpName);
 }
