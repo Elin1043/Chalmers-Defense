@@ -24,6 +24,8 @@ import java.util.List;
  * @author Jenny Carlsson
  * <p>
  * Class handeling all objects and methods on Map.
+ *
+ * 2021-10-15 Modified by Elin Forsberg and Joel Båtsman Hilmmersson: Added methods for powerUps
  */
 class Map {
     private ITower newTower;            // Temp helper for when new tower is added

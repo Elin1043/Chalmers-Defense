@@ -22,6 +22,7 @@ import java.util.HashMap;
  * A class used to render the right panel
  * <p>
  * 2021-10-05 Created by Daniel Persson <br>
+ * 2021-10-15 Modified by Elin Forsberg: Added methods for powerUps
  */
 public class RightSidePanel {
     private final int WIDTH = 320;
