@@ -1,5 +1,7 @@
 package com.mygdx.chalmersdefense.controllers;
 
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -17,9 +19,10 @@ import com.mygdx.chalmersdefense.model.IControllModel;
  * 2021-10-05 Modified by Daniel Persson: Added click listener for continue button in WinPanelOverlay <br>
  * 2021-10-11 Modified by Jenny Carlsson and Daniel Persson: added click listener for pause meny buttons <br>
  * 2021-10-12 Modified by Jenny Carlsson and Daniel Persson: added click listener for pause menu exit button <br>
+ * 2021-10-19 Modified by Joel Båtsman Hilmersson: The class now extends InputAdapter to override methods to listen for keyboard input <br>
  */
-public class GameScreenController {
-    private IControllModel model;
+public class GameScreenController extends InputAdapter {
+    private final IControllModel model;
 
     public GameScreenController(IControllModel model) {
         this.model = model;
@@ -54,4 +57,15 @@ public class GameScreenController {
         });
     }
 
+    @Override
+    public boolean keyDown (int keycode) {
+        if (keycode == Input.Keys.ESCAPE){
+            model.stopGameUpdate();
+            model.setShowOverlay(ScreenOverlayEnum.PAUSE_MENU);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }

@@ -23,7 +23,7 @@ public class LostPanelOverlay extends AbstractOverlay {
 
     private final LostPanelOverlayController lostPanelOverlayController; // Controller used for adding listeners
 
-    private final Group lostPanelGroup = new Group(); // Group to att all actors to
+    private final Group lostPanelGroup = new Group(); // Group to add all actors to
 
     private final Image backgroundImage = new Image(new Texture("GameScreen/LostPanelBackgroundImage.png")); // Background image of overlay
 

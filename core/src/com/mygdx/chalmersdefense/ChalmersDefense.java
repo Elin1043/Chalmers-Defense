@@ -2,10 +2,11 @@ package com.mygdx.chalmersdefense;
 
 import com.badlogic.gdx.Game;
 
-import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
-import com.mygdx.chalmersdefense.controllers.GameScreenController;
-import com.mygdx.chalmersdefense.controllers.MainScreenController;
-import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.mygdx.chalmersdefense.controllers.*;
 import com.mygdx.chalmersdefense.controllers.overlays.LostPanelOverlayController;
 import com.mygdx.chalmersdefense.controllers.overlays.PauseMenuOverlayController;
 import com.mygdx.chalmersdefense.controllers.overlays.SettingsOverlayController;
@@ -56,6 +57,7 @@ public class ChalmersDefense extends Game {
         AbstractOverlay lostPanelOverlay = new LostPanelOverlay(lostPanelOverlayController);
         AbstractOverlay winPanelOverlay = new WinPanelOverlay(winPanelOverlayController);
 
+        // Sound
         new Sounds(preferences);
 
         // Init ScreenManager

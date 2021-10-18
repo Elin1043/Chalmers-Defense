@@ -75,7 +75,6 @@ public class MainScreen extends AbstractScreen {
     @Override
     public void render(float delta) {
         super.render(Gdx.graphics.getDeltaTime());
-        Gdx.input.setInputProcessor(this);
 
         OverlayManager.getInstance().showOverlay(model.showOverlay());
         AbstractOverlay abstractOverlay = OverlayManager.getInstance().getCurrentOverlay();

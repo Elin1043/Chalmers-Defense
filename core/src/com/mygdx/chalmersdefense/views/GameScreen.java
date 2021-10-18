@@ -40,6 +40,7 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * 2021-10-04 Modified by Daniel Persson: Refactored GameScreen into two seperate classes. BottomBarUpgradePanel and RightSidePanel <br>
  * 2021-10-05 Modified by Daniel Persson: Added WinPanelOverlay rendering if game is won <br>
  * 2021-10-11 Modified by Daniel Persson: Added overlay enums for displaying overlays <br>
+ * 2021-10-19 Modified by Joel Båtsman Hilmersson: Made class use superclass multiplexer for inputProcessor <br>
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
@@ -53,8 +54,6 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private final IViewModel model;
     private final Stage stageHUD;
-
-    private final InputMultiplexer multiplexer = new InputMultiplexer();
 
     private final TextureAtlas pauseButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.atlas")); // Load atlas file from skin
     private final Skin pauseButtonSkin = new Skin(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.json"), pauseButtonAtlas); // Create skin object
@@ -71,8 +70,6 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    private final Image mapImage;
-
     public GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
         super();
         this.gameScreenController = gameScreenController;
@@ -85,7 +82,7 @@ public class GameScreen extends AbstractScreen implements Screen {
         gameScreenController.addPauseButtonClickListener(pauseButton);
 
         // This should come from classicPath class
-        mapImage = new Image(new Texture("ClassicMap.png"));
+        Image mapImage = new Image(new Texture("ClassicMap.png")); // TODO Hämta från Path
         mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
         gameScreenController.addMapClickListener(mapImage);
 
@@ -94,10 +91,10 @@ public class GameScreen extends AbstractScreen implements Screen {
         sideBarBackground.setPosition(1920 - 320, 0);
 
         // Enables input from both stages at the same time
-        multiplexer.addProcessor(this);
-        multiplexer.addProcessor(bottomBarUpgradePanel.getStage());
-        multiplexer.addProcessor(rightSidePanel.getStage());
-        Gdx.input.setInputProcessor(multiplexer);
+        addToMultiplexer(bottomBarUpgradePanel.getStage());
+        addToMultiplexer(rightSidePanel.getStage());
+        addToMultiplexer(gameScreenController);
+        addToMultiplexer(rightSidePanelController);
 
         stageHUD.addActor(bottomBarPanelBackground);
         stageHUD.addActor(sideBarBackground);
@@ -115,7 +112,6 @@ public class GameScreen extends AbstractScreen implements Screen {
     @Override
     public void render(float delta) {
         super.render(Gdx.graphics.getDeltaTime());
-        Gdx.input.setInputProcessor(multiplexer);
 
         renderRangeCircle();
         renderMapObjects();
@@ -147,10 +143,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         //TODO Remove when not needed
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             model.getViruses().add(VirusFactory.createVirusOne());
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            model.startRoundPressed();
         }
 
     }

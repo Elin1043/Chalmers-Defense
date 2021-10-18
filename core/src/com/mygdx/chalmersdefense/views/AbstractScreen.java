@@ -1,8 +1,6 @@
 package com.mygdx.chalmersdefense.views;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,6 +18,7 @@ import java.util.HashMap;
  * Class respresenting an AbstractScreen
  * <p>
  * 2021-09-23 Modified by Joel Båtsman Hilmersson: Created Hashmap with sprites <br>
+ * 2021-10-19 Modified by Joel Båtsman Hilmersson: Added input multiplexer support <br>
  */
 public abstract class AbstractScreen extends Stage implements Screen {
 
@@ -28,10 +27,17 @@ public abstract class AbstractScreen extends Stage implements Screen {
 
     final Batch batch = new SpriteBatch();
 
+    private final InputMultiplexer multiplexer = new InputMultiplexer();
 
-    protected AbstractScreen() {
+    AbstractScreen() {
         super(new FitViewport(1920, 1080, new OrthographicCamera(1920, 1080)));
+        multiplexer.addProcessor(this);
+        Gdx.input.setInputProcessor(multiplexer);
         createSprites();
+    }
+
+    void addToMultiplexer(InputProcessor newProcessor){
+        multiplexer.addProcessor(newProcessor);
     }
 
     @Override
@@ -45,14 +51,15 @@ public abstract class AbstractScreen extends Stage implements Screen {
             Gdx.graphics.setWindowedMode(1920, 1080);
         }
 
-
         super.act(delta);
         super.draw();
+
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(this);
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     @Override
@@ -66,13 +73,10 @@ public abstract class AbstractScreen extends Stage implements Screen {
     }
 
     @Override
-    public void pause() {
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-    }
-
+    public void resume() {}
 
 
     private void createSprites() {
