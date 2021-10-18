@@ -80,6 +80,16 @@ public interface IControllModel {
     void changeTargetMode(boolean goRight);
 
     /**
+     * Starts the main game timer
+     */
+    void startGameUpdate();
+
+    /**
+     * Stops the main game timer
+     */
+    void stopGameUpdate();
+
+    /**
      * Handle a powerUp button being clicked
      * @param powerUpName The name of the power-up to be activated
      */

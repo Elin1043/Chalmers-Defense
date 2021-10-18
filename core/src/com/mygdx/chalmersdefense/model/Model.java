@@ -95,17 +95,15 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         return map.getClickedTowerTargetMode();
     }
 
-    /**
-     * Starts the main game timer
-     */
-    private void startGameUpdate() {
+
+    @Override
+    public void startGameUpdate() {
         timer.startUpdateTimer();
     }
 
-    /**
-     * Stops the main game timer
-     */
-    private void stopGameUpdate() {
+
+    @Override
+    public void stopGameUpdate() {
         timer.stopUpdateTimer();
     }
 
