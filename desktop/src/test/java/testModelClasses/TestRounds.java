@@ -2,6 +2,8 @@ package testModelClasses;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
+import com.mygdx.chalmersdefense.utilities.Preferences;
+import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.Model;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,11 +15,13 @@ import static org.junit.Assert.*;
  */
 public class TestRounds {
     LwjglApplication app = new LwjglApplication(new ChalmersDefense());
+    Preferences preferences = new Preferences();
     Model model;
 
     @Before
     public void init() {
-        model = new Model();
+        preferences.putBoolean("autoplay", false);
+        model = new Model(preferences);
     }
 
     @Test
@@ -36,16 +40,16 @@ public class TestRounds {
 
         model.startRoundPressed();
 
-        while (!model.showWinPanel()) {
+        while (model.showOverlay() != ScreenOverlayEnum.WINPANEL) {
             while (model.getAllMapObjects().size() > 4) {
                 model.updateModel();
             }
             model.startRoundPressed();
         }
 
-        assertTrue(model.showWinPanel());
-        model.continueToFreePlay();
-        assertFalse(model.showWinPanel());
+        assertSame(model.showOverlay(), ScreenOverlayEnum.WINPANEL);
+        model.setShowOverlay(ScreenOverlayEnum.NONE);
+        assertNotSame(model.showOverlay(), ScreenOverlayEnum.WINPANEL);
     }
 
 

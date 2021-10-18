@@ -70,10 +70,10 @@ public class RightSidePanel {
 
     private Button startRoundButton;
 
-    public RightSidePanel(Stage stage, Model model) {
+    public RightSidePanel(Stage stage, IViewModel model, RightSidePanelController rightSidePanelController) {
         this.stage = new Stage(stage.getViewport());
-        this.rightSidePanelController = new RightSidePanelController(model);
         this.model = model;
+        this.rightSidePanelController = rightSidePanelController;
 
         initialize();
     }

@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.model.IMapObject;
+import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 
@@ -28,11 +29,11 @@ import java.util.HashMap;
  */
 public class BottomBarUpgradePanel {
     private final Stage stage;
-    private final Batch batch;
+    private final IViewModel model;
     private final BottomBarPanelController bottomBarPanelController;
-    private final Model model;
     private final HashMap<String, Sprite> spriteMap;
     private final HashMap<String, Sprite> largeSpriteMap;
+    private final Batch batch;
 
 
 
@@ -63,14 +64,14 @@ public class BottomBarUpgradePanel {
 
 
 
-    public BottomBarUpgradePanel(Stage stage, Model model, HashMap<String, Sprite> spriteMap, HashMap<String, Sprite> largeSpriteMap) {
+    public BottomBarUpgradePanel(Stage stage, IViewModel model, BottomBarPanelController bottomBarPanelController, HashMap<String, Sprite> spriteMap, HashMap<String, Sprite> largeSpriteMap) {
         this.stage = new Stage(stage.getViewport());
-        this.batch = stage.getBatch();
-        this.bottomBarPanelController = new BottomBarPanelController(model);
         this.model = model;
+        this.bottomBarPanelController = bottomBarPanelController;
         this.spriteMap = spriteMap;
         this.largeSpriteMap = largeSpriteMap;
 
+        this.batch = stage.getBatch();
 
         initialize();
     }

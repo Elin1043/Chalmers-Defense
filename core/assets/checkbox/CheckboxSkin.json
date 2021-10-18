@@ -1,0 +1,22 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	CenturyGothicFont: {
+		file: CentryGothicFont.fnt
+	}
+}
+com.badlogic.gdx.graphics.Color: {
+	RGBA_0_0_0_255: {
+		r: 0
+		g: 0
+		b: 0
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
+	default: {
+		checkboxOn: CheckboxChecked
+		checkboxOff: CheckboxDefault
+		font: CenturyGothicFont
+	}
+}
+}

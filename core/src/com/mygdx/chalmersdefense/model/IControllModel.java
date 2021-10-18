@@ -1,5 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
+import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
+
 /**
  * @author Joel Båtsman Hilmersson
  * Interface for model to implement only expose controll methods to the controller
@@ -62,10 +64,10 @@ public interface IControllModel {
     void resetModel();
 
     /**
-     * Sets showWinPanel to false
+     * Sets showOverlay to supplied overlay enum
+     * @param overlay enum of overlay to show
      */
-    void continueToFreePlay();
-
+    void setShowOverlay(ScreenOverlayEnum overlay);
 
     /**
      * Sell clicked tower

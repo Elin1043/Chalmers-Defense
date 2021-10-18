@@ -1,0 +1,27 @@
+
+PauseMenuButtonSkin.png
+size: 512, 512
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+PauseMenuButtonDefault
+  rotate: false
+  xy: 1, 239
+  size: 308, 68
+  orig: 308, 68
+  offset: 0, 0
+  index: -1
+PauseMenuButtonHover
+  rotate: false
+  xy: 1, 169
+  size: 308, 68
+  orig: 308, 68
+  offset: 0, 0
+  index: -1
+PauseMenuButtonPressed
+  rotate: false
+  xy: 1, 99
+  size: 308, 68
+  orig: 308, 68
+  offset: 0, 0
+  index: -1

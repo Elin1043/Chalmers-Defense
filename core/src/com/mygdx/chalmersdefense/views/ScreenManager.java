@@ -10,6 +10,9 @@ public class ScreenManager {
     private AbstractScreen mainScreen;
     private AbstractScreen gameScreen;
 
+    private AbstractScreen currentScreen;
+    private ScreenEnum currentScreenEnum;
+
     private static ScreenManager instance;
 
     private Game game;
@@ -50,10 +53,10 @@ public class ScreenManager {
      * @param screenEnum which screen to switch to
      */
     public void showScreen(ScreenEnum screenEnum) {
-        AbstractScreen newScreen = getScreen(screenEnum);
-        if (newScreen != null) {
-            newScreen.buildStage();
-            game.setScreen(newScreen);
+        currentScreen = getScreen(screenEnum);
+        currentScreenEnum = screenEnum;
+        if (currentScreen != null) {
+            game.setScreen(currentScreen);
         }
     }
 
@@ -62,5 +65,21 @@ public class ScreenManager {
             case MAIN_MENU -> mainScreen;
             case GAME -> gameScreen;
         };
+    }
+
+    /**
+     * A getter for which screen is currently showing
+     * @return current screen
+     */
+    public AbstractScreen getCurrentScreen() {
+        return currentScreen;
+    }
+
+    /**
+     * A getter for which screen enum is currently showing
+     * @return an enum for current screen
+     */
+    public ScreenEnum getCurrentScreenEnum() {
+        return currentScreenEnum;
     }
 }

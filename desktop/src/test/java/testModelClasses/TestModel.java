@@ -3,7 +3,8 @@ package testModelClasses;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
-import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
+import com.mygdx.chalmersdefense.utilities.Preferences;
+import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.Sys;
@@ -20,11 +21,13 @@ import static org.junit.Assert.*;
 public class TestModel {
 
     LwjglApplication app = new LwjglApplication(new ChalmersDefense());
+    Preferences preferences = new Preferences();
     Model model;
 
     @Before
     public void init() {
-        model = new Model();
+        preferences.putBoolean("autoplay", false);
+        model = new Model(preferences);
     }
 
     @Test
@@ -193,7 +196,7 @@ public class TestModel {
             model.updateModel();
         }
 
-        assertTrue(model.getIsGameLost());
+        assertSame(model.showOverlay(), ScreenOverlayEnum.LOSEPANEL);
     }
 
 }

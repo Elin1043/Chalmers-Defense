@@ -3,6 +3,7 @@ package testTowers;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.utilities.Preferences;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -17,7 +18,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class TestUpgrades {
     LwjglApplication app = new LwjglApplication(new ChalmersDefense());
-    private final Model model = new Model();
+    Preferences preferences = new Preferences();
+    private final Model model = new Model(preferences);
 
 
     @Test

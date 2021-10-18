@@ -14,17 +14,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
+import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
+import com.mygdx.chalmersdefense.controllers.overlays.SettingsOverlayController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
-import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
-import com.mygdx.chalmersdefense.views.GameScreenViews.BottomBarUpgradePanel;
-import com.mygdx.chalmersdefense.views.GameScreenViews.LostPanelOverlay;
-import com.mygdx.chalmersdefense.views.GameScreenViews.RightSidePanel;
-import com.mygdx.chalmersdefense.views.GameScreenViews.WinPanelOverlay;
+import com.mygdx.chalmersdefense.views.GameScreenViews.*;
+import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
+import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
 
 import static com.badlogic.gdx.graphics.GL20.*;
 
@@ -38,14 +39,18 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * 2021-10-03 Modified by Elin Forsberg: Sprite render now uses general IMapObject and range circle rendering was separated <br>
  * 2021-10-04 Modified by Daniel Persson: Refactored GameScreen into two seperate classes. BottomBarUpgradePanel and RightSidePanel <br>
  * 2021-10-05 Modified by Daniel Persson: Added WinPanelOverlay rendering if game is won <br>
+ * 2021-10-11 Modified by Daniel Persson: Added overlay enums for displaying overlays <br>
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
     private final GameScreenController gameScreenController;
-    private final LostPanelOverlay lostPanelOverlay;
-    private final WinPanelOverlay winPanelOverlay;
+
+
+
+    // Panels
     private final BottomBarUpgradePanel bottomBarUpgradePanel;
     private final RightSidePanel rightSidePanel;
+
     private final IViewModel model;
     private final Stage stageHUD;
 
@@ -68,14 +73,11 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private final Image mapImage;
 
-
-    public GameScreen(Model model) {
+    public GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
         super();
-        this.gameScreenController = new GameScreenController(model);
-        this.lostPanelOverlay = new LostPanelOverlay(this, gameScreenController);
-        this.winPanelOverlay = new WinPanelOverlay(this, gameScreenController);
-        this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, spriteMap, largeSpriteMap);
-        this.rightSidePanel = new RightSidePanel(this, model);
+        this.gameScreenController = gameScreenController;
+        this.rightSidePanel = new RightSidePanel(this, model, rightSidePanelController);
+        this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, bottomBarPanelController, spriteMap, largeSpriteMap);
         this.model = model;
         this.stageHUD = new Stage(this.getViewport());
 
@@ -97,13 +99,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         multiplexer.addProcessor(rightSidePanel.getStage());
         Gdx.input.setInputProcessor(multiplexer);
 
-    }
-
-    /**
-     * Setup actors
-     */
-    @Override
-    public void buildStage() {
         stageHUD.addActor(bottomBarPanelBackground);
         stageHUD.addActor(sideBarBackground);
 
@@ -111,7 +106,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         addActor(pauseButton);
         createLifeAndMoneyIcon();
     }
-
 
     /**
      * Renders GameScreen to screen
@@ -142,18 +136,11 @@ public class GameScreen extends AbstractScreen implements Screen {
             bottomBarUpgradePanel.hideBottomBar();
         }
 
-        // Render lost game panel if game is lost
-        if (model.getIsGameLost()) {
-            lostPanelOverlay.render();
-        } else {
-            lostPanelOverlay.hideOverlay();
-        }
+        OverlayManager.getInstance().showOverlay(model.showOverlay());
 
-        // Render win game overlay if game is won
-        if (model.showWinPanel()) {
-            winPanelOverlay.render();
-        } else {
-            winPanelOverlay.hideOverlay();
+        AbstractOverlay abstractOverlay = OverlayManager.getInstance().getCurrentOverlay();
+        if (abstractOverlay != null) {
+            abstractOverlay.render();
         }
 
 

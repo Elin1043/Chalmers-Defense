@@ -3,6 +3,7 @@ package testTowers;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.utilities.Preferences;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,11 +16,12 @@ import static org.junit.Assert.assertTrue;
 public class TestEcoTower {
 
     LwjglApplication app = new LwjglApplication(new ChalmersDefense());
+    Preferences preferences = new Preferences();
     Model m;
 
     @Before
     public void init() {
-        m = new Model();    // Need to create model since Player class is package private which we need to create an EcoTower
+        m = new Model(preferences);    // Need to create model since Player class is package private which we need to create an EcoTower
     }
 
     @Test
