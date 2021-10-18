@@ -55,6 +55,7 @@ public class TestEcoTower {
     public void testMoreMoneyWhenUpgraded() {
         m.dragStart("eco", 300, 300); // Creates tower
         m.dragEnd(2, 2, 300, 300);
+        m.startRoundPressed();
 
         int fixedCapital = m.getMoney();
         while (m.getMoney() <= fixedCapital) {
@@ -62,8 +63,8 @@ public class TestEcoTower {
         }
 
         int moneyDiff1 = m.getMoney() - fixedCapital;
-        fixedCapital = m.getMoney();
         m.upgradeClickedTower();
+        fixedCapital = m.getMoney();
 
         while (m.getMoney() <= fixedCapital) {
             m.updateModel();
@@ -71,8 +72,8 @@ public class TestEcoTower {
 
         int moneyDiff2 = m.getMoney() - fixedCapital;
         assertTrue(moneyDiff2 > moneyDiff1);
-        fixedCapital = m.getMoney();
         m.upgradeClickedTower();
+        fixedCapital = m.getMoney();
 
         while (m.getMoney() <= fixedCapital) {
             m.updateModel();

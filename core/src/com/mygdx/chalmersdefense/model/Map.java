@@ -1,8 +1,9 @@
 package com.mygdx.chalmersdefense.model;
 
-
+import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
+import com.mygdx.chalmersdefense.model.powerUps.*;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.ITower;
@@ -23,6 +24,8 @@ import java.util.List;
  * @author Jenny Carlsson
  * <p>
  * Class handeling all objects and methods on Map.
+ *
+ * 2021-10-15 Modified by Elin Forsberg and Joel Båtsman Hilmmersson: Added methods for powerUps
  */
 class Map {
     private ITower newTower;            // Temp helper for when new tower is added
@@ -30,23 +33,20 @@ class Map {
     private final List<ITower> towersList = new ArrayList<>();              // The main tower list
     private final List<IProjectile> projectilesList = new ArrayList<>();    // The main projectile list
     private final List<IVirus> virusesList = new ArrayList<>();             // The main virus list
+    private final List<IGenericMapObject> genericObjectsList = new ArrayList<>();    // The main genericObjects list
+    private List<IPowerUp> powerUpList = PowerUpFactory.createPowerUps(towersList, virusesList); // List containing all power-ups
 
     private final List<ITower> towersToAddList = new ArrayList<>();             // Temporary list for object adding towers to the main list (To avoid concurrent modification issues)
-    private final List<ITower> towersToRemoveList = new ArrayList<>();          // Temporary list for object removing towers from the main list (To avoid concurrent modification issues)
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();   // Temporary list for object adding projectiles to the main list (To avoid concurrent modification issues)
 
     private final Player player;                                   // A reference to the Player object in the game
     private final Path path = PathFactory.createClassicPath();     // Current path
 
-    private boolean isGameLost;     // Boolean if game is lost
+    private boolean isGameLost = false;     // Boolean if game is lost
 
     private final GetRangeCircle rangeCircle = new GetRangeCircle();     // Helper class for showing gray range circle
 
-
-    Map(Player player) {
-        this.player = player;
-        isGameLost = false;
-    }
+    Map(Player player) { this.player = player; }
 
     /**
      * Update all map components
@@ -55,8 +55,12 @@ class Map {
         updateVirus();
         updateTowers();
         updateProjectiles();
+        updateRangeCircle();
+        updatePowerUps();
+        updateGenericObjects();
         addTempListsToMainLists();
     }
+
 
     /**
      * Resets all of maps variables
@@ -65,6 +69,8 @@ class Map {
         towersList.clear();
         projectilesList.clear();
         virusesList.clear();
+        genericObjectsList.clear();
+        powerUpList = PowerUpFactory.createPowerUps(towersList, virusesList);
         clickedTower = null;
         isGameLost = false;
         // Removes range circle
@@ -74,10 +80,9 @@ class Map {
     //Add all temporary list to the mainlist
     private void addTempListsToMainLists() {
         towersList.addAll(towersToAddList);
-        towersList.removeAll(towersToRemoveList);
         projectilesList.addAll(projectilesToAddList);
+
         towersToAddList.clear();
-        towersToRemoveList.clear();
         projectilesToAddList.clear();
     }
 
@@ -101,6 +106,17 @@ class Map {
         }
 
         projectilesList.removeAll(removeProjectiles);
+    }
+
+    private void updateGenericObjects(){
+        List<IGenericMapObject> removeList = new ArrayList<>();
+
+        for (IGenericMapObject object : genericObjectsList) {
+            object.update();
+            if(object.canRemove()){ removeList.add(object); }
+        }
+
+        genericObjectsList.removeAll(removeList);
     }
 
 
@@ -128,7 +144,7 @@ class Map {
     }
 
     private float getAngle(IProjectile projectile, List<IVirus> removeList) {
-        List<IVirus> virusInRange = Calculate.getVirusesInRange(projectile.getX(), projectile.getY(), 150, virusesList);
+        List<IVirus> virusInRange = Calculate.getVirusesInRange(projectile.getX(), projectile.getY(), 250, virusesList);
 
         for (IVirus virus : virusInRange) {
             if (projectile.haveHitBefore(virus.hashCode())) {
@@ -145,8 +161,57 @@ class Map {
         return -1;
     }
 
+    private void updateRangeCircle() {
+        if(clickedTower != null){
+            rangeCircle.updatePos(clickedTower.getX() + clickedTower.getWidth()/2,clickedTower.getY() + clickedTower.getHeight()/2,clickedTower.getRange());
+        }
+
+    }
+
+    private void updatePowerUps() {
+
+        for (IPowerUp powerUp : powerUpList){
+            powerUp.decreaseTimer();
+        }
+
+        if (powerUpList.get(0).getIsActive()){
+            for (int i = 0; i < 3; i++) { updateTowers(); }
+        }
+
+    }
+
+    /**
+     * Returns the timers for all power-ups
+     * @return Array with all timers in it
+     */
+    int[] getPowerUpTimer(){
+        int[] timers = new int[powerUpList.size()];
+
+        for (int i = 0; i < powerUpList.size(); i++){
+            timers[i] = powerUpList.get(i).getTimer();
+        }
+
+        return timers;
+    }
+
+    /**
+     * Returns a list with the active status of all power-ups
+     * @return Array with current active status of power-ups
+     */
+    boolean[] getPowerUpActive(){
+        boolean[] powerUpsActive = new boolean[powerUpList.size()];
+
+        for (int i = 0; i < powerUpList.size(); i++){
+            powerUpsActive[i] = powerUpList.get(i).getIsActive();
+        }
+
+        return powerUpsActive;
+    }
+
     //Update all the towers
     private void updateTowers() {
+        List<ITower> removeTowers = new ArrayList<>();
+
         for (ITower tower : towersList) {
 
             List<IVirus> virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), virusesList);
@@ -163,7 +228,11 @@ class Map {
             }
 
             tower.update(projectilesList, newAngle, towerHasTarget);
+
+            if (tower.canRemove() && !tower.equals(newTower)) { removeTowers.add(tower); }
         }
+
+        towersList.removeAll(removeTowers);
     }
 
 
@@ -250,7 +319,7 @@ class Map {
             case "chemist" -> newTower = TowerFactory.CreateChemist(x, y, projectilesToAddList);
             case "electro" -> newTower = TowerFactory.CreateElectro(x, y);
             case "hacker" -> newTower = TowerFactory.CreateHacker(x, y, projectilesToAddList);
-            case "mech" -> newTower = TowerFactory.CreateMech(x, y, towersToAddList, towersToRemoveList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
+            case "mech" -> newTower = TowerFactory.CreateMech(x, y, towersToAddList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
             case "eco" -> newTower = TowerFactory.CreateEco(x, y, player);
             default -> {
                 return;
@@ -278,24 +347,18 @@ class Map {
 
         newTower.setPos(x - buttonWidth / 2f, y - buttonHeight / 2f);
 
-        for (ITower tower : towersList) {
+        if (!checkCollisionOfTower(newTower, windowHeight, windowWidth)) {
+            newTower.setIfCanRemove(false);
+            rangeCircle.updatePos(newTower.getX() + newTower.getWidth() / 2, newTower.getY() + newTower.getHeight() / 2, newTower.getRange());
+            rangeCircle.setEnumColor(GetRangeCircle.Color.GRAY);
 
-            if (!tower.isPlaced() && !checkCollisionOfTower(tower, windowHeight, windowWidth)) {
-                tower.setCollision(false);
-                rangeCircle.updatePos(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());
-                rangeCircle.setEnumColor(GetRangeCircle.Color.GRAY);
-
-
-            } else if (!tower.isPlaced() && checkCollisionOfTower(tower, windowHeight, windowWidth)) {
-                tower.setCollision(true);
-                rangeCircle.updatePos(tower.getX() + tower.getWidth() / 2, tower.getY() + tower.getHeight() / 2, tower.getRange());
-                rangeCircle.setEnumColor(GetRangeCircle.Color.RED);
-            } else {
-                rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
-            }
-
+        } else {
+            newTower.setIfCanRemove(true);
+            rangeCircle.updatePos(newTower.getX() + newTower.getWidth() / 2, newTower.getY() + newTower.getHeight() / 2, newTower.getRange());
+            rangeCircle.setEnumColor(GetRangeCircle.Color.RED);
         }
     }
+
 
     /**
      * Handles when the tower is let go.
@@ -309,7 +372,7 @@ class Map {
      * @param y            The Y-position of the mouse
      */
     void dragEnd(float buttonWidth, float buttonHeight, float x, float y) {
-        if (!newTower.getCollision()) {
+        if (!newTower.canRemove()) {
             newTower.placeTower();
             newTower.setPos(x - buttonWidth / 2f, y - buttonHeight / 2f);
             player.decreaseMoney(newTower.getCost());
@@ -355,7 +418,7 @@ class Map {
      * @param cost cost of tower sold
      */
     void sellClickedTower(int cost) {
-        clickedTower.remove(towersList);
+        towersList.remove(clickedTower);
         player.increaseMoney(cost);
         clickedTower = null;
         rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
@@ -422,6 +485,7 @@ class Map {
         allMapObjects.addAll(towersList);
         allMapObjects.addAll(virusesList);
         allMapObjects.addAll(projectilesList);
+        allMapObjects.addAll(genericObjectsList);
         return allMapObjects;
     }
 
@@ -439,6 +503,38 @@ class Map {
      */
     void roundClear() {
         projectilesList.clear();
+        genericObjectsList.clear();
+        powerUpList = PowerUpFactory.createPowerUps(towersList, virusesList);
     }
+
+
+    /**
+     * Method to handle a powerUp button being clicked
+     * @param powerUpName name of the button that was clicked
+     */
+    void powerUpClicked(String powerUpName) {
+        switch (powerUpName) {
+            case "cleanHands" -> cleanHandsPowerUpClicked();
+            case "maskedUp"   -> maskedPowerUpClicked();
+            case "vaccinated" -> vaccinePowerUpClicked();
+        }
+    }
+
+    private void cleanHandsPowerUpClicked(){
+        powerUpList.get(0).powerUpClicked(genericObjectsList);
+        player.decreaseMoney(powerUpList.get(0).getCost());
+    }
+
+    private void maskedPowerUpClicked(){
+        powerUpList.get(1).powerUpClicked(genericObjectsList);
+        player.decreaseMoney(powerUpList.get(1).getCost());
+    }
+
+    private void vaccinePowerUpClicked(){
+        powerUpList.get(2).powerUpClicked(genericObjectsList);
+        player.decreaseMoney(powerUpList.get(1).getCost());
+    }
+
+
 
 }

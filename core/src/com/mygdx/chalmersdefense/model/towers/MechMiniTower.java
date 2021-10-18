@@ -3,9 +3,11 @@ package com.mygdx.chalmersdefense.model.towers;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
+import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Elin Forsberg
@@ -15,15 +17,17 @@ import java.util.List;
  */
 class MechMiniTower extends Tower {
 
+    private final CountDownTimer lifeTimeCounter;   // The life timer of the MiniMechTower
+
     MechMiniTower(float x, float y, int reloadSpeed, int range, List<ITargetMode> targetModes,ITargetMode currentTargetMode, int upgradeLevel) {
         super(x, y, "MechMini", reloadSpeed, 0, range, targetModes);
 
-
+        Random rand = new Random();
+        this.lifeTimeCounter = new CountDownTimer(rand.nextInt(401) + 800);
 
         for (int i = 0; i < targetModes.indexOf(currentTargetMode); i++){
             super.changeTargetMode(true);
         }
-
 
         HashMap<String, Double> upgrades = new HashMap<>();
         upgrades.put("attackSpeedMul", 1.0);
@@ -40,7 +44,11 @@ class MechMiniTower extends Tower {
 
     }
 
-
+    @Override
+    public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget) {
+        if (lifeTimeCounter.haveReachedZero()) { setIfCanRemove(true); }
+        super.update(projectilesList, newAngle, hasTarget);
+    }
 
     @Override
     public void upgradeTower(HashMap<String, Double> upgrades) {}

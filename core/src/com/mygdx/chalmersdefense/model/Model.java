@@ -30,12 +30,13 @@ import java.util.List;
  * 2021-09-27 Modified by Daniel Persson: Added delegation getters for upgrade title, description and price. <br>
  * 2021-09-28 Modified by Everyone: Moved methods to Map class <br>
  * 2021-09-30 Modified by Joel Båtsman Hilmersson: Added a specifc timer object <br>
+ * 2021-10-15 Modified by Elin Forsberg and Joel Båtsman Hilmmersson: Added methods for powerUps
  */
 
 public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final int WINNING_ROUND = 10;       // Current vinning round
     private final int LIVES = 100;              // Current amount of starting lives
-    private final int START_CAPITAL = 30000;    // Current amount of start capital
+    private final int START_CAPITAL = 399;    // Current amount of start capital
 
     private final GameTimer timer = new GameTimer(this);    // Timer object
     private Rounds round = new Rounds(WINNING_ROUND);              // Round helper
@@ -77,7 +78,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     private void checkRoundCompleted() {
         if (map.isVirusCleared() && !virusSpawner.isSpawning()) {
 
-            player.increaseMoney((100 * (round.getCurrentRound() / 2)));
+            player.increaseMoney((int) (100 * (round.getCurrentRound() / 2f)));
 
             stopGameUpdate();
             map.roundClear();
@@ -94,10 +95,12 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         return map.getClickedTowerTargetMode();
     }
 
+
     @Override
     public void startGameUpdate() {
         timer.startUpdateTimer();
     }
+
 
     @Override
     public void stopGameUpdate() {
@@ -138,6 +141,13 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     @Override
     public void checkIfTowerClicked(float x, float y) {
         map.checkIfTowerClicked(x, y);
+    }
+
+    @Override
+    public void powerUpClicked(String powerUpName){
+        if (virusSpawner.isSpawning() || !map.isVirusCleared()) {
+            map.powerUpClicked(powerUpName);
+        }
     }
 
     @Override
@@ -185,6 +195,16 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
             cost *= 0.6;
         }
         return (int)cost;
+    }
+
+    @Override
+    public int[] getPowerUpTimer(){
+        return map.getPowerUpTimer();
+    }
+
+    @Override
+    public boolean[] getPowerUpActive(){
+        return map.getPowerUpActive();
     }
 
 

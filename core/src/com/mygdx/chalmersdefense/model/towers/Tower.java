@@ -3,6 +3,7 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
+import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -40,17 +41,17 @@ abstract class Tower implements ITower {
 
     private final int cost;         // Cost of tower
 
-    private boolean collision = false;  // When tower is placed, this helps model to know if tower collides with anything
+    private boolean canRemove = false;  // This variable is set when the tower should be removed
 
-
-    private int reloadTime;         // Reload time of tower. (How many update cycles before tower will shoot)
-    private int currentReload = 0;  // Current reload
+    private CountDownTimer reloadTimer;     // Reload timer of tower. (How many update cycles before tower will shoot)
+    private int reloadTime;                 // Variable to calculate new reload time when upgrading
 
 
     Tower(float x, float y, String name, int reloadTime, int cost, int range, List<ITargetMode> targetModes) {
         this.name = name;
         this.targetModes = targetModes;
         this.reloadTime = reloadTime;
+        this.reloadTimer = new CountDownTimer(reloadTime, 0);
         this.currentTargetMode = targetModes.get(0);
         updateSpriteKey();
 
@@ -78,11 +79,18 @@ abstract class Tower implements ITower {
     @Override
     public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget) {
         setAngle(newAngle);
-        if (currentReload < 1 && hasTarget && isPlaced) {
-            currentReload = reloadTime;
+
+        updateReloadTimer();
+
+        if (hasTarget && isPlaced && reloadTimer.getCurrentCountTime() <= 0) { // Here we only look to see if timer is 0, Not count down
+            reloadTimer.haveReachedZero();          // Need to reset the timer for next countdown
             createProjectile(projectilesList);
-        } else {
-            currentReload--;
+        }
+    }
+
+    private void updateReloadTimer() {
+        if (reloadTimer.getCurrentCountTime() > 0){ // If the timer is over 0 it should count down
+            reloadTimer.haveReachedZero();
         }
     }
 
@@ -107,17 +115,25 @@ abstract class Tower implements ITower {
     }
 
     @Override
-    public void remove(List<ITower> towersList){
-        towersList.remove(this);
-    }
-
-
-    @Override
     public void upgradeTower(HashMap<String, Double> upgrades) {
         reloadTime *= upgrades.get("attackSpeedMul") ;
+
+        // Creates new timer object with new timer
+        reloadTimer = new CountDownTimer(reloadTime, reloadTimer.getCurrentCountTime());
+
         range *= upgrades.get("attackRangeMul");
         upgradeLevel++;
         updateSpriteKey();
+    }
+
+    @Override
+    public void powerUpTower(boolean maskedUp){
+        if(maskedUp){
+            range *= 1.5;
+        }
+        else{
+            range *= (2.0/3);
+        }
     }
 
 
@@ -145,13 +161,13 @@ abstract class Tower implements ITower {
     }
 
     @Override
-    public boolean getCollision() {
-        return collision;
+    public boolean canRemove() {
+        return canRemove;
     }
 
     @Override
-    public void setCollision(boolean set) {
-        collision = set;
+    public void setIfCanRemove(boolean set) {
+        canRemove = set;
     }
 
     @Override

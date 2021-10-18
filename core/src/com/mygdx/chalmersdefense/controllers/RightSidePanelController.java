@@ -14,6 +14,7 @@ import com.mygdx.chalmersdefense.model.IControllModel;
  *
  * 2021-09-17 Modified by Elin Forsberg: Added listener for tower buttons <br>
  * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model <br>
+ * 2021-10-11 Modified by Elin Forsberg: Added listener for powerUp buttons <br>
  */
 
 public class RightSidePanelController {
@@ -24,6 +25,10 @@ public class RightSidePanelController {
         this.model = model;
     }
 
+    /**
+     * Listener for startButton
+     * @param button the startbutton
+     */
     public void addStartButtonListener(Button button) {
         button.addListener(new ClickListener() {
             @Override
@@ -33,6 +38,19 @@ public class RightSidePanelController {
         });
     }
 
+    /**
+     * Listener for powerUpButtons
+     * @param button
+     */
+    public void addPowerUpButtonListener(Button button) {
+        String powerUpName = button.getName();
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                model.powerUpClicked(powerUpName);
+            }
+        });
+    }
     /**
      * Listener for tower buttons
      *

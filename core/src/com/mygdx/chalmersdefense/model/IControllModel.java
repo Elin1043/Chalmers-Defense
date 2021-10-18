@@ -64,16 +64,6 @@ public interface IControllModel {
     void resetModel();
 
     /**
-     * Starts the main game timer
-     */
-    void startGameUpdate();
-
-    /**
-     * Stops the main game timer
-     */
-    void stopGameUpdate();
-
-    /**
      * Sets showOverlay to supplied overlay enum
      * @param overlay enum of overlay to show
      */
@@ -88,4 +78,20 @@ public interface IControllModel {
      * Change tower targetMode
      */
     void changeTargetMode(boolean goRight);
+
+    /**
+     * Starts the main game timer
+     */
+    void startGameUpdate();
+
+    /**
+     * Stops the main game timer
+     */
+    void stopGameUpdate();
+
+    /**
+     * Handle a powerUp button being clicked
+     * @param powerUpName The name of the power-up to be activated
+     */
+    void powerUpClicked(String powerUpName);
 }

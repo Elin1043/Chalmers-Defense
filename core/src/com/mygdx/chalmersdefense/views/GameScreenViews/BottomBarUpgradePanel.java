@@ -17,8 +17,8 @@ import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.utilities.FontFactory;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -36,6 +36,7 @@ public class BottomBarUpgradePanel {
     private final Batch batch;
 
 
+
     private final Image bottomBarUpgradePanelBackground = new Image(new Texture("GameScreen/BottomBarUpgradePanel.png"));
 
     private final Group bottomBarPanelUpgradeGroup = new Group();
@@ -50,15 +51,15 @@ public class BottomBarUpgradePanel {
     private final Button upgradeButtonSecond = new Button(upgradePanelSkin);
 
     // Labels for buttons
-    private final Label firstUpgradeButtonTitle = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle24BlackSemiBold());
-    private final Label firstUpgradeButtonDesc = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle18Black());
-    private final Label firstUpgradeButtonPrice = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle26Black());
-    private final Label secondUpgradeButtonTitle = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle24BlackSemiBold());
-    private final Label secondUpgradeButtonDesc = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle18Black());
-    private final Label secondUpgradeButtonPrice = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle26Black());
+    private final Label firstUpgradeButtonTitle = new Label("", FontFactory.getLabelStyle24BlackSemiBold());
+    private final Label firstUpgradeButtonDesc = new Label("", FontFactory.getLabelStyle18Black());
+    private final Label firstUpgradeButtonPrice = new Label("", FontFactory.getLabelStyle26Black());
+    private final Label secondUpgradeButtonTitle = new Label("", FontFactory.getLabelStyle24BlackSemiBold());
+    private final Label secondUpgradeButtonDesc = new Label("", FontFactory.getLabelStyle18Black());
+    private final Label secondUpgradeButtonPrice = new Label("", FontFactory.getLabelStyle26Black());
 
-    private final Label sellPriceLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle26Black());
-    private final Label targetModeLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle20Black());
+    private final Label sellPriceLabel = new Label("", FontFactory.getLabelStyle26Black());
+    private final Label targetModeLabel = new Label("", FontFactory.getLabelStyle20Black());
 
 
 
@@ -91,6 +92,8 @@ public class BottomBarUpgradePanel {
 
         createSellButton();
         createChangeTargetModeButton();
+        createPowerUpButtons();
+
 
         bottomBarPanelUpgradeGroup.addActor(towerNameLabel);
         bottomBarPanelUpgradeGroup.setVisible(false);
@@ -166,6 +169,12 @@ public class BottomBarUpgradePanel {
 
         sellPriceLabel.setPosition(520, 55);
     }
+
+    private void createPowerUpButtons(){
+
+    }
+
+
 
     private void updateButtonInfo(){
         sellPriceLabel.setText("+" + "$" + model.getClickedTowerSellPrice());
