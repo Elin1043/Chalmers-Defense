@@ -37,7 +37,7 @@ public class RightSidePanel {
 
 
     private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
-    private final HashMap<ImageButton, Integer> powerUpButtons = new HashMap<>();
+    private final HashMap<Button, Integer> powerUpButtons = new HashMap<>();
 
     private final ImageButton smurfButton = createRightPanelButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1616, 830, "smurf");
     private final ImageButton chemistButton = createRightPanelButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1766, 830, "chemist");
@@ -46,9 +46,11 @@ public class RightSidePanel {
     private final ImageButton mechButton = createRightPanelButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1616, 470, "mech");
     private final ImageButton ecoButton = createRightPanelButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1766, 470, "eco");
 
-    private final ImageButton cleanHandsPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/CleanHands.png"), 1620, 329, "cleanHands");
-    private final ImageButton maskedUpPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/MaskedUp.png"), 1620, 245, "maskedUp");
-    private final ImageButton vaccinatedPowerUpButton = createRightPanelButtons(new Texture("buttons/powerUpButtons/Vaccinated.png"), 1620, 161, "vaccinated");
+
+    private final Button cleanHandsPowerUpButton = createPowerUpButton("CleanHands");
+    private final Button vaccinatedPowerUpButton = createPowerUpButton("Vaccination");
+    private final Button maskedUpPowerUpButton = createPowerUpButton("MaskedUp");
+
 
     private final Label cleanHandsTimerLabel = createPowerUpTimeLabel("10",1615, 355);
     private final Label maskedUpTimerLabel = createPowerUpTimeLabel("10",1615, 275);
@@ -84,9 +86,7 @@ public class RightSidePanel {
         towerButtons.put(500, mechButton);
         towerButtons.put(600, ecoButton);
 
-        powerUpButtons.put(maskedUpPowerUpButton,100);
-        powerUpButtons.put(cleanHandsPowerUpButton,300);
-        powerUpButtons.put(vaccinatedPowerUpButton,500 );
+        initializePowerUpButtons();
 
         stage.addActor(smurfButton);
         stage.addActor(chemistButton);
@@ -94,10 +94,6 @@ public class RightSidePanel {
         stage.addActor(electroButton);
         stage.addActor(mechButton);
         stage.addActor(ecoButton);
-
-        stage.addActor(cleanHandsPowerUpButton);
-        stage.addActor(maskedUpPowerUpButton);
-        stage.addActor(vaccinatedPowerUpButton);
 
         stage.addActor(towerLabel);
         stage.addActor(powerUpLabel);
@@ -125,12 +121,33 @@ public class RightSidePanel {
 
     }
 
+
+
+    private void initializePowerUpButtons(){
+        powerUpButtons.put(maskedUpPowerUpButton,100);
+        powerUpButtons.put(cleanHandsPowerUpButton,300);
+        powerUpButtons.put(vaccinatedPowerUpButton,500 );
+
+        cleanHandsPowerUpButton.setPosition(1620, 329);
+        cleanHandsPowerUpButton.setName("cleanHands");
+
+        maskedUpPowerUpButton.setPosition(1620, 245);
+        maskedUpPowerUpButton.setName("maskedUp");
+
+        vaccinatedPowerUpButton.setPosition(1620, 161);
+        vaccinatedPowerUpButton.setName("vaccinated");
+
+
+        stage.addActor(cleanHandsPowerUpButton);
+        stage.addActor(maskedUpPowerUpButton);
+        stage.addActor(vaccinatedPowerUpButton);
+    }
+
     /**
      * Method used to render right panel to the screen
      */
     public void render() {
         checkAffordableTowers();
-
         checkPowerUpButtonCooldown();
 
 
@@ -146,6 +163,13 @@ public class RightSidePanel {
      */
     public Stage getStage() {
         return stage;
+    }
+
+    private Button createPowerUpButton(String name){
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/powerUpButtons/" + name + "Skin.atlas")); // Load atlas file from skin
+        Skin skin = new Skin(Gdx.files.internal("buttons/powerUpButtons/" + name + "Skin.json"), atlas); // Create skin object
+
+        return new Button(skin);
     }
 
     private ImageButton createRightPanelButtons(Texture texture, int x, int y, String name) {
@@ -180,30 +204,30 @@ public class RightSidePanel {
         boolean[] active = model.getPowerUpActive();
 
 
-        updatePowerUpButtons(timers[0], cleanHandsPowerUpButton, cleanHandsTimerLabel, active[0]);
+        updatePowerUpButtons(timers[0],  cleanHandsPowerUpButton, cleanHandsTimerLabel, active[0]);
         updatePowerUpButtons(timers[1], maskedUpPowerUpButton, maskedUpTimerLabel, active[1]);
         updatePowerUpButtons(timers[2], vaccinatedPowerUpButton, vaccinatedTimerLabel, active[2]);
 
     }
 
-
-    private void updatePowerUpButtons(int timer, ImageButton powerUpButton, Label label, boolean active){
+    private void updatePowerUpButtons(int timer, Button powerUpButton, Label label, boolean active){
         if(timer == -1){
             label.setVisible(false);
             powerUpButton.setTouchable(Touchable.enabled);
-            powerUpButton.getImage().setColor(Color.WHITE);
+            powerUpButton.setDisabled(false);
+            powerUpButton.setColor(Color.WHITE);
             checkAffordablePowerUp(powerUpButton);
 
         }
         else if (active){
             powerUpButton.setTouchable(Touchable.disabled);
-            powerUpButton.getImage().setColor(new Color(Color.GOLD));
+            powerUpButton.setColor(new Color(Color.GOLD));
             label.setVisible(true);
             label.setText(timer + 1);
         }
         else{
             powerUpButton.setTouchable(Touchable.disabled);
-            powerUpButton.getImage().setColor(Color.LIGHT_GRAY);
+            powerUpButton.setColor(Color.LIGHT_GRAY);
 
 
             label.setVisible(true);
@@ -211,15 +235,16 @@ public class RightSidePanel {
         }
     }
 
+
     //Checks what powerUps the player can afford
-    private void checkAffordablePowerUp(ImageButton powerUpButton){
+    private void checkAffordablePowerUp(Button powerUpButton){
         int i = powerUpButtons.get(powerUpButton);
         if (model.getMoney() >=i  && !powerUpButton.isTouchable()) {
-            powerUpButton.getImage().setColor(Color.WHITE);
+            powerUpButton.setColor(Color.WHITE);
 
         } else if (model.getMoney() < i && powerUpButton.isTouchable()) {
             powerUpButton.setTouchable(Touchable.disabled);
-            powerUpButton.getImage().setColor(new Color(Color.rgba8888(255/255f, 143/255f, 154/255f,1)));
+            powerUpButton.setDisabled(true);
         }
 
 
@@ -234,7 +259,7 @@ public class RightSidePanel {
 
             } else if (model.getMoney() < i && towerButtons.get(i).isTouchable()) {
                 towerButtons.get(i).setTouchable(Touchable.disabled);
-                towerButtons.get(i).getImage().setColor(new Color(Color.rgba8888(255/255f, 143/255f, 154/255f,1)));
+                towerButtons.get(i).getImage().setColor(new Color(Color.LIGHT_GRAY));
             }
         }
     }
