@@ -135,7 +135,10 @@ class Map {
 
         for (IVirus virus : virusesList) {
             if (Calculate.objectsIntersects(projectile, virus) && !projectile.haveHitBefore(virus.hashCode())) {
+                int virusHealthBefore = virus.getLifeDecreaseAmount();
                 virus.decreaseHealth(projectile.getDamageAmount());
+
+                player.increaseMoney(virusHealthBefore - virus.getLifeDecreaseAmount());    // This will add the correct amount of money to the player relative to the amount of damage done
                 removeList.add(virus);
                 return true;
             }
