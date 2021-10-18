@@ -80,7 +80,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
             player.increaseMoney((int) (100 * (round.getCurrentRound() / 2f)));
 
-            stopGameUpdate();
+            timer.stopUpdateTimer();
             map.roundClear();
 
             if (round.gameWon()) {
@@ -98,7 +98,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public void startGameUpdate() {
-        timer.startUpdateTimer();
+        if (virusSpawner.isSpawning() || !map.isVirusCleared()) { timer.startUpdateTimer(); }
     }
 
 
@@ -111,7 +111,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     @Override
     public void startRoundPressed() {
         if (!virusSpawner.isSpawning() && map.isVirusCleared()) {
-            startGameUpdate();
+            timer.startUpdateTimer();
             round.incrementToNextRound();
             virusSpawner.spawnRound(round.getCurrentRound());
         } else {

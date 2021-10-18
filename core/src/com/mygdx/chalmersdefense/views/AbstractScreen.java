@@ -47,7 +47,8 @@ public abstract class AbstractScreen extends Stage implements Screen {
 
         batch.setProjectionMatrix(this.getCamera().combined); // Renders based on window pixels and not screen pixels.
 
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE) && Gdx.graphics.isFullscreen()) {
+        // TODO REMOVE THIS!!!!! IT WANTS TO BE REMOVED
+        if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && Gdx.graphics.isFullscreen()) {
             Gdx.graphics.setWindowedMode(1920, 1080);
         }
 
