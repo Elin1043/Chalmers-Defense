@@ -248,11 +248,12 @@ class Map {
             if (virus.getY() > 1130 || virus.isDead()) {
                 virusToRemove.add(virus);
                 if (virus.isDead()) {
-                    player.increaseMoney(1); //Change amount later
+                    player.increaseMoney(1); // TODO Change amount later (maybe)
                 }
             }
             virus.update();
         }
+
         for (IVirus virus : virusToRemove) {
             try {
                 player.decreaseLivesBy(virus.getLifeDecreaseAmount());
