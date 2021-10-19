@@ -11,17 +11,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
-import com.mygdx.chalmersdefense.controllers.overlays.SettingsOverlayController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
+import com.mygdx.chalmersdefense.utilities.FontFactory;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 import com.mygdx.chalmersdefense.views.GameScreenViews.*;
 import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
@@ -44,8 +41,6 @@ import static com.badlogic.gdx.graphics.GL20.*;
 public class GameScreen extends AbstractScreen implements Screen {
 
     private final GameScreenController gameScreenController;
-
-
 
     // Panels
     private final BottomBarUpgradePanel bottomBarUpgradePanel;
@@ -163,21 +158,29 @@ public class GameScreen extends AbstractScreen implements Screen {
         Skin progressBarSkin = new Skin(Gdx.files.internal("GameScreen/progressbar/ProgressBarSkin.json"), progressBarAtlas); // Create skin object
         progressBar = new ProgressBar(0, model.getWinningRound(), 1, false, progressBarSkin);
         progressBar.setSize(921, 52);
-        progressBar.setPosition(280, 60);
+        progressBar.setPosition(350, 60);
 
         progressBarSmurf.setPosition(progressBar.getX() + (progressBar.getWidth()/progressBar.getMaxValue()) * progressBar.getValue() - 1, 120);
 
         Image finnishFlag = new Image(new Texture(Gdx.files.internal("GameScreen/progressbar/FinnishFlagImage.png")));
-        finnishFlag.setPosition(progressBar.getX() + progressBar.getWidth() - 15, progressBar.getY() + progressBar.getHeight()/2);
+        finnishFlag.setPosition(progressBar.getX() + progressBar.getWidth() - 2, progressBar.getY() + progressBar.getHeight()/2);
+
+        Label winningRoundLabel = new Label("Round: " + model.getWinningRound(), FontFactory.getLabelStyle18Black());
+        winningRoundLabel.setPosition(progressBar.getX() + progressBar.getWidth() - winningRoundLabel.getWidth(), progressBar.getY() - winningRoundLabel.getHeight() - 5);
 
         stageHUD.addActor(progressBar);
         stageHUD.addActor(progressBarSmurf);
         stageHUD.addActor(finnishFlag);
+        stageHUD.addActor(winningRoundLabel);
     }
 
     private void renderProgressBar() {
         progressBar.setValue(model.getCurrentRound());
-        progressBarFilled.setRegion(0, 0,(int) (((2 + progressBar.getWidth())/progressBar.getMaxValue()) * progressBar.getValue()) - 2 , 46);
+
+        // If progressbar is at 100% dont render knob.
+        progressBar.setDisabled(model.getCurrentRound() >= model.getWinningRound());
+
+        progressBarFilled.setRegion(0, 0,(int) (((progressBar.getWidth() - 6)/progressBar.getMaxValue()) * progressBar.getValue()) - 2 , 46);
         progressBarSmurf.setPosition(progressBar.getX() + (progressBar.getWidth()/progressBar.getMaxValue()) * progressBar.getValue() - 20, 120);
         batch.begin();
         batch.draw(progressBarFilled, progressBar.getX() + 3, progressBar.getY() + 3);
