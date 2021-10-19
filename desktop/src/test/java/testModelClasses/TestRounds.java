@@ -45,9 +45,9 @@ public class TestRounds {
         while (model.showOverlay() != ScreenOverlayEnum.WINPANEL) {
 
             while (model.getAllMapObjects().size() > 4) {
-                System.out.println("JAAAAA");
                 model.updateModel();
             }
+
             model.startRoundPressed();
             model.updateModel();
         }

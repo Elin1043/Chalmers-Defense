@@ -22,7 +22,7 @@ final class Vaccinated extends PowerUp{
 
     @Override
     void addGraphicObject(List<IGenericMapObject> addGraphicsList) {
-        //addGraphicsList.add(GenericMapObjectFactory.createVaccinationStorm());
+        addGraphicsList.add(GenericMapObjectFactory.createVaccinationStorm());
     }
 
 
@@ -37,7 +37,7 @@ final class Vaccinated extends PowerUp{
 
     private void damageVirus(){
         for (IVirus virus : allViruses){
-            virus.decreaseHealth(50);
+            virus.decreaseHealth(1);
         }
     }
 
