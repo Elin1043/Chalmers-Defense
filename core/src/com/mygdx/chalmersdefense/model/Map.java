@@ -167,7 +167,7 @@ final class Map {
         return -1;
     }
 
-    private void updateRangeCircle() {
+     private void updateRangeCircle() {
         if(clickedTower != null){
             rangeCircle.updatePos(clickedTower.getX() + clickedTower.getWidth()/2,clickedTower.getY() + clickedTower.getHeight()/2,clickedTower.getRange());
         }
@@ -175,7 +175,6 @@ final class Map {
     }
 
     private void updatePowerUps() {
-
         for (IPowerUp powerUp : powerUpList){
             powerUp.decreaseTimer();
         }
@@ -444,7 +443,7 @@ final class Map {
      * @return the circle
      */
     GetRangeCircle getRangeCircle() {
-        return new GetRangeCircle(rangeCircle);
+        return rangeCircle;
     }
 
     /**

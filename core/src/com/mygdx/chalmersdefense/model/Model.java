@@ -153,7 +153,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public GetRangeCircle getRangeCircle() {
-        return map.getRangeCircle();
+        return new GetRangeCircle(map.getRangeCircle());
     }
 
     @Override
