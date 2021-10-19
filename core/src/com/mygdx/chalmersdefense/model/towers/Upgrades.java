@@ -112,7 +112,6 @@ final public class Upgrades {
             JSONObject upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
 
 
-            upgrades.put("attackDmgMul", (double) upgradeObject.get("attackDmgMul"));
             upgrades.put("attackSpeedMul",  (double) upgradeObject.get("attackSpeedMul"));
             upgrades.put("attackRangeMul", (double) upgradeObject.get("attackRangeMul"));
         } catch (NullPointerException exception) {
