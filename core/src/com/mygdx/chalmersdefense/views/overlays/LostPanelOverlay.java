@@ -11,15 +11,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.overlays.LostPanelOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
-import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
 
 /**
  * @author Daniel Persson
  * A class used to render an overlay when a player lose the game
  */
 final public class LostPanelOverlay extends AbstractOverlay {
-    private final float WIDTH = 810;
-    private final float HEIGHT = 400;
 
     private final LostPanelOverlayController lostPanelOverlayController; // Controller used for adding listeners
 
@@ -37,6 +34,8 @@ final public class LostPanelOverlay extends AbstractOverlay {
         lostPanelGroup.addActor(backgroundImage);
 
         // Set position of background
+        float WIDTH = 810;
+        float HEIGHT = 400;
         backgroundImage.setPosition(stage.getWidth() / 2 - WIDTH / 2, stage.getHeight() / 2 - HEIGHT / 2);
 
         createLabels();

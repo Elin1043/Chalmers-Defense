@@ -10,10 +10,9 @@ import com.mygdx.chalmersdefense.utilities.Preferences;
  * Class representing Sounds
  */
 final public class Sounds {
-    private final Timer timer = new Timer();    // The timer object
 
-    private Music music;
-    private Preferences preferences;
+    private final Music music;
+    private final Preferences preferences;
 
     public Sounds(Preferences preferences){
         this.preferences = preferences;
@@ -23,6 +22,8 @@ final public class Sounds {
         music.play();
 
         // Update volume if preferences changes.
+        // The timer object
+        Timer timer = new Timer();
         timer.scheduleTask(new Timer.Task() {
             @Override
             public void run() {

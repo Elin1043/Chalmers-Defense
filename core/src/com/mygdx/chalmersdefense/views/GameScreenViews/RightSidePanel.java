@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.IViewModel;
-import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 
 import java.util.HashMap;
@@ -67,8 +66,6 @@ final public class RightSidePanel {
     private final Label cleanHandsLabelPrice = createPowerUpPriceLabel("$300",1900, 385);
     private final Label maskedUpLabelPrice = createPowerUpPriceLabel("$100",1900, 300);
     private final Label vaccinatedLabelPrice = createPowerUpPriceLabel("$500",1900, 216);
-
-    private Button startRoundButton;
 
     public RightSidePanel(Stage stage, IViewModel model, RightSidePanelController rightSidePanelController) {
         this.stage = new Stage(stage.getViewport());
@@ -304,7 +301,7 @@ final public class RightSidePanel {
     private void createStartRoundButton() {
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.atlas")); // Load atlas file from skin
         Skin skin = new Skin(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.json"), atlas); // Create skin object
-        startRoundButton = new Button(skin);
+        Button startRoundButton = new Button(skin);
         startRoundButton.setPosition(1920 - WIDTH / 2F - startRoundButton.getWidth() / 2, 20);
 
         rightSidePanelController.addStartButtonListener(startRoundButton);

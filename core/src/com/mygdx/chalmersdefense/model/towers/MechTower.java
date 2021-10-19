@@ -7,7 +7,6 @@ import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

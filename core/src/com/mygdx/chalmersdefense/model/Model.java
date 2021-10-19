@@ -51,7 +51,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     private ScreenOverlayEnum showOverlay = ScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
 
-    private Preferences preferences;
+    private final Preferences preferences;
 
     public Model(Preferences preferences) {
         this.preferences = preferences;
