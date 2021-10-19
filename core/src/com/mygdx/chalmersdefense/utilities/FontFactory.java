@@ -91,6 +91,7 @@ public abstract class FontFactory {
         parameter.size = size;
         parameter.borderWidth = borderWidth;
         BitmapFont font = generator.generateFont(parameter);
+        font.setUseIntegerPositions(false);
         generator.dispose();
         return font;
     }

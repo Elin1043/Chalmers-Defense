@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -20,6 +21,7 @@ import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
+import com.mygdx.chalmersdefense.utilities.FontFactory;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 import com.mygdx.chalmersdefense.views.GameScreenViews.BottomBarUpgradePanel;
 import com.mygdx.chalmersdefense.views.GameScreenViews.RightSidePanel;
@@ -40,16 +42,29 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * 2021-10-05 Modified by Daniel Persson: Added WinPanelOverlay rendering if game is won <br>
  * 2021-10-11 Modified by Daniel Persson: Added overlay enums for displaying overlays <br>
  * 2021-10-19 Modified by Joel Båtsman Hilmersson: Made class use superclass multiplexer for inputProcessor <br>
+ * 2021-10-19 Modified by Daniel Persson: Added progressbar for displaying round progress <br>
  */
 final public class GameScreen extends AbstractScreen implements Screen {
 
+    private final GameScreenController gameScreenController;   // GameScreens controller class
 
     // Panels
-    private final BottomBarUpgradePanel bottomBarUpgradePanel;
-    private final RightSidePanel rightSidePanel;
+    private final BottomBarUpgradePanel bottomBarUpgradePanel; // Upgrade panel object
+    private final RightSidePanel rightSidePanel;               // Right side HUD with towers and powerups
 
-    private final IViewModel model;
-    private final Stage stageHUD;
+    private final IViewModel model;  // Reference to models IView methods
+    private final Stage stageHUD;    // A separate stage for displaying HUD information
+
+    private ProgressBar progressBar; // Progressbar for displaying round progress
+    private final TextureRegion progressBarFilled = new TextureRegion(new Texture(Gdx.files.internal("GameScreen/progressbar/ProgressBarFilled.png"))); // A texture region of progressbar fill texture
+    private final Image progressBarSmurf = new Image(new Texture("GameScreen/progressbar/SmurfImage.png"));     // Image of a smurf that is attached to progressbar knob
+    private final Sprite waypointMarker = new Sprite(new Texture("GameScreen/progressbar/WaypointMarker.png")); // Sprite of waypoint markers
+
+    //private final InputMultiplexer multiplexer = new InputMultiplexer();
+
+    //private final TextureAtlas pauseButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.atlas")); // Load atlas file from skin
+    //private final Skin pauseButtonSkin = new Skin(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.json"), pauseButtonAtlas); // Create skin object
+    //private final Button pauseButton = new Button(pauseButtonSkin);  // Pause button located in the top left part of the screen
 
     private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
     private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
@@ -61,6 +76,7 @@ final public class GameScreen extends AbstractScreen implements Screen {
 
     public GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
         super();
+        this.gameScreenController = gameScreenController;
         this.rightSidePanel = new RightSidePanel(this, model, rightSidePanelController);
         this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, bottomBarPanelController, spriteMap, largeSpriteMap);
         this.model = model;
@@ -79,11 +95,15 @@ final public class GameScreen extends AbstractScreen implements Screen {
         mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
         gameScreenController.addMapClickListener(mapImage);
 
-
+        // Background image for bottom part of HUD
         Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
         bottomBarPanelBackground.setPosition(0, 0);
         Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
+        stageHUD.addActor(bottomBarPanelBackground);
+
+        // Background image for right part of HUD
         sideBarBackground.setPosition(1920 - 320, 0);
+        stageHUD.addActor(sideBarBackground);
 
         // Enables input from both stages at the same time
         addToMultiplexer(bottomBarUpgradePanel.getStage());
@@ -91,8 +111,8 @@ final public class GameScreen extends AbstractScreen implements Screen {
         addToMultiplexer(gameScreenController);
         addToMultiplexer(rightSidePanelController);
 
-        stageHUD.addActor(bottomBarPanelBackground);
-        stageHUD.addActor(sideBarBackground);
+
+        createProgressBar();
 
         addActor(mapImage);
         addActor(pauseButton);
@@ -120,6 +140,10 @@ final public class GameScreen extends AbstractScreen implements Screen {
         // Renders right HUD panel
         rightSidePanel.render();
 
+        renderProgressBar();
+
+        renderWaypointsOnProgressBar();
+
         // If clicked tower is present show upgrade panel.
         if (model.getClickedTower() != null) {
             bottomBarUpgradePanel.render(model.getClickedTower());
@@ -140,6 +164,61 @@ final public class GameScreen extends AbstractScreen implements Screen {
             model.getViruses().add(VirusFactory.createVirusOne());
         }
 
+    }
+
+
+    private void createProgressBar() {
+        TextureAtlas progressBarAtlas = new TextureAtlas(Gdx.files.internal("GameScreen/progressbar/ProgressBarSkin.atlas")); // Load atlas file from skin
+        Skin progressBarSkin = new Skin(Gdx.files.internal("GameScreen/progressbar/ProgressBarSkin.json"), progressBarAtlas); // Create skin object
+        progressBar = new ProgressBar(0, model.getWinningRound(), 1, false, progressBarSkin);
+        progressBar.setSize(921, 52);
+        progressBar.setPosition(350, 60);
+
+        progressBarSmurf.setPosition(progressBar.getX() + (progressBar.getWidth()/progressBar.getMaxValue()) * progressBar.getValue() - 1, 120);
+
+        Image finnishFlag = new Image(new Texture(Gdx.files.internal("GameScreen/progressbar/FinnishFlagImage.png")));
+        finnishFlag.setPosition(progressBar.getX() + progressBar.getWidth() - 2, progressBar.getY() + progressBar.getHeight()/2);
+
+        Label winningRoundLabel = new Label("Round: " + model.getWinningRound(), FontFactory.getLabelStyle18Black());
+        winningRoundLabel.setPosition(progressBar.getX() + progressBar.getWidth() - winningRoundLabel.getWidth(), progressBar.getY() - winningRoundLabel.getHeight() - 5);
+
+        stageHUD.addActor(progressBar);
+        stageHUD.addActor(progressBarSmurf);
+        stageHUD.addActor(finnishFlag);
+        stageHUD.addActor(winningRoundLabel);
+    }
+
+    private void renderProgressBar() {
+        progressBar.setValue(model.getCurrentRound());
+
+        // If progressbar is at 100% dont render knob.
+        progressBar.setDisabled(model.getCurrentRound() >= model.getWinningRound());
+
+        progressBarFilled.setRegion(0, 0,(int) (((progressBar.getWidth() - 6)/progressBar.getMaxValue()) * progressBar.getValue()) - 2 , 46);
+        progressBarSmurf.setPosition(progressBar.getX() + (progressBar.getWidth()/progressBar.getMaxValue()) * progressBar.getValue() - 20, 120);
+        batch.begin();
+        batch.draw(progressBarFilled, progressBar.getX() + 3, progressBar.getY() + 3);
+        batch.end();
+    }
+
+    private void renderWaypointsOnProgressBar() {
+        int[][]  waypointData = {{1,1},{2,2},{3,3}};
+        float progressBarStepWidth = progressBar.getWidth()/progressBar.getMaxValue();
+        for (int[] waypoint : waypointData) {
+            Sprite virusSprite = spriteMap.get("virus" + waypoint[0]);
+            float waypointPos = progressBar.getX() + waypoint[1] * progressBarStepWidth;
+            virusSprite.setPosition(waypointPos - virusSprite.getWidth()/2, 0);
+            virusSprite.setScale(0.5f);
+
+            waypointMarker.setPosition(waypointPos, 58);
+
+            batch.begin();
+            virusSprite.draw(super.batch);
+            if (model.getCurrentRound() != waypoint[1]) waypointMarker.draw(super.batch);
+
+            batch.end();
+            virusSprite.setScale(1);
+        }
     }
 
     private void renderMapObjects() {
