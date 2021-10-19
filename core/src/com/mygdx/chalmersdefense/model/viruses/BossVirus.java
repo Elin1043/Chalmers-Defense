@@ -31,7 +31,7 @@ final public class BossVirus extends Virus{
         super.decreaseHealth(damage);
         if (isDead()){
             for (int i = 0; i < 5; i++) {
-                virusList.add(new StandardVirus(5, path, getPos()[0], getPos()[1], getCurrentMoveToVectorIndex()));
+                virusList.add(new StandardVirus(5, path, getPos()[0] + getWidth()/2F, getPos()[1] + getHeight()/2F, getCurrentMoveToVectorIndex()));
             }
         }
     }

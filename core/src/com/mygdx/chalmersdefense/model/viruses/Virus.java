@@ -45,7 +45,7 @@ abstract class Virus implements IVirus {
     Virus(int health, Path path) {
         this.health = health;
         this.path = path;
-        initalizeVirus();
+        initializeVirus();
 
         xPos = currentMoveToVector.getX() - widthX / 2F;
         yPos = currentMoveToVector.getY() - heightY / 2F;
@@ -56,7 +56,7 @@ abstract class Virus implements IVirus {
         this.health = health;
         this.path = path;
         this.currentMoveToVectorIndex = currentMoveToVectorIndex;
-        initalizeVirus();
+        initializeVirus();
 
         float[] randomPoint = randPoint(x,y);
         xPos = randomPoint[0] - widthX / 2F;
@@ -64,7 +64,7 @@ abstract class Virus implements IVirus {
     }
 
 
-    private void initalizeVirus(){
+    private void initializeVirus(){
         updateSpriteKey();
 
         currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex);
@@ -82,10 +82,10 @@ abstract class Virus implements IVirus {
     }
 
     private float[] randPoint(float x, float y) {
-        double len= Math.sqrt(Math.random())*80;
-        double deg= Math.random()*2*Math.PI;
-        float xTemp = (float) (x+len*Math.cos(deg));
-        float yTemp = (float) (y+len*Math.sin(deg));
+        double len = Math.sqrt(Math.random()) * 50;
+        double deg = Math.random() * 2 * Math.PI;
+        float xTemp = (float) (x + len * Math.cos(deg));
+        float yTemp = (float) (y + len * Math.sin(deg));
 
         return new float[]{xTemp,yTemp};
     }
@@ -266,5 +266,5 @@ abstract class Virus implements IVirus {
      * Gets the current move to vector
      * @return the move to vector
      */
-    int getCurrentMoveToVectorIndex(){ return currentMoveToVectorIndex; }
+    int getCurrentMoveToVectorIndex(){ return currentMoveToVectorIndex - 1; }
 }
