@@ -10,6 +10,7 @@ import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
 import com.mygdx.chalmersdefense.utilities.GameTimer;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -33,7 +34,7 @@ import java.util.List;
  * 2021-10-15 Modified by Elin Forsberg and Joel Båtsman Hilmmersson: Added methods for powerUps
  */
 
-public class Model implements IUpdateModel, IControllModel, IViewModel {
+final public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final int WINNING_ROUND = 10;       // Current vinning round
     private final int LIVES = 100;              // Current amount of starting lives
     private final int START_CAPITAL = 399;    // Current amount of start capital
@@ -262,6 +263,6 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public List<IMapObject> getAllMapObjects() {
-        return map.getAllMapObjects();
+        return Collections.unmodifiableList(map.getAllMapObjects());
     }
 }

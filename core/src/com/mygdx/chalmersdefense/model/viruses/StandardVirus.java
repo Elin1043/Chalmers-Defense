@@ -9,7 +9,7 @@ import com.mygdx.chalmersdefense.model.path.Path;
  *
  * 2021-10-19 Modified by Elin: implemented the class into the application
  */
-class StandardVirus extends Virus{
+final class StandardVirus extends Virus{
 
     /**
      * Creates Virus object

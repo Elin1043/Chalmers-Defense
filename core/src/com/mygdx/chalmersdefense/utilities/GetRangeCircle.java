@@ -4,12 +4,24 @@ package com.mygdx.chalmersdefense.utilities;
  * @author Elin Forsberg
  * Class used to know where and how to draw the gray circle around towers
  */
-public class GetRangeCircle {
+public final class GetRangeCircle {
     private float x;    // The x coordinate
     private float y;    // The y coordinate
     private float range;    // The range of the circle
 
     private Color enumColor = Color.NONE;
+
+    public GetRangeCircle(float x, float y, float range){
+        this.x = x;
+        this.y = y;
+        this.range = range;
+    }
+
+    public GetRangeCircle(GetRangeCircle circle){
+        this.x = circle.getX();
+        this.y = circle.getY();
+        this.range = circle.getRange();
+    }
 
     /**
      * Enum for the different colors

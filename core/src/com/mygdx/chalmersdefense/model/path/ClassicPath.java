@@ -12,7 +12,7 @@ import com.mygdx.chalmersdefense.utilities.PositionVector;
  */
 
 
-class ClassicPath extends Path {
+final class ClassicPath extends Path {
 
      ClassicPath() {
         super(80);

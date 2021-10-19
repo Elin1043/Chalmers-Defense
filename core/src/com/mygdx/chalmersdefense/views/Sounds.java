@@ -9,7 +9,7 @@ import com.mygdx.chalmersdefense.utilities.Preferences;
  * @author Elin Forsberg
  * Class representing Sounds
  */
-public class Sounds {
+final public class Sounds {
     private final Timer timer = new Timer();    // The timer object
 
     private Music music;

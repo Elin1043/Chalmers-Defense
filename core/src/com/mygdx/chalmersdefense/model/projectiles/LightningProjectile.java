@@ -9,7 +9,7 @@ import com.mygdx.chalmersdefense.utilities.CountDownTimer;
  *
  * 2021-10-15 Modified by Jenny Carlsson: Fixed longer chains when upgraded ElectroTower
  */
-class LightningProjectile extends Projectile {
+final class LightningProjectile extends Projectile {
 
     private CountDownTimer hitCountsLeft; // Hit amount left before projectile can be removed
 

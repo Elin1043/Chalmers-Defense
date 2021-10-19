@@ -7,7 +7,7 @@ import com.mygdx.chalmersdefense.model.path.Path;
  *
  * Class representing boss virus
  */
-public class BossVirus extends Virus{
+final public class BossVirus extends Virus{
     /**
      * Creates Virus object
      *

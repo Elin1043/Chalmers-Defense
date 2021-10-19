@@ -42,7 +42,7 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * 2021-10-11 Modified by Daniel Persson: Added overlay enums for displaying overlays <br>
  * 2021-10-19 Modified by Joel Båtsman Hilmersson: Made class use superclass multiplexer for inputProcessor <br>
  */
-public class GameScreen extends AbstractScreen implements Screen {
+final public class GameScreen extends AbstractScreen implements Screen {
 
     private final GameScreenController gameScreenController;
 

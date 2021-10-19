@@ -17,7 +17,7 @@ import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
  * @author Daniel Persson
  * A class used to render an overlay when a player win the game
  */
-public class WinPanelOverlay extends AbstractOverlay {
+final public class WinPanelOverlay extends AbstractOverlay {
     private final float WIDTH = 810;
     private final float HEIGHT = 400;
 

@@ -29,7 +29,7 @@ import com.mygdx.chalmersdefense.views.overlays.*;
  * 2021-10-13 Modified by Daniel Persson: Added preferences
  * 2021-10-14 Modified by Daniel Persson: Moved controller creation to this class
  */
-public class ChalmersDefense extends Game {
+final public class ChalmersDefense extends Game {
 
     @Override
     public void create() {

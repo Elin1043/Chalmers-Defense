@@ -12,7 +12,7 @@ import java.util.List;
  *
  * 2021-10-15 Modified by Joel Båtsman Hilmersson: Factory now only returns a list <br>
  */
-public class PowerUpFactory {
+public abstract class PowerUpFactory {
 
     /**
      * Create a powerUp of the type MaskedUp

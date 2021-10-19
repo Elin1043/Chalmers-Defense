@@ -10,7 +10,7 @@ import java.util.Random;
  * @author Joel Båtsman Hilmersson
  * A class that controlls the spawning of viruses for the different rounds
  */
-public class SpawnViruses {
+final public class SpawnViruses {
 
 
     //  "1|200"         spawns one virus of type "1 - Red" and then waits "200 milliseconds to next wave in round"

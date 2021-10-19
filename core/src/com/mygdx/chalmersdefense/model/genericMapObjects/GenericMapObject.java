@@ -12,7 +12,7 @@ import java.util.Objects;
  * Class defining a generic MapObject
  *
  */
-class GenericMapObject implements IGenericMapObject {
+final class GenericMapObject implements IGenericMapObject {
 
     private float width;    // Current width of object
     private float height;   // Current height of object

@@ -4,7 +4,7 @@ package com.mygdx.chalmersdefense.model;
  * @author Daniel Persson
  * A class for representing round mechanic with current round and winning round
  */
-class Rounds {
+final class Rounds {
     private int currentRound = 0;   // Current round
     private int winningRound;       // Winning round
 

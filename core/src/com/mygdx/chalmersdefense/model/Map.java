@@ -27,7 +27,7 @@ import java.util.List;
  *
  * 2021-10-15 Modified by Elin Forsberg and Joel Båtsman Hilmmersson: Added methods for powerUps
  */
-class Map {
+final class Map {
     private ITower newTower;            // Temp helper for when new tower is added
     private ITower clickedTower;        // The current clicked tower
     private final List<ITower> towersList = new ArrayList<>();              // The main tower list
@@ -44,7 +44,7 @@ class Map {
 
     private boolean isGameLost = false;     // Boolean if game is lost
 
-    private final GetRangeCircle rangeCircle = new GetRangeCircle();     // Helper class for showing gray range circle
+    private final GetRangeCircle rangeCircle = new GetRangeCircle(0,0,0);     // Helper class for showing gray range circle
 
     Map(Player player) { this.player = player; }
 
@@ -441,7 +441,7 @@ class Map {
      * @return the circle
      */
     GetRangeCircle getRangeCircle() {
-        return rangeCircle;
+        return new GetRangeCircle(rangeCircle);
     }
 
     /**

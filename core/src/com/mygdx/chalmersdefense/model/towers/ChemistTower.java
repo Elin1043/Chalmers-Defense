@@ -12,7 +12,7 @@ import java.util.List;
  * <p>
  * 2021-09-30 Modified by Joel Båtsman Hilmersson: Changed to use ProjectileFactory when creating projectile
  */
-class ChemistTower extends Tower {
+final class ChemistTower extends Tower {
     private final List<IProjectile> addToList;  // List to add new projectiles to
 
     ChemistTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<IProjectile> addToList) {

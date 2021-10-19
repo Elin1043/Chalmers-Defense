@@ -12,7 +12,7 @@ import java.util.List;
  * Class representing Vaccinated powerup
  * 2021-10-15 Modified by Elin Forsberg: Implemented use of PowerUp factory and abstract PowerUp class
  */
-class Vaccinated extends PowerUp{
+final class Vaccinated extends PowerUp{
     private List<IVirus> allViruses;        // List of viruses
 
     Vaccinated(List<IVirus> allViruses) {

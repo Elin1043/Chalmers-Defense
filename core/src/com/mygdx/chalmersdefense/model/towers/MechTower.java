@@ -16,7 +16,7 @@ import java.util.List;
  *
  * 2021-10-14 Modified by Joel Båtsman Hilmersson: MechTower now only spawns MinimechTowers and do not remove them <br>
  */
-class MechTower extends Tower {
+final class MechTower extends Tower {
 
     private final int reloadSpeed;      // Reload speed
     private final List<ITargetMode> targetModes;    // All possible targeted

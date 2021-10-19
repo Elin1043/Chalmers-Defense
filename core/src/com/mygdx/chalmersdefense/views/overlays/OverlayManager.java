@@ -4,7 +4,7 @@ import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.views.AbstractScreen;
 import com.mygdx.chalmersdefense.views.ScreenManager;
 
-public class OverlayManager {
+final public class OverlayManager {
     private static OverlayManager instance;
 
     // All overlays. Maybe move to separate class OverlayManager

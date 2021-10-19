@@ -2,7 +2,7 @@ package com.mygdx.chalmersdefense.utilities;
 
 import java.util.HashMap;
 
-public class Preferences {
+final public class Preferences {
     private HashMap<String, Boolean> booleanHashMap = new HashMap<>();
     private HashMap<String, Float> floatHashMap = new HashMap<>();
     private HashMap<String, Integer> integerHashMap = new HashMap<>();
