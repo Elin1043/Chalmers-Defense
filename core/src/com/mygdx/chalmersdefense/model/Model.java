@@ -85,7 +85,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
             if (round.gameWon()) {
                 showOverlay = ScreenOverlayEnum.WINPANEL;
             }
-            if (preferences.getBoolean("autoplay") && getCurrentRound() != 1) startRoundPressed();
+            if (preferences.getBoolean("autoplay") && getCurrentRound() != 1 && !round.gameWon()) startRoundPressed();
         }
     }
 
