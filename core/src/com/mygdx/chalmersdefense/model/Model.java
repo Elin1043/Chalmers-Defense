@@ -166,7 +166,6 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
         return upgrades.getTowerUpgradeTitle(towerName, upgradeLevel);
     }
 
-
     @Override
     public String getTowerUpgradeDesc(String towerName, int upgradeLevel) {
         return upgrades.getTowerUpgradeDesc(towerName, upgradeLevel);

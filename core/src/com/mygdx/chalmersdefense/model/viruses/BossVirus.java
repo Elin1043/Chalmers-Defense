@@ -26,9 +26,7 @@ final public class BossVirus extends Virus{
 
     @Override
     double getTotalVirusSpeed() {
-        //return 3.5F * getSlowdown();
-        System.out.println("HEJ");
-        return 0.8;
+        return 0.8 * getSlowdown();
     }
 
 
