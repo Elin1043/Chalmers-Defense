@@ -11,10 +11,9 @@ public class BossVirus extends Virus{
     /**
      * Creates Virus object
      *
-     * @param health Amount of health the virus start with
      * @param path   The path to follow
      */
-    BossVirus(int health, Path path) {
-        super(health, path);
+    BossVirus( Path path) {
+        super(50, path);
     }
 }

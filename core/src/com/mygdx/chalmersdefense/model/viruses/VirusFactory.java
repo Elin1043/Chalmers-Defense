@@ -57,4 +57,11 @@ public abstract class VirusFactory {
     static public IVirus createVirusFive() {
         return new StandardVirus(5, path);
     }
+
+    /**
+     * Creates a BossVirus
+     *
+     * @return The new BossVirus object
+     */
+    static public IVirus createBossVirus(){return new BossVirus(path);}
 }
