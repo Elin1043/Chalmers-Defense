@@ -14,7 +14,7 @@ import java.util.Objects;
  * <p>
  * 2021-09-24 Modified by Elin Forsberg: Added methods to decrease health of virus and check if it's dead
  */
-class Virus implements IVirus {
+abstract class Virus implements IVirus {
     private int health; // Current health of virus
 
     private String spriteKey;   // The key to the Sprite Hashmap

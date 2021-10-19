@@ -6,8 +6,10 @@ import com.mygdx.chalmersdefense.model.path.Path;
  * @author Joel Båtsman Hilmersson
  *
  * Class representing standard virus
+ *
+ * 2021-10-19 Modified by Elin: implemented the class into the application
  */
-public class StandardVirus extends Virus{
+class StandardVirus extends Virus{
 
     /**
      * Creates Virus object

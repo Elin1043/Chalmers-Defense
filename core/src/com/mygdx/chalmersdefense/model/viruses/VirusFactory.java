@@ -19,7 +19,7 @@ public abstract class VirusFactory {
      * @return The new Virus object
      */
     static public IVirus createVirusOne() {
-        return new Virus(1, path);
+        return new StandardVirus(1, path);
     }
 
     /**
@@ -28,7 +28,7 @@ public abstract class VirusFactory {
      * @return The new Virus object
      */
     static public IVirus createVirusTwo() {
-        return new Virus(2, path);
+        return new StandardVirus(2, path);
     }
 
     /**
@@ -37,7 +37,7 @@ public abstract class VirusFactory {
      * @return The new Virus object
      */
     static public IVirus createVirusThree() {
-        return new Virus(3, path);
+        return new StandardVirus(3, path);
     }
 
     /**
@@ -46,7 +46,7 @@ public abstract class VirusFactory {
      * @return The new Virus object
      */
     static public IVirus createVirusFour() {
-        return new Virus(4, path);
+        return new StandardVirus(4, path);
     }
 
     /**
@@ -55,6 +55,6 @@ public abstract class VirusFactory {
      * @return The new Virus object
      */
     static public IVirus createVirusFive() {
-        return new Virus(5, path);
+        return new StandardVirus(5, path);
     }
 }
