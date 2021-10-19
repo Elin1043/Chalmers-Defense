@@ -2,7 +2,6 @@ package com.mygdx.chalmersdefense.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,16 +13,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
-import com.mygdx.chalmersdefense.controllers.overlays.SettingsOverlayController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
-import com.mygdx.chalmersdefense.views.GameScreenViews.*;
+import com.mygdx.chalmersdefense.views.GameScreenViews.BottomBarUpgradePanel;
+import com.mygdx.chalmersdefense.views.GameScreenViews.RightSidePanel;
 import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
 import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
 
@@ -44,9 +43,6 @@ import static com.badlogic.gdx.graphics.GL20.*;
  */
 final public class GameScreen extends AbstractScreen implements Screen {
 
-    private final GameScreenController gameScreenController;
-
-
 
     // Panels
     private final BottomBarUpgradePanel bottomBarUpgradePanel;
@@ -54,13 +50,6 @@ final public class GameScreen extends AbstractScreen implements Screen {
 
     private final IViewModel model;
     private final Stage stageHUD;
-
-    private final TextureAtlas pauseButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.atlas")); // Load atlas file from skin
-    private final Skin pauseButtonSkin = new Skin(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.json"), pauseButtonAtlas); // Create skin object
-    private final Button pauseButton = new Button(pauseButtonSkin);
-
-    private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
-    private final Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
 
     private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
     private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
@@ -72,12 +61,16 @@ final public class GameScreen extends AbstractScreen implements Screen {
 
     public GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
         super();
-        this.gameScreenController = gameScreenController;
         this.rightSidePanel = new RightSidePanel(this, model, rightSidePanelController);
         this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, bottomBarPanelController, spriteMap, largeSpriteMap);
         this.model = model;
         this.stageHUD = new Stage(this.getViewport());
 
+        // Create skin object
+        // Load atlas file from skin
+        TextureAtlas pauseButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.atlas"));
+        Skin pauseButtonSkin = new Skin(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.json"), pauseButtonAtlas);
+        Button pauseButton = new Button(pauseButtonSkin);
         pauseButton.setPosition(10, 1070 - pauseButton.getHeight());
         gameScreenController.addPauseButtonClickListener(pauseButton);
 
@@ -87,7 +80,9 @@ final public class GameScreen extends AbstractScreen implements Screen {
         gameScreenController.addMapClickListener(mapImage);
 
 
+        Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
         bottomBarPanelBackground.setPosition(0, 0);
+        Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
         sideBarBackground.setPosition(1920 - 320, 0);
 
         // Enables input from both stages at the same time

@@ -3,9 +3,9 @@ package com.mygdx.chalmersdefense.utilities;
 import java.util.HashMap;
 
 final public class Preferences {
-    private HashMap<String, Boolean> booleanHashMap = new HashMap<>();
-    private HashMap<String, Float> floatHashMap = new HashMap<>();
-    private HashMap<String, Integer> integerHashMap = new HashMap<>();
+    private final HashMap<String, Boolean> booleanHashMap = new HashMap<>();
+    private final HashMap<String, Float> floatHashMap = new HashMap<>();
+    private final HashMap<String, Integer> integerHashMap = new HashMap<>();
 
     public Preferences() {
         putFloat("musicVolume", 0.2f);

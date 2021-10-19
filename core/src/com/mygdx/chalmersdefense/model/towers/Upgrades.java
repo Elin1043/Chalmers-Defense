@@ -15,12 +15,12 @@ import java.util.Objects;
  * A class for storing and applying upgrades to towers.
  */
 final public class Upgrades {
-    private final JSONParser parser = new JSONParser();     // Current Json parser
-    private final int MAX_UPGRADES = 3;                     // Current max upgrade level
     private JSONObject mainObject;                          // The parsed json object
 
     public Upgrades() {
         try {
+            // Current Json parser
+            JSONParser parser = new JSONParser();
             mainObject = (JSONObject) parser.parse(new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("UpgradeData.json"))));
         } catch (IOException | ParseException exception) {
             exception.printStackTrace();
@@ -34,6 +34,8 @@ final public class Upgrades {
      */
     public boolean upgradeTower(ITower tower) {
         // If tower is max upgraded don't upgrade
+        // Current max upgrade level
+        int MAX_UPGRADES = 3;
         if (tower.getUpgradeLevel() >= MAX_UPGRADES) return false;
 
         HashMap<String, Double> upgrades = getTowerUpgradeData(tower.getName(), tower.getUpgradeLevel());
