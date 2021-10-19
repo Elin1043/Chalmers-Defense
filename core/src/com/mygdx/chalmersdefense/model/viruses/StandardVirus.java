@@ -1,0 +1,21 @@
+package com.mygdx.chalmersdefense.model.viruses;
+
+import com.mygdx.chalmersdefense.model.path.Path;
+
+/**
+ * @author Joel Båtsman Hilmersson
+ *
+ * Class representing standard virus
+ */
+public class StandardVirus extends Virus{
+
+    /**
+     * Creates Virus object
+     *
+     * @param health Amount of health the virus start with
+     * @param path   The path to follow
+     */
+    StandardVirus(int health, Path path) {
+        super(health, path);
+    }
+}
