@@ -38,6 +38,7 @@ final class Map {
 
     private final List<ITower> towersToAddList = new ArrayList<>();             // Temporary list for object adding towers to the main list (To avoid concurrent modification issues)
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();   // Temporary list for object adding projectiles to the main list (To avoid concurrent modification issues)
+    private final List<IVirus> virusToAddList = new ArrayList<>();             // Temporary list for object adding virus to the main list (To avoid concurrent modification issues)
 
     private final Player player;                                   // A reference to the Player object in the game
     private final Path path = PathFactory.createClassicPath();     // Current path
@@ -81,9 +82,11 @@ final class Map {
     private void addTempListsToMainLists() {
         towersList.addAll(towersToAddList);
         projectilesList.addAll(projectilesToAddList);
+        virusesList.addAll(virusToAddList);
 
         towersToAddList.clear();
         projectilesToAddList.clear();
+        virusToAddList.clear();
     }
 
     //Update the projectiles
@@ -477,7 +480,7 @@ final class Map {
      * @return list of viruses
      */
     List<IVirus> getViruses() {
-        return virusesList;
+        return virusToAddList;
     }
     /**
      * Return the list of objects on map

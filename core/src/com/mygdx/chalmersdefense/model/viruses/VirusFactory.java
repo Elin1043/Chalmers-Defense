@@ -4,6 +4,8 @@ package com.mygdx.chalmersdefense.model.viruses;
 import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
 
+import java.util.List;
+
 
 /**
  * @author Joel Båtsman Hilmersson
@@ -12,6 +14,7 @@ import com.mygdx.chalmersdefense.model.path.PathFactory;
 public abstract class VirusFactory {
 
     private static final Path path = PathFactory.createClassicPath(); // Pointer to the path object
+
 
     /**
      * Creates a Virus with one health
@@ -67,5 +70,5 @@ public abstract class VirusFactory {
      *
      * @return The new BossVirus object
      */
-    static public IVirus createBossVirus(){return new BossVirus(path);}
+    static public IVirus createBossVirus(List<IVirus> virusList) { return new BossVirus(path, virusList); }
 }

@@ -67,9 +67,7 @@ abstract class Virus implements IVirus {
     private void initalizeVirus(){
         updateSpriteKey();
 
-
         currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex);
-
 
         // TODO Kanske vill göra detta när man ändrar liv. Iallafall om man har något virus av annan storlek
         try {
@@ -257,4 +255,16 @@ abstract class Virus implements IVirus {
      * @return slowdown
      */
     float getSlowdown(){ return slowdown; }
+
+    /**
+     * Gets the position of the virus
+     * @return Position of virus
+     */
+    float[] getPos(){ return new float[] {xPos, yPos}; }
+
+    /**
+     * Gets the current move to vector
+     * @return the move to vector
+     */
+    int getCurrentMoveToVectorIndex(){ return currentMoveToVectorIndex; }
 }
