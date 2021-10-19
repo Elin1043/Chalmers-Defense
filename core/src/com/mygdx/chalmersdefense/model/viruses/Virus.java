@@ -130,7 +130,6 @@ abstract class Virus implements IVirus {
     }
 
     private void moveToPoint(double totalSpeed) {
-        System.out.println(totalSpeed);
 
         // Gets length to next move to point
         double diffX = xPos + widthX / 2F - currentMoveToVector.getX();
