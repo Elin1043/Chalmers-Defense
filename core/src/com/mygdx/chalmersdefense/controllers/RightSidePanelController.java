@@ -89,12 +89,29 @@ public class RightSidePanelController extends InputAdapter {
 
     }
 
+
     @Override
     public boolean keyDown (int keycode) {
-        if (keycode == Input.Keys.ENTER) {
+        if (keycode == Input.Keys.SPACE) {
             model.startRoundPressed();
             return true;
-        } else {
+        }
+
+        else if (keycode == Input.Keys.C) {
+            model.powerUpClicked("cleanHands");
+            return true;
+        }
+
+        else if (keycode == Input.Keys.V) {
+            model.powerUpClicked("vaccinated");
+            return true;
+        }
+
+        else if (keycode == Input.Keys.M) {
+            model.powerUpClicked("maskedUp");
+            return true;
+        }
+        else {
             return false;
         }
     }
