@@ -11,9 +11,25 @@ final public class BossVirus extends Virus{
     /**
      * Creates Virus object
      *
-     * @param path   The path to follow
+     * @param path The path to follow
      */
-    BossVirus( Path path) {
+    BossVirus(Path path) {
         super(50, path);
     }
+
+    @Override
+    void slowDownEffect(float slowdown){
+        float newSlowdown = slowdown;
+        newSlowdown *= (1 + (1 - slowdown));
+        super.slowDownEffect(newSlowdown);
+    }
+
+    @Override
+    double getTotalVirusSpeed() {
+        //return 3.5F * getSlowdown();
+        System.out.println("HEJ");
+        return 0.8;
+    }
+
+
 }

@@ -71,7 +71,9 @@ abstract class Virus implements IVirus {
         } else {
             this.health -= damage;
         }
+    }
 
+    void seeIfUpdateSpriteKey() {
         if (health > 0) {
             updateSpriteKey();
         } else {
@@ -79,7 +81,7 @@ abstract class Virus implements IVirus {
         }
     }
 
-    private void slowDownEffect(float slowdown){
+    void slowDownEffect(float slowdown){
         if (this.slowdown > slowdown) {
             this.slowdown = slowdown;
         }
@@ -89,12 +91,17 @@ abstract class Virus implements IVirus {
 
     @Override
     public void update() {
-        moveToPoint();
+        moveToPoint(getTotalVirusSpeed());
         updateSlowTimer();
     }
 
-    private void moveToPoint() {
-        double totalSpeed = ((3F + health) / 4F) * slowdown;      // Calculates speed based on health of virus
+    // The normal speed calculation
+    double getTotalVirusSpeed() {
+        return ((3F + health) / 4F) * slowdown;
+    }
+
+    private void moveToPoint(double totalSpeed) {
+        System.out.println(totalSpeed);
 
         // Gets length to next move to point
         double diffX = xPos + widthX / 2F - currentMoveToVector.getX();
@@ -216,4 +223,10 @@ abstract class Virus implements IVirus {
     public boolean isDead() {
         return this.health <= 0;
     }
+
+    /**
+     * Returns slowdown
+     * @return slowdown
+     */
+    float getSlowdown(){ return slowdown; }
 }
