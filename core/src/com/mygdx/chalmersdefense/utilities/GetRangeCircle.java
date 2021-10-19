@@ -21,6 +21,7 @@ public final class GetRangeCircle {
         this.x = circle.getX();
         this.y = circle.getY();
         this.range = circle.getRange();
+        this.enumColor = circle.getColor();
     }
 
     /**

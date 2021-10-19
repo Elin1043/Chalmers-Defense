@@ -58,6 +58,10 @@ public abstract class VirusFactory {
         return new StandardVirus(5, path);
     }
 
+    static public IVirus createVirusFive(float x, float y, int wayPointIndex) {
+        return new StandardVirus(5, path, x,y,wayPointIndex);
+    }
+
     /**
      * Creates a BossVirus
      *

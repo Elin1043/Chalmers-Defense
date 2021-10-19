@@ -21,6 +21,10 @@ final class StandardVirus extends Virus{
         super(health, path);
     }
 
+    StandardVirus(int health, Path path, float x, float y, int wayPointIndex) {
+        super(health, path, x,y, wayPointIndex);
+    }
+
     @Override
     public void decreaseHealth(float damage) {
         super.decreaseHealth(damage);

@@ -44,8 +44,29 @@ abstract class Virus implements IVirus {
      */
     Virus(int health, Path path) {
         this.health = health;
-        updateSpriteKey();
         this.path = path;
+        initalizeVirus();
+
+        xPos = currentMoveToVector.getX() - widthX / 2F;
+        yPos = currentMoveToVector.getY() - heightY / 2F;
+
+    }
+
+    Virus(int health, Path path,float x, float y, int currentMoveToVectorIndex) {
+        this.health = health;
+        this.path = path;
+        this.currentMoveToVectorIndex = currentMoveToVectorIndex;
+        initalizeVirus();
+
+        float[] randomPoint = randPoint(x,y);
+        xPos = randomPoint[0] - widthX / 2F;
+        yPos = randomPoint[1] - heightY / 2F;
+    }
+
+
+    private void initalizeVirus(){
+        updateSpriteKey();
+
 
         currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex);
 
@@ -59,8 +80,16 @@ abstract class Virus implements IVirus {
             e.printStackTrace();
         }
 
-        xPos = currentMoveToVector.getX() - widthX / 2F;
-        yPos = currentMoveToVector.getY() - heightY / 2F;
+
+    }
+
+    private float[] randPoint(float x, float y) {
+        double len= Math.sqrt(Math.random())*80;
+        double deg= Math.random()*2*Math.PI;
+        float xTemp = (float) (x+len*Math.cos(deg));
+        float yTemp = (float) (y+len*Math.sin(deg));
+
+        return new float[]{xTemp,yTemp};
     }
 
 
