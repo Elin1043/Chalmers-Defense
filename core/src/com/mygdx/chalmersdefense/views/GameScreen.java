@@ -37,31 +37,29 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * 2021-10-04 Modified by Daniel Persson: Refactored GameScreen into two seperate classes. BottomBarUpgradePanel and RightSidePanel <br>
  * 2021-10-05 Modified by Daniel Persson: Added WinPanelOverlay rendering if game is won <br>
  * 2021-10-11 Modified by Daniel Persson: Added overlay enums for displaying overlays <br>
+ * 2021-10-19 Modified by Daniel Persson: Added progressbar for displaying round progress <br>
  */
 public class GameScreen extends AbstractScreen implements Screen {
 
-    private final GameScreenController gameScreenController;
+    private final GameScreenController gameScreenController;   // GameScreens controller class
 
     // Panels
-    private final BottomBarUpgradePanel bottomBarUpgradePanel;
-    private final RightSidePanel rightSidePanel;
+    private final BottomBarUpgradePanel bottomBarUpgradePanel; // Upgrade panel object
+    private final RightSidePanel rightSidePanel;               // Right side HUD with towers and powerups
 
-    private final IViewModel model;
-    private final Stage stageHUD;
+    private final IViewModel model;  // Reference to models IView methods
+    private final Stage stageHUD;    // A separate stage for displaying HUD information
 
-    private ProgressBar progressBar;
-    private final TextureRegion progressBarFilled = new TextureRegion(new Texture(Gdx.files.internal("GameScreen/progressbar/ProgressBarFilled.png")));
-    private final Image progressBarSmurf = new Image(new Texture("GameScreen/progressbar/SmurfImage.png"));
-    private final Sprite waypointMarker = new Sprite(new Texture("GameScreen/progressbar/WaypointMarker.png"));
+    private ProgressBar progressBar; // Progressbar for displaying round progress
+    private final TextureRegion progressBarFilled = new TextureRegion(new Texture(Gdx.files.internal("GameScreen/progressbar/ProgressBarFilled.png"))); // A texture region of progressbar fill texture
+    private final Image progressBarSmurf = new Image(new Texture("GameScreen/progressbar/SmurfImage.png"));     // Image of a smurf that is attached to progressbar knob
+    private final Sprite waypointMarker = new Sprite(new Texture("GameScreen/progressbar/WaypointMarker.png")); // Sprite of waypoint markers
 
     private final InputMultiplexer multiplexer = new InputMultiplexer();
 
     private final TextureAtlas pauseButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.atlas")); // Load atlas file from skin
     private final Skin pauseButtonSkin = new Skin(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.json"), pauseButtonAtlas); // Create skin object
-    private final Button pauseButton = new Button(pauseButtonSkin);
-
-    private final Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
-    private final Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
+    private final Button pauseButton = new Button(pauseButtonSkin);  // Pause button located in the top left part of the screen
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
@@ -84,8 +82,15 @@ public class GameScreen extends AbstractScreen implements Screen {
         gameScreenController.addMapClickListener(mapImage);
 
 
+        // Background image for bottom part of HUD
+        Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
         bottomBarPanelBackground.setPosition(0, 0);
+        stageHUD.addActor(bottomBarPanelBackground);
+
+        // Background image for right part of HUD
+        Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
         sideBarBackground.setPosition(1920 - 320, 0);
+        stageHUD.addActor(sideBarBackground);
 
         // Enables input from both stages at the same time
         multiplexer.addProcessor(this);
@@ -93,8 +98,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         multiplexer.addProcessor(rightSidePanel.getStage());
         Gdx.input.setInputProcessor(multiplexer);
 
-        stageHUD.addActor(bottomBarPanelBackground);
-        stageHUD.addActor(sideBarBackground);
 
         createProgressBar();
 
