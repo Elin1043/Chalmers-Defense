@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.model.viruses;
 
 import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.utilities.PositionVector;
 
 import javax.imageio.ImageIO;
@@ -58,7 +59,8 @@ abstract class Virus implements IVirus {
         this.currentMoveToVectorIndex = currentMoveToVectorIndex;
         initializeVirus();
 
-        float[] randomPoint = randPoint(x,y);
+        float[] randomPoint = Calculate.randPoint(x, y,50);
+
         xPos = randomPoint[0] - widthX / 2F;
         yPos = randomPoint[1] - heightY / 2F;
     }
@@ -80,16 +82,6 @@ abstract class Virus implements IVirus {
 
 
     }
-
-    private float[] randPoint(float x, float y) {
-        double len = Math.sqrt(Math.random()) * 50;
-        double deg = Math.random() * 2 * Math.PI;
-        float xTemp = (float) (x + len * Math.cos(deg));
-        float yTemp = (float) (y + len * Math.sin(deg));
-
-        return new float[]{xTemp,yTemp};
-    }
-
 
     @Override
     public void decreaseHealth(float damage) {
