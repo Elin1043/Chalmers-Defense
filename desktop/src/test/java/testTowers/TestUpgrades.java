@@ -25,7 +25,7 @@ public class TestUpgrades {
     @Test
     public void testGetUpgradeTitleForTower() {
         String upgradeTitle = model.getTowerUpgradeTitle("IT-Smurf", 1);
-        assertEquals("Hot zeros", upgradeTitle);
+        assertEquals("Hot binaries", upgradeTitle);
     }
 
     @Test

@@ -10,6 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 /**
  * @author Daniel Persson
  * Utility class for getting LabelStyle for font usage.
+ *
+ *
+ * 2021-10-11 Modified by Elin Forsberg: Added more labelstyles
  */
 public abstract class FontFactory {
     /**
@@ -21,6 +24,14 @@ public abstract class FontFactory {
         return generateLabelStyle(36, Color.BLACK, 1);
     }
 
+    /**
+     * Generates a LabelStyle from CenturyGothic font with size 36px and color.
+     *
+     * @return a LabelStyle with corresponding size, color and border width.
+     */
+    public static LabelStyle getLabelStyle36Black() {
+        return generateLabelStyle(36, Color.BLACK, 0);
+    }
     /**
      * Generates a LabelStyle from CenturyGothic font with size 26px, color black.
      *
@@ -55,6 +66,24 @@ public abstract class FontFactory {
      */
     public static LabelStyle getLabelStyle20Black() {
         return generateLabelStyle(20, Color.BLACK, 0.25f);
+    }
+
+    /**
+     * Generates a LabelStyle from CenturyGothic font with size 20px, color black and semibold.
+     *
+     * @return a LabelStyle with corresponding size, color and border width.
+     */
+    public static LabelStyle getLabelStyle20BlackSemiBold() {
+        return generateLabelStyle(20, Color.BLACK, 0.5f);
+    }
+
+    /**
+     * Generates a LabelStyle from CenturyGothic font with size 24px, color light gray and semi bold.
+     *
+     * @return a LabelStyle with corresponding size, color and border width.
+     */
+    public static LabelStyle getLabelStyle34SkyBold() {
+        return generateLabelStyle(34, Color.SKY, 1f);
     }
 
     private static BitmapFont generateBitmapFont(int size, float borderWidth) {

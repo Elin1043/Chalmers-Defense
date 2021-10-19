@@ -4,6 +4,7 @@ import com.mygdx.chalmersdefense.model.Player;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
+import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 class EcoTower extends Tower {
 
-    private int currentReload;      // Reload time of this tower
+    private final CountDownTimer currentReload = new CountDownTimer(600, 0); // Reload time of this tower
     private final Player player;    // Player to add money to
 
     EcoTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, Player player) {
@@ -28,7 +29,6 @@ class EcoTower extends Tower {
             case 1 -> player.increaseMoney(20);
             case 2 -> player.increaseMoney(40);
             case 3 -> player.increaseMoney(80);
-
         }
 
         projectileList.add(ProjectileFactory.createMoneyPile(getX(), getY(), getUpgradeLevel()));
@@ -36,12 +36,8 @@ class EcoTower extends Tower {
 
     @Override
     public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget) {
-        if (currentReload < 1 && this.isPlaced()) {
-            //how many updates from model
-            currentReload = 60 * 10;
+        if (currentReload.haveReachedZero() && this.isPlaced()) {
             createProjectile(projectilesList);
-        } else {
-            currentReload--;
         }
         this.setAngle(0);
     }

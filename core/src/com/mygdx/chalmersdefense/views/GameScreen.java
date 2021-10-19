@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
+import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.IMapObject;
@@ -61,6 +62,12 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final Skin pauseButtonSkin = new Skin(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.json"), pauseButtonAtlas); // Create skin object
     private final Button pauseButton = new Button(pauseButtonSkin);  // Pause button located in the top left part of the screen
 
+    private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
+    private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
+    private final Label lifeLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle36Black());
+    private final Label moneyLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle36Black());
+    private final Label roundLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle36Black());
+
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     private final Image mapImage;
@@ -103,6 +110,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         addActor(mapImage);
         addActor(pauseButton);
+        createLifeAndMoneyIcon();
     }
 
     /**
@@ -117,6 +125,8 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         renderRangeCircle();
         renderMapObjects();
+
+        updateButtonInfo();
 
         // Renders HUD above sprites but below upgrade panel.
         stageHUD.act();
@@ -234,6 +244,29 @@ public class GameScreen extends AbstractScreen implements Screen {
         shapeRenderer.circle(circle.getX(), circle.getY(), circle.getRange());
         shapeRenderer.end();
         Gdx.gl.glDisable(GL_BLEND);
+    }
+
+    private void updateButtonInfo(){
+        lifeLabel.setText(model.getLivesLeft());
+        moneyLabel.setText(model.getMoney());
+        roundLabel.setText("Round: " + model.getCurrentRound());
+    }
+
+    private void createLifeAndMoneyIcon(){
+        lifeIcon.setPosition(23, 100);
+        moneyIcon.setPosition(23, 20);
+
+        lifeLabel.setPosition(96, 140);
+        moneyLabel.setPosition(96, 60);
+
+        roundLabel.setAlignment(Align.right);
+        roundLabel.setPosition(1570, 140);
+
+        stageHUD.addActor(lifeLabel);
+        stageHUD.addActor(moneyLabel);
+        stageHUD.addActor(lifeIcon);
+        stageHUD.addActor(moneyIcon);
+        stageHUD.addActor(roundLabel);
     }
 
     private Color getColorOfCircle(GetRangeCircle circle) {

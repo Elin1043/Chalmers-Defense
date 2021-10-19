@@ -1,0 +1,48 @@
+
+MaskedUpSkin.png
+size: 256, 256
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+CleanHands
+  rotate: false
+  xy: 1, 161
+  size: 69, 78
+  orig: 69, 78
+  offset: 0, 0
+  index: -1
+CleanHandsRed
+  rotate: false
+  xy: 1, 81
+  size: 69, 78
+  orig: 69, 78
+  offset: 0, 0
+  index: -1
+MaskedUp
+  rotate: false
+  xy: 72, 161
+  size: 69, 78
+  orig: 69, 78
+  offset: 0, 0
+  index: -1
+MaskedUpRed
+  rotate: false
+  xy: 1, 1
+  size: 69, 78
+  orig: 69, 78
+  offset: 0, 0
+  index: -1
+Vaccination
+  rotate: false
+  xy: 72, 81
+  size: 69, 78
+  orig: 69, 78
+  offset: 0, 0
+  index: -1
+VaccinationRed
+  rotate: false
+  xy: 143, 161
+  size: 69, 78
+  orig: 69, 78
+  offset: 0, 0
+  index: -1
