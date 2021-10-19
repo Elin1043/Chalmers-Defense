@@ -4,17 +4,24 @@ size: 1024, 1024
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
-Background
+white-pixel
   rotate: false
-  xy: 1, 868
+  xy: 924, 922
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+ProgressBar
+  rotate: false
+  xy: 1, 871
   size: 921, 52
   orig: 921, 52
   offset: 0, 0
   index: -1
-Knob
+ProgressBarKnob
   rotate: false
-  xy: 1, 806
-  size: 3, 60
-  orig: 3, 60
+  xy: 1, 809
+  size: 6, 60
+  orig: 6, 60
   offset: 0, 0
   index: -1

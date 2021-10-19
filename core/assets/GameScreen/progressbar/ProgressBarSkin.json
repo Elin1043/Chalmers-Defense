@@ -1,8 +1,23 @@
 {
+com.badlogic.gdx.graphics.Color: {
+	RGBA_255_255_255_255: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+	Testregion: {
+		name: white-pixel
+		color: RGBA_255_255_255_255
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
 	default-horizontal: {
-		background: Background
-		knob: Knob
+		background: ProgressBar
+		knob: ProgressBarKnob
+		disabledKnob: Testregion
 	}
 }
 }
