@@ -10,10 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
@@ -46,8 +43,6 @@ import static com.badlogic.gdx.graphics.GL20.*;
  */
 final public class GameScreen extends AbstractScreen implements Screen {
 
-    private final GameScreenController gameScreenController;   // GameScreens controller class
-
     // Panels
     private final BottomBarUpgradePanel bottomBarUpgradePanel; // Upgrade panel object
     private final RightSidePanel rightSidePanel;               // Right side HUD with towers and powerups
@@ -76,7 +71,6 @@ final public class GameScreen extends AbstractScreen implements Screen {
 
     public GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
         super();
-        this.gameScreenController = gameScreenController;
         this.rightSidePanel = new RightSidePanel(this, model, rightSidePanelController);
         this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, bottomBarPanelController, spriteMap, largeSpriteMap);
         this.model = model;
