@@ -50,14 +50,14 @@ public class Upgrades {
      * @return a String with towers upgrade title depending on upgrade level.
      */
     public String getTowerUpgradeTitle(String towerName, int upgradeLevel) {
+        String title = "";
         try {
-            JSONArray towerUpgradeArray = (JSONArray) mainObject.get(towerName);
-            JSONObject upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
-            return upgradeObject.get("title").toString();
+            JSONObject upgradeObject = getUpgradeObject(towerName, upgradeLevel);
+            title = upgradeObject.get("title").toString();
         } catch (NullPointerException exception) {
             exception.printStackTrace();
         }
-        return "";
+        return title;
     }
 
     /**
@@ -68,14 +68,14 @@ public class Upgrades {
      * @return a String with towers upgrade description depending on upgrade level.
      */
     public String getTowerUpgradeDesc(String towerName, int upgradeLevel) {
+        String desc = "";
         try {
-            JSONArray towerUpgradeArray = (JSONArray) mainObject.get(towerName);
-            JSONObject upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
-            return upgradeObject.get("desc").toString();
+            JSONObject upgradeObject = getUpgradeObject(towerName, upgradeLevel);
+            desc = upgradeObject.get("desc").toString();
         } catch (NullPointerException exception) {
             exception.printStackTrace();
         }
-        return "";
+        return desc;
     }
 
     /**
@@ -86,14 +86,19 @@ public class Upgrades {
      * @return a Long with towers upgrade price depending on upgrade level.
      */
     public Long getTowerUpgradePrice(String towerName, int upgradeLevel) {
+        Long price = 0L;
         try {
-            JSONArray towerUpgradeArray = (JSONArray) mainObject.get(towerName);
-            JSONObject upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
-            return (Long) upgradeObject.get("price");
+            JSONObject upgradeObject = getUpgradeObject(towerName, upgradeLevel);
+            price = (Long) upgradeObject.get("price");
         } catch (NullPointerException exception) {
             exception.printStackTrace();
         }
-        return 0L;
+        return price;
+    }
+
+    private JSONObject getUpgradeObject(String towerName, int upgradeLevel) throws NullPointerException {
+        JSONArray towerUpgradeArray = (JSONArray) mainObject.get(towerName);
+        return (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
     }
 
     /**
@@ -106,9 +111,7 @@ public class Upgrades {
     private HashMap<String, Double> getTowerUpgradeData(String towerName, int upgradeLevel) {
         HashMap<String, Double> upgrades = new HashMap<>();
         try {
-            JSONArray towerUpgradeArray = (JSONArray) mainObject.get(towerName);
-            JSONObject upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
-
+            JSONObject upgradeObject = getUpgradeObject(towerName, upgradeLevel);
 
             upgrades.put("attackDmgMul", (double) upgradeObject.get("attackDmgMul"));
             upgrades.put("attackSpeedMul",  (double) upgradeObject.get("attackSpeedMul"));
