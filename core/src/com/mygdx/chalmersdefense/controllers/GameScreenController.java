@@ -20,6 +20,7 @@ import com.mygdx.chalmersdefense.model.IControllModel;
  * 2021-10-11 Modified by Jenny Carlsson and Daniel Persson: added click listener for pause meny buttons <br>
  * 2021-10-12 Modified by Jenny Carlsson and Daniel Persson: added click listener for pause menu exit button <br>
  * 2021-10-19 Modified by Joel Båtsman Hilmersson: The class now extends InputAdapter to override methods to listen for keyboard input <br>
+ * 2021-10-19 Modified by Jenny Carlsson: Added short keys for pause menu <br>
  */
 public class GameScreenController extends InputAdapter {
     private final IControllModel model;
@@ -59,12 +60,32 @@ public class GameScreenController extends InputAdapter {
 
     @Override
     public boolean keyDown (int keycode) {
-        if (keycode == Input.Keys.ESCAPE){
-            model.stopGameUpdate();
-            model.setShowOverlay(ScreenOverlayEnum.PAUSE_MENU);
-            return true;
-        } else {
-            return false;
+        switch (keycode) {
+            case (Input.Keys.ESCAPE) -> {
+                model.stopGameUpdate();
+                model.setShowOverlay(ScreenOverlayEnum.PAUSE_MENU);
+                return true;
+            }
+            case (Input.Keys.F11) -> {
+                if (Gdx.graphics.isFullscreen()) {
+                    Gdx.graphics.setWindowedMode(1920, 1080);
+                } else {
+                    Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+                }
+                return true;
+            }
+            case (Input.Keys.NUM_1) -> {
+                // Don't work ATM
+                Matrix4 matrix = ScreenManager.getInstance().getCurrentScreen().getCamera().combined;
+                Vector2 v = ScreenManager.getInstance().getCurrentScreen().toScreenCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()), matrix);
+                model.dragStart("smurf", v.x, v.y);
+                model.onDrag(2, 2, v.x, v.y, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+                model.dragEnd(2, 2, v.x, v.y);
+                return true;
+            }
+            default -> {
+                return false;
+            }
         }
 
     }
