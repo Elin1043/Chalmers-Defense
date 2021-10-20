@@ -22,6 +22,7 @@ import com.mygdx.chalmersdefense.views.overlays.*;
  * 2021-09-30 Modified by Joel Båtsman Hilmersson: Moved timer to GameTimer class instead <br>
  * 2021-10-13 Modified by Daniel Persson: Added preferences
  * 2021-10-14 Modified by Daniel Persson: Moved controller creation to this class
+ * 2021-10-20 Modified by Jenny Carlsson: Added info view
  */
 public class ChalmersDefense extends Game {
 
@@ -42,6 +43,7 @@ public class ChalmersDefense extends Game {
         SettingsOverlayController settingsOverlayController = new SettingsOverlayController(model, preferences);
         LostPanelOverlayController lostPanelOverlayController = new LostPanelOverlayController(model);
         WinPanelOverlayController winPanelOverlayController = new WinPanelOverlayController(model);
+        InfoOverlayController infoOverlayController = new InfoOverlayController(model);
 
         // Creating Views
         AbstractScreen mainScreen = new MainScreen(model, mainScreenController);
@@ -51,7 +53,7 @@ public class ChalmersDefense extends Game {
         AbstractOverlay settingsMenuOverlay = new SettingsOverlay(abstractOverlayController, settingsOverlayController, preferences);
         AbstractOverlay lostPanelOverlay = new LostPanelOverlay(abstractOverlayController, lostPanelOverlayController);
         AbstractOverlay winPanelOverlay = new WinPanelOverlay(abstractOverlayController, winPanelOverlayController);
-        AbstractOverlay infoOverlay = new InfoOverlay(abstractOverlayController);
+        AbstractOverlay infoOverlay = new InfoOverlay(abstractOverlayController, infoOverlayController);
 
         // Sound
         new Sounds(preferences);
