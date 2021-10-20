@@ -135,8 +135,8 @@ final public class RightSidePanel {
 
         placeButton(smurfButton, 1616, 830, "smurf");
         placeButton(chemistButton, 1766, 830, "chemist");
-        placeButton(hackerButton, 1616, 650, "electro");
-        placeButton(electroButton, 1766,650, "cleanHands");
+        placeButton(hackerButton, 1616, 650, "hacker");
+        placeButton(electroButton, 1766,650, "electro");
         placeButton(mechButton, 1616, 470, "mech");
         placeButton(ecoButton, 1766, 470, "eco");
 
