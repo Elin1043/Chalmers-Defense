@@ -1,32 +1,16 @@
 package com.mygdx.chalmersdefense.model.towers;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import com.mygdx.chalmersdefense.utilities.JSONParserWrapper;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * @author Daniel Persson
  * A class for storing and applying upgrades to towers.
  */
 public abstract class Upgrades {
-    private static final JSONParser parser = new JSONParser();     // Current Json parser
     private static final int MAX_UPGRADES = 3;                     // Current max upgrade level
-    private static final JSONObject mainObject = getMainJSONObject();                          // The parsed json object
-
-    private static JSONObject getMainJSONObject() {
-        try {
-            return (JSONObject) parser.parse(new InputStreamReader(Objects.requireNonNull(Upgrades.class.getClassLoader().getResourceAsStream("UpgradeData.json"))));
-        } catch (IOException | ParseException exception) {
-            exception.printStackTrace();
-            return null;
-        }
-    }
+    private static final JSONParserWrapper jsonParserWrapper = new JSONParserWrapper("UpgradeData.json");
 
     /**
      * Main method for upgrading a tower.
@@ -52,14 +36,7 @@ public abstract class Upgrades {
      * @return a String with towers upgrade title depending on upgrade level.
      */
     public static String getTowerUpgradeTitle(String towerName, int upgradeLevel) {
-        String title = "";
-        try {
-            JSONObject upgradeObject = getUpgradeObject(towerName, upgradeLevel);
-            title = upgradeObject.get("title").toString();
-        } catch (NullPointerException exception) {
-            exception.printStackTrace();
-        }
-        return title;
+        return jsonParserWrapper.startParser().getJSONValue(towerName).getIndex(upgradeLevel-1).getString("title");
     }
 
     /**
@@ -70,14 +47,7 @@ public abstract class Upgrades {
      * @return a String with towers upgrade description depending on upgrade level.
      */
     public static String getTowerUpgradeDesc(String towerName, int upgradeLevel) {
-        String desc = "";
-        try {
-            JSONObject upgradeObject = getUpgradeObject(towerName, upgradeLevel);
-            desc = upgradeObject.get("desc").toString();
-        } catch (NullPointerException exception) {
-            exception.printStackTrace();
-        }
-        return desc;
+        return jsonParserWrapper.startParser().getJSONValue(towerName).getIndex(upgradeLevel-1).getString("desc");
     }
 
     /**
@@ -87,27 +57,8 @@ public abstract class Upgrades {
      * @param upgradeLevel level of upgrade to get price from
      * @return a Long with towers upgrade price depending on upgrade level.
      */
-    public static Long getTowerUpgradePrice(String towerName, int upgradeLevel) {
-        Long price = 0L;
-        try {
-            JSONObject upgradeObject = getUpgradeObject(towerName, upgradeLevel);
-            price = (Long) upgradeObject.get("price");
-        } catch (NullPointerException exception) {
-            exception.printStackTrace();
-        }
-        return price;
-    }
-
-    private static JSONObject getUpgradeObject(String towerName, int upgradeLevel) throws NullPointerException {
-        JSONObject upgradeObject;
-        try {
-            JSONArray towerUpgradeArray = (JSONArray) mainObject.get(towerName);
-            upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
-        } catch (NullPointerException nullPointerException) {
-            throw new NullPointerException();
-        }
-
-        return upgradeObject;
+    public static Integer getTowerUpgradePrice(String towerName, int upgradeLevel) {
+        return jsonParserWrapper.startParser().getJSONValue(towerName).getIndex(upgradeLevel-1).getInteger("price");
     }
 
     /**
@@ -118,17 +69,7 @@ public abstract class Upgrades {
      * @return a HashMap with upgrade data.
      */
     private static HashMap<String, Double> getTowerUpgradeData(String towerName, int upgradeLevel) {
-        HashMap<String, Double> upgrades = new HashMap<>();
-        try {
-            JSONObject upgradeObject = getUpgradeObject(towerName, upgradeLevel);
-
-            upgrades.put("attackDmgMul", (double) upgradeObject.get("attackDmgMul"));
-            upgrades.put("attackSpeedMul",  (double) upgradeObject.get("attackSpeedMul"));
-            upgrades.put("attackRangeMul", (double) upgradeObject.get("attackRangeMul"));
-        } catch (NullPointerException exception) {
-            System.out.println(exception.getMessage());
-        }
-
+        HashMap<String, Double> upgrades = jsonParserWrapper.startParser().getJSONValue(towerName).getIndex(upgradeLevel-1).getDoubleHashMap("attackDmgMul", "attackSpeedMul", "attackRangeMul");
         return new HashMap<>(upgrades);
     }
 
