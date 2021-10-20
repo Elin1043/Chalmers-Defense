@@ -14,16 +14,17 @@ import java.util.Objects;
  * @author Daniel Persson
  * A class for storing and applying upgrades to towers.
  */
-public class Upgrades {
-    private final JSONParser parser = new JSONParser();     // Current Json parser
-    private final int MAX_UPGRADES = 3;                     // Current max upgrade level
-    private JSONObject mainObject;                          // The parsed json object
+public abstract class Upgrades {
+    private static final JSONParser parser = new JSONParser();     // Current Json parser
+    private static final int MAX_UPGRADES = 3;                     // Current max upgrade level
+    private static final JSONObject mainObject = getMainJSONObject();                          // The parsed json object
 
-    public Upgrades() {
+    private static JSONObject getMainJSONObject() {
         try {
-            mainObject = (JSONObject) parser.parse(new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("UpgradeData.json"))));
+            return (JSONObject) parser.parse(new InputStreamReader(Objects.requireNonNull(Upgrades.class.getClassLoader().getResourceAsStream("UpgradeData.json"))));
         } catch (IOException | ParseException exception) {
             exception.printStackTrace();
+            return null;
         }
     }
 
@@ -31,8 +32,9 @@ public class Upgrades {
      * Main method for upgrading a tower.
      *
      * @param tower tower to be upgraded
+     * @return if upgrade is successful
      */
-    public boolean upgradeTower(ITower tower) {
+    public static boolean upgradeTower(ITower tower) {
         // If tower is max upgraded don't upgrade
         if (tower.getUpgradeLevel() >= MAX_UPGRADES) return false;
 
@@ -49,7 +51,7 @@ public class Upgrades {
      * @param upgradeLevel level of upgrade to get title from
      * @return a String with towers upgrade title depending on upgrade level.
      */
-    public String getTowerUpgradeTitle(String towerName, int upgradeLevel) {
+    public static String getTowerUpgradeTitle(String towerName, int upgradeLevel) {
         String title = "";
         try {
             JSONObject upgradeObject = getUpgradeObject(towerName, upgradeLevel);
@@ -67,7 +69,7 @@ public class Upgrades {
      * @param upgradeLevel level up upgrade to get description of
      * @return a String with towers upgrade description depending on upgrade level.
      */
-    public String getTowerUpgradeDesc(String towerName, int upgradeLevel) {
+    public static String getTowerUpgradeDesc(String towerName, int upgradeLevel) {
         String desc = "";
         try {
             JSONObject upgradeObject = getUpgradeObject(towerName, upgradeLevel);
@@ -85,7 +87,7 @@ public class Upgrades {
      * @param upgradeLevel level of upgrade to get price from
      * @return a Long with towers upgrade price depending on upgrade level.
      */
-    public Long getTowerUpgradePrice(String towerName, int upgradeLevel) {
+    public static Long getTowerUpgradePrice(String towerName, int upgradeLevel) {
         Long price = 0L;
         try {
             JSONObject upgradeObject = getUpgradeObject(towerName, upgradeLevel);
@@ -96,9 +98,16 @@ public class Upgrades {
         return price;
     }
 
-    private JSONObject getUpgradeObject(String towerName, int upgradeLevel) throws NullPointerException {
-        JSONArray towerUpgradeArray = (JSONArray) mainObject.get(towerName);
-        return (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
+    private static JSONObject getUpgradeObject(String towerName, int upgradeLevel) throws NullPointerException {
+        JSONObject upgradeObject;
+        try {
+            JSONArray towerUpgradeArray = (JSONArray) mainObject.get(towerName);
+            upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
+        } catch (NullPointerException nullPointerException) {
+            throw new NullPointerException();
+        }
+
+        return upgradeObject;
     }
 
     /**
@@ -108,7 +117,7 @@ public class Upgrades {
      * @param upgradeLevel upgrade level to get upgrades from
      * @return a HashMap with upgrade data.
      */
-    private HashMap<String, Double> getTowerUpgradeData(String towerName, int upgradeLevel) {
+    private static HashMap<String, Double> getTowerUpgradeData(String towerName, int upgradeLevel) {
         HashMap<String, Double> upgrades = new HashMap<>();
         try {
             JSONObject upgradeObject = getUpgradeObject(towerName, upgradeLevel);

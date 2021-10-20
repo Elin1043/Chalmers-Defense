@@ -36,14 +36,12 @@ import java.util.List;
 public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final int WINNING_ROUND = 10;       // Current vinning round
     private final int LIVES = 100;              // Current amount of starting lives
-    private final int START_CAPITAL = 399;    // Current amount of start capital
+    private final int START_CAPITAL = 3990;    // Current amount of start capital
 
     private final GameTimer timer = new GameTimer(this);    // Timer object
     private Rounds round = new Rounds(WINNING_ROUND);              // Round helper
 
     private final Player player = new Player(LIVES, START_CAPITAL); // Player object
-    private final Upgrades upgrades = new Upgrades();   // Class for controlling upgrades
-
 
     private final Map map = new Map(player);        // Current map object
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());   // The class for spawning viruses
@@ -162,18 +160,18 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public String getTowerUpgradeTitle(String towerName, int upgradeLevel) {
-        return upgrades.getTowerUpgradeTitle(towerName, upgradeLevel);
+        return Upgrades.getTowerUpgradeTitle(towerName, upgradeLevel);
     }
 
 
     @Override
     public String getTowerUpgradeDesc(String towerName, int upgradeLevel) {
-        return upgrades.getTowerUpgradeDesc(towerName, upgradeLevel);
+        return Upgrades.getTowerUpgradeDesc(towerName, upgradeLevel);
     }
 
     @Override
     public Long getTowerUpgradePrice(String towerName, int upgradeLevel) {
-        return upgrades.getTowerUpgradePrice(towerName, upgradeLevel);
+        return Upgrades.getTowerUpgradePrice(towerName, upgradeLevel);
     }
 
     @Override
@@ -190,7 +188,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         else{
             cost += map.getClickedTower().getCost();
             for (int i = 2; i < map.getClickedTower().getUpgradeLevel() + 1; i++) {
-                cost += upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), i-1).intValue();
+                cost += Upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), i-1).intValue();
             }
             cost *= 0.6;
         }
@@ -211,12 +209,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public void upgradeClickedTower() {
-        if (upgrades.upgradeTower(map.getClickedTower())) {
-            player.decreaseMoney(upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), map.getClickedTower().getUpgradeLevel() - 1).intValue());
-
-            GetRangeCircle circle = map.getRangeCircle();
-            circle.updatePos(map.getClickedTower().getX() + getClickedTower().getWidth()/2, map.getClickedTower().getY() + getClickedTower().getHeight()/2, map.getClickedTower().getRange());
-        }
+        map.upgradeClickedTower();
     }
 
     @Override

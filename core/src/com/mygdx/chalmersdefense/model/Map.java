@@ -8,6 +8,7 @@ import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
+import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
@@ -413,6 +414,17 @@ class Map {
         }
         clickedTower = towerWasClicked;
 
+    }
+
+    /**
+     * Upgrades clicked tower if player has enough money
+     */
+    void upgradeClickedTower() {
+        if (Upgrades.upgradeTower(clickedTower)) {
+            player.decreaseMoney(Upgrades.getTowerUpgradePrice(clickedTower.getName(), clickedTower.getUpgradeLevel() - 1).intValue());
+
+            rangeCircle.updatePos(clickedTower.getX() + getClickedTower().getWidth()/2, clickedTower.getY() + getClickedTower().getHeight()/2, clickedTower.getRange());
+        }
     }
 
     /**
