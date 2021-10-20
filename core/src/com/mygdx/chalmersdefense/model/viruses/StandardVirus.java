@@ -21,6 +21,14 @@ final class StandardVirus extends Virus{
         super(health, path);
     }
 
+    /**
+     * Creates a virus object with specific values
+     * @param health health of the virus
+     * @param path  path to be used by virus
+     * @param x   x-coordinate of virus
+     * @param y   y-coordinate of virus
+     * @param wayPointIndex  wayPointIndex virus should walk towards
+     */
     StandardVirus(int health, Path path, float x, float y, int wayPointIndex) {
         super(health, path, x,y, wayPointIndex);
     }

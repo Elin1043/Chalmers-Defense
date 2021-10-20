@@ -54,6 +54,14 @@ abstract class Virus implements IVirus {
 
     }
 
+    /**
+     * Creates a virus object with specific values
+     * @param health health of the virus
+     * @param path  path to be used by virus
+     * @param x   x-coordinate of virus
+     * @param y   y-coordinate of virus
+     * @param currentMoveToVectorIndex  vectorIndex virus should walk towards
+     */
     Virus(int health, Path path,float x, float y, int currentMoveToVectorIndex) {
         this.health = health;
         this.path = path;
@@ -93,6 +101,9 @@ abstract class Virus implements IVirus {
         }
     }
 
+    /**
+     * Update the spriteKey if health > 0
+     */
     void seeIfUpdateSpriteKey() {
         if (health > 0) {
             updateSpriteKey();
@@ -101,6 +112,10 @@ abstract class Virus implements IVirus {
         }
     }
 
+    /**
+     * Set how much slowndown to be set on virus
+     * @param slowdown amount of slowdown
+     */
     void slowDownEffect(float slowdown){
         if (this.slowdown > slowdown) {
             this.slowdown = slowdown;
@@ -115,7 +130,10 @@ abstract class Virus implements IVirus {
         updateSlowTimer();
     }
 
-    // The normal speed calculation
+    /**
+     * Get the total speed of the virus
+     * @return total speed
+     */
     double getTotalVirusSpeed() {
         return ((3F + health) / 4F) * slowdown;
     }
