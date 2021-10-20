@@ -10,7 +10,7 @@ final public class Preferences {
     public Preferences() {
         putFloat("musicVolume", 0.2f);
         putFloat("soundEffectsVolume", 0);
-        putBoolean("autoplay", true);
+        putBoolean("autoplay", false);
         putBoolean("muteMusic", true);
         putBoolean("muteSoundEffects", false);
         putInteger("refreshRate", 60);
