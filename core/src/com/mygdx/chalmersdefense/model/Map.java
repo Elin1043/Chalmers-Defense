@@ -351,7 +351,7 @@ class Map {
 
         newTower.setPos(x - buttonWidth / 2f, y - buttonHeight / 2f);
 
-        if (!checkCollisionOfTower(newTower, windowHeight, windowWidth)) {
+        if (!checkCollisionOfTower(newTower, windowHeight, windowWidth) && (player.getMoney() >= newTower.getCost())) {
             newTower.setIfCanRemove(false);
             rangeCircle.updatePos(newTower.getX() + newTower.getWidth() / 2, newTower.getY() + newTower.getHeight() / 2, newTower.getRange());
             rangeCircle.setEnumColor(GetRangeCircle.Color.GRAY);
