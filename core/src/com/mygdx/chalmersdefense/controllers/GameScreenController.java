@@ -79,12 +79,10 @@ public class GameScreenController extends InputAdapter {
                 return true;
             }
             case (Input.Keys.NUM_1) -> {
-                // Don't work ATM
-                Matrix4 matrix = ScreenManager.getInstance().getCurrentScreen().getCamera().combined;
-                Vector2 v = ScreenManager.getInstance().getCurrentScreen().toScreenCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()), matrix);
+                Vector2 v = ScreenManager.getInstance().getCurrentScreen().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
                 model.dragStart("smurf", v.x, v.y);
-                model.onDrag(2, 2, v.x, v.y, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-                model.dragEnd(2, 2, v.x, v.y);
+                model.onDrag(100, 100, v.x, v.y, Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
+                model.dragEnd(100, 100, v.x, v.y);
                 return true;
             }
             default -> {
