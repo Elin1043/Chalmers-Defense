@@ -7,10 +7,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.mygdx.chalmersdefense.controllers.*;
-import com.mygdx.chalmersdefense.controllers.overlays.LostPanelOverlayController;
-import com.mygdx.chalmersdefense.controllers.overlays.PauseMenuOverlayController;
-import com.mygdx.chalmersdefense.controllers.overlays.SettingsOverlayController;
-import com.mygdx.chalmersdefense.controllers.overlays.WinPanelOverlayController;
+import com.mygdx.chalmersdefense.controllers.overlays.*;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.views.*;
@@ -43,6 +40,7 @@ public class ChalmersDefense extends Game {
         RightSidePanelController rightSidePanelController = new RightSidePanelController(model);
         BottomBarPanelController bottomBarPanelController = new BottomBarPanelController(model);
 
+        AbstractOverlayController abstractOverlayController = new AbstractOverlayController(model);
         PauseMenuOverlayController pauseMenuOverlayController = new PauseMenuOverlayController(model);
         SettingsOverlayController settingsOverlayController = new SettingsOverlayController(model, preferences);
         LostPanelOverlayController lostPanelOverlayController = new LostPanelOverlayController(model);
@@ -52,10 +50,10 @@ public class ChalmersDefense extends Game {
         AbstractScreen mainScreen = new MainScreen(model, mainScreenController);
         AbstractScreen gameScreen = new GameScreen(model, gameScreenController, rightSidePanelController, bottomBarPanelController);
 
-        AbstractOverlay pauseMenuOverlay = new PauseMenuOverlay(pauseMenuOverlayController);
-        AbstractOverlay settingsMenuOverlay = new SettingsOverlay(settingsOverlayController, preferences);
-        AbstractOverlay lostPanelOverlay = new LostPanelOverlay(lostPanelOverlayController);
-        AbstractOverlay winPanelOverlay = new WinPanelOverlay(winPanelOverlayController);
+        AbstractOverlay pauseMenuOverlay = new PauseMenuOverlay(abstractOverlayController, pauseMenuOverlayController);
+        AbstractOverlay settingsMenuOverlay = new SettingsOverlay(abstractOverlayController, settingsOverlayController, preferences);
+        AbstractOverlay lostPanelOverlay = new LostPanelOverlay(abstractOverlayController, lostPanelOverlayController);
+        AbstractOverlay winPanelOverlay = new WinPanelOverlay(abstractOverlayController, winPanelOverlayController);
 
         // Sound
         new Sounds(preferences);
