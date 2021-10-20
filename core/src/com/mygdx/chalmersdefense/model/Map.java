@@ -34,7 +34,7 @@ final class Map {
     private final List<IProjectile> projectilesList = new ArrayList<>();    // The main projectile list
     private final List<IVirus> virusesList = new ArrayList<>();             // The main virus list
     private final List<IGenericMapObject> genericObjectsList = new ArrayList<>();    // The main genericObjects list
-    private List<IPowerUp> powerUpList = PowerUpFactory.createPowerUps(towersList, virusesList); // List containing all power-ups
+    private final List<IPowerUp> powerUpList = PowerUpFactory.createPowerUps(towersList, virusesList); // List containing all power-ups
 
     private final List<ITower> towersToAddList = new ArrayList<>();             // Temporary list for object adding towers to the main list (To avoid concurrent modification issues)
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();   // Temporary list for object adding projectiles to the main list (To avoid concurrent modification issues)
@@ -71,11 +71,20 @@ final class Map {
         projectilesList.clear();
         virusesList.clear();
         genericObjectsList.clear();
-        powerUpList = PowerUpFactory.createPowerUps(towersList, virusesList);
+
+        resetAllPowerUps();
+
         clickedTower = null;
         isGameLost = false;
+
         // Removes range circle
         rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
+    }
+
+    private void resetAllPowerUps() {
+        for (IPowerUp powerUp : powerUpList) {
+            powerUp.resetPowerUp();
+        }
     }
 
     //Add all temporary list to the mainlist
@@ -171,7 +180,6 @@ final class Map {
         if(clickedTower != null){
             rangeCircle.updatePos(clickedTower.getX() + clickedTower.getWidth()/2,clickedTower.getY() + clickedTower.getHeight()/2,clickedTower.getRange());
         }
-
     }
 
     private void updatePowerUps() {
@@ -510,7 +518,9 @@ final class Map {
     void roundClear() {
         projectilesList.clear();
         genericObjectsList.clear();
-        powerUpList = PowerUpFactory.createPowerUps(towersList, virusesList);
+       // powerUpList = PowerUpFactory.createPowerUps(towersList, virusesList);
+        resetAllPowerUps();
+        updateRangeCircle();
     }
 
 

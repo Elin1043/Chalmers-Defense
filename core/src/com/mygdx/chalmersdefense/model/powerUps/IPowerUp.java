@@ -37,4 +37,9 @@ public interface IPowerUp {
      * @return cost
      */
     int getCost();
+
+    /**
+     * resets the power-ups to it's initial state
+     */
+    void resetPowerUp();
 }

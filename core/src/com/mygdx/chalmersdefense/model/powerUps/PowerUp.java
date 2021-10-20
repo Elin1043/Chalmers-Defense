@@ -13,16 +13,18 @@ abstract class PowerUp implements  IPowerUp{
     private boolean isActivated = false;              // If powerUp is activated
     private boolean canActivate = true;              // If powerUp can be activated
 
-    private final CountDownTimer cooldown;            // Cooldown of the powerUp
-    private final CountDownTimer powerUpTimer;        // Lifetime of the powerUp
+    private CountDownTimer cooldown;            // Cooldown of the powerUp
+    private CountDownTimer powerUpTimer;        // Lifetime of the powerUp
 
-    private final int cost;         // Cost of powerUp
-
+    private final int cost;             // Cost of powerUp
+    private final int lengthOfCooldown; // The final length of cooldown timer. Used when resetting timers
+    private final int lengthOfPowerUp;  // The final length of power-up timer. Used when resetting timers
 
     PowerUp(int lengthOfCooldown, int lengthOfPowerUp, int cost){
         cooldown = new CountDownTimer(lengthOfCooldown);
         powerUpTimer = new CountDownTimer(lengthOfPowerUp);
-
+        this.lengthOfCooldown = lengthOfCooldown;
+        this.lengthOfPowerUp = lengthOfPowerUp;
         this.cost = cost;
     }
 
@@ -82,5 +84,13 @@ abstract class PowerUp implements  IPowerUp{
     @Override
     public int getCost() {
         return cost;
+    }
+
+    @Override
+    public void resetPowerUp(){
+        cooldown = new CountDownTimer(lengthOfCooldown);
+        powerUpTimer = new CountDownTimer(lengthOfPowerUp);
+        isActivated = false;
+        canActivate = true;
     }
 }

@@ -31,5 +31,4 @@ final class CleanHands extends PowerUp{
             addGraphicsList.add(GenericMapObjectFactory.createBubbles(rand.nextInt(1921), rand.nextInt(1081), rand.nextInt(361)));
         }
     }
-
 }

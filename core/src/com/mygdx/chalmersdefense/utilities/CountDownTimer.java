@@ -32,7 +32,7 @@ final public class CountDownTimer {
      * Counts down timer and returns of it has reached zero
      * @return True - if the timer has reached zero, False - if the timer has not reached zero
      */
-    public boolean haveReachedZero(){   // TODO Question, is this okay? I both modify timer and return a boolean if the timer is done or should they be separated
+    public boolean haveReachedZero(){
         if (timerCountDown > 0){
             timerCountDown--;
             return false;
