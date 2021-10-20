@@ -147,7 +147,7 @@ final public class RightSidePanel {
         checkAffordableTowers();
         checkPowerUpButtonCooldown();
 
-
+        startRoundButton.setDisabled(model.isGameStopped());
 
         stage.act();
         stage.draw();

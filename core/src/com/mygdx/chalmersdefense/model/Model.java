@@ -264,4 +264,9 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     public List<IMapObject> getAllMapObjects() {
         return Collections.unmodifiableList(map.getAllMapObjects());
     }
+
+    @Override
+    public boolean isGameStopped() {
+        return !virusSpawner.isSpawning() && map.isVirusCleared();
+    }
 }

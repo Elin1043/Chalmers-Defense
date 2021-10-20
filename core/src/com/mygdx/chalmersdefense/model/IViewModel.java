@@ -129,4 +129,10 @@ public interface IViewModel {
      */
     //TODO Remove THIS when not needed
     List<IVirus> getViruses();
+
+    /**
+     * Returns if the game is stopped and the map is cleared from viruses
+     * @return a boolean for game state
+     */
+    boolean isGameStopped();
 }
