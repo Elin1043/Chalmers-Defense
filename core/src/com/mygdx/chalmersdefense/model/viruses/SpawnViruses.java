@@ -9,6 +9,8 @@ import java.util.Random;
 /**
  * @author Joel Båtsman Hilmersson
  * A class that controlls the spawning of viruses for the different rounds
+ *
+ * 2021-10-20 Modified by Elin Forsberg: Changed the spawnInfo to be more correct for each round
  */
 final public class SpawnViruses {
 
