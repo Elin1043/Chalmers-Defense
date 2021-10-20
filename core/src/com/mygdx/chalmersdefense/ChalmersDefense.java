@@ -51,6 +51,7 @@ public class ChalmersDefense extends Game {
         AbstractOverlay settingsMenuOverlay = new SettingsOverlay(abstractOverlayController, settingsOverlayController, preferences);
         AbstractOverlay lostPanelOverlay = new LostPanelOverlay(abstractOverlayController, lostPanelOverlayController);
         AbstractOverlay winPanelOverlay = new WinPanelOverlay(abstractOverlayController, winPanelOverlayController);
+        AbstractOverlay infoOverlay = new InfoOverlay(abstractOverlayController);
 
         // Sound
         new Sounds(preferences);
@@ -60,7 +61,7 @@ public class ChalmersDefense extends Game {
         ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
 
         // Init OverlayManager
-        OverlayManager.getInstance().initialize(pauseMenuOverlay, settingsMenuOverlay, lostPanelOverlay, winPanelOverlay);
+        OverlayManager.getInstance().initialize(pauseMenuOverlay, settingsMenuOverlay, lostPanelOverlay, winPanelOverlay, infoOverlay);
 
     }
 }
