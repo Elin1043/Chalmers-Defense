@@ -53,7 +53,7 @@ public class InfoOverlay extends AbstractOverlay {
             infoGroup.addActor(shortcutsLabel);
             shortcutsLabel.setPosition(backgroundImage.getX() + 405, backgroundImage.getY() + 355);
 
-            Label createdByLabel = new Label("Created by: Jenny Carlsson, Daniel Persson, Elin Forsberg and Joel Hilmersson Båtsman", FontFactory.getLabelStyle15Black());
+            Label createdByLabel = new Label("Created by: Jenny Carlsson, Daniel Persson, Elin Forsberg and Joel Båtsman Hilmersson", FontFactory.getLabelStyle15Black());
             infoGroup.addActor(createdByLabel);
             createdByLabel.setPosition(backgroundImage.getX() + 80, backgroundImage.getY() + 15);
 
