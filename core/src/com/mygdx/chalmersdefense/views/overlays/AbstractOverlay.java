@@ -1,6 +1,8 @@
 package com.mygdx.chalmersdefense.views.overlays;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -22,8 +24,12 @@ public abstract class AbstractOverlay {
     protected Stage stage;
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    public AbstractOverlay() {
+    private final InputMultiplexer multiplexer = new InputMultiplexer();
 
+    public AbstractOverlay(AbstractOverlayController abstractOverlayController) {
+        this.abstractOverlayController = abstractOverlayController;
+
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     /**
@@ -41,13 +47,16 @@ public abstract class AbstractOverlay {
      */
     public abstract void hideOverlay();
 
+    /**
+     * Sets overlay stage based on screen stage
+     * @param stage the stage of a screen to add overlay to
+     */
     public void setStage(Stage stage) {
         if (this.stage == null || !this.stage.equals(stage)) {
             this.stage = new Stage(stage.getViewport());
             initialize();
         }
     }
-
 
     /**
      * Generate gray transparent overlay background
