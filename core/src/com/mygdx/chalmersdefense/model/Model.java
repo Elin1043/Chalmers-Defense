@@ -50,7 +50,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     private ScreenOverlayEnum showOverlay = ScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
 
-    private Preferences preferences;
+    private final Preferences preferences;
 
     public Model(Preferences preferences) {
         this.preferences = preferences;
@@ -263,5 +263,10 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     @Override
     public List<IMapObject> getAllMapObjects() {
         return map.getAllMapObjects();
+    }
+
+    @Override
+    public boolean isGameStopped() {
+        return !virusSpawner.isSpawning() && map.isVirusCleared();
     }
 }
