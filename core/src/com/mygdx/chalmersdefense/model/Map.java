@@ -513,32 +513,21 @@ class Map {
 
 
     /**
-     * Method to handle a powerUp button being clicked
+     * Method to handle a powerUp button being clicked. Also checks if player have enough cost to buy powerup-
      * @param powerUpName name of the button that was clicked
      */
     void powerUpClicked(String powerUpName) {
-        switch (powerUpName) {
-            case "cleanHands" -> cleanHandsPowerUpClicked();
-            case "maskedUp"   -> maskedPowerUpClicked();
-            case "vaccinated" -> vaccinePowerUpClicked();
+        IPowerUp powerUp = switch (powerUpName) {
+            case "cleanHands" -> powerUpList.get(0);
+            case "maskedUp"   -> powerUpList.get(1);
+            case "vaccinated" -> powerUpList.get(2);
+            default -> null;
+        };
+
+        if ((player.getMoney() >= powerUp.getCost())) {
+            powerUp.powerUpClicked(genericObjectsList);
+            player.decreaseMoney(powerUp.getCost());
         }
     }
-
-    private void cleanHandsPowerUpClicked(){
-        powerUpList.get(0).powerUpClicked(genericObjectsList);
-        player.decreaseMoney(powerUpList.get(0).getCost());
-    }
-
-    private void maskedPowerUpClicked(){
-        powerUpList.get(1).powerUpClicked(genericObjectsList);
-        player.decreaseMoney(powerUpList.get(1).getCost());
-    }
-
-    private void vaccinePowerUpClicked(){
-        powerUpList.get(2).powerUpClicked(genericObjectsList);
-        player.decreaseMoney(powerUpList.get(1).getCost());
-    }
-
-
 
 }
