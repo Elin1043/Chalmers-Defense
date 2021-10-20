@@ -518,12 +518,16 @@ final class Map {
     }
 
     /**
+     * Returns the background image path to the image
+     */
+    String getMapImagePath(){ return path.getImagePath(); }
+
+    /**
      * Method to call when round is cleared, makes map ready for next round
      */
     void roundClear() {
         projectilesList.clear();
         genericObjectsList.clear();
-       // powerUpList = PowerUpFactory.createPowerUps(towersList, virusesList);
         resetAllPowerUps();
         updateRangeCircle();
     }

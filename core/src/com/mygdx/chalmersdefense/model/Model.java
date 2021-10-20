@@ -77,8 +77,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     private void checkRoundCompleted() {
-        if (map.isVirusCleared() && !virusSpawner.isSpawning()) {
-
+        if (isGameStopped()) {
             player.increaseMoney((int) (100 * (round.getCurrentRound() / 2f)));
 
             timer.stopUpdateTimer();
@@ -101,7 +100,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public void startGameUpdate() {
-        if (virusSpawner.isSpawning() || !map.isVirusCleared()) { timer.startUpdateTimer(); }
+        if (!isGameStopped()) { timer.startUpdateTimer(); }
     }
 
 
@@ -113,7 +112,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public void startRoundPressed() {
-        if (!virusSpawner.isSpawning() && map.isVirusCleared()) {
+        if (isGameStopped()) {
             timer.startUpdateTimer();
             round.incrementToNextRound();
             virusSpawner.spawnRound(round.getCurrentRound());
@@ -209,8 +208,6 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
         return map.getPowerUpActive();
     }
 
-
-
     @Override
     public void upgradeClickedTower() {
         if (upgrades.upgradeTower(map.getClickedTower())) {
@@ -277,4 +274,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     public boolean isGameStopped() {
         return !virusSpawner.isSpawning() && map.isVirusCleared();
     }
+
+    @Override
+    public String getMapImagePath() { return map.getMapImagePath(); }
 }

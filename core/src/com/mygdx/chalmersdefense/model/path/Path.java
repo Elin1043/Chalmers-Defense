@@ -21,18 +21,22 @@ public abstract class Path {
 
     private final int pathWidth;
 
-    protected final List<PositionVector> pathWaypoints = new ArrayList<>();
+    final List<PositionVector> pathWaypoints = new ArrayList<>();
     private final List<PathRectangle> collisionRectangles = new ArrayList<>();
 
-    protected Path(int pathWidth) {
+    Path(int pathWidth) {
         this.pathWidth = pathWidth;
     }
 
     /**
      * Creates path waypoints
      */
-    protected abstract void setPathWaypoints();
+    abstract void setPathWaypoints();
 
+    /**
+     * Returns the background image path to the image
+     */
+    public abstract String getImagePath();
 
     /**
      * Returns waypoint of given index
@@ -47,7 +51,7 @@ public abstract class Path {
     /**
      * Method for creating rectangles on path later used for collision
      */
-    protected void createMapCollision() {
+    void createMapCollision() {
         for (int i = 0; i < pathWaypoints.size() - 1; i++) {
             float posX = getWaypoint(i).getX();
             float posY = getWaypoint(i).getY();

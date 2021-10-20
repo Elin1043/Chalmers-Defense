@@ -40,6 +40,11 @@ public abstract class AbstractScreen extends Stage implements Screen {
         multiplexer.addProcessor(newProcessor);
     }
 
+    /**
+     * Sets background image of screen
+     */
+    abstract void setBackgroundImage();
+
     @Override
     public void render(float delta) {
         // Clear screen

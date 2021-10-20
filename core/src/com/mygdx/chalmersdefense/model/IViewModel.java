@@ -138,4 +138,10 @@ public interface IViewModel {
      * @return a boolean for game state
      */
     boolean isGameStopped();
+
+    /**
+     * Returns the background image path
+     * @return image path
+     */
+    String getMapImagePath();
 }
