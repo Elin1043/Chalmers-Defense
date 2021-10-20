@@ -55,11 +55,6 @@ final public class GameScreen extends AbstractScreen implements Screen {
     private final Image progressBarSmurf = new Image(new Texture("GameScreen/progressbar/SmurfImage.png"));     // Image of a smurf that is attached to progressbar knob
     private final Sprite waypointMarker = new Sprite(new Texture("GameScreen/progressbar/WaypointMarker.png")); // Sprite of waypoint markers
 
-    //private final InputMultiplexer multiplexer = new InputMultiplexer();
-
-    //private final TextureAtlas pauseButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.atlas")); // Load atlas file from skin
-    //private final Skin pauseButtonSkin = new Skin(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.json"), pauseButtonAtlas); // Create skin object
-    //private final Button pauseButton = new Button(pauseButtonSkin);  // Pause button located in the top left part of the screen
 
     private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
     private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
@@ -196,14 +191,16 @@ final public class GameScreen extends AbstractScreen implements Screen {
     }
 
     private void renderWaypointsOnProgressBar() {
-        int[][]  waypointData = {{1,1},{2,2},{3,3}};
+        int[][]  waypointData = {{1,1},{2,2},{3,3},{50,5}};
         float progressBarStepWidth = progressBar.getWidth()/progressBar.getMaxValue();
         for (int[] waypoint : waypointData) {
             Sprite virusSprite = spriteMap.get("virus" + waypoint[0]);
             float waypointPos = progressBar.getX() + waypoint[1] * progressBarStepWidth;
-            virusSprite.setPosition(waypointPos - virusSprite.getWidth()/2, 0);
-            virusSprite.setScale(0.5f);
 
+            virusSprite.setScale(0.5f);
+            if(waypoint[0] == 50){virusSprite.setScale(0.25f);}
+
+            virusSprite.setPosition(waypointPos - virusSprite.getWidth()/2, progressBar.getY() - virusSprite.getHeight()/2 -20);
             waypointMarker.setPosition(waypointPos, 58);
 
             batch.begin();

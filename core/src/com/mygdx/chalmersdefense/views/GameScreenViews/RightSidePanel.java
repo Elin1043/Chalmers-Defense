@@ -67,6 +67,8 @@ final public class RightSidePanel {
     private final Label maskedUpLabelPrice = createPowerUpPriceLabel("$100",1900, 300);
     private final Label vaccinatedLabelPrice = createPowerUpPriceLabel("$500",1900, 216);
 
+    private Button startRoundButton;
+
     public RightSidePanel(Stage stage, IViewModel model, RightSidePanelController rightSidePanelController) {
         this.stage = new Stage(stage.getViewport());
         this.model = model;
@@ -301,7 +303,7 @@ final public class RightSidePanel {
     private void createStartRoundButton() {
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.atlas")); // Load atlas file from skin
         Skin skin = new Skin(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.json"), atlas); // Create skin object
-        Button startRoundButton = new Button(skin);
+        startRoundButton = new Button(skin);
         startRoundButton.setPosition(1920 - WIDTH / 2F - startRoundButton.getWidth() / 2, 20);
 
         rightSidePanelController.addStartButtonListener(startRoundButton);
