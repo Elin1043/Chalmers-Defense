@@ -35,7 +35,7 @@ import java.util.List;
  */
 
 final public class Model implements IUpdateModel, IControllModel, IViewModel {
-    private final int WINNING_ROUND = 10;       // Current winning round
+    private final int WINNING_ROUND = 30;       // Current winning round
     private final int LIVES = 100;              // Current amount of starting lives
     private final int START_CAPITAL = 40000;    // Current amount of start capital
 
@@ -47,7 +47,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
 
     private final Map map = new Map(player);        // Current map object
-    private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());   // The class for spawning viruses
+    private final SpawnViruses virusSpawner = new SpawnViruses(map.getVirusesToAddList());   // The class for spawning viruses
 
     private ScreenOverlayEnum showOverlay = ScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
 
@@ -90,6 +90,8 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
             if (preferences.getBoolean("autoplay") && getCurrentRound() != 1 && !round.gameWon()) startRoundPressed();
         }
     }
+
+
 
     @Override
     public ITargetMode getClickedTowerTargetMode() {
@@ -255,6 +257,12 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     //TODO Remove THIS when not needed
+    @Override
+    public List<IVirus> getVirusesToAddList() {
+        return map.getVirusesToAddList();
+    }
+
+    //TODO Remove when not needed
     @Override
     public List<IVirus> getViruses() {
         return map.getViruses();

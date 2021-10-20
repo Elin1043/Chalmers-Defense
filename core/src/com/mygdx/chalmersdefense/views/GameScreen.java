@@ -150,7 +150,13 @@ final public class GameScreen extends AbstractScreen implements Screen {
 
         //TODO Remove when not needed
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            model.getViruses().add(VirusFactory.createVirusOne());
+            model.getVirusesToAddList().add(VirusFactory.createVirusOne());
+        }
+
+
+        //TODO Remove when not needed
+        if(Gdx.input.isKeyPressed(Input.Keys.K)) {
+            model.getViruses().clear();
         }
 
     }
@@ -191,7 +197,7 @@ final public class GameScreen extends AbstractScreen implements Screen {
     }
 
     private void renderWaypointsOnProgressBar() {
-        int[][]  waypointData = {{1,1},{2,2},{3,3},{50,5}};
+        int[][]  waypointData = {{1,1},{2,3},{3,6},{50,10},{4,12},{5,16},{50,20},{50,30}};
         float progressBarStepWidth = progressBar.getWidth()/progressBar.getMaxValue();
         for (int[] waypoint : waypointData) {
             Sprite virusSprite = spriteMap.get("virus" + waypoint[0]);
