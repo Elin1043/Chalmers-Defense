@@ -6,12 +6,26 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.chalmersdefense.model.IControllModel;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 
+
+/**
+ * @author Jenny Carlsson
+ * A controller class for overlay
+ */
 public class InfoOverlayController {
 
     private final IControllModel model;
 
     public InfoOverlayController(IControllModel model) {
         this.model = model;
+    }
+
+    public void addExitPauseMenuButtonClickListener(Button button) {
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                model.setShowOverlay(ScreenOverlayEnum.NONE);
+            }
+        });
     }
 
     
