@@ -38,6 +38,8 @@ public class MainScreen extends AbstractScreen {
         this.mainScreenController = mainScreenController;
         img = new Image(new Texture("HomeScreen.png"));
 
+        addToMultiplexer(mainScreenController);
+
         createPlayButton();
         createSettingsButton();
         createInfoButton();
