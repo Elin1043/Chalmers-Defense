@@ -27,7 +27,7 @@ import java.util.List;
  *
  * 2021-10-15 Modified by Elin Forsberg and Joel Båtsman Hilmmersson: Added methods for powerUps
  */
-class Map {
+final class Map {
     private ITower newTower;            // Temp helper for when new tower is added
     private ITower clickedTower;        // The current clicked tower
     private final List<ITower> towersList = new ArrayList<>();              // The main tower list
@@ -38,13 +38,14 @@ class Map {
 
     private final List<ITower> towersToAddList = new ArrayList<>();             // Temporary list for object adding towers to the main list (To avoid concurrent modification issues)
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();   // Temporary list for object adding projectiles to the main list (To avoid concurrent modification issues)
+    private final List<IVirus> virusToAddList = new ArrayList<>();             // Temporary list for object adding virus to the main list (To avoid concurrent modification issues)
 
     private final Player player;                                   // A reference to the Player object in the game
     private final Path path = PathFactory.createClassicPath();     // Current path
 
     private boolean isGameLost = false;     // Boolean if game is lost
 
-    private final GetRangeCircle rangeCircle = new GetRangeCircle();     // Helper class for showing gray range circle
+    private final GetRangeCircle rangeCircle = new GetRangeCircle(0,0,0);     // Helper class for showing gray range circle
 
     Map(Player player) { this.player = player; }
 
@@ -81,9 +82,11 @@ class Map {
     private void addTempListsToMainLists() {
         towersList.addAll(towersToAddList);
         projectilesList.addAll(projectilesToAddList);
+        virusesList.addAll(virusToAddList);
 
         towersToAddList.clear();
         projectilesToAddList.clear();
+        virusToAddList.clear();
     }
 
     //Update the projectiles
@@ -164,7 +167,7 @@ class Map {
         return -1;
     }
 
-    private void updateRangeCircle() {
+     private void updateRangeCircle() {
         if(clickedTower != null){
             rangeCircle.updatePos(clickedTower.getX() + clickedTower.getWidth()/2,clickedTower.getY() + clickedTower.getHeight()/2,clickedTower.getRange());
         }
@@ -172,7 +175,6 @@ class Map {
     }
 
     private void updatePowerUps() {
-
         for (IPowerUp powerUp : powerUpList){
             powerUp.decreaseTimer();
         }
@@ -477,7 +479,7 @@ class Map {
      * @return list of viruses
      */
     List<IVirus> getViruses() {
-        return virusesList;
+        return virusToAddList;
     }
     /**
      * Return the list of objects on map

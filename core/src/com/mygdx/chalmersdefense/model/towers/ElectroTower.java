@@ -10,7 +10,7 @@ import java.util.List;
  * @author Elin Forsberg
  * Class representing the ElectroTower
  */
-class ElectroTower extends Tower {
+final class ElectroTower extends Tower {
 
 
     ElectroTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes) {

@@ -13,7 +13,7 @@ import java.util.List;
  *
  * 2021-10-10 Modified by Joel Båtsman Hilmersson: Made Hackertower use MatrixProjectile <br>
  */
-class HackerTower extends Tower {
+final class HackerTower extends Tower {
 
     private final List<IProjectile> addToList;  // List to add new projectiles to
 

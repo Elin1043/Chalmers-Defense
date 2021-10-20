@@ -52,7 +52,7 @@ public abstract class AbstractOverlay {
     /**
      * Generate gray transparent overlay background
      */
-    protected void drawTransparentBackground() {
+    void drawTransparentBackground() {
         Gdx.gl.glEnable(GL_BLEND);
         Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -62,7 +62,7 @@ public abstract class AbstractOverlay {
         Gdx.gl.glDisable(GL_BLEND);
     }
 
-    protected ImageButton createExitPauseMenuButton(Group group, Image backgroundImage) {
+    ImageButton createExitPauseMenuButton(Group group, Image backgroundImage) {
         TextureRegion exitButtonTextureRegion = new TextureRegion(new Texture("GameScreen/overlays/ExitCrossButton.png"));
         TextureRegionDrawable exitButtonRegDrawable = new TextureRegionDrawable(exitButtonTextureRegion);
         ImageButton exitButton = new ImageButton(exitButtonRegDrawable); //Set the button up

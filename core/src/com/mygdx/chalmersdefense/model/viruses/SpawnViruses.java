@@ -10,14 +10,14 @@ import java.util.Random;
  * @author Joel Båtsman Hilmersson
  * A class that controlls the spawning of viruses for the different rounds
  */
-public class SpawnViruses {
+final public class SpawnViruses {
 
 
     //  "1|200"         spawns one virus of type "1 - Red" and then waits "200 milliseconds to next wave in round"
     //  "2*20|250|2000" spawns 20 viruses of type "2 - blue" with 250-millisecond delay and then waits 2000 milliseconds for the next wave
     //  "1/5|300|2000"  spawns a stair of virus types from 1 to 5 with a 300-millisecond delay, then waits 2000 milliseconds for the next wave
     private final String[][] spawnInfo = {
-            {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
+            {"6|600", "3|200", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
             {"5*5|50|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
             {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
             {"1|600", "2*20|50|400", "1/5|60|400", "5/1|60|200", "5|200", "5|100", "1|100", "5|200"},
@@ -197,6 +197,7 @@ public class SpawnViruses {
             case 3 -> listToAddVirusesTo.add(VirusFactory.createVirusThree());
             case 4 -> listToAddVirusesTo.add(VirusFactory.createVirusFour());
             case 5 -> listToAddVirusesTo.add(VirusFactory.createVirusFive());
+            case 6 -> listToAddVirusesTo.add(VirusFactory.createBossVirus(listToAddVirusesTo));
             default -> throw new IllegalVirusSequenceDataException("Data error on index " + waveIndex + " in block: " + Arrays.toString(currentRound));
         }
     }

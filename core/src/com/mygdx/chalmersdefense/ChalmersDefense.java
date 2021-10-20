@@ -1,7 +1,6 @@
 package com.mygdx.chalmersdefense;
 
 import com.badlogic.gdx.Game;
-
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.controllers.MainScreenController;
@@ -28,7 +27,7 @@ import com.mygdx.chalmersdefense.views.overlays.*;
  * 2021-10-13 Modified by Daniel Persson: Added preferences
  * 2021-10-14 Modified by Daniel Persson: Moved controller creation to this class
  */
-public class ChalmersDefense extends Game {
+final public class ChalmersDefense extends Game {
 
     @Override
     public void create() {
@@ -56,6 +55,7 @@ public class ChalmersDefense extends Game {
         AbstractOverlay lostPanelOverlay = new LostPanelOverlay(lostPanelOverlayController);
         AbstractOverlay winPanelOverlay = new WinPanelOverlay(winPanelOverlayController);
 
+        // Sound
         new Sounds(preferences);
 
         // Init ScreenManager

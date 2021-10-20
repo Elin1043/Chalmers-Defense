@@ -9,7 +9,7 @@ import com.mygdx.chalmersdefense.model.IUpdateModel;
  * A class containing metods related to the game timer. Wraps a timer object in it
  * The timer then calls update method in the given model
  */
-public class GameTimer {
+final public class GameTimer {
     private final Timer timer = new Timer();    // The timer object
     private Timer.Task task = new Timer.Task() {
         @Override

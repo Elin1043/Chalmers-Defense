@@ -12,7 +12,7 @@ import java.util.Random;
  *
  * 2021-10-15 Modified by Elin Forsberg: Implemented use of PowerUp factory and abstract PowerUp class
  */
-class CleanHands extends PowerUp{
+final class CleanHands extends PowerUp{
 
     CleanHands() {
         super(500, 500, 300);

@@ -2,7 +2,6 @@ package com.mygdx.chalmersdefense.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,8 +11,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.IMapObject;
@@ -21,7 +20,8 @@ import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
-import com.mygdx.chalmersdefense.views.GameScreenViews.*;
+import com.mygdx.chalmersdefense.views.GameScreenViews.BottomBarUpgradePanel;
+import com.mygdx.chalmersdefense.views.GameScreenViews.RightSidePanel;
 import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
 import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
 
@@ -38,11 +38,10 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * 2021-10-04 Modified by Daniel Persson: Refactored GameScreen into two seperate classes. BottomBarUpgradePanel and RightSidePanel <br>
  * 2021-10-05 Modified by Daniel Persson: Added WinPanelOverlay rendering if game is won <br>
  * 2021-10-11 Modified by Daniel Persson: Added overlay enums for displaying overlays <br>
+ * 2021-10-19 Modified by Joel Båtsman Hilmersson: Made class use superclass multiplexer for inputProcessor <br>
  * 2021-10-19 Modified by Daniel Persson: Added progressbar for displaying round progress <br>
  */
-public class GameScreen extends AbstractScreen implements Screen {
-
-    private final GameScreenController gameScreenController;   // GameScreens controller class
+final public class GameScreen extends AbstractScreen implements Screen {
 
     // Panels
     private final BottomBarUpgradePanel bottomBarUpgradePanel; // Upgrade panel object
@@ -56,11 +55,6 @@ public class GameScreen extends AbstractScreen implements Screen {
     private final Image progressBarSmurf = new Image(new Texture("GameScreen/progressbar/SmurfImage.png"));     // Image of a smurf that is attached to progressbar knob
     private final Sprite waypointMarker = new Sprite(new Texture("GameScreen/progressbar/WaypointMarker.png")); // Sprite of waypoint markers
 
-    private final InputMultiplexer multiplexer = new InputMultiplexer();
-
-    private final TextureAtlas pauseButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.atlas")); // Load atlas file from skin
-    private final Skin pauseButtonSkin = new Skin(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.json"), pauseButtonAtlas); // Create skin object
-    private final Button pauseButton = new Button(pauseButtonSkin);  // Pause button located in the top left part of the screen
 
     private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
     private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
@@ -70,40 +64,41 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    private final Image mapImage;
-
     public GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
         super();
-        this.gameScreenController = gameScreenController;
         this.rightSidePanel = new RightSidePanel(this, model, rightSidePanelController);
         this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, bottomBarPanelController, spriteMap, largeSpriteMap);
         this.model = model;
         this.stageHUD = new Stage(this.getViewport());
 
+        // Create skin object
+        // Load atlas file from skin
+        TextureAtlas pauseButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.atlas"));
+        Skin pauseButtonSkin = new Skin(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.json"), pauseButtonAtlas);
+        Button pauseButton = new Button(pauseButtonSkin);
         pauseButton.setPosition(10, 1070 - pauseButton.getHeight());
         gameScreenController.addPauseButtonClickListener(pauseButton);
 
         // This should come from classicPath class
-        mapImage = new Image(new Texture("ClassicMap.png"));
+        Image mapImage = new Image(new Texture("ClassicMap.png")); // TODO Hämta från Path
         mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
         gameScreenController.addMapClickListener(mapImage);
-
 
         // Background image for bottom part of HUD
         Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
         bottomBarPanelBackground.setPosition(0, 0);
+        Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
         stageHUD.addActor(bottomBarPanelBackground);
 
         // Background image for right part of HUD
-        Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
         sideBarBackground.setPosition(1920 - 320, 0);
         stageHUD.addActor(sideBarBackground);
 
         // Enables input from both stages at the same time
-        multiplexer.addProcessor(this);
-        multiplexer.addProcessor(bottomBarUpgradePanel.getStage());
-        multiplexer.addProcessor(rightSidePanel.getStage());
-        Gdx.input.setInputProcessor(multiplexer);
+        addToMultiplexer(bottomBarUpgradePanel.getStage());
+        addToMultiplexer(rightSidePanel.getStage());
+        addToMultiplexer(gameScreenController);
+        addToMultiplexer(rightSidePanelController);
 
 
         createProgressBar();
@@ -121,7 +116,6 @@ public class GameScreen extends AbstractScreen implements Screen {
     @Override
     public void render(float delta) {
         super.render(Gdx.graphics.getDeltaTime());
-        Gdx.input.setInputProcessor(multiplexer);
 
         renderRangeCircle();
         renderMapObjects();
@@ -157,10 +151,6 @@ public class GameScreen extends AbstractScreen implements Screen {
         //TODO Remove when not needed
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             model.getViruses().add(VirusFactory.createVirusOne());
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            model.startRoundPressed();
         }
 
     }
@@ -201,14 +191,16 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
     private void renderWaypointsOnProgressBar() {
-        int[][]  waypointData = {{1,1},{2,2},{3,3}};
+        int[][]  waypointData = {{1,1},{2,2},{3,3},{50,5}};
         float progressBarStepWidth = progressBar.getWidth()/progressBar.getMaxValue();
         for (int[] waypoint : waypointData) {
             Sprite virusSprite = spriteMap.get("virus" + waypoint[0]);
             float waypointPos = progressBar.getX() + waypoint[1] * progressBarStepWidth;
-            virusSprite.setPosition(waypointPos - virusSprite.getWidth()/2, 0);
-            virusSprite.setScale(0.5f);
 
+            virusSprite.setScale(0.5f);
+            if(waypoint[0] == 50){virusSprite.setScale(0.25f);}
+
+            virusSprite.setPosition(waypointPos - virusSprite.getWidth()/2, progressBar.getY() - virusSprite.getHeight()/2 -20);
             waypointMarker.setPosition(waypointPos, 58);
 
             batch.begin();

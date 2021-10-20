@@ -7,7 +7,7 @@ import com.mygdx.chalmersdefense.utilities.CountDownTimer;
  *
  * Class representing an area effected by the matrix. Slows down viruses that comes in contact
  */
-class MatrixArea extends Projectile {
+final class MatrixArea extends Projectile {
 
     private final CountDownTimer matrixTimer = new CountDownTimer(50); // Lifetime of MatrixArea
 

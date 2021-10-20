@@ -14,13 +14,13 @@ import java.util.Objects;
  * @author Daniel Persson
  * A class for storing and applying upgrades to towers.
  */
-public class Upgrades {
-    private final JSONParser parser = new JSONParser();     // Current Json parser
-    private final int MAX_UPGRADES = 3;                     // Current max upgrade level
+final public class Upgrades {
     private JSONObject mainObject;                          // The parsed json object
 
     public Upgrades() {
         try {
+            // Current Json parser
+            JSONParser parser = new JSONParser();
             mainObject = (JSONObject) parser.parse(new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("UpgradeData.json"))));
         } catch (IOException | ParseException exception) {
             exception.printStackTrace();
@@ -34,6 +34,8 @@ public class Upgrades {
      */
     public boolean upgradeTower(ITower tower) {
         // If tower is max upgraded don't upgrade
+        // Current max upgrade level
+        int MAX_UPGRADES = 3;
         if (tower.getUpgradeLevel() >= MAX_UPGRADES) return false;
 
         HashMap<String, Double> upgrades = getTowerUpgradeData(tower.getName(), tower.getUpgradeLevel());
@@ -110,7 +112,6 @@ public class Upgrades {
             JSONObject upgradeObject = (JSONObject) towerUpgradeArray.get(upgradeLevel - 1);
 
 
-            upgrades.put("attackDmgMul", (double) upgradeObject.get("attackDmgMul"));
             upgrades.put("attackSpeedMul",  (double) upgradeObject.get("attackSpeedMul"));
             upgrades.put("attackRangeMul", (double) upgradeObject.get("attackRangeMul"));
         } catch (NullPointerException exception) {

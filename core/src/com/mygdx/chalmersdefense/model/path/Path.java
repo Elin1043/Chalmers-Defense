@@ -55,23 +55,30 @@ public abstract class Path {
             float nextY = getWaypoint(i + 1).getY();
 
             if (posX == nextX) {
-                float distY = Math.abs((nextY - posY));
-
-                if (posY < nextY) {
-                    collisionRectangles.add(new PathRectangle(posX - pathWidth / 2F, posY - pathWidth / 2F, pathWidth, distY + pathWidth));
-                } else {
-                    collisionRectangles.add(new PathRectangle(posX - pathWidth / 2F, posY - distY - pathWidth / 2F, pathWidth, distY + pathWidth));
-                }
+                verticalPathHandler(posX, posY, nextY);
             } else {
-                float distX = Math.abs((nextX - posX));
-
-                if (posX < nextX) {
-                    collisionRectangles.add(new PathRectangle(posX - pathWidth / 2F, posY - pathWidth / 2F, distX, pathWidth));
-                } else {
-                    collisionRectangles.add(new PathRectangle(posX - pathWidth / 2F - distX, posY - pathWidth / 2F, distX, pathWidth));
-                }
-
+                horizontalPathHandler(posX, posY, nextX);
             }
+        }
+    }
+
+    private void verticalPathHandler(float posX, float posY, float nextY) {
+        float distY = Math.abs((nextY - posY));     // The path length in y direction
+
+        if (posY < nextY) {  // The coordinates need to be calculated differently if the path goes up or down
+            collisionRectangles.add(createUpRectangle(posX, posY, distY));
+        } else {
+            collisionRectangles.add(createDownRectangle(posX, posY, distY));
+        }
+    }
+
+    private void horizontalPathHandler(float posX, float posY, float nextX) {
+        float distX = Math.abs((nextX - posX));     // The path length in x direction
+
+        if (posX < nextX) {  // The coordinates need to be calculated differently if the path goes right or left
+            collisionRectangles.add(createRightRectangle(posX, posY, distX));
+        } else {
+            collisionRectangles.add(createLeftRectangle(posX, posY, distX));
         }
     }
 
@@ -84,4 +91,21 @@ public abstract class Path {
         return collisionRectangles;
     }
 
+
+    // Create path rectangles differently based on direction
+    private PathRectangle createUpRectangle(float posX, float posY, float distY) {
+        return new PathRectangle(posX - (pathWidth / 2F), posY - (pathWidth / 2F), pathWidth, distY + pathWidth);
+    }
+
+    private PathRectangle createDownRectangle(float posX, float posY, float distY) {
+        return new PathRectangle(posX - (pathWidth / 2F), posY - distY - (pathWidth / 2F), pathWidth, distY + pathWidth);
+    }
+
+    private PathRectangle createRightRectangle(float posX, float posY, float distX) {
+        return new PathRectangle(posX - (pathWidth / 2F), posY - (pathWidth / 2F), distX, pathWidth);
+    }
+
+    private PathRectangle createLeftRectangle(float posX, float posY, float distX) {
+        return new PathRectangle(posX - distX - (pathWidth / 2F), posY - (pathWidth / 2F), distX, pathWidth);
+    }
 }

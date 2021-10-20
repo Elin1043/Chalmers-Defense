@@ -18,7 +18,7 @@ import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
  * @author Daniel Persson
  * A class for rendering the main screen in the game
  */
-public class MainScreen extends AbstractScreen {
+final public class MainScreen extends AbstractScreen {
     Image img;
 
     private ImageButton playButton;
@@ -75,7 +75,6 @@ public class MainScreen extends AbstractScreen {
     @Override
     public void render(float delta) {
         super.render(Gdx.graphics.getDeltaTime());
-        Gdx.input.setInputProcessor(this);
 
         OverlayManager.getInstance().showOverlay(model.showOverlay());
         AbstractOverlay abstractOverlay = OverlayManager.getInstance().getCurrentOverlay();

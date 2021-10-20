@@ -4,6 +4,9 @@ import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -40,5 +43,12 @@ public class TestVirusFactory {
     public void testCreateVirusFive() {
         IVirus v = VirusFactory.createVirusFive();
         assertEquals(5, v.getLifeDecreaseAmount());
+    }
+
+    @Test
+    public void testCreateBossVirus() {
+        List<IVirus> virusList = new ArrayList<>();
+        IVirus v = VirusFactory.createBossVirus(virusList);
+        assertEquals(50, v.getLifeDecreaseAmount());
     }
 }

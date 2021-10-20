@@ -8,7 +8,7 @@ package com.mygdx.chalmersdefense.utilities;
  * Class representing a positionVector
  */
 
-public class PositionVector {
+public final class PositionVector {
 
     private final float x;  // The x coordinate
     private final float y;  // The y coordinate
