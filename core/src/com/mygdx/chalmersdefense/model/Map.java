@@ -483,11 +483,16 @@ final class Map {
 
 
     /**
-     * Returns the list of viruses
+     * Returns the list to add viruses to
      * @return list of viruses
      */
-    List<IVirus> getViruses() {
+    List<IVirus> getVirusesToAddList() {
         return virusToAddList;
+    }
+
+    //TODO Remove when not needed
+    List<IVirus> getViruses() {
+        return virusesList;
     }
     /**
      * Return the list of objects on map

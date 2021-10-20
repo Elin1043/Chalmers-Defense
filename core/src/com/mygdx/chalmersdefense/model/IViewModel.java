@@ -128,6 +128,9 @@ public interface IViewModel {
      * @return the list of viruses
      */
     //TODO Remove THIS when not needed
+    List<IVirus> getVirusesToAddList();
+
+    //TODO Remove when not needed
     List<IVirus> getViruses();
 
     /**
