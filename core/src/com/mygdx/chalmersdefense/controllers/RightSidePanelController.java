@@ -64,26 +64,26 @@ public class RightSidePanelController extends InputAdapter {
             @Override
             public void dragStart(InputEvent event, float x, float y, int pointer) {
                 String towerName = event.getListenerActor().getName();
-                ImageButton button = (ImageButton) event.getListenerActor();
+                Button button = (Button) event.getListenerActor();
                 model.dragStart(towerName, button.getX(), button.getY());
             }
 
             @Override
             public void drag(InputEvent event, float x, float y, int pointer) {
-                ImageButton button = (ImageButton) event.getListenerActor();
+                Button button = (Button) event.getListenerActor();
                 float inputX = event.getStageX();
                 float inputY = event.getStageY();
                 int windowHeight = Gdx.graphics.getHeight();
                 int windowWidth = Gdx.graphics.getWidth();
-                model.onDrag((button.getImage().getWidth() / 2), (button.getImage().getHeight() / 2), inputX, inputY, windowHeight, windowWidth);
+                model.onDrag((button.getWidth() / 2), (button.getHeight() / 2), inputX, inputY, windowHeight, windowWidth);
             }
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
-                ImageButton button = (ImageButton) event.getListenerActor();
+                Button button = (Button) event.getListenerActor();
                 float inputX = event.getStageX();
                 float inputY = event.getStageY();
-                model.dragEnd((button.getImage().getWidth() / 2), (button.getImage().getHeight() / 2), inputX, inputY);
+                model.dragEnd((button.getWidth() / 2), (button.getHeight() / 2), inputX, inputY);
             }
         });
 

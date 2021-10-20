@@ -2,13 +2,10 @@ package com.mygdx.chalmersdefense.views.GameScreenViews;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.IViewModel;
@@ -35,15 +32,15 @@ final public class RightSidePanel {
     private final Label powerUpLabel = createLabel("Power-ups", 620);
 
 
-    private final HashMap<Integer, ImageButton> towerButtons = new HashMap<>();
+    private final HashMap<Integer, Button> towerButtons = new HashMap<>();
     private final HashMap<Button, Integer> powerUpButtons = new HashMap<>();
 
-    private final ImageButton smurfButton = createRightPanelButtons(new Texture("buttons/TowerButtons/SmurfButton.png"), 1616, 830, "smurf");
-    private final ImageButton chemistButton = createRightPanelButtons(new Texture("buttons/TowerButtons/ChemistButton.png"), 1766, 830, "chemist");
-    private final ImageButton electroButton = createRightPanelButtons(new Texture("buttons/TowerButtons/ElectroButton.png"), 1766, 650, "electro");
-    private final ImageButton hackerButton = createRightPanelButtons(new Texture("buttons/TowerButtons/HackerButton.png"), 1616, 650, "hacker");
-    private final ImageButton mechButton = createRightPanelButtons(new Texture("buttons/TowerButtons/MeckoButton.png"), 1616, 470, "mech");
-    private final ImageButton ecoButton = createRightPanelButtons(new Texture("buttons/TowerButtons/EcoButton.png"), 1766, 470, "eco");
+    private final Button smurfButton = createTowerButton("Smurf");
+    private final Button chemistButton = createTowerButton("Chemist");
+    private final Button electroButton = createTowerButton("Electro");
+    private final Button hackerButton = createTowerButton("Hacker");
+    private final Button mechButton = createTowerButton("Mecho");
+    private final Button ecoButton = createTowerButton( "Eco");
 
 
     private final Button cleanHandsPowerUpButton = createPowerUpButton("CleanHands");
@@ -78,21 +75,11 @@ final public class RightSidePanel {
     }
 
     private void initialize() {
-        towerButtons.put(100, smurfButton);
-        towerButtons.put(200, chemistButton);
-        towerButtons.put(300, hackerButton);
-        towerButtons.put(400, electroButton);
-        towerButtons.put(500, mechButton);
-        towerButtons.put(600, ecoButton);
+
 
         initializePowerUpButtons();
+        initializeTowerButtons();
 
-        stage.addActor(smurfButton);
-        stage.addActor(chemistButton);
-        stage.addActor(hackerButton);
-        stage.addActor(electroButton);
-        stage.addActor(mechButton);
-        stage.addActor(ecoButton);
 
         stage.addActor(towerLabel);
         stage.addActor(powerUpLabel);
@@ -127,19 +114,51 @@ final public class RightSidePanel {
         powerUpButtons.put(cleanHandsPowerUpButton,300);
         powerUpButtons.put(vaccinatedPowerUpButton,500 );
 
-        cleanHandsPowerUpButton.setPosition(1620, 329);
-        cleanHandsPowerUpButton.setName("cleanHands");
-
-        maskedUpPowerUpButton.setPosition(1620, 245);
-        maskedUpPowerUpButton.setName("maskedUp");
-
-        vaccinatedPowerUpButton.setPosition(1620, 161);
-        vaccinatedPowerUpButton.setName("vaccinated");
-
+        placeButton(cleanHandsPowerUpButton, 1620,329, "cleanHands");
+        placeButton(maskedUpPowerUpButton, 1620,245, "maskedUp");
+        placeButton(vaccinatedPowerUpButton, 1620,161, "vaccinated");
 
         stage.addActor(cleanHandsPowerUpButton);
         stage.addActor(maskedUpPowerUpButton);
         stage.addActor(vaccinatedPowerUpButton);
+    }
+
+    private void initializeTowerButtons(){
+        Label towerPriceLabel;
+
+        towerButtons.put(100, smurfButton);
+        towerButtons.put(200, chemistButton);
+        towerButtons.put(300, hackerButton);
+        towerButtons.put(400, electroButton);
+        towerButtons.put(500, mechButton);
+        towerButtons.put(600, ecoButton);
+
+        placeButton(smurfButton, 1616, 830, "smurf");
+        placeButton(chemistButton, 1766, 830, "chemist");
+        placeButton(hackerButton, 1616, 650, "electro");
+        placeButton(electroButton, 1766,650, "cleanHands");
+        placeButton(mechButton, 1616, 470, "mech");
+        placeButton(ecoButton, 1766, 470, "eco");
+
+        stage.addActor(smurfButton);
+        stage.addActor(chemistButton);
+        stage.addActor(hackerButton);
+        stage.addActor(electroButton);
+        stage.addActor(mechButton);
+        stage.addActor(ecoButton);
+
+        for (Integer i : towerButtons.keySet()) {
+            towerPriceLabel = createTowerPriceLabel("$" + i, towerButtons.get(i).getX(), towerButtons.get(i).getY() +10, towerButtons.get(i).getWidth());
+            stage.addActor(towerPriceLabel);
+        }
+
+
+
+    }
+
+    private void placeButton(Button button, int x, int y, String name) {
+        button.setPosition(x, y);
+        button.setName(name);
     }
 
     /**
@@ -171,16 +190,14 @@ final public class RightSidePanel {
         return new Button(skin);
     }
 
-    private ImageButton createRightPanelButtons(Texture texture, int x, int y, String name) {
-        TextureRegion buttonTextureRegion = new TextureRegion(texture);
-        TextureRegionDrawable buttonRegDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        ImageButton button = new ImageButton(buttonRegDrawable); //Set the button up
-        button.setPosition(x, y);
-        button.setName(name);
+    private Button createTowerButton(String name){
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/towerButtons/" + name + "ButtonSkin.atlas")); // Load atlas file from skin
+        Skin skin = new Skin(Gdx.files.internal("buttons/towerButtons/" + name + "ButtonSkin.json"), atlas); // Create skin object
 
-        return button;
-
+        return new Button(skin);
     }
+
+
 
 
     private void addButtonListener() {
@@ -254,11 +271,11 @@ final public class RightSidePanel {
         for (Integer i : towerButtons.keySet()) {
             if (model.getMoney() >= i && !towerButtons.get(i).isTouchable()) {
                 towerButtons.get(i).setTouchable(Touchable.enabled);
-                towerButtons.get(i).getImage().setColor(Color.WHITE);
+                towerButtons.get(i).setDisabled(false);
 
             } else if (model.getMoney() < i && towerButtons.get(i).isTouchable()) {
                 towerButtons.get(i).setTouchable(Touchable.disabled);
-                towerButtons.get(i).getImage().setColor(new Color(Color.LIGHT_GRAY));
+                towerButtons.get(i).setDisabled(true);
             }
         }
     }
@@ -296,6 +313,14 @@ final public class RightSidePanel {
         label.setPosition(1688,y);
         label.setWrap(true);
         label.setWidth(220);
+        return label;
+    }
+
+    private Label createTowerPriceLabel(String text, float x, float y, float width) {
+        Label label = new Label(text, FontFactory.getLabelStyle24BlackSemiBold());
+        label.setWidth(width);
+        label.setPosition(x,y);
+        label.setAlignment(Align.center);
         return label;
     }
 

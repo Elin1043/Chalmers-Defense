@@ -1,0 +1,20 @@
+
+ChemistButtonSkin.png
+size: 512, 512
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+ChemistButton
+  rotate: false
+  xy: 1, 171
+  size: 139, 168
+  orig: 139, 168
+  offset: 0, 0
+  index: -1
+ChemistButtonRed
+  rotate: false
+  xy: 1, 1
+  size: 138, 168
+  orig: 138, 168
+  offset: 0, 0
+  index: -1
