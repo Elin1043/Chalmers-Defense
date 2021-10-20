@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
 import com.mygdx.chalmersdefense.controllers.overlays.WinPanelOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
@@ -30,7 +31,8 @@ public class WinPanelOverlay extends AbstractOverlay {
 
     private final Image backgroundImage = new Image(new Texture("GameScreen/WinPanelBackgroundImage.png")); // Background image of overlay
 
-    public WinPanelOverlay(WinPanelOverlayController winPanelOverlayController) {
+    public WinPanelOverlay(AbstractOverlayController abstractOverlayController, WinPanelOverlayController winPanelOverlayController) {
+        super(abstractOverlayController);
         this.winPanelOverlayController = winPanelOverlayController;
     }
 
@@ -79,13 +81,7 @@ public class WinPanelOverlay extends AbstractOverlay {
 
     @Override
     public void render() {
-        Gdx.input.setInputProcessor(stage);
-
-        drawTransparentBackground();
-
-        stage.act();
-        stage.draw();
-
+        super.render();
         winPanelGroup.setVisible(true);
     }
 

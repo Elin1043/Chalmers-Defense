@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
 import com.mygdx.chalmersdefense.controllers.overlays.SettingsOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 import com.mygdx.chalmersdefense.utilities.Preferences;
@@ -30,11 +31,14 @@ public class SettingsOverlay extends AbstractOverlay {
     private Slider soundEffectsSlider;
     private final Label soundEffectsPercentLabel = new Label("100%", FontFactory.getLabelStyle18Black());
 
+    private CheckBox isFullscreenCheckBox;
+
     private CheckBox refreshRateCheckbox60;
     private CheckBox refreshRateCheckbox144;
     private CheckBox refreshRateCheckbox165;
 
-    public SettingsOverlay(SettingsOverlayController settingsOverlayController, Preferences preferences) {
+    public SettingsOverlay(AbstractOverlayController abstractOverlayController, SettingsOverlayController settingsOverlayController, Preferences preferences) {
+        super(abstractOverlayController);
         this.settingsOverlayController = settingsOverlayController;
         this.preferences = preferences;
     }
@@ -78,7 +82,8 @@ public class SettingsOverlay extends AbstractOverlay {
             settingsOverlayController.addAutoplayClickListener(createCheckBox("", 270, 129));
 
             createLabels("Fullscreen:", backgroundImage.getX() + 590, backgroundImage.getY() + 125);
-            settingsOverlayController.addFullscreenClickListener(createCheckBox("", 610, 129));
+            isFullscreenCheckBox = createCheckBox("", 610, 129);
+            settingsOverlayController.addFullscreenClickListener(isFullscreenCheckBox);
 
             createLabels("Refresh rate:", backgroundImage.getX() + 250, backgroundImage.getY() + 50);
             createRefreshRateButtons();
@@ -87,17 +92,13 @@ public class SettingsOverlay extends AbstractOverlay {
 
     @Override
     public void render() {
-        Gdx.input.setInputProcessor(stage);
-
-        drawTransparentBackground();
-
         goBackButton.setVisible(ScreenManager.getInstance().getCurrentScreenEnum() != ScreenEnum.MAIN_MENU);
 
         updateValueLabels();
+        isFullscreenCheckBox.setChecked(Gdx.graphics.isFullscreen());
         updateRefreshRateCheckBoxes();
 
-        stage.act();
-        stage.draw();
+        super.render();
         settingsMenuGroup.setVisible(true);
     }
 

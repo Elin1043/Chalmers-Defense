@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
 import com.mygdx.chalmersdefense.controllers.overlays.LostPanelOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
@@ -27,7 +28,8 @@ public class LostPanelOverlay extends AbstractOverlay {
 
     private final Image backgroundImage = new Image(new Texture("GameScreen/LostPanelBackgroundImage.png")); // Background image of overlay
 
-    public LostPanelOverlay(LostPanelOverlayController lostPanelOverlayController) {
+    public LostPanelOverlay(AbstractOverlayController abstractOverlayController, LostPanelOverlayController lostPanelOverlayController) {
+        super(abstractOverlayController);
         this.lostPanelOverlayController = lostPanelOverlayController;
     }
 
@@ -78,15 +80,8 @@ public class LostPanelOverlay extends AbstractOverlay {
 
     @Override
     public void render() {
-        Gdx.input.setInputProcessor(stage);
-
-        drawTransparentBackground();
-
-        stage.act();
-        stage.draw();
-
+        super.render();
         lostPanelGroup.setVisible(true);
-
     }
 
     @Override
