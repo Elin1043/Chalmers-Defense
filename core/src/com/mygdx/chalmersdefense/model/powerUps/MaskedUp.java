@@ -33,9 +33,6 @@ final class MaskedUp extends PowerUp{
     @Override
     public void decreaseTimer() {
         super.decreaseTimer();
-
-        System.out.println(getIsActive());
-        System.out.println(getCurrentTime());
         if (getIsActive() && getCurrentTime() <= 0) {
             deActivatePowerUp();
         }
@@ -66,7 +63,7 @@ final class MaskedUp extends PowerUp{
 
     @Override
     public void resetPowerUp(){
-        deActivatePowerUp();
+        if (getIsActive()){ deActivatePowerUp(); }
         super.resetPowerUp();
     }
 }

@@ -17,10 +17,7 @@ final public class ScreenManager {
 
     private Game game;
 
-    private ScreenManager() {
-        super();
-
-    }
+    private ScreenManager() { }
 
     /**
      * Returns this instance
@@ -56,6 +53,7 @@ final public class ScreenManager {
         currentScreen = getScreen(screenEnum);
         currentScreenEnum = screenEnum;
         if (currentScreen != null) {
+
             game.setScreen(currentScreen);
         }
     }
