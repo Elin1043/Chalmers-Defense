@@ -35,7 +35,7 @@ import java.util.List;
  */
 
 final public class Model implements IUpdateModel, IControllModel, IViewModel {
-    private final int WINNING_ROUND = 10;       // Current vinning round
+    private final int WINNING_ROUND = 10;       // Current winning round
     private final int LIVES = 100;              // Current amount of starting lives
     private final int START_CAPITAL = 40000;    // Current amount of start capital
 

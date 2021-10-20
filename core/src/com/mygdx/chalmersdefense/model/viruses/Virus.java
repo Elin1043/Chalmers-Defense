@@ -14,6 +14,7 @@ import java.util.Objects;
  * A class that representates the common enemy type for the game
  * <p>
  * 2021-09-24 Modified by Elin Forsberg: Added methods to decrease health of virus and check if it's dead
+ * 2021-10-19 Modified by Elin Forsberg: Added another constructor to be used by the BossVirus
  */
 abstract class Virus implements IVirus {
     private int health; // Current health of virus

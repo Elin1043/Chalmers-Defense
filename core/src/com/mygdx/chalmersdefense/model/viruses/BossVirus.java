@@ -9,7 +9,7 @@ import java.util.List;
  *
  * Class representing boss virus
  */
-final public class BossVirus extends Virus{
+final class BossVirus extends Virus{
 
 
     private final Path path; // The path to send to new viruses
