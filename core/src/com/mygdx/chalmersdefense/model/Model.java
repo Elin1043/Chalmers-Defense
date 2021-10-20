@@ -170,7 +170,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
-    public Long getTowerUpgradePrice(String towerName, int upgradeLevel) {
+    public Integer getTowerUpgradePrice(String towerName, int upgradeLevel) {
         return Upgrades.getTowerUpgradePrice(towerName, upgradeLevel);
     }
 
@@ -188,7 +188,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         else{
             cost += map.getClickedTower().getCost();
             for (int i = 2; i < map.getClickedTower().getUpgradeLevel() + 1; i++) {
-                cost += Upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), i-1).intValue();
+                cost += Upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), i - 1);
             }
             cost *= 0.6;
         }
