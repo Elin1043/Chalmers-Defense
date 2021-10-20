@@ -120,7 +120,7 @@ abstract class Virus implements IVirus {
         if (this.slowdown > slowdown) {
             this.slowdown = slowdown;
         }
-        slowDownTimer = 800;
+        slowDownTimer = 600;
     }
 
 
