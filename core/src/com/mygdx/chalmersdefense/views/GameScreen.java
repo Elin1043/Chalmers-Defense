@@ -83,7 +83,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         // This should come from classicPath class
         Image mapImage = new Image(new Texture("ClassicMap.png")); // TODO Hämta från Path
-        mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
+        mapImage.setPosition(0, bottomBarPanelBackground.getHeight());
         gameScreenController.addMapClickListener(mapImage);
 
 
