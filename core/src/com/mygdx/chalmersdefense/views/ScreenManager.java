@@ -53,7 +53,7 @@ final public class ScreenManager {
         currentScreen = getScreen(screenEnum);
         currentScreenEnum = screenEnum;
         if (currentScreen != null) {
-
+            currentScreen.setBackgroundImage();
             game.setScreen(currentScreen);
         }
     }

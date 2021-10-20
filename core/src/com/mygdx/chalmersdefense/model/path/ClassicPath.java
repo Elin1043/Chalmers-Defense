@@ -41,5 +41,10 @@ final class ClassicPath extends Path {
         }
     }
 
+    @Override
+    public String getImagePath() {
+        return "ClassicMap.png";
+    }
+
 
 }

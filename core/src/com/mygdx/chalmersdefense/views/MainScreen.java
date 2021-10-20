@@ -19,8 +19,6 @@ import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
  * A class for rendering the main screen in the game
  */
 final public class MainScreen extends AbstractScreen {
-    Image img;
-
     private ImageButton playButton;
     private Button settingsButton;
 
@@ -35,11 +33,9 @@ final public class MainScreen extends AbstractScreen {
         super();
         this.model = model;
         this.mainScreenController = mainScreenController;
-        img = new Image(new Texture("HomeScreen.png"));
 
         createPlayButton();
         createSettingsButton();
-        addActor(img);
         addActor(playButton);
         addActor(quitButton);
         addActor(settingsButton);
@@ -65,6 +61,12 @@ final public class MainScreen extends AbstractScreen {
         settingsButton = new Button(settingsButtonSkin);
         mainScreenController.addSettingsButtonClickListener(settingsButton);
         settingsButton.setPosition(430,110);
+    }
+
+    @Override
+    void setBackgroundImage() {
+        Image img = new Image(new Texture("HomeScreen.png"));
+        getActors().insert(0, img);
     }
 
     /**

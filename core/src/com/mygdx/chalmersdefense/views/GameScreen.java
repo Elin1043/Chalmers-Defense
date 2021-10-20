@@ -42,6 +42,7 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * 2021-10-19 Modified by Daniel Persson: Added progressbar for displaying round progress <br>
  */
 final public class GameScreen extends AbstractScreen implements Screen {
+    private final GameScreenController gameScreenController;
 
     // Panels
     private final BottomBarUpgradePanel bottomBarUpgradePanel; // Upgrade panel object
@@ -70,6 +71,7 @@ final public class GameScreen extends AbstractScreen implements Screen {
         this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, bottomBarPanelController, spriteMap, largeSpriteMap);
         this.model = model;
         this.stageHUD = new Stage(this.getViewport());
+        this.gameScreenController = gameScreenController;
 
         // Create skin object
         // Load atlas file from skin
@@ -106,6 +108,13 @@ final public class GameScreen extends AbstractScreen implements Screen {
         addActor(mapImage);
         addActor(pauseButton);
         createLifeAndMoneyIcon();
+    }
+
+    @Override
+    void setBackgroundImage(){
+        Image mapImage = new Image(new Texture(model.getMapImagePath())); // TODO Hämta från Path
+        mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
+        gameScreenController.addMapClickListener(mapImage);
     }
 
     /**
