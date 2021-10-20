@@ -22,7 +22,7 @@
       "title": "Exploiting virus data",
       "desc": "The hacking causes damage",
       "price": 400,
-      "attackSpeedMul": 0.8,
+      "attackSpeedMul": 1.1,
       "attackRangeMul": 1.0,
       "projectileSpeedMul": 1.1
     },
@@ -30,7 +30,7 @@
       "title": "Into the matrix",
       "desc": "Manipulating the viruses more efficiently",
       "price": 1000,
-      "attackSpeedMul": 0.7,
+      "attackSpeedMul": 1.2,
       "attackRangeMul": 1.0,
       "projectileSpeedMul": 1.2
     }
@@ -66,7 +66,7 @@
       "title": "Thor's hammer",
       "desc": "Lightning travels further",
       "price": 1800,
-      "attackSpeedMul": 0.8,
+      "attackSpeedMul": 1.0,
       "attackRangeMul": 1.0,
       "projectileSpeedMul": 1.0
     }
