@@ -148,8 +148,8 @@ final public class RightSidePanel {
         stage.addActor(ecoButton);
 
         for (Integer i : towerButtons.keySet()) {
-            towerPriceLabel = createTowerPriceLabel("$" + i, towerButtons.get(i).getX(), towerButtons.get(i).getY() +10, towerButtons.get(i).getWidth());
-            stage.addActor(towerPriceLabel);
+            towerPriceLabel = createTowerPriceLabel("$" + i, 0, 10, towerButtons.get(i).getWidth());
+            towerButtons.get(i).addActor(towerPriceLabel);
         }
 
 
@@ -191,8 +191,8 @@ final public class RightSidePanel {
     }
 
     private Button createTowerButton(String name){
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/towerButtons/" + name + "ButtonSkin.atlas")); // Load atlas file from skin
-        Skin skin = new Skin(Gdx.files.internal("buttons/towerButtons/" + name + "ButtonSkin.json"), atlas); // Create skin object
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/towerButtonSkin/" + name + "ButtonSkin.atlas")); // Load atlas file from skin
+        Skin skin = new Skin(Gdx.files.internal("buttons/towerButtonSkin/" + name + "ButtonSkin.json"), atlas); // Create skin object
 
         return new Button(skin);
     }
