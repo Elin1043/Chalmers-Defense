@@ -79,10 +79,27 @@ public class GameScreenController extends InputAdapter {
                 return true;
             }
             case (Input.Keys.NUM_1) -> {
-                Vector2 v = ScreenManager.getInstance().getCurrentScreen().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
-                model.dragStart("smurf", v.x, v.y);
-                model.onDrag(100, 100, v.x, v.y, Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-                model.dragEnd(100, 100, v.x, v.y);
+                placeTowerAtMousePosition("smurf");
+                return true;
+            }
+            case (Input.Keys.NUM_2) -> {
+                placeTowerAtMousePosition("chemist");
+                return true;
+            }
+            case (Input.Keys.NUM_3) -> {
+                placeTowerAtMousePosition("electro");
+                return true;
+            }
+            case (Input.Keys.NUM_4) -> {
+                placeTowerAtMousePosition("hacker");
+                return true;
+            }
+            case (Input.Keys.NUM_5) -> {
+                placeTowerAtMousePosition("mech");
+                return true;
+            }
+            case (Input.Keys.NUM_6) -> {
+                placeTowerAtMousePosition("eco");
                 return true;
             }
             default -> {
@@ -90,5 +107,12 @@ public class GameScreenController extends InputAdapter {
             }
         }
 
+    }
+
+    private void placeTowerAtMousePosition(String name) {
+        Vector2 v = ScreenManager.getInstance().getCurrentScreen().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+        model.dragStart(name, v.x, v.y);
+        model.onDrag(60, 80, v.x, v.y, Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
+        model.dragEnd(60, 80, v.x, v.y);
     }
 }
