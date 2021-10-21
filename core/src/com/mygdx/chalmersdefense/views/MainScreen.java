@@ -40,7 +40,6 @@ final public class MainScreen extends AbstractScreen {
         createPlayButton();
         createSettingsButton();
         createInfoButton();
-        addActor(img);
         addActor(playButton);
         addActor(quitButton);
         addActor(settingsButton);
