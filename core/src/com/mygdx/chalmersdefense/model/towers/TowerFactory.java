@@ -70,7 +70,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower CreateMech(float startPosX, float startPosY, List<ITower> towerToAddList, List<ITower> allTowers, List<PathRectangle> pathRectangles) {
-        return new MechTower(startPosX, startPosY, "Mechoman", 60 * 3, 500, 200, TargetModeFactory.getTargetModes(), towerToAddList, allTowers, pathRectangles);
+        return new MechTower(startPosX, startPosY, "Mechoman", 60 * 3, 500, 200, towerToAddList, allTowers, pathRectangles);
     }
 
     /**

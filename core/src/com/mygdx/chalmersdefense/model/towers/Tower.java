@@ -237,4 +237,10 @@ abstract class Tower implements ITower {
         isPlaced = true;
     }
 
+    /**
+     * Returns the current targetmode index in the targetmode list
+     * @return the current targetmode index
+     */
+    int getCurrentTargetModeIndex() { return targetModes.indexOf(currentTargetMode); }
+
 }
