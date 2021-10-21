@@ -22,8 +22,8 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * Class representing an AbstractOverlay
  */
 public abstract class AbstractOverlay {
-    private final AbstractOverlayController abstractOverlayController;
-    protected Stage stage;
+    final AbstractOverlayController abstractOverlayController;
+    Stage stage;
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     private final InputMultiplexer multiplexer = new InputMultiplexer();

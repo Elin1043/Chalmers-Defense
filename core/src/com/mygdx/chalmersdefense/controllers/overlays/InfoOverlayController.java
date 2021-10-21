@@ -19,14 +19,6 @@ public class InfoOverlayController {
         this.model = model;
     }
 
-    public void addExitPauseMenuButtonClickListener(Button button) {
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                model.setShowOverlay(ScreenOverlayEnum.NONE);
-            }
-        });
-    }
 
     
 }

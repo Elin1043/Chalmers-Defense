@@ -53,7 +53,7 @@ public class SettingsOverlay extends AbstractOverlay {
             goBackButton = createGoBackButton();
 
             ImageButton exitButton = createExitPauseMenuButton(settingsMenuGroup, backgroundImage);
-            settingsOverlayController.addExitPauseMenuButtonClickListener(exitButton);
+            abstractOverlayController.addExitOverlayButtonClickListener(exitButton);
 
             // Creates title
             Label settingsTitleLabel = new Label("Settings", FontFactory.getLabelStyle36BlackBold());

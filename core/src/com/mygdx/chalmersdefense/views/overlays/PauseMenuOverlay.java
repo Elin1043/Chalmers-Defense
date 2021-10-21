@@ -41,7 +41,7 @@ public class PauseMenuOverlay extends AbstractOverlay {
             backgroundImage.setPosition(stage.getWidth()/2 - backgroundImage.getWidth()/2, stage.getHeight()/2 - backgroundImage.getHeight()/2);
             createButtons();
             ImageButton exitButton = createExitPauseMenuButton(pauseMenuGroup, backgroundImage);
-            pauseMenuOverlayController.addExitPauseMenuButtonClickListener(exitButton);
+            abstractOverlayController.addExitOverlayButtonClickListener(exitButton);
         }
     }
 

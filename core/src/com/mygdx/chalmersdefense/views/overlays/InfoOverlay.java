@@ -39,7 +39,7 @@ public class InfoOverlay extends AbstractOverlay {
 
             backgroundImage.setPosition(stage.getWidth()/2 - backgroundImage.getWidth()/2, stage.getHeight()/2 - backgroundImage.getHeight()/2);
             ImageButton exitButton = createExitPauseMenuButton(infoGroup, backgroundImage);
-            infoOverlayController.addExitPauseMenuButtonClickListener(exitButton);
+            abstractOverlayController.addExitOverlayButtonClickListener(exitButton);
 
             Label infoTitleLabel = new Label("Game info", FontFactory.getLabelStyle36BlackBold());
             infoGroup.addActor(infoTitleLabel);
