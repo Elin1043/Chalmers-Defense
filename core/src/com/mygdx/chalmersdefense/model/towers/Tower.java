@@ -97,20 +97,28 @@ abstract class Tower implements ITower {
     @Override
     public void changeTargetMode(boolean goRight){
         if(goRight){
-            if(targetModes.indexOf(currentTargetMode) >= targetModes.size()-1){
-                currentTargetMode = targetModes.get(0);
-            }
-            else{
-                currentTargetMode = targetModes.get(targetModes.indexOf(currentTargetMode) + 1);
-            }
+            goRight();
         }
         else{
-            if(targetModes.indexOf(currentTargetMode) <= 0){
-                currentTargetMode = targetModes.get(targetModes.size()-1);
-            }
-            else{
-                currentTargetMode = targetModes.get(targetModes.indexOf(currentTargetMode) - 1);
-            }
+            goLeft();
+        }
+    }
+
+    private void goRight(){
+        if(targetModes.indexOf(currentTargetMode) >= targetModes.size()-1){
+            currentTargetMode = targetModes.get(0);
+        }
+        else{
+            currentTargetMode = targetModes.get(targetModes.indexOf(currentTargetMode) + 1);
+        }
+    }
+
+    private void goLeft(){
+        if(targetModes.indexOf(currentTargetMode) <= 0){
+            currentTargetMode = targetModes.get(targetModes.size()-1);
+        }
+        else{
+            currentTargetMode = targetModes.get(targetModes.indexOf(currentTargetMode) - 1);
         }
     }
 
