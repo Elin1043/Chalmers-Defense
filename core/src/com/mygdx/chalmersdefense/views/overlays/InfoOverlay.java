@@ -7,28 +7,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
-import com.mygdx.chalmersdefense.controllers.overlays.InfoOverlayController;
-import com.mygdx.chalmersdefense.controllers.overlays.PauseMenuOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * @author Jenny Carlsson
  * A class to display info overlay
  */
-
 public class InfoOverlay extends AbstractOverlay {
-    private final InfoOverlayController infoOverlayController;
 
-    private final Group infoGroup = new Group();
+    private final Group infoGroup = new Group(); // Group to add all actors to
 
-    private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/InfoBackgroundImage.png"));
+    private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/InfoBackgroundImage.png")); // Background image for overlay
 
-    public InfoOverlay(AbstractOverlayController abstractOverlayController, InfoOverlayController infoOverlayController) {
+    public InfoOverlay(AbstractOverlayController abstractOverlayController) {
         super(abstractOverlayController);
-        this.infoOverlayController = infoOverlayController;
     }
 
     @Override
@@ -41,41 +33,48 @@ public class InfoOverlay extends AbstractOverlay {
             ImageButton exitButton = createExitPauseMenuButton(infoGroup, backgroundImage);
             abstractOverlayController.addExitOverlayButtonClickListener(exitButton);
 
-            Label infoTitleLabel = new Label("Game info", FontFactory.getLabelStyle36BlackBold());
-            infoGroup.addActor(infoTitleLabel);
-            infoTitleLabel.setPosition(backgroundImage.getX() + (backgroundImage.getWidth() / 2 - infoTitleLabel.getWidth() / 2), backgroundImage.getY() + 525);
-
-            Label gameTipsLabel = new Label("Game Tips:", FontFactory.getLabelStyle24BlackSemiBold());
-            infoGroup.addActor(gameTipsLabel);
-            gameTipsLabel.setPosition(backgroundImage.getX() + 60, backgroundImage.getY() + 355);
-
-            Label shortcutsLabel = new Label("Shortcuts:", FontFactory.getLabelStyle24BlackSemiBold());
-            infoGroup.addActor(shortcutsLabel);
-            shortcutsLabel.setPosition(backgroundImage.getX() + 405, backgroundImage.getY() + 355);
-
-            Label createdByLabel = new Label("Created by: Jenny Carlsson, Daniel Persson, Elin Forsberg and Joel Båtsman Hilmersson", FontFactory.getLabelStyle15Black());
-            infoGroup.addActor(createdByLabel);
-            createdByLabel.setPosition(backgroundImage.getX() + 80, backgroundImage.getY() + 15);
-
-            Label textLabel = new Label("Chalmers Defence is a game of strategy, with a graphical user interface inspired by Chalmers University of Technology. Gather your forces and defend the campus!!!  ", FontFactory.getLabelStyle24Black());
-            infoGroup.addActor(textLabel);
-            textLabel.setPosition(backgroundImage.getX() + 40 , backgroundImage.getY() + 450);
-            textLabel.setAlignment(Align.center);
-            textLabel.setWrap(true);
-            textLabel.setWidth(700);
-
-            Label tipListLabel = new Label("Place the towers thoughtfully and develop strategies to defeat the enemies.\n\nUse the economy tower to increase money income.\n\nUpgrade your towers to make them even stronger.\n\nUse power ups to momentarily boost your game.", FontFactory.getLabelStyle18Black());
-            infoGroup.addActor(tipListLabel);
-            tipListLabel.setPosition(backgroundImage.getX() + 60, backgroundImage.getY() + 140);
-            tipListLabel.setWrap(true);
-            tipListLabel.setWidth(300);
-
-            Label shortkeyListLabel = new Label("F11: Toggle fullscreen \n\nESC:  Pause game \nSPACE:  Start round/speed up \n\nM: Activate \"Masked up\" power up \nV: Activate \"Vaccinated\" power up \nC: Activate \"Clean hands\" power up \n\nNumbers 1-6: Place tower where the mouse is (1 is top left, 6 is bottom right) " , FontFactory.getLabelStyle18Black());
-            infoGroup.addActor(shortkeyListLabel);
-            shortkeyListLabel.setPosition(backgroundImage.getX() + 405, backgroundImage.getY() + 120);
-            shortkeyListLabel.setWrap(true);
-            shortkeyListLabel.setWidth(350);
+            createLabels();
         }
+    }
+
+    /**
+     * Method for creating labels
+     */
+    private void createLabels() {
+        Label infoTitleLabel = new Label("Game info", FontFactory.getLabelStyle36BlackBold());
+        infoGroup.addActor(infoTitleLabel);
+        infoTitleLabel.setPosition(backgroundImage.getX() + (backgroundImage.getWidth() / 2 - infoTitleLabel.getWidth() / 2), backgroundImage.getY() + 525);
+
+        Label gameTipsLabel = new Label("Game Tips:", FontFactory.getLabelStyle24BlackSemiBold());
+        infoGroup.addActor(gameTipsLabel);
+        gameTipsLabel.setPosition(backgroundImage.getX() + 60, backgroundImage.getY() + 355);
+
+        Label shortcutsLabel = new Label("Shortcuts:", FontFactory.getLabelStyle24BlackSemiBold());
+        infoGroup.addActor(shortcutsLabel);
+        shortcutsLabel.setPosition(backgroundImage.getX() + 405, backgroundImage.getY() + 355);
+
+        Label createdByLabel = new Label("Created by: Jenny Carlsson, Daniel Persson, Elin Forsberg and Joel Båtsman Hilmersson", FontFactory.getLabelStyle15Black());
+        infoGroup.addActor(createdByLabel);
+        createdByLabel.setPosition(backgroundImage.getX() + 80, backgroundImage.getY() + 15);
+
+        Label textLabel = new Label("Chalmers Defence is a game of strategy, with a graphical user interface inspired by Chalmers University of Technology. Gather your forces and defend the campus!!!  ", FontFactory.getLabelStyle24Black());
+        infoGroup.addActor(textLabel);
+        textLabel.setPosition(backgroundImage.getX() + 40 , backgroundImage.getY() + 450);
+        textLabel.setAlignment(Align.center);
+        textLabel.setWrap(true);
+        textLabel.setWidth(700);
+
+        Label tipListLabel = new Label("Place the towers thoughtfully and develop strategies to defeat the enemies.\n\nUse the economy tower to increase money income.\n\nUpgrade your towers to make them even stronger.\n\nUse power ups to momentarily boost your game.", FontFactory.getLabelStyle18Black());
+        infoGroup.addActor(tipListLabel);
+        tipListLabel.setPosition(backgroundImage.getX() + 60, backgroundImage.getY() + 140);
+        tipListLabel.setWrap(true);
+        tipListLabel.setWidth(300);
+
+        Label shortkeyListLabel = new Label("F11: Toggle fullscreen \n\nESC:  Pause game \nSPACE:  Start round/speed up \n\nM: Activate \"Masked up\" power up \nV: Activate \"Vaccinated\" power up \nC: Activate \"Clean hands\" power up \n\nNumbers 1-6: Place tower where the mouse is (1 is top left, 6 is bottom right) " , FontFactory.getLabelStyle18Black());
+        infoGroup.addActor(shortkeyListLabel);
+        shortkeyListLabel.setPosition(backgroundImage.getX() + 405, backgroundImage.getY() + 120);
+        shortkeyListLabel.setWrap(true);
+        shortkeyListLabel.setWidth(350);
     }
 
     @Override

@@ -109,6 +109,7 @@ public class GameScreenController extends InputAdapter {
 
     }
 
+    //Places tower at mouse location
     private void placeTowerAtMousePosition(String name) {
         Vector2 v = ScreenManager.getInstance().getCurrentScreen().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
         model.dragStart(name, v.x, v.y);
