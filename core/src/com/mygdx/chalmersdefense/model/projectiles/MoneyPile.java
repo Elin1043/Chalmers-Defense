@@ -7,7 +7,7 @@ import com.mygdx.chalmersdefense.utilities.CountDownTimer;
  * <p>
  * 2021-10-07 Modified by Joel Båtsman Hilmersson: Made class package private
  * <p>
- * Class representing a money projectile
+ * Class representing money pile
  */
 
 final class MoneyPile extends Projectile{

@@ -146,6 +146,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
         spriteMap.put("mechaProjectile1", new Sprite(new Texture("projectiles/mechaProjectile1.png")));
         spriteMap.put("mechaProjectile2", new Sprite(new Texture("projectiles/mechaProjectile2.png")));
         spriteMap.put("mechaProjectile3", new Sprite(new Texture("projectiles/mechaProjectile3.png")));
+        spriteMap.put("wrenchProjectile", new Sprite(new Texture("projectiles/wrenchProjectile.png")));
         spriteMap.put("money1", new Sprite(new Texture("projectiles/money1.png")));
         spriteMap.put("money2", new Sprite(new Texture("projectiles/money2.png")));
         spriteMap.put("money3", new Sprite(new Texture("projectiles/money3.png")));

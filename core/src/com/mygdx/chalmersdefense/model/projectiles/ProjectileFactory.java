@@ -88,4 +88,16 @@ public abstract class ProjectileFactory {
     static public IProjectile createMoneyPile(float towerX, float towerY, int upgradeLevel) {
         return new MoneyPile(towerX, towerY, upgradeLevel);
     }
+
+    /**
+     * Creates a projectile of type WrenchProjectile
+     *
+     * @param towerX       the x - coordinate of the tower shooting the projectile
+     * @param towerY       the y - coordinate of the tower shooting the projectile
+     * @param angle        the angle of the tower shooting the projectile
+     * @return the created projectile
+     */
+    static public IProjectile createWrenchProjectile(float towerX, float towerY, float angle) {
+        return new WrenchProjectile(towerX, towerY, angle);
+    }
 }
