@@ -135,13 +135,14 @@ final class Map {
         for (IVirus virus : virusesList) {
             if (virus.getY() > 1130 || virus.isDead()) {
                 virusToRemove.add(virus);
-                if (virus.isDead()) {
-                    player.increaseMoney(1); // TODO Change amount later (maybe)
-                }
             }
             virus.update();
         }
 
+        removeDeadVirusesHandler(virusToRemove);
+    }
+
+    private void removeDeadVirusesHandler(List<IVirus> virusToRemove) {
         for (IVirus virus : virusToRemove) {
             try {
                 player.decreaseLivesBy(virus.getLifeDecreaseAmount());
@@ -150,7 +151,6 @@ final class Map {
             }
             virusesList.remove(virus);
         }
-
     }
 
     //Update the projectiles
@@ -158,15 +158,7 @@ final class Map {
         List<IProjectile> removeProjectiles = new ArrayList<>();
 
         for (IProjectile projectile : projectilesList) {
-            List<IVirus> virusThatWasHit = new ArrayList<>();
-
-            if (checkCollisionOfProjectiles(projectile, virusThatWasHit)) {
-                float angle = getAngleToVirus(projectile, virusThatWasHit);
-                projectile.update(true, virusThatWasHit.get(0).hashCode(), angle);
-            } else {
-                projectile.update(false, -1, -1);
-            }
-
+            projectileUpdateHandler(projectile);
             if (projectile.canRemove() || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
                 removeProjectiles.add(projectile);
             }
@@ -175,62 +167,46 @@ final class Map {
         projectilesList.removeAll(removeProjectiles);
     }
 
-    //Updates the rangeCircle
-    private void updateRangeCircle() {
-        if(clickedTower != null){
-            rangeCircle.updatePos(clickedTower.getX() + clickedTower.getWidth()/2,clickedTower.getY() + clickedTower.getHeight()/2,clickedTower.getRange());
+    private void projectileUpdateHandler(IProjectile projectile) {
+        List<IVirus> virusThatWasHit = new ArrayList<>();
+
+        if (checkCollisionOfProjectiles(projectile, virusThatWasHit)) {
+            float angle = getAngleToVirus(projectile, virusThatWasHit);
+            projectile.update(true, virusThatWasHit.get(0).hashCode(), angle);
+        } else {
+            projectile.update(false, -1, -1);
         }
     }
-
-    //Updates the powerUps
-    private void updatePowerUps() {
-        for (IPowerUp powerUp : powerUpList){
-            powerUp.decreaseTimer();
-        }
-
-        if (powerUpList.get(0).getIsActive()){
-            for (int i = 0; i < 3; i++) { updateTowers(); }
-        }
-
-    }
-
-    //Update all the genericObjects
-    private void updateGenericObjects(){
-        List<IGenericMapObject> removeList = new ArrayList<>();
-
-        for (IGenericMapObject object : genericObjectsList) {
-            object.update();
-            if(object.canRemove()){ removeList.add(object); }
-        }
-
-        genericObjectsList.removeAll(removeList);
-    }
-
 
     //Checks if projectile collided with path, then virus
-    private boolean checkCollisionOfProjectiles(IProjectile projectile, List<IVirus> removeList) {
+    private boolean checkCollisionOfProjectiles(IProjectile projectile, List<IVirus> virusThatWasHit) {
         for (PathRectangle rectangle : path.getCollisionRectangles()) {
             if (Calculate.objectsIntersects(projectile, rectangle)) {
-                return checkVirusAndProjectileCollision(projectile, removeList);
+                return checkVirusAndProjectileCollision(projectile, virusThatWasHit);
             }
         }
         return false;
     }
 
     //Helper method for collision between virus and projectile
-    private boolean checkVirusAndProjectileCollision(IProjectile projectile, List<IVirus> removeList) {
+    private boolean checkVirusAndProjectileCollision(IProjectile projectile, List<IVirus> virusThatWasHit) {
 
         for (IVirus virus : virusesList) {
             if (Calculate.objectsIntersects(projectile, virus) && !projectile.haveHitBefore(virus.hashCode())) {
-                int virusHealthBefore = virus.getLifeDecreaseAmount();
-                virus.decreaseHealth(projectile.getDamageAmount());
-
-                player.increaseMoney(virusHealthBefore - virus.getLifeDecreaseAmount());    // This will add the correct amount of money to the player relative to the amount of damage done
-                removeList.add(virus);
+                virusAndProjectileHitHandler(projectile, virusThatWasHit, virus);
                 return true;
             }
         }
+
         return false;
+    }
+
+    private void virusAndProjectileHitHandler(IProjectile projectile, List<IVirus> virusThatWasHit, IVirus virus) {
+        int virusHealthBefore = virus.getLifeDecreaseAmount();
+
+        virus.decreaseHealth(projectile.getDamageAmount());
+        player.increaseMoney(virusHealthBefore - virus.getLifeDecreaseAmount());    // This will add the correct amount of money to the player relative to the amount of damage done
+        virusThatWasHit.add(virus);
     }
 
     //Get angle to virus in range of projectile
@@ -238,8 +214,8 @@ final class Map {
         List<IVirus> virusInRange = getTargetableViruses(projectile,removeList);
 
         if (virusInRange.size() > 0) {
-            IVirus v = virusInRange.get(0);
-            return Calculate.angleDeg(v.getX(), v.getY(), projectile.getX(), projectile.getY());
+            IVirus virus = virusInRange.get(0);
+            return Calculate.angleDeg(virus.getX(), virus.getY(), projectile.getX(), projectile.getY());
         }
         return -1;
     }
@@ -258,13 +234,42 @@ final class Map {
         return virusInRange;
     }
 
+    //Updates the rangeCircle
+    private void updateRangeCircle() {
+        if(clickedTower != null){
+            rangeCircle.updatePos(clickedTower.getX() + clickedTower.getWidth()/2,clickedTower.getY() + clickedTower.getHeight()/2,clickedTower.getRange());
+        }
+    }
+
+    //Update all the genericObjects
+    private void updateGenericObjects(){
+        List<IGenericMapObject> removeList = new ArrayList<>();
+
+        for (IGenericMapObject object : genericObjectsList) {
+            object.update();
+            if(object.canRemove()){ removeList.add(object); }
+        }
+
+        genericObjectsList.removeAll(removeList);
+    }
+
+    //Updates the powerUps
+    private void updatePowerUps() {
+        for (IPowerUp powerUp : powerUpList){
+            powerUp.decreaseTimer();
+        }
+
+        if (powerUpList.get(0).getIsActive()){
+            for (int i = 0; i < 3; i++) { updateTowers(); }
+        }
+    }
 
 
     /**
      * Returns the timers for all power-ups
      * @return Array with all timers in it
      */
-    int[] getPowerUpTimer(){
+    int[] getPowerUpTimers(){
         int[] timers = new int[powerUpList.size()];
 
         for (int i = 0; i < powerUpList.size(); i++){
@@ -278,7 +283,7 @@ final class Map {
      * Returns a list with the active status of all power-ups
      * @return Array with current active status of power-ups
      */
-    boolean[] getPowerUpActive(){
+    boolean[] getPowerUpActiveStatus(){
         boolean[] powerUpsActive = new boolean[powerUpList.size()];
 
         for (int i = 0; i < powerUpList.size(); i++){
@@ -287,8 +292,6 @@ final class Map {
 
         return powerUpsActive;
     }
-
-
 
 
     //Check if coordinates are outside the screen
@@ -410,8 +413,6 @@ final class Map {
             rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
             clickedTower = null;
         }
-
-
     }
 
 
@@ -430,9 +431,9 @@ final class Map {
                 towerWasClicked = tower;
                 rangeCircle.updatePos(towerCenterX, towerCenterY, tower.getRange());
                 rangeCircle.setEnumColor(GetRangeCircle.Color.GRAY);
-
             }
         }
+
         if (towerWasClicked == null) {
             rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
         }
@@ -560,13 +561,15 @@ final class Map {
             default -> throw new IllegalStateException(); // TODO Custom exception???
         };
 
+        handlePowerUpClicked(powerUp);
+    }
+
+    private void handlePowerUpClicked(IPowerUp powerUp) {
         if ((player.getMoney() >= powerUp.getCost()) && !powerUp.getIsActive() && powerUp.getTimer() == -1) {
             powerUp.powerUpClicked(genericObjectsList);
             player.decreaseMoney(powerUp.getCost());
         }
     }
-
-
 
 
 }

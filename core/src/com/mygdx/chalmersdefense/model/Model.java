@@ -182,28 +182,35 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public int getClickedTowerSellPrice() {
-        double cost = 0;
+        float cost;
         if(map.getClickedTower().getUpgradeLevel() == 1){
-            cost = (map.getClickedTower().getCost() * 0.6);
+            cost = (map.getClickedTower().getCost() * 0.6F);
         }
         else{
-            cost += map.getClickedTower().getCost();
-            for (int i = 2; i < map.getClickedTower().getUpgradeLevel() + 1; i++) {
-                cost += upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), i-1).intValue();
-            }
-            cost *= 0.6;
+            cost = upgradedTowerSellPrice();
         }
-        return (int)cost;
+        return Math.round(cost);
+    }
+
+    private float upgradedTowerSellPrice() {
+        float cost = map.getClickedTower().getCost();
+
+        for (int i = 2; i < map.getClickedTower().getUpgradeLevel() + 1; i++) {
+            cost += upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), i-1).intValue();
+        }
+
+        cost *= 0.6;
+        return cost;
     }
 
     @Override
     public int[] getPowerUpTimer(){
-        return map.getPowerUpTimer();
+        return map.getPowerUpTimers();
     }
 
     @Override
     public boolean[] getPowerUpActive(){
-        return map.getPowerUpActive();
+        return map.getPowerUpActiveStatus();
     }
 
     @Override
