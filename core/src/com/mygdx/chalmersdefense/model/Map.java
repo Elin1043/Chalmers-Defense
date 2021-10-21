@@ -557,7 +557,7 @@ final class Map {
             case "cleanHands" -> powerUpList.get(0);
             case "maskedUp"   -> powerUpList.get(1);
             case "vaccinated" -> powerUpList.get(2);
-            default -> null;
+            default -> throw new IllegalStateException(); // TODO Custom exception???
         };
 
         if ((player.getMoney() >= powerUp.getCost()) && !powerUp.getIsActive() && powerUp.getTimer() == -1) {
