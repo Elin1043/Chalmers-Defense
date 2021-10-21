@@ -1,5 +1,6 @@
 package com.mygdx.chalmersdefense.model.towers;
 
+import com.mygdx.chalmersdefense.utilities.IParseJSON;
 import com.mygdx.chalmersdefense.utilities.JSONParserWrapper;
 
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.HashMap;
  */
 public abstract class Upgrades {
     private static final int MAX_UPGRADES = 3;                     // Current max upgrade level
-    private static final JSONParserWrapper jsonParserWrapper = new JSONParserWrapper("UpgradeData.json");
+    private static final IParseJSON jsonParser = new JSONParserWrapper("UpgradeData.json");
 
     /**
      * Main method for upgrading a tower.
@@ -36,7 +37,13 @@ public abstract class Upgrades {
      * @return a String with towers upgrade title depending on upgrade level.
      */
     public static String getTowerUpgradeTitle(String towerName, int upgradeLevel) {
-        return jsonParserWrapper.startParser().getJSONValue(towerName).getIndex(upgradeLevel-1).getString("title");
+        String title;
+        try {
+            title = jsonParser.startParser().navThroughJSON(towerName).getByIndex(upgradeLevel-1).getString("title");
+        } catch (NullPointerException | IllegalArgumentException exception) {
+            title = "";
+        }
+        return title;
     }
 
     /**
@@ -47,7 +54,13 @@ public abstract class Upgrades {
      * @return a String with towers upgrade description depending on upgrade level.
      */
     public static String getTowerUpgradeDesc(String towerName, int upgradeLevel) {
-        return jsonParserWrapper.startParser().getJSONValue(towerName).getIndex(upgradeLevel-1).getString("desc");
+        String desc;
+        try {
+            desc = jsonParser.startParser().navThroughJSON(towerName).getByIndex(upgradeLevel-1).getString("desc");
+        } catch (NullPointerException | IllegalArgumentException exception) {
+            desc = "";
+        }
+        return desc;
     }
 
     /**
@@ -58,7 +71,13 @@ public abstract class Upgrades {
      * @return a Long with towers upgrade price depending on upgrade level.
      */
     public static Integer getTowerUpgradePrice(String towerName, int upgradeLevel) {
-        return jsonParserWrapper.startParser().getJSONValue(towerName).getIndex(upgradeLevel-1).getInteger("price");
+        Integer price;
+        try {
+            price = jsonParser.startParser().navThroughJSON(towerName).getByIndex(upgradeLevel-1).getInteger("price");
+        } catch (NullPointerException | IllegalArgumentException exception) {
+            price = 0;
+        }
+        return price;
     }
 
     /**
@@ -69,7 +88,16 @@ public abstract class Upgrades {
      * @return a HashMap with upgrade data.
      */
     private static HashMap<String, Double> getTowerUpgradeData(String towerName, int upgradeLevel) {
-        HashMap<String, Double> upgrades = jsonParserWrapper.startParser().getJSONValue(towerName).getIndex(upgradeLevel-1).getDoubleHashMap("attackDmgMul", "attackSpeedMul", "attackRangeMul");
+        String[] upgradeAttributes = {"attackDmgMul", "attackSpeedMul", "attackRangeMul"};
+        HashMap<String, Double> upgrades = new HashMap<>();
+        try {
+            upgrades = jsonParser.startParser().navThroughJSON(towerName).getByIndex(upgradeLevel-1).getDoubleHashMap(upgradeAttributes);
+        } catch (IllegalArgumentException exception) {
+            // If retrieving of upgrade data fails set all values to 1 (Multiplier = 1 produces no modification to towers).
+            for (String attr : upgradeAttributes) {
+                upgrades.put(attr, 1D);
+            }
+        }
         return new HashMap<>(upgrades);
     }
 
