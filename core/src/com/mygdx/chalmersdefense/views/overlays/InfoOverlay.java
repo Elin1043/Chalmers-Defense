@@ -15,9 +15,9 @@ import com.mygdx.chalmersdefense.utilities.FontFactory;
  */
 public class InfoOverlay extends AbstractOverlay {
 
-    private final Group infoGroup = new Group();
+    private final Group infoGroup = new Group(); // Group to add all actors to
 
-    private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/InfoBackgroundImage.png"));
+    private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/InfoBackgroundImage.png")); // Background image for overlay
 
     public InfoOverlay(AbstractOverlayController abstractOverlayController) {
         super(abstractOverlayController);
