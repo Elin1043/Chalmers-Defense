@@ -10,6 +10,8 @@ import java.util.List;
 /**
  * @author Joel Båtsman Hilmersson
  * A factory class for creating different viruses
+ *
+ * 2021-10-21 Modified by Elin Forsberg: Made the path variable get the active path
  */
 public abstract class VirusFactory {
 
