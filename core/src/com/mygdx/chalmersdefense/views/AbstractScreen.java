@@ -36,6 +36,10 @@ public abstract class AbstractScreen extends Stage implements Screen {
         createSprites();
     }
 
+    /**
+     * Adds processor to multiplexer
+     * @param newProcessor supplied processor
+     */
     void addToMultiplexer(InputProcessor newProcessor){
         multiplexer.addProcessor(newProcessor);
     }
@@ -51,11 +55,6 @@ public abstract class AbstractScreen extends Stage implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.setProjectionMatrix(this.getCamera().combined); // Renders based on window pixels and not screen pixels.
-
-        // TODO REMOVE THIS!!!!! IT WANTS TO BE REMOVED
-        if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE) && Gdx.graphics.isFullscreen()) {
-            Gdx.graphics.setWindowedMode(1920, 1080);
-        }
 
         super.act(delta);
         super.draw();

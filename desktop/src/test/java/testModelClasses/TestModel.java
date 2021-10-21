@@ -90,6 +90,12 @@ public class TestModel {
     @Test
     public void testAllPowerUpClicked(){
         model.startRoundPressed();
+        while (model.getCurrentRound() < 7) {
+            model.startRoundPressed();
+            model.updateModel();
+        }
+
+        model.startRoundPressed();
         model.powerUpClicked("cleanHands");
         model.powerUpClicked("maskedUp");
         model.powerUpClicked("vaccinated");

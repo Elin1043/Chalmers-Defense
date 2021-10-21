@@ -1,10 +1,8 @@
-package com.mygdx.chalmersdefense.controllers;
+package com.mygdx.chalmersdefense.controllers.overlays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -15,71 +13,54 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
 
 
 /**
- * @author Daniel Persson
- * @author Elin Forsberg
- * @author Joel Båtsman Hilmersson
  * @author Jenny Carlsson
- *
- * Controller class for MainScreen
+ * @author Daniel Persson
+ * A controller class for keys <br>
  */
-public class MainScreenController extends InputAdapter {
+public class AbstractOverlayController extends InputAdapter {
     private final IControllModel model;
 
-    public MainScreenController(IControllModel model){
+    public AbstractOverlayController(IControllModel model) {
         this.model = model;
     }
 
     /**
-     * Listener for playButoon
-     * @param button the play button
+     * Added click listener for exit pause menu button
+     * @param button exit button
      */
-    public void addPlayButtonListener(Button button) {
+    public void addExitOverlayButtonClickListener(Button button) {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ScreenManager.getInstance().showScreen(ScreenEnum.GAME);
+                model.startGameUpdate();
+                model.setShowOverlay(ScreenOverlayEnum.NONE);
             }
         });
     }
 
     /**
-     * Listener for QuitButton
-     * @param button the quit button
+     * Adds click listener to main menu button in LostPanelOverlay
+     *
+     * @param button LostPanels main menu button
      */
-    public void addQuitButtonClickListener(Button button) {
+    public void addMainMenuClickListener(Button button) {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
-            }
-        });
-    }
-
-    /**
-     * Listener for settings button
-     * @param button the settings button
-     */
-    public void addSettingsButtonClickListener(Button button) {
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                model.setShowOverlay(ScreenOverlayEnum.SETTINGS);
-            }
-        });
-    }
-
-    public void addInfoButtonClickListener(Button button) {
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                model.setShowOverlay(ScreenOverlayEnum.INFO);
+                ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+                model.resetModel();
             }
         });
     }
 
     @Override
     public boolean keyDown (int keycode) {
-        switch (keycode) {
+        switch(keycode) {
+            case (Input.Keys.ESCAPE) -> {
+                model.startGameUpdate();
+                model.setShowOverlay(ScreenOverlayEnum.NONE);
+                return true;
+            }
             case (Input.Keys.F11) -> {
                 if (Gdx.graphics.isFullscreen()) {
                     Gdx.graphics.setWindowedMode(1920, 1080);
@@ -94,6 +75,4 @@ public class MainScreenController extends InputAdapter {
         }
 
     }
-
-
 }

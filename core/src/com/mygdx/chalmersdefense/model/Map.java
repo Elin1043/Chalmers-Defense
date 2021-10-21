@@ -376,7 +376,7 @@ final class Map {
 
         newTower.setPos(x - buttonWidth / 2f, y - buttonHeight / 2f);
 
-        if (!checkCollisionOfTower(newTower, windowHeight, windowWidth)) {
+        if (!checkCollisionOfTower(newTower, windowHeight, windowWidth) && (player.getMoney() >= newTower.getCost())) {
             newTower.setIfCanRemove(false);
             rangeCircle.updatePos(newTower.getX() + newTower.getWidth() / 2, newTower.getY() + newTower.getHeight() / 2, newTower.getRange());
             rangeCircle.setEnumColor(GetRangeCircle.Color.GRAY);
@@ -549,34 +549,23 @@ final class Map {
 
 
     /**
-     * Method to handle a powerUp button being clicked
+     * Method to handle a powerUp button being clicked. Also checks if player have enough cost to buy powerup-
      * @param powerUpName name of the button that was clicked
      */
     void powerUpClicked(String powerUpName) {
-        switch (powerUpName) {
-            case "cleanHands" -> cleanHandsPowerUpClicked();
-            case "maskedUp"   -> maskedPowerUpClicked();
-            case "vaccinated" -> vaccinePowerUpClicked();
+        IPowerUp powerUp = switch (powerUpName) {
+            case "cleanHands" -> powerUpList.get(0);
+            case "maskedUp"   -> powerUpList.get(1);
+            case "vaccinated" -> powerUpList.get(2);
+            default -> null;
+        };
+
+        if ((player.getMoney() >= powerUp.getCost()) && !powerUp.getIsActive() && powerUp.getTimer() == -1) {
+            powerUp.powerUpClicked(genericObjectsList);
+            player.decreaseMoney(powerUp.getCost());
         }
     }
 
-    //Activate the powerUp cleanHands
-    private void cleanHandsPowerUpClicked(){
-        powerUpList.get(0).powerUpClicked(genericObjectsList);
-        player.decreaseMoney(powerUpList.get(0).getCost());
-    }
-
-    //Activate the powerUp maskedUp
-    private void maskedPowerUpClicked(){
-        powerUpList.get(1).powerUpClicked(genericObjectsList);
-        player.decreaseMoney(powerUpList.get(1).getCost());
-    }
-
-    //Activate the powerUp vaccine
-    private void vaccinePowerUpClicked(){
-        powerUpList.get(2).powerUpClicked(genericObjectsList);
-        player.decreaseMoney(powerUpList.get(1).getCost());
-    }
 
 
 
