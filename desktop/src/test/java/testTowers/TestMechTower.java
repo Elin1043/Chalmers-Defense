@@ -1,6 +1,6 @@
 package testTowers;
 
-import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.model.path.IPath;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.towers.ITower;
@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class TestMechTower {
 
-    Path path = PathFactory.createClassicPath();
+    IPath path = PathFactory.createClassicPath();
     List<ITower> addToList = new ArrayList<>();
     List<ITower> towersList = new ArrayList<>();
 

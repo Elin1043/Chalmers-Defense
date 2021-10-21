@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
-import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.model.path.IPath;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
 import com.mygdx.chalmersdefense.model.powerUps.*;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
@@ -41,7 +41,7 @@ final class Map {
     private final List<IVirus> virusToAddList = new ArrayList<>();             // Temporary list for object adding virus to the main list (To avoid concurrent modification issues)
 
     private final Player player;                                   // A reference to the Player object in the game
-    private final Path path = PathFactory.createClassicPath();     // Current path
+    private final IPath path = PathFactory.createClassicPath();     // Current path
 
     private boolean isGameLost = false;     // Boolean if game is lost
 

@@ -8,7 +8,7 @@ import com.mygdx.chalmersdefense.utilities.PositionVector;
  * Class representing a ClassicPath
  *
  * <p>
- * 2021-10-05 Modified by Elin Forsberg: Made ClassicPath package-private <br>
+ * 2021-10-05 Modified by Elin Forsberg: Made ClassicPath package-private and final <br>
  */
 
 
@@ -22,7 +22,7 @@ final class ClassicPath extends Path {
 
 
     @Override
-    protected void setPathWaypoints() {
+     void setPathWaypoints() {
         if (pathWaypoints.isEmpty()) {
             pathWaypoints.add(new PositionVector(-50, 456));
             pathWaypoints.add(new PositionVector(483, 456));

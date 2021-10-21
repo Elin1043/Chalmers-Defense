@@ -1,6 +1,6 @@
 package com.mygdx.chalmersdefense.model.viruses;
 
-import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.model.path.IPath;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
 final class BossVirus extends Virus{
 
 
-    private final Path path; // The path to send to new viruses
+    private final IPath path; // The path to send to new viruses
     private final List<IVirus> virusList; // The virus list to add new viruses to
 
     /**
@@ -20,7 +20,7 @@ final class BossVirus extends Virus{
      *
      * @param path The path to follow
      */
-    BossVirus(Path path, List<IVirus> virusList) {
+    BossVirus(IPath path, List<IVirus> virusList) {
         super(50, path);
         this.path = path;
         this.virusList = virusList;

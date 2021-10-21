@@ -14,10 +14,11 @@ import java.util.List;
  * <p>
  * 2021-09-24 Modified by Elin Forsberg and Joel Båtsman Hilmersson: Elin created createMapCollision and Joel implemented it here. <br>
  * 2021-10-03 Modified by Joel Båtsman Hilmersson: Switched to use pathRectangle instead of normal Java rectangle. <br>
+ * 2021-10-21 Modified by Elin Forsberg: Implemented IPath interface.
  */
 
 
-public abstract class Path {
+abstract class Path implements IPath {
 
     private final int pathWidth;
 
@@ -33,17 +34,8 @@ public abstract class Path {
      */
     abstract void setPathWaypoints();
 
-    /**
-     * Returns the background image path to the image
-     */
-    public abstract String getImagePath();
 
-    /**
-     * Returns waypoint of given index
-     *
-     * @param index to get waypoint of
-     * @return waypoint
-     */
+    @Override
     public PositionVector getWaypoint(int index) {
         return pathWaypoints.get(index);
     }
@@ -86,11 +78,8 @@ public abstract class Path {
         }
     }
 
-    /**
-     * Gets the list of rectangles used for collision
-     *
-     * @return list of rectangles
-     */
+
+    @Override
     public List<PathRectangle> getCollisionRectangles() {
         return collisionRectangles;
     }

@@ -9,7 +9,7 @@ import java.util.List;
  * @author Elin Forsberg
  * Class representing an abstract power-up class holding common functions.
  */
-abstract class PowerUp implements  IPowerUp{
+abstract class PowerUp implements IPowerUp{
     private boolean isActivated = false;              // If powerUp is activated
     private boolean canActivate = true;              // If powerUp can be activated
 

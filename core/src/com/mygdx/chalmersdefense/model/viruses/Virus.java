@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.model.viruses;
 
-import com.mygdx.chalmersdefense.model.path.Path;
+
+import com.mygdx.chalmersdefense.model.path.IPath;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.utilities.PositionVector;
 
@@ -33,7 +34,7 @@ abstract class Virus implements IVirus {
     private float slowdown = 1;                 // Amount of slow down that gets applied to the virus speed
     private int slowDownTimer = 0;
 
-    private final Path path;    // pointer to path object
+    private final IPath path;    // pointer to path object
     private PositionVector currentMoveToVector;     // Current vector (coordinates) to move to
     private int currentMoveToVectorIndex = 0;       // Which index to use when new vector is retrieved
 
@@ -44,7 +45,7 @@ abstract class Virus implements IVirus {
      * @param health Amount of health the virus start with
      * @param path   The path to follow
      */
-    Virus(int health, Path path) {
+    Virus(int health, IPath path) {
         this.health = health;
         this.path = path;
         initializeVirus();
@@ -62,7 +63,7 @@ abstract class Virus implements IVirus {
      * @param y   y-coordinate of virus
      * @param currentMoveToVectorIndex  vectorIndex virus should walk towards
      */
-    Virus(int health, Path path,float x, float y, int currentMoveToVectorIndex) {
+    Virus(int health, IPath path,float x, float y, int currentMoveToVectorIndex) {
         this.health = health;
         this.path = path;
         this.currentMoveToVectorIndex = currentMoveToVectorIndex;

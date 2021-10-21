@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model.viruses;
 
 
-import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.model.path.IPath;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public abstract class VirusFactory {
 
-    private static final Path path = PathFactory.createClassicPath(); // Pointer to the path object
+    private static final IPath path = PathFactory.createClassicPath(); // Pointer to the path object
 
 
     /**

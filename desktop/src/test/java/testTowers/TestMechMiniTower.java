@@ -1,6 +1,6 @@
 package testTowers;
 
-import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.model.path.IPath;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.towers.ITower;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
  * 2021-10-11 Modified by Elin Forsberg: Changed methods to work with new MechoMan class and added tests
  */
 public class TestMechMiniTower {
-    Path path = PathFactory.createClassicPath();
+    IPath path = PathFactory.createClassicPath();
     List<ITower> addToList = new ArrayList<>();
     List<ITower> towersList = new ArrayList<>();
 
