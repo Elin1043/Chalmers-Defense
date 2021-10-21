@@ -43,14 +43,14 @@ final public class ChalmersDefense extends Game {
         WinPanelOverlayController winPanelOverlayController = new WinPanelOverlayController(model);
 
         // Creating Views
-        AbstractScreen mainScreen = new MainScreen(model, mainScreenController);
-        AbstractScreen gameScreen = new GameScreen(model, gameScreenController, rightSidePanelController, bottomBarPanelController);
+        AbstractScreen mainScreen = ScreenFactory.CreateMainScreen(model, mainScreenController);
+        AbstractScreen gameScreen = ScreenFactory.CreateGameScreen(model, gameScreenController, rightSidePanelController, bottomBarPanelController);
 
-        AbstractOverlay pauseMenuOverlay = new PauseMenuOverlay(abstractOverlayController, pauseMenuOverlayController);
-        AbstractOverlay settingsMenuOverlay = new SettingsOverlay(abstractOverlayController, settingsOverlayController, preferences);
-        AbstractOverlay lostPanelOverlay = new LostPanelOverlay(abstractOverlayController, lostPanelOverlayController);
-        AbstractOverlay winPanelOverlay = new WinPanelOverlay(abstractOverlayController, winPanelOverlayController);
-        AbstractOverlay infoOverlay = new InfoOverlay(abstractOverlayController);
+        AbstractOverlay pauseMenuOverlay = OverlayFactory.CreatePauseMenuOverlay(abstractOverlayController, pauseMenuOverlayController);
+        AbstractOverlay settingsMenuOverlay = OverlayFactory.CreateSettingsOverlay(abstractOverlayController, settingsOverlayController, preferences);
+        AbstractOverlay lostPanelOverlay = OverlayFactory.CreateLostPanelOverlay(abstractOverlayController, lostPanelOverlayController);
+        AbstractOverlay winPanelOverlay = OverlayFactory.CreateWinPanelOverlay(abstractOverlayController, winPanelOverlayController);
+        AbstractOverlay infoOverlay = OverlayFactory.CreateInfoOverlay(abstractOverlayController);
 
         // Sound
         new Sounds(preferences);
