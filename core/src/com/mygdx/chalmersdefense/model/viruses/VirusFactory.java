@@ -13,7 +13,7 @@ import java.util.List;
  */
 public abstract class VirusFactory {
 
-    private static final IPath path = PathFactory.createClassicPath(); // Pointer to the path object
+    private static final IPath path = PathFactory.getActivePath(); // Pointer to the path object
 
 
     /**
