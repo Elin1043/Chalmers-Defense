@@ -126,25 +126,26 @@ final public class RightSidePanel {
     private void initializeTowerButtons(){
         Label towerPriceLabel;
 
-        towerButtons.put(100, smurfButton);
-        towerButtons.put(200, chemistButton);
-        towerButtons.put(300, hackerButton);
-        towerButtons.put(400, electroButton);
-        towerButtons.put(500, mechButton);
-        towerButtons.put(600, ecoButton);
+        towerButtons.put(200, smurfButton);
+        towerButtons.put(300, mechButton);
+        towerButtons.put(400, hackerButton);
+        towerButtons.put(500, chemistButton);
+        towerButtons.put(600, electroButton);
+        towerButtons.put(800, ecoButton);
+
 
         placeButton(smurfButton, 1616, 830, "smurf");
-        placeButton(chemistButton, 1766, 830, "chemist");
+        placeButton(mechButton, 1766, 830, "mech");
         placeButton(hackerButton, 1616, 650, "hacker");
-        placeButton(electroButton, 1766,650, "electro");
-        placeButton(mechButton, 1616, 470, "mech");
+        placeButton(chemistButton, 1766,650, "chemist");
+        placeButton(electroButton, 1616, 470, "electro");
         placeButton(ecoButton, 1766, 470, "eco");
 
         stage.addActor(smurfButton);
-        stage.addActor(chemistButton);
-        stage.addActor(hackerButton);
-        stage.addActor(electroButton);
         stage.addActor(mechButton);
+        stage.addActor(hackerButton);
+        stage.addActor(chemistButton);
+        stage.addActor(electroButton);
         stage.addActor(ecoButton);
 
         for (Integer i : towerButtons.keySet()) {

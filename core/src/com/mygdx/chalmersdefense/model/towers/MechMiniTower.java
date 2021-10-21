@@ -37,7 +37,7 @@ final class MechMiniTower extends Tower {
 
         if(upgradeLevel == 3){
             upgrades.clear();
-            upgrades.put("attackSpeedMul",0.2);
+            upgrades.put("attackSpeedMul",1.1);
             upgrades.put("attackRangeMul",2.0);
             super.upgradeTower(upgrades);
         }
