@@ -32,7 +32,7 @@ public class TestRounds {
 
     @Test
     public void testWinningRound() {
-        assertEquals(10, model.getWinningRound());
+        assertEquals(30, model.getWinningRound());
     }
 
     @Test
