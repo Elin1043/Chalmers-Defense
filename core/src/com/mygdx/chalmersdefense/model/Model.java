@@ -1,14 +1,11 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.mygdx.chalmersdefense.utilities.Preferences;
-import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
+import com.mygdx.chalmersdefense.utilities.*;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
-import com.mygdx.chalmersdefense.utilities.GameTimer;
-import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,7 +36,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final int LIVES = 100;              // Current amount of starting lives
     private final int START_CAPITAL = 40000;    // Current amount of start capital
 
-    private final GameTimer timer = new GameTimer(this);    // Timer object
+    private final IGameTimer timer = new GameTimer(this);    // Timer object
     private Rounds round = new Rounds(WINNING_ROUND);              // Round helper
 
     private final Player player = new Player(LIVES, START_CAPITAL); // Player object

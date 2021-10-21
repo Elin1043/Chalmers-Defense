@@ -9,7 +9,8 @@ import com.mygdx.chalmersdefense.model.IUpdateModel;
  * A class containing metods related to the game timer. Wraps a timer object in it
  * The timer then calls update method in the given model
  */
-final public class GameTimer {
+final public class GameTimer implements IGameTimer {
+
     private final Timer timer = new Timer();    // The timer object
     private Timer.Task task = new Timer.Task() {
         @Override
@@ -27,26 +28,20 @@ final public class GameTimer {
         this.model = model;
     }
 
-    /**
-     * Starts the timer that updates model (Effectively un-pauses the game)
-     */
+    @Override
     public void startUpdateTimer() {
         setupTask();
         timer.start();
     }
 
-    /**
-     * Stops the timer that updates model (Effectively pauses the game state)
-     */
+    @Override
     public void stopUpdateTimer() {
         task.cancel();  // Cancels current task so the update method won't be called
         timer.stop();   // Stops timer
         timer.clear();  // Clears timer from old tasks
     }
 
-    /**
-     * Change model update speed to run simulation faster or slower based on current speed
-     */
+    @Override
     public void changeUpdateSpeed() {
         if (delay < 0.004F) {
             delay = 0.005F;
