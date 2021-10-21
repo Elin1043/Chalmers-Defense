@@ -7,28 +7,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
-import com.mygdx.chalmersdefense.controllers.overlays.InfoOverlayController;
-import com.mygdx.chalmersdefense.controllers.overlays.PauseMenuOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * @author Jenny Carlsson
  * A class to display info overlay
  */
-
 public class InfoOverlay extends AbstractOverlay {
-    private final InfoOverlayController infoOverlayController;
 
     private final Group infoGroup = new Group();
 
     private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/InfoBackgroundImage.png"));
 
-    public InfoOverlay(AbstractOverlayController abstractOverlayController, InfoOverlayController infoOverlayController) {
+    public InfoOverlay(AbstractOverlayController abstractOverlayController) {
         super(abstractOverlayController);
-        this.infoOverlayController = infoOverlayController;
     }
 
     @Override
