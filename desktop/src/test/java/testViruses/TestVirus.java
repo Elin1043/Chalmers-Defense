@@ -6,6 +6,9 @@ import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -86,5 +89,4 @@ public class TestVirus {
 
         assertTrue(v1.getTotalDistanceTraveled() < v2.getTotalDistanceTraveled());
     }
-
 }

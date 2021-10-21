@@ -4,7 +4,7 @@ package com.mygdx.chalmersdefense.utilities;
  * @author Joel Båtsman Hilmersson
  * Class for holding a simple countdown timer used by many classes
  */
-public class CountDownTimer {
+final public class CountDownTimer {
 
     private final int timerLength;  // The total length of the timer
     private int timerCountDown;     // The current timer cooldown/position

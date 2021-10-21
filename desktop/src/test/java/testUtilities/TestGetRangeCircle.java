@@ -20,7 +20,7 @@ public class TestGetRangeCircle {
 
     @Before
     public void init() {
-        getRangeCircle = new GetRangeCircle();
+        getRangeCircle = new GetRangeCircle(0,0,0);
     }
 
     @Test

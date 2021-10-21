@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 /**
  * @author Daniel Persson
@@ -109,6 +108,7 @@ public abstract class FontFactory {
         parameter.size = size;
         parameter.borderWidth = borderWidth;
         BitmapFont font = generator.generateFont(parameter);
+        font.setUseIntegerPositions(false);
         generator.dispose();
         return font;
     }

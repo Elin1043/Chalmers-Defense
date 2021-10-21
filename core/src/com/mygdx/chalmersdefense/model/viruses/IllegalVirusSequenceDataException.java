@@ -5,7 +5,7 @@ package com.mygdx.chalmersdefense.model.viruses;
  * <p>
  * Exeption to call if round data is not valid
  */
-public class IllegalVirusSequenceDataException extends RuntimeException {
+final public class IllegalVirusSequenceDataException extends RuntimeException {
 
     public IllegalVirusSequenceDataException(String message) {
         super(message);

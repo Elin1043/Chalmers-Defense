@@ -12,13 +12,12 @@ import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
 import com.mygdx.chalmersdefense.controllers.overlays.LostPanelOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
-import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
 
 /**
  * @author Daniel Persson
  * A class used to render an overlay when a player lose the game
  */
-public class LostPanelOverlay extends AbstractOverlay {
+final public class LostPanelOverlay extends AbstractOverlay {
     private final LostPanelOverlayController lostPanelOverlayController; // Controller used for adding listeners
 
     private final Group lostPanelGroup = new Group(); // Group to add all actors to

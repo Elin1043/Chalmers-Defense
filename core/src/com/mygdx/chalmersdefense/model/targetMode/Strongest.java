@@ -10,7 +10,7 @@ import java.util.List;
  * Finds the stronges virus of the virus in the given list. If two viruses are equal in strength
  * it will choose the virus that has travled the farthest
  */
-class Strongest implements ITargetMode {
+final class Strongest implements ITargetMode {
 
     @Override
     public IVirus getCorrectVirus(List<IVirus> virusInRange, float towerX, float towerY) {

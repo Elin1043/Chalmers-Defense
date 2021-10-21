@@ -17,7 +17,7 @@ import com.mygdx.chalmersdefense.utilities.FontFactory;
  *
  * 2021-10-12 Modified by Jenny Carlsson and Daniel Persson: Added pause menu exit button
  */
-public class PauseMenuOverlay extends AbstractOverlay {
+final public class PauseMenuOverlay extends AbstractOverlay {
     private final PauseMenuOverlayController pauseMenuOverlayController;
 
     private final Group pauseMenuGroup = new Group();

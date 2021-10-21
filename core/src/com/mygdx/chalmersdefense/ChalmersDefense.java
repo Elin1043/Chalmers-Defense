@@ -1,8 +1,6 @@
 package com.mygdx.chalmersdefense;
 
 import com.badlogic.gdx.Game;
-
-
 import com.mygdx.chalmersdefense.controllers.*;
 import com.mygdx.chalmersdefense.controllers.overlays.*;
 import com.mygdx.chalmersdefense.model.Model;
@@ -24,7 +22,7 @@ import com.mygdx.chalmersdefense.views.overlays.*;
  * 2021-10-14 Modified by Daniel Persson: Moved controller creation to this class
  * 2021-10-20 Modified by Jenny Carlsson: Added info view
  */
-public class ChalmersDefense extends Game {
+final public class ChalmersDefense extends Game {
 
     @Override
     public void create() {

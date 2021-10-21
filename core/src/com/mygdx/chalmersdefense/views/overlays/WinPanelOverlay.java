@@ -12,13 +12,12 @@ import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
 import com.mygdx.chalmersdefense.controllers.overlays.WinPanelOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
-import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
 
 /**
  * @author Daniel Persson
  * A class used to render an overlay when a player win the game
  */
-public class WinPanelOverlay extends AbstractOverlay {
+final public class WinPanelOverlay extends AbstractOverlay {
     private final WinPanelOverlayController winPanelOverlayController; // Controller used for adding listeners
 
     private final TextureAtlas winButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/winGameButtonSkin/winGameButtonSkin.atlas")); // Load atlas file from skin

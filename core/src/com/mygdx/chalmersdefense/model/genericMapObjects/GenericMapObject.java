@@ -12,17 +12,17 @@ import java.util.Objects;
  * Class defining a generic MapObject
  *
  */
-class GenericMapObject implements IGenericMapObject {
+final class GenericMapObject implements IGenericMapObject {
 
     private float width;    // Current width of object
     private float height;   // Current height of object
     private final float speed;    // Speed of object
 
-    private String spriteKey;   // The key to the Sprite Hashmap
+    private final String spriteKey;   // The key to the Sprite Hashmap
     private float x;            // X coordinate on map
     private float y;            // y coordinate on map
 
-    private float angle;        // Current angle of object
+    private final float angle;        // Current angle of object
 
     boolean canRemove = false;  // Boolean over if this object can be removed by map
 

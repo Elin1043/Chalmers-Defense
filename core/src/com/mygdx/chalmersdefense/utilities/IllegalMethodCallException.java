@@ -5,7 +5,7 @@ package com.mygdx.chalmersdefense.utilities;
  * <p>
  * Exeption to call if a method should not be called
  */
-class IllegalMethodCallException extends RuntimeException {
+final class IllegalMethodCallException extends RuntimeException {
     public IllegalMethodCallException(String message) {
         super(message);
     }
