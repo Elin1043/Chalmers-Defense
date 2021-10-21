@@ -79,16 +79,16 @@ final public class GameScreen extends AbstractScreen implements Screen {
         pauseButton.setPosition(10, 1070 - pauseButton.getHeight());
         gameScreenController.addPauseButtonClickListener(pauseButton);
 
-        // This should come from classicPath class
-        Image mapImage = new Image(new Texture("ClassicMap.png")); // TODO Hämta från Path
-        mapImage.setPosition(0, bottomBarPanelBackground.getHeight());
-        gameScreenController.addMapClickListener(mapImage);
-
         // Background image for bottom part of HUD
         Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
         bottomBarPanelBackground.setPosition(0, 0);
         Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
         stageHUD.addActor(bottomBarPanelBackground);
+
+        // This should come from classicPath class
+        Image mapImage = new Image(new Texture("ClassicMap.png")); // TODO Hämta från Path
+        mapImage.setPosition(0, bottomBarPanelBackground.getHeight());
+        gameScreenController.addMapClickListener(mapImage);
 
         // Background image for right part of HUD
         sideBarBackground.setPosition(1920 - 320, 0);
