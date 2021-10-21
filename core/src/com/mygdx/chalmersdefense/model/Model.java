@@ -29,6 +29,7 @@ import java.util.List;
  * 2021-09-28 Modified by Everyone: Moved methods to Map class <br>
  * 2021-09-30 Modified by Joel Båtsman Hilmersson: Added a specifc timer object <br>
  * 2021-10-15 Modified by Elin Forsberg and Joel Båtsman Hilmmersson: Added methods for powerUps
+ * 2021-10-22 Modified by Joel Båtsman Hilmmersson: Split big methods into smaller ones
  */
 
 final public class Model implements IUpdateModel, IControllModel, IViewModel {
