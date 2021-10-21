@@ -88,6 +88,8 @@ abstract class Tower implements ITower {
         }
     }
 
+
+    //Update the reload timer
     private void updateReloadTimer() {
         if (reloadTimer.getCurrentCountTime() > 0){ // If the timer is over 0 it should count down
             reloadTimer.haveReachedZero();
@@ -97,14 +99,15 @@ abstract class Tower implements ITower {
     @Override
     public void changeTargetMode(boolean goRight){
         if(goRight){
-            goRight();
+            increaseIndexOfTargetMode();
         }
         else{
-            goLeft();
+            decreaseIndexOfTargetMode();
         }
     }
 
-    private void goRight(){
+    //Increase the index of targetMode
+    private void increaseIndexOfTargetMode(){
         if(targetModes.indexOf(currentTargetMode) >= targetModes.size()-1){
             currentTargetMode = targetModes.get(0);
         }
@@ -113,7 +116,8 @@ abstract class Tower implements ITower {
         }
     }
 
-    private void goLeft(){
+    //Decrease the index of targetMode
+    private void decreaseIndexOfTargetMode(){
         if(targetModes.indexOf(currentTargetMode) <= 0){
             currentTargetMode = targetModes.get(targetModes.size()-1);
         }

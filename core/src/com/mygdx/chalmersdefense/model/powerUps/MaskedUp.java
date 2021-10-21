@@ -15,7 +15,7 @@ import java.util.Random;
  * 2021-10-15 Modified by Elin Forsberg: Implemented use of PowerUp factory and abstract PowerUp class <br>
  */
 final class MaskedUp extends PowerUp{
-    private final List<ITower> allTowers;
+    private final List<ITower> allTowers;           //list of towers to apply powerup to
 
     MaskedUp(List<ITower> allTowers) {
         super(500, 500, 100);
