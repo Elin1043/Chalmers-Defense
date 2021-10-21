@@ -27,20 +27,6 @@ public class SettingsOverlayController {
     }
 
     /**
-     * Added click listener for exit pause menu button
-     * @param button exit button
-     */
-    public void addExitPauseMenuButtonClickListener(Button button) {
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                model.startGameUpdate();
-                model.setShowOverlay(ScreenOverlayEnum.NONE);
-            }
-        });
-    }
-
-    /**
      * Add change listener to music volume slider
      * @param slider to add listener to
      */

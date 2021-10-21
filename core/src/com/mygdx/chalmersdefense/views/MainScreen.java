@@ -23,6 +23,7 @@ final public class MainScreen extends AbstractScreen {
 
     private ImageButton playButton;
     private Button settingsButton;
+    private Button infoButton;
 
     private final TextureAtlas quitButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/quitButtonSkin/QuitButtonSkin.atlas")); // Load atlas file from skin
     private final Skin quitButtonSkin = new Skin(Gdx.files.internal("buttons/quitButtonSkin/QuitButtonSkin.json"), quitButtonAtlas); // Create skin object
@@ -37,12 +38,16 @@ final public class MainScreen extends AbstractScreen {
         this.mainScreenController = mainScreenController;
         img = new Image(new Texture("HomeScreen.png"));
 
+        addToMultiplexer(mainScreenController);
+
         createPlayButton();
         createSettingsButton();
+        createInfoButton();
         addActor(img);
         addActor(playButton);
         addActor(quitButton);
         addActor(settingsButton);
+        addActor(infoButton);
     }
 
     private void createPlayButton() {
@@ -67,6 +72,14 @@ final public class MainScreen extends AbstractScreen {
         settingsButton.setPosition(430,110);
     }
 
+    private void createInfoButton() {
+        TextureAtlas infoButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/infoButtonSkin/InfoButtonSkin.atlas")); // Load atlas file from skin
+        Skin infoButtonSkin = new Skin(Gdx.files.internal("buttons/infoButtonSkin/InfoButtonSkin.json"), infoButtonAtlas); // Create skin object
+        infoButton = new Button(infoButtonSkin);
+        mainScreenController.addInfoButtonClickListener(infoButton);
+        infoButton.setPosition(1140,110);
+    }
+
     /**
      * Renders GameScreen to screen
      *
@@ -82,4 +95,6 @@ final public class MainScreen extends AbstractScreen {
             abstractOverlay.render();
         }
     }
+
+
 }

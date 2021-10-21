@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
  *
  *
  * 2021-10-11 Modified by Elin Forsberg: Added more labelstyles
+ * 2021-10-21 Modified by Jenny Carlsson: Added more label styles
  */
 public abstract class FontFactory {
     /**
@@ -50,6 +51,14 @@ public abstract class FontFactory {
     }
 
     /**
+     * Generates a LabelStyle from CenturyGothic font with size 24px, color black.
+     * @return a Labelstyle with corresponding size, color and border width.
+     */
+    public static LabelStyle getLabelStyle24Black() {
+        return generateLabelStyle(24, Color.BLACK, 0);
+    }
+
+    /**
      * Generates a LabelStyle from CenturyGothic font with size 18px, color black.
      *
      * @return a LabelStyle with corresponding size, color and border width.
@@ -65,6 +74,14 @@ public abstract class FontFactory {
      */
     public static LabelStyle getLabelStyle20Black() {
         return generateLabelStyle(20, Color.BLACK, 0.25f);
+    }
+
+    /**
+     * Generates a LabelStyle from CenturyGothic font with size 15px, color black.
+     * @return a Labelstyle with corresponding size, color and border width.
+     */
+    public static LabelStyle getLabelStyle15Black() {
+        return generateLabelStyle(15, Color.BLACK, 0);
     }
 
     /**

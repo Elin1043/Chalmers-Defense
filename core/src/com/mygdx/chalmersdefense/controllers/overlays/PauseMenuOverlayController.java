@@ -20,20 +20,6 @@ public class PauseMenuOverlayController {
     }
 
     /**
-     * Added click listener for exit pause menu button
-     * @param button exit button
-     */
-    public void addExitPauseMenuButtonClickListener(Button button) {
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                model.startGameUpdate();
-                model.setShowOverlay(ScreenOverlayEnum.NONE);
-            }
-        });
-    }
-
-    /**
      * Add click listener for pause menu buttons
      * @param button pause menu button
      * @param buttonName type of button

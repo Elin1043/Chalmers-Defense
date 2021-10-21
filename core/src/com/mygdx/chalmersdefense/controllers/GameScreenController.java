@@ -1,13 +1,17 @@
 package com.mygdx.chalmersdefense.controllers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.IControllModel;
+import com.mygdx.chalmersdefense.views.ScreenManager;
 
 /**
  * @author Daniel Persson
@@ -20,6 +24,7 @@ import com.mygdx.chalmersdefense.model.IControllModel;
  * 2021-10-11 Modified by Jenny Carlsson and Daniel Persson: added click listener for pause meny buttons <br>
  * 2021-10-12 Modified by Jenny Carlsson and Daniel Persson: added click listener for pause menu exit button <br>
  * 2021-10-19 Modified by Joel Båtsman Hilmersson: The class now extends InputAdapter to override methods to listen for keyboard input <br>
+ * 2021-10-19 Modified by Jenny Carlsson: Added short keys for pause menu <br>
  */
 public class GameScreenController extends InputAdapter {
     private final IControllModel model;
@@ -59,13 +64,56 @@ public class GameScreenController extends InputAdapter {
 
     @Override
     public boolean keyDown (int keycode) {
-        if (keycode == Input.Keys.ESCAPE){
-            model.stopGameUpdate();
-            model.setShowOverlay(ScreenOverlayEnum.PAUSE_MENU);
-            return true;
-        } else {
-            return false;
+        switch (keycode) {
+            case (Input.Keys.ESCAPE) -> {
+                model.stopGameUpdate();
+                model.setShowOverlay(ScreenOverlayEnum.PAUSE_MENU);
+                return true;
+            }
+            case (Input.Keys.F11) -> {
+                if (Gdx.graphics.isFullscreen()) {
+                    Gdx.graphics.setWindowedMode(1920, 1080);
+                } else {
+                    Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+                }
+                return true;
+            }
+            case (Input.Keys.NUM_1) -> {
+                placeTowerAtMousePosition("smurf");
+                return true;
+            }
+            case (Input.Keys.NUM_2) -> {
+                placeTowerAtMousePosition("chemist");
+                return true;
+            }
+            case (Input.Keys.NUM_3) -> {
+                placeTowerAtMousePosition("electro");
+                return true;
+            }
+            case (Input.Keys.NUM_4) -> {
+                placeTowerAtMousePosition("hacker");
+                return true;
+            }
+            case (Input.Keys.NUM_5) -> {
+                placeTowerAtMousePosition("mech");
+                return true;
+            }
+            case (Input.Keys.NUM_6) -> {
+                placeTowerAtMousePosition("eco");
+                return true;
+            }
+            default -> {
+                return false;
+            }
         }
 
+    }
+
+    //Places tower at mouse location
+    private void placeTowerAtMousePosition(String name) {
+        Vector2 v = ScreenManager.getInstance().getCurrentScreen().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+        model.dragStart(name, v.x, v.y);
+        model.onDrag(60, 80, v.x, v.y, Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
+        model.dragEnd(60, 80, v.x, v.y);
     }
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
 import com.mygdx.chalmersdefense.controllers.overlays.WinPanelOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 
@@ -17,29 +18,27 @@ import com.mygdx.chalmersdefense.utilities.FontFactory;
  * A class used to render an overlay when a player win the game
  */
 final public class WinPanelOverlay extends AbstractOverlay {
-
     private final WinPanelOverlayController winPanelOverlayController; // Controller used for adding listeners
 
     private final TextureAtlas winButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/winGameButtonSkin/winGameButtonSkin.atlas")); // Load atlas file from skin
     private final Skin winButtonSkin = new Skin(Gdx.files.internal("buttons/winGameButtonSkin/winGameButtonSkin.json"), winButtonTexture); // Create skin object
 
-    private final Group winPanelGroup = new Group(); // Group to att all actors to
+    private final Group winPanelGroup = new Group(); // Group to add all actors to
 
     private final Image backgroundImage = new Image(new Texture("GameScreen/WinPanelBackgroundImage.png")); // Background image of overlay
 
-    public WinPanelOverlay(WinPanelOverlayController winPanelOverlayController) {
+    public WinPanelOverlay(AbstractOverlayController abstractOverlayController, WinPanelOverlayController winPanelOverlayController) {
+        super(abstractOverlayController);
         this.winPanelOverlayController = winPanelOverlayController;
     }
 
     @Override
-    protected void initialize() {
+    void initialize() {
         stage.addActor(winPanelGroup);
         winPanelGroup.addActor(backgroundImage);
 
         // Set position of background
-        float WIDTH = 810;
-        float HEIGHT = 400;
-        backgroundImage.setPosition(stage.getWidth() / 2 - WIDTH / 2, stage.getHeight() / 2 - HEIGHT / 2);
+        backgroundImage.setPosition(stage.getWidth() / 2 - backgroundImage.getWidth() / 2, stage.getHeight() / 2 - backgroundImage.getHeight() / 2);
 
         // Create labels
         createLabels();
@@ -78,13 +77,7 @@ final public class WinPanelOverlay extends AbstractOverlay {
 
     @Override
     public void render() {
-        Gdx.input.setInputProcessor(stage);
-
-        drawTransparentBackground();
-
-        stage.act();
-        stage.draw();
-
+        super.render();
         winPanelGroup.setVisible(true);
     }
 
@@ -104,7 +97,7 @@ final public class WinPanelOverlay extends AbstractOverlay {
         // Offset used to place button in center of left or right part.
         float offsetMulX = buttonNr == 1 ? 1 / 4f : 3/ 4f;
         if (buttonNr == 1) {
-            winPanelOverlayController.addMainMenuClickListener(button);
+            abstractOverlayController.addMainMenuClickListener(button);
         } else {
             winPanelOverlayController.addWinPanelContinueClickListener(button);
         }

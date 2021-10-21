@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
 import com.mygdx.chalmersdefense.controllers.overlays.LostPanelOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 
@@ -17,26 +18,24 @@ import com.mygdx.chalmersdefense.utilities.FontFactory;
  * A class used to render an overlay when a player lose the game
  */
 final public class LostPanelOverlay extends AbstractOverlay {
-
     private final LostPanelOverlayController lostPanelOverlayController; // Controller used for adding listeners
 
     private final Group lostPanelGroup = new Group(); // Group to add all actors to
 
     private final Image backgroundImage = new Image(new Texture("GameScreen/LostPanelBackgroundImage.png")); // Background image of overlay
 
-    public LostPanelOverlay(LostPanelOverlayController lostPanelOverlayController) {
+    public LostPanelOverlay(AbstractOverlayController abstractOverlayController, LostPanelOverlayController lostPanelOverlayController) {
+        super(abstractOverlayController);
         this.lostPanelOverlayController = lostPanelOverlayController;
     }
 
     @Override
-    protected void initialize() {
+    void initialize() {
         stage.addActor(lostPanelGroup);
         lostPanelGroup.addActor(backgroundImage);
 
         // Set position of background
-        float WIDTH = 810;
-        float HEIGHT = 400;
-        backgroundImage.setPosition(stage.getWidth() / 2 - WIDTH / 2, stage.getHeight() / 2 - HEIGHT / 2);
+        backgroundImage.setPosition(stage.getWidth() / 2 - backgroundImage.getWidth() / 2, stage.getHeight() / 2 - backgroundImage.getHeight() / 2);
 
         createLabels();
 
@@ -57,6 +56,9 @@ final public class LostPanelOverlay extends AbstractOverlay {
         lostPanelGroup.setVisible(false);
     }
 
+    /**
+     * Creates all labels for overlay
+     */
     private void createLabels() {
         Label title = new Label("You Lost :'(", FontFactory.getLabelStyle36BlackBold());
         Label mainText = new Label("The evil Corona viruses have won. Chalmers have fallen and will now be the center of the new wave of even more powerful virus variants.", FontFactory.getLabelStyle18Black());
@@ -77,15 +79,8 @@ final public class LostPanelOverlay extends AbstractOverlay {
 
     @Override
     public void render() {
-        Gdx.input.setInputProcessor(stage);
-
-        drawTransparentBackground();
-
-        stage.act();
-        stage.draw();
-
+        super.render();
         lostPanelGroup.setVisible(true);
-
     }
 
     @Override
@@ -104,7 +99,7 @@ final public class LostPanelOverlay extends AbstractOverlay {
         // Offset used to place button in center of left or right part.
         float offsetMulX = buttonNr == 1 ? 1 / 4f : 3/ 4f;
         if (buttonNr == 1) {
-            lostPanelOverlayController.addMainMenuClickListener(button);
+            abstractOverlayController.addMainMenuClickListener(button);
         } else {
             lostPanelOverlayController.addLostPanelTryAgainClickListener(button);
         }

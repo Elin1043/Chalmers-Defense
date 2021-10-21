@@ -18,6 +18,7 @@ import com.mygdx.chalmersdefense.model.IControllModel;
  * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model <br>
  * 2021-10-11 Modified by Elin Forsberg: Added listener for powerUp buttons <br>
  * 2021-10-19 Modified by Joel Båtsman Hilmersson: The class now extends InputAdapter to override methods to listen for keyboard input <br>
+ * 2021-10-19 Modified by Jenny Carlsson: Added short keys for power ups <br>
  */
 
 public class RightSidePanelController extends InputAdapter {
@@ -86,17 +87,31 @@ public class RightSidePanelController extends InputAdapter {
                 model.dragEnd((button.getImage().getWidth() / 2), (button.getImage().getHeight() / 2), inputX, inputY);
             }
         });
-
     }
+
 
     @Override
     public boolean keyDown (int keycode) {
-        if (keycode == Input.Keys.ENTER) {
-            model.startRoundPressed();
-            return true;
-        } else {
-            return false;
+        switch (keycode) {
+            case(Input.Keys.SPACE) -> {
+                model.startRoundPressed();
+                return true;
+            }
+            case(Input.Keys.C) -> {
+                model.powerUpClicked("cleanHands");
+                return true;
+            }
+            case(Input.Keys.V) -> {
+                model.powerUpClicked("vaccinated");
+                return true;
+            }
+            case(Input.Keys.M) -> {
+                model.powerUpClicked("maskedUp");
+                return true;
+            }
+            default -> {
+                return false;
+            }
         }
     }
-
 }
