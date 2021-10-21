@@ -37,7 +37,7 @@ final class MechTower extends Tower {
 
     @Override
     void createProjectile(List<IProjectile> projectileList){
-        projectileList.add(ProjectileFactory.createRobotProjectile(super.getX(), super.getY(), getAngle(), getUpgradeLevel()));
+        projectileList.add(ProjectileFactory.createWrenchProjectile(super.getX(), super.getY(), getAngle()));
 
     }
 
