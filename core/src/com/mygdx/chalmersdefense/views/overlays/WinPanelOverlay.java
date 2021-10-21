@@ -19,15 +19,12 @@ import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
  * A class used to render an overlay when a player win the game
  */
 public class WinPanelOverlay extends AbstractOverlay {
-    private final float WIDTH = 810;
-    private final float HEIGHT = 400;
-
     private final WinPanelOverlayController winPanelOverlayController; // Controller used for adding listeners
 
     private final TextureAtlas winButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/winGameButtonSkin/winGameButtonSkin.atlas")); // Load atlas file from skin
     private final Skin winButtonSkin = new Skin(Gdx.files.internal("buttons/winGameButtonSkin/winGameButtonSkin.json"), winButtonTexture); // Create skin object
 
-    private final Group winPanelGroup = new Group(); // Group to att all actors to
+    private final Group winPanelGroup = new Group(); // Group to add all actors to
 
     private final Image backgroundImage = new Image(new Texture("GameScreen/WinPanelBackgroundImage.png")); // Background image of overlay
 
@@ -37,12 +34,12 @@ public class WinPanelOverlay extends AbstractOverlay {
     }
 
     @Override
-    protected void initialize() {
+    void initialize() {
         stage.addActor(winPanelGroup);
         winPanelGroup.addActor(backgroundImage);
 
         // Set position of background
-        backgroundImage.setPosition(stage.getWidth() / 2 - WIDTH / 2, stage.getHeight() / 2 - HEIGHT / 2);
+        backgroundImage.setPosition(stage.getWidth() / 2 - backgroundImage.getWidth() / 2, stage.getHeight() / 2 - backgroundImage.getHeight() / 2);
 
         // Create labels
         createLabels();

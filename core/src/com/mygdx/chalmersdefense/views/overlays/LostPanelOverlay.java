@@ -19,9 +19,6 @@ import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
  * A class used to render an overlay when a player lose the game
  */
 public class LostPanelOverlay extends AbstractOverlay {
-    private final float WIDTH = 810;
-    private final float HEIGHT = 400;
-
     private final LostPanelOverlayController lostPanelOverlayController; // Controller used for adding listeners
 
     private final Group lostPanelGroup = new Group(); // Group to add all actors to
@@ -34,12 +31,12 @@ public class LostPanelOverlay extends AbstractOverlay {
     }
 
     @Override
-    protected void initialize() {
+    void initialize() {
         stage.addActor(lostPanelGroup);
         lostPanelGroup.addActor(backgroundImage);
 
         // Set position of background
-        backgroundImage.setPosition(stage.getWidth() / 2 - WIDTH / 2, stage.getHeight() / 2 - HEIGHT / 2);
+        backgroundImage.setPosition(stage.getWidth() / 2 - backgroundImage.getWidth() / 2, stage.getHeight() / 2 - backgroundImage.getHeight() / 2);
 
         createLabels();
 
@@ -60,6 +57,9 @@ public class LostPanelOverlay extends AbstractOverlay {
         lostPanelGroup.setVisible(false);
     }
 
+    /**
+     * Creates all labels for overlay
+     */
     private void createLabels() {
         Label title = new Label("You Lost :'(", FontFactory.getLabelStyle36BlackBold());
         Label mainText = new Label("The evil Corona viruses have won. Chalmers have fallen and will now be the center of the new wave of even more powerful virus variants.", FontFactory.getLabelStyle18Black());
