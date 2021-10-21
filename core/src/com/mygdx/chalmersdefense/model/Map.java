@@ -14,6 +14,7 @@ import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -526,7 +527,7 @@ final class Map {
             default -> null;
         };
 
-        if ((player.getMoney() >= powerUp.getCost())) {
+        if ((player.getMoney() >= powerUp.getCost()) && !powerUp.getIsActive() && powerUp.getTimer() == -1) {
             powerUp.powerUpClicked(genericObjectsList);
             player.decreaseMoney(powerUp.getCost());
         }
