@@ -85,6 +85,8 @@ public abstract class FontFactory {
         return generateLabelStyle(34, Color.SKY, 1f);
     }
 
+
+    //Generate the BitMapFont
     private static BitmapFont generateBitmapFont(int size, float borderWidth) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/CenturyGothic.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -96,6 +98,7 @@ public abstract class FontFactory {
         return font;
     }
 
+    //Generate the labelStyle
     private static LabelStyle generateLabelStyle(int size, Color color, float borderWidth) {
         BitmapFont font36 = generateBitmapFont(size, borderWidth);
         LabelStyle labelStyle = new LabelStyle();

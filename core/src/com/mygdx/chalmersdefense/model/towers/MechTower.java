@@ -2,7 +2,6 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
-import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
@@ -55,15 +54,17 @@ final class MechTower extends Tower {
 
     }
 
+    //Spawn minitowers
     private void spawnMiniTowers(){
         if (this.isPlaced() && robotCoolDownTimer.haveReachedZero()){
             createMiniTowers();
         }
     }
 
+    //Create the minitowers to be spawned
     private void createMiniTowers() {
-        float[] point1 = checkPointCollision();
-        float[] point2 = checkPointCollision();
+        float[] point1 = getRandomNonCollidingPoint();
+        float[] point2 = getRandomNonCollidingPoint();
 
         if(getUpgradeLevel() == 1 || getUpgradeLevel() == 3){
             createOneTower(point1);
@@ -74,6 +75,7 @@ final class MechTower extends Tower {
         }
     }
 
+    //Create one minitower
     private void createOneTower(float[] point1) {
         if(point1[0] != -1){
             ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, getRange(), getCurrentTargetModeIndex(), super.getUpgradeLevel());
@@ -84,6 +86,7 @@ final class MechTower extends Tower {
         }
     }
 
+    //Create two minitowers
     private void createTwoTowers(float[] point1, float[] point2) {
         if(point1[0] != -1 && point2[0] != -1){
             ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, getRange(), getCurrentTargetModeIndex(), super.getUpgradeLevel());
@@ -98,8 +101,8 @@ final class MechTower extends Tower {
     }
 
 
-
-    private float[] checkPointCollision() {
+    //Gets a randomized point that doesn't collide with anything
+    private float[] getRandomNonCollidingPoint() {
         float[] point = Calculate.randPoint(getX(), getY(), getRange());
         for (int i = 0; i < 100; i++) {
             if(pathCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || towerCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || checkIfOutOfBounds(point[0],point[1])){
@@ -113,6 +116,7 @@ final class MechTower extends Tower {
         return new float[]{-1, -1};
     }
 
+    //Checks if given coordinates collides with path
     private boolean pathCollision(double width, double height,double x, double y){
         for (PathRectangle rectangle : pathRectangles) {
             if (Calculate.calculateIntersects(width , height, rectangle.getWidth(), rectangle.getHeight(), x, y, rectangle.getX(),rectangle.getY())) {
@@ -122,6 +126,7 @@ final class MechTower extends Tower {
         return false;
     }
 
+    //Checks if given coordinates collides with towers
     private boolean towerCollision(double width, double height,double x, double y){
         for (ITower tower : allTowers) {
             if (Calculate.calculateIntersects(width , height, tower.getWidth(), tower.getHeight(), x, y, tower.getX(),tower.getY())) {
@@ -131,6 +136,7 @@ final class MechTower extends Tower {
         return false;
     }
 
+    //Checks if given coordinates are out of bounds
     private boolean checkIfOutOfBounds(float y, float x) {
         if (y > 1130 || -50 > y) {
             return true;

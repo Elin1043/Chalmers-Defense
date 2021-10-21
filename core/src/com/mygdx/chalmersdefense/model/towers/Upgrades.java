@@ -98,13 +98,9 @@ final public class Upgrades {
         return 0L;
     }
 
-    /**
-     * Generates a HashMap with appropriate upgrade data from a JSON object and returns a copy of the HashMap.
-     *
-     * @param towerName    to get upgrades from
-     * @param upgradeLevel upgrade level to get upgrades from
-     * @return a HashMap with upgrade data.
-     */
+
+
+    //Generates a HashMap with appropriate upgrade data from a JSON object and returns a copy of the HashMap.
     private HashMap<String, Double> getTowerUpgradeData(String towerName, int upgradeLevel) {
         HashMap<String, Double> upgrades = new HashMap<>();
         try {

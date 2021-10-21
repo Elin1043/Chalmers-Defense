@@ -27,6 +27,7 @@ final class Strongest implements ITargetMode {
         return strongestVirus;
     }
 
+    //Gets the virus that have traveled the furthest
     private IVirus getMostTraveledVirus(IVirus strongestVirus, IVirus virus) {
         if (virus.getTotalDistanceTraveled() > strongestVirus.getTotalDistanceTraveled()){
             strongestVirus = virus;

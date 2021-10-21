@@ -76,6 +76,7 @@ abstract class Virus implements IVirus {
     }
 
 
+    //Initialize the virus
     private void initializeVirus(){
         updateSpriteKey();
 
@@ -139,6 +140,7 @@ abstract class Virus implements IVirus {
         return ((3F + health) / 4F) * slowdown;
     }
 
+    //Move the virus to towards the next point
     private void moveToPoint(double totalSpeed) {
 
         // Gets length to next move to point
@@ -172,6 +174,7 @@ abstract class Virus implements IVirus {
         totalDistanceTrawled += totalSpeed;
     }
 
+    //Update the slowTimer
     private void updateSlowTimer(){
         if (slowDownTimer <= 0){
             slowdown = 1;
@@ -180,6 +183,7 @@ abstract class Virus implements IVirus {
         }
     }
 
+    //Update the spriteKey
     private void updateSpriteKey() {
         spriteKey = "virus" + health;
     } // Updates the key to Sprite hashmap

@@ -58,6 +58,7 @@ abstract class Path implements IPath {
         }
     }
 
+    //Create and add a vertical rectangle
     private void verticalPathHandler(float posX, float posY, float nextY) {
         float distY = Math.abs((nextY - posY));     // The path length in y direction
 
@@ -68,6 +69,7 @@ abstract class Path implements IPath {
         }
     }
 
+    //Create and add a horizontal rectangle
     private void horizontalPathHandler(float posX, float posY, float nextX) {
         float distX = Math.abs((nextX - posX));     // The path length in x direction
 

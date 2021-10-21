@@ -76,6 +76,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
         showOverlay = ScreenOverlayEnum.NONE;
     }
 
+    //Checks if round is completed
     private void checkRoundCompleted() {
         if (isGameStopped()) {
             player.increaseMoney((int) (100 * (round.getCurrentRound() / 2f)));

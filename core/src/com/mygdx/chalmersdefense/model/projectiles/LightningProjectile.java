@@ -21,10 +21,8 @@ final class LightningProjectile extends Projectile {
         };
     }
 
-    /**
-     * Helper method for counting how many viruses have been hit
-     * If hitCountsLeft is 0, then projectile can be removed.
-     */
+
+    //Helper method for counting how many viruses have been hit If hitCountsLeft is 0, then projectile can be removed.
     private void countVirusHit() {
         if (hitCountsLeft.haveReachedZero()) {
             super.canRemove = true;

@@ -13,7 +13,7 @@ import java.util.List;
  * 2021-10-15 Modified by Elin Forsberg: Implemented use of PowerUp factory and abstract PowerUp class
  */
 final class Vaccinated extends PowerUp{
-    private final List<IVirus> allViruses;        // List of viruses
+    private final List<IVirus> allViruses;        // List of viruses to apply powerUp to
 
     Vaccinated(List<IVirus> allViruses) {
         super(1000, 380, 500);
@@ -35,6 +35,7 @@ final class Vaccinated extends PowerUp{
         }
     }
 
+    //Damage all the viruses by 1 damage
     private void damageVirus(){
         for (IVirus virus : allViruses){
             virus.decreaseHealth(1);
