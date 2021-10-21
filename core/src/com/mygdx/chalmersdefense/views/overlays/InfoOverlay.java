@@ -64,13 +64,13 @@ public class InfoOverlay extends AbstractOverlay {
             textLabel.setWrap(true);
             textLabel.setWidth(700);
 
-            Label tipListLabel = new Label("Place the towers thoughtfully and develop strategies to defeat the enemies.\n\nUse the economy tower to increase money income.\n\nUpgrade your towers to make them even stronger.\n\nUse power ups to momenteraly boost your game.", FontFactory.getLabelStyle18Black());
+            Label tipListLabel = new Label("Place the towers thoughtfully and develop strategies to defeat the enemies.\n\nUse the economy tower to increase money income.\n\nUpgrade your towers to make them even stronger.\n\nUse power ups to momentarily boost your game.", FontFactory.getLabelStyle18Black());
             infoGroup.addActor(tipListLabel);
             tipListLabel.setPosition(backgroundImage.getX() + 60, backgroundImage.getY() + 140);
             tipListLabel.setWrap(true);
             tipListLabel.setWidth(300);
 
-            Label shortkeyListLabel = new Label("F11: Toggle fullscreen \n\nESC:  Pause game \nSPACE:  Start round/speed up \n\nM: Activate “Masked up” power up \nV: Activate “Vaccinated” power up \nC: Activate “Clean hands” power up \n\nNumbers 1-6: Place tower where the mouse is (1 is top left, 6 is bottom right) " , FontFactory.getLabelStyle18Black());
+            Label shortkeyListLabel = new Label("F11: Toggle fullscreen \n\nESC:  Pause game \nSPACE:  Start round/speed up \n\nM: Activate \"Masked up\" power up \nV: Activate \"Vaccinated\" power up \nC: Activate \"Clean hands\" power up \n\nNumbers 1-6: Place tower where the mouse is (1 is top left, 6 is bottom right) " , FontFactory.getLabelStyle18Black());
             infoGroup.addActor(shortkeyListLabel);
             shortkeyListLabel.setPosition(backgroundImage.getX() + 405, backgroundImage.getY() + 120);
             shortkeyListLabel.setWrap(true);
