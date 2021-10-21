@@ -101,7 +101,7 @@ public class WinPanelOverlay extends AbstractOverlay {
         // Offset used to place button in center of left or right part.
         float offsetMulX = buttonNr == 1 ? 1 / 4f : 3/ 4f;
         if (buttonNr == 1) {
-            winPanelOverlayController.addMainMenuClickListener(button);
+            abstractOverlayController.addMainMenuClickListener(button);
         } else {
             winPanelOverlayController.addWinPanelContinueClickListener(button);
         }
