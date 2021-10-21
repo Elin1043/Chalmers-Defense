@@ -17,8 +17,8 @@ final class HackerTower extends Tower {
 
     private final List<IProjectile> addToList;  // List to add new projectiles to
 
-    HackerTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<IProjectile> addToList) {
-        super(x, y, name, reloadSpeed, cost, range, targetModes);
+    HackerTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<IProjectile> addToList) {
+        super(x, y, name, reloadSpeed, cost, range);
         this.addToList = addToList;
     }
 

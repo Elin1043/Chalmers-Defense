@@ -3,6 +3,7 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
+import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
 import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
 import javax.imageio.ImageIO;
@@ -33,7 +34,7 @@ abstract class Tower implements ITower {
     private float x;                // X coordinate on map
     private float y;                // y coordinate on map
 
-    private final List<ITargetMode> targetModes;    // List that holds references to the targetmodes
+    private final List<ITargetMode> targetModes = TargetModeFactory.getTargetModes();    // List that holds references to the targetmodes
     private ITargetMode currentTargetMode;    // Which current targeting mode to use
 
     private float width;            // Width of tower object
@@ -47,9 +48,8 @@ abstract class Tower implements ITower {
     private int reloadTime;                 // Variable to calculate new reload time when upgrading
 
 
-    Tower(float x, float y, String name, int reloadTime, int cost, int range, List<ITargetMode> targetModes) {
+    Tower(float x, float y, String name, int reloadTime, int cost, int range) {
         this.name = name;
-        this.targetModes = targetModes;
         this.reloadTime = reloadTime;
         this.reloadTimer = new CountDownTimer(reloadTime, 0);
         this.currentTargetMode = targetModes.get(0);
@@ -236,5 +236,11 @@ abstract class Tower implements ITower {
     public void placeTower() {
         isPlaced = true;
     }
+
+    /**
+     * Returns the current targetmode index in the targetmode list
+     * @return the current targetmode index
+     */
+    int getCurrentTargetModeIndex() { return targetModes.indexOf(currentTargetMode); }
 
 }
