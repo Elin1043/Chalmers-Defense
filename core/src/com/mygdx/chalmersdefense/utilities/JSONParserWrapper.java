@@ -6,47 +6,80 @@ import com.badlogic.gdx.utils.JsonValue;
 
 import java.util.HashMap;
 
-public class JSONParserWrapper {
-    private final JsonReader jsonParser = new JsonReader();     // Current Json parser
-    private JsonValue mainObject;
-    private JsonValue currentJsonValue;
+/**
+ * @author Daniel Persson
+ * A class for parsing JSON files and act as a JSON wrapper
+ */
+final public class JSONParserWrapper implements IParseJSON {
+    private final JsonValue mainObject;  // Main object to parse
+    private JsonValue currentJsonValue;  // Current (actively parsing) JSON object. JSONValue can either be an object, array, string, boolean, long, double or null.
 
-
+    /**
+     * A JSON parser for parsing JSON files
+     * @param jsonPath path to JSON file
+     */
     public JSONParserWrapper(String jsonPath) {
+        JsonReader jsonParser = new JsonReader();
         mainObject = jsonParser.parse(Gdx.files.internal(jsonPath));
     }
 
-    public JSONParserWrapper startParser() {
+    @Override
+    public IParseJSON startParser() {
         currentJsonValue = mainObject;
         return this;
     }
 
-    public JSONParserWrapper getJSONValue(String key) {
-        currentJsonValue = currentJsonValue.get(key);
+    @Override
+    public IParseJSON navThroughJSON(String key) throws NullPointerException {
+        try {
+            currentJsonValue = currentJsonValue.get(key);
+        } catch (NullPointerException exception) {
+            throw new NullPointerException(exception.getMessage());
+        }
         return this;
     }
 
-    public JSONParserWrapper getIndex(int index) {
-        currentJsonValue = currentJsonValue.get(index);
+    @Override
+    public IParseJSON getByIndex(int index) throws NullPointerException {
+        try {
+            currentJsonValue = currentJsonValue.get(index);
+        } catch (NullPointerException exception) {
+            throw new NullPointerException(exception.getMessage());
+        }
         return this;
     }
 
-    public String getString(String key) {
-        return currentJsonValue.getString(key);
+    @Override
+    public String getString(String key) throws IllegalArgumentException {
+        String string;
+        try {
+            string = currentJsonValue.getString(key);
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalArgumentException(exception.getMessage());
+        }
+        return string;
     }
 
-    public Integer getInteger(String key) {
-        return currentJsonValue.getInt(key);
+    @Override
+    public Integer getInteger(String key) throws IllegalArgumentException {
+        int integer;
+        try {
+            integer = currentJsonValue.getInt(key);
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalArgumentException(exception.getMessage());
+        }
+        return integer;
     }
 
-    public Float getFloat(String key) {
-        return currentJsonValue.getFloat(key);
-    }
-
-    public HashMap<String, Double> getDoubleHashMap(String... keys) {
+    @Override
+    public HashMap<String, Double> getDoubleHashMap(String... keys) throws IllegalArgumentException {
         HashMap<String, Double> hashMap = new HashMap<>();
         for (String key : keys) {
-            hashMap.put(key, currentJsonValue.getDouble(key));
+            try {
+                hashMap.put(key, currentJsonValue.getDouble(key));
+            } catch (IllegalArgumentException exception) {
+                throw new IllegalArgumentException(exception.getMessage());
+            }
         }
         return new HashMap<>(hashMap);
     }
