@@ -27,7 +27,7 @@ final class MechTower extends Tower {
 
 
     MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<ITower> towersToAddList, List<ITower> allTowers,  List<PathRectangle> pathRectangles) {
-        super(x, y, name, reloadSpeed, cost, range, targetModes);
+        super(x, y, name, reloadSpeed, cost, range);
         this.reloadSpeed = reloadSpeed;
         this.targetModes = targetModes;
         this.towersToAddList = towersToAddList;
@@ -78,7 +78,7 @@ final class MechTower extends Tower {
 
     private void createOneTower(float[] point1) {
         if(point1[0] != -1){
-            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, getRange(), targetModes, super.getCurrentTargetMode(), super.getUpgradeLevel());
+            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, getRange(), targetModes.indexOf(super.getCurrentTargetMode()), super.getUpgradeLevel());
 
             towersToAddList.add(miniTower1);
 
@@ -88,8 +88,8 @@ final class MechTower extends Tower {
 
     private void createTwoTowers(float[] point1, float[] point2) {
         if(point1[0] != -1 && point2[0] != -1){
-            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, getRange(), targetModes, super.getCurrentTargetMode(), super.getUpgradeLevel());
-            ITower miniTower2 = new MechMiniTower(point2[0], point2[1], reloadSpeed, getRange(), targetModes, super.getCurrentTargetMode(), super.getUpgradeLevel());
+            ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, getRange(), targetModes.indexOf(super.getCurrentTargetMode()), super.getUpgradeLevel());
+            ITower miniTower2 = new MechMiniTower(point2[0], point2[1], reloadSpeed, getRange(), targetModes.indexOf(super.getCurrentTargetMode()), super.getUpgradeLevel());
 
             towersToAddList.add(miniTower1);
             towersToAddList.add(miniTower2);

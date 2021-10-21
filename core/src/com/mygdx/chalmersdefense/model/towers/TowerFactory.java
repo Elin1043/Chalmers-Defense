@@ -25,7 +25,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower CreateSmurf(float startPosX, float startPosY) {
-        return new SmurfTower(startPosX, startPosY, "IT-Smurf", 60 * 2, 100, 200, TargetModeFactory.getTargetModes());
+        return new SmurfTower(startPosX, startPosY, "IT-Smurf", 60 * 2, 100, 200);
     }
 
     /**
@@ -36,7 +36,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower CreateChemist(float startPosX, float startPosY, List<IProjectile> addProjectileToList) {
-        return new ChemistTower(startPosX, startPosY, "Chemist", 60 * 7, 200, 200, TargetModeFactory.getTargetModes(), addProjectileToList);
+        return new ChemistTower(startPosX, startPosY, "Chemist", 60 * 7, 200, 200, addProjectileToList);
     }
 
     /**
@@ -47,7 +47,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower CreateHacker(float startPosX, float startPosY, List<IProjectile> addProjectileToList) {
-        return new HackerTower(startPosX, startPosY, "Hackerman", 60 * 4, 300, 700, TargetModeFactory.getTargetModes(), addProjectileToList);
+        return new HackerTower(startPosX, startPosY, "Hackerman", 60 * 4, 300, 700, addProjectileToList);
     }
 
     /**
@@ -58,7 +58,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower CreateElectro(float startPosX, float startPosY) {
-        return new ElectroTower(startPosX, startPosY, "Electroman", 60 * 5, 400, 200, TargetModeFactory.getTargetModes());
+        return new ElectroTower(startPosX, startPosY, "Electroman", 60 * 5, 400, 200);
     }
 
 
@@ -81,7 +81,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower CreateEco(float startPosX, float startPosY, Player player) {
-        return new EcoTower(startPosX, startPosY, "Economist", 60 * 3, 600, 200, TargetModeFactory.getTargetModes(), player);
+        return new EcoTower(startPosX, startPosY, "Economist", 60 * 3, 600, 200, player);
     }
 
 

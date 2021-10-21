@@ -13,8 +13,8 @@ import java.util.List;
 final class ElectroTower extends Tower {
 
 
-    ElectroTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes) {
-        super(x, y, name, reloadSpeed, cost, range, targetModes);
+    ElectroTower(float x, float y, String name, int reloadSpeed, int cost, int range) {
+        super(x, y, name, reloadSpeed, cost, range);
     }
 
 

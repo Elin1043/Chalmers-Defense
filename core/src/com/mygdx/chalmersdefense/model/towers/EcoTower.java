@@ -18,8 +18,8 @@ final class EcoTower extends Tower {
     private final CountDownTimer currentReload = new CountDownTimer(600, 0); // Reload time of this tower
     private final Player player;    // Player to add money to
 
-    EcoTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, Player player) {
-        super(x, y, name, reloadSpeed, cost, range, targetModes);
+    EcoTower(float x, float y, String name, int reloadSpeed, int cost, int range, Player player) {
+        super(x, y, name, reloadSpeed, cost, range);
         this.player = player;
     }
 

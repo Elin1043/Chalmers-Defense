@@ -11,8 +11,8 @@ import java.util.List;
  * Class representing the SmurfTower
  */
 final class SmurfTower extends Tower {
-    SmurfTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes) {
-        super(x, y, name, reloadSpeed, cost, range, targetModes);
+    SmurfTower(float x, float y, String name, int reloadSpeed, int cost, int range) {
+        super(x, y, name, reloadSpeed, cost, range);
     }
 
 

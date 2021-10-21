@@ -19,13 +19,13 @@ final class MechMiniTower extends Tower {
 
     private final CountDownTimer lifeTimeCounter;   // The life timer of the MiniMechTower
 
-    MechMiniTower(float x, float y, int reloadSpeed, int range, List<ITargetMode> targetModes,ITargetMode currentTargetMode, int upgradeLevel) {
-        super(x, y, "MechMini", reloadSpeed, 0, range, targetModes);
+    MechMiniTower(float x, float y, int reloadSpeed, int range, int currentTargetModeIndex, int upgradeLevel) {
+        super(x, y, "MechMini", reloadSpeed, 0, range);
 
         Random rand = new Random();
         this.lifeTimeCounter = new CountDownTimer(rand.nextInt(401) + 800);
 
-        for (int i = 0; i < targetModes.indexOf(currentTargetMode); i++){
+        for (int i = 0; i < currentTargetModeIndex; i++){
             super.changeTargetMode(true);
         }
 
