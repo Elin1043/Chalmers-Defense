@@ -17,6 +17,10 @@ import java.util.Random;
 final class MaskedUp extends PowerUp{
     private final List<ITower> allTowers;           //list of towers to apply powerup to
 
+    /**
+     * Creates an instance of the power up Masked-Up
+     * @param allTowers The list of towers to activate power-up to
+     */
     MaskedUp(List<ITower> allTowers) {
         super(500, 500, 100);
         this.allTowers = allTowers;
@@ -25,9 +29,7 @@ final class MaskedUp extends PowerUp{
     @Override
     public void powerUpClicked(List<IGenericMapObject> addGraphicsList){
         super.powerUpClicked(addGraphicsList);
-        if(getIsActive()){
-            activatePowerUp();
-        }
+        if(getIsActive()){ activatePowerUp(); }
     }
 
     @Override
