@@ -1,0 +1,27 @@
+
+PlayButtonSkin.png
+size: 1024, 1024
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+PlayButtonDefault
+  rotate: false
+  xy: 1, 280
+  size: 277, 277
+  orig: 277, 277
+  offset: 0, 0
+  index: -1
+PlayButtonHover
+  rotate: false
+  xy: 1, 1
+  size: 277, 277
+  orig: 277, 277
+  offset: 0, 0
+  index: -1
+PlayButtonPressed
+  rotate: false
+  xy: 280, 280
+  size: 277, 277
+  orig: 277, 277
+  offset: 0, 0
+  index: -1

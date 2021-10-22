@@ -20,7 +20,7 @@ import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
  */
 final class MainScreen extends AbstractScreen {
 
-    private ImageButton playButton;
+    private Button playButton;
     private Button settingsButton;
     private Button infoButton;
 
@@ -48,10 +48,9 @@ final class MainScreen extends AbstractScreen {
     }
 
     private void createPlayButton() {
-        Texture playButtonTexture = new Texture(Gdx.files.internal("playButton.png"));
-        TextureRegion playButtonTextureRegion = new TextureRegion(playButtonTexture);
-        TextureRegionDrawable playTexRegDrawable = new TextureRegionDrawable(playButtonTextureRegion);
-        playButton = new ImageButton(playTexRegDrawable); //Set the button up
+        TextureAtlas playButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/playButtonSkin/PlayButtonSkin.atlas")); // Load atlas file from skin
+        Skin playButtonSkin = new Skin(Gdx.files.internal("buttons/playButtonSkin/PlayButtonSkin.json"), playButtonAtlas); // Create skin object
+        playButton = new Button(playButtonSkin); //Set the button up
         playButton.setPosition(832, 22);
 
         quitButton.setPosition(5, 13);

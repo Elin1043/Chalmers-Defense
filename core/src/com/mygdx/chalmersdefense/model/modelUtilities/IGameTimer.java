@@ -20,4 +20,10 @@ public interface IGameTimer {
      * Change model update speed to run simulation faster or slower based on current speed
      */
     void changeUpdateSpeed();
+
+    /**
+     * Gets if game speed is sped up
+     * @return true if game is sped up. Otherwise false
+     */
+    boolean isGameSpedUp();
 }

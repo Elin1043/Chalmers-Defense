@@ -180,25 +180,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public int getClickedTowerSellPrice() {
-        float cost;
-        if(map.getSelectedTower().getUpgradeLevel() == 1){
-            cost = (map.getSelectedTower().getCost() * 0.6F);
-        }
-        else{
-            cost = upgradedTowerSellPrice();
-        }
-        return Math.round(cost);
-    }
-
-    private float upgradedTowerSellPrice() {
-        float cost = map.getSelectedTower().getCost();
-
-        for (int i = 2; i < map.getSelectedTower().getUpgradeLevel() + 1; i++) {
-            cost += Upgrades.getTowerUpgradePrice(map.getSelectedTower().getName(), i - 1);
-        }
-
-        cost *= 0.6;
-        return cost;
+        return map.getClickedTowerSellPrice();
     }
 
     @Override
@@ -277,4 +259,9 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public String getMapImagePath() { return map.getMapImagePath(); }
+
+    @Override
+    public boolean getIsGameSpedUp() {
+        return timer.isGameSpedUp();
+    }
 }
