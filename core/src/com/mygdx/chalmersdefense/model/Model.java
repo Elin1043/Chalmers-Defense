@@ -4,7 +4,6 @@ package com.mygdx.chalmersdefense.model;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
-import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
 import com.mygdx.chalmersdefense.utilities.GameTimer;
