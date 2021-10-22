@@ -27,7 +27,7 @@ public class TestMechMiniTower {
     @Test
     public void testCreateProjectile() {
         List<ITower> addToList = new ArrayList<>();
-        ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,path.getCollisionRectangles());
+        ITower t = TowerFactory.createMech(0, 0, addToList,towersList,path.getCollisionRectangles());
         List<IProjectile> pList = new ArrayList<>();
 
         t.placeTower();
@@ -45,7 +45,7 @@ public class TestMechMiniTower {
         HashMap<String, Double> upgrades = new HashMap<>();
         upgrades.put("attackSpeedMul",0.2);
         upgrades.put("attackRangeMul",2.0);
-        ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,path.getCollisionRectangles());
+        ITower t = TowerFactory.createMech(0, 0, addToList,towersList,path.getCollisionRectangles());
 
         t.placeTower();
         t.update(new ArrayList<>(), 10, true);

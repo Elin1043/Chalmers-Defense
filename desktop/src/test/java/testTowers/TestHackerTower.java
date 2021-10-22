@@ -19,7 +19,7 @@ public class TestHackerTower {
     @Test
     public void testCreateProjectile() {
         List<IProjectile> pList = new ArrayList<>();
-        ITower t = TowerFactory.CreateHacker(0, 0, pList);
+        ITower t = TowerFactory.createHacker(0, 0, pList);
         List<IProjectile> l = new ArrayList<>();
 
         t.placeTower();

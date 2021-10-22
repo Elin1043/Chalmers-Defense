@@ -26,7 +26,7 @@ public class TestTower {
     @Test
     public void testUpdateTower() {
         List<IProjectile> projectilesList = new ArrayList<>();
-        ITower tower = TowerFactory.CreateSmurf(0, 0);
+        ITower tower = TowerFactory.createSmurf(0, 0);
         tower.placeTower();
         tower.update(projectilesList, 0, true);
         assertEquals(1, projectilesList.size());
@@ -41,7 +41,7 @@ public class TestTower {
         upgrades.put("attackDmgMul", 0.0);
         upgrades.put("attackSpeedMul", 0.0);
         upgrades.put("attackRangeMul", 0.0);
-        ITower tower = TowerFactory.CreateSmurf(0, 0);
+        ITower tower = TowerFactory.createSmurf(0, 0);
         tower.placeTower();
 
         assertEquals("IT-Smurf1", tower.getSpriteKey());
@@ -52,13 +52,13 @@ public class TestTower {
 
     @Test
     public void testTowerGetCost() {
-        ITower tower = TowerFactory.CreateSmurf(0, 0);
+        ITower tower = TowerFactory.createSmurf(0, 0);
         assertTrue(tower.getCost() > 0);
     }
 
     @Test
     public void testTowerCollision() {
-        ITower tower = TowerFactory.CreateSmurf(0, 0);
+        ITower tower = TowerFactory.createSmurf(0, 0);
         assertFalse(tower.canRemove());
         tower.setIfCanRemove(true);
         assertTrue(tower.canRemove());
@@ -67,38 +67,38 @@ public class TestTower {
 
     @Test
     public void testTowerGetName() {
-        ITower tower = TowerFactory.CreateSmurf(0, 0);
+        ITower tower = TowerFactory.createSmurf(0, 0);
         assertEquals(tower.getName(), "IT-Smurf");
     }
 
     @Test
     public void testTowerGetWidthAndHeight() {
-        ITower tower = TowerFactory.CreateSmurf(0, 0);
+        ITower tower = TowerFactory.createSmurf(0, 0);
         assertTrue(tower.getWidth() > 0);
         assertTrue(tower.getHeight() > 0);
     }
 
     @Test
     public void testTowerGetRange() {
-        ITower tower = TowerFactory.CreateSmurf(0, 0);
+        ITower tower = TowerFactory.createSmurf(0, 0);
         assertTrue(tower.getRange() > 0);
     }
 
     @Test
     public void testTowerGetTargetMode() {
-        ITower tower = TowerFactory.CreateSmurf(0, 0);
+        ITower tower = TowerFactory.createSmurf(0, 0);
         assertNotNull(tower.getCurrentTargetMode());
     }
 
     @Test
     public void testTowerIsPlaced() {
-        ITower tower = TowerFactory.CreateSmurf(0, 0);
+        ITower tower = TowerFactory.createSmurf(0, 0);
         assertFalse(tower.isPlaced());
     }
 
     @Test
     public void testChangeTargetModeRight(){
-        ITower tower = TowerFactory.CreateSmurf(0, 0);
+        ITower tower = TowerFactory.createSmurf(0, 0);
         List<ITargetMode> targetModes = TargetModeFactory.getTargetModes();
 
         for (int i = 0; i < targetModes.size(); i++) {    // This should spinn target modes around completely and be on the same as it started on
@@ -109,7 +109,7 @@ public class TestTower {
 
     @Test
     public void testChangeTargetModeLeft(){
-        ITower tower = TowerFactory.CreateSmurf(0, 0);
+        ITower tower = TowerFactory.createSmurf(0, 0);
         List<ITargetMode> targetModes = TargetModeFactory.getTargetModes();
 
         for (int i = 0; i < targetModes.size(); i++) {    // This should spinn target modes around completely and be on the same as it started on

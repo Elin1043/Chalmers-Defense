@@ -25,7 +25,7 @@ public class TestAcidPool {
 
     @Before
     public void createAcidPool() {
-        ITower tower = TowerFactory.CreateChemist(0, 0, addList);
+        ITower tower = TowerFactory.createChemist(0, 0, addList);
         tower.placeTower();
         tower.update(projectilesList, 0, true);
         projectile = projectilesList.get(0);

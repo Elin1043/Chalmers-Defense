@@ -348,12 +348,12 @@ final class Map {
      */
     void dragStart(String towerName, float x, float y) {
         switch (towerName) {
-            case "smurf" -> newTower = TowerFactory.CreateSmurf(x, y);
-            case "chemist" -> newTower = TowerFactory.CreateChemist(x, y, projectilesToAddList);
-            case "electro" -> newTower = TowerFactory.CreateElectro(x, y);
-            case "hacker" -> newTower = TowerFactory.CreateHacker(x, y, projectilesToAddList);
-            case "mech" -> newTower = TowerFactory.CreateMech(x, y, towersToAddList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
-            case "eco" -> newTower = TowerFactory.CreateEco(x, y, player);
+            case "smurf" -> newTower = TowerFactory.createSmurf(x, y);
+            case "chemist" -> newTower = TowerFactory.createChemist(x, y, projectilesToAddList);
+            case "electro" -> newTower = TowerFactory.createElectro(x, y);
+            case "hacker" -> newTower = TowerFactory.createHacker(x, y, projectilesToAddList);
+            case "mech" -> newTower = TowerFactory.createMech(x, y, towersToAddList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
+            case "eco" -> newTower = TowerFactory.createEco(x, y, player);
             default -> {
                 return;
             }

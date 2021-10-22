@@ -18,7 +18,7 @@ public class TestChemistTower {
 
     @Test
     public void testCreateProjectile() {
-        ITower t = TowerFactory.CreateChemist(0, 0, new ArrayList<>());
+        ITower t = TowerFactory.createChemist(0, 0, new ArrayList<>());
         List<IProjectile> l = new ArrayList<>();
 
         t.placeTower();

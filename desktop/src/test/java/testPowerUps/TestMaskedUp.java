@@ -33,7 +33,7 @@ public class TestMaskedUp {
 
     @Test
     public void testActivatePowerUp(){
-        towerList.add(TowerFactory.CreateSmurf(0,0));
+        towerList.add(TowerFactory.createSmurf(0,0));
         int startRange = towerList.get(0).getRange();
         powerUp.powerUpClicked(genericMapObjectList);
         assertTrue(startRange < towerList.get(0).getRange());
@@ -41,7 +41,7 @@ public class TestMaskedUp {
 
     @Test
     public void testDeActivatePowerUp(){
-        towerList.add(TowerFactory.CreateSmurf(0,0));
+        towerList.add(TowerFactory.createSmurf(0,0));
         int startRange = towerList.get(0).getRange();
         powerUp.powerUpClicked(genericMapObjectList);
 
