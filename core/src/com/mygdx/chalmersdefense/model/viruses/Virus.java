@@ -187,47 +187,28 @@ abstract class Virus implements IVirus {
         spriteKey = "virus" + health;
     } // Updates the key to Sprite hashmap
 
-    /**
-     * Gets Virus x position
-     *
-     * @return Virus x position
-     */
+
+    @Override
     public float getX() {
         return xPos;
     }
 
-    /**
-     * Gets Virus y position
-     *
-     * @return Virus y position
-     */
+    @Override
     public float getY() {
         return yPos;
     }
 
-    /**
-     * Gets width of virus
-     *
-     * @return width
-     */
+    @Override
     public float getWidth() {
         return widthX;
     }
 
-    /**
-     * Gets height of virus
-     *
-     * @return height
-     */
+    @Override
     public float getHeight() {
         return heightY;
     }
 
-    /**
-     * Gets the key to Sprite hashmap for rendering
-     *
-     * @return Key to hashmap
-     */
+    @Override
     public String getSpriteKey() {
         return spriteKey;
     }
@@ -237,30 +218,18 @@ abstract class Virus implements IVirus {
         return 0;
     }
 
-    /**
-     * Gets the amount of damage the virus does when reaching end of path
-     *
-     * @return Amount of damage to be done
-     */
+    @Override
     public int getLifeDecreaseAmount() {
         return health;
     }
 
-    /**
-     * Gets the total distance trawled by the virus object
-     *
-     * @return Total distance trawled
-     */
+
     @Override
     public float getTotalDistanceTraveled() {
         return totalDistanceTrawled;
     }
 
-    /**
-     * Gets if virus health is 0, which means it's dead
-     *
-     * @return if health is 0
-     */
+    @Override
     public boolean isDead() {
         return this.health <= 0;
     }
