@@ -180,7 +180,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public int getClickedTowerSellPrice() {
-        return map.getClickedTowerSellPrice();
+        return map.getSelectedTowerSellPrice();
     }
 
     @Override
@@ -261,7 +261,5 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     public String getMapImagePath() { return map.getMapImagePath(); }
 
     @Override
-    public boolean getIsGameSpedUp() {
-        return timer.isGameSpedUp();
-    }
+    public boolean getIsGameSpedUp() { return timer.isGameSpedUp(); }
 }

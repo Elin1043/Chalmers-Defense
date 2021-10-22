@@ -456,29 +456,14 @@ final class Map {
     }
 
     /**
-     * Get the sell price of the clicked tower
-     * @return price
-     */
-    int getClickedTowerSellPrice() {
-        float cost;
-        if(clickedTower.getUpgradeLevel() == 1){
-            cost = (clickedTower.getCost() * 0.6F);
-        }
-        else{
-            cost = upgradedTowerSellPrice();
-        }
-        return Math.round(cost);
-    }
-
-    /**
      * Returns sell price for an upgraded tower
      * @return price
      */
     private float upgradedTowerSellPrice() {
-        float cost = clickedTower.getCost();
+        float cost = selectedTower.getCost();
 
-        for (int i = 2; i < clickedTower.getUpgradeLevel() + 1; i++) {
-            cost += Upgrades.getTowerUpgradePrice(clickedTower.getName(), i - 1);
+        for (int i = 2; i < selectedTower.getUpgradeLevel() + 1; i++) {
+            cost += Upgrades.getTowerUpgradePrice(selectedTower.getName(), i - 1);
         }
 
         cost *= 0.6;
@@ -508,6 +493,21 @@ final class Map {
      */
     ITower getSelectedTower() {
         return selectedTower;
+    }
+
+    /**
+     * Get the sell price of the clicked tower
+     * @return price
+     */
+    int getSelectedTowerSellPrice() {
+        float cost;
+        if(selectedTower.getUpgradeLevel() == 1){
+            cost = (selectedTower.getCost() * 0.6F);
+        }
+        else{
+            cost = upgradedTowerSellPrice();
+        }
+        return Math.round(cost);
     }
 
     /**
