@@ -17,7 +17,7 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
  * @author Daniel Persson
  * A class to display settings overlay
  */
-final public class SettingsOverlay extends AbstractOverlay {
+final class SettingsOverlay extends AbstractOverlay {
     private final SettingsOverlayController settingsOverlayController; // Controller used for adding listeners
     private final Preferences preferences;  // Reference to preferences of game
 

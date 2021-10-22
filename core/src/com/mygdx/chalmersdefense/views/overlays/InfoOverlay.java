@@ -13,7 +13,7 @@ import com.mygdx.chalmersdefense.utilities.FontFactory;
  * @author Jenny Carlsson
  * A class to display info overlay
  */
-public class InfoOverlay extends AbstractOverlay {
+final class InfoOverlay extends AbstractOverlay {
 
     private final Group infoGroup = new Group(); // Group to add all actors to
 

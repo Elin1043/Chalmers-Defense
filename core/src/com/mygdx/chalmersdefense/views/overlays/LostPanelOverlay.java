@@ -17,7 +17,7 @@ import com.mygdx.chalmersdefense.utilities.FontFactory;
  * @author Daniel Persson
  * A class used to render an overlay when a player lose the game
  */
-final public class LostPanelOverlay extends AbstractOverlay {
+final class LostPanelOverlay extends AbstractOverlay {
     private final LostPanelOverlayController lostPanelOverlayController; // Controller used for adding listeners
 
     private final Group lostPanelGroup = new Group(); // Group to add all actors to

@@ -17,7 +17,7 @@ import com.mygdx.chalmersdefense.utilities.FontFactory;
  * @author Daniel Persson
  * A class used to render an overlay when a player win the game
  */
-final public class WinPanelOverlay extends AbstractOverlay {
+final class WinPanelOverlay extends AbstractOverlay {
     private final WinPanelOverlayController winPanelOverlayController; // Controller used for adding listeners
 
     private final TextureAtlas winButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/winGameButtonSkin/winGameButtonSkin.atlas")); // Load atlas file from skin
