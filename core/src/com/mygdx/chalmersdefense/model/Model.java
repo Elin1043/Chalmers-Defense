@@ -90,7 +90,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public String getClickedTowerTargetMode() {
-        return map.getClickedTowerTargetMode();
+        return map.getSelectedTowerTargetMode();
     }
 
 
@@ -143,7 +143,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public void powerUpClicked(String powerUpName){
-        if (virusSpawner.isSpawning() || !map.isVirusCleared()) {
+        if (!isGameStopped()) {
             map.powerUpClicked(powerUpName);
         }
     }
@@ -155,7 +155,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public IMapObject getClickedTower() {
-        return map.getClickedTower();
+        return map.getSelectedTower();
     }
 
     @Override
@@ -181,8 +181,8 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     @Override
     public int getClickedTowerSellPrice() {
         float cost;
-        if(map.getClickedTower().getUpgradeLevel() == 1){
-            cost = (map.getClickedTower().getCost() * 0.6F);
+        if(map.getSelectedTower().getUpgradeLevel() == 1){
+            cost = (map.getSelectedTower().getCost() * 0.6F);
         }
         else{
             cost = upgradedTowerSellPrice();
@@ -191,10 +191,10 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     private float upgradedTowerSellPrice() {
-        float cost = map.getClickedTower().getCost();
+        float cost = map.getSelectedTower().getCost();
 
-        for (int i = 2; i < map.getClickedTower().getUpgradeLevel() + 1; i++) {
-            cost += Upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), i - 1);
+        for (int i = 2; i < map.getSelectedTower().getUpgradeLevel() + 1; i++) {
+            cost += Upgrades.getTowerUpgradePrice(map.getSelectedTower().getName(), i - 1);
         }
 
         cost *= 0.6;

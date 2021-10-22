@@ -28,8 +28,7 @@ import java.util.List;
  * 2021-10-22 Modified by Joel Båtsman Hilmmersson: Split big methods into smaller ones
  */
 final class Map {
-    private ITower newTower;            // Temp helper for when new tower is added
-    private ITower clickedTower;        // The current clicked tower
+    private ITower selectedTower;        // Helper when placing towers and the current selected tower
     private final List<ITower> towersList = new ArrayList<>();              // The main tower list
     private final List<IProjectile> projectilesList = new ArrayList<>();    // The main projectile list
     private final List<IVirus> virusesList = new ArrayList<>();             // The main virus list
@@ -74,7 +73,7 @@ final class Map {
 
         resetAllPowerUps();
 
-        clickedTower = null;
+        selectedTower = null;
         isGameLost = false;
 
         // Removes range circle
@@ -120,7 +119,7 @@ final class Map {
 
             tower.update(projectilesList, newAngle, towerHasTarget);
 
-            if (tower.canRemove() && !tower.equals(newTower)) { removeTowers.add(tower); }
+            if (tower.canRemove() && !tower.equals(selectedTower)) { removeTowers.add(tower); }
         }
 
         towersList.removeAll(removeTowers);
@@ -236,8 +235,8 @@ final class Map {
 
     //Updates the rangeCircle
     private void updateRangeCircle() {
-        if(clickedTower != null){
-            rangeCircle.updatePos(clickedTower.getX() + clickedTower.getWidth()/2,clickedTower.getY() + clickedTower.getHeight()/2,clickedTower.getRange());
+        if(selectedTower != null){
+            rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth()/2, selectedTower.getY() + selectedTower.getHeight()/2, selectedTower.getRange());
         }
     }
 
@@ -347,20 +346,18 @@ final class Map {
      */
     void dragStart(String towerName, float x, float y) {
         switch (towerName) {
-            case "smurf" -> newTower = TowerFactory.createSmurf(x, y);
-            case "chemist" -> newTower = TowerFactory.createChemist(x, y, projectilesToAddList);
-            case "electro" -> newTower = TowerFactory.createElectro(x, y);
-            case "hacker" -> newTower = TowerFactory.createHacker(x, y, projectilesToAddList);
-            case "mech" -> newTower = TowerFactory.createMech(x, y, towersToAddList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
-            case "eco" -> newTower = TowerFactory.createEco(x, y, player);
+            case "smurf" -> selectedTower = TowerFactory.createSmurf(x, y);
+            case "chemist" -> selectedTower = TowerFactory.createChemist(x, y, projectilesToAddList);
+            case "electro" -> selectedTower = TowerFactory.createElectro(x, y);
+            case "hacker" -> selectedTower = TowerFactory.createHacker(x, y, projectilesToAddList);
+            case "mech" -> selectedTower = TowerFactory.createMech(x, y, towersToAddList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
+            case "eco" -> selectedTower = TowerFactory.createEco(x, y, player);
             default -> {
                 return;
             }
         }
 
-        towersList.add(newTower);
-        clickedTower = newTower;
-
+        towersList.add(selectedTower);
     }
 
 
@@ -374,16 +371,16 @@ final class Map {
      */
     void onDrag(float x, float y, int windowHeight, int windowWidth) {
 
-        newTower.setPos(x - newTower.getWidth() / 2f, y - newTower.getHeight() / 2f);
+        selectedTower.setPos(x - selectedTower.getWidth() / 2f, y - selectedTower.getHeight() / 2f);
 
-        if (!checkCollisionOfTower(newTower, windowHeight, windowWidth) && (player.getMoney() >= newTower.getCost())) {
-            newTower.setIfCanRemove(false);
-            rangeCircle.updatePos(newTower.getX() + newTower.getWidth() / 2, newTower.getY() + newTower.getHeight() / 2, newTower.getRange());
+        if (!checkCollisionOfTower(selectedTower, windowHeight, windowWidth) && (player.getMoney() >= selectedTower.getCost())) {
+            selectedTower.setIfCanRemove(false);
+            rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth() / 2, selectedTower.getY() + selectedTower.getHeight() / 2, selectedTower.getRange());
             rangeCircle.setEnumColor(RangeCircle.Color.GRAY);
 
         } else {
-            newTower.setIfCanRemove(true);
-            rangeCircle.updatePos(newTower.getX() + newTower.getWidth() / 2, newTower.getY() + newTower.getHeight() / 2, newTower.getRange());
+            selectedTower.setIfCanRemove(true);
+            rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth() / 2, selectedTower.getY() + selectedTower.getHeight() / 2, selectedTower.getRange());
             rangeCircle.setEnumColor(RangeCircle.Color.RED);
         }
     }
@@ -398,14 +395,14 @@ final class Map {
      * @param y            The Y-position of the mouse
      */
     void dragEnd(float x, float y) {
-        if (!newTower.canRemove()) {
-            newTower.placeTower();
-            newTower.setPos(x - newTower.getWidth() / 2f, y - newTower.getHeight() / 2f);
-            player.decreaseMoney(newTower.getCost());
+        if (!selectedTower.canRemove()) {
+            selectedTower.placeTower();
+            selectedTower.setPos(x - selectedTower.getWidth() / 2f, y - selectedTower.getHeight() / 2f);
+            player.decreaseMoney(selectedTower.getCost());
         } else {
-            towersList.remove(newTower);
+            towersList.remove(selectedTower);
             rangeCircle.setEnumColor(RangeCircle.Color.NONE);
-            clickedTower = null;
+            selectedTower = null;
         }
     }
 
@@ -431,7 +428,7 @@ final class Map {
         if (towerWasClicked == null) {
             rangeCircle.setEnumColor(RangeCircle.Color.NONE);
         }
-        clickedTower = towerWasClicked;
+        selectedTower = towerWasClicked;
 
     }
 
@@ -440,10 +437,10 @@ final class Map {
      */
     void upgradeClickedTower() {
         // If upgrade is applied decrease player money
-        if (Upgrades.upgradeTower(clickedTower)) {
-            player.decreaseMoney(Upgrades.getTowerUpgradePrice(clickedTower.getName(), clickedTower.getUpgradeLevel() - 1));
+        if (Upgrades.upgradeTower(selectedTower)) {
+            player.decreaseMoney(Upgrades.getTowerUpgradePrice(selectedTower.getName(), selectedTower.getUpgradeLevel() - 1));
 
-            rangeCircle.updatePos(clickedTower.getX() + getClickedTower().getWidth()/2, clickedTower.getY() + getClickedTower().getHeight()/2, clickedTower.getRange());
+            rangeCircle.updatePos(selectedTower.getX() + getSelectedTower().getWidth()/2, selectedTower.getY() + getSelectedTower().getHeight()/2, selectedTower.getRange());
         }
     }
 
@@ -454,9 +451,9 @@ final class Map {
      * @param cost cost of tower sold
      */
     void sellClickedTower(int cost) {
-        towersList.remove(clickedTower);
+        towersList.remove(selectedTower);
         player.increaseMoney(cost);
-        clickedTower = null;
+        selectedTower = null;
         rangeCircle.setEnumColor(RangeCircle.Color.NONE);
     }
 
@@ -464,7 +461,7 @@ final class Map {
      * Change the targetMode of the clicked tower
      */
     void changeTargetMode(boolean goRight){
-        clickedTower.changeTargetMode(goRight);
+        selectedTower.changeTargetMode(goRight);
     }
 
 
@@ -481,8 +478,8 @@ final class Map {
      *
      * @return tower object of clicked tower
      */
-    ITower getClickedTower() {
-        return clickedTower;
+    ITower getSelectedTower() {
+        return selectedTower;
     }
 
     /**
@@ -490,8 +487,8 @@ final class Map {
      *
      * @return target mode of clicked tower
      */
-    String getClickedTowerTargetMode() {
-        String[] targetModeNameSplit = clickedTower.getCurrentTargetMode().getClass().getName().split("[.]");
+    String getSelectedTowerTargetMode() {
+        String[] targetModeNameSplit = selectedTower.getCurrentTargetMode().getClass().getName().split("[.]");
         return targetModeNameSplit[targetModeNameSplit.length - 1];
     }
 
@@ -565,7 +562,7 @@ final class Map {
             case "cleanHands" -> powerUpList.get(0);
             case "maskedUp"   -> powerUpList.get(1);
             case "vaccinated" -> powerUpList.get(2);
-            default -> throw new IllegalStateException(); // TODO Custom exception???
+            default -> throw new IllegalArgumentException("The argument: '" + powerUpName + "' is not a valid power-up"); 
         };
 
         handlePowerUpClicked(powerUp);
