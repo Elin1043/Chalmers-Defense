@@ -1,6 +1,6 @@
 package com.mygdx.chalmersdefense.model.genericMapObjects;
 
-import com.mygdx.chalmersdefense.utilities.CountDownTimer;
+import com.mygdx.chalmersdefense.model.modelUtilities.CountDownTimer;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

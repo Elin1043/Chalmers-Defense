@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
 
-import com.mygdx.chalmersdefense.utilities.CountDownTimer;
+import com.mygdx.chalmersdefense.model.modelUtilities.CountDownTimer;
 
 /**
  * @author Joel Båtsman Hilmersson

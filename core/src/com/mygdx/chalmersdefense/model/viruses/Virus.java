@@ -3,8 +3,8 @@ package com.mygdx.chalmersdefense.model.viruses;
 
 import com.mygdx.chalmersdefense.model.path.IPath;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
-import com.mygdx.chalmersdefense.utilities.Calculate;
-import com.mygdx.chalmersdefense.utilities.PositionVector;
+import com.mygdx.chalmersdefense.model.modelUtilities.Calculate;
+import com.mygdx.chalmersdefense.model.modelUtilities.PositionVector;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

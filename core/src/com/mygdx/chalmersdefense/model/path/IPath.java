@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model.path;
 
-import com.mygdx.chalmersdefense.utilities.PathRectangle;
-import com.mygdx.chalmersdefense.utilities.PositionVector;
+import com.mygdx.chalmersdefense.model.modelUtilities.PathRectangle;
+import com.mygdx.chalmersdefense.model.modelUtilities.PositionVector;
 
 import java.util.List;
 

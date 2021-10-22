@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
-import com.mygdx.chalmersdefense.utilities.FontFactory;
+import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
 
 import java.util.HashMap;
 
@@ -39,7 +39,7 @@ final public class BottomBarUpgradePanel {
     private final Image bottomBarUpgradePanelBackground = new Image(new Texture("GameScreen/BottomBarUpgradePanel.png"));
 
     private final Group bottomBarPanelUpgradeGroup = new Group();
-    private final Label towerNameLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle36BlackBold());
+    private final Label towerNameLabel = new Label("", FontFactory.getLabelStyle36BlackBold());
 
     // Skin for upgrade buttons
     private final TextureAtlas upgradePanelAtlas = new TextureAtlas(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.atlas")); // Load atlas file from skin

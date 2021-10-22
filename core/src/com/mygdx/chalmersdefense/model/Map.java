@@ -8,9 +8,9 @@ import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
-import com.mygdx.chalmersdefense.utilities.Calculate;
+import com.mygdx.chalmersdefense.model.modelUtilities.Calculate;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
-import com.mygdx.chalmersdefense.utilities.PathRectangle;
+import com.mygdx.chalmersdefense.model.modelUtilities.PathRectangle;
 
 import java.util.ArrayList;
 import java.util.Collections;

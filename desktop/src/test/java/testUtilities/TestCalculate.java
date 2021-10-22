@@ -1,7 +1,7 @@
 package testUtilities;
 
-import com.mygdx.chalmersdefense.utilities.Calculate;
-import com.mygdx.chalmersdefense.utilities.PathRectangle;
+import com.mygdx.chalmersdefense.model.modelUtilities.Calculate;
+import com.mygdx.chalmersdefense.model.modelUtilities.PathRectangle;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
