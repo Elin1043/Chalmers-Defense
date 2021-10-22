@@ -2,7 +2,7 @@ package com.mygdx.chalmersdefense.model;
 
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
-import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
+import com.mygdx.chalmersdefense.utilities.RangeCircle;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public interface IViewModel {
      *
      * @return the circle
      */
-    GetRangeCircle getRangeCircle();
+    RangeCircle getRangeCircle();
 
     /**
      * A delegation for getting title of a tower upgrade.

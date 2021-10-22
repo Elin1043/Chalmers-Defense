@@ -19,7 +19,7 @@ import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
-import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
+import com.mygdx.chalmersdefense.utilities.RangeCircle;
 import com.mygdx.chalmersdefense.views.gameScreenViews.BottomBarUpgradePanel;
 import com.mygdx.chalmersdefense.views.gameScreenViews.RightSidePanel;
 import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
@@ -241,7 +241,7 @@ final class GameScreen extends AbstractScreen implements Screen {
     }
 
     private void renderRangeCircle() {
-        GetRangeCircle circle = model.getRangeCircle();
+        RangeCircle circle = model.getRangeCircle();
 
         Gdx.gl.glEnable(GL_BLEND);
         Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -275,7 +275,7 @@ final class GameScreen extends AbstractScreen implements Screen {
         stageHUD.addActor(roundLabel);
     }
 
-    private Color getColorOfCircle(GetRangeCircle circle) {
+    private Color getColorOfCircle(RangeCircle circle) {
         switch (circle.getColor()) {
             case RED -> {
                 return new Color(255 / 255F, 51 / 255F, 51 / 255F, 0.8F);
