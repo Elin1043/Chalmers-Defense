@@ -17,6 +17,7 @@ import java.util.Objects;
 final public class Upgrades {
     private JSONObject mainObject;                          // The parsed json object
 
+
     public Upgrades() {
         try {
             // Current Json parser

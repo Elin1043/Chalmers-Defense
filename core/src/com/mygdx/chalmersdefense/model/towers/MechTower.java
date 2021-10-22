@@ -24,6 +24,18 @@ final class MechTower extends Tower {
     private final CountDownTimer robotCoolDownTimer = new CountDownTimer(1500,0); // Timer for robot spawning cooldown
 
 
+    /**
+     * Creates object of a MechTower
+     * @param x - startcoordinate of tower
+     * @param y - startcoordinate of tower
+     * @param name of the tower
+     * @param reloadSpeed of the tower
+     * @param cost of the tower
+     * @param range of the tower
+     * @param towersToAddList
+     * @param allTowers
+     * @param pathRectangles
+     */
     MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITower> towersToAddList, List<ITower> allTowers,  List<PathRectangle> pathRectangles) {
         super(x, y, name, reloadSpeed, cost, range);
         this.reloadSpeed = reloadSpeed;
