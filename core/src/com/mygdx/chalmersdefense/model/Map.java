@@ -367,17 +367,14 @@ final class Map {
     /**
      * Handles a tower being dragged.
      * Updates the towers position after mouse and check for collision
-     *
-     * @param buttonWidth  The width of the button dragged from
-     * @param buttonHeight The height of the button dragged from
-     * @param x            The X-position of the mouse
+     *  @param x            The X-position of the mouse
      * @param y            The Y-position of the mouse
      * @param windowHeight The height of the window
      * @param windowWidth  The width of the window
      */
-    void onDrag(float buttonWidth, float buttonHeight, float x, float y, int windowHeight, int windowWidth) {
+    void onDrag(float x, float y, int windowHeight, int windowWidth) {
 
-        newTower.setPos(x - buttonWidth / 2f, y - buttonHeight / 2f);
+        newTower.setPos(x - newTower.getWidth() / 2f, y - newTower.getHeight() / 2f);
 
         if (!checkCollisionOfTower(newTower, windowHeight, windowWidth) && (player.getMoney() >= newTower.getCost())) {
             newTower.setIfCanRemove(false);
@@ -397,16 +394,13 @@ final class Map {
      * Checks if tower can be placed on current position.
      * If not: tower is removed
      * if valid: place the tower
-     *
-     * @param buttonWidth  The width of the button dragged from
-     * @param buttonHeight The height of the button dragged from
-     * @param x            The X-position of the mouse
+     *  @param x            The X-position of the mouse
      * @param y            The Y-position of the mouse
      */
-    void dragEnd(float buttonWidth, float buttonHeight, float x, float y) {
+    void dragEnd(float x, float y) {
         if (!newTower.canRemove()) {
             newTower.placeTower();
-            newTower.setPos(x - buttonWidth / 2f, y - buttonHeight / 2f);
+            newTower.setPos(x - newTower.getWidth() / 2f, y - newTower.getHeight() / 2f);
             player.decreaseMoney(newTower.getCost());
         } else {
             towersList.remove(newTower);

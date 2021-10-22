@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mygdx.chalmersdefense.model.IControllModel;
@@ -71,20 +70,18 @@ public class RightSidePanelController extends InputAdapter {
 
             @Override
             public void drag(InputEvent event, float x, float y, int pointer) {
-                Button button = (Button) event.getListenerActor();
                 float inputX = event.getStageX();
                 float inputY = event.getStageY();
                 int windowHeight = Gdx.graphics.getHeight();
                 int windowWidth = Gdx.graphics.getWidth();
-                model.onDrag((button.getWidth() / 2), (button.getHeight() / 2), inputX, inputY, windowHeight, windowWidth);
+                model.onDrag(inputX, inputY, windowHeight, windowWidth);
             }
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
-                Button button = (Button) event.getListenerActor();
                 float inputX = event.getStageX();
                 float inputY = event.getStageY();
-                model.dragEnd((button.getWidth() / 2), (button.getHeight() / 2), inputX, inputY);
+                model.dragEnd(inputX, inputY);
             }
         });
     }

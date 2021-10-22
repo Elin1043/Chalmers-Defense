@@ -43,7 +43,7 @@ public class TestUpgrades {
     @Test
     public void testUpgradeTower() {
         model.dragStart("eco", 300, 300); // Creates tower
-        model.dragEnd(2, 2, 300, 300);
+        model.dragEnd(300, 300);
 
         model.upgradeClickedTower();
         int upgradeLevel = Character.getNumericValue(model.getClickedTower().getSpriteKey().charAt(model.getClickedTower().getSpriteKey().length() - 1));
