@@ -177,8 +177,8 @@ final public class BottomBarUpgradePanel {
 
     private void updateButtonInfo(){
         sellPriceLabel.setText("+" + "$" + model.getClickedTowerSellPrice());
-        String[] namesArray = model.getClickedTowerTargetMode().getClass().getName().split("[.]");
-        targetModeLabel.setText(namesArray[namesArray.length - 1]);
+
+        targetModeLabel.setText(model.getClickedTowerTargetMode());
     }
     /**
      * Sets up the upgrade button with labels and image.

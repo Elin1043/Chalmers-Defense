@@ -2,7 +2,6 @@ package com.mygdx.chalmersdefense.model;
 
 
 import com.mygdx.chalmersdefense.utilities.*;
-import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
 
@@ -88,8 +87,9 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
-    public ITargetMode getClickedTowerTargetMode() {
-        return map.getClickedTowerTargetMode();
+    public String getClickedTowerTargetMode() {
+        String[] targetModeNameSplit = map.getClickedTowerTargetMode().getClass().getName().split("[.]");
+        return targetModeNameSplit[targetModeNameSplit.length - 1];
     }
 
 
