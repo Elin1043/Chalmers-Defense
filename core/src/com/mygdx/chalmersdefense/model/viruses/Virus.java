@@ -2,6 +2,7 @@ package com.mygdx.chalmersdefense.model.viruses;
 
 
 import com.mygdx.chalmersdefense.model.path.IPath;
+import com.mygdx.chalmersdefense.model.path.PathFactory;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.utilities.PositionVector;
 
@@ -16,6 +17,7 @@ import java.util.Objects;
  * <p>
  * 2021-09-24 Modified by Elin Forsberg: Added methods to decrease health of virus and check if it's dead
  * 2021-10-19 Modified by Elin Forsberg: Added another constructor to be used by the BossVirus
+ * 2021-10-22 Modified by Elin Forsberg: Made path variable get the active path
  */
 abstract class Virus implements IVirus {
     private int health; // Current health of virus
@@ -34,20 +36,19 @@ abstract class Virus implements IVirus {
     private float slowdown = 1;                 // Amount of slow down that gets applied to the virus speed
     private int slowDownTimer = 0;
 
-    private final IPath path;    // pointer to path object
+    private final IPath path = PathFactory.getActivePath();    // pointer to path object
     private PositionVector currentMoveToVector;     // Current vector (coordinates) to move to
     private int currentMoveToVectorIndex = 0;       // Which index to use when new vector is retrieved
+
 
 
     /**
      * Creates Virus object
      *
      * @param health Amount of health the virus start with
-     * @param path   The path to follow
      */
-    Virus(int health, IPath path) {
+    Virus(int health) {
         this.health = health;
-        this.path = path;
         initializeVirus();
 
         xPos = currentMoveToVector.getX() - widthX / 2F;
@@ -58,15 +59,13 @@ abstract class Virus implements IVirus {
     /**
      * Creates a virus object with specific values
      * @param health health of the virus
-     * @param path  path to be used by virus
      * @param x   x-coordinate of virus
      * @param y   y-coordinate of virus
      * @param currentMoveToVectorIndex  vectorIndex virus should walk towards
      */
-    Virus(int health, IPath path,float x, float y, int currentMoveToVectorIndex) {
+    Virus(int health,float x, float y, int currentMoveToVectorIndex) {
         this.health = health;
-        this.path = path;
-        this.currentMoveToVectorIndex = currentMoveToVectorIndex;
+       this.currentMoveToVectorIndex = currentMoveToVectorIndex;
         initializeVirus();
 
         float[] randomPoint = Calculate.randPoint(x, y,50);

@@ -1,6 +1,5 @@
 package com.mygdx.chalmersdefense.model.viruses;
 
-import com.mygdx.chalmersdefense.model.path.IPath;
 
 
 /**
@@ -16,22 +15,20 @@ final class StandardVirus extends Virus{
      * Creates Virus object
      *
      * @param health Amount of health the virus start with
-     * @param path   The path to follow
      */
-    StandardVirus(int health, IPath path) {
-        super(health, path);
+    StandardVirus(int health) {
+        super(health);
     }
 
     /**
      * Creates a virus object with specific values
      * @param health health of the virus
-     * @param path  path to be used by virus
      * @param x   x-coordinate of virus
      * @param y   y-coordinate of virus
      * @param wayPointIndex  wayPointIndex virus should walk towards
      */
-    StandardVirus(int health, IPath path, float x, float y, int wayPointIndex) {
-        super(health, path, x,y, wayPointIndex);
+    StandardVirus(int health, float x, float y, int wayPointIndex) {
+        super(health, x,y, wayPointIndex);
     }
 
     @Override

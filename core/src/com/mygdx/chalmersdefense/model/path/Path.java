@@ -25,6 +25,10 @@ abstract class Path implements IPath {
     final List<PositionVector> pathWaypoints = new ArrayList<>();
     private final List<PathRectangle> collisionRectangles = new ArrayList<>();
 
+    /**
+     * Creates an object of path
+     * @param pathWidth width of the path
+     */
     Path(int pathWidth) {
         this.pathWidth = pathWidth;
     }
@@ -43,7 +47,7 @@ abstract class Path implements IPath {
     /**
      * Method for creating rectangles on path later used for collision
      */
-    void createMapCollision() {
+        void createMapCollision() {
         for (int i = 0; i < pathWaypoints.size() - 1; i++) {
             float posX = getWaypoint(i).getX();
             float posY = getWaypoint(i).getY();
