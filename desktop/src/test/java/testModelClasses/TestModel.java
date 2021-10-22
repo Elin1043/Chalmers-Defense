@@ -51,8 +51,7 @@ public class TestModel {
         model.dragStart("smurf", 0, 0);
         model.dragEnd(100, 100);
 
-        String[] namesArray = model.getClickedTowerTargetMode().getClass().getName().split("[.]");
-        assertEquals((namesArray[namesArray.length - 1]), "First");
+        assertEquals(model.getClickedTowerTargetMode(), "First");
 
     }
 
@@ -61,13 +60,13 @@ public class TestModel {
         model.dragStart("smurf", 0, 0);
         model.dragEnd(100, 100);
 
-        String[] namesArray = model.getClickedTowerTargetMode().getClass().getName().split("[.]");
-        assertEquals((namesArray[namesArray.length - 1]), "First");
+
+        assertEquals(model.getClickedTowerTargetMode(), "First");
 
         model.changeTargetMode(true);
 
-        namesArray = model.getClickedTowerTargetMode().getClass().getName().split("[.]");
-        assertEquals((namesArray[namesArray.length - 1]), "Last");
+
+        assertEquals(model.getClickedTowerTargetMode(), "Last");
 
     }
 
@@ -76,13 +75,13 @@ public class TestModel {
         model.dragStart("smurf", 0, 0);
         model.dragEnd(100, 100);
 
-        String[] namesArray = model.getClickedTowerTargetMode().getClass().getName().split("[.]");
-        assertEquals((namesArray[namesArray.length - 1]), "First");
+
+        assertEquals(model.getClickedTowerTargetMode(), "First");
 
         model.changeTargetMode(false);
 
-        namesArray = model.getClickedTowerTargetMode().getClass().getName().split("[.]");
-        assertEquals((namesArray[namesArray.length - 1]), "Strongest");
+
+        assertEquals(model.getClickedTowerTargetMode(), "Strongest");
 
     }
 
@@ -150,7 +149,7 @@ public class TestModel {
     @Test
     public void testOnDrag() {
         model.dragStart("smurf", 0, 0);
-        model.dragEnd(1440, 300);   // Places a tower first to get more line coverage
+        model.dragEnd(1380, 250);   // Places a tower first to get more line coverage
         model.dragStart("chemist", 0, 0);
         model.onDrag(0, 0, 1080, 1920);
         model.onDrag(1440, 300, 1080, 1920);
@@ -158,7 +157,7 @@ public class TestModel {
         model.onDrag(500, -456, 1080, 1920);
         model.onDrag(50, 456, 1080, 1920);
         model.onDrag(20, 780, 1080, 1920);
-        model.dragEnd(100, 240);
+        model.dragEnd(60, 200);
         assertTrue(model.getAllMapObjects().size() > 1);
     }
 
