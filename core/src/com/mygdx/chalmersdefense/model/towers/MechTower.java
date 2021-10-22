@@ -32,9 +32,9 @@ final class MechTower extends Tower {
      * @param reloadSpeed of the tower
      * @param cost of the tower
      * @param range of the tower
-     * @param towersToAddList
-     * @param allTowers
-     * @param pathRectangles
+     * @param towersToAddList list to add mechMiniTowers to
+     * @param allTowers list of all towers on map
+     * @param pathRectangles on the map
      */
     MechTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITower> towersToAddList, List<ITower> allTowers,  List<PathRectangle> pathRectangles) {
         super(x, y, name, reloadSpeed, cost, range);
