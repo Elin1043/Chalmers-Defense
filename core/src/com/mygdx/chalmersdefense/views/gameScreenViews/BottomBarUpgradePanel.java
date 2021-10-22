@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.views.GameScreenViews;
+package com.mygdx.chalmersdefense.views.gameScreenViews;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

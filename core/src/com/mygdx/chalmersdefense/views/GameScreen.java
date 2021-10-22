@@ -20,8 +20,8 @@ import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
-import com.mygdx.chalmersdefense.views.GameScreenViews.BottomBarUpgradePanel;
-import com.mygdx.chalmersdefense.views.GameScreenViews.RightSidePanel;
+import com.mygdx.chalmersdefense.views.gameScreenViews.BottomBarUpgradePanel;
+import com.mygdx.chalmersdefense.views.gameScreenViews.RightSidePanel;
 import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
 import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
 
