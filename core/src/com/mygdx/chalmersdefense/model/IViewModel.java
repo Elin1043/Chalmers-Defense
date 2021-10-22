@@ -143,4 +143,10 @@ public interface IViewModel {
      * @return image path
      */
     String getMapImagePath();
+
+    /**
+     * Gets if game speed is sped up
+     * @return true if game is sped up. Otherwise false
+     */
+    boolean getIsGameSpedUp();
 }

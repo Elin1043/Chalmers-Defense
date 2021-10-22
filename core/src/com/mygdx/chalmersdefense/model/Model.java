@@ -259,4 +259,9 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public String getMapImagePath() { return map.getMapImagePath(); }
+
+    @Override
+    public boolean getIsGameSpedUp() {
+        return timer.isGameSpedUp();
+    }
 }

@@ -52,6 +52,11 @@ final public class GameTimer implements IGameTimer {
         setupTask();
     }
 
+    @Override
+    public boolean isGameSpedUp() {
+        return delay == 0.0028F;
+    }
+
     // Creates new task with current delay
     private void setupTask() {
         task = new Timer.Task() {
