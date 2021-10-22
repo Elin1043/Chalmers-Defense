@@ -183,7 +183,7 @@ final class GameScreen extends AbstractScreen implements Screen {
         finnishFlag.setPosition(progressBar.getX() + progressBar.getWidth() - 2, progressBar.getY() + progressBar.getHeight()/2);
 
         Label winningRoundLabel = new Label("Round: " + model.getWinningRound(), FontFactory.getLabelStyle18Black());
-        winningRoundLabel.setPosition(progressBar.getX() + progressBar.getWidth() - winningRoundLabel.getWidth(), progressBar.getY() - winningRoundLabel.getHeight() - 5);
+        winningRoundLabel.setPosition(progressBar.getX() + progressBar.getWidth() - winningRoundLabel.getWidth() - 21, progressBar.getY() - winningRoundLabel.getHeight() - 5);
 
         stageHUD.addActor(progressBar);
         stageHUD.addActor(progressBarSmurf);
