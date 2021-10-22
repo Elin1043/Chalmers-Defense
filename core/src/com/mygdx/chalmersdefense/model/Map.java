@@ -443,6 +443,18 @@ final class Map {
     }
 
     /**
+     * Upgrades clicked tower if player has enough money
+     */
+    void upgradeClickedTower() {
+        // If upgrade is applied decrease player money
+        if (Upgrades.upgradeTower(clickedTower)) {
+            player.decreaseMoney(Upgrades.getTowerUpgradePrice(clickedTower.getName(), clickedTower.getUpgradeLevel() - 1));
+
+            rangeCircle.updatePos(clickedTower.getX() + getClickedTower().getWidth()/2, clickedTower.getY() + getClickedTower().getHeight()/2, clickedTower.getRange());
+        }
+    }
+
+    /**
      * Sell the clicked tower
      * Also gives the player some money back
      *

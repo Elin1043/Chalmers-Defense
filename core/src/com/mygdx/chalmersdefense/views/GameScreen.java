@@ -41,9 +41,8 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * 2021-10-19 Modified by Joel Båtsman Hilmersson: Made class use superclass multiplexer for inputProcessor <br>
  * 2021-10-19 Modified by Daniel Persson: Added progressbar for displaying round progress <br>
  */
-final public class GameScreen extends AbstractScreen implements Screen {
+final class GameScreen extends AbstractScreen implements Screen {
     private final GameScreenController gameScreenController;
-
     // Panels
     private final BottomBarUpgradePanel bottomBarUpgradePanel; // Upgrade panel object
     private final RightSidePanel rightSidePanel;               // Right side HUD with towers and powerups

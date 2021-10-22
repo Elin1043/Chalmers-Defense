@@ -17,7 +17,7 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
  * @author Daniel Persson
  * A class to display settings overlay
  */
-final public class SettingsOverlay extends AbstractOverlay {
+final class SettingsOverlay extends AbstractOverlay {
     private final SettingsOverlayController settingsOverlayController; // Controller used for adding listeners
     private final Preferences preferences;  // Reference to preferences of game
 
@@ -37,6 +37,12 @@ final public class SettingsOverlay extends AbstractOverlay {
     private CheckBox refreshRateCheckbox144;  // Checkbox for 144hz
     private CheckBox refreshRateCheckbox165;  // Checkbox for 165hz
 
+    /**
+     * Sets up class and passes abstractOverlayController to super constructor
+     * @param abstractOverlayController reference to common controller
+     * @param settingsOverlayController reference to controller for settings overlay
+     * @param preferences reference to the games preferences
+     */
     public SettingsOverlay(AbstractOverlayController abstractOverlayController, SettingsOverlayController settingsOverlayController, Preferences preferences) {
         super(abstractOverlayController);
         this.settingsOverlayController = settingsOverlayController;

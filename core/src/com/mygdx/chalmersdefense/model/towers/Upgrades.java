@@ -17,7 +17,6 @@ import java.util.Objects;
 final public class Upgrades {
     private JSONObject mainObject;                          // The parsed json object
 
-
     public Upgrades() {
         try {
             // Current Json parser
@@ -99,9 +98,13 @@ final public class Upgrades {
         return 0L;
     }
 
-
-
-    //Generates a HashMap with appropriate upgrade data from a JSON object and returns a copy of the HashMap.
+    /**
+     * Generates a HashMap with appropriate upgrade data from a JSON object and returns a copy of the HashMap.
+     *
+     * @param towerName    to get upgrades from
+     * @param upgradeLevel upgrade level to get upgrades from
+     * @return a HashMap with upgrade data.
+     */
     private HashMap<String, Double> getTowerUpgradeData(String towerName, int upgradeLevel) {
         HashMap<String, Double> upgrades = new HashMap<>();
         try {

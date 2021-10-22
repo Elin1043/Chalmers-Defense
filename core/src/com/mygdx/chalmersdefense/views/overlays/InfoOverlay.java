@@ -13,12 +13,16 @@ import com.mygdx.chalmersdefense.utilities.FontFactory;
  * @author Jenny Carlsson
  * A class to display info overlay
  */
-public class InfoOverlay extends AbstractOverlay {
+final class InfoOverlay extends AbstractOverlay {
 
     private final Group infoGroup = new Group(); // Group to add all actors to
 
     private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/InfoBackgroundImage.png")); // Background image for overlay
 
+    /**
+     * Sets up class and passes abstractOverlayController to super constructor
+     * @param abstractOverlayController reference to common controller
+     */
     public InfoOverlay(AbstractOverlayController abstractOverlayController) {
         super(abstractOverlayController);
     }
