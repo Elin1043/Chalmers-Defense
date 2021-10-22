@@ -15,6 +15,7 @@ import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,7 +29,7 @@ import java.util.List;
  *
  * 2021-10-15 Modified by Elin Forsberg and Joel Båtsman Hilmmersson: Added methods for powerUps
  */
-class Map {
+final class Map {
     private ITower newTower;            // Temp helper for when new tower is added
     private ITower clickedTower;        // The current clicked tower
     private final List<ITower> towersList = new ArrayList<>();              // The main tower list
@@ -39,13 +40,14 @@ class Map {
 
     private final List<ITower> towersToAddList = new ArrayList<>();             // Temporary list for object adding towers to the main list (To avoid concurrent modification issues)
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();   // Temporary list for object adding projectiles to the main list (To avoid concurrent modification issues)
+    private final List<IVirus> virusToAddList = new ArrayList<>();             // Temporary list for object adding virus to the main list (To avoid concurrent modification issues)
 
     private final Player player;                                   // A reference to the Player object in the game
     private final Path path = PathFactory.createClassicPath();     // Current path
 
     private boolean isGameLost = false;     // Boolean if game is lost
 
-    private final GetRangeCircle rangeCircle = new GetRangeCircle();     // Helper class for showing gray range circle
+    private final GetRangeCircle rangeCircle = new GetRangeCircle(0,0,0);     // Helper class for showing gray range circle
 
     Map(Player player) { this.player = player; }
 
@@ -82,9 +84,11 @@ class Map {
     private void addTempListsToMainLists() {
         towersList.addAll(towersToAddList);
         projectilesList.addAll(projectilesToAddList);
+        virusesList.addAll(virusToAddList);
 
         towersToAddList.clear();
         projectilesToAddList.clear();
+        virusToAddList.clear();
     }
 
     //Update the projectiles
@@ -165,7 +169,7 @@ class Map {
         return -1;
     }
 
-    private void updateRangeCircle() {
+     private void updateRangeCircle() {
         if(clickedTower != null){
             rangeCircle.updatePos(clickedTower.getX() + clickedTower.getWidth()/2,clickedTower.getY() + clickedTower.getHeight()/2,clickedTower.getRange());
         }
@@ -173,7 +177,6 @@ class Map {
     }
 
     private void updatePowerUps() {
-
         for (IPowerUp powerUp : powerUpList){
             powerUp.decreaseTimer();
         }
@@ -352,7 +355,7 @@ class Map {
 
         newTower.setPos(x - buttonWidth / 2f, y - buttonHeight / 2f);
 
-        if (!checkCollisionOfTower(newTower, windowHeight, windowWidth)) {
+        if (!checkCollisionOfTower(newTower, windowHeight, windowWidth) && (player.getMoney() >= newTower.getCost())) {
             newTower.setIfCanRemove(false);
             rangeCircle.updatePos(newTower.getX() + newTower.getWidth() / 2, newTower.getY() + newTower.getHeight() / 2, newTower.getRange());
             rangeCircle.setEnumColor(GetRangeCircle.Color.GRAY);
@@ -489,7 +492,7 @@ class Map {
      * @return list of viruses
      */
     List<IVirus> getViruses() {
-        return virusesList;
+        return virusToAddList;
     }
     /**
      * Return the list of objects on map
@@ -525,32 +528,21 @@ class Map {
 
 
     /**
-     * Method to handle a powerUp button being clicked
+     * Method to handle a powerUp button being clicked. Also checks if player have enough cost to buy powerup-
      * @param powerUpName name of the button that was clicked
      */
     void powerUpClicked(String powerUpName) {
-        switch (powerUpName) {
-            case "cleanHands" -> cleanHandsPowerUpClicked();
-            case "maskedUp"   -> maskedPowerUpClicked();
-            case "vaccinated" -> vaccinePowerUpClicked();
+        IPowerUp powerUp = switch (powerUpName) {
+            case "cleanHands" -> powerUpList.get(0);
+            case "maskedUp"   -> powerUpList.get(1);
+            case "vaccinated" -> powerUpList.get(2);
+            default -> null;
+        };
+
+        if ((player.getMoney() >= powerUp.getCost()) && !powerUp.getIsActive() && powerUp.getTimer() == -1) {
+            powerUp.powerUpClicked(genericObjectsList);
+            player.decreaseMoney(powerUp.getCost());
         }
     }
-
-    private void cleanHandsPowerUpClicked(){
-        powerUpList.get(0).powerUpClicked(genericObjectsList);
-        player.decreaseMoney(powerUpList.get(0).getCost());
-    }
-
-    private void maskedPowerUpClicked(){
-        powerUpList.get(1).powerUpClicked(genericObjectsList);
-        player.decreaseMoney(powerUpList.get(1).getCost());
-    }
-
-    private void vaccinePowerUpClicked(){
-        powerUpList.get(2).powerUpClicked(genericObjectsList);
-        player.decreaseMoney(powerUpList.get(1).getCost());
-    }
-
-
 
 }

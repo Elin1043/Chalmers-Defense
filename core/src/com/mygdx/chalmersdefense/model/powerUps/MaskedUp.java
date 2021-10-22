@@ -14,8 +14,8 @@ import java.util.Random;
  * 2021-10-13 Modified by Joel Båtsman Hilmersson: Changed class to use CountDownTimer <br>
  * 2021-10-15 Modified by Elin Forsberg: Implemented use of PowerUp factory and abstract PowerUp class <br>
  */
-class MaskedUp extends PowerUp{
-    private List<ITower> allTowers;
+final class MaskedUp extends PowerUp{
+    private final List<ITower> allTowers;
 
     MaskedUp(List<ITower> allTowers) {
         super(500, 500, 100);

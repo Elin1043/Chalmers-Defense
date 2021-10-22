@@ -20,21 +20,6 @@ public class WinPanelOverlayController {
     }
 
     /**
-     * Adds click listener to main menu button in LostPanelOverlay
-     *
-     * @param button LostPanels main menu button
-     */
-    public void addMainMenuClickListener(Button button) {
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
-                model.resetModel();
-            }
-        });
-    }
-
-    /**
      * Adds click listener to continue button in WinPanelOverlay
      *
      * @param button WinPanels continue button

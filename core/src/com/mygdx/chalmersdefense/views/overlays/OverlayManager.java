@@ -4,7 +4,7 @@ import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.views.AbstractScreen;
 import com.mygdx.chalmersdefense.views.ScreenManager;
 
-public class OverlayManager {
+final public class OverlayManager {
     private static OverlayManager instance;
 
     // All overlays. Maybe move to separate class OverlayManager
@@ -12,6 +12,7 @@ public class OverlayManager {
     private AbstractOverlay settingsOverlay;
     private AbstractOverlay lostPanelOverlay;
     private AbstractOverlay winPanelOverlay;
+    private AbstractOverlay infoOverlay;
 
     private AbstractOverlay currentOverlay;
     private AbstractOverlay prevOverlay;
@@ -36,11 +37,12 @@ public class OverlayManager {
      * Initialize the different screens
      *
      */
-    public void initialize(AbstractOverlay pauseMenuOverlay, AbstractOverlay settingsOverlay, AbstractOverlay lostPanelOverlay, AbstractOverlay winPanelOverlay) {
+    public void initialize(AbstractOverlay pauseMenuOverlay, AbstractOverlay settingsOverlay, AbstractOverlay lostPanelOverlay, AbstractOverlay winPanelOverlay, AbstractOverlay infoOverlay) {
         this.pauseMenuOverlay = pauseMenuOverlay;
         this.settingsOverlay = settingsOverlay;
         this.lostPanelOverlay = lostPanelOverlay;
         this.winPanelOverlay = winPanelOverlay;
+        this.infoOverlay = infoOverlay;
     }
 
     /**
@@ -67,6 +69,7 @@ public class OverlayManager {
             case WINPANEL -> winPanelOverlay;
             case LOSEPANEL -> lostPanelOverlay;
             case SETTINGS -> settingsOverlay;
+            case INFO -> infoOverlay;
             case NONE -> null;
         };
     }

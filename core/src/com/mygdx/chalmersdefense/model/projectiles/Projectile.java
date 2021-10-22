@@ -24,7 +24,7 @@ abstract class Projectile implements IProjectile {
     private final float damage;   // Damage of projectile
 
 
-    private String spriteKey;   // The key to the Sprite Hashmap
+    private final String spriteKey;   // The key to the Sprite Hashmap
     private float x;            // X coordinate on map
     private float y;            // y coordinate on map
 

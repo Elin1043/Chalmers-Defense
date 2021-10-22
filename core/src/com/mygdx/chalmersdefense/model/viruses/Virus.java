@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.model.viruses;
 
 import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.utilities.PositionVector;
 
 import javax.imageio.ImageIO;
@@ -13,8 +14,9 @@ import java.util.Objects;
  * A class that representates the common enemy type for the game
  * <p>
  * 2021-09-24 Modified by Elin Forsberg: Added methods to decrease health of virus and check if it's dead
+ * 2021-10-19 Modified by Elin Forsberg: Added another constructor to be used by the BossVirus
  */
-class Virus implements IVirus {
+abstract class Virus implements IVirus {
     private int health; // Current health of virus
 
     private String spriteKey;   // The key to the Sprite Hashmap
@@ -44,11 +46,39 @@ class Virus implements IVirus {
      */
     Virus(int health, Path path) {
         this.health = health;
-        updateSpriteKey();
         this.path = path;
+        initializeVirus();
+
+        xPos = currentMoveToVector.getX() - widthX / 2F;
+        yPos = currentMoveToVector.getY() - heightY / 2F;
+
+    }
+
+    /**
+     * Creates a virus object with specific values
+     * @param health health of the virus
+     * @param path  path to be used by virus
+     * @param x   x-coordinate of virus
+     * @param y   y-coordinate of virus
+     * @param currentMoveToVectorIndex  vectorIndex virus should walk towards
+     */
+    Virus(int health, Path path,float x, float y, int currentMoveToVectorIndex) {
+        this.health = health;
+        this.path = path;
+        this.currentMoveToVectorIndex = currentMoveToVectorIndex;
+        initializeVirus();
+
+        float[] randomPoint = Calculate.randPoint(x, y,50);
+
+        xPos = randomPoint[0] - widthX / 2F;
+        yPos = randomPoint[1] - heightY / 2F;
+    }
+
+
+    private void initializeVirus(){
+        updateSpriteKey();
 
         currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex);
-
 
         // TODO Kanske vill göra detta när man ändrar liv. Iallafall om man har något virus av annan storlek
         try {
@@ -59,10 +89,8 @@ class Virus implements IVirus {
             e.printStackTrace();
         }
 
-        xPos = currentMoveToVector.getX() - widthX / 2F;
-        yPos = currentMoveToVector.getY() - heightY / 2F;
-    }
 
+    }
 
     @Override
     public void decreaseHealth(float damage) {
@@ -71,7 +99,12 @@ class Virus implements IVirus {
         } else {
             this.health -= damage;
         }
+    }
 
+    /**
+     * Update the spriteKey if health > 0
+     */
+    void seeIfUpdateSpriteKey() {
         if (health > 0) {
             updateSpriteKey();
         } else {
@@ -79,7 +112,11 @@ class Virus implements IVirus {
         }
     }
 
-    private void slowDownEffect(float slowdown){
+    /**
+     * Set how much slowndown to be set on virus
+     * @param slowdown amount of slowdown
+     */
+    void slowDownEffect(float slowdown){
         if (this.slowdown > slowdown) {
             this.slowdown = slowdown;
         }
@@ -89,12 +126,19 @@ class Virus implements IVirus {
 
     @Override
     public void update() {
-        moveToPoint();
+        moveToPoint(getTotalVirusSpeed());
         updateSlowTimer();
     }
 
-    private void moveToPoint() {
-        double totalSpeed = ((3F + health) / 4F) * slowdown;      // Calculates speed based on health of virus
+    /**
+     * Get the total speed of the virus
+     * @return total speed
+     */
+    double getTotalVirusSpeed() {
+        return ((3F + health) / 4F) * slowdown;
+    }
+
+    private void moveToPoint(double totalSpeed) {
 
         // Gets length to next move to point
         double diffX = xPos + widthX / 2F - currentMoveToVector.getX();
@@ -216,4 +260,22 @@ class Virus implements IVirus {
     public boolean isDead() {
         return this.health <= 0;
     }
+
+    /**
+     * Returns slowdown
+     * @return slowdown
+     */
+    float getSlowdown(){ return slowdown; }
+
+    /**
+     * Gets the position of the virus
+     * @return Position of virus
+     */
+    float[] getPos(){ return new float[] {xPos, yPos}; }
+
+    /**
+     * Gets the current move to vector
+     * @return the move to vector
+     */
+    int getCurrentMoveToVectorIndex(){ return currentMoveToVectorIndex - 1; }
 }

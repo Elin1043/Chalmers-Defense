@@ -130,6 +130,9 @@ public interface IViewModel {
     //TODO Remove THIS when not needed
     List<IVirus> getViruses();
 
-    //TODO THIS SHOULD NOT BE HERE, remove when all keyboard stuff is removed in view (Keyboard controller is a better idee)
-    void startRoundPressed();
+    /**
+     * Returns if the game is stopped and the map is cleared from viruses
+     * @return a boolean for game state
+     */
+    boolean isGameStopped();
 }

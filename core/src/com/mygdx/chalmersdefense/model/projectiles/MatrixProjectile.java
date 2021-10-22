@@ -7,7 +7,7 @@ import java.util.List;
  * <p>
  * Class representing Hackerman / HackerTowers shooting projectile
  */
-class MatrixProjectile extends Projectile{
+final class MatrixProjectile extends Projectile{
 
     private final List<IProjectile> projectileList; // The list to add the MatrixArea to
 

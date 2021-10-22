@@ -6,7 +6,7 @@ import com.badlogic.gdx.Game;
  * @author Daniel Persson
  * A singleton class for mangaging the dirrefent screens.
  */
-public class ScreenManager {
+final public class ScreenManager {
     private AbstractScreen mainScreen;
     private AbstractScreen gameScreen;
 

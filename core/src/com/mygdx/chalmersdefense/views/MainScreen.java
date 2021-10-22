@@ -18,11 +18,12 @@ import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
  * @author Daniel Persson
  * A class for rendering the main screen in the game
  */
-public class MainScreen extends AbstractScreen {
+final class MainScreen extends AbstractScreen {
     Image img;
 
     private ImageButton playButton;
     private Button settingsButton;
+    private Button infoButton;
 
     private final TextureAtlas quitButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/quitButtonSkin/QuitButtonSkin.atlas")); // Load atlas file from skin
     private final Skin quitButtonSkin = new Skin(Gdx.files.internal("buttons/quitButtonSkin/QuitButtonSkin.json"), quitButtonAtlas); // Create skin object
@@ -37,12 +38,16 @@ public class MainScreen extends AbstractScreen {
         this.mainScreenController = mainScreenController;
         img = new Image(new Texture("HomeScreen.png"));
 
+        addToMultiplexer(mainScreenController);
+
         createPlayButton();
         createSettingsButton();
+        createInfoButton();
         addActor(img);
         addActor(playButton);
         addActor(quitButton);
         addActor(settingsButton);
+        addActor(infoButton);
     }
 
     private void createPlayButton() {
@@ -67,6 +72,14 @@ public class MainScreen extends AbstractScreen {
         settingsButton.setPosition(430,110);
     }
 
+    private void createInfoButton() {
+        TextureAtlas infoButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/infoButtonSkin/InfoButtonSkin.atlas")); // Load atlas file from skin
+        Skin infoButtonSkin = new Skin(Gdx.files.internal("buttons/infoButtonSkin/InfoButtonSkin.json"), infoButtonAtlas); // Create skin object
+        infoButton = new Button(infoButtonSkin);
+        mainScreenController.addInfoButtonClickListener(infoButton);
+        infoButton.setPosition(1140,110);
+    }
+
     /**
      * Renders GameScreen to screen
      *
@@ -75,7 +88,6 @@ public class MainScreen extends AbstractScreen {
     @Override
     public void render(float delta) {
         super.render(Gdx.graphics.getDeltaTime());
-        Gdx.input.setInputProcessor(this);
 
         OverlayManager.getInstance().showOverlay(model.showOverlay());
         AbstractOverlay abstractOverlay = OverlayManager.getInstance().getCurrentOverlay();
@@ -83,4 +95,6 @@ public class MainScreen extends AbstractScreen {
             abstractOverlay.render();
         }
     }
+
+
 }

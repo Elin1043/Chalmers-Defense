@@ -6,7 +6,7 @@ import java.util.List;
  * @author Elin Forsberg
  * Class representing an acid projectile
  */
-class AcidProjectile extends Projectile {
+final class AcidProjectile extends Projectile {
     private final List<IProjectile> projectileList; // The list to add acidPool to
 
 

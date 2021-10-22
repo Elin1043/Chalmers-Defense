@@ -2,7 +2,6 @@ package com.mygdx.chalmersdefense.model.towers;
 
 
 import com.mygdx.chalmersdefense.model.Player;
-import com.mygdx.chalmersdefense.model.path.Path;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;

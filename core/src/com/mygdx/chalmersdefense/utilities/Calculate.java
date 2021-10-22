@@ -53,6 +53,21 @@ public abstract class Calculate {
     }
 
     /**
+     * Calculates a random point in a circle with a specified range
+     * @param x Center x coordinate
+     * @param y Center y coordinate
+     * @return An array with a random point vector
+     */
+    public static float[] randPoint(float x, float y, int range) {
+        double len = Math.sqrt(Math.random()) * range;
+        double deg = Math.random() * 2 * Math.PI;
+        float xTemp = (float) (x + len * Math.cos(deg));
+        float yTemp = (float) (y + len * Math.sin(deg));
+
+        return new float[]{xTemp,yTemp};
+    }
+
+    /**
      * Calculate distance between two points
      *
      * @param x1 x-coordinate of first point

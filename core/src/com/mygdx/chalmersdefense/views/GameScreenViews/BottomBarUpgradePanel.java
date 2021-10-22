@@ -16,7 +16,6 @@ import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.BottomBarPanelController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
-import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 
 import java.util.HashMap;
@@ -27,7 +26,7 @@ import java.util.HashMap;
  * <p>
  * 2021-10-05 Created by Daniel Persson <br>
  */
-public class BottomBarUpgradePanel {
+final public class BottomBarUpgradePanel {
     private final Stage stage;
     private final IViewModel model;
     private final BottomBarPanelController bottomBarPanelController;

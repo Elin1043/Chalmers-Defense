@@ -7,7 +7,6 @@ import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ import java.util.List;
  *
  * 2021-10-14 Modified by Joel Båtsman Hilmersson: MechTower now only spawns MinimechTowers and do not remove them <br>
  */
-class MechTower extends Tower {
+final class MechTower extends Tower {
 
     private final int reloadSpeed;      // Reload speed
     private final List<ITargetMode> targetModes;    // All possible targeted
@@ -103,10 +102,10 @@ class MechTower extends Tower {
 
 
     private float[] checkPointCollision() {
-        float[] point = randPoint();
+        float[] point = Calculate.randPoint(getX(), getY(), getRange());
         for (int i = 0; i < 100; i++) {
             if(pathCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || towerCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || checkIfOutOfBounds(point[0],point[1])){
-                point = randPoint();
+                point = Calculate.randPoint(getX(), getY(), getRange());
             }
             else{
                 return point;
@@ -139,15 +138,6 @@ class MechTower extends Tower {
             return true;
         }
         return x > 1970 || -50 > x;
-    }
-
-    private float[] randPoint() {
-        double len= Math.sqrt(Math.random())*getRange();
-        double deg= Math.random()*2*Math.PI;
-        float x = (float) (this.getX()+len*Math.cos(deg));
-        float y = (float) (this.getY()+len*Math.sin(deg));
-
-        return new float[]{x,y};
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.List;
  * <p>
  * 2021-09-24 Modified by Joel Båtsman Hilmersson: Changed class to use ITargetMode interface <br>
  */
-class Closest implements ITargetMode {
+final class Closest implements ITargetMode {
 
     @Override
     public IVirus getCorrectVirus(List<IVirus> virusInRange, float towerX, float towerY) {

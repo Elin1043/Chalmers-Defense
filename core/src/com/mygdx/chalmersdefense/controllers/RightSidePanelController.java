@@ -1,6 +1,8 @@
 package com.mygdx.chalmersdefense.controllers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -15,10 +17,12 @@ import com.mygdx.chalmersdefense.model.IControllModel;
  * 2021-09-17 Modified by Elin Forsberg: Added listener for tower buttons <br>
  * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model <br>
  * 2021-10-11 Modified by Elin Forsberg: Added listener for powerUp buttons <br>
+ * 2021-10-19 Modified by Joel Båtsman Hilmersson: The class now extends InputAdapter to override methods to listen for keyboard input <br>
+ * 2021-10-19 Modified by Jenny Carlsson: Added short keys for power ups <br>
  */
 
-public class RightSidePanelController {
-    private IControllModel model;
+public class RightSidePanelController extends InputAdapter {
+    private final IControllModel model;
 
 
     public RightSidePanelController(IControllModel model) {
@@ -40,7 +44,7 @@ public class RightSidePanelController {
 
     /**
      * Listener for powerUpButtons
-     * @param button
+     * @param button the button to add the listener to
      */
     public void addPowerUpButtonListener(Button button) {
         String powerUpName = button.getName();
@@ -83,8 +87,31 @@ public class RightSidePanelController {
                 model.dragEnd((button.getImage().getWidth() / 2), (button.getImage().getHeight() / 2), inputX, inputY);
             }
         });
-
     }
 
 
+    @Override
+    public boolean keyDown (int keycode) {
+        switch (keycode) {
+            case(Input.Keys.SPACE) -> {
+                model.startRoundPressed();
+                return true;
+            }
+            case(Input.Keys.C) -> {
+                model.powerUpClicked("cleanHands");
+                return true;
+            }
+            case(Input.Keys.V) -> {
+                model.powerUpClicked("vaccinated");
+                return true;
+            }
+            case(Input.Keys.M) -> {
+                model.powerUpClicked("maskedUp");
+                return true;
+            }
+            default -> {
+                return false;
+            }
+        }
+    }
 }

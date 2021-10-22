@@ -10,6 +10,7 @@ import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
 import com.mygdx.chalmersdefense.utilities.GameTimer;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -33,10 +34,10 @@ import java.util.List;
  * 2021-10-15 Modified by Elin Forsberg and Joel Båtsman Hilmmersson: Added methods for powerUps
  */
 
-public class Model implements IUpdateModel, IControllModel, IViewModel {
-    private final int WINNING_ROUND = 10;       // Current vinning round
+final public class Model implements IUpdateModel, IControllModel, IViewModel {
+    private final int WINNING_ROUND = 10;       // Current winning round
     private final int LIVES = 100;              // Current amount of starting lives
-    private final int START_CAPITAL = 3990;    // Current amount of start capital
+    private final int START_CAPITAL = 40000;    // Current amount of start capital
 
     private final GameTimer timer = new GameTimer(this);    // Timer object
     private Rounds round = new Rounds(WINNING_ROUND);              // Round helper
@@ -48,7 +49,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     private ScreenOverlayEnum showOverlay = ScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
 
-    private Preferences preferences;
+    private final Preferences preferences;
 
     public Model(Preferences preferences) {
         this.preferences = preferences;
@@ -78,7 +79,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
             player.increaseMoney((int) (100 * (round.getCurrentRound() / 2f)));
 
-            stopGameUpdate();
+            timer.stopUpdateTimer();
             map.roundClear();
 
             if (round.gameWon()) {
@@ -96,7 +97,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public void startGameUpdate() {
-        timer.startUpdateTimer();
+        if (virusSpawner.isSpawning() || !map.isVirusCleared()) { timer.startUpdateTimer(); }
     }
 
 
@@ -109,7 +110,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     @Override
     public void startRoundPressed() {
         if (!virusSpawner.isSpawning() && map.isVirusCleared()) {
-            startGameUpdate();
+            timer.startUpdateTimer();
             round.incrementToNextRound();
             virusSpawner.spawnRound(round.getCurrentRound());
         } else {
@@ -150,7 +151,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public GetRangeCircle getRangeCircle() {
-        return map.getRangeCircle();
+        return new GetRangeCircle(map.getRangeCircle());
     }
 
     @Override
@@ -162,7 +163,6 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     public String getTowerUpgradeTitle(String towerName, int upgradeLevel) {
         return Upgrades.getTowerUpgradeTitle(towerName, upgradeLevel);
     }
-
 
     @Override
     public String getTowerUpgradeDesc(String towerName, int upgradeLevel) {
@@ -255,6 +255,11 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public List<IMapObject> getAllMapObjects() {
-        return map.getAllMapObjects();
+        return Collections.unmodifiableList(map.getAllMapObjects());
+    }
+
+    @Override
+    public boolean isGameStopped() {
+        return !virusSpawner.isSpawning() && map.isVirusCleared();
     }
 }

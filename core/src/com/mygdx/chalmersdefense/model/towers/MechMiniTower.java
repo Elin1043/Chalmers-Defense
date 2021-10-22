@@ -15,7 +15,7 @@ import java.util.Random;
  * <p>
  * 2021-10-11 Modified by Joel Båtsman Hilmersson: Changed creation of minimech to only use public methods in Tower <br>
  */
-class MechMiniTower extends Tower {
+final class MechMiniTower extends Tower {
 
     private final CountDownTimer lifeTimeCounter;   // The life timer of the MiniMechTower
 

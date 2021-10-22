@@ -21,6 +21,8 @@ public abstract class Upgrades {
      */
     public static boolean upgradeTower(ITower tower) {
         // If tower is max upgraded don't upgrade
+        // Current max upgrade level
+        int MAX_UPGRADES = 3;
         if (tower.getUpgradeLevel() >= MAX_UPGRADES) return false;
 
         HashMap<String, Double> upgrades = getTowerUpgradeData(tower.getName(), tower.getUpgradeLevel());
@@ -88,7 +90,7 @@ public abstract class Upgrades {
      * @return a HashMap with upgrade data.
      */
     private static HashMap<String, Double> getTowerUpgradeData(String towerName, int upgradeLevel) {
-        String[] upgradeAttributes = {"attackDmgMul", "attackSpeedMul", "attackRangeMul"};
+        String[] upgradeAttributes = {"attackSpeedMul", "attackRangeMul"};
         HashMap<String, Double> upgrades = new HashMap<>();
         try {
             upgrades = jsonParser.startParser().navThroughJSON(towerName).getByIndex(upgradeLevel-1).getDoubleHashMap(upgradeAttributes);

@@ -90,6 +90,12 @@ public class TestModel {
     @Test
     public void testAllPowerUpClicked(){
         model.startRoundPressed();
+        while (model.getCurrentRound() < 7) {
+            model.startRoundPressed();
+            model.updateModel();
+        }
+
+        model.startRoundPressed();
         model.powerUpClicked("cleanHands");
         model.powerUpClicked("maskedUp");
         model.powerUpClicked("vaccinated");
@@ -188,10 +194,12 @@ public class TestModel {
     @Test
     public void testGetIsGameLost() {
         model.startRoundPressed();
+        model.updateModel();
         while (model.getAllMapObjects().size() > 0) {
             model.updateModel();
         }
         model.startRoundPressed();
+        model.updateModel();
         while (model.getAllMapObjects().size() > 0) {
             model.updateModel();
         }

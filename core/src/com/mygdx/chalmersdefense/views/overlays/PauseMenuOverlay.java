@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
 import com.mygdx.chalmersdefense.controllers.overlays.PauseMenuOverlayController;
 import com.mygdx.chalmersdefense.utilities.FontFactory;
 
@@ -16,17 +17,22 @@ import com.mygdx.chalmersdefense.utilities.FontFactory;
  *
  * 2021-10-12 Modified by Jenny Carlsson and Daniel Persson: Added pause menu exit button
  */
-public class PauseMenuOverlay extends AbstractOverlay {
+final class PauseMenuOverlay extends AbstractOverlay {
     private final PauseMenuOverlayController pauseMenuOverlayController;
 
     private final Group pauseMenuGroup = new Group();
     private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/PauseMenuBackgroundImage.png"));
 
-
     private final TextureAtlas pauseMenuButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/pauseMenuButtonSkin/PauseMenuButtonSkin.atlas")); // Load atlas file from skin
     private final Skin pauseMenuButtonSkin = new Skin(Gdx.files.internal("buttons/pauseMenuButtonSkin/PauseMenuButtonSkin.json"), pauseMenuButtonTexture); // Create skin object
 
-    public PauseMenuOverlay(PauseMenuOverlayController pauseMenuOverlayController) {
+    /**
+     * Sets up class and passes abstractOverlayController to super constructor
+     * @param abstractOverlayController reference to common controller
+     * @param pauseMenuOverlayController reference to controller for pause menu overlay
+     */
+    public PauseMenuOverlay(AbstractOverlayController abstractOverlayController, PauseMenuOverlayController pauseMenuOverlayController) {
+        super(abstractOverlayController);
         this.pauseMenuOverlayController = pauseMenuOverlayController;
     }
 
@@ -39,18 +45,13 @@ public class PauseMenuOverlay extends AbstractOverlay {
             backgroundImage.setPosition(stage.getWidth()/2 - backgroundImage.getWidth()/2, stage.getHeight()/2 - backgroundImage.getHeight()/2);
             createButtons();
             ImageButton exitButton = createExitPauseMenuButton(pauseMenuGroup, backgroundImage);
-            pauseMenuOverlayController.addExitPauseMenuButtonClickListener(exitButton);
+            abstractOverlayController.addExitOverlayButtonClickListener(exitButton);
         }
     }
 
     @Override
     public void render() {
-        Gdx.input.setInputProcessor(stage);
-
-        drawTransparentBackground();
-
-        stage.act();
-        stage.draw();
+        super.render();
         pauseMenuGroup.setVisible(true);
     }
 
@@ -59,6 +60,9 @@ public class PauseMenuOverlay extends AbstractOverlay {
         pauseMenuGroup.setVisible(false);
     }
 
+    /**
+     * Creates buttons
+     */
     private void createButtons() {
         String[] buttonTexts = {"Continue", "Settings", "Quit"};
 
