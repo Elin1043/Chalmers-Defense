@@ -22,7 +22,7 @@ public class TestMap {
     @Test
     public void testMapProjectileCollision() {
         model.dragStart("electro", 0, 0);
-        model.dragEnd(100, 100, 190, 640);       // Creates and places smurf
+        model.dragEnd(190, 640);       // Creates and places smurf
         assertTrue(model.getAllMapObjects().size() > 0);        // To verify Smurf is on the map
         model.startRoundPressed();                                      // Begins to spawn viruses
 
@@ -45,7 +45,7 @@ public class TestMap {
     @Test
     public void testSellTower() {
         model.dragStart("smurf", 300, 300); // Creates tower
-        model.dragEnd(2, 2, 300, 300);
+        model.dragEnd(300, 300);
 
         assertEquals(1, model.getAllMapObjects().size());
         model.sellClickedTower();

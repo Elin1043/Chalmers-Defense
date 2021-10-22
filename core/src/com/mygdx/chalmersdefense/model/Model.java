@@ -126,13 +126,13 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
-    public void onDrag(float buttonWidth, float buttonHeight, float x, float y, int windowHeight, int windowWidth) {
-        map.onDrag(buttonWidth, buttonHeight, x, y, windowHeight, windowWidth);
+    public void onDrag(float x, float y, int windowHeight, int windowWidth) {
+        map.onDrag(x, y, windowHeight, windowWidth);
     }
 
     @Override
-    public void dragEnd(float buttonWidth, float buttonHeight, float x, float y) {
-        map.dragEnd(buttonWidth, buttonHeight, x, y);
+    public void dragEnd(float x, float y) {
+        map.dragEnd(x, y);
     }
 
 
@@ -149,8 +149,8 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
-    public GetRangeCircle getRangeCircle() {
-        return new GetRangeCircle(map.getRangeCircle());
+    public RangeCircle getRangeCircle() {
+        return new RangeCircle(map.getRangeCircle());
     }
 
     @Override

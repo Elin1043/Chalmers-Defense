@@ -7,7 +7,6 @@ import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.Model;
 import org.junit.Before;
 import org.junit.Test;
-import org.lwjgl.Sys;
 
 import static org.junit.Assert.*;
 
@@ -60,16 +59,16 @@ public class TestRounds {
 
     private void setupTowers() {
         model.dragStart("chemist", 0, 0);
-        model.dragEnd(100, 100, 750, 980);
+        model.dragEnd(750, 980);
 
         model.dragStart("chemist", 0, 0);
-        model.dragEnd(100, 100, 750, 860);
+        model.dragEnd(750, 860);
 
         model.dragStart("chemist", 0, 0);
-        model.dragEnd(100, 100, 100, 740);
+        model.dragEnd(100, 740);
 
         model.dragStart("chemist", 0, 0);
-        model.dragEnd(100, 100, 750, 620);
+        model.dragEnd(750, 620);
     }
 
 }

@@ -9,7 +9,7 @@ import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.modelUtilities.Calculate;
-import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
+import com.mygdx.chalmersdefense.utilities.RangeCircle;
 import com.mygdx.chalmersdefense.model.modelUtilities.PathRectangle;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ final class Map {
 
     private boolean isGameLost = false;     // Boolean if game is lost
 
-    private final GetRangeCircle rangeCircle = new GetRangeCircle(0,0,0);     // Helper class for showing gray range circle
+    private final RangeCircle rangeCircle = new RangeCircle(0,0,0);     // Helper class for showing gray range circle
 
     Map(Player player) { this.player = player; }
 
@@ -78,7 +78,7 @@ final class Map {
         isGameLost = false;
 
         // Removes range circle
-        rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
+        rangeCircle.setEnumColor(RangeCircle.Color.NONE);
     }
 
     //Resets all powerUps
@@ -367,27 +367,24 @@ final class Map {
     /**
      * Handles a tower being dragged.
      * Updates the towers position after mouse and check for collision
-     *
-     * @param buttonWidth  The width of the button dragged from
-     * @param buttonHeight The height of the button dragged from
-     * @param x            The X-position of the mouse
+     *  @param x            The X-position of the mouse
      * @param y            The Y-position of the mouse
      * @param windowHeight The height of the window
      * @param windowWidth  The width of the window
      */
-    void onDrag(float buttonWidth, float buttonHeight, float x, float y, int windowHeight, int windowWidth) {
+    void onDrag(float x, float y, int windowHeight, int windowWidth) {
 
-        newTower.setPos(x - buttonWidth / 2f, y - buttonHeight / 2f);
+        newTower.setPos(x - newTower.getWidth() / 2f, y - newTower.getHeight() / 2f);
 
         if (!checkCollisionOfTower(newTower, windowHeight, windowWidth) && (player.getMoney() >= newTower.getCost())) {
             newTower.setIfCanRemove(false);
             rangeCircle.updatePos(newTower.getX() + newTower.getWidth() / 2, newTower.getY() + newTower.getHeight() / 2, newTower.getRange());
-            rangeCircle.setEnumColor(GetRangeCircle.Color.GRAY);
+            rangeCircle.setEnumColor(RangeCircle.Color.GRAY);
 
         } else {
             newTower.setIfCanRemove(true);
             rangeCircle.updatePos(newTower.getX() + newTower.getWidth() / 2, newTower.getY() + newTower.getHeight() / 2, newTower.getRange());
-            rangeCircle.setEnumColor(GetRangeCircle.Color.RED);
+            rangeCircle.setEnumColor(RangeCircle.Color.RED);
         }
     }
 
@@ -397,20 +394,17 @@ final class Map {
      * Checks if tower can be placed on current position.
      * If not: tower is removed
      * if valid: place the tower
-     *
-     * @param buttonWidth  The width of the button dragged from
-     * @param buttonHeight The height of the button dragged from
-     * @param x            The X-position of the mouse
+     *  @param x            The X-position of the mouse
      * @param y            The Y-position of the mouse
      */
-    void dragEnd(float buttonWidth, float buttonHeight, float x, float y) {
+    void dragEnd(float x, float y) {
         if (!newTower.canRemove()) {
             newTower.placeTower();
-            newTower.setPos(x - buttonWidth / 2f, y - buttonHeight / 2f);
+            newTower.setPos(x - newTower.getWidth() / 2f, y - newTower.getHeight() / 2f);
             player.decreaseMoney(newTower.getCost());
         } else {
             towersList.remove(newTower);
-            rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
+            rangeCircle.setEnumColor(RangeCircle.Color.NONE);
             clickedTower = null;
         }
     }
@@ -430,12 +424,12 @@ final class Map {
             if (Math.sqrt(Math.pow(towerCenterX - x, 2) + Math.pow(towerCenterY - y, 2)) <= tower.getWidth()) {
                 towerWasClicked = tower;
                 rangeCircle.updatePos(towerCenterX, towerCenterY, tower.getRange());
-                rangeCircle.setEnumColor(GetRangeCircle.Color.GRAY);
+                rangeCircle.setEnumColor(RangeCircle.Color.GRAY);
             }
         }
 
         if (towerWasClicked == null) {
-            rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
+            rangeCircle.setEnumColor(RangeCircle.Color.NONE);
         }
         clickedTower = towerWasClicked;
 
@@ -463,7 +457,7 @@ final class Map {
         towersList.remove(clickedTower);
         player.increaseMoney(cost);
         clickedTower = null;
-        rangeCircle.setEnumColor(GetRangeCircle.Color.NONE);
+        rangeCircle.setEnumColor(RangeCircle.Color.NONE);
     }
 
     /**
@@ -508,7 +502,7 @@ final class Map {
      * Return the circle used for rendering range
      * @return the circle
      */
-    GetRangeCircle getRangeCircle() {
+    RangeCircle getRangeCircle() {
         return rangeCircle;
     }
 

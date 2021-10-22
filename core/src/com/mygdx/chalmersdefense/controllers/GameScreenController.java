@@ -3,7 +3,6 @@ package com.mygdx.chalmersdefense.controllers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -113,7 +112,7 @@ public class GameScreenController extends InputAdapter {
     private void placeTowerAtMousePosition(String name) {
         Vector2 v = ScreenManager.getInstance().getCurrentScreen().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
         model.dragStart(name, v.x, v.y);
-        model.onDrag(60, 80, v.x, v.y, Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-        model.dragEnd(60, 80, v.x, v.y);
+        model.onDrag(v.x, v.y, Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
+        model.dragEnd(v.x, v.y);
     }
 }

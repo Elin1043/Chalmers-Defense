@@ -28,7 +28,7 @@ public class TestEcoTower {
     public void testAddMoneyToPlayer() {
         int startCapital = m.getMoney();
         m.dragStart("eco", 300, 300); // Creates tower
-        m.dragEnd(2, 2, 300, 300);
+        m.dragEnd(300, 300);
 
         assertTrue(startCapital > m.getMoney());    // The tower should have removed money from player when placed
         startCapital = m.getMoney();
@@ -40,7 +40,7 @@ public class TestEcoTower {
     @Test
     public void testAddMoneyMultipleTimesToPlayer() {
         m.dragStart("eco", 300, 300); // Creates tower
-        m.dragEnd(2, 2, 300, 300);
+        m.dragEnd(300, 300);
 
         m.updateModel();
         int startCapital = m.getMoney();
@@ -54,7 +54,7 @@ public class TestEcoTower {
     @Test
     public void testMoreMoneyWhenUpgraded() {
         m.dragStart("eco", 300, 300); // Creates tower
-        m.dragEnd(2, 2, 300, 300);
+        m.dragEnd(300, 300);
         m.startRoundPressed();
 
         int fixedCapital = m.getMoney();
