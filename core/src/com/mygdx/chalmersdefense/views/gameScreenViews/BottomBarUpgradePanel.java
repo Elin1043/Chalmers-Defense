@@ -34,8 +34,6 @@ final public class BottomBarUpgradePanel {
     private final HashMap<String, Sprite> largeSpriteMap;
     private final Batch batch;
 
-
-
     private final Image bottomBarUpgradePanelBackground = new Image(new Texture("GameScreen/BottomBarUpgradePanel.png"));
 
     private final Group bottomBarPanelUpgradeGroup = new Group();
@@ -59,9 +57,6 @@ final public class BottomBarUpgradePanel {
 
     private final Label sellPriceLabel = new Label("", FontFactory.getLabelStyle26Black());
     private final Label targetModeLabel = new Label("", FontFactory.getLabelStyle20Black());
-
-
-
 
     public BottomBarUpgradePanel(Stage stage, IViewModel model, BottomBarPanelController bottomBarPanelController, HashMap<String, Sprite> spriteMap, HashMap<String, Sprite> largeSpriteMap) {
         this.stage = new Stage(stage.getViewport());
@@ -91,12 +86,9 @@ final public class BottomBarUpgradePanel {
 
         createSellButton();
         createChangeTargetModeButton();
-        createPowerUpButtons();
-
 
         bottomBarPanelUpgradeGroup.addActor(towerNameLabel);
         bottomBarPanelUpgradeGroup.setVisible(false);
-
     }
 
     /**
@@ -168,12 +160,6 @@ final public class BottomBarUpgradePanel {
 
         sellPriceLabel.setPosition(520, 55);
     }
-
-    private void createPowerUpButtons(){
-
-    }
-
-
 
     private void updateButtonInfo(){
         sellPriceLabel.setText("+" + "$" + model.getClickedTowerSellPrice());
