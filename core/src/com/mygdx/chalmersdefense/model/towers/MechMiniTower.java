@@ -2,7 +2,6 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
-import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
 import java.util.HashMap;
@@ -19,6 +18,15 @@ final class MechMiniTower extends Tower {
 
     private final CountDownTimer lifeTimeCounter;   // The life timer of the MiniMechTower
 
+    /**
+     * Creates object of a MechMiniTower
+     * @param x - startcoordinate of tower
+     * @param y - startcoordinate of tower
+     * @param reloadSpeed of the tower
+     * @param range of the tower
+     * @param currentTargetModeIndex targetModeIndex for getting targetMode
+     * @param upgradeLevel upgradelevel to be set
+     */
     MechMiniTower(float x, float y, int reloadSpeed, int range, int currentTargetModeIndex, int upgradeLevel) {
         super(x, y, "MechMini", reloadSpeed, 0, range);
 

@@ -2,7 +2,6 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
-import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import java.util.List;
 
@@ -15,6 +14,17 @@ import java.util.List;
 final class ChemistTower extends Tower {
     private final List<IProjectile> addToList;  // List to add new projectiles to
 
+
+    /**
+     * Creates object of a ChemistTower
+     * @param x - startcoordinate of tower
+     * @param y - startcoordinate of tower
+     * @param name of the tower
+     * @param reloadSpeed of the tower
+     * @param cost of the tower
+     * @param range of the tower
+     * @param addToList list to add towers projectiles to
+     */
     ChemistTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<IProjectile> addToList) {
         super(x, y, name, reloadSpeed, cost, range);
         this.addToList = addToList;

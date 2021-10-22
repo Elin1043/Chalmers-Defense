@@ -26,12 +26,12 @@ public class TestMechTower {
     List<ITower> addToList = new ArrayList<>();
     List<ITower> towersList = new ArrayList<>();
 
-    ITower tSmurf = TowerFactory.CreateSmurf(100, 200);
+    ITower tSmurf = TowerFactory.createSmurf(100, 200);
 
     @Test
     public void testUpdateAndCreateOneTower() {
         towersList.add(tSmurf);
-        ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,path.getCollisionRectangles());
+        ITower t = TowerFactory.createMech(0, 0, addToList,towersList,path.getCollisionRectangles());
         t.placeTower();
 
         t.update(new ArrayList<>(), 10, true);
@@ -41,7 +41,7 @@ public class TestMechTower {
     @Test
     public void testUpdateAndCreateTwoTower() {
         towersList.add(tSmurf);
-        ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,path.getCollisionRectangles());
+        ITower t = TowerFactory.createMech(0, 0, addToList,towersList,path.getCollisionRectangles());
         t.placeTower();
 
         HashMap<String, Double> upgrades = new HashMap<>();
@@ -60,7 +60,7 @@ public class TestMechTower {
         upgrades.put("attackRangeMul",2.0);
         towersList.add(tSmurf);
         List<ITower> addToList = new ArrayList<>();
-        ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,path.getCollisionRectangles());
+        ITower t = TowerFactory.createMech(0, 0, addToList,towersList,path.getCollisionRectangles());
         List<IProjectile> pList = new ArrayList<>();
 
         t.placeTower();

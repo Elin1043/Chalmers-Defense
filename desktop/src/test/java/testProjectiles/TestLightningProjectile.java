@@ -23,7 +23,7 @@ public class TestLightningProjectile {
 
     @Before
     public void createProjectile() {
-        ITower tower = TowerFactory.CreateElectro(0, 0);
+        ITower tower = TowerFactory.createElectro(0, 0);
         tower.placeTower();
         tower.update(projectilesList, 0, true);
         projectile = projectilesList.get(0);

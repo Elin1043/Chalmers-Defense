@@ -18,7 +18,8 @@ import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
  * @author Daniel Persson
  * A class for rendering the main screen in the game
  */
-final public class MainScreen extends AbstractScreen {
+final class MainScreen extends AbstractScreen {
+
     private ImageButton playButton;
     private Button settingsButton;
     private Button infoButton;

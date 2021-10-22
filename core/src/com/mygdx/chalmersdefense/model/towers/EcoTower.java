@@ -3,7 +3,6 @@ package com.mygdx.chalmersdefense.model.towers;
 import com.mygdx.chalmersdefense.model.Player;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
-import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 
 import java.util.List;
@@ -18,6 +17,16 @@ final class EcoTower extends Tower {
     private final CountDownTimer currentReload = new CountDownTimer(600, 0); // Reload time of this tower
     private final Player player;    // Player to add money to
 
+    /**
+     * Creates object of a EcoTower
+     * @param x - startcoordinate of tower
+     * @param y - startcoordinate of tower
+     * @param name of the tower
+     * @param reloadSpeed of the tower
+     * @param cost of the tower
+     * @param range of the tower
+     * @param player current player to add money to
+     */
     EcoTower(float x, float y, String name, int reloadSpeed, int cost, int range, Player player) {
         super(x, y, name, reloadSpeed, cost, range);
         this.player = player;

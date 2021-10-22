@@ -48,10 +48,19 @@ abstract class Tower implements ITower {
     private int reloadTime;                 // Variable to calculate new reload time when upgrading
 
 
-    Tower(float x, float y, String name, int reloadTime, int cost, int range) {
+    /**
+     * Creates object of a Tower
+     * @param x - startcoordinate of tower
+     * @param y - startcoordinate of tower
+     * @param name of the tower
+     * @param reloadSpeed of the tower
+     * @param cost of the tower
+     * @param range of the tower
+     */
+    Tower(float x, float y, String name, int reloadSpeed, int cost, int range) {
         this.name = name;
-        this.reloadTime = reloadTime;
-        this.reloadTimer = new CountDownTimer(reloadTime, 0);
+        this.reloadTime = reloadSpeed;
+        this.reloadTimer = new CountDownTimer(reloadSpeed, 0);
         this.currentTargetMode = targetModes.get(0);
         updateSpriteKey();
 

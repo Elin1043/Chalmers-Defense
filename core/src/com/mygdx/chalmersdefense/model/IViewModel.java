@@ -1,7 +1,6 @@
 package com.mygdx.chalmersdefense.model;
 
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
-import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 
@@ -52,7 +51,7 @@ public interface IViewModel {
      * @param upgradeLevel what upgrade to get price of
      * @return a String with towers upgrade price depending on upgrade level.
      */
-    Long getTowerUpgradePrice(String towerName, int upgradeLevel);
+    Integer getTowerUpgradePrice(String towerName, int upgradeLevel);
 
 
     /**
@@ -66,7 +65,7 @@ public interface IViewModel {
      * Get target mode of clicked tower
      * @return target mode
      */
-    ITargetMode getClickedTowerTargetMode();
+    String getClickedTowerTargetMode();
 
     /**
      * Returns which overlay is supposed to show

@@ -5,7 +5,6 @@ import com.mygdx.chalmersdefense.model.path.IPath;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
 import com.mygdx.chalmersdefense.model.powerUps.*;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
@@ -348,12 +347,12 @@ final class Map {
      */
     void dragStart(String towerName, float x, float y) {
         switch (towerName) {
-            case "smurf" -> newTower = TowerFactory.CreateSmurf(x, y);
-            case "chemist" -> newTower = TowerFactory.CreateChemist(x, y, projectilesToAddList);
-            case "electro" -> newTower = TowerFactory.CreateElectro(x, y);
-            case "hacker" -> newTower = TowerFactory.CreateHacker(x, y, projectilesToAddList);
-            case "mech" -> newTower = TowerFactory.CreateMech(x, y, towersToAddList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
-            case "eco" -> newTower = TowerFactory.CreateEco(x, y, player);
+            case "smurf" -> newTower = TowerFactory.createSmurf(x, y);
+            case "chemist" -> newTower = TowerFactory.createChemist(x, y, projectilesToAddList);
+            case "electro" -> newTower = TowerFactory.createElectro(x, y);
+            case "hacker" -> newTower = TowerFactory.createHacker(x, y, projectilesToAddList);
+            case "mech" -> newTower = TowerFactory.createMech(x, y, towersToAddList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
+            case "eco" -> newTower = TowerFactory.createEco(x, y, player);
             default -> {
                 return;
             }
@@ -443,6 +442,18 @@ final class Map {
     }
 
     /**
+     * Upgrades clicked tower if player has enough money
+     */
+    void upgradeClickedTower() {
+        // If upgrade is applied decrease player money
+        if (Upgrades.upgradeTower(clickedTower)) {
+            player.decreaseMoney(Upgrades.getTowerUpgradePrice(clickedTower.getName(), clickedTower.getUpgradeLevel() - 1));
+
+            rangeCircle.updatePos(clickedTower.getX() + getClickedTower().getWidth()/2, clickedTower.getY() + getClickedTower().getHeight()/2, clickedTower.getRange());
+        }
+    }
+
+    /**
      * Sell the clicked tower
      * Also gives the player some money back
      *
@@ -485,8 +496,9 @@ final class Map {
      *
      * @return target mode of clicked tower
      */
-    ITargetMode getClickedTowerTargetMode() {
-        return clickedTower.getCurrentTargetMode();
+    String getClickedTowerTargetMode() {
+        String[] targetModeNameSplit = clickedTower.getCurrentTargetMode().getClass().getName().split("[.]");
+        return targetModeNameSplit[targetModeNameSplit.length - 1];
     }
 
     /**
