@@ -8,11 +8,11 @@ import com.mygdx.chalmersdefense.model.IViewModel;
 
 public abstract class ScreenFactory {
 
-    public static AbstractScreen CreateMainScreen(IViewModel model, MainScreenController mainScreenController) {
+    public static AbstractScreen createMainScreen(IViewModel model, MainScreenController mainScreenController) {
         return new MainScreen(model, mainScreenController);
     }
 
-    public static AbstractScreen CreateGameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
+    public static AbstractScreen createGameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
         return new GameScreen(model, gameScreenController, rightSidePanelController, bottomBarPanelController);
     }
 }
