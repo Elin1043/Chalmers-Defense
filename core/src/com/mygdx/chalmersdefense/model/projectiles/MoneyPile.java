@@ -14,6 +14,12 @@ final class MoneyPile extends Projectile{
     // Timer over how long to show money animation
     private final CountDownTimer timer = new CountDownTimer(150);
 
+    /**
+     * Creates a MoneyPile object
+     * @param x The x start position
+     * @param y The y start position
+     * @param upgradeLevel The upgrade level of the projectile
+     */
     MoneyPile(float x, float y, int upgradeLevel) {
         super(0.1F, "money" + upgradeLevel, x + 10, y + 80, 90, 1);
     }

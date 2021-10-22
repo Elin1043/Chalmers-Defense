@@ -31,38 +31,16 @@ final public class RightSidePanel {
     private final Label towerLabel = createLabel("Towers", 20);
     private final Label powerUpLabel = createLabel("Power-ups", 620);
 
-
     private final HashMap<Integer, Button> towerButtons = new HashMap<>();
     private final HashMap<Button, Integer> powerUpButtons = new HashMap<>();
-
-    private final Button smurfButton = createTowerButton("Smurf");
-    private final Button chemistButton = createTowerButton("Chemist");
-    private final Button electroButton = createTowerButton("Electro");
-    private final Button hackerButton = createTowerButton("Hacker");
-    private final Button mechButton = createTowerButton("Mecho");
-    private final Button ecoButton = createTowerButton( "Eco");
-
 
     private final Button cleanHandsPowerUpButton = createPowerUpButton("CleanHands");
     private final Button vaccinatedPowerUpButton = createPowerUpButton("Vaccination");
     private final Button maskedUpPowerUpButton = createPowerUpButton("MaskedUp");
 
-
     private final Label cleanHandsTimerLabel = createPowerUpTimeLabel("10",1615, 355);
     private final Label maskedUpTimerLabel = createPowerUpTimeLabel("10",1615, 275);
     private final Label vaccinatedTimerLabel = createPowerUpTimeLabel("10",1615, 187);
-
-    private final Label cleanHandsLabel = createPowerUpLabel("Clean hands",1685, 385);
-    private final Label maskedUpLabel = createPowerUpLabel("Masked-up",1685, 300);
-    private final Label vaccinatedLabel = createPowerUpLabel("Vaccinated",1685, 216);
-
-    private final Label cleanHandsLabelDesc = createPowerUpDesc("Triples attack speed of your towers for 5 sec", 352);
-    private final Label maskedUpLabelDesc = createPowerUpDesc("Increases range of your towers for 20 sec", 268);
-    private final Label vaccinatedLabelDesc = createPowerUpDesc("Fires a vaccination storm to damage all viruses", 184);
-
-    private final Label cleanHandsLabelPrice = createPowerUpPriceLabel("$300",1900, 385);
-    private final Label maskedUpLabelPrice = createPowerUpPriceLabel("$100",1900, 300);
-    private final Label vaccinatedLabelPrice = createPowerUpPriceLabel("$500",1900, 216);
 
     private Button startRoundButton;
 
@@ -88,21 +66,6 @@ final public class RightSidePanel {
         stage.addActor(maskedUpTimerLabel);
         stage.addActor(vaccinatedTimerLabel);
 
-        stage.addActor(cleanHandsLabel);
-        stage.addActor(maskedUpLabel);
-        stage.addActor(vaccinatedLabel);
-
-        stage.addActor(cleanHandsLabelDesc);
-        stage.addActor(maskedUpLabelDesc);
-        stage.addActor(vaccinatedLabelDesc);
-
-        stage.addActor(cleanHandsLabelPrice);
-        stage.addActor(maskedUpLabelPrice);
-        stage.addActor(vaccinatedLabelPrice);
-
-
-        addButtonListener();
-
         createStartRoundButton();
 
     }
@@ -121,10 +84,49 @@ final public class RightSidePanel {
         stage.addActor(cleanHandsPowerUpButton);
         stage.addActor(maskedUpPowerUpButton);
         stage.addActor(vaccinatedPowerUpButton);
+
+        rightSidePanelController.addPowerUpButtonListener(cleanHandsPowerUpButton);
+        rightSidePanelController.addPowerUpButtonListener(maskedUpPowerUpButton);
+        rightSidePanelController.addPowerUpButtonListener(vaccinatedPowerUpButton);
+
+        initializePowerUpLabels();
+    }
+
+    private void initializePowerUpLabels() {
+        Label cleanHandsLabel = createPowerUpLabel("Clean hands",1685, 385);
+        Label maskedUpLabel = createPowerUpLabel("Masked-up",1685, 300);
+        Label vaccinatedLabel = createPowerUpLabel("Vaccinated",1685, 216);
+
+        Label cleanHandsLabelDesc = createPowerUpDesc("Triples attack speed of your towers for 5 sec", 352);
+        Label maskedUpLabelDesc = createPowerUpDesc("Increases range of your towers for 20 sec", 268);
+        Label vaccinatedLabelDesc = createPowerUpDesc("Fires a vaccination storm to damage all viruses", 184);
+
+        Label cleanHandsLabelPrice = createPowerUpPriceLabel("$300",1900, 385);
+        Label maskedUpLabelPrice = createPowerUpPriceLabel("$100",1900, 300);
+        Label vaccinatedLabelPrice = createPowerUpPriceLabel("$500",1900, 216);
+
+        stage.addActor(cleanHandsLabel);
+        stage.addActor(maskedUpLabel);
+        stage.addActor(vaccinatedLabel);
+
+        stage.addActor(cleanHandsLabelDesc);
+        stage.addActor(maskedUpLabelDesc);
+        stage.addActor(vaccinatedLabelDesc);
+
+        stage.addActor(cleanHandsLabelPrice);
+        stage.addActor(maskedUpLabelPrice);
+        stage.addActor(vaccinatedLabelPrice);
     }
 
     private void initializeTowerButtons(){
         Label towerPriceLabel;
+
+        Button smurfButton = createTowerButton("Smurf");
+        Button chemistButton = createTowerButton("Chemist");
+        Button electroButton = createTowerButton("Electro");
+        Button hackerButton = createTowerButton("Hacker");
+        Button mechButton = createTowerButton("Mecho");
+        Button ecoButton = createTowerButton( "Eco");
 
         towerButtons.put(200, smurfButton);
         towerButtons.put(300, mechButton);
@@ -151,10 +153,8 @@ final public class RightSidePanel {
         for (Integer i : towerButtons.keySet()) {
             towerPriceLabel = createTowerPriceLabel("$" + i, 0, 10, towerButtons.get(i).getWidth());
             towerButtons.get(i).addActor(towerPriceLabel);
+            rightSidePanelController.addTowerButtonListener(towerButtons.get(i));
         }
-
-
-
     }
 
     private void placeButton(Button button, int x, int y, String name) {
@@ -196,24 +196,6 @@ final public class RightSidePanel {
         Skin skin = new Skin(Gdx.files.internal("buttons/towerButtonSkin/" + name + "ButtonSkin.json"), atlas); // Create skin object
 
         return new Button(skin);
-    }
-
-
-
-
-    private void addButtonListener() {
-        rightSidePanelController.addTowerButtonListener(smurfButton);
-        rightSidePanelController.addTowerButtonListener(chemistButton);
-        rightSidePanelController.addTowerButtonListener(hackerButton);
-        rightSidePanelController.addTowerButtonListener(electroButton);
-        rightSidePanelController.addTowerButtonListener(mechButton);
-        rightSidePanelController.addTowerButtonListener(ecoButton);
-
-        rightSidePanelController.addPowerUpButtonListener(cleanHandsPowerUpButton);
-        rightSidePanelController.addPowerUpButtonListener(maskedUpPowerUpButton);
-        rightSidePanelController.addPowerUpButtonListener(vaccinatedPowerUpButton);
-
-
     }
 
     private void checkPowerUpButtonCooldown(){

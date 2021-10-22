@@ -31,7 +31,7 @@ final class MainScreen extends AbstractScreen {
     private final MainScreenController mainScreenController;
     private final IViewModel model;
 
-    public MainScreen(IViewModel model, MainScreenController mainScreenController) {
+    MainScreen(IViewModel model, MainScreenController mainScreenController) {
         super();
         this.model = model;
         this.mainScreenController = mainScreenController;

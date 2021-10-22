@@ -9,6 +9,14 @@ import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 final class RobotProjectile extends Projectile {
 
     private final CountDownTimer hitCountsLeft; // Hit amount left before projectile can be removed
+
+    /**
+     * Creates a RobotProjectile object
+     * @param x The x start position
+     * @param y The y start position
+     * @param angle The angle of the projectile
+     * @param upgradeLevel The upgrade level of the projectile
+     */
     RobotProjectile(float x, float y, float angle, int upgradeLevel) {
         super(5, "mechaProjectile" + upgradeLevel, x, y, angle, Math.max(1, upgradeLevel-1));
         hitCountsLeft = switch (upgradeLevel) {
@@ -26,7 +34,7 @@ final class RobotProjectile extends Projectile {
     }
 
     @Override
-    public void virusIsHit(int hitVirusHashCode, float angle) {
+    void virusIsHit(int hitVirusHashCode, float angle) {
         super.haveHitList.add(hitVirusHashCode);
         this.countVirusHit();
 

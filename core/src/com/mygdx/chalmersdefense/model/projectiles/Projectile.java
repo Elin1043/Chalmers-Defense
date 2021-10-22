@@ -32,6 +32,15 @@ abstract class Projectile implements IProjectile {
 
     boolean canRemove = false;  // Boolean over if this projectile can be removed by map
 
+    /**
+     * Creates an abstract Projectile object with common projectile methods
+     * @param speed The projectile speed
+     * @param spriteKey The projectiles sprite key
+     * @param x The objects start x position
+     * @param y The objects start y position
+     * @param angle The angle of the projectile
+     * @param damage the amount of damage the projectile does
+     */
     Projectile(float speed, String spriteKey, float x, float y, float angle, float damage) {
         this.speed = speed;
         this.spriteKey = spriteKey;

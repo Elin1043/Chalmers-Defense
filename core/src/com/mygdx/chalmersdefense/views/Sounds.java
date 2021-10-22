@@ -20,6 +20,7 @@ final public class Sounds {
         music = Gdx.audio.newMusic(Gdx.files.internal("backgroundMusic.wav"));
         music.setLooping(true);
         music.play();
+        music.setVolume(0);
 
         // Update volume if preferences changes.
         // The timer object
