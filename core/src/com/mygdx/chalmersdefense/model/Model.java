@@ -193,7 +193,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
         float cost = map.getClickedTower().getCost();
 
         for (int i = 2; i < map.getClickedTower().getUpgradeLevel() + 1; i++) {
-            cost += upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), i-1).intValue();
+            cost += Upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), i - 1);
         }
 
         cost *= 0.6;
