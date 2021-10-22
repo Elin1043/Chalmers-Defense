@@ -1,5 +1,6 @@
-package com.mygdx.chalmersdefense.model.towers;
+package com.mygdx.chalmersdefense.model;
 
+import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.utilities.IParseJSON;
 import com.mygdx.chalmersdefense.utilities.JSONParserWrapper;
 
@@ -9,7 +10,7 @@ import java.util.HashMap;
  * @author Daniel Persson
  * A class for storing and applying upgrades to towers.
  */
-public abstract class Upgrades {
+abstract class Upgrades {
     private static final int MAX_UPGRADES = 3;                     // Current max upgrade level
     private static final IParseJSON jsonParser = new JSONParserWrapper("UpgradeData.json");
 
@@ -21,8 +22,6 @@ public abstract class Upgrades {
      */
     public static boolean upgradeTower(ITower tower) {
         // If tower is max upgraded don't upgrade
-        // Current max upgrade level
-        int MAX_UPGRADES = 3;
         if (tower.getUpgradeLevel() >= MAX_UPGRADES) return false;
 
         HashMap<String, Double> upgrades = getTowerUpgradeData(tower.getName(), tower.getUpgradeLevel());
