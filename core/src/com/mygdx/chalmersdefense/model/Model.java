@@ -32,6 +32,7 @@ import java.util.List;
  * 2021-09-28 Modified by Everyone: Moved methods to Map class <br>
  * 2021-09-30 Modified by Joel Båtsman Hilmersson: Added a specifc timer object <br>
  * 2021-10-15 Modified by Elin Forsberg and Joel Båtsman Hilmmersson: Added methods for powerUps
+ * 2021-10-22 Modified by Daniel Persson: Changed Upgrade object to use updated upgrades class. Also moved upgrade logic to map
  */
 
 final public class Model implements IUpdateModel, IControllModel, IViewModel {
@@ -109,7 +110,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public void startRoundPressed() {
-        if (!virusSpawner.isSpawning() && map.isVirusCleared()) {
+        if (isGameStopped()) {
             timer.startUpdateTimer();
             round.incrementToNextRound();
             virusSpawner.spawnRound(round.getCurrentRound());
