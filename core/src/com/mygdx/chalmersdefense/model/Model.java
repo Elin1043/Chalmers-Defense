@@ -88,8 +88,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public String getClickedTowerTargetMode() {
-        String[] targetModeNameSplit = map.getClickedTowerTargetMode().getClass().getName().split("[.]");
-        return targetModeNameSplit[targetModeNameSplit.length - 1];
+        return map.getClickedTowerTargetMode();
     }
 
 
