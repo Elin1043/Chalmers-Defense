@@ -52,7 +52,7 @@ public interface IViewModel {
      * @param upgradeLevel what upgrade to get price of
      * @return a String with towers upgrade price depending on upgrade level.
      */
-    Long getTowerUpgradePrice(String towerName, int upgradeLevel);
+    Integer getTowerUpgradePrice(String towerName, int upgradeLevel);
 
 
     /**

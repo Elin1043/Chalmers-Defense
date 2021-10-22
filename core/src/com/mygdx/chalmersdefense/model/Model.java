@@ -4,7 +4,6 @@ package com.mygdx.chalmersdefense.model;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
-import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
 import com.mygdx.chalmersdefense.utilities.GameTimer;
@@ -32,6 +31,7 @@ import java.util.List;
  * 2021-09-28 Modified by Everyone: Moved methods to Map class <br>
  * 2021-09-30 Modified by Joel Båtsman Hilmersson: Added a specifc timer object <br>
  * 2021-10-15 Modified by Elin Forsberg and Joel Båtsman Hilmmersson: Added methods for powerUps
+ * 2021-10-22 Modified by Daniel Persson: Changed Upgrade object to use updated upgrades class. Also moved upgrade logic to map
  */
 
 final public class Model implements IUpdateModel, IControllModel, IViewModel {
@@ -43,8 +43,6 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     private Rounds round = new Rounds(WINNING_ROUND);              // Round helper
 
     private final Player player = new Player(LIVES, START_CAPITAL); // Player object
-    private final Upgrades upgrades = new Upgrades();   // Class for controlling upgrades
-
 
     private final Map map = new Map(player);        // Current map object
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getViruses());   // The class for spawning viruses
@@ -111,7 +109,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public void startRoundPressed() {
-        if (!virusSpawner.isSpawning() && map.isVirusCleared()) {
+        if (isGameStopped()) {
             timer.startUpdateTimer();
             round.incrementToNextRound();
             virusSpawner.spawnRound(round.getCurrentRound());
@@ -163,17 +161,17 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public String getTowerUpgradeTitle(String towerName, int upgradeLevel) {
-        return upgrades.getTowerUpgradeTitle(towerName, upgradeLevel);
+        return Upgrades.getTowerUpgradeTitle(towerName, upgradeLevel);
     }
 
     @Override
     public String getTowerUpgradeDesc(String towerName, int upgradeLevel) {
-        return upgrades.getTowerUpgradeDesc(towerName, upgradeLevel);
+        return Upgrades.getTowerUpgradeDesc(towerName, upgradeLevel);
     }
 
     @Override
-    public Long getTowerUpgradePrice(String towerName, int upgradeLevel) {
-        return upgrades.getTowerUpgradePrice(towerName, upgradeLevel);
+    public Integer getTowerUpgradePrice(String towerName, int upgradeLevel) {
+        return Upgrades.getTowerUpgradePrice(towerName, upgradeLevel);
     }
 
     @Override
@@ -190,7 +188,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
         else{
             cost += map.getClickedTower().getCost();
             for (int i = 2; i < map.getClickedTower().getUpgradeLevel() + 1; i++) {
-                cost += upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), i-1).intValue();
+                cost += Upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), i - 1);
             }
             cost *= 0.6;
         }
@@ -211,12 +209,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public void upgradeClickedTower() {
-        if (upgrades.upgradeTower(map.getClickedTower())) {
-            player.decreaseMoney(upgrades.getTowerUpgradePrice(map.getClickedTower().getName(), map.getClickedTower().getUpgradeLevel() - 1).intValue());
-
-            GetRangeCircle circle = map.getRangeCircle();
-            circle.updatePos(map.getClickedTower().getX() + getClickedTower().getWidth()/2, map.getClickedTower().getY() + getClickedTower().getHeight()/2, map.getClickedTower().getRange());
-        }
+        map.upgradeClickedTower();
     }
 
     @Override
