@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.utilities;
+package com.mygdx.chalmersdefense.model.modelUtilities;
 
 import java.util.HashMap;
 

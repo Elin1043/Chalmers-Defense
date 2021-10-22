@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.utilities;
+package com.mygdx.chalmersdefense.views.viewUtilities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

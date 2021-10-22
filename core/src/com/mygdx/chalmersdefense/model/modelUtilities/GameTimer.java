@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.utilities;
+package com.mygdx.chalmersdefense.model.modelUtilities;
 
 import com.badlogic.gdx.utils.Timer;
 import com.mygdx.chalmersdefense.model.IUpdateModel;

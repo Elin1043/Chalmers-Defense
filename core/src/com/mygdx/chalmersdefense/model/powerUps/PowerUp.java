@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model.powerUps;
 
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
-import com.mygdx.chalmersdefense.utilities.CountDownTimer;
+import com.mygdx.chalmersdefense.model.modelUtilities.CountDownTimer;
 
 import java.util.List;
 

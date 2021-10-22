@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
 import com.mygdx.chalmersdefense.controllers.overlays.PauseMenuOverlayController;
-import com.mygdx.chalmersdefense.utilities.FontFactory;
+import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
 
 /**
  * @author Jenny Carlsson

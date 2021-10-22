@@ -1,8 +1,8 @@
 package com.mygdx.chalmersdefense.model;
 
 import com.mygdx.chalmersdefense.model.towers.ITower;
-import com.mygdx.chalmersdefense.utilities.IParseJSON;
-import com.mygdx.chalmersdefense.utilities.JSONParserWrapper;
+import com.mygdx.chalmersdefense.model.modelUtilities.IParseJSON;
+import com.mygdx.chalmersdefense.model.modelUtilities.JSONParserWrapper;
 
 import java.util.HashMap;
 

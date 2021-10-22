@@ -1,6 +1,6 @@
 package com.mygdx.chalmersdefense.model.path;
 
-import com.mygdx.chalmersdefense.utilities.PositionVector;
+import com.mygdx.chalmersdefense.model.modelUtilities.PositionVector;
 
 /**
  * @author Daniel Persson

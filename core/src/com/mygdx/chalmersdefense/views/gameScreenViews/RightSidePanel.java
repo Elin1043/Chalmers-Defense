@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.IViewModel;
-import com.mygdx.chalmersdefense.utilities.FontFactory;
+import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
 
 import java.util.HashMap;
 

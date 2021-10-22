@@ -4,6 +4,8 @@ package com.mygdx.chalmersdefense.model;
 import com.mygdx.chalmersdefense.utilities.*;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
+import com.mygdx.chalmersdefense.model.modelUtilities.GameTimer;
+import com.mygdx.chalmersdefense.model.modelUtilities.IGameTimer;
 
 import java.util.Collections;
 import java.util.List;

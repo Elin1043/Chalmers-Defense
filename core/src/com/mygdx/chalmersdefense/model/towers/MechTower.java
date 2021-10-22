@@ -2,9 +2,9 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
-import com.mygdx.chalmersdefense.utilities.Calculate;
-import com.mygdx.chalmersdefense.utilities.CountDownTimer;
-import com.mygdx.chalmersdefense.utilities.PathRectangle;
+import com.mygdx.chalmersdefense.model.modelUtilities.Calculate;
+import com.mygdx.chalmersdefense.model.modelUtilities.CountDownTimer;
+import com.mygdx.chalmersdefense.model.modelUtilities.PathRectangle;
 
 import java.util.List;
 

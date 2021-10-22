@@ -18,7 +18,7 @@ import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
-import com.mygdx.chalmersdefense.utilities.FontFactory;
+import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 import com.mygdx.chalmersdefense.views.gameScreenViews.BottomBarUpgradePanel;
 import com.mygdx.chalmersdefense.views.gameScreenViews.RightSidePanel;
@@ -58,9 +58,9 @@ final class GameScreen extends AbstractScreen implements Screen {
 
     private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
     private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
-    private final Label lifeLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle36Black());
-    private final Label moneyLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle36Black());
-    private final Label roundLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle36Black());
+    private final Label lifeLabel = new Label("", FontFactory.getLabelStyle36Black());
+    private final Label moneyLabel = new Label("", FontFactory.getLabelStyle36Black());
+    private final Label roundLabel = new Label("", FontFactory.getLabelStyle36Black());
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 

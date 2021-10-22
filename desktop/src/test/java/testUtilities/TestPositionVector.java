@@ -1,7 +1,7 @@
 package testUtilities;
 
 
-import com.mygdx.chalmersdefense.utilities.PositionVector;
+import com.mygdx.chalmersdefense.model.modelUtilities.PositionVector;
 import org.junit.Before;
 import org.junit.Test;
 
