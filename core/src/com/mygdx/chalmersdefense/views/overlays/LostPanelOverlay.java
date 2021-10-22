@@ -24,6 +24,11 @@ final class LostPanelOverlay extends AbstractOverlay {
 
     private final Image backgroundImage = new Image(new Texture("GameScreen/LostPanelBackgroundImage.png")); // Background image of overlay
 
+    /**
+     * Sets up class and passes abstractOverlayController to super constructor
+     * @param abstractOverlayController reference to common controller
+     * @param lostPanelOverlayController reference to controller for lost panel
+     */
     public LostPanelOverlay(AbstractOverlayController abstractOverlayController, LostPanelOverlayController lostPanelOverlayController) {
         super(abstractOverlayController);
         this.lostPanelOverlayController = lostPanelOverlayController;

@@ -19,6 +19,10 @@ final class InfoOverlay extends AbstractOverlay {
 
     private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/InfoBackgroundImage.png")); // Background image for overlay
 
+    /**
+     * Sets up class and passes abstractOverlayController to super constructor
+     * @param abstractOverlayController reference to common controller
+     */
     public InfoOverlay(AbstractOverlayController abstractOverlayController) {
         super(abstractOverlayController);
     }

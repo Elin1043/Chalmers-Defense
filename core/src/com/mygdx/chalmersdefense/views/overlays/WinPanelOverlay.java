@@ -27,6 +27,11 @@ final class WinPanelOverlay extends AbstractOverlay {
 
     private final Image backgroundImage = new Image(new Texture("GameScreen/WinPanelBackgroundImage.png")); // Background image of overlay
 
+    /**
+     * Sets up class and passes abstractOverlayController to super constructor
+     * @param abstractOverlayController reference to common controller
+     * @param winPanelOverlayController reference to controller for win panel
+     */
     public WinPanelOverlay(AbstractOverlayController abstractOverlayController, WinPanelOverlayController winPanelOverlayController) {
         super(abstractOverlayController);
         this.winPanelOverlayController = winPanelOverlayController;
@@ -56,6 +61,9 @@ final class WinPanelOverlay extends AbstractOverlay {
         winPanelGroup.setVisible(false);
     }
 
+    /**
+     * Creates all labels
+     */
     private void createLabels() {
         Label title = new Label("YOU WON!", FontFactory.getLabelStyle36BlackBold());
         Label mainText = new Label("You have defended Chalmers from the evil Corona viruses. \n" +

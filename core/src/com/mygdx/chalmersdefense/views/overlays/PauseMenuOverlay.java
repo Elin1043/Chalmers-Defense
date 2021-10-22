@@ -23,10 +23,14 @@ final class PauseMenuOverlay extends AbstractOverlay {
     private final Group pauseMenuGroup = new Group();
     private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/PauseMenuBackgroundImage.png"));
 
-
     private final TextureAtlas pauseMenuButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/pauseMenuButtonSkin/PauseMenuButtonSkin.atlas")); // Load atlas file from skin
     private final Skin pauseMenuButtonSkin = new Skin(Gdx.files.internal("buttons/pauseMenuButtonSkin/PauseMenuButtonSkin.json"), pauseMenuButtonTexture); // Create skin object
 
+    /**
+     * Sets up class and passes abstractOverlayController to super constructor
+     * @param abstractOverlayController reference to common controller
+     * @param pauseMenuOverlayController reference to controller for pause menu overlay
+     */
     public PauseMenuOverlay(AbstractOverlayController abstractOverlayController, PauseMenuOverlayController pauseMenuOverlayController) {
         super(abstractOverlayController);
         this.pauseMenuOverlayController = pauseMenuOverlayController;
@@ -56,6 +60,9 @@ final class PauseMenuOverlay extends AbstractOverlay {
         pauseMenuGroup.setVisible(false);
     }
 
+    /**
+     * Creates buttons
+     */
     private void createButtons() {
         String[] buttonTexts = {"Continue", "Settings", "Quit"};
 
