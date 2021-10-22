@@ -8,14 +8,12 @@ import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
-import com.mygdx.chalmersdefense.model.towers.Upgrades;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.utilities.Calculate;
 import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 import com.mygdx.chalmersdefense.utilities.PathRectangle;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -423,8 +421,9 @@ final class Map {
      * Upgrades clicked tower if player has enough money
      */
     void upgradeClickedTower() {
+        // If upgrade is applied decrease player money
         if (Upgrades.upgradeTower(clickedTower)) {
-            player.decreaseMoney(Upgrades.getTowerUpgradePrice(clickedTower.getName(), clickedTower.getUpgradeLevel() - 1).intValue());
+            player.decreaseMoney(Upgrades.getTowerUpgradePrice(clickedTower.getName(), clickedTower.getUpgradeLevel() - 1));
 
             rangeCircle.updatePos(clickedTower.getX() + getClickedTower().getWidth()/2, clickedTower.getY() + getClickedTower().getHeight()/2, clickedTower.getRange());
         }
