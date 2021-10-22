@@ -14,6 +14,9 @@ import com.mygdx.chalmersdefense.utilities.PositionVector;
 
 final class ClassicPath extends Path {
 
+    /**
+     * Creates an object of ClassicPath
+     */
      ClassicPath() {
         super(80);
         setPathWaypoints();
