@@ -141,6 +141,7 @@ final class Map {
         removeDeadVirusesHandler(virusToRemove);
     }
 
+    // Removes viruses from game and decreases player life
     private void removeDeadVirusesHandler(List<IVirus> virusToRemove) {
         for (IVirus virus : virusToRemove) {
             try {
@@ -152,7 +153,7 @@ final class Map {
         }
     }
 
-    //Update the projectiles
+    //Updates all things concerning projectiles
     private void updateProjectiles() {
         List<IProjectile> removeProjectiles = new ArrayList<>();
 
@@ -166,6 +167,7 @@ final class Map {
         projectilesList.removeAll(removeProjectiles);
     }
 
+    // Handels the actual projectile update
     private void projectileUpdateHandler(IProjectile projectile) {
         List<IVirus> virusThatWasHit = new ArrayList<>();
 
@@ -200,6 +202,7 @@ final class Map {
         return false;
     }
 
+    // What actually happens when projectile and virus hit
     private void virusAndProjectileHitHandler(IProjectile projectile, List<IVirus> virusThatWasHit, IVirus virus) {
         int virusHealthBefore = virus.getLifeDecreaseAmount();
 

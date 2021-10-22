@@ -193,8 +193,6 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
         return map.getPowerUpActiveStatus();
     }
 
-
-
     @Override
     public void upgradeClickedTower() {
         map.upgradeClickedTower();
