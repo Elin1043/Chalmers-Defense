@@ -5,7 +5,6 @@ import com.mygdx.chalmersdefense.model.path.IPath;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
 import com.mygdx.chalmersdefense.model.powerUps.*;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
@@ -497,8 +496,9 @@ final class Map {
      *
      * @return target mode of clicked tower
      */
-    ITargetMode getClickedTowerTargetMode() {
-        return clickedTower.getCurrentTargetMode();
+    String getClickedTowerTargetMode() {
+        String[] targetModeNameSplit = clickedTower.getCurrentTargetMode().getClass().getName().split("[.]");
+        return targetModeNameSplit[targetModeNameSplit.length - 1];
     }
 
     /**
