@@ -352,9 +352,7 @@ final class Map {
             case "hacker" -> selectedTower = TowerFactory.createHacker(x, y, projectilesToAddList);
             case "mech" -> selectedTower = TowerFactory.createMech(x, y, towersToAddList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
             case "eco" -> selectedTower = TowerFactory.createEco(x, y, player);
-            default -> {
-                return;
-            }
+            default -> throw new IllegalArgumentException("The argument: '" + towerName + "' is not a valid tower");
         }
 
         towersList.add(selectedTower);
