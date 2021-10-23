@@ -19,8 +19,8 @@ import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
 final class WinPanelOverlay extends AbstractOverlay {
     private final WinPanelOverlayController winPanelOverlayController; // Controller used for adding listeners
 
-    private final TextureAtlas winButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/winGameButtonSkin/winGameButtonSkin.atlas")); // Load atlas file from skin
-    private final Skin winButtonSkin = new Skin(Gdx.files.internal("buttons/winGameButtonSkin/winGameButtonSkin.json"), winButtonTexture); // Create skin object
+    private final TextureAtlas winButtonTexture = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "winGameButtonSkin/winGameButtonSkin.atlas")); // Load atlas file from skin
+    private final Skin winButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "winGameButtonSkin/winGameButtonSkin.json"), winButtonTexture); // Create skin object
 
     private final Group winPanelGroup = new Group(); // Group to add all actors to
 

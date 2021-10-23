@@ -28,6 +28,8 @@ public abstract class AbstractOverlay {
 
     private final InputMultiplexer multiplexer = new InputMultiplexer();
 
+    final String buttonsAssetsRoot = "buttons/overlayButtons/";
+
     public AbstractOverlay(AbstractOverlayController abstractOverlayController) {
         this.abstractOverlayController = abstractOverlayController;
 
@@ -82,8 +84,8 @@ public abstract class AbstractOverlay {
     }
 
     Button createExitPauseMenuButton(Group group, Image backgroundImage) {
-        TextureAtlas exitOverlayButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/exitOverlayButtonSkin/ExitOverlayButtonSkin.atlas")); // Load atlas file from skin
-        Skin exitOverlayButtonSkin = new Skin(Gdx.files.internal("buttons/exitOverlayButtonSkin/ExitOverlayButtonSkin.json"), exitOverlayButtonAtlas); // Create skin object
+        TextureAtlas exitOverlayButtonAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "exitOverlayButtonSkin/ExitOverlayButtonSkin.atlas")); // Load atlas file from skin
+        Skin exitOverlayButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "exitOverlayButtonSkin/ExitOverlayButtonSkin.json"), exitOverlayButtonAtlas); // Create skin object
         Button exitButton = new Button(exitOverlayButtonSkin); //Set the button up
         group.addActor(exitButton);
         exitButton.setPosition(backgroundImage.getX() + backgroundImage.getWidth() - exitButton.getWidth() - 20, backgroundImage.getY() + backgroundImage.getHeight() - exitButton.getHeight() - 20);
