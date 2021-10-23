@@ -123,4 +123,16 @@ public abstract class Calculate {
                 (obj1Width < obj1X || obj1Width > obj2X) &&
                 (obj1Height < obj1Y || obj1Height > obj2Y));
     }
+
+    /**
+     * Checks if object is out of bounds ore not
+     * @param object the object to be checked
+     * @return True - if the object is outside, False if the object is inside
+     */
+    public static boolean checkIfOutOfBounds(IMapObject object) {
+
+        return (object.getY() > 1100 || object.getY() + object.getHeight() < 0 ||
+                object.getX() + object.getWidth() < 0 || object.getX() > 1920);
+
+    }
 }

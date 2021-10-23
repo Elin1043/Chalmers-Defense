@@ -159,7 +159,7 @@ final class Map {
 
         for (IProjectile projectile : projectilesList) {
             projectileUpdateHandler(projectile);
-            if (projectile.canRemove() || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
+            if (projectile.canRemove() || Calculate.checkIfOutOfBounds(projectile)) {
                 removeProjectiles.add(projectile);
             }
         }
@@ -296,13 +296,13 @@ final class Map {
     }
 
 
-    //Check if coordinates are outside the screen
-    private boolean checkIfOutOfBounds(float y, float x) {
-        if (y > 1130 || -50 > y) {
-            return true;
-        }
-        return x > 1970 || -50 > x;
-    }
+//    //Check if coordinates are outside the screen
+//    private boolean checkIfOutOfBounds(float y, float x) {
+//        if (y > 1130 || -50 > y) {
+//            return true;
+//        }
+//        return x > 1970 || -50 > x;
+//    }
 
 
     //Checks if a tower collides with path
