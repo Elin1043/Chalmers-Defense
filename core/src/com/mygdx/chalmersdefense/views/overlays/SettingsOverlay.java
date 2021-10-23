@@ -184,8 +184,8 @@ final class SettingsOverlay extends AbstractOverlay {
      * Returns a new go back button
      */
     private Button createGoBackButton() {
-        TextureAtlas GoBackButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/goBackButtonSkin/GoBackButtonSkin.atlas")); // Load atlas file from skin
-        Skin goBackButtonSkin = new Skin(Gdx.files.internal("buttons/goBackButtonSkin/GoBackButtonSkin.json"), GoBackButtonTexture); // Create skin object
+        TextureAtlas GoBackButtonTexture = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "goBackButtonSkin/GoBackButtonSkin.atlas")); // Load atlas file from skin
+        Skin goBackButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "goBackButtonSkin/GoBackButtonSkin.json"), GoBackButtonTexture); // Create skin object
 
         Button goBackButton = new Button(goBackButtonSkin);
         settingsMenuGroup.addActor(goBackButton);

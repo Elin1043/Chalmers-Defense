@@ -33,7 +33,7 @@ final class Map {
     private final List<IProjectile> projectilesList = new ArrayList<>();    // The main projectile list
     private final List<IVirus> virusesList = new ArrayList<>();             // The main virus list
     private final List<IGenericMapObject> genericObjectsList = new ArrayList<>();    // The main genericObjects list
-    private final List<IPowerUp> powerUpList = PowerUpFactory.createPowerUps(towersList, virusesList); // List containing all power-ups
+    private final List<IPowerUp> powerUpList = PowerUpFactory.createPowerUps(virusesList); // List containing all power-ups
 
     private final List<ITower> towersToAddList = new ArrayList<>();             // Temporary list for object adding towers to the main list (To avoid concurrent modification issues)
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();   // Temporary list for object adding projectiles to the main list (To avoid concurrent modification issues)
@@ -103,8 +103,14 @@ final class Map {
         List<ITower> removeTowers = new ArrayList<>();
 
         for (ITower tower : towersList) {
+            List<IVirus> virusInRange;
+            if(powerUpList.get(1).getIsActive()){
+                virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange() * 1.5f, virusesList);
+            }
+            else{
+                virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), virusesList);
+            }
 
-            List<IVirus> virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), virusesList);
 
             // Standard values for when virus is out of range
             float newAngle = -1;
@@ -239,7 +245,13 @@ final class Map {
     //Updates the rangeCircle
     private void updateRangeCircle() {
         if(selectedTower != null){
-            rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth()/2, selectedTower.getY() + selectedTower.getHeight()/2, selectedTower.getRange());
+            if(powerUpList.get(1).getIsActive()){
+                rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth()/2, selectedTower.getY() + selectedTower.getHeight()/2, selectedTower.getRange()*1.5f);
+            }
+            else{
+                rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth()/2, selectedTower.getY() + selectedTower.getHeight()/2, selectedTower.getRange());
+            }
+
         }
     }
 

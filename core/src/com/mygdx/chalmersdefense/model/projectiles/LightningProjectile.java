@@ -14,7 +14,7 @@ final class LightningProjectile extends Projectile {
     private final CountDownTimer hitCountsLeft; // Hit amount left before projectile can be removed
 
     /**
-     * Creates a AcidProjectile object
+     * Creates a LightningProjectile object
      * @param x The x start position
      * @param y The y start position
      * @param angle The angle of the projectile
