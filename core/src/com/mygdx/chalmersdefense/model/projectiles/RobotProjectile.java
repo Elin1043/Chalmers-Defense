@@ -20,7 +20,7 @@ final class RobotProjectile extends Projectile {
     RobotProjectile(float x, float y, float angle, int upgradeLevel) {
         super(5, "mechaProjectile" + upgradeLevel, x, y, angle, Math.max(1, upgradeLevel-1));
         hitCountsLeft = switch (upgradeLevel) {
-            case 3 -> new CountDownTimer(1);
+            case 3 -> new CountDownTimer(2);
             default -> new CountDownTimer(0);
         };
     }
@@ -37,11 +37,5 @@ final class RobotProjectile extends Projectile {
     void virusIsHit(int hitVirusHashCode, float angle) {
         super.haveHitList.add(hitVirusHashCode);
         this.countVirusHit();
-
-        if (angle >= 0) {
-            this.setAngle(angle);
-        } else {
-            super.canRemove = true;
-        }
     }
 }
