@@ -24,8 +24,10 @@ final class MainScreen extends AbstractScreen {
     private Button settingsButton;
     private Button infoButton;
 
-    private final TextureAtlas quitButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/quitButtonSkin/QuitButtonSkin.atlas")); // Load atlas file from skin
-    private final Skin quitButtonSkin = new Skin(Gdx.files.internal("buttons/quitButtonSkin/QuitButtonSkin.json"), quitButtonAtlas); // Create skin object
+    private String buttonsAssetsRoot = "buttons/mainScreenButtons/";
+
+    private final TextureAtlas quitButtonAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "quitButtonSkin/QuitButtonSkin.atlas")); // Load atlas file from skin
+    private final Skin quitButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "quitButtonSkin/QuitButtonSkin.json"), quitButtonAtlas); // Create skin object
     private final Button quitButton = new Button(quitButtonSkin);
 
     private final MainScreenController mainScreenController;
@@ -48,8 +50,8 @@ final class MainScreen extends AbstractScreen {
     }
 
     private void createPlayButton() {
-        TextureAtlas playButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/playButtonSkin/PlayButtonSkin.atlas")); // Load atlas file from skin
-        Skin playButtonSkin = new Skin(Gdx.files.internal("buttons/playButtonSkin/PlayButtonSkin.json"), playButtonAtlas); // Create skin object
+        TextureAtlas playButtonAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "playButtonSkin/PlayButtonSkin.atlas")); // Load atlas file from skin
+        Skin playButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "playButtonSkin/PlayButtonSkin.json"), playButtonAtlas); // Create skin object
         playButton = new Button(playButtonSkin); //Set the button up
         playButton.setPosition(832, 22);
 
@@ -61,8 +63,8 @@ final class MainScreen extends AbstractScreen {
     }
 
     private void createSettingsButton() {
-        TextureAtlas settingsButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/settingsButtonSkin/SettingsButtonSkin.atlas")); // Load atlas file from skin
-        Skin settingsButtonSkin = new Skin(Gdx.files.internal("buttons/settingsButtonSkin/SettingsButtonSkin.json"), settingsButtonAtlas); // Create skin object
+        TextureAtlas settingsButtonAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "settingsButtonSkin/SettingsButtonSkin.atlas")); // Load atlas file from skin
+        Skin settingsButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "settingsButtonSkin/SettingsButtonSkin.json"), settingsButtonAtlas); // Create skin object
         settingsButton = new Button(settingsButtonSkin);
         mainScreenController.addSettingsButtonClickListener(settingsButton);
         settingsButton.setPosition(430,110);
@@ -75,8 +77,8 @@ final class MainScreen extends AbstractScreen {
     }
 
     private void createInfoButton() {
-        TextureAtlas infoButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/infoButtonSkin/InfoButtonSkin.atlas")); // Load atlas file from skin
-        Skin infoButtonSkin = new Skin(Gdx.files.internal("buttons/infoButtonSkin/InfoButtonSkin.json"), infoButtonAtlas); // Create skin object
+        TextureAtlas infoButtonAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "infoButtonSkin/InfoButtonSkin.atlas")); // Load atlas file from skin
+        Skin infoButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "infoButtonSkin/InfoButtonSkin.json"), infoButtonAtlas); // Create skin object
         infoButton = new Button(infoButtonSkin);
         mainScreenController.addInfoButtonClickListener(infoButton);
         infoButton.setPosition(1140,110);
