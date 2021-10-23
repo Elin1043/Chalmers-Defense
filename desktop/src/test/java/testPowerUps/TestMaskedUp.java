@@ -32,26 +32,6 @@ public class TestMaskedUp {
     }
 
     @Test
-    public void testActivatePowerUp(){
-        towerList.add(TowerFactory.createSmurf(0,0));
-        int startRange = towerList.get(0).getRange();
-        powerUp.powerUpClicked(genericMapObjectList);
-        assertTrue(startRange < towerList.get(0).getRange());
-    }
-
-    @Test
-    public void testDeActivatePowerUp(){
-        towerList.add(TowerFactory.createSmurf(0,0));
-        int startRange = towerList.get(0).getRange();
-        powerUp.powerUpClicked(genericMapObjectList);
-
-        while (powerUp.getIsActive()){
-            powerUp.decreaseTimer();
-        }
-        assertEquals(startRange, towerList.get(0).getRange());
-    }
-
-    @Test
     public void testAddGraphicObject(){
         powerUp.powerUpClicked(genericMapObjectList);
         assertTrue(genericMapObjectList.size() > 0);

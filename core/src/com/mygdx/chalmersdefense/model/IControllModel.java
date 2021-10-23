@@ -27,10 +27,8 @@ public interface IControllModel {
      * Updates the towers position after mouse and check for collision
      *  @param x            The X-position of the mouse
      * @param y            The Y-position of the mouse
-     * @param windowHeight The height of the window
-     * @param windowWidth  The width of the window
      */
-    void onDrag(float x, float y, int windowHeight, int windowWidth);
+    void onDrag(float x, float y);
 
     /**
      * Handles when the tower is let go.

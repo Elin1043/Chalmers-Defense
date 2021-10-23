@@ -20,7 +20,6 @@ import static org.junit.Assert.*;
 public class TestPowerUp {
 
     private IPowerUp powerUp;
-    private List<ITower> towerList = new ArrayList<>();
     private List<IVirus> virusList = new ArrayList<>();
     private List<IGenericMapObject> genericMapObjectList = new ArrayList<>();
 
@@ -59,5 +58,11 @@ public class TestPowerUp {
         }
 
         assertEquals(2, powerUp.getTimer());
+    }
+
+    @Test
+    public void testAddGraphicObject(){
+        powerUp.powerUpClicked(genericMapObjectList);
+        assertTrue(genericMapObjectList.size() > 0);
     }
 }

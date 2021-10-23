@@ -11,7 +11,7 @@ package com.mygdx.chalmersdefense.model.path;
 
 public abstract class PathFactory {
 
-    private static IPath activePath = null; // Pointer to the path object
+    private static IPath activePath = new ClassicPath(); // Pointer to the path object (classicPath is standard value)
 
     /**
      * Create a classic path

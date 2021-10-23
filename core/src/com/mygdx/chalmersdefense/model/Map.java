@@ -318,7 +318,7 @@ final class Map {
     }
 
     //Checks if towers collide with anything
-    private boolean checkCollisionOfTower(ITower tower, int windowHeight, int windowWidth) {
+    private boolean checkCollisionOfTower(ITower tower) {
         for (ITower checkTower : towersList) {
             //Check if tower collides with a placed tower
             if (Calculate.objectsIntersects(tower, checkTower) && !(checkTower.hashCode() == tower.hashCode())) {
@@ -364,14 +364,12 @@ final class Map {
      * Updates the towers position after mouse and check for collision
      *  @param x            The X-position of the mouse
      * @param y            The Y-position of the mouse
-     * @param windowHeight The height of the window
-     * @param windowWidth  The width of the window
      */
-    void onDrag(float x, float y, int windowHeight, int windowWidth) {
+    void onDrag(float x, float y) {
 
         selectedTower.setPos(x - selectedTower.getWidth() / 2f, y - selectedTower.getHeight() / 2f);
 
-        if (!checkCollisionOfTower(selectedTower, windowHeight, windowWidth) && (player.getMoney() >= selectedTower.getCost())) {
+        if (!checkCollisionOfTower(selectedTower) && (player.getMoney() >= selectedTower.getCost())) {
             selectedTower.setIfCanRemove(false);
             rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth() / 2, selectedTower.getY() + selectedTower.getHeight() / 2, selectedTower.getRange());
             rangeCircle.setEnumColor(RangeCircle.Color.GRAY);

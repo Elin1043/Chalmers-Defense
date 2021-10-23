@@ -72,9 +72,7 @@ public class RightSidePanelController extends InputAdapter {
             public void drag(InputEvent event, float x, float y, int pointer) {
                 float inputX = event.getStageX();
                 float inputY = event.getStageY();
-                int windowHeight = Gdx.graphics.getHeight();
-                int windowWidth = Gdx.graphics.getWidth();
-                model.onDrag(inputX, inputY, windowHeight, windowWidth);
+                model.onDrag(inputX, inputY);
             }
 
             @Override

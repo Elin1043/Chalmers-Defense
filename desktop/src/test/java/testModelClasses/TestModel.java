@@ -150,13 +150,14 @@ public class TestModel {
     public void testOnDrag() {
         model.dragStart("smurf", 0, 0);
         model.dragEnd(1380, 250);   // Places a tower first to get more line coverage
+
         model.dragStart("chemist", 0, 0);
-        model.onDrag(0, 0, 1080, 1920);
-        model.onDrag(1440, 300, 1080, 1920);
-        model.onDrag(-500, 456, 1080, 1920);
-        model.onDrag(500, -456, 1080, 1920);
-        model.onDrag(50, 456, 1080, 1920);
-        model.onDrag(20, 780, 1080, 1920);
+        model.onDrag(0, 0);
+        model.onDrag(1440, 300);
+        model.onDrag(-500, 456);
+        model.onDrag(500, -456);
+        model.onDrag(50, 456);
+        model.onDrag(95, 600);
         model.dragEnd(60, 200);
         assertTrue(model.getAllMapObjects().size() > 1);
     }
@@ -165,10 +166,10 @@ public class TestModel {
     public void testDragEnd() {
         model.dragStart("electro", 0, 0);
         assertEquals(1, model.getAllMapObjects().size());
-        model.onDrag(0, 0, 1080, 1920);
-        model.onDrag(-500, 456, 1080, 1920);
-        model.onDrag(50, 456, 1080, 1920);
-        model.onDrag(0, 0, 1080, 1920);
+        model.onDrag(0, 0);
+        model.onDrag(-500, 456);
+        model.onDrag(50, 456);
+        model.onDrag(0, 0);
         model.dragEnd(0, 0);
 
         assertEquals(0, model.getAllMapObjects().size());
@@ -191,15 +192,13 @@ public class TestModel {
 
     @Test
     public void testGetIsGameLost() {
-        model.startRoundPressed();
-        model.updateModel();
-        while (model.getAllMapObjects().size() > 0) {
+
+        while (model.getLivesLeft() > 0) {
+            model.startRoundPressed();
             model.updateModel();
-        }
-        model.startRoundPressed();
-        model.updateModel();
-        while (model.getAllMapObjects().size() > 0) {
-            model.updateModel();
+            while (model.getAllMapObjects().size() > 0) {
+                model.updateModel();
+            }
         }
 
         assertSame(model.showOverlay(), ScreenOverlayEnum.LOSEPANEL);

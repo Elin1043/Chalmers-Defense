@@ -126,8 +126,8 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
-    public void onDrag(float x, float y, int windowHeight, int windowWidth) {
-        map.onDrag(x, y, windowHeight, windowWidth);
+    public void onDrag(float x, float y) {
+        map.onDrag(x, y);
     }
 
     @Override

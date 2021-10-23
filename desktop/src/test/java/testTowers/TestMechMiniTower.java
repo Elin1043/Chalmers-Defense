@@ -27,11 +27,15 @@ public class TestMechMiniTower {
     @Test
     public void testCreateProjectile() {
         List<ITower> addToList = new ArrayList<>();
-        ITower t = TowerFactory.createMech(0, 0, addToList,towersList,path.getCollisionRectangles());
+        ITower t = TowerFactory.createMech(0, 0, addToList, towersList, path.getCollisionRectangles());
         List<IProjectile> pList = new ArrayList<>();
 
+
         t.placeTower();
-        t.update(new ArrayList<>(), 10, true);
+
+        while (addToList.size() == 0){
+            t.update(new ArrayList<>(), 10, true);
+        }
 
         for (ITower tower : addToList) {
             tower.update(pList, 10, true);
