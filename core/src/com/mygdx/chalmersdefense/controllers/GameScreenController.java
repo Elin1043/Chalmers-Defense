@@ -5,12 +5,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.IControllModel;
-import com.mygdx.chalmersdefense.views.ScreenManager;
 
 /**
  * @author Daniel Persson
@@ -27,10 +27,21 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
  */
 public class GameScreenController extends InputAdapter {
     private final IControllModel model;
+    private Stage stage;
 
+    /**
+     * Creates a controller for use by the GameScreenClass
+     * @param model the model to control
+     */
     public GameScreenController(IControllModel model) {
         this.model = model;
     }
+
+    /**
+     * Adds a stage to convert direct mouse inputs to correct screen coordinates on the stage
+     * @param stage the stage to convert to screen coordinates to
+     */
+    public void addStageToController(Stage stage){ this.stage = stage; }
 
     /**
      * Adds listener to map in GamerScreen
@@ -63,6 +74,7 @@ public class GameScreenController extends InputAdapter {
 
     @Override
     public boolean keyDown (int keycode) {
+
         switch (keycode) {
             case (Input.Keys.ESCAPE) -> {
                 model.stopGameUpdate();
@@ -110,9 +122,10 @@ public class GameScreenController extends InputAdapter {
 
     //Places tower at mouse location
     private void placeTowerAtMousePosition(String name) {
-        Vector2 v = ScreenManager.getInstance().getCurrentScreen().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
-        model.dragStart(name, v.x, v.y);
-        model.onDrag(v.x, v.y);
-        model.dragEnd(v.x, v.y);
+        Vector2 screenCoordinateVector = stage.screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+
+        model.dragStart(name, screenCoordinateVector.x, screenCoordinateVector.y);
+        model.onDrag(screenCoordinateVector.x, screenCoordinateVector.y);
+        model.dragEnd(screenCoordinateVector.x, screenCoordinateVector.y);
     }
 }

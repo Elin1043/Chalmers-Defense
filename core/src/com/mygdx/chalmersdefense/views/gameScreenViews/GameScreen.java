@@ -85,14 +85,13 @@ public final class GameScreen extends AbstractScreen implements Screen {
         Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
         stageHUD.addActor(bottomBarPanelBackground);
 
-        // This should come from classicPath class
-        Image mapImage = new Image(new Texture("ClassicMap.png")); // TODO Hämta från Path
-        mapImage.setPosition(0, bottomBarPanelBackground.getHeight());
-        gameScreenController.addMapClickListener(mapImage);
 
         // Background image for right part of HUD
         sideBarBackground.setPosition(1920 - 320, 0);
         stageHUD.addActor(sideBarBackground);
+
+        // Adds this stage to controller to get screen coordinates when window is scaled
+        gameScreenController.addStageToController(this);
 
         // Enables input from both stages at the same time
         addToMultiplexer(bottomBarUpgradePanel.getStage());
@@ -103,16 +102,16 @@ public final class GameScreen extends AbstractScreen implements Screen {
 
         createProgressBar();
 
-        addActor(mapImage);
         addActor(pauseButton);
         createLifeAndMoneyIcon();
     }
 
     @Override
     protected void setBackgroundImage(){
-        Image mapImage = new Image(new Texture(model.getMapImagePath())); // TODO Hämta från Path
+        Image mapImage = new Image(new Texture(model.getMapImagePath()));
         mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
         gameScreenController.addMapClickListener(mapImage);
+        getActors().insert(0, mapImage);
     }
 
     /**
