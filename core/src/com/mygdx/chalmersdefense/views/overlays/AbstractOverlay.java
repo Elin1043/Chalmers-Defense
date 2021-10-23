@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
-import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
+import com.mygdx.chalmersdefense.controllers.overlayControllers.AbstractOverlayController;
 
 import static com.badlogic.gdx.graphics.GL20.*;
 

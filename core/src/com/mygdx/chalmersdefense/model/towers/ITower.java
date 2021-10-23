@@ -30,12 +30,6 @@ public interface ITower extends IMapObject {
     void upgradeTower(HashMap<String, Double> upgrades);
 
     /**
-     * PowerUp the towers based on given parameter
-     * @param maskedUp if powerup is MaskedUp powerup
-     */
-    void powerUpTower(boolean maskedUp);
-
-    /**
      * Get the upgrade level of tower
      *
      * @return upgrade level

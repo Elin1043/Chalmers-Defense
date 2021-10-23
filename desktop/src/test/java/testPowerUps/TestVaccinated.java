@@ -28,7 +28,7 @@ public class TestVaccinated {
 
     @Before
     public void createPowerUp(){
-        powerUp = PowerUpFactory.createPowerUps(towerList, virusList).get(2);
+        powerUp = PowerUpFactory.createPowerUps(virusList).get(2);
     }
 
     @Test

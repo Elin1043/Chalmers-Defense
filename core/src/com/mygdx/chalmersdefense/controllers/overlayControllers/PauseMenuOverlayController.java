@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.controllers.overlays;
+package com.mygdx.chalmersdefense.controllers.overlayControllers;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;

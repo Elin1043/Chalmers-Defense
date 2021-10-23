@@ -2,7 +2,7 @@ package com.mygdx.chalmersdefense;
 
 import com.badlogic.gdx.Game;
 import com.mygdx.chalmersdefense.controllers.*;
-import com.mygdx.chalmersdefense.controllers.overlays.*;
+import com.mygdx.chalmersdefense.controllers.overlayControllers.*;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.views.*;
