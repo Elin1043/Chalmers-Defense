@@ -117,7 +117,7 @@ final class MechTower extends Tower {
     private float[] getRandomNonCollidingPoint() {
         float[] point = Calculate.randPoint(getX(), getY(), getRange());
         for (int i = 0; i < 100; i++) {
-            if(pathCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || towerCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || checkIfOutOfBounds(point[0],point[1])){
+            if(pathCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || towerCollision(this.getWidth(),this.getHeight(), point[0],point[1]) || Calculate.checkIfOutOfBounds(new PathRectangle(point[0],point[1], 1, 1))){
                 point = Calculate.randPoint(getX(), getY(), getRange());
             }
             else{
@@ -147,13 +147,4 @@ final class MechTower extends Tower {
         }
         return false;
     }
-
-    //Checks if given coordinates are out of bounds
-    private boolean checkIfOutOfBounds(float y, float x) {
-        if (y > 1130 || -50 > y) {
-            return true;
-        }
-        return x > 1970 || -50 > x;
-    }
-
 }
