@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
-import com.mygdx.chalmersdefense.controllers.overlays.PauseMenuOverlayController;
+import com.mygdx.chalmersdefense.controllers.overlayControllers.AbstractOverlayController;
+import com.mygdx.chalmersdefense.controllers.overlayControllers.PauseMenuOverlayController;
 import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
 
 /**

@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.controllers.overlays;
+package com.mygdx.chalmersdefense.controllers.overlayControllers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

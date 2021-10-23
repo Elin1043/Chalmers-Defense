@@ -1,6 +1,6 @@
 package com.mygdx.chalmersdefense.views.overlays;
 
-import com.mygdx.chalmersdefense.controllers.overlays.*;
+import com.mygdx.chalmersdefense.controllers.overlayControllers.*;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 
 public abstract class OverlayFactory {

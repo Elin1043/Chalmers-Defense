@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
+import com.mygdx.chalmersdefense.controllers.overlayControllers.AbstractOverlayController;
 
 import static com.badlogic.gdx.graphics.GL20.*;
 
