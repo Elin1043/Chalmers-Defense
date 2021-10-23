@@ -24,7 +24,7 @@ final class MainScreen extends AbstractScreen {
     private Button settingsButton;
     private Button infoButton;
 
-    private String buttonsAssetsRoot = "buttons/mainScreenButtons/";
+    private final String buttonsAssetsRoot = "buttons/mainScreenButtons/";
 
     private final TextureAtlas quitButtonAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "quitButtonSkin/QuitButtonSkin.atlas")); // Load atlas file from skin
     private final Skin quitButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "quitButtonSkin/QuitButtonSkin.json"), quitButtonAtlas); // Create skin object
