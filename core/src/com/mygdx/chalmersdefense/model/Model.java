@@ -90,7 +90,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public String getClickedTowerTargetMode() {
-        return map.getClickedTowerTargetMode();
+        return map.getSelectedTowerTargetMode();
     }
 
 
@@ -143,7 +143,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public void powerUpClicked(String powerUpName){
-        if (virusSpawner.isSpawning() || !map.isVirusCleared()) {
+        if (!isGameStopped()) {
             map.powerUpClicked(powerUpName);
         }
     }
@@ -155,7 +155,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public IMapObject getClickedTower() {
-        return map.getClickedTower();
+        return map.getSelectedTower();
     }
 
     @Override
@@ -180,7 +180,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public int getClickedTowerSellPrice() {
-        return map.getClickedTowerSellPrice();
+        return map.getSelectedTowerSellPrice();
     }
 
     @Override
@@ -261,7 +261,5 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     public String getMapImagePath() { return map.getMapImagePath(); }
 
     @Override
-    public boolean getIsGameSpedUp() {
-        return timer.isGameSpedUp();
-    }
+    public boolean getIsGameSpedUp() { return timer.isGameSpedUp(); }
 }
