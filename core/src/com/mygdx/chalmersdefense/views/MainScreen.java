@@ -3,12 +3,9 @@ package com.mygdx.chalmersdefense.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.chalmersdefense.controllers.MainScreenController;
 import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
@@ -93,7 +90,7 @@ final class MainScreen extends AbstractScreen {
     public void render(float delta) {
         super.render(Gdx.graphics.getDeltaTime());
 
-        OverlayManager.getInstance().showOverlay(model.showOverlay());
+        OverlayManager.getInstance().showOverlay(model.getCurrentOverlay());
         AbstractOverlay abstractOverlay = OverlayManager.getInstance().getCurrentOverlay();
         if (abstractOverlay != null) {
             abstractOverlay.render();

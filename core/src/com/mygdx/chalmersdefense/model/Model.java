@@ -199,7 +199,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     }
 
     @Override
-    public ScreenOverlayEnum showOverlay() {
+    public ScreenOverlayEnum getCurrentOverlay() {
         return showOverlay;
     }
 
@@ -259,5 +259,5 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     public String getMapImagePath() { return map.getMapImagePath(); }
 
     @Override
-    public boolean getIsGameSpedUp() { return timer.isGameSpedUp(); }
+    public boolean isGameSpedUp() { return timer.isGameSpedUp(); }
 }

@@ -54,7 +54,7 @@ final public class GameTimer implements IGameTimer {
 
     @Override
     public boolean isGameSpedUp() {
-        return delay == 0.0028F;
+        return delay < 0.004F;
     }
 
     // Creates new task with current delay

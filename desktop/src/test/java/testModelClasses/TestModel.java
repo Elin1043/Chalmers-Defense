@@ -7,6 +7,7 @@ import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import org.junit.Before;
 import org.junit.Test;
+import org.lwjgl.Sys;
 
 import static org.junit.Assert.*;
 
@@ -127,8 +128,6 @@ public class TestModel {
         model.dragEnd(100, 100);
 
         model.startRoundPressed();  // StartRound
-        model.startRoundPressed();  // Speed UP updates     (To get line coverage)
-        model.startRoundPressed();  // Slow Down updates    (To get line coverage)
         assertTrue(model.getAllMapObjects().size() > 0);
         assertEquals(1, model.getCurrentRound());
         for (int i = 0; i < 10000; i++) {
@@ -191,6 +190,29 @@ public class TestModel {
     }
 
     @Test
+    public void testSetShowOverlay() {
+        model.setShowOverlay(ScreenOverlayEnum.WINPANEL);
+        assertEquals(model.getCurrentOverlay(), ScreenOverlayEnum.WINPANEL);
+    }
+
+    @Test
+    public void testGetMapImgagePath() {
+        assertEquals("ClassicMap.png", model.getMapImagePath());
+    }
+
+    @Test
+    public void testIsGameSpedUp() {
+        model.startGameUpdate(); // Start update Timer
+        model.stopGameUpdate(); // Stop update Timer
+
+        model.startRoundPressed();
+        model.startRoundPressed(); // SpeedUp game
+        model.startRoundPressed(); // SlowDown game
+        model.startRoundPressed(); // SpeedUp again
+        assertTrue(model.isGameSpedUp());
+    }
+
+    @Test
     public void testGetIsGameLost() {
 
         while (model.getLivesLeft() > 0) {
@@ -201,7 +223,7 @@ public class TestModel {
             }
         }
 
-        assertSame(model.showOverlay(), ScreenOverlayEnum.LOSEPANEL);
+        assertEquals(model.getCurrentOverlay(), ScreenOverlayEnum.LOSEPANEL);
     }
 
 }

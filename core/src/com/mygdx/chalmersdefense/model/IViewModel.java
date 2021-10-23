@@ -72,7 +72,7 @@ public interface IViewModel {
      *
      * @return which overlay is supposed to show
      */
-    ScreenOverlayEnum showOverlay();
+    ScreenOverlayEnum getCurrentOverlay();
 
     /**
      * Return the current money value
@@ -148,5 +148,5 @@ public interface IViewModel {
      * Gets if game speed is sped up
      * @return true if game is sped up. Otherwise false
      */
-    boolean getIsGameSpedUp();
+    boolean isGameSpedUp();
 }
