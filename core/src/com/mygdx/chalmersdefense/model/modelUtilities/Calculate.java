@@ -125,14 +125,14 @@ public abstract class Calculate {
     }
 
     /**
-     * Checks if object is out of bounds ore not
+     * Checks if object is out of game field or not
      * @param object the object to be checked
      * @return True - if the object is outside, False if the object is inside
      */
     public static boolean checkIfOutOfBounds(IMapObject object) {
 
-        return (object.getY() > 1100 || object.getY() + object.getHeight() < 0 ||
-                object.getX() + object.getWidth() < 0 || object.getX() > 1920);
+        return (object.getY() > 1100 || object.getY() + object.getHeight() < 190 ||
+                object.getX() + object.getWidth() < 0 || object.getX() > 1600);
 
     }
 }
