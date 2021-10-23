@@ -159,7 +159,7 @@ final class Map {
 
         for (IProjectile projectile : projectilesList) {
             projectileUpdateHandler(projectile);
-            if (projectile.canRemove() || Calculate.checkIfOutOfBounds(projectile)) {
+            if (projectile.canRemove() || Calculate.checkIfOutOfBounds(projectile, true)) {
                 removeProjectiles.add(projectile);
             }
         }
@@ -295,16 +295,6 @@ final class Map {
         return powerUpsActive;
     }
 
-
-//    //Check if coordinates are outside the screen
-//    private boolean checkIfOutOfBounds(float y, float x) {
-//        if (y > 1130 || -50 > y) {
-//            return true;
-//        }
-//        return x > 1970 || -50 > x;
-//    }
-
-
     //Checks if a tower collides with path
     private boolean checkMapAndTowerCollision(ITower tower) {
         for (PathRectangle rect : path.getCollisionRectangles()) {
@@ -322,12 +312,7 @@ final class Map {
             if (Calculate.objectsIntersects(tower, checkTower) && !(checkTower.hashCode() == tower.hashCode())) {
                 return true;
             }
-            //Check if tower out of bound on X
-            else if (!(0 <= (tower.getX())) || (windowWidth - 340 < (tower.getX() + tower.getWidth() / 2))) {
-                return true;
-            }
-            //Check if tower out of bound on Y
-            else if (!(windowHeight - 950 < (tower.getY() - tower.getHeight() / 2)) || (windowHeight < (tower.getY()) + tower.getHeight())) {
+            else if (Calculate.checkIfOutOfBounds(tower, false)) {
                 return true;
             }
             //check if tower collide with path
