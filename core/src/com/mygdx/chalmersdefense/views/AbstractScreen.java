@@ -22,14 +22,14 @@ import java.util.HashMap;
  */
 public abstract class AbstractScreen extends Stage implements Screen {
 
-    final HashMap<String, Sprite> spriteMap = new HashMap<>();
-    final HashMap<String, Sprite> largeSpriteMap = new HashMap<>();
+    protected final HashMap<String, Sprite> spriteMap = new HashMap<>();
+    protected final HashMap<String, Sprite> largeSpriteMap = new HashMap<>();
 
-    final Batch batch = new SpriteBatch();
+    protected final Batch batch = new SpriteBatch();
 
     private final InputMultiplexer multiplexer = new InputMultiplexer();
 
-    AbstractScreen() {
+    protected AbstractScreen() {
         super(new FitViewport(1920, 1080, new OrthographicCamera(1920, 1080)));
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
@@ -40,14 +40,14 @@ public abstract class AbstractScreen extends Stage implements Screen {
      * Adds processor to multiplexer
      * @param newProcessor supplied processor
      */
-    void addToMultiplexer(InputProcessor newProcessor){
+    protected void addToMultiplexer(InputProcessor newProcessor){
         multiplexer.addProcessor(newProcessor);
     }
 
     /**
      * Sets background image of screen
      */
-    abstract void setBackgroundImage();
+    protected abstract void setBackgroundImage();
 
     @Override
     public void render(float delta) {

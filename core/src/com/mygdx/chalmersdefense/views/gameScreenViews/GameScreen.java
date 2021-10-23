@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.views;
+package com.mygdx.chalmersdefense.views.gameScreenViews;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -18,10 +18,9 @@ import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
+import com.mygdx.chalmersdefense.views.AbstractScreen;
 import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
 import com.mygdx.chalmersdefense.utilities.RangeCircle;
-import com.mygdx.chalmersdefense.views.gameScreenViews.BottomBarUpgradePanel;
-import com.mygdx.chalmersdefense.views.gameScreenViews.RightSidePanel;
 import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
 import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
 
@@ -41,7 +40,7 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * 2021-10-19 Modified by Joel Båtsman Hilmersson: Made class use superclass multiplexer for inputProcessor <br>
  * 2021-10-19 Modified by Daniel Persson: Added progressbar for displaying round progress <br>
  */
-final class GameScreen extends AbstractScreen implements Screen {
+public final class GameScreen extends AbstractScreen implements Screen {
     private final GameScreenController gameScreenController;
     // Panels
     private final BottomBarUpgradePanel bottomBarUpgradePanel; // Upgrade panel object
@@ -64,7 +63,7 @@ final class GameScreen extends AbstractScreen implements Screen {
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
+    public GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
         super();
         this.rightSidePanel = new RightSidePanel(this, model, rightSidePanelController);
         this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, bottomBarPanelController, spriteMap, largeSpriteMap);
@@ -110,7 +109,7 @@ final class GameScreen extends AbstractScreen implements Screen {
     }
 
     @Override
-    void setBackgroundImage(){
+    protected void setBackgroundImage(){
         Image mapImage = new Image(new Texture(model.getMapImagePath())); // TODO Hämta från Path
         mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
         gameScreenController.addMapClickListener(mapImage);

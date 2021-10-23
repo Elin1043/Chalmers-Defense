@@ -71,7 +71,7 @@ final class MainScreen extends AbstractScreen {
     }
 
     @Override
-    void setBackgroundImage() {
+    protected void setBackgroundImage() {
         Image img = new Image(new Texture("HomeScreen.png"));
         getActors().insert(0, img);
     }

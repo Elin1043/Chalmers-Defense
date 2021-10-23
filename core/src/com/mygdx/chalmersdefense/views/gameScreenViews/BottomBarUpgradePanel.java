@@ -26,7 +26,7 @@ import java.util.HashMap;
  * <p>
  * 2021-10-05 Created by Daniel Persson <br>
  */
-final public class BottomBarUpgradePanel {
+final class BottomBarUpgradePanel {
     private final Stage stage;
     private final IViewModel model;
     private final BottomBarPanelController bottomBarPanelController;
