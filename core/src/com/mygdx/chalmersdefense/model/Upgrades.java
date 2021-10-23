@@ -71,8 +71,8 @@ abstract class Upgrades {
      * @param upgradeLevel level of upgrade to get price from
      * @return a Long with towers upgrade price depending on upgrade level.
      */
-    public static Integer getTowerUpgradePrice(String towerName, int upgradeLevel) {
-        Integer price;
+    public static int getTowerUpgradePrice(String towerName, int upgradeLevel) {
+        int price;
         try {
             price = jsonParser.startParser().navThroughJSON(towerName).getByIndex(upgradeLevel-1).getInteger("price");
         } catch (NullPointerException | IllegalArgumentException exception) {

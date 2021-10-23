@@ -88,20 +88,22 @@ public class TestModel {
 
     @Test
     public void testAllPowerUpClicked(){
-        model.startRoundPressed();
-        while (model.getCurrentRound() < 7) {
-            model.startRoundPressed();
-            model.updateModel();
-        }
 
         model.startRoundPressed();
         model.powerUpClicked("cleanHands");
         model.powerUpClicked("maskedUp");
         model.powerUpClicked("vaccinated");
-        model.updateModel();
 
         assertTrue(model.getPowerUpActive()[0] && model.getPowerUpActive()[1] && model.getPowerUpActive()[2]);
         assertTrue(model.getPowerUpTimer()[0] > 0 && model.getPowerUpTimer()[1] > 0 && model.getPowerUpTimer()[2] > 0);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testIllegalPowerUpCall(){
+
+        model.startRoundPressed();
+        model.powerUpClicked("This Should never be a power-up");
+
     }
 
     @Test
@@ -143,6 +145,11 @@ public class TestModel {
         assertEquals(startCapital, model.getMoney());
         assertEquals(startHealth, model.getLivesLeft());
         assertEquals(0, model.getAllMapObjects().size());
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testDragStartIllegalTowerName() {
+        model.dragStart("This should never be a tower name", 0, 0);
     }
 
     @Test

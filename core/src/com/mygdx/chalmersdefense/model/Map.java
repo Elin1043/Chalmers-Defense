@@ -550,6 +550,7 @@ final class Map {
     List<IVirus> getViruses() {
         return virusesList;
     }
+
     /**
      * Return the list of objects on map
      *

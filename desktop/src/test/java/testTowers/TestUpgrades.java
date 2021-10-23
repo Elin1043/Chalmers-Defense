@@ -64,7 +64,7 @@ public class TestUpgrades {
 
     @Test
     public void testGetTowerUpgradePriceException() {
-        Integer upgradePrice = model.getTowerUpgradePrice("This name should not exist and therefore throw exception", 100);
-        assertEquals(0L, (long) upgradePrice); // If the exception was thrown, it will return a long = 0
+        int upgradePrice = model.getTowerUpgradePrice("This name should not exist and therefore throw exception", 100);
+        assertEquals(0, upgradePrice); // If the exception was thrown, it will return a long = 0
     }
 }
