@@ -2,6 +2,7 @@ package com.mygdx.chalmersdefense.views.overlays;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -34,7 +35,7 @@ final class InfoOverlay extends AbstractOverlay {
             infoGroup.addActor(backgroundImage);
 
             backgroundImage.setPosition(stage.getWidth()/2 - backgroundImage.getWidth()/2, stage.getHeight()/2 - backgroundImage.getHeight()/2);
-            ImageButton exitButton = createExitPauseMenuButton(infoGroup, backgroundImage);
+            Button exitButton = createExitPauseMenuButton(infoGroup, backgroundImage);
             abstractOverlayController.addExitOverlayButtonClickListener(exitButton);
 
             createLabels();

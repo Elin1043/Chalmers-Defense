@@ -148,18 +148,6 @@ abstract class Tower implements ITower {
     }
 
     @Override
-    public void powerUpTower(boolean maskedUp){
-        if(maskedUp){
-            range *= 1.5;
-        }
-        else{
-            range *= (2.0/3);
-        }
-    }
-
-
-
-    @Override
     public int getUpgradeLevel() {
         return upgradeLevel;
     }

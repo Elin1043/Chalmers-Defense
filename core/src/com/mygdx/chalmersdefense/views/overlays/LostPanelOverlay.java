@@ -49,8 +49,8 @@ final class LostPanelOverlay extends AbstractOverlay {
         lostPanelGroup.addActor(mainText);
 
         // Button skin
-        TextureAtlas lostButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/lostGameButtonSkin/lostGameButtonSkin.atlas")); // Load atlas file from skin
-        Skin lostButtonSkin = new Skin(Gdx.files.internal("buttons/lostGameButtonSkin/lostGameButtonSkin.json"), lostButtonTexture); // Create skin object
+        TextureAtlas lostButtonTexture = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "lostGameButtonSkin/lostGameButtonSkin.atlas")); // Load atlas file from skin
+        Skin lostButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "lostGameButtonSkin/lostGameButtonSkin.json"), lostButtonTexture); // Create skin object
 
         // Create first button
         Button mainMenuButton = new Button(lostButtonSkin);

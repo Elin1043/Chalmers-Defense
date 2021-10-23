@@ -123,4 +123,21 @@ public abstract class Calculate {
                 (obj1Width < obj1X || obj1Width > obj2X) &&
                 (obj1Height < obj1Y || obj1Height > obj2Y));
     }
+
+    /**
+     * Checks if object is out of game field or not
+     * @param object the object to be checked
+     * @param triggerOnlyOnCompleteOutside modifies the method to only trigger when object is completely outside game area
+     * @return True - if the object is outside, False if the object is inside
+     */
+    public static boolean checkIfOutOfBounds(IMapObject object, boolean triggerOnlyOnCompleteOutside) {
+
+        if (triggerOnlyOnCompleteOutside) {
+            return (object.getY() > 1080 || object.getY() + object.getHeight() < 190 ||
+                    object.getX() + object.getWidth() < 0 || object.getX() > 1600);
+        } else {
+            return (object.getY() + object.getHeight() > 1080 || object.getY() < 190 ||
+                    object.getX() < 0 || object.getX() + object.getWidth() > 1600);
+        }
+    }
 }

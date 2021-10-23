@@ -27,6 +27,7 @@ final public class RightSidePanel {
     private final RightSidePanelController rightSidePanelController;
     private final IViewModel model;
 
+    private final String buttonsAssetsRoot = "buttons/gameScreenButtons/";
 
     private final Label towerLabel = createLabel("Towers", 20);
     private final Label powerUpLabel = createLabel("Power-ups", 620);
@@ -186,15 +187,15 @@ final public class RightSidePanel {
     }
 
     private Button createPowerUpButton(String name){
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/powerUpButtons/" + name + "Skin.atlas")); // Load atlas file from skin
-        Skin skin = new Skin(Gdx.files.internal("buttons/powerUpButtons/" + name + "Skin.json"), atlas); // Create skin object
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "powerUpButtons/" + name + "Skin.atlas")); // Load atlas file from skin
+        Skin skin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "powerUpButtons/" + name + "Skin.json"), atlas); // Create skin object
 
         return new Button(skin);
     }
 
     private Button createTowerButton(String name){
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/towerButtonSkin/" + name + "ButtonSkin.atlas")); // Load atlas file from skin
-        Skin skin = new Skin(Gdx.files.internal("buttons/towerButtonSkin/" + name + "ButtonSkin.json"), atlas); // Create skin object
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "towerButtonSkin/" + name + "ButtonSkin.atlas")); // Load atlas file from skin
+        Skin skin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "towerButtonSkin/" + name + "ButtonSkin.json"), atlas); // Create skin object
 
         return new Button(skin);
     }
@@ -310,8 +311,8 @@ final public class RightSidePanel {
 
     //Start round button methods
     private void createStartRoundButton() {
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.atlas")); // Load atlas file from skin
-        Skin skin = new Skin(Gdx.files.internal("buttons/startRoundButtonSkin/startRoundButtonSkin.json"), atlas); // Create skin object
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "startRoundButtonSkin/startRoundButtonSkin.atlas")); // Load atlas file from skin
+        Skin skin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "startRoundButtonSkin/startRoundButtonSkin.json"), atlas); // Create skin object
         startRoundButton = new Button(skin);
         startRoundButton.setPosition(1920 - WIDTH / 2F - startRoundButton.getWidth() / 2, 20);
 

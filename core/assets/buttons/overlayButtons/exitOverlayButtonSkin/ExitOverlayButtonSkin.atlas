@@ -1,0 +1,27 @@
+
+ExitOverlayButtonSkin.png
+size: 128, 128
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+ExitOverlayButtonDefault
+  rotate: false
+  xy: 1, 42
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+ExitOverlayButtonHover
+  rotate: false
+  xy: 1, 1
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+ExitOverlayButtonPressed
+  rotate: false
+  xy: 42, 42
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1

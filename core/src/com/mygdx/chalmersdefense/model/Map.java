@@ -33,7 +33,7 @@ final class Map {
     private final List<IProjectile> projectilesList = new ArrayList<>();    // The main projectile list
     private final List<IVirus> virusesList = new ArrayList<>();             // The main virus list
     private final List<IGenericMapObject> genericObjectsList = new ArrayList<>();    // The main genericObjects list
-    private final List<IPowerUp> powerUpList = PowerUpFactory.createPowerUps(towersList, virusesList); // List containing all power-ups
+    private final List<IPowerUp> powerUpList = PowerUpFactory.createPowerUps(virusesList); // List containing all power-ups
 
     private final List<ITower> towersToAddList = new ArrayList<>();             // Temporary list for object adding towers to the main list (To avoid concurrent modification issues)
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();   // Temporary list for object adding projectiles to the main list (To avoid concurrent modification issues)
@@ -103,8 +103,14 @@ final class Map {
         List<ITower> removeTowers = new ArrayList<>();
 
         for (ITower tower : towersList) {
+            List<IVirus> virusInRange;
+            if(powerUpList.get(1).getIsActive()){
+                virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange() * 1.5f, virusesList);
+            }
+            else{
+                virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), virusesList);
+            }
 
-            List<IVirus> virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), virusesList);
 
             // Standard values for when virus is out of range
             float newAngle = -1;
@@ -141,6 +147,7 @@ final class Map {
         removeDeadVirusesHandler(virusToRemove);
     }
 
+    // Removes viruses from game and decreases player life
     private void removeDeadVirusesHandler(List<IVirus> virusToRemove) {
         for (IVirus virus : virusToRemove) {
             try {
@@ -152,13 +159,13 @@ final class Map {
         }
     }
 
-    //Update the projectiles
+    //Updates all things concerning projectiles
     private void updateProjectiles() {
         List<IProjectile> removeProjectiles = new ArrayList<>();
 
         for (IProjectile projectile : projectilesList) {
             projectileUpdateHandler(projectile);
-            if (projectile.canRemove() || checkIfOutOfBounds(projectile.getY(), projectile.getX())) {
+            if (projectile.canRemove() || Calculate.checkIfOutOfBounds(projectile, true)) {
                 removeProjectiles.add(projectile);
             }
         }
@@ -166,6 +173,7 @@ final class Map {
         projectilesList.removeAll(removeProjectiles);
     }
 
+    // Handels the actual projectile update
     private void projectileUpdateHandler(IProjectile projectile) {
         List<IVirus> virusThatWasHit = new ArrayList<>();
 
@@ -200,6 +208,7 @@ final class Map {
         return false;
     }
 
+    // What actually happens when projectile and virus hit
     private void virusAndProjectileHitHandler(IProjectile projectile, List<IVirus> virusThatWasHit, IVirus virus) {
         int virusHealthBefore = virus.getLifeDecreaseAmount();
 
@@ -236,7 +245,13 @@ final class Map {
     //Updates the rangeCircle
     private void updateRangeCircle() {
         if(selectedTower != null){
-            rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth()/2, selectedTower.getY() + selectedTower.getHeight()/2, selectedTower.getRange());
+            if(powerUpList.get(1).getIsActive()){
+                rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth()/2, selectedTower.getY() + selectedTower.getHeight()/2, selectedTower.getRange()*1.5f);
+            }
+            else{
+                rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth()/2, selectedTower.getY() + selectedTower.getHeight()/2, selectedTower.getRange());
+            }
+
         }
     }
 
@@ -292,16 +307,6 @@ final class Map {
         return powerUpsActive;
     }
 
-
-    //Check if coordinates are outside the screen
-    private boolean checkIfOutOfBounds(float y, float x) {
-        if (y > 1130 || -50 > y) {
-            return true;
-        }
-        return x > 1970 || -50 > x;
-    }
-
-
     //Checks if a tower collides with path
     private boolean checkMapAndTowerCollision(ITower tower) {
         for (PathRectangle rect : path.getCollisionRectangles()) {
@@ -319,12 +324,7 @@ final class Map {
             if (Calculate.objectsIntersects(tower, checkTower) && !(checkTower.hashCode() == tower.hashCode())) {
                 return true;
             }
-            //Check if tower out of bound on X
-            else if (!(0 <= (tower.getX())) || (windowWidth - 340 < (tower.getX() + tower.getWidth() / 2))) {
-                return true;
-            }
-            //Check if tower out of bound on Y
-            else if (!(windowHeight - 950 < (tower.getY() - tower.getHeight() / 2)) || (windowHeight < (tower.getY()) + tower.getHeight())) {
+            else if (Calculate.checkIfOutOfBounds(tower, false)) {
                 return true;
             }
             //check if tower collide with path

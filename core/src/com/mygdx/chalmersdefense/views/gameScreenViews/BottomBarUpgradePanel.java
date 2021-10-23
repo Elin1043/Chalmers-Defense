@@ -34,14 +34,16 @@ final public class BottomBarUpgradePanel {
     private final HashMap<String, Sprite> largeSpriteMap;
     private final Batch batch;
 
+    private final String buttonsAssetsRoot = "buttons/gameScreenButtons/";
+
     private final Image bottomBarUpgradePanelBackground = new Image(new Texture("GameScreen/BottomBarUpgradePanel.png"));
 
     private final Group bottomBarPanelUpgradeGroup = new Group();
     private final Label towerNameLabel = new Label("", FontFactory.getLabelStyle36BlackBold());
 
     // Skin for upgrade buttons
-    private final TextureAtlas upgradePanelAtlas = new TextureAtlas(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.atlas")); // Load atlas file from skin
-    private final Skin upgradePanelSkin = new Skin(Gdx.files.internal("buttons/upgradeButtonSkin/UpgradeButtonSkin.json"), upgradePanelAtlas); // Create skin object
+    private final TextureAtlas upgradePanelAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "upgradeButtonSkin/UpgradeButtonSkin.atlas")); // Load atlas file from skin
+    private final Skin upgradePanelSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "upgradeButtonSkin/UpgradeButtonSkin.json"), upgradePanelAtlas); // Create skin object
 
     // Buttons
     private final Button upgradeButtonFirst = new Button(upgradePanelSkin);
@@ -120,10 +122,10 @@ final public class BottomBarUpgradePanel {
 
 
     private void createChangeTargetModeButton(){
-        TextureRegion changeTargetTextureRegion1 = new TextureRegion(new Texture(Gdx.files.internal("buttons/changeTargetModeButton.png")));
+        TextureRegion changeTargetTextureRegion1 = new TextureRegion(new Texture(Gdx.files.internal(buttonsAssetsRoot + "changeTargetModeButton.png")));
         TextureRegionDrawable changeTargetTexRegDrawable1 = new TextureRegionDrawable(changeTargetTextureRegion1);
 
-        TextureRegion changeTargetTextureRegion2 = new TextureRegion(new Texture(Gdx.files.internal("buttons/changeTargetModeButton.png")));
+        TextureRegion changeTargetTextureRegion2 = new TextureRegion(new Texture(Gdx.files.internal(buttonsAssetsRoot + "changeTargetModeButton.png")));
         changeTargetTextureRegion2.flip(true,false);
         TextureRegionDrawable changeTargetTexRegDrawable2 = new TextureRegionDrawable(changeTargetTextureRegion2);
 
@@ -148,7 +150,7 @@ final public class BottomBarUpgradePanel {
     }
 
     private void createSellButton() {
-        TextureRegion sellButtonTextureRegion = new TextureRegion(new Texture(Gdx.files.internal("buttons/towerSellButton.png")));
+        TextureRegion sellButtonTextureRegion = new TextureRegion(new Texture(Gdx.files.internal(buttonsAssetsRoot + "towerSellButton.png")));
         TextureRegionDrawable sellTexRegDrawable = new TextureRegionDrawable(sellButtonTextureRegion);
         ImageButton sellButton = new ImageButton(sellTexRegDrawable);
         sellButton.setPosition(380, 30);
@@ -240,7 +242,7 @@ final public class BottomBarUpgradePanel {
             upgradeButton.setChecked(false);
             upgradeButton.setTouchable(Touchable.enabled);
 
-            // If player can afford upgrade enable button
+            // If player can't afford upgrade disable button
             if (cantAfford) {
                 upgradeButton.setDisabled(true);
                 upgradeButton.setTouchable(Touchable.disabled);
@@ -251,9 +253,9 @@ final public class BottomBarUpgradePanel {
         }
 
         // Modify second button only
-        if (buttonNr == 2)
+        if (buttonNr == 2) {
             updateSecondUpgradeButton(towerUpgradeLevel, upgradeButton, upgradedTowerSprite, cantAfford, upgradeIsBought);
-
+        }
 
         batch.begin();
         upgradedTowerSprite.draw(batch);
@@ -268,6 +270,7 @@ final public class BottomBarUpgradePanel {
     }
 
     private void updateSecondUpgradeButton(int towerUpgradeLevel, Button upgradeButton, Sprite upgradedTowerSprite, boolean cantAfford, boolean upgradeIsBought) {
+
         if (!upgradeIsBought) {
             // If first upgrade not bought disable second button
             if (towerUpgradeLevel == 1) {
@@ -277,6 +280,7 @@ final public class BottomBarUpgradePanel {
                 upgradedTowerSprite.setColor(Color.LIGHT_GRAY);
                 // If first upgrade is bought enable second upgrade button
             } else if (towerUpgradeLevel >= 2) {
+                upgradeButton.setDisabled(false);
                 upgradeButton.setTouchable(Touchable.enabled);
                 upgradeButton.setColor(Color.WHITE);
                 upgradedTowerSprite.setColor(Color.WHITE);
@@ -288,6 +292,11 @@ final public class BottomBarUpgradePanel {
                     upgradeButton.setTouchable(Touchable.disabled);
                 }
             }
+        } else { //
+            upgradeButton.setDisabled(false);
+            upgradeButton.setTouchable(Touchable.enabled);
+            upgradeButton.setColor(Color.WHITE);
+            upgradedTowerSprite.setColor(Color.WHITE);
         }
     }
 }

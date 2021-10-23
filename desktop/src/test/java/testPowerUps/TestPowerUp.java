@@ -26,7 +26,7 @@ public class TestPowerUp {
 
     @Before
     public void createPowerUp(){
-        powerUp = PowerUpFactory.createPowerUps(towerList, virusList).get(0);
+        powerUp = PowerUpFactory.createPowerUps(virusList).get(0);
     }
 
     @Test

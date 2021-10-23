@@ -4,14 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.overlayControllers.AbstractOverlayController;
@@ -29,6 +27,8 @@ public abstract class AbstractOverlay {
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     private final InputMultiplexer multiplexer = new InputMultiplexer();
+
+    final String buttonsAssetsRoot = "buttons/overlayButtons/";
 
     public AbstractOverlay(AbstractOverlayController abstractOverlayController) {
         this.abstractOverlayController = abstractOverlayController;
@@ -83,10 +83,10 @@ public abstract class AbstractOverlay {
         Gdx.gl.glDisable(GL_BLEND);
     }
 
-    ImageButton createExitPauseMenuButton(Group group, Image backgroundImage) {
-        TextureRegion exitButtonTextureRegion = new TextureRegion(new Texture("GameScreen/overlays/ExitCrossButton.png"));
-        TextureRegionDrawable exitButtonRegDrawable = new TextureRegionDrawable(exitButtonTextureRegion);
-        ImageButton exitButton = new ImageButton(exitButtonRegDrawable); //Set the button up
+    Button createExitPauseMenuButton(Group group, Image backgroundImage) {
+        TextureAtlas exitOverlayButtonAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "exitOverlayButtonSkin/ExitOverlayButtonSkin.atlas")); // Load atlas file from skin
+        Skin exitOverlayButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "exitOverlayButtonSkin/ExitOverlayButtonSkin.json"), exitOverlayButtonAtlas); // Create skin object
+        Button exitButton = new Button(exitOverlayButtonSkin); //Set the button up
         group.addActor(exitButton);
         exitButton.setPosition(backgroundImage.getX() + backgroundImage.getWidth() - exitButton.getWidth() - 20, backgroundImage.getY() + backgroundImage.getHeight() - exitButton.getHeight() - 20);
         return exitButton;
