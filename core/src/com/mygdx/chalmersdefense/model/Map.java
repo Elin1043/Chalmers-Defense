@@ -103,13 +103,8 @@ final class Map {
         List<ITower> removeTowers = new ArrayList<>();
 
         for (ITower tower : towersList) {
-            List<IVirus> virusInRange;
-            if(powerUpList.get(1).getIsActive()){
-                virusInRange = getVirusesInRange(tower.getX(), tower.getY(), tower.getRange() * 1.5f, virusesList);
-            }
-            else{
-                virusInRange = getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), virusesList);
-            }
+
+            List<IVirus> virusInRange = getVirusesInRange(tower.getX(), tower.getY(), getModifiedTowerRange(tower), virusesList);
 
 
             // Standard values for when virus is out of range
@@ -131,6 +126,15 @@ final class Map {
         towersList.removeAll(removeTowers);
     }
 
+
+    // If power-up modifier is active, apply the modifier
+    private float getModifiedTowerRange(ITower tower){
+        if (powerUpList.get(1).getIsActive()){
+            return tower.getRange() * 1.5f;
+        } else {
+            return tower.getRange();
+        }
+    }
 
     //Update all the viruses
     private void updateVirus() {
@@ -242,6 +246,7 @@ final class Map {
         return virusInRange;
     }
 
+    // Gets all viruses in a given range from coordinates
     private List<IVirus> getVirusesInRange(float towerX, float towerY, float towerRange, List<IVirus> allViruses) {
         List<IVirus> virusList = new ArrayList<>();
 
@@ -256,13 +261,7 @@ final class Map {
     //Updates the rangeCircle
     private void updateRangeCircle() {
         if(selectedTower != null){
-            if(powerUpList.get(1).getIsActive()){
-                rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth()/2, selectedTower.getY() + selectedTower.getHeight()/2, selectedTower.getRange()*1.5f);
-            }
-            else{
-                rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth()/2, selectedTower.getY() + selectedTower.getHeight()/2, selectedTower.getRange());
-            }
-
+            rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth()/2, selectedTower.getY() + selectedTower.getHeight()/2, getModifiedTowerRange(selectedTower));
         }
     }
 
