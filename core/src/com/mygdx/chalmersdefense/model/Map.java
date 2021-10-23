@@ -105,10 +105,10 @@ final class Map {
         for (ITower tower : towersList) {
             List<IVirus> virusInRange;
             if(powerUpList.get(1).getIsActive()){
-                virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange() * 1.5f, virusesList);
+                virusInRange = getVirusesInRange(tower.getX(), tower.getY(), tower.getRange() * 1.5f, virusesList);
             }
             else{
-                virusInRange = Calculate.getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), virusesList);
+                virusInRange = getVirusesInRange(tower.getX(), tower.getY(), tower.getRange(), virusesList);
             }
 
 
@@ -230,7 +230,7 @@ final class Map {
 
     //Get the targetable viruses in range on projectile
     private List<IVirus> getTargetableViruses(IProjectile projectile, List<IVirus> removeList){
-        List<IVirus> virusInRange = Calculate.getVirusesInRange(projectile.getX(), projectile.getY(), 250, virusesList);
+        List<IVirus> virusInRange = getVirusesInRange(projectile.getX(), projectile.getY(), 250, virusesList);
 
         for (IVirus virus : virusInRange) {
             if (projectile.haveHitBefore(virus.hashCode())) {
@@ -240,6 +240,17 @@ final class Map {
 
         virusInRange.removeAll(removeList);
         return virusInRange;
+    }
+
+    private List<IVirus> getVirusesInRange(float towerX, float towerY, float towerRange, List<IVirus> allViruses) {
+        List<IVirus> virusList = new ArrayList<>();
+
+        for (IVirus virus : allViruses) {
+            if (Calculate.disBetweenPoints(towerX, towerY, virus.getX(), virus.getY()) < towerRange) {
+                virusList.add(virus);
+            }
+        }
+        return virusList;
     }
 
     //Updates the rangeCircle

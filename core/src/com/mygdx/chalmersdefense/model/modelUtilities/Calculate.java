@@ -2,10 +2,6 @@ package com.mygdx.chalmersdefense.model.modelUtilities;
 
 
 import com.mygdx.chalmersdefense.model.IMapObject;
-import com.mygdx.chalmersdefense.model.viruses.IVirus;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Elin Forsberg
@@ -14,27 +10,6 @@ import java.util.List;
  * 2021-09-24 Modified by Joel Båtsman Hilmersson: Placed getVirusesInRange method here instead of tower class
  */
 public abstract class Calculate {
-    /**
-     * Gets the viruses in range of a tower
-     *
-     * @param towerX     x-coordinate of tower
-     * @param towerY     y-coordinate of tower
-     * @param towerRange range of tower
-     * @param allViruses list of all viruses
-     * @return a list of viruses in range
-     */
-    public static List<IVirus> getVirusesInRange(float towerX, float towerY, float towerRange, List<IVirus> allViruses) {
-        List<IVirus> virusList = new ArrayList<>();
-
-        for (IVirus virus : allViruses) {
-            if (disBetweenPoints(towerX, towerY, virus.getX(), virus.getY()) < towerRange) {
-                virusList.add(virus);
-            }
-        }
-        return virusList;
-    }
-
-
     /**
      * Calculate the angle between two objects
      *
