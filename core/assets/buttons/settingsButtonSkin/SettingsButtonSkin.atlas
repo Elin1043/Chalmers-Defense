@@ -11,9 +11,16 @@ SettingsButtonDefault
   orig: 364, 103
   offset: 0, 0
   index: -1
-SettingsButtonPressed
+SettingsButtonHover
   rotate: false
   xy: 1, 155
+  size: 364, 103
+  orig: 364, 103
+  offset: 0, 0
+  index: -1
+SettingsButtonPressed
+  rotate: false
+  xy: 1, 50
   size: 364, 103
   orig: 364, 103
   offset: 0, 0

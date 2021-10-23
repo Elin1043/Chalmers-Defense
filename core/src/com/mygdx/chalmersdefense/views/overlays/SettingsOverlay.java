@@ -58,7 +58,7 @@ final class SettingsOverlay extends AbstractOverlay {
 
             goBackButton = createGoBackButton();
 
-            ImageButton exitButton = createExitPauseMenuButton(settingsMenuGroup, backgroundImage);
+            Button exitButton = createExitPauseMenuButton(settingsMenuGroup, backgroundImage);
             abstractOverlayController.addExitOverlayButtonClickListener(exitButton);
 
             // Creates title
