@@ -3,14 +3,11 @@ package com.mygdx.chalmersdefense.views.overlays;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
 
@@ -22,15 +19,18 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * Class representing an AbstractOverlay
  */
 public abstract class AbstractOverlay {
-    final AbstractOverlayController abstractOverlayController;
-    Stage stage;
-    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
+    final AbstractOverlayController abstractOverlayController;              // Common controller for all overlays
+    Stage stage;                                                            // Used to add actors to
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();        // Shape renderer used to draw transparent background
+    private final InputMultiplexer multiplexer = new InputMultiplexer();    // Multiplexer used to handle input from different input sources
 
-    private final InputMultiplexer multiplexer = new InputMultiplexer();
+    final String buttonsAssetsRoot = "buttons/overlayButtons/";             // Root path for overlay buttons
 
-    final String buttonsAssetsRoot = "buttons/overlayButtons/";
-
-    public AbstractOverlay(AbstractOverlayController abstractOverlayController) {
+    /**
+     * Creates the foundation for a overlay
+     * @param abstractOverlayController reference to common controller for all overlays
+     */
+    AbstractOverlay(AbstractOverlayController abstractOverlayController) {
         this.abstractOverlayController = abstractOverlayController;
 
         Gdx.input.setInputProcessor(multiplexer);
@@ -83,6 +83,12 @@ public abstract class AbstractOverlay {
         Gdx.gl.glDisable(GL_BLEND);
     }
 
+    /**
+     * Common method for creating a exit button on overlays
+     * @param group group to add Button to
+     * @param backgroundImage used to place button in top right corner
+     * @return Button object
+     */
     Button createExitPauseMenuButton(Group group, Image backgroundImage) {
         TextureAtlas exitOverlayButtonAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "exitOverlayButtonSkin/ExitOverlayButtonSkin.atlas")); // Load atlas file from skin
         Skin exitOverlayButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "exitOverlayButtonSkin/ExitOverlayButtonSkin.json"), exitOverlayButtonAtlas); // Create skin object
