@@ -74,8 +74,8 @@ final class GameScreen extends AbstractScreen implements Screen {
 
         // Create skin object
         // Load atlas file from skin
-        TextureAtlas pauseButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.atlas"));
-        Skin pauseButtonSkin = new Skin(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.json"), pauseButtonAtlas);
+        TextureAtlas pauseButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/gameScreenButtons/pauseButtonSkin/pauseButtonSkin.atlas"));
+        Skin pauseButtonSkin = new Skin(Gdx.files.internal("buttons/gameScreenButtons/pauseButtonSkin/pauseButtonSkin.json"), pauseButtonAtlas);
         Button pauseButton = new Button(pauseButtonSkin);
         pauseButton.setPosition(10, 1070 - pauseButton.getHeight());
         gameScreenController.addPauseButtonClickListener(pauseButton);
