@@ -10,6 +10,7 @@ import com.mygdx.chalmersdefense.model.IMapObject;
  * 2021-09-24 Modified by Joel Båtsman Hilmersson: Placed getVirusesInRange method here instead of tower class
  */
 public abstract class Calculate {
+
     /**
      * Calculate the angle between two objects
      *
@@ -51,13 +52,12 @@ public abstract class Calculate {
      * @param y2 y-coordinate of second point
      * @return distance between points
      */
-    public static double disBetweenPoints(float x1, float y1, float x2, float y2) {
+    public static double distanceBetweenPoints(float x1, float y1, float x2, float y2) {
         float disX = (x2 - x1);
         float disY = (y2 - y1);
         return Math.sqrt(disX * disX + disY * disY);
 
     }
-
 
     /**
      * Checks if two IMapObjects intersects

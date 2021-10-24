@@ -33,10 +33,17 @@ final class MechMiniTower extends Tower {
         Random rand = new Random();
         this.lifeTimeCounter = new CountDownTimer(rand.nextInt(401) + 800);
 
+        // Changes target modes to be the same as the mechtower that created this tower
         for (int i = 0; i < currentTargetModeIndex; i++){
             super.changeTargetMode(true);
         }
 
+        upgradeMiniMechToCorrectLevel(upgradeLevel);
+
+    }
+
+    // Upgrades the tower to it's correct state
+    private void upgradeMiniMechToCorrectLevel(int upgradeLevel) {
         HashMap<String, Double> upgrades = new HashMap<>();
         upgrades.put("attackSpeedMul", 1.0);
         upgrades.put("attackRangeMul", 1.0);
@@ -49,7 +56,6 @@ final class MechMiniTower extends Tower {
             upgrades.put("attackRangeMul",2.0);
             super.upgradeTower(upgrades);
         }
-
     }
 
     @Override

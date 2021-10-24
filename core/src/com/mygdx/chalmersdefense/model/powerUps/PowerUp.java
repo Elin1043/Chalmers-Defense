@@ -20,6 +20,12 @@ abstract class PowerUp implements IPowerUp{
     private final int lengthOfCooldown; // The final length of cooldown timer. Used when resetting timers
     private final int lengthOfPowerUp;  // The final length of power-up timer. Used when resetting timers
 
+    /**
+     * Creates an instance of the power-up
+     * @param lengthOfCooldown the length of power-up cool down
+     * @param lengthOfPowerUp the length of active power-up time
+     * @param cost the cost of the power-up
+     */
     PowerUp(int lengthOfCooldown, int lengthOfPowerUp, int cost){
         cooldown = new CountDownTimer(lengthOfCooldown);
         powerUpTimer = new CountDownTimer(lengthOfPowerUp);

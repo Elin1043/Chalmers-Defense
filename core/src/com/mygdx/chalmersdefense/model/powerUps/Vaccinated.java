@@ -15,6 +15,10 @@ import java.util.List;
 final class Vaccinated extends PowerUp{
     private final List<IVirus> allViruses;        // List of viruses to apply powerUp to
 
+    /**
+     * Creates an instance of the power-up vaccinated
+     * @param allViruses reference to the virus list to do damage to
+     */
     Vaccinated(List<IVirus> allViruses) {
         super(1000, 380, 500);
         this.allViruses = allViruses;

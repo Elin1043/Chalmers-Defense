@@ -68,8 +68,6 @@ abstract class Tower implements ITower {
             BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("towers/" + name + "/" + spriteKey + ".png")));
             this.width = towerImage.getWidth();
             this.height = towerImage.getHeight();
-
-
         } catch (IOException exception) {
             exception.printStackTrace();
         }

@@ -14,6 +14,9 @@ import java.util.Random;
  */
 final class CleanHands extends PowerUp{
 
+    /**
+     * Creates an instance of the power-up object
+     */
     CleanHands() {
         super(500, 500, 300);
     }
