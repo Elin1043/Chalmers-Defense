@@ -25,9 +25,9 @@ import java.util.List;
  * @author Jenny Carlsson
  * <p>
  * Class handeling all objects and methods on Map.
- *
- * 2021-10-15 Modified by Elin Forsberg and Joel Båtsman Hilmmersson: Added methods for powerUps
- * 2021-10-22 Modified by Joel Båtsman Hilmmersson: Split big methods into smaller ones
+ * <p>
+ * 2021-10-15 Modified by Elin Forsberg and Joel Båtsman Hilmmersson: Added methods for powerUps <br>
+ * 2021-10-22 Modified by Joel Båtsman Hilmmersson: Split big methods into smaller ones <br>
  */
 final class Map {
     private ITower selectedTower;        // Helper when placing towers and the current selected tower
