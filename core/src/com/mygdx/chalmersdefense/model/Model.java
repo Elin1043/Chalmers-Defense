@@ -66,17 +66,15 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
 
     @Override
     public void handle(ModelEvents event) {
-        if (event.getEventType() == ModelEvents.Type.ADDMONEYTOPLAYER) {
-            player.increaseMoney(event.getAmount());
-        }
-        if(event.getEventType() == ModelEvents.Type.REMOVEMONEYFROMPLAYER){
-            player.decreaseMoney(event.getAmount());
-        }
-        if(event.getEventType() == ModelEvents.Type.DECREASELIFEOFPLAYER){
-            try {
-                player.decreaseLivesBy(event.getAmount());
-            } catch (PlayerLostAllLifeException e) {
-                isGameLost = true;
+        switch(event.getEventType()){
+            case ADDMONEYTOPLAYER -> player.increaseMoney(event.getAmount());
+            case REMOVEMONEYFROMPLAYER -> player.decreaseMoney(event.getAmount());
+            case DECREASELIFEOFPLAYER -> {
+                try {
+                    player.decreaseLivesBy(event.getAmount());
+                } catch (PlayerLostAllLifeException e) {
+                    isGameLost = true;
+                }
             }
         }
     }
