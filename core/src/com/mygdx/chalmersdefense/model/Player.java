@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
-import com.mygdx.chalmersdefense.model.event.EventBus;
 import com.mygdx.chalmersdefense.model.event.IEventListener;
+import com.mygdx.chalmersdefense.model.event.ModelEvents;
 
 /**
  * @author Joel Båtsman Hilmersson
@@ -9,7 +9,7 @@ import com.mygdx.chalmersdefense.model.event.IEventListener;
  *
  * 2021-10-03 Modified by Daniel Persson: Added reset method for resetting all values in player.
  */
-final public class Player implements IEventListener<ModelEvents> {
+final public class Player {
 
     private int money;// How much money the player has currently
     private int lives;  // How many lives the player has currently
@@ -24,24 +24,6 @@ final public class Player implements IEventListener<ModelEvents> {
         this.lives = lives;
         money = startCapital;
 
-    }
-
-
-    @Override
-    public void handle(ModelEvents event) {
-        if (event.getEventType() == ModelEvents.Type.ADDTOPLAYER) {
-            increaseMoney(event.getAmount());
-        }
-        if(event.getEventType() == ModelEvents.Type.REMOVEFROMPLAYER){
-            decreaseMoney(event.getAmount());
-        }
-        if(event.getEventType() == ModelEvents.Type.DECREASELIFE){
-            try {
-                decreaseLivesBy(event.getAmount());
-            } catch (PlayerLostAllLifeException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
 

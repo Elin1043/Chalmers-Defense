@@ -2,7 +2,8 @@ package com.mygdx.chalmersdefense.model;
 
 
 import com.mygdx.chalmersdefense.model.event.EventBus;
-import com.mygdx.chalmersdefense.model.event.IEvent;
+import com.mygdx.chalmersdefense.model.event.IEventListener;
+import com.mygdx.chalmersdefense.model.event.ModelEvents;
 import com.mygdx.chalmersdefense.utilities.*;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
@@ -35,7 +36,7 @@ import java.util.List;
  * 2021-10-22 Modified by Daniel Persson: Changed Upgrade object to use updated upgrades class. Also moved upgrade logic to map
  */
 
-public class Model implements IUpdateModel, IControllModel, IViewModel {
+public class Model implements IUpdateModel, IControllModel, IViewModel, IEventListener<ModelEvents> {
     private final int WINNING_ROUND = 30;       // Current winning round
     private final int LIVES = 100;              // Current amount of starting lives
     private final int START_CAPITAL = 40000;    // Current amount of start capital
@@ -52,12 +53,32 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final Map map = new Map(eventBus);        // Current map object
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getVirusesToAddList());   // The class for spawning viruses
 
+    private boolean isGameLost = false;    // Boolean if game is lost
+
 
 
     public Model(Preferences preferences) {
         this.preferences = preferences;
-        eventBus.listenFor(ModelEvents.class, player);
+        eventBus.listenFor(ModelEvents.class, this::handle);
 
+    }
+
+
+    @Override
+    public void handle(ModelEvents event) {
+        if (event.getEventType() == ModelEvents.Type.ADDTOPLAYER) {
+            player.increaseMoney(event.getAmount());
+        }
+        if(event.getEventType() == ModelEvents.Type.REMOVEFROMPLAYER){
+            player.decreaseMoney(event.getAmount());
+        }
+        if(event.getEventType() == ModelEvents.Type.DECREASELIFE){
+            try {
+                player.decreaseLivesBy(event.getAmount());
+            } catch (PlayerLostAllLifeException e) {
+                isGameLost = true;
+            }
+        }
     }
 
 
@@ -66,7 +87,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         map.updateMap();
         checkRoundCompleted();
         virusSpawner.decrementSpawnTimer();
-        if (map.getIsGameLost()) {
+        if (isGameLost) {
             showOverlay = ScreenOverlayEnum.LOSEPANEL;
         }
     }
@@ -76,6 +97,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
         round = new Rounds(WINNING_ROUND);
         player.resetPlayer(LIVES, START_CAPITAL);
         map.resetMap();
+        isGameLost = false;
         virusSpawner.resetSpawnViruses();
         showOverlay = ScreenOverlayEnum.NONE;
     }

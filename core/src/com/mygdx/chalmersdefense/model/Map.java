@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
 import com.mygdx.chalmersdefense.model.event.EventBus;
+import com.mygdx.chalmersdefense.model.event.ModelEvents;
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.model.path.IPath;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
@@ -43,8 +44,6 @@ final class Map {
     private final EventBus eventBus;                                      // A reference to the EventBus in the game
     private final IPath path = PathFactory.createClassicPath();     // Current path
 
-    private boolean isGameLost = false;     // Boolean if game is lost
-
     private final RangeCircle rangeCircle = new RangeCircle(0,0,0);     // Helper class for showing gray range circle
 
     Map(EventBus eventBus) {
@@ -77,7 +76,6 @@ final class Map {
         resetAllPowerUps();
 
         selectedTower = null;
-        isGameLost = false;
 
         // Removes range circle
         rangeCircle.setEnumColor(RangeCircle.Color.NONE);
@@ -157,12 +155,7 @@ final class Map {
     // Removes viruses from game and decreases player life
     private void removeDeadVirusesHandler(List<IVirus> virusToRemove) {
         for (IVirus virus : virusToRemove) {
-//            try {
-                this.eventBus.emit(new ModelEvents(ModelEvents.Type.DECREASELIFE, virus.getLifeDecreaseAmount()));
-                //player.decreaseLivesBy(virus.getLifeDecreaseAmount());
-//            } catch (PlayerLostAllLifeException ignore) {
-//                isGameLost = true;
-//            }
+            this.eventBus.emit(new ModelEvents(ModelEvents.Type.DECREASELIFE, virus.getLifeDecreaseAmount()));
             virusesList.remove(virus);
         }
     }
@@ -221,8 +214,7 @@ final class Map {
         int virusHealthBefore = virus.getLifeDecreaseAmount();
 
         virus.decreaseHealth(projectile.getDamageAmount());
-        this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDTOPLAYER, virusHealthBefore - virus.getLifeDecreaseAmount()));
-        //player.increaseMoney(virusHealthBefore - virus.getLifeDecreaseAmount());    // This will add the correct amount of money to the player relative to the amount of damage done
+        this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDTOPLAYER, virusHealthBefore - virus.getLifeDecreaseAmount())); // This will add the correct amount of money to the player relative to the amount of damage done
         virusThatWasHit.add(virus);
     }
 
@@ -410,7 +402,6 @@ final class Map {
             selectedTower.placeTower();
             selectedTower.setPos(x - selectedTower.getWidth() / 2f, y - selectedTower.getHeight() / 2f);
             this.eventBus.emit(new ModelEvents(ModelEvents.Type.REMOVEFROMPLAYER,selectedTower.getCost()));
-            //player.decreaseMoney();
         } else {
             towersList.remove(selectedTower);
             rangeCircle.setEnumColor(RangeCircle.Color.NONE);
@@ -451,7 +442,6 @@ final class Map {
         // If upgrade is applied decrease player money
         if (Upgrades.upgradeTower(selectedTower)) {
             this.eventBus.emit(new ModelEvents(ModelEvents.Type.REMOVEFROMPLAYER,Upgrades.getTowerUpgradePrice(selectedTower.getName(), selectedTower.getUpgradeLevel() - 1)));
-            //player.decreaseMoney();
 
             rangeCircle.updatePos(selectedTower.getX() + getSelectedTower().getWidth()/2, selectedTower.getY() + getSelectedTower().getHeight()/2, selectedTower.getRange());
         }
@@ -466,7 +456,6 @@ final class Map {
     void sellClickedTower(int cost) {
         towersList.remove(selectedTower);
         this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDTOPLAYER, cost));
-        //player.increaseMoney();
         selectedTower = null;
         rangeCircle.setEnumColor(RangeCircle.Color.NONE);
     }
@@ -535,16 +524,6 @@ final class Map {
         String[] targetModeNameSplit = selectedTower.getCurrentTargetMode().getClass().getName().split("[.]");
         return targetModeNameSplit[targetModeNameSplit.length - 1];
     }
-
-    /**
-     * Returns if game has been lost
-     *
-     * @return a boolean for game lost status
-     */
-    boolean getIsGameLost() {
-        return isGameLost;
-    }
-
 
     /**
      * Returns the list to add viruses to
@@ -617,7 +596,6 @@ final class Map {
         if ((money >= powerUp.getCost()) && !powerUp.getIsActive() && powerUp.getTimer() == -1) {
             powerUp.powerUpClicked(genericObjectsList);
             this.eventBus.emit(new ModelEvents(ModelEvents.Type.REMOVEFROMPLAYER,powerUp.getCost()));
-            //player.decreaseMoney();
         }
     }
 

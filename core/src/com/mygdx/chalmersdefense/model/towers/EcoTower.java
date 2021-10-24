@@ -1,6 +1,6 @@
 package com.mygdx.chalmersdefense.model.towers;
 
-import com.mygdx.chalmersdefense.model.ModelEvents;
+import com.mygdx.chalmersdefense.model.event.ModelEvents;
 import com.mygdx.chalmersdefense.model.event.EventBus;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
