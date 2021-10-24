@@ -58,9 +58,8 @@ final public class RightSidePanel {
         initialize();
     }
 
-    /**
-     * Initialize panel
-     */
+
+    // Initialize panel
     private void initialize() {
         initializePowerUpButtons();
         initializeTowerButtons();
@@ -78,9 +77,8 @@ final public class RightSidePanel {
 
     }
 
-    /**
-     * Initialize power up buttons
-     */
+
+    //Initialize power up buttons
     private void initializePowerUpButtons(){
         powerUpButtons.put(maskedUpPowerUpButton,700);
         powerUpButtons.put(vaccinatedPowerUpButton,900);
@@ -101,9 +99,8 @@ final public class RightSidePanel {
         initializePowerUpLabels();
     }
 
-    /**
-     * Initialize power up labels
-     */
+
+    // Initialize power up labels
     private void initializePowerUpLabels() {
         Label maskedUpLabel = createPowerUpLabel("Masked-up",1685, 385);
         Label vaccinatedLabel = createPowerUpLabel("Vaccinated",1685, 300);
@@ -130,9 +127,8 @@ final public class RightSidePanel {
         stage.addActor(vaccinatedLabelPrice);
     }
 
-    /**
-     * Initialize tower buttons
-     */
+
+    // Initialize tower buttons
     private void initializeTowerButtons(){
         Label towerPriceLabel;
 
@@ -172,9 +168,8 @@ final public class RightSidePanel {
         }
     }
 
-    /**
-     * Places tower button at correct location
-     */
+
+    // Places tower button at correct location
     private void placeButton(Button button, int x, int y, String name) {
         button.setPosition(x, y);
         button.setName(name);
@@ -203,9 +198,8 @@ final public class RightSidePanel {
         return stage;
     }
 
-    /**
-     * Creates power up buttons
-     */
+
+    //Creates power up buttons
     private Button createPowerUpButton(String name){
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "powerUpButtons/" + name + "Skin.atlas")); // Load atlas file from skin
         Skin skin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "powerUpButtons/" + name + "Skin.json"), atlas); // Create skin object
@@ -213,9 +207,8 @@ final public class RightSidePanel {
         return new Button(skin);
     }
 
-    /**
-     * Creates tower buttons
-     */
+
+    // Creates tower buttons
     private Button createTowerButton(String name){
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "towerButtonSkin/" + name + "ButtonSkin.atlas")); // Load atlas file from skin
         Skin skin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "towerButtonSkin/" + name + "ButtonSkin.json"), atlas); // Create skin object
@@ -223,9 +216,8 @@ final public class RightSidePanel {
         return new Button(skin);
     }
 
-    /**
-     * Check if power up is on cooldown
-     */
+
+    // Check if power up is on cooldown
     private void checkPowerUpButtonCooldown(){
         int[] timers = model.getPowerUpTimer();
         boolean[] active = model.getPowerUpActive();
@@ -236,9 +228,8 @@ final public class RightSidePanel {
 
     }
 
-    /**
-     * Update power up buttons
-     */
+
+    // Update power up buttons
     private void updatePowerUpButtons(int timer, Button powerUpButton, Label label, boolean active){
         if(timer == -1){
             label.setVisible(false);
@@ -265,9 +256,8 @@ final public class RightSidePanel {
     }
 
 
-    /**
-     * Checks what powerUps the player can afford
-     */
+
+    // Checks what powerUps the player can afford
     private void checkAffordablePowerUp(Button powerUpButton){
         int i = powerUpButtons.get(powerUpButton);
         if (model.getMoney() >= i  && !powerUpButton.isTouchable()) {
@@ -281,9 +271,8 @@ final public class RightSidePanel {
 
     }
 
-    /**
-     * Checks what towers the player can afford
-     */
+
+   // Checks what towers the player can afford
     private void checkAffordableTowers() {
         for (Integer i : towerButtons.keySet()) {
             if (model.getMoney() >= i && !towerButtons.get(i).isTouchable()) {
@@ -297,27 +286,24 @@ final public class RightSidePanel {
         }
     }
 
-    /**
-     * Create label
-     */
+
+    // Create label
     private Label createLabel(String text, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle36BlackBold());
         label.setPosition(1920 - WIDTH / 2F - label.getWidth() / 2, 1080 - label.getHeight() - y);
         return label;
     }
 
-    /**
-     * Create power up label
-     */
+
+   // Create power up label
     private Label createPowerUpLabel(String text, float x, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle20BlackSemiBold());
         label.setPosition(x,y);
         return label;
     }
 
-    /**
-     * Create power up price label
-     */
+
+    // Create power up price label
     private Label createPowerUpPriceLabel(String text, float x, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle20BlackSemiBold());
         label.setAlignment(Align.right);
@@ -325,9 +311,8 @@ final public class RightSidePanel {
         return label;
     }
 
-    /**
-     * Create power up time label
-     */
+
+    // Create power up time label
     private Label createPowerUpTimeLabel(String text, float x, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle34SkyBold());
         label.setAlignment(Align.center);
@@ -335,9 +320,8 @@ final public class RightSidePanel {
         return label;
     }
 
-    /**
-     * Create power up description label
-     */
+
+    // Create power up description label
     private Label createPowerUpDesc(String text, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle18Black());
         label.setPosition(1688,y);
@@ -346,9 +330,8 @@ final public class RightSidePanel {
         return label;
     }
 
-    /**
-     * Create tower price label
-     */
+
+    // Create tower price label
     private Label createTowerPriceLabel(String text, float x, float y, float width) {
         Label label = new Label(text, FontFactory.getLabelStyle24BlackSemiBold());
         label.setWidth(width);
@@ -357,9 +340,8 @@ final public class RightSidePanel {
         return label;
     }
 
-    /**
-     * Start round button methods
-     */
+
+    //Start round button methods
     private void createStartRoundButton() {
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "startRoundButtonSkin/startRoundButtonSkin.atlas")); // Load atlas file from skin
         Skin skin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "startRoundButtonSkin/startRoundButtonSkin.json"), atlas); // Create skin object

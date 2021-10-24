@@ -78,9 +78,8 @@ final public class BottomBarUpgradePanel {
         initialize();
     }
 
-    /**
-     * Initializes all GUI components
-     */
+
+    // Initializes all GUI components
     private void initialize() {
         stage.addActor(bottomBarPanelUpgradeGroup);
         bottomBarPanelUpgradeGroup.setPosition(210, 0);
@@ -129,9 +128,8 @@ final public class BottomBarUpgradePanel {
         return stage;
     }
 
-    /**
-     * Creates a upgrade button
-     */
+
+    // Creates a upgrade button
     private Button createUpgradePanelButton() {
         // Skin for upgrade buttons
         TextureAtlas upgradePanelAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "upgradeButtonSkin/UpgradeButtonSkin.atlas")); // Load atlas file from skin
@@ -139,9 +137,8 @@ final public class BottomBarUpgradePanel {
         return new Button(upgradePanelSkin);
     }
 
-    /**
-     * Create target mode buttons
-     */
+
+    // Create target mode buttons
     private void createChangeTargetModeButton(){
         TextureRegion changeTargetTextureRegion1 = new TextureRegion(new Texture(Gdx.files.internal(buttonsAssetsRoot + "changeTargetModeButton.png")));
         TextureRegionDrawable changeTargetTexRegDrawable1 = new TextureRegionDrawable(changeTargetTextureRegion1);
@@ -170,9 +167,8 @@ final public class BottomBarUpgradePanel {
 
     }
 
-    /**
-     * Creates sell button
-     */
+
+    // Creates sell button
     private void createSellButton() {
         TextureRegion sellButtonTextureRegion = new TextureRegion(new Texture(Gdx.files.internal(buttonsAssetsRoot + "towerSellButton.png")));
         TextureRegionDrawable sellTexRegDrawable = new TextureRegionDrawable(sellButtonTextureRegion);
@@ -187,23 +183,16 @@ final public class BottomBarUpgradePanel {
         sellPriceLabel.setPosition(520, 55);
     }
 
-    /**
-     * Update labels
-     */
+
+    // Update labels
     private void updatePanelLabels(){
         sellPriceLabel.setText("+" + "$" + model.getClickedTowerSellPrice());
 
         targetModeLabel.setText(model.getClickedTowerTargetMode());
     }
 
-    /**
-     * Sets up the upgrade button with labels and image.
-     *
-     * @param upgradeButton the button to set up
-     * @param titleLabel    the title label to set up
-     * @param descLabel     the description label to set up
-     * @param priceLabel    the price label to set up
-     */
+
+    // Sets up the upgrade button with labels and image.
     private void createUpgradeButtons(Button upgradeButton, Label titleLabel, Label descLabel, Label priceLabel) {
         bottomBarPanelUpgradeGroup.addActor(upgradeButton);
         bottomBarPanelController.addClickListenerUpgradeButton(upgradeButton);
@@ -221,11 +210,8 @@ final public class BottomBarUpgradePanel {
         priceLabel.setPosition(110, 25);
     }
 
-    /**
-     * Updates the upgrade panel.
-     *
-     * @param tower tower name used to get correct sprite
-     */
+
+    //Updates the upgrade panel.
     private void updateUpgradePanelInfo(IMapObject tower) {
         towerNameLabel.setText(tower.getSpriteKey().replaceFirst(".$", "")); // Removes the upgrade level from the spriteKey to just leave the name left
 
@@ -241,16 +227,8 @@ final public class BottomBarUpgradePanel {
         updateUpgradeButton(tower, 2, upgradeButtonSecond, secondUpgradeButtonTitle, secondUpgradeButtonDesc, secondUpgradeButtonPrice);
     }
 
-    /**
-     * Updates button labels and button data. Also sets button to correct state depending on available money and current upgrade level.
-     *
-     * @param tower         tower to get data from
-     * @param buttonNr      first or second upgrade button
-     * @param upgradeButton the button to modify
-     * @param titleLabel    the title label to modify
-     * @param descLabel     the description label to modify
-     * @param priceLabel    the price label to modify
-     */
+
+    // Updates button labels and button data. Also sets button to correct state depending on available money and current upgrade level.
     private void updateUpgradeButton(IMapObject tower, int buttonNr, Button upgradeButton, Label titleLabel, Label descLabel, Label priceLabel) {
         String towerName = tower.getSpriteKey().replaceFirst(".$", "");              // Removes the upgrade level from the spriteKey to just leave the name left
         int towerUpgradeLevel = Character.getNumericValue(tower.getSpriteKey().charAt(tower.getSpriteKey().length() - 1));     // Gets the last char in the string, and therefore the upgrade level
@@ -276,9 +254,8 @@ final public class BottomBarUpgradePanel {
         updateUpgradeInformationLabels(buttonNr, titleLabel, descLabel, priceLabel, towerName);
     }
 
-    /**
-     * Places and draws the upgrade sprite in the button
-     */
+
+    // Places and draws the upgrade sprite in the button
     private void placeAndDrawUpgradeSprite(Button upgradeButton, Sprite upgradedTowerSprite) {
         upgradedTowerSprite.setPosition(upgradeButton.getX() + (268 - upgradedTowerSprite.getWidth() / 2), (upgradeButton.getHeight() - upgradeButton.getY()) / 2 - upgradedTowerSprite.getHeight() / 2 + upgradeButton.getY() + 20);
         upgradedTowerSprite.setRotation(0);
@@ -289,17 +266,15 @@ final public class BottomBarUpgradePanel {
         batch.end();
     }
 
-    /**
-     * Makes upgrade button blue
-     */
+
+    // Makes upgrade button blue
     private void upgradeIsBought(Button upgradeButton) {
         upgradeButton.setChecked(true);
         upgradeButton.setTouchable(Touchable.disabled);
     }
 
-    /**
-     * Makes green if player can afford, otherwise makes it red
-     */
+
+    // Makes green if player can afford, otherwise makes it red
     private void upgradeIsNotBought(Button upgradeButton, boolean cantAfford) {
         upgradeButton.setChecked(false);
         upgradeButton.setTouchable(Touchable.enabled);
@@ -314,9 +289,8 @@ final public class BottomBarUpgradePanel {
         }
     }
 
-    /**
-     * Updates the text information on the upgrade buttons
-     */
+
+    // Updates the text information on the upgrade buttons
     private void updateUpgradeInformationLabels(int buttonNr, Label titleLabel, Label descLabel, Label priceLabel, String towerName) {
         titleLabel.setText(model.getTowerUpgradeTitle(towerName, buttonNr));
         descLabel.setText(model.getTowerUpgradeDesc(towerName, buttonNr));
@@ -324,9 +298,8 @@ final public class BottomBarUpgradePanel {
     }
 
 
-    /**
-     * Updates the visual style of upgrade button two
-     */
+
+    // Updates the visual style of upgrade button two
     private void updateSecondUpgradeButton(int towerUpgradeLevel, Button upgradeButton, Sprite upgradedTowerSprite, boolean cantAfford, boolean upgradeIsBought) {
 
         if (!upgradeIsBought) {
@@ -336,9 +309,8 @@ final public class BottomBarUpgradePanel {
         }
     }
 
-    /**
-     * Handles logic behind upgrade button twos visual style
-     */
+
+    // Handles logic behind upgrade button twos visual style
     private void upgradeTwoIsNotBought(int towerUpgradeLevel, Button upgradeButton, Sprite upgradedTowerSprite, boolean cantAfford) {
 
         // If first upgrade not bought disable second button
@@ -358,9 +330,8 @@ final public class BottomBarUpgradePanel {
         }
     }
 
-    /**
-     * Disables upgrade button
-     */
+
+    // Disables upgrade button
     private void makeUpgradeButtonDisabled(Button upgradeButton, Sprite upgradedTowerSprite) {
         upgradeButton.setDisabled(true);
         upgradeButton.setTouchable(Touchable.disabled);
@@ -368,9 +339,8 @@ final public class BottomBarUpgradePanel {
         upgradedTowerSprite.setColor(Color.LIGHT_GRAY);
     }
 
-    /**
-     * Resets old disabled status for the button reassuring it will be new state for the button
-     */
+
+    // Resets old disabled status for the button reassuring it will be new state for the button
     private void resetOldDisabledStatus(Button upgradeButton, Sprite upgradedTowerSprite) {
         upgradeButton.setDisabled(false);
         upgradeButton.setTouchable(Touchable.enabled);
