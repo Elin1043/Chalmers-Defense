@@ -49,11 +49,10 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
     private ScreenOverlayEnum showOverlay = ScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
 
     private final Preferences preferences;
-    private final EventBus eventBus = new EventBus();
+    private final EventBus eventBus = new EventBus();  // A reference to the EventBus in the game
     private final Map map = new Map(eventBus);        // Current map object
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getVirusesToAddList());   // The class for spawning viruses
 
-    private boolean isGameLost = false;    // Boolean if game is lost
 
 
 
@@ -73,7 +72,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
                 try {
                     player.decreaseLivesBy(event.getAmount());
                 } catch (PlayerLostAllLifeException e) {
-                    isGameLost = true;
+                    showOverlay = ScreenOverlayEnum.LOSEPANEL;
                 }
             }
         }
@@ -85,9 +84,6 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
         map.updateMap();
         checkRoundCompleted();
         virusSpawner.decrementSpawnTimer();
-        if (isGameLost) {
-            showOverlay = ScreenOverlayEnum.LOSEPANEL;
-        }
     }
 
     @Override
@@ -95,7 +91,6 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
         round = new Rounds(WINNING_ROUND);
         player.resetPlayer(LIVES, START_CAPITAL);
         map.resetMap();
-        isGameLost = false;
         virusSpawner.resetSpawnViruses();
         showOverlay = ScreenOverlayEnum.NONE;
     }
@@ -103,7 +98,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
     //Checks if round is completed
     private void checkRoundCompleted() {
         if (isGameStopped()) {
-            //player.increaseMoney((int) (100 * (round.getCurrentRound() / 2f)));
+            player.increaseMoney((int) (100 * (round.getCurrentRound() / 2f)));
 
             timer.stopUpdateTimer();
             map.roundClear();
@@ -112,7 +107,6 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
                 showOverlay = ScreenOverlayEnum.WINPANEL;
             }
             if (preferences.getBoolean("autoplay") && getCurrentRound() != 1 && !round.gameWon()) startRoundPressed();
-            this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDMONEYTOPLAYER, (int) (100 * (round.getCurrentRound() / 2f))));
         }
 
 

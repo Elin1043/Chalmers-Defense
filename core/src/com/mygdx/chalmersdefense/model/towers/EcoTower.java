@@ -16,7 +16,7 @@ import java.util.List;
 final class EcoTower extends Tower {
 
     private final CountDownTimer currentReload = new CountDownTimer(600, 0); // Reload time of this tower
-    private final EventBus eventbus;
+    private final EventBus eventbus;    // The eventbus to call when money should be added
 
     /**
      * Creates object of a EcoTower
@@ -39,9 +39,6 @@ final class EcoTower extends Tower {
             case 1 -> eventbus.emit(new ModelEvents(ModelEvents.Type.ADDMONEYTOPLAYER, 20));
             case 2 -> eventbus.emit(new ModelEvents(ModelEvents.Type.ADDMONEYTOPLAYER, 40));
             case 3 -> eventbus.emit(new ModelEvents(ModelEvents.Type.ADDMONEYTOPLAYER, 60));
-//            case 1 -> player.increaseMoney(20);
-//            case 2 -> player.increaseMoney(40);
-//            case 3 -> player.increaseMoney(80);
         }
 
         projectileList.add(ProjectileFactory.createMoneyPile(getX(), getY(), getUpgradeLevel()));
