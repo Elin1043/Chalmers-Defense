@@ -21,9 +21,14 @@ import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
  * Controller class for MainScreen
  */
 public class MainScreenController extends InputAdapter {
-    private final IControllModel model;
-    private EventBus viewEventBus;
+    private final IControllModel model;     // Model reference
+    private final EventBus viewEventBus;    // Eventbus to publish events to
 
+    /**
+     * Creates a controller for use by the MainScreen class
+     * @param model the model to control
+     * @param viewEventBus eventbus to add events to
+     */
     public MainScreenController(IControllModel model, EventBus viewEventBus){
         this.model = model;
         this.viewEventBus = viewEventBus;
@@ -68,6 +73,10 @@ public class MainScreenController extends InputAdapter {
         });
     }
 
+    /**
+     * Listener for info button
+     * @param button the info button
+     */
     public void addInfoButtonClickListener(Button button) {
         button.addListener(new ClickListener() {
             @Override

@@ -17,9 +17,14 @@ import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
  * A controller class for SettingsOverlay
  */
 public class SettingsOverlayController {
-    private final IControllModel model;
-    private final Preferences preferences;
+    private final IControllModel model;     // Model reference
+    private final Preferences preferences;  // Eventbus to publish events to
 
+    /**
+     * Creates a controller for use by the SettingsOverlay class
+     * @param model the model to control
+     * @param preferences to get game preferences from
+     */
     public SettingsOverlayController(IControllModel model, Preferences preferences) {
         this.model = model;
         this.preferences = preferences;
@@ -129,6 +134,7 @@ public class SettingsOverlayController {
     /**
      * Add change listener to refresh rate checkbox
      * @param checkBox to add listener to
+     * @param refreshRate what refresh rate to change to
      */
     public void addRefreshRateClickListener(CheckBox checkBox, int refreshRate) {
         checkBox.addListener(new ChangeListener() {
