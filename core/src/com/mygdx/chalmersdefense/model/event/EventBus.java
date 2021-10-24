@@ -11,12 +11,12 @@ public class EventBus {
     private Map<Class, List<IEventListener>> listeners = new HashMap<>();
 
 
-    public void emit(IEvent event){
+    public void emit(IEvent event, int... value){
         Class eventClass = event.getClass();
         List<IEventListener> eventListeners = listeners.get(eventClass);
 
         for (IEventListener eventListener: eventListeners) {
-            eventListener.handle(event);
+            eventListener.handle(event,value);
         }
     }
 

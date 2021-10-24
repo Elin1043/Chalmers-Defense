@@ -28,9 +28,9 @@ final public class Player implements IEventListener<ModelEvents> {
 
 
     @Override
-    public void handle(ModelEvents event) {
+    public void handle(ModelEvents event, int... amount) {
         if (event.getEventType() == ModelEvents.Type.ADDTOPLAYER) {
-            increaseMoney(200);
+            increaseMoney(amount[0]);
         }
     }
 

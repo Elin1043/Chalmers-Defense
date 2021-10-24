@@ -85,7 +85,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     //Checks if round is completed
     private void checkRoundCompleted() {
         if (isGameStopped()) {
-            player.increaseMoney((int) (100 * (round.getCurrentRound() / 2f)));
+            //player.increaseMoney((int) (100 * (round.getCurrentRound() / 2f)));
 
             timer.stopUpdateTimer();
             map.roundClear();
@@ -94,7 +94,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
                 showOverlay = ScreenOverlayEnum.WINPANEL;
             }
             if (preferences.getBoolean("autoplay") && getCurrentRound() != 1 && !round.gameWon()) startRoundPressed();
-            this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDTOPLAYER));
+            this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDTOPLAYER), (int) (100 * (round.getCurrentRound() / 2f)));
         }
 
 

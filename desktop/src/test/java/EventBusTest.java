@@ -61,7 +61,7 @@ public class EventBusTest {
         boolean listenerCalled;
 
         @Override
-        public void handle(T event) {
+        public void handle(T event, int... amount) {
             listenerCalled = true;
         }
     }
