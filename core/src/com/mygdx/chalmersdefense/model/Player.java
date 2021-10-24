@@ -1,14 +1,17 @@
 package com.mygdx.chalmersdefense.model;
 
+import com.mygdx.chalmersdefense.model.event.EventBus;
+import com.mygdx.chalmersdefense.model.event.IEventListener;
+
 /**
  * @author Joel Båtsman Hilmersson
  * Class representing the player and their resorces
  *
  * 2021-10-03 Modified by Daniel Persson: Added reset method for resetting all values in player.
  */
-final public class Player {
+final public class Player implements IEventListener<ModelEvents> {
 
-    private static int money;// How much money the player has currently
+    private int money;// How much money the player has currently
     private int lives;  // How many lives the player has currently
 
     /**
@@ -20,15 +23,16 @@ final public class Player {
     Player(int lives, int startCapital) {
         this.lives = lives;
         money = startCapital;
+
     }
 
 
-    public static void handle(ModelEvents event) {
+    @Override
+    public void handle(ModelEvents event) {
         if (event.getEventType() == ModelEvents.Type.ADDTOPLAYER) {
             increaseMoney(200);
         }
     }
-
 
 
     /**
@@ -74,7 +78,7 @@ final public class Player {
      *
      * @param amount amount to increase by
      */
-    public static void increaseMoney(int amount) {
+    public void increaseMoney(int amount) {
         money += amount;
     }
 

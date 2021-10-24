@@ -31,7 +31,7 @@ final public class ChalmersDefense extends Game {
     public void create() {
         Preferences preferences = new Preferences();
         EventBus eventBus = new EventBus();
-        eventBus.listenFor(ModelEvents.class, Player::handle);
+
         Model model = new Model(preferences, eventBus);
 
         // Creating Controllers

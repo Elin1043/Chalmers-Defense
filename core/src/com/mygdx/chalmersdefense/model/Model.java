@@ -36,7 +36,6 @@ import java.util.List;
  */
 
 public class Model implements IUpdateModel, IControllModel, IViewModel {
-    //private static Player player = new Player(100, 3000);
     private final int WINNING_ROUND = 30;       // Current winning round
     private final int LIVES = 100;              // Current amount of starting lives
     private final int START_CAPITAL = 40000;    // Current amount of start capital
@@ -54,11 +53,13 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final Preferences preferences;
     private EventBus eventBus;
 
+
+
     public Model(Preferences preferences, EventBus eventBus) {
         this.preferences = preferences;
         this.eventBus = eventBus;
 
-
+        eventBus.listenFor(ModelEvents.class, player::handle);
     }
 
 
