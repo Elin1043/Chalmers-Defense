@@ -10,7 +10,7 @@ import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 final public class OverlayManager {
     private static OverlayManager instance; // Instance of OverlayManager
 
-    // All overlays. Maybe move to separate class OverlayManager
+    // All overlay objects
     private AbstractOverlay pauseMenuOverlay;
     private AbstractOverlay settingsOverlay;
     private AbstractOverlay lostPanelOverlay;
