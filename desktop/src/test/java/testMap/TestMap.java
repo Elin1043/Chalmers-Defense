@@ -18,8 +18,7 @@ import static org.junit.Assert.assertTrue;
 public class TestMap {
     LwjglApplication app = new LwjglApplication(new ChalmersDefense());
     Preferences preferences = new Preferences();
-    EventBus eventBus = new EventBus();
-    Model model = new Model(preferences, eventBus);
+    Model model = new Model(preferences);
 
     @Test
     public void testMapProjectileCollision() {

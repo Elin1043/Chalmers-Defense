@@ -20,8 +20,7 @@ import static org.junit.Assert.assertTrue;
 public class TestUpgrades {
     LwjglApplication app = new LwjglApplication(new ChalmersDefense());
     Preferences preferences = new Preferences();
-    EventBus eventBus = new EventBus();
-    private final Model model = new Model(preferences,eventBus);
+    private final Model model = new Model(preferences);
 
 
     @Test

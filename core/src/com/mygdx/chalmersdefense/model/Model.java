@@ -51,15 +51,14 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     private ScreenOverlayEnum showOverlay = ScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
 
     private final Preferences preferences;
-    private EventBus eventBus;
+    private EventBus eventBus = new EventBus();
 
 
 
-    public Model(Preferences preferences, EventBus eventBus) {
+    public Model(Preferences preferences) {
         this.preferences = preferences;
-        this.eventBus = eventBus;
+        eventBus.listenFor(ModelEvents.class, player);
 
-        eventBus.listenFor(ModelEvents.class, player::handle);
     }
 
 
