@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.views.gameScreenViews;
+package com.mygdx.chalmersdefense.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -19,6 +19,8 @@ import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import com.mygdx.chalmersdefense.views.AbstractScreen;
+import com.mygdx.chalmersdefense.views.gameScreenViews.BottomBarUpgradePanel;
+import com.mygdx.chalmersdefense.views.gameScreenViews.RightSidePanel;
 import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
 import com.mygdx.chalmersdefense.utilities.RangeCircle;
 import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;

@@ -20,7 +20,7 @@ import java.util.HashMap;
  * 2021-10-05 Created by Daniel Persson <br>
  * 2021-10-15 Modified by Elin Forsberg: Added methods for powerUps
  */
-final class RightSidePanel {
+final public class RightSidePanel {
     private final int WIDTH = 320;
 
     private final Stage stage;

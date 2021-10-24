@@ -5,7 +5,6 @@ import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.controllers.MainScreenController;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.IViewModel;
-import com.mygdx.chalmersdefense.views.gameScreenViews.GameScreen;
 
 /**
  * @author Daniel Persson
