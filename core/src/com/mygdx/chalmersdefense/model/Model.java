@@ -93,7 +93,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
                 showOverlay = ScreenOverlayEnum.WINPANEL;
             }
             if (preferences.getBoolean("autoplay") && getCurrentRound() != 1 && !round.gameWon()) startRoundPressed();
-            this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDTOPLAYER), (int) (100 * (round.getCurrentRound() / 2f)));
+            this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDTOPLAYER, (int) (100 * (round.getCurrentRound() / 2f))));
         }
 
 
