@@ -5,6 +5,7 @@ import com.mygdx.chalmersdefense.controllers.*;
 import com.mygdx.chalmersdefense.controllers.overlayControllers.*;
 import com.mygdx.chalmersdefense.model.Model;
 import com.mygdx.chalmersdefense.model.ModelEvents;
+import com.mygdx.chalmersdefense.model.Player;
 import com.mygdx.chalmersdefense.model.event.EventBus;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.views.*;
@@ -30,7 +31,7 @@ final public class ChalmersDefense extends Game {
     public void create() {
         Preferences preferences = new Preferences();
         EventBus eventBus = new EventBus();
-        eventBus.listenFor(ModelEvents.class, Model::handle);
+        eventBus.listenFor(ModelEvents.class, Player::handle);
         Model model = new Model(preferences, eventBus);
 
         // Creating Controllers

@@ -8,8 +8,8 @@ package com.mygdx.chalmersdefense.model;
  */
 final public class Player {
 
+    private static int money;// How much money the player has currently
     private int lives;  // How many lives the player has currently
-    private int money;  // How much money the player has currently
 
     /**
      * Creates player object
@@ -21,6 +21,15 @@ final public class Player {
         this.lives = lives;
         money = startCapital;
     }
+
+
+    public static void handle(ModelEvents event) {
+        if (event.getEventType() == ModelEvents.Type.ADDTOPLAYER) {
+            increaseMoney(200);
+        }
+    }
+
+
 
     /**
      * Method for resetting all values in Player object
@@ -65,7 +74,7 @@ final public class Player {
      *
      * @param amount amount to increase by
      */
-    public void increaseMoney(int amount) {
+    public static void increaseMoney(int amount) {
         money += amount;
     }
 
@@ -84,6 +93,7 @@ final public class Player {
         }
 
     }
+
 
 
 }

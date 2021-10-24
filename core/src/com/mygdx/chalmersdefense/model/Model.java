@@ -36,7 +36,7 @@ import java.util.List;
  */
 
 public class Model implements IUpdateModel, IControllModel, IViewModel {
-    private static Player player = new Player(100, 3000);
+    //private static Player player = new Player(100, 3000);
     private final int WINNING_ROUND = 30;       // Current winning round
     private final int LIVES = 100;              // Current amount of starting lives
     private final int START_CAPITAL = 40000;    // Current amount of start capital
@@ -44,7 +44,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final IGameTimer timer = new GameTimer(this);    // Timer object
     private Rounds round = new Rounds(WINNING_ROUND);              // Round helper
 
-    //private final Player player = new Player(LIVES, START_CAPITAL); // Player object
+    private final Player player = new Player(LIVES, START_CAPITAL); // Player object
 
     private final Map map = new Map(player);        // Current map object
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getVirusesToAddList());   // The class for spawning viruses
@@ -61,15 +61,6 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     }
 
-    public static void handle(ModelEvents event){
-        if (event.getEventType() == ModelEvents.Type.ADDTOPLAYER) {
-            addPlayerMoney();
-        }
-    }
-
-    public static void addPlayerMoney(){
-        player.increaseMoney(200);
-    }
 
     @Override
     public synchronized void updateModel() {
