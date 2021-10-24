@@ -155,7 +155,7 @@ final class Map {
     // Removes viruses from game and decreases player life
     private void removeDeadVirusesHandler(List<IVirus> virusToRemove) {
         for (IVirus virus : virusToRemove) {
-            this.eventBus.emit(new ModelEvents(ModelEvents.Type.DECREASELIFE, virus.getLifeDecreaseAmount()));
+            this.eventBus.emit(new ModelEvents(ModelEvents.Type.DECREASELIFEOFPLAYER, virus.getLifeDecreaseAmount()));
             virusesList.remove(virus);
         }
     }
@@ -214,7 +214,7 @@ final class Map {
         int virusHealthBefore = virus.getLifeDecreaseAmount();
 
         virus.decreaseHealth(projectile.getDamageAmount());
-        this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDTOPLAYER, virusHealthBefore - virus.getLifeDecreaseAmount())); // This will add the correct amount of money to the player relative to the amount of damage done
+        this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDMONEYTOPLAYER, virusHealthBefore - virus.getLifeDecreaseAmount())); // This will add the correct amount of money to the player relative to the amount of damage done
         virusThatWasHit.add(virus);
     }
 
@@ -401,7 +401,7 @@ final class Map {
         if (!selectedTower.canRemove()) {
             selectedTower.placeTower();
             selectedTower.setPos(x - selectedTower.getWidth() / 2f, y - selectedTower.getHeight() / 2f);
-            this.eventBus.emit(new ModelEvents(ModelEvents.Type.REMOVEFROMPLAYER,selectedTower.getCost()));
+            this.eventBus.emit(new ModelEvents(ModelEvents.Type.REMOVEMONEYFROMPLAYER,selectedTower.getCost()));
         } else {
             towersList.remove(selectedTower);
             rangeCircle.setEnumColor(RangeCircle.Color.NONE);
@@ -441,7 +441,7 @@ final class Map {
     void upgradeClickedTower() {
         // If upgrade is applied decrease player money
         if (Upgrades.upgradeTower(selectedTower)) {
-            this.eventBus.emit(new ModelEvents(ModelEvents.Type.REMOVEFROMPLAYER,Upgrades.getTowerUpgradePrice(selectedTower.getName(), selectedTower.getUpgradeLevel() - 1)));
+            this.eventBus.emit(new ModelEvents(ModelEvents.Type.REMOVEMONEYFROMPLAYER,Upgrades.getTowerUpgradePrice(selectedTower.getName(), selectedTower.getUpgradeLevel() - 1)));
 
             rangeCircle.updatePos(selectedTower.getX() + getSelectedTower().getWidth()/2, selectedTower.getY() + getSelectedTower().getHeight()/2, selectedTower.getRange());
         }
@@ -455,7 +455,7 @@ final class Map {
      */
     void sellClickedTower(int cost) {
         towersList.remove(selectedTower);
-        this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDTOPLAYER, cost));
+        this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDMONEYTOPLAYER, cost));
         selectedTower = null;
         rangeCircle.setEnumColor(RangeCircle.Color.NONE);
     }
@@ -595,7 +595,7 @@ final class Map {
     private void handlePowerUpClicked(IPowerUp powerUp, int money) {
         if ((money >= powerUp.getCost()) && !powerUp.getIsActive() && powerUp.getTimer() == -1) {
             powerUp.powerUpClicked(genericObjectsList);
-            this.eventBus.emit(new ModelEvents(ModelEvents.Type.REMOVEFROMPLAYER,powerUp.getCost()));
+            this.eventBus.emit(new ModelEvents(ModelEvents.Type.REMOVEMONEYFROMPLAYER,powerUp.getCost()));
         }
     }
 

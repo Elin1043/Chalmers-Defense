@@ -66,13 +66,13 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
 
     @Override
     public void handle(ModelEvents event) {
-        if (event.getEventType() == ModelEvents.Type.ADDTOPLAYER) {
+        if (event.getEventType() == ModelEvents.Type.ADDMONEYTOPLAYER) {
             player.increaseMoney(event.getAmount());
         }
-        if(event.getEventType() == ModelEvents.Type.REMOVEFROMPLAYER){
+        if(event.getEventType() == ModelEvents.Type.REMOVEMONEYFROMPLAYER){
             player.decreaseMoney(event.getAmount());
         }
-        if(event.getEventType() == ModelEvents.Type.DECREASELIFE){
+        if(event.getEventType() == ModelEvents.Type.DECREASELIFEOFPLAYER){
             try {
                 player.decreaseLivesBy(event.getAmount());
             } catch (PlayerLostAllLifeException e) {
@@ -114,7 +114,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
                 showOverlay = ScreenOverlayEnum.WINPANEL;
             }
             if (preferences.getBoolean("autoplay") && getCurrentRound() != 1 && !round.gameWon()) startRoundPressed();
-            this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDTOPLAYER, (int) (100 * (round.getCurrentRound() / 2f))));
+            this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDMONEYTOPLAYER, (int) (100 * (round.getCurrentRound() / 2f))));
         }
 
 

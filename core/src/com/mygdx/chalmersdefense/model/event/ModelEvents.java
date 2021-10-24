@@ -6,9 +6,9 @@ public class ModelEvents implements IEvent {
     private final int amount;
 
     public enum Type{
-        ADDTOPLAYER,
-        REMOVEFROMPLAYER,
-        DECREASELIFE
+        ADDMONEYTOPLAYER,
+        REMOVEMONEYFROMPLAYER,
+        DECREASELIFEOFPLAYER
     }
     public ModelEvents(Type eventType, int amount) {
         this.eventType = eventType;
