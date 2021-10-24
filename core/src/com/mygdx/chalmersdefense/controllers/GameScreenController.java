@@ -98,19 +98,19 @@ public class GameScreenController extends InputAdapter {
                 return true;
             }
             case (Input.Keys.NUM_2) -> {
-                placeTowerAtMousePosition("chemist");
+                placeTowerAtMousePosition("mech");
                 return true;
             }
             case (Input.Keys.NUM_3) -> {
-                placeTowerAtMousePosition("electro");
-                return true;
-            }
-            case (Input.Keys.NUM_4) -> {
                 placeTowerAtMousePosition("hacker");
                 return true;
             }
+            case (Input.Keys.NUM_4) -> {
+                placeTowerAtMousePosition("chemist");
+                return true;
+            }
             case (Input.Keys.NUM_5) -> {
-                placeTowerAtMousePosition("mech");
+                placeTowerAtMousePosition("electro");
                 return true;
             }
             case (Input.Keys.NUM_6) -> {
