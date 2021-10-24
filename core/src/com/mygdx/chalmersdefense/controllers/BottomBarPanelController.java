@@ -14,14 +14,19 @@ import com.mygdx.chalmersdefense.model.IControllModel;
  * 2021-10-07 Modified by Elin Forsberg: Added listener for SellButton. <br>
  */
 public class BottomBarPanelController {
-    private final IControllModel model;
+    private final IControllModel model; // Model reference
 
+    /**
+     * Creates controller instance
+     * @param model to use IControllModel methods with
+     */
     public BottomBarPanelController(IControllModel model) {
         this.model = model;
     }
 
     /**
      * Method for adding click listener to upgrade button
+     * @param button to add click listener to
      */
     public void addClickListenerUpgradeButton(Button button) {
         button.addListener(new ClickListener() {
@@ -34,6 +39,7 @@ public class BottomBarPanelController {
 
     /**
      * Method for adding click listener to upgrade button
+     * @param button to add click listener to
      */
     public void addClickListenerSellButton(ImageButton button) {
         button.addListener(new ClickListener() {
@@ -46,18 +52,13 @@ public class BottomBarPanelController {
 
     /**
      * Method for adding click listener to changeTargetMode button
+     * @param button to add click listener to
      */
     public void addClickListenerTargetModeButton(ImageButton button) {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(event.getListenerActor().getName().equals("right")){
-                    model.changeTargetMode(true);
-                }
-                else{
-                    model.changeTargetMode(false);
-                }
-
+                model.changeTargetMode(event.getListenerActor().getName().equals("right"));
             }
         });
     }

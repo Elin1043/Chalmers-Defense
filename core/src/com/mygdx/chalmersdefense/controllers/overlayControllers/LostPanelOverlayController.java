@@ -10,7 +10,12 @@ import com.mygdx.chalmersdefense.model.IControllModel;
  * A controller class for LostPanelOverlay
  */
 public class LostPanelOverlayController {
-    private final IControllModel model;
+    private final IControllModel model; // Model reference
+
+    /**
+     * Creates a controller for use by the LostPanelOverlay class
+     * @param model the model to control
+     */
     public LostPanelOverlayController(IControllModel model) {
         this.model = model;
     }

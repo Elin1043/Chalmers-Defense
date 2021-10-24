@@ -47,6 +47,8 @@ public interface IControllModel {
 
     /**
      * Handles when a placed tower is clicked
+     * @param mouseX mouse x position
+     * @param mouseY mouse y position
      */
     void checkIfTowerClicked(float mouseX, float mouseY);
 
@@ -68,6 +70,7 @@ public interface IControllModel {
 
     /**
      * Change tower targetMode
+     * @param goRight spin direction thorough the array
      */
     void changeTargetMode(boolean goRight);
 

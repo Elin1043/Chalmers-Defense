@@ -13,9 +13,14 @@ import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
  * A controller class for PauseMenyOverlay
  */
 public class PauseMenuOverlayController {
-    private final IControllModel model;
-    private EventBus viewEventBus;
+    private final IControllModel model;   // Model reference
+    private final EventBus viewEventBus;  // Eventbus to publish events to
 
+    /**
+     * Creates a controller for use by the PauseMenuOverlay class
+     * @param model the model to control
+     * @param viewEventBus eventbus to publish events to
+     */
     public PauseMenuOverlayController(IControllModel model, EventBus viewEventBus) {
         this.model = model;
         this.viewEventBus = viewEventBus;
