@@ -75,14 +75,6 @@ final public class ScreenManager implements IEventListener<ViewControllerEvents>
     }
 
     /**
-     * A getter for which screen is currently showing
-     * @return current screen
-     */
-    public AbstractScreen getCurrentScreen() {
-        return currentScreen;
-    }
-
-    /**
      * A getter for which screen enum is currently showing
      * @return an enum for current screen
      */
