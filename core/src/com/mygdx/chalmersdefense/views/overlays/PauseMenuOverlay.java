@@ -18,10 +18,10 @@ import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
  * 2021-10-12 Modified by Jenny Carlsson and Daniel Persson: Added pause menu exit button
  */
 final class PauseMenuOverlay extends AbstractOverlay {
-    private final PauseMenuOverlayController pauseMenuOverlayController;
+    private final PauseMenuOverlayController pauseMenuOverlayController; //Controller of PauseMenyOverlay
 
-    private final Group pauseMenuGroup = new Group();
-    private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/PauseMenuBackgroundImage.png"));
+    private final Group pauseMenuGroup = new Group();  //Group where all components in PauseMeny are stored
+    private final Image backgroundImage = new Image(new Texture("GameScreen/overlays/PauseMenuBackgroundImage.png")); //BackgroundImage of PausMeny
 
     private final TextureAtlas pauseMenuButtonTexture = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "pauseMenuButtonSkin/PauseMenuButtonSkin.atlas")); // Load atlas file from skin
     private final Skin pauseMenuButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "pauseMenuButtonSkin/PauseMenuButtonSkin.json"), pauseMenuButtonTexture); // Create skin object

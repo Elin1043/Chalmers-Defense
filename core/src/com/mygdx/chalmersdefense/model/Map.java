@@ -414,9 +414,10 @@ final class Map {
         }
     }
 
-
     /**
      * Handles when a placed tower is clicked
+     * @param x - coordinate to check
+     * @param y - coordinate to check
      */
     void checkIfTowerClicked(float x, float y) {
         // Algorithm for finding which tower is clicked
@@ -480,8 +481,10 @@ final class Map {
         return cost;
     }
 
+
     /**
      * Change the targetMode of the clicked tower
+     * @param goRight if it should go to the right index(otherwise to the left)
      */
     void changeTargetMode(boolean goRight){
         selectedTower.changeTargetMode(goRight);
@@ -563,6 +566,7 @@ final class Map {
 
     /**
      * Returns the background image path to the image
+     * @return the imagePath
      */
     String getMapImagePath(){ return path.getImagePath(); }
 
