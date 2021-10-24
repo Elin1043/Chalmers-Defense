@@ -21,8 +21,7 @@ abstract class Projectile implements IProjectile {
     private float width;    // Current width of projectile
     private float height;   // Current height of projectile
     private final float speed;    // Speed of projectile
-    private final float damage;   // Damage of projectile
-
+    private final float damage;   // Damage of the projectile
 
     private final String spriteKey;   // The key to the Sprite Hashmap
     private float x;            // X coordinate on map
@@ -39,7 +38,7 @@ abstract class Projectile implements IProjectile {
      * @param x The objects start x position
      * @param y The objects start y position
      * @param angle The angle of the projectile
-     * @param damage the amount of damage the projectile does
+     * @param damage The amount of damage the projectile does
      */
     Projectile(float speed, String spriteKey, float x, float y, float angle, float damage) {
         this.speed = speed;
@@ -48,8 +47,6 @@ abstract class Projectile implements IProjectile {
         this.y = y;
         this.angle = angle;
         this.damage = damage;
-        // TODO Fix speed calc in children
-
 
         try {
             BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("projectiles/" + spriteKey + ".png")));

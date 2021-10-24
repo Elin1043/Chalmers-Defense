@@ -20,10 +20,10 @@ import java.util.List;
 
 abstract class Path implements IPath {
 
-    private final int pathWidth;
+    private final int pathWidth; // The path width of this path
 
-    final List<PositionVector> pathWaypoints = new ArrayList<>();
-    private final List<PathRectangle> collisionRectangles = new ArrayList<>();
+    final List<PositionVector> pathWaypoints = new ArrayList<>(); // The waypoints building up the path
+    private final List<PathRectangle> collisionRectangles = new ArrayList<>(); // The path collision
 
     /**
      * Creates an object of path

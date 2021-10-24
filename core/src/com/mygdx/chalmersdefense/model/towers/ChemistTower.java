@@ -12,8 +12,8 @@ import java.util.List;
  * 2021-09-30 Modified by Joel Båtsman Hilmersson: Changed to use ProjectileFactory when creating projectile
  */
 final class ChemistTower extends Tower {
-    private final List<IProjectile> addToList;  // List to add new projectiles to
 
+    private final List<IProjectile> addToList;  // List to add new projectiles to
 
     /**
      * Creates object of a ChemistTower

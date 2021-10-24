@@ -7,17 +7,25 @@ package com.mygdx.chalmersdefense.model.modelUtilities;
  *
  * Class representing a positionVector
  */
-
 public final class PositionVector {
 
     private final float x;  // The x coordinate
     private final float y;  // The y coordinate
 
+    /**
+     * Creates a vector with given coordinates
+     * @param x the x coordinate
+     * @param y the y coordinate
+     */
     public PositionVector(float x, float y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * Creates a vector from a previous vector
+     * @param positionVector the given vector to copy
+     */
     public PositionVector(PositionVector positionVector) {
         this.x = positionVector.getX();
         this.y = positionVector.getY();

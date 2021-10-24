@@ -252,7 +252,7 @@ final class Map {
         List<IVirus> virusList = new ArrayList<>();
 
         for (IVirus virus : allViruses) {
-            if (Calculate.disBetweenPoints(towerX, towerY, virus.getX(), virus.getY()) < towerRange) {
+            if (Calculate.distanceBetweenPoints(towerX, towerY, virus.getX(), virus.getY()) < towerRange) {
                 virusList.add(virus);
             }
         }
