@@ -3,8 +3,12 @@ package com.mygdx.chalmersdefense.views.overlays;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 
+/**
+ * @author Daniel Persson
+ * A singleton class for switching between overlays
+ */
 final public class OverlayManager {
-    private static OverlayManager instance;
+    private static OverlayManager instance; // Instance of OverlayManager
 
     // All overlays. Maybe move to separate class OverlayManager
     private AbstractOverlay pauseMenuOverlay;
@@ -13,12 +17,13 @@ final public class OverlayManager {
     private AbstractOverlay winPanelOverlay;
     private AbstractOverlay infoOverlay;
 
-    private AbstractOverlay currentOverlay;
-    private AbstractOverlay prevOverlay;
+    private AbstractOverlay currentOverlay;  // Currently open overlay
+    private AbstractOverlay prevOverlay;     // Previous open overlay
 
-    private OverlayManager() {
-        super();
-    }
+    /**
+     * Singleton constructor
+     */
+    private OverlayManager() {}
 
     /**
      * Returns this instance
@@ -61,6 +66,9 @@ final public class OverlayManager {
         prevOverlay = currentOverlay;
     }
 
+    /**
+     * Returns AbstractOverlay object depending on overlayEnum
+     */
     private AbstractOverlay getOverlay(ScreenOverlayEnum overlayEnum) {
         return switch (overlayEnum) {
             case PAUSE_MENU -> pauseMenuOverlay;
@@ -72,6 +80,10 @@ final public class OverlayManager {
         };
     }
 
+    /**
+     * Get currently showing overlay
+     * @return overlay object
+     */
     public AbstractOverlay getCurrentOverlay() {
         return currentOverlay;
     }
