@@ -17,13 +17,12 @@ import static org.junit.Assert.*;
 public class TestRounds {
     LwjglApplication app = new LwjglApplication(new ChalmersDefense());
     Preferences preferences = new Preferences();
-    EventBus eventBus = new EventBus();
     Model model;
 
     @Before
     public void init() {
         preferences.putBoolean("autoplay", false);
-        model = new Model(preferences,eventBus);
+        model = new Model(preferences);
     }
 
     @Test
