@@ -7,9 +7,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * @author Elin Forsberg
+ *
+ * Test class for EventBus
+ */
 public class EventBusTest {
 
     private EventBus eventBus ;
@@ -44,20 +48,7 @@ public class EventBusTest {
         assertTrue(listener2.listenerCalled);
     }
 
-    @Test
-    public void multipleEventTypes() {
-        HelloEvent helloEvent = new HelloEvent();
-        WorldEvent worldEvent = new WorldEvent();
-        TestEventListener<HelloEvent> helloListener = new TestEventListener<>();
-        TestEventListener<WorldEvent> worldListener = new TestEventListener<>();
-        eventBus.listenFor(HelloEvent.class,helloListener);
-        eventBus.listenFor(WorldEvent.class,worldListener);
 
-        eventBus.emit(worldEvent);
-
-        assertFalse(helloListener.listenerCalled);
-        assertTrue(worldListener.listenerCalled);
-    }
 
     private static class TestEventListener<T extends IEvent> implements IEventListener<T> {
         boolean listenerCalled;
@@ -68,11 +59,7 @@ public class EventBusTest {
         }
     }
 
-    private static class HelloEvent implements IEvent{
-        private String value = "Hello";
-    }
-    private static class WorldEvent implements IEvent{
-        private String value = "World";
-    }
+    private static class HelloEvent implements IEvent{}
+
 
 }

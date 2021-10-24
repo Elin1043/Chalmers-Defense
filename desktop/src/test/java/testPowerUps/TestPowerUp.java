@@ -3,7 +3,6 @@ package testPowerUps;
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.model.powerUps.IPowerUp;
 import com.mygdx.chalmersdefense.model.powerUps.PowerUpFactory;
-import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,8 +19,8 @@ import static org.junit.Assert.*;
 public class TestPowerUp {
 
     private IPowerUp powerUp;
-    private List<IVirus> virusList = new ArrayList<>();
-    private List<IGenericMapObject> genericMapObjectList = new ArrayList<>();
+    private final List<IVirus> virusList = new ArrayList<>();
+    private final List<IGenericMapObject> genericMapObjectList = new ArrayList<>();
 
     @Before
     public void createPowerUp(){

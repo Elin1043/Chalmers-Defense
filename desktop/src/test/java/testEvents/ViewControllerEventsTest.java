@@ -6,6 +6,11 @@ import org.junit.Test;
 import static org.junit.Assert.assertSame;
 
 
+/**
+ * @author Elin Forsberg
+ *
+ * Test class for ViewControllerEvents
+ */
 public class ViewControllerEventsTest {
 
     @Test

@@ -1,6 +1,7 @@
 package testTowers;
 
 
+import com.mygdx.chalmersdefense.model.modelUtilities.PathRectangle;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.towers.TowerFactory;
@@ -46,10 +47,12 @@ public class TestTowerFactory {
     }
 
     @Test
-    public void testCreateMeck() {
-//        List<ITower> list = new ArrayList<>();
-//        ITower tower = TowerFactory.CreateMech(0, 0, list);
-//        assertSame("Mechoman", tower.getName());
+    public void testCreateMech() {
+        List<ITower> list = new ArrayList<>();
+        List<ITower> listToAdd = new ArrayList<>();
+        List<PathRectangle> rectangles = new ArrayList<>();
+        ITower tower = TowerFactory.createMech(0, 0,listToAdd, list, rectangles);
+        assertSame("Mechoman", tower.getName());
     }
 
     @Test
