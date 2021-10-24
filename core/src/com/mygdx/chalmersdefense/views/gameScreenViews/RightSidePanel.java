@@ -21,34 +21,35 @@ import java.util.HashMap;
  * 2021-10-15 Modified by Elin Forsberg: Added methods for powerUps
  */
 final public class RightSidePanel {
-    private final int WIDTH = 320;
+    private final int WIDTH = 320;  // Width of panel
 
-    private final Stage stage;
-    private final RightSidePanelController rightSidePanelController;
-    private final IViewModel model;
+    private final Stage stage;      // Stage used for BottomBarUpgradePanel components
+    private final IViewModel model; // Reference to models IView methods
+    private final RightSidePanelController rightSidePanelController;         // Controller for RightSidePanel
 
-    private final String buttonsAssetsRoot = "buttons/gameScreenButtons/";
+    private final String buttonsAssetsRoot = "buttons/gameScreenButtons/";   // Root path for button skins
 
-    private final Label towerLabel = createLabel("Towers", 20);
-    private final Label powerUpLabel = createLabel("Power-ups", 620);
+    private final HashMap<Integer, Button> towerButtons = new HashMap<>();   // HashMap with tower buttons
+    private final HashMap<Button, Integer> powerUpButtons = new HashMap<>(); // HashMap with power up buttons
 
-    private final HashMap<Integer, Button> towerButtons = new HashMap<>();
-    private final HashMap<Button, Integer> powerUpButtons = new HashMap<>();
-
-
+    // Power up buttons
     private final Button maskedUpPowerUpButton = createPowerUpButton("MaskedUp");
     private final Button vaccinatedPowerUpButton = createPowerUpButton("Vaccination");
     private final Button cleanHandsPowerUpButton = createPowerUpButton("CleanHands");
 
-
+    // Power up timer labels
     private final Label maskedUpTimerLabel = createPowerUpTimeLabel("10",1615, 355);
     private final Label vaccinatedTimerLabel = createPowerUpTimeLabel("10",1615, 275);
     private final Label cleanHandsTimerLabel = createPowerUpTimeLabel("10",1615, 187);
 
+    private Button startRoundButton;  // Button for starting rounds and speed up game
 
-
-    private Button startRoundButton;
-
+    /**
+     * Creates the RightSidePanel panel for use by GameScreen
+     * @param stage the parent stage
+     * @param model the model to display information from
+     * @param rightSidePanelController the controller class to use for adding listeners to this class
+     */
     public RightSidePanel(Stage stage, IViewModel model, RightSidePanelController rightSidePanelController) {
         this.stage = new Stage(stage.getViewport());
         this.model = model;
@@ -57,13 +58,15 @@ final public class RightSidePanel {
         initialize();
     }
 
+    /**
+     * Initialize panel
+     */
     private void initialize() {
-
-
         initializePowerUpButtons();
         initializeTowerButtons();
 
-
+        Label towerLabel = createLabel("Towers", 20);
+        Label powerUpLabel = createLabel("Power-ups", 620);
         stage.addActor(towerLabel);
         stage.addActor(powerUpLabel);
 
@@ -75,20 +78,17 @@ final public class RightSidePanel {
 
     }
 
-
-
+    /**
+     * Initialize power up buttons
+     */
     private void initializePowerUpButtons(){
         powerUpButtons.put(maskedUpPowerUpButton,700);
         powerUpButtons.put(vaccinatedPowerUpButton,900);
         powerUpButtons.put(cleanHandsPowerUpButton,1000);
 
-
-
         placeButton(maskedUpPowerUpButton, 1620,329, "maskedUp");
         placeButton(vaccinatedPowerUpButton, 1620,245, "vaccinated");
         placeButton(cleanHandsPowerUpButton, 1620,161, "cleanHands");
-
-
 
         stage.addActor(cleanHandsPowerUpButton);
         stage.addActor(maskedUpPowerUpButton);
@@ -101,6 +101,9 @@ final public class RightSidePanel {
         initializePowerUpLabels();
     }
 
+    /**
+     * Initialize power up labels
+     */
     private void initializePowerUpLabels() {
         Label maskedUpLabel = createPowerUpLabel("Masked-up",1685, 385);
         Label vaccinatedLabel = createPowerUpLabel("Vaccinated",1685, 300);
@@ -127,6 +130,9 @@ final public class RightSidePanel {
         stage.addActor(vaccinatedLabelPrice);
     }
 
+    /**
+     * Initialize tower buttons
+     */
     private void initializeTowerButtons(){
         Label towerPriceLabel;
 
@@ -166,6 +172,9 @@ final public class RightSidePanel {
         }
     }
 
+    /**
+     * Places tower button at correct location
+     */
     private void placeButton(Button button, int x, int y, String name) {
         button.setPosition(x, y);
         button.setName(name);
@@ -194,6 +203,9 @@ final public class RightSidePanel {
         return stage;
     }
 
+    /**
+     * Creates power up buttons
+     */
     private Button createPowerUpButton(String name){
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "powerUpButtons/" + name + "Skin.atlas")); // Load atlas file from skin
         Skin skin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "powerUpButtons/" + name + "Skin.json"), atlas); // Create skin object
@@ -201,6 +213,9 @@ final public class RightSidePanel {
         return new Button(skin);
     }
 
+    /**
+     * Creates tower buttons
+     */
     private Button createTowerButton(String name){
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "towerButtonSkin/" + name + "ButtonSkin.atlas")); // Load atlas file from skin
         Skin skin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "towerButtonSkin/" + name + "ButtonSkin.json"), atlas); // Create skin object
@@ -208,10 +223,12 @@ final public class RightSidePanel {
         return new Button(skin);
     }
 
+    /**
+     * Check if power up is on cooldown
+     */
     private void checkPowerUpButtonCooldown(){
         int[] timers = model.getPowerUpTimer();
         boolean[] active = model.getPowerUpActive();
-
 
         updatePowerUpButtons(timers[0],  cleanHandsPowerUpButton, cleanHandsTimerLabel, active[0]);
         updatePowerUpButtons(timers[1], maskedUpPowerUpButton, maskedUpTimerLabel, active[1]);
@@ -219,6 +236,9 @@ final public class RightSidePanel {
 
     }
 
+    /**
+     * Update power up buttons
+     */
     private void updatePowerUpButtons(int timer, Button powerUpButton, Label label, boolean active){
         if(timer == -1){
             label.setVisible(false);
@@ -245,7 +265,9 @@ final public class RightSidePanel {
     }
 
 
-    //Checks what powerUps the player can afford
+    /**
+     * Checks what powerUps the player can afford
+     */
     private void checkAffordablePowerUp(Button powerUpButton){
         int i = powerUpButtons.get(powerUpButton);
         if (model.getMoney() >= i  && !powerUpButton.isTouchable()) {
@@ -259,7 +281,9 @@ final public class RightSidePanel {
 
     }
 
-    //Checks what towers the player can afford
+    /**
+     * Checks what towers the player can afford
+     */
     private void checkAffordableTowers() {
         for (Integer i : towerButtons.keySet()) {
             if (model.getMoney() >= i && !towerButtons.get(i).isTouchable()) {
@@ -273,20 +297,27 @@ final public class RightSidePanel {
         }
     }
 
-    //Label methods
-
+    /**
+     * Create label
+     */
     private Label createLabel(String text, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle36BlackBold());
         label.setPosition(1920 - WIDTH / 2F - label.getWidth() / 2, 1080 - label.getHeight() - y);
         return label;
     }
 
+    /**
+     * Create power up label
+     */
     private Label createPowerUpLabel(String text, float x, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle20BlackSemiBold());
         label.setPosition(x,y);
         return label;
     }
 
+    /**
+     * Create power up price label
+     */
     private Label createPowerUpPriceLabel(String text, float x, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle20BlackSemiBold());
         label.setAlignment(Align.right);
@@ -294,6 +325,9 @@ final public class RightSidePanel {
         return label;
     }
 
+    /**
+     * Create power up time label
+     */
     private Label createPowerUpTimeLabel(String text, float x, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle34SkyBold());
         label.setAlignment(Align.center);
@@ -301,6 +335,9 @@ final public class RightSidePanel {
         return label;
     }
 
+    /**
+     * Create power up description label
+     */
     private Label createPowerUpDesc(String text, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle18Black());
         label.setPosition(1688,y);
@@ -309,6 +346,9 @@ final public class RightSidePanel {
         return label;
     }
 
+    /**
+     * Create tower price label
+     */
     private Label createTowerPriceLabel(String text, float x, float y, float width) {
         Label label = new Label(text, FontFactory.getLabelStyle24BlackSemiBold());
         label.setWidth(width);
@@ -317,7 +357,9 @@ final public class RightSidePanel {
         return label;
     }
 
-    //Start round button methods
+    /**
+     * Start round button methods
+     */
     private void createStartRoundButton() {
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "startRoundButtonSkin/startRoundButtonSkin.atlas")); // Load atlas file from skin
         Skin skin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "startRoundButtonSkin/startRoundButtonSkin.json"), atlas); // Create skin object
