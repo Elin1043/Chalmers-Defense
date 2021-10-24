@@ -10,21 +10,16 @@ import com.mygdx.chalmersdefense.utilities.event.concreteEvents.ViewControllerEv
  * A singleton class for mangaging the dirrefent screens.
  */
 final public class ScreenManager implements IEventListener<ViewControllerEvents> {
-    private AbstractScreen mainScreen;
-    private AbstractScreen gameScreen;
-
-    private AbstractScreen currentScreen;
-    private ScreenEnum currentScreenEnum;
+    private AbstractScreen mainScreen; // The main screen of the game
+    private AbstractScreen gameScreen; // The game screen in the game
 
     private static ScreenManager instance;
 
-    private Game game;
+    private Game game;             // The current game
     private EventBus eventbus;    // The eventbus to call when money should be added
 
 
-    private ScreenManager() {
-
-    }
+    private ScreenManager() {}
 
     /**
      * Returns this instance
@@ -59,8 +54,7 @@ final public class ScreenManager implements IEventListener<ViewControllerEvents>
      * @param screenEnum which screen to switch to
      */
     public void showScreen(ScreenEnum screenEnum) {
-        currentScreen = getScreen(screenEnum);
-        currentScreenEnum = screenEnum;
+        AbstractScreen currentScreen = getScreen(screenEnum);
         if (currentScreen != null) {
             currentScreen.setBackgroundImage();
             game.setScreen(currentScreen);
@@ -73,14 +67,6 @@ final public class ScreenManager implements IEventListener<ViewControllerEvents>
             case MAIN_MENU -> mainScreen;
             case GAME -> gameScreen;
         };
-    }
-
-    /**
-     * A getter for which screen enum is currently showing
-     * @return an enum for current screen
-     */
-    public ScreenEnum getCurrentScreenEnum() {
-        return currentScreenEnum;
     }
 
     @Override

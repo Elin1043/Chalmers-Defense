@@ -373,8 +373,9 @@ final class Map {
     /**
      * Handles a tower being dragged.
      * Updates the towers position after mouse and check for collision
-     *  @param x            The X-position of the mouse
-     * @param y            The Y-position of the mouse
+     * @param x The X-position of the mouse
+     * @param y The Y-position of the mouse
+     * @param money The amount of money the player has
      */
     void onDrag(float x, float y, int money) {
 
@@ -579,6 +580,7 @@ final class Map {
     /**
      * Method to handle a powerUp button being clicked. Also checks if player have enough cost to buy powerup-
      * @param powerUpName name of the button that was clicked
+     * @param money the amount of money player has
      */
     void powerUpClicked(String powerUpName, int money) {
         IPowerUp powerUp = switch (powerUpName) {

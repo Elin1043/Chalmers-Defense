@@ -7,11 +7,14 @@ final public class Preferences {
     private final HashMap<String, Float> floatHashMap = new HashMap<>();         //Hashmap of preferences using floats
     private final HashMap<String, Integer> integerHashMap = new HashMap<>();     //Hashmap of preferences using integers
 
+    /**
+     * Creates an instance of the Preferences object
+     */
     public Preferences() {
         putFloat("musicVolume", 0.2f);
         putFloat("soundEffectsVolume", 0);
         putBoolean("autoplay", false);
-        putBoolean("muteMusic", true);
+        putBoolean("muteMusic", false);
         putBoolean("muteSoundEffects", false);
         putInteger("refreshRate", 60);
     }

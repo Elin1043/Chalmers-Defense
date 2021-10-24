@@ -30,6 +30,7 @@ public abstract class ProjectileFactory {
      * @param towerY       the y - coordinate of the tower shooting the projectile
      * @param angle        the angle of the tower shooting the projectile
      * @param upgradeLevel the upgradeLevel of the tower shooting the projectile
+     * @param projectileList the list of projectiles to add new projectile to
      * @return the created projectile
      */
     static public IProjectile createMatrixProjectile(float towerX, float towerY, float angle, int upgradeLevel, List<IProjectile> projectileList) {
@@ -43,7 +44,7 @@ public abstract class ProjectileFactory {
      * @param towerY         the y - coordinate of the tower shooting the projectile
      * @param angle          the angle of the tower shooting the projectile
      * @param upgradeLevel   the upgradeLevel of the tower shooting the projectile
-     * @param projectileList the list of projectiles to add projectile to.
+     * @param projectileList the list of projectiles to add new projectile to
      * @return the created projectile
      */
     static public IProjectile createAcidProjectile(float towerX, float towerY, float angle, int upgradeLevel, List<IProjectile> projectileList) {

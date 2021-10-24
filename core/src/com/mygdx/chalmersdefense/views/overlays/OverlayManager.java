@@ -38,7 +38,11 @@ final public class OverlayManager {
 
     /**
      * Initialize the different screens
-     *
+     * @param pauseMenuOverlay the pause menu overlay panel
+     * @param settingsOverlay the settings overlay panel
+     * @param lostPanelOverlay the lost panel overlay
+     * @param winPanelOverlay the win panel overlay
+     * @param infoOverlay the info overlay panel
      */
     public void initialize(AbstractOverlay pauseMenuOverlay, AbstractOverlay settingsOverlay, AbstractOverlay lostPanelOverlay, AbstractOverlay winPanelOverlay, AbstractOverlay infoOverlay) {
         this.pauseMenuOverlay = pauseMenuOverlay;

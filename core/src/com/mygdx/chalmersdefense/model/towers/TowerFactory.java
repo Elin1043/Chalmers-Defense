@@ -42,6 +42,7 @@ public abstract class TowerFactory {
      *
      * @param startPosX x-coordinate to create tower
      * @param startPosY y-coordinate to create tower
+     * @param addProjectileToList list to add projectiles to
      * @return tower that was created
      */
     public static ITower createHacker(float startPosX, float startPosY, List<IProjectile> addProjectileToList) {
@@ -76,6 +77,7 @@ public abstract class TowerFactory {
      *
      * @param startPosX x-coordinate to create tower
      * @param startPosY y-coordinate to create tower
+     * @param eventBus the eventbus to add event to
      * @return tower that was created
      */
     public static ITower createEco(float startPosX, float startPosY, EventBus eventBus) {
