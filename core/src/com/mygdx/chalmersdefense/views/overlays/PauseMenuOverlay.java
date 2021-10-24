@@ -31,13 +31,13 @@ final class PauseMenuOverlay extends AbstractOverlay {
      * @param abstractOverlayController reference to common controller
      * @param pauseMenuOverlayController reference to controller for pause menu overlay
      */
-    public PauseMenuOverlay(AbstractOverlayController abstractOverlayController, PauseMenuOverlayController pauseMenuOverlayController) {
+    PauseMenuOverlay(AbstractOverlayController abstractOverlayController, PauseMenuOverlayController pauseMenuOverlayController) {
         super(abstractOverlayController);
         this.pauseMenuOverlayController = pauseMenuOverlayController;
     }
 
     @Override
-    protected void initialize() {
+    void initialize() {
         stage.addActor(pauseMenuGroup);
         if (!pauseMenuGroup.hasChildren()) {
             pauseMenuGroup.addActor(backgroundImage);
@@ -71,7 +71,7 @@ final class PauseMenuOverlay extends AbstractOverlay {
             pauseMenuGroup.addActor(button);
             button.setPosition(
                     backgroundImage.getX() + backgroundImage.getWidth() / 2 - button.getWidth() / 2,
-                    backgroundImage.getY() + backgroundImage.getHeight() -38 - (button.getHeight() + 10) * (i + 1));
+                    backgroundImage.getY() + backgroundImage.getHeight() - 38 - (button.getHeight() + 10) * (i + 1));
 
             Label buttonLabel = new Label(buttonTexts[i], FontFactory.getLabelStyle20Black());
             button.addActor(buttonLabel);
@@ -79,5 +79,4 @@ final class PauseMenuOverlay extends AbstractOverlay {
             pauseMenuOverlayController.addPauseMenuClickListeners(button, buttonTexts[i]);
         }
     }
-
 }
