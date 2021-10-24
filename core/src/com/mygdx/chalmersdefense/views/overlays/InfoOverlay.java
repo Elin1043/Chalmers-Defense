@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.chalmersdefense.controllers.overlayControllers.AbstractOverlayController;
@@ -29,7 +28,7 @@ final class InfoOverlay extends AbstractOverlay {
     }
 
     @Override
-    protected void initialize() {
+    void initialize() {
         stage.addActor(infoGroup);
         if (!infoGroup.hasChildren()) {
             infoGroup.addActor(backgroundImage);
