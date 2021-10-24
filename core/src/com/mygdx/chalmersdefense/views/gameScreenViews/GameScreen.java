@@ -153,7 +153,7 @@ public final class GameScreen extends AbstractScreen implements Screen {
             bottomBarUpgradePanel.hideBottomBar();
         }
 
-        OverlayManager.getInstance().showOverlay(model.getCurrentOverlay());
+        OverlayManager.getInstance().showOverlay(model.getCurrentOverlay(), this);
 
         AbstractOverlay abstractOverlay = OverlayManager.getInstance().getCurrentOverlay();
         if (abstractOverlay != null) {
