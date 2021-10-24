@@ -29,8 +29,8 @@ final public class RightSidePanel {
 
     private final String buttonsAssetsRoot = "buttons/gameScreenButtons/";   // Root path for button skins
 
-    private final HashMap<Integer, Button> towerButtons = new HashMap<>();
-    private final HashMap<Button, Integer> powerUpButtons = new HashMap<>();
+    private final HashMap<Integer, Button> towerButtons = new HashMap<>();   // HashMap with tower buttons
+    private final HashMap<Button, Integer> powerUpButtons = new HashMap<>(); // HashMap with power up buttons
 
     // Power up buttons
     private final Button maskedUpPowerUpButton = createPowerUpButton("MaskedUp");
