@@ -18,7 +18,7 @@ final public class GameTimer implements IGameTimer {
         public void run() {}
     }; // The runnable task the timer uses to schedule method calls with
     private float delay = 0.005F;               // Delay in seconds between task calls
-    private EventBus eventBus;                  // A reference to the EventBus in the game
+    private EventBus eventBus;                  // Eventbus for use when a call to update model should be made
 
     /**
      * Constructor for the GameTimer class

@@ -79,7 +79,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower createEco(float startPosX, float startPosY, EventBus eventBus) {
-        return new EcoTower(startPosX, startPosY, "Economist", 60 * 3, 600, 800, eventBus);
+        return new EcoTower(startPosX, startPosY, "Economist", 60 * 3, 600, 60, eventBus);
     }
 
 
