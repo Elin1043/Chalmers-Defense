@@ -28,8 +28,8 @@ import java.util.HashMap;
  */
 final public class BottomBarUpgradePanel {
     private final Stage stage;          // Stage used for BottomBarUpgradePanel components
-    private final IViewModel model;     //
-    private final BottomBarPanelController bottomBarPanelController;
+    private final IViewModel model;     // Reference to models IView methods
+    private final BottomBarPanelController bottomBarPanelController; // Controller for BottomBarUpgradePanel
 
     private final HashMap<String, Sprite> spriteMap;        // Reference to sprites
     private final HashMap<String, Sprite> largeSpriteMap;   // Reference to sprites

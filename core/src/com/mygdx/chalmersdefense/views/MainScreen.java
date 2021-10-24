@@ -16,11 +16,10 @@ import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
  * A class for rendering the main screen in the game
  */
 final class MainScreen extends AbstractScreen {
+    private final String buttonsAssetsRoot = "buttons/mainScreenButtons/"; // Root path for button skins
 
-    private final String buttonsAssetsRoot = "buttons/mainScreenButtons/";
-
-    private final MainScreenController mainScreenController;
-    private final IViewModel model;
+    private final MainScreenController mainScreenController; // Controller for MainScreen
+    private final IViewModel model;                          // Reference to models IView methods
 
     /**
      * Creates the main screen of the game
