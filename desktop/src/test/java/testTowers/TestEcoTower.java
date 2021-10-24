@@ -3,7 +3,9 @@ package testTowers;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.model.modelUtilities.events.ModelEvents;
 import com.mygdx.chalmersdefense.utilities.Preferences;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,10 +20,12 @@ public class TestEcoTower {
     LwjglApplication app = new LwjglApplication(new ChalmersDefense());
     Preferences preferences = new Preferences();
     Model model;
+    EventBus eventBus = new EventBus();
 
     @Before
     public void init() {
         model = new Model(preferences);    // Need to create model since Player class is package private which we need to create an EcoTower
+        eventBus.listenFor(ModelEvents.class, model);
     }
 
     @Test
@@ -33,7 +37,7 @@ public class TestEcoTower {
         assertTrue(startCapital > model.getMoney());    // The tower should have removed money from player when placed
         startCapital = model.getMoney();
 
-        model.updateModel();
+        eventBus.emit(new ModelEvents(ModelEvents.EventType.UPDATEMODEL));
         assertTrue(model.getMoney() > startCapital);    // The player should now have received money from eco tower
     }
 
@@ -42,11 +46,11 @@ public class TestEcoTower {
         model.dragStart("eco", 300, 300); // Creates tower
         model.dragEnd(300, 300);
 
-        model.updateModel();
+        eventBus.emit(new ModelEvents(ModelEvents.EventType.UPDATEMODEL));
         int startCapital = model.getMoney();
 
         for (int i = 0; i < 1000; i++) {  // Some high number to let the tower have time to reload and give player more money
-            model.updateModel();
+            eventBus.emit(new ModelEvents(ModelEvents.EventType.UPDATEMODEL));
         }
         assertTrue(model.getMoney() > startCapital);    // The player should now have received money from eco tower
     }
@@ -59,7 +63,7 @@ public class TestEcoTower {
 
         int fixedCapital = model.getMoney();
         while (model.getMoney() <= fixedCapital) {
-            model.updateModel();
+            eventBus.emit(new ModelEvents(ModelEvents.EventType.UPDATEMODEL));
         }
 
         int moneyDiff1 = model.getMoney() - fixedCapital;
@@ -67,7 +71,7 @@ public class TestEcoTower {
         fixedCapital = model.getMoney();
 
         while (model.getMoney() <= fixedCapital) {
-            model.updateModel();
+            eventBus.emit(new ModelEvents(ModelEvents.EventType.UPDATEMODEL));
         }
 
         int moneyDiff2 = model.getMoney() - fixedCapital;
@@ -76,7 +80,7 @@ public class TestEcoTower {
         fixedCapital = model.getMoney();
 
         while (model.getMoney() <= fixedCapital) {
-            model.updateModel();
+            eventBus.emit(new ModelEvents(ModelEvents.EventType.UPDATEMODEL));
         }
 
         int moneyDiff3 = model.getMoney() - fixedCapital;

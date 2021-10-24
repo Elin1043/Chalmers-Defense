@@ -3,8 +3,10 @@ package testModelClasses;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.model.modelUtilities.events.ModelEvents;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,11 +24,13 @@ public class TestModel {
     LwjglApplication app = new LwjglApplication(new ChalmersDefense());
     Preferences preferences = new Preferences();
     Model model;
+    EventBus eventBus = new EventBus();
 
     @Before
     public void init() {
         preferences.putBoolean("autoplay", false);
         model = new Model(preferences);
+        eventBus.listenFor(ModelEvents.class, model);
     }
 
     @Test
@@ -87,7 +91,7 @@ public class TestModel {
         model.powerUpClicked("cleanHands");
         model.powerUpClicked("maskedUp");
         model.powerUpClicked("vaccinated");
-        model.updateModel();
+        eventBus.emit(new ModelEvents(ModelEvents.EventType.UPDATEMODEL));
 
         assertTrue(model.getPowerUpActive()[0] && model.getPowerUpActive()[1] && model.getPowerUpActive()[2]);
         assertTrue(model.getPowerUpTimer()[0] > 0 && model.getPowerUpTimer()[1] > 0 && model.getPowerUpTimer()[2] > 0);
@@ -107,7 +111,7 @@ public class TestModel {
         model.startRoundPressed();
 
         for (int i = 0; i < 1000; i++) {
-            model.updateModel();
+            eventBus.emit(new ModelEvents(ModelEvents.EventType.UPDATEMODEL));
         }
 
         assertTrue(model.getAllMapObjects().size() > 5);
@@ -124,7 +128,7 @@ public class TestModel {
         assertTrue(model.getAllMapObjects().size() > 0);
         assertEquals(1, model.getCurrentRound());
         for (int i = 0; i < 10000; i++) {
-            model.updateModel();
+            eventBus.emit(new ModelEvents(ModelEvents.EventType.UPDATEMODEL));
         }
         model.startRoundPressed();
         assertEquals(2, model.getCurrentRound());
@@ -141,7 +145,7 @@ public class TestModel {
 
         model.startRoundPressed();  // StartRound
         for (int i = 0; i < 10000; i++) {
-            model.updateModel();
+            eventBus.emit(new ModelEvents(ModelEvents.EventType.UPDATEMODEL));
         }
 
         model.resetModel();
@@ -231,9 +235,9 @@ public class TestModel {
 
         while (model.getLivesLeft() > 0) {
             model.startRoundPressed();
-            model.updateModel();
+            eventBus.emit(new ModelEvents(ModelEvents.EventType.UPDATEMODEL));
             while (model.getAllMapObjects().size() > 0) {
-                model.updateModel();
+                eventBus.emit(new ModelEvents(ModelEvents.EventType.UPDATEMODEL));
             }
         }
 
