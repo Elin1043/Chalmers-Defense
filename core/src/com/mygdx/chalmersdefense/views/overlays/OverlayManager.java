@@ -1,8 +1,7 @@
 package com.mygdx.chalmersdefense.views.overlays;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
-import com.mygdx.chalmersdefense.views.AbstractScreen;
-import com.mygdx.chalmersdefense.views.ScreenManager;
 
 final public class OverlayManager {
     private static OverlayManager instance;
@@ -49,16 +48,15 @@ final public class OverlayManager {
      * Shows the screen based on inputted ScreenEnum
      *
      * @param overlayEnum which screen to switch to
+     * @param currentScreen to set currentOverlay stage to
      */
-    public void showOverlay(ScreenOverlayEnum overlayEnum) {
+    public void showOverlay(ScreenOverlayEnum overlayEnum, Stage currentScreen) {
         // Render current overlay to be shown
-        AbstractScreen currentScreen = ScreenManager.getInstance().getCurrentScreen();
         currentOverlay = getOverlay(overlayEnum);
 
         if (currentOverlay == null && prevOverlay != null) prevOverlay.hideOverlay();
         if (currentOverlay != null && currentOverlay != prevOverlay) {
             currentOverlay.setStage(currentScreen);
-            //currentOverlay.render();
         }
         prevOverlay = currentOverlay;
     }

@@ -3,11 +3,11 @@ package testModelClasses;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import org.junit.Before;
 import org.junit.Test;
-import org.lwjgl.Sys;
 
 import static org.junit.Assert.*;
 

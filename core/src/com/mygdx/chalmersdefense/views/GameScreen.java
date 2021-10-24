@@ -155,7 +155,7 @@ public final class GameScreen extends AbstractScreen implements Screen {
             bottomBarUpgradePanel.hideBottomBar();
         }
 
-        OverlayManager.getInstance().showOverlay(model.getCurrentOverlay());
+        OverlayManager.getInstance().showOverlay(model.getCurrentOverlay(), this);
 
         AbstractOverlay abstractOverlay = OverlayManager.getInstance().getCurrentOverlay();
         if (abstractOverlay != null) {
@@ -239,6 +239,7 @@ public final class GameScreen extends AbstractScreen implements Screen {
             Sprite objectSprite = spriteMap.get(mapObject.getSpriteKey());
             objectSprite.setPosition(mapObject.getX(), mapObject.getY());
             objectSprite.setRotation(mapObject.getAngle());
+
 
             objectSprite.draw(super.batch);
 

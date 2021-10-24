@@ -110,6 +110,7 @@ final public class BottomBarUpgradePanel {
         updateUpgradePanelInfo(tower);
         updateButtonInfo();
         bottomBarPanelUpgradeGroup.setVisible(true);
+
     }
 
     /**
@@ -225,7 +226,7 @@ final public class BottomBarUpgradePanel {
      * Updates button labels and button data. Also sets button to correct state depending on available money and current upgrade level.
      *
      * @param tower         tower to get data from
-     * @param buttonNr      frist or second upgrade button
+     * @param buttonNr      first or second upgrade button
      * @param upgradeButton the button to modify
      * @param titleLabel    the title label to modify
      * @param descLabel     the description label to modify
@@ -236,7 +237,7 @@ final public class BottomBarUpgradePanel {
         int towerUpgradeLevel = Character.getNumericValue(tower.getSpriteKey().charAt(tower.getSpriteKey().length() - 1));     // Gets the last char in the string, and therefore the upgrade level
 
         Sprite upgradedTowerSprite = spriteMap.get(towerName + (buttonNr + 1));
-        placeAndDrawUpgradeSprite(upgradeButton, upgradedTowerSprite);
+
 
 
         boolean cantAfford = model.getMoney() < model.getTowerUpgradePrice(towerName, buttonNr);
@@ -244,7 +245,7 @@ final public class BottomBarUpgradePanel {
 
         // If upgrade is bought disable button input
         if (upgradeIsBought) {
-            upgradeIsBaught(upgradeButton);
+            upgradeIsBought(upgradeButton);
         } else {
             upgradeIsNotBought(upgradeButton, cantAfford);
         }
@@ -254,6 +255,7 @@ final public class BottomBarUpgradePanel {
             updateSecondUpgradeButton(towerUpgradeLevel, upgradeButton, upgradedTowerSprite, cantAfford, upgradeIsBought);
         }
 
+        placeAndDrawUpgradeSprite(upgradeButton, upgradedTowerSprite);
         updateUpgradeInformationLabels(buttonNr, titleLabel, descLabel, priceLabel, towerName);
     }
 
@@ -269,7 +271,7 @@ final public class BottomBarUpgradePanel {
     }
 
     // Makes upgrade button blue
-    private void upgradeIsBaught(Button upgradeButton) {
+    private void upgradeIsBought(Button upgradeButton) {
         upgradeButton.setChecked(true);
         upgradeButton.setTouchable(Touchable.disabled);
     }
@@ -301,18 +303,19 @@ final public class BottomBarUpgradePanel {
     private void updateSecondUpgradeButton(int towerUpgradeLevel, Button upgradeButton, Sprite upgradedTowerSprite, boolean cantAfford, boolean upgradeIsBought) {
 
         if (!upgradeIsBought) {
-            upgradeTwoIsNotBaught(towerUpgradeLevel, upgradeButton, upgradedTowerSprite, cantAfford);
+            upgradeTwoIsNotBought(towerUpgradeLevel, upgradeButton, upgradedTowerSprite, cantAfford);
         } else { //
             resetOldDisabledStatus(upgradeButton, upgradedTowerSprite);
         }
     }
 
     // Handels logic behind upgrade button twos visual style
-    private void upgradeTwoIsNotBaught(int towerUpgradeLevel, Button upgradeButton, Sprite upgradedTowerSprite, boolean cantAfford) {
+    private void upgradeTwoIsNotBought(int towerUpgradeLevel, Button upgradeButton, Sprite upgradedTowerSprite, boolean cantAfford) {
 
         // If first upgrade not bought disable second button
         if (towerUpgradeLevel == 1) {
             makeUpgradeButtonDisabled(upgradeButton, upgradedTowerSprite);
+
 
             // If first upgrade is bought enable second upgrade button
         } else if (towerUpgradeLevel >= 2) {

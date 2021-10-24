@@ -8,8 +8,8 @@ package com.mygdx.chalmersdefense.model;
  */
 final public class Player {
 
+    private int money;// How much money the player has currently
     private int lives;  // How many lives the player has currently
-    private int money;  // How much money the player has currently
 
     /**
      * Creates player object
@@ -20,7 +20,9 @@ final public class Player {
     Player(int lives, int startCapital) {
         this.lives = lives;
         money = startCapital;
+
     }
+
 
     /**
      * Method for resetting all values in Player object
@@ -84,6 +86,7 @@ final public class Player {
         }
 
     }
+
 
 
 }

@@ -90,7 +90,7 @@ final class MainScreen extends AbstractScreen {
     public void render(float delta) {
         super.render(Gdx.graphics.getDeltaTime());
 
-        OverlayManager.getInstance().showOverlay(model.getCurrentOverlay());
+        OverlayManager.getInstance().showOverlay(model.getCurrentOverlay(), this);
         AbstractOverlay abstractOverlay = OverlayManager.getInstance().getCurrentOverlay();
         if (abstractOverlay != null) {
             abstractOverlay.render();

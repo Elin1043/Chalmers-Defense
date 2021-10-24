@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model.towers;
 
 
-import com.mygdx.chalmersdefense.model.Player;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.modelUtilities.PathRectangle;
 
@@ -78,8 +78,8 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower createEco(float startPosX, float startPosY, Player player) {
-        return new EcoTower(startPosX, startPosY, player);
+    public static ITower createEco(float startPosX, float startPosY, EventBus eventBus) {
+        return new EcoTower(startPosX, startPosY, eventBus);
     }
 
 

@@ -1,5 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
+import com.mygdx.chalmersdefense.model.modelUtilities.events.ModelEvents;
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.model.path.IPath;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
@@ -39,14 +41,14 @@ final class Map {
     private final List<IProjectile> projectilesToAddList = new ArrayList<>();   // Temporary list for object adding projectiles to the main list (To avoid concurrent modification issues)
     private final List<IVirus> virusToAddList = new ArrayList<>();             // Temporary list for object adding virus to the main list (To avoid concurrent modification issues)
 
-    private final Player player;                                   // A reference to the Player object in the game
+    private final EventBus eventBus;                                      // A reference to the EventBus in the game
     private final IPath path = PathFactory.createClassicPath();     // Current path
-
-    private boolean isGameLost = false;     // Boolean if game is lost
 
     private final RangeCircle rangeCircle = new RangeCircle(0,0,0);     // Helper class for showing gray range circle
 
-    Map(Player player) { this.player = player; }
+    Map(EventBus eventBus) {
+        this.eventBus = eventBus;
+    }
 
     /**
      * Update all map components
@@ -74,7 +76,6 @@ final class Map {
         resetAllPowerUps();
 
         selectedTower = null;
-        isGameLost = false;
 
         // Removes range circle
         rangeCircle.setEnumColor(RangeCircle.Color.NONE);
@@ -154,11 +155,7 @@ final class Map {
     // Removes viruses from game and decreases player life
     private void removeDeadVirusesHandler(List<IVirus> virusToRemove) {
         for (IVirus virus : virusToRemove) {
-            try {
-                player.decreaseLivesBy(virus.getLifeDecreaseAmount());
-            } catch (PlayerLostAllLifeException ignore) {
-                isGameLost = true;
-            }
+            this.eventBus.emit(new ModelEvents(ModelEvents.Type.DECREASELIFEOFPLAYER, virus.getLifeDecreaseAmount()));
             virusesList.remove(virus);
         }
     }
@@ -217,7 +214,7 @@ final class Map {
         int virusHealthBefore = virus.getLifeDecreaseAmount();
 
         virus.decreaseHealth(projectile.getDamageAmount());
-        player.increaseMoney(virusHealthBefore - virus.getLifeDecreaseAmount());    // This will add the correct amount of money to the player relative to the amount of damage done
+        this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDMONEYTOPLAYER, virusHealthBefore - virus.getLifeDecreaseAmount())); // This will add the correct amount of money to the player relative to the amount of damage done
         virusThatWasHit.add(virus);
     }
 
@@ -361,7 +358,7 @@ final class Map {
             case "electro" -> selectedTower = TowerFactory.createElectro(x, y);
             case "hacker" -> selectedTower = TowerFactory.createHacker(x, y, projectilesToAddList);
             case "mech" -> selectedTower = TowerFactory.createMech(x, y, towersToAddList, Collections.unmodifiableList(towersList), path.getCollisionRectangles());
-            case "eco" -> selectedTower = TowerFactory.createEco(x, y, player);
+            case "eco" -> selectedTower = TowerFactory.createEco(x, y, eventBus);
             default -> throw new IllegalArgumentException("The argument: '" + towerName + "' is not a valid tower");
         }
 
@@ -375,11 +372,11 @@ final class Map {
      *  @param x            The X-position of the mouse
      * @param y            The Y-position of the mouse
      */
-    void onDrag(float x, float y) {
+    void onDrag(float x, float y, int money) {
 
         selectedTower.setPos(x - selectedTower.getWidth() / 2f, y - selectedTower.getHeight() / 2f);
 
-        if (!checkCollisionOfTower(selectedTower) && (player.getMoney() >= selectedTower.getCost())) {
+        if (!checkCollisionOfTower(selectedTower) && (money >= selectedTower.getCost())) {
             selectedTower.setIfCanRemove(false);
             rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth() / 2, selectedTower.getY() + selectedTower.getHeight() / 2, selectedTower.getRange());
             rangeCircle.setEnumColor(RangeCircle.Color.GRAY);
@@ -404,7 +401,7 @@ final class Map {
         if (!selectedTower.canRemove()) {
             selectedTower.placeTower();
             selectedTower.setPos(x - selectedTower.getWidth() / 2f, y - selectedTower.getHeight() / 2f);
-            player.decreaseMoney(selectedTower.getCost());
+            this.eventBus.emit(new ModelEvents(ModelEvents.Type.REMOVEMONEYFROMPLAYER,selectedTower.getCost()));
         } else {
             towersList.remove(selectedTower);
             rangeCircle.setEnumColor(RangeCircle.Color.NONE);
@@ -444,7 +441,7 @@ final class Map {
     void upgradeClickedTower() {
         // If upgrade is applied decrease player money
         if (Upgrades.upgradeTower(selectedTower)) {
-            player.decreaseMoney(Upgrades.getTowerUpgradePrice(selectedTower.getName(), selectedTower.getUpgradeLevel() - 1));
+            this.eventBus.emit(new ModelEvents(ModelEvents.Type.REMOVEMONEYFROMPLAYER,Upgrades.getTowerUpgradePrice(selectedTower.getName(), selectedTower.getUpgradeLevel() - 1)));
 
             rangeCircle.updatePos(selectedTower.getX() + getSelectedTower().getWidth()/2, selectedTower.getY() + getSelectedTower().getHeight()/2, selectedTower.getRange());
         }
@@ -458,7 +455,7 @@ final class Map {
      */
     void sellClickedTower(int cost) {
         towersList.remove(selectedTower);
-        player.increaseMoney(cost);
+        this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDMONEYTOPLAYER, cost));
         selectedTower = null;
         rangeCircle.setEnumColor(RangeCircle.Color.NONE);
     }
@@ -529,16 +526,6 @@ final class Map {
     }
 
     /**
-     * Returns if game has been lost
-     *
-     * @return a boolean for game lost status
-     */
-    boolean getIsGameLost() {
-        return isGameLost;
-    }
-
-
-    /**
      * Returns the list to add viruses to
      * @return list of viruses
      */
@@ -594,7 +581,7 @@ final class Map {
      * Method to handle a powerUp button being clicked. Also checks if player have enough cost to buy powerup-
      * @param powerUpName name of the button that was clicked
      */
-    void powerUpClicked(String powerUpName) {
+    void powerUpClicked(String powerUpName, int money) {
         IPowerUp powerUp = switch (powerUpName) {
             case "cleanHands" -> powerUpList.get(0);
             case "maskedUp"   -> powerUpList.get(1);
@@ -602,13 +589,13 @@ final class Map {
             default -> throw new IllegalArgumentException("The argument: '" + powerUpName + "' is not a valid power-up"); 
         };
 
-        handlePowerUpClicked(powerUp);
+        handlePowerUpClicked(powerUp,money);
     }
 
-    private void handlePowerUpClicked(IPowerUp powerUp) {
-        if ((player.getMoney() >= powerUp.getCost()) && !powerUp.getIsActive() && powerUp.getTimer() == -1) {
+    private void handlePowerUpClicked(IPowerUp powerUp, int money) {
+        if ((money >= powerUp.getCost()) && !powerUp.getIsActive() && powerUp.getTimer() == -1) {
             powerUp.powerUpClicked(genericObjectsList);
-            player.decreaseMoney(powerUp.getCost());
+            this.eventBus.emit(new ModelEvents(ModelEvents.Type.REMOVEMONEYFROMPLAYER,powerUp.getCost()));
         }
     }
 }

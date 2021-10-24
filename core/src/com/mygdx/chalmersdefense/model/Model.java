@@ -1,6 +1,9 @@
 package com.mygdx.chalmersdefense.model;
 
 
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
+import com.mygdx.chalmersdefense.utilities.event.IEventListener;
+import com.mygdx.chalmersdefense.model.modelUtilities.events.ModelEvents;
 import com.mygdx.chalmersdefense.utilities.*;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
@@ -33,35 +36,56 @@ import java.util.List;
  * 2021-10-22 Modified by Daniel Persson: Changed Upgrade object to use updated upgrades class. Also moved upgrade logic to map
  */
 
-final public class Model implements IUpdateModel, IControllModel, IViewModel {
+public class Model implements IUpdateModel, IControllModel, IViewModel, IEventListener<ModelEvents> {
     private final int WINNING_ROUND = 30;       // Current winning round
     private final int LIVES = 100;              // Current amount of starting lives
     private final int START_CAPITAL = 40000;    // Current amount of start capital
 
-    private final IGameTimer timer = new GameTimer(this);    // Timer object
     private Rounds round = new Rounds(WINNING_ROUND);              // Round helper
 
     private final Player player = new Player(LIVES, START_CAPITAL); // Player object
 
-    private final Map map = new Map(player);        // Current map object
-    private final SpawnViruses virusSpawner = new SpawnViruses(map.getVirusesToAddList());   // The class for spawning viruses
-
     private ScreenOverlayEnum showOverlay = ScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
 
     private final Preferences preferences;
+    private final EventBus eventBus = new EventBus();  // A reference to the EventBus in the game
+    private final Map map = new Map(eventBus);        // Current map object
+    private final SpawnViruses virusSpawner = new SpawnViruses(map.getVirusesToAddList());   // The class for spawning viruses
+
+    private final IGameTimer timer = new GameTimer(eventBus);    // Timer object
+
+
+
 
     public Model(Preferences preferences) {
         this.preferences = preferences;
+        eventBus.listenFor(ModelEvents.class, this);
+
     }
+
+
+    @Override
+    public void handle(ModelEvents event) {
+        switch(event.getEventType()){
+            case ADDMONEYTOPLAYER -> player.increaseMoney(event.getAmount());
+            case REMOVEMONEYFROMPLAYER -> player.decreaseMoney(event.getAmount());
+            case DECREASELIFEOFPLAYER -> {
+                try {
+                    player.decreaseLivesBy(event.getAmount());
+                } catch (PlayerLostAllLifeException e) {
+                    showOverlay = ScreenOverlayEnum.LOSEPANEL;
+                }
+            }
+            case UPDATEMODEL -> updateModel();
+        }
+    }
+
 
     @Override
     public synchronized void updateModel() {
         map.updateMap();
         checkRoundCompleted();
         virusSpawner.decrementSpawnTimer();
-        if (map.getIsGameLost()) {
-            showOverlay = ScreenOverlayEnum.LOSEPANEL;
-        }
     }
 
     @Override
@@ -86,6 +110,8 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
             }
             if (preferences.getBoolean("autoplay") && getCurrentRound() != 1 && !round.gameWon()) startRoundPressed();
         }
+
+
     }
 
     @Override
@@ -127,7 +153,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public void onDrag(float x, float y) {
-        map.onDrag(x, y);
+        map.onDrag(x, y, player.getMoney());
     }
 
     @Override
@@ -144,7 +170,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     @Override
     public void powerUpClicked(String powerUpName){
         if (!isGameStopped()) {
-            map.powerUpClicked(powerUpName);
+            map.powerUpClicked(powerUpName, player.getMoney());
         }
     }
 

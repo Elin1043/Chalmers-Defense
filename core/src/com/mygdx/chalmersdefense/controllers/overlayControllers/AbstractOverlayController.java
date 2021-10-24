@@ -7,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.chalmersdefense.model.IControllModel;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
+import com.mygdx.chalmersdefense.utilities.event.events.ViewControllerEvents;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
-import com.mygdx.chalmersdefense.views.ScreenEnum;
-import com.mygdx.chalmersdefense.views.ScreenManager;
 
 
 /**
@@ -19,9 +19,11 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
  */
 public class AbstractOverlayController extends InputAdapter {
     private final IControllModel model;
+    private EventBus viewEventBus;
 
-    public AbstractOverlayController(IControllModel model) {
+    public AbstractOverlayController(IControllModel model, EventBus viewEventBus) {
         this.model = model;
+        this.viewEventBus = viewEventBus;
     }
 
     /**
@@ -47,7 +49,7 @@ public class AbstractOverlayController extends InputAdapter {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+                viewEventBus.emit(new ViewControllerEvents(ViewControllerEvents.Type.SHOWGAME_SCREEN));
                 model.resetModel();
             }
         });
