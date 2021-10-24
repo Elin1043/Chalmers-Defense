@@ -16,12 +16,16 @@ import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
  * A class for rendering the main screen in the game
  */
 final class MainScreen extends AbstractScreen {
+    private final String buttonsAssetsRoot = "buttons/mainScreenButtons/"; // Root path for button skins
 
-    private final String buttonsAssetsRoot = "buttons/mainScreenButtons/";
+    private final MainScreenController mainScreenController; // Controller for MainScreen
+    private final IViewModel model;                          // Reference to models IView methods
 
-    private final MainScreenController mainScreenController;
-    private final IViewModel model;
-
+    /**
+     * Creates the main screen of the game
+     * @param model the model to display information from
+     * @param mainScreenController the controller class to use for adding listeners to this class
+     */
     MainScreen(IViewModel model, MainScreenController mainScreenController) {
         super();
         this.model = model;
@@ -44,7 +48,6 @@ final class MainScreen extends AbstractScreen {
         Button playButton = new Button(playButtonSkin); //Set the button up
         playButton.setPosition(832, 22);
 
-        //Add the button to the stage to perform rendering and take input. (WILL BE MOVED)
         mainScreenController.addPlayButtonListener(playButton);
         addActor(playButton);
     }
@@ -56,8 +59,9 @@ final class MainScreen extends AbstractScreen {
         TextureAtlas settingsButtonAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "settingsButtonSkin/SettingsButtonSkin.atlas")); // Load atlas file from skin
         Skin settingsButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "settingsButtonSkin/SettingsButtonSkin.json"), settingsButtonAtlas); // Create skin object
         Button settingsButton = new Button(settingsButtonSkin);
-        mainScreenController.addSettingsButtonClickListener(settingsButton);
         settingsButton.setPosition(430, 110);
+
+        mainScreenController.addSettingsButtonClickListener(settingsButton);
         addActor(settingsButton);
     }
 
@@ -68,8 +72,9 @@ final class MainScreen extends AbstractScreen {
         TextureAtlas infoButtonAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "infoButtonSkin/InfoButtonSkin.atlas")); // Load atlas file from skin
         Skin infoButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "infoButtonSkin/InfoButtonSkin.json"), infoButtonAtlas); // Create skin object
         Button infoButton = new Button(infoButtonSkin);
-        mainScreenController.addInfoButtonClickListener(infoButton);
         infoButton.setPosition(1140,110);
+
+        mainScreenController.addInfoButtonClickListener(infoButton);
         addActor(infoButton);
     }
 

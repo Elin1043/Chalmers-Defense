@@ -3,17 +3,17 @@ package com.mygdx.chalmersdefense.utilities.event.concreteEvents;
 import com.mygdx.chalmersdefense.utilities.event.IEvent;
 
 public class ViewControllerEvents implements IEvent {
-    private final Type eventType;
+    private final EventType eventType;
 
-    public enum Type{
+    public enum EventType {
         SHOWMAIN_SCREEN,
         SHOWGAME_SCREEN
     }
-    public ViewControllerEvents(Type eventType) {
+    public ViewControllerEvents(EventType eventType) {
         this.eventType = eventType;
     }
 
-    public Type getEventType() {
+    public EventType getEventType() {
         return eventType;
     }
 }
