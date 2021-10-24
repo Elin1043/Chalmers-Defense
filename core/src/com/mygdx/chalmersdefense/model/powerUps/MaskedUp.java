@@ -19,7 +19,7 @@ final class MaskedUp extends PowerUp{
      * Creates an instance of the power up Masked-Up
      */
     MaskedUp() {
-        super(500, 500, 100);
+        super(200 * 20, 200 * 10, 700);
     }
 
     @Override

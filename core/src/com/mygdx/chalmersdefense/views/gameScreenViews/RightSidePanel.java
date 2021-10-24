@@ -35,13 +35,17 @@ final public class RightSidePanel {
     private final HashMap<Integer, Button> towerButtons = new HashMap<>();
     private final HashMap<Button, Integer> powerUpButtons = new HashMap<>();
 
-    private final Button cleanHandsPowerUpButton = createPowerUpButton("CleanHands");
-    private final Button vaccinatedPowerUpButton = createPowerUpButton("Vaccination");
-    private final Button maskedUpPowerUpButton = createPowerUpButton("MaskedUp");
 
-    private final Label cleanHandsTimerLabel = createPowerUpTimeLabel("10",1615, 355);
-    private final Label maskedUpTimerLabel = createPowerUpTimeLabel("10",1615, 275);
-    private final Label vaccinatedTimerLabel = createPowerUpTimeLabel("10",1615, 187);
+    private final Button maskedUpPowerUpButton = createPowerUpButton("MaskedUp");
+    private final Button vaccinatedPowerUpButton = createPowerUpButton("Vaccination");
+    private final Button cleanHandsPowerUpButton = createPowerUpButton("CleanHands");
+
+
+    private final Label maskedUpTimerLabel = createPowerUpTimeLabel("10",1615, 355);
+    private final Label vaccinatedTimerLabel = createPowerUpTimeLabel("10",1615, 275);
+    private final Label cleanHandsTimerLabel = createPowerUpTimeLabel("10",1615, 187);
+
+
 
     private Button startRoundButton;
 
@@ -74,13 +78,17 @@ final public class RightSidePanel {
 
 
     private void initializePowerUpButtons(){
-        powerUpButtons.put(maskedUpPowerUpButton,100);
-        powerUpButtons.put(cleanHandsPowerUpButton,300);
-        powerUpButtons.put(vaccinatedPowerUpButton,500 );
+        powerUpButtons.put(maskedUpPowerUpButton,700);
+        powerUpButtons.put(vaccinatedPowerUpButton,900);
+        powerUpButtons.put(cleanHandsPowerUpButton,1000);
 
-        placeButton(cleanHandsPowerUpButton, 1620,329, "cleanHands");
-        placeButton(maskedUpPowerUpButton, 1620,245, "maskedUp");
-        placeButton(vaccinatedPowerUpButton, 1620,161, "vaccinated");
+
+
+        placeButton(maskedUpPowerUpButton, 1620,329, "maskedUp");
+        placeButton(vaccinatedPowerUpButton, 1620,245, "vaccinated");
+        placeButton(cleanHandsPowerUpButton, 1620,161, "cleanHands");
+
+
 
         stage.addActor(cleanHandsPowerUpButton);
         stage.addActor(maskedUpPowerUpButton);
@@ -94,17 +102,17 @@ final public class RightSidePanel {
     }
 
     private void initializePowerUpLabels() {
-        Label cleanHandsLabel = createPowerUpLabel("Clean hands",1685, 385);
-        Label maskedUpLabel = createPowerUpLabel("Masked-up",1685, 300);
-        Label vaccinatedLabel = createPowerUpLabel("Vaccinated",1685, 216);
+        Label maskedUpLabel = createPowerUpLabel("Masked-up",1685, 385);
+        Label vaccinatedLabel = createPowerUpLabel("Vaccinated",1685, 300);
+        Label cleanHandsLabel = createPowerUpLabel("Clean hands",1685, 216);
 
-        Label cleanHandsLabelDesc = createPowerUpDesc("Triples attack speed of your towers for 5 sec", 352);
-        Label maskedUpLabelDesc = createPowerUpDesc("Increases range of your towers for 20 sec", 268);
-        Label vaccinatedLabelDesc = createPowerUpDesc("Fires a vaccination storm to damage all viruses", 184);
+        Label maskedUpLabelDesc = createPowerUpDesc("Increases range of your towers for 10 sec", 352);
+        Label vaccinatedLabelDesc = createPowerUpDesc("Fires a vaccination storm to damage all viruses", 268);
+        Label cleanHandsLabelDesc = createPowerUpDesc("Triples attack speed of your towers for 3 sec", 184);
 
-        Label cleanHandsLabelPrice = createPowerUpPriceLabel("$300",1900, 385);
-        Label maskedUpLabelPrice = createPowerUpPriceLabel("$100",1900, 300);
-        Label vaccinatedLabelPrice = createPowerUpPriceLabel("$500",1900, 216);
+        Label maskedUpLabelPrice = createPowerUpPriceLabel("$" + powerUpButtons.get(maskedUpPowerUpButton).toString(),1900, 385);
+        Label vaccinatedLabelPrice = createPowerUpPriceLabel("$" + powerUpButtons.get(vaccinatedPowerUpButton).toString(),1900, 300);
+        Label cleanHandsLabelPrice = createPowerUpPriceLabel("$" + powerUpButtons.get(cleanHandsPowerUpButton).toString(),1900,216);
 
         stage.addActor(cleanHandsLabel);
         stage.addActor(maskedUpLabel);
@@ -240,7 +248,7 @@ final public class RightSidePanel {
     //Checks what powerUps the player can afford
     private void checkAffordablePowerUp(Button powerUpButton){
         int i = powerUpButtons.get(powerUpButton);
-        if (model.getMoney() >=i  && !powerUpButton.isTouchable()) {
+        if (model.getMoney() >= i  && !powerUpButton.isTouchable()) {
             powerUpButton.setColor(Color.WHITE);
 
         } else if (model.getMoney() < i && powerUpButton.isTouchable()) {
