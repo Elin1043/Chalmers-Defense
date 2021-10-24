@@ -19,12 +19,12 @@ public class TestHackerTower {
     @Test
     public void testCreateProjectile() {
         List<IProjectile> pList = new ArrayList<>();
-        ITower t = TowerFactory.CreateHacker(0, 0, pList);
-        List<IProjectile> l = new ArrayList<>();
+        ITower tower = TowerFactory.createHacker(0, 0, pList);
+        List<IProjectile> list = new ArrayList<>();
 
-        t.placeTower();
+        tower.placeTower();
 
-        t.update(l, 10, true);
-        assertEquals(1, l.size());
+        tower.update(list, 10, true);
+        assertEquals(1, list.size());
     }
 }

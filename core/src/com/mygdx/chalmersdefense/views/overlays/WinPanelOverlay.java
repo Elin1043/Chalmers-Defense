@@ -8,10 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.Align;
-import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
-import com.mygdx.chalmersdefense.controllers.overlays.WinPanelOverlayController;
-import com.mygdx.chalmersdefense.utilities.FontFactory;
+import com.mygdx.chalmersdefense.controllers.overlayControllers.AbstractOverlayController;
+import com.mygdx.chalmersdefense.controllers.overlayControllers.WinPanelOverlayController;
+import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
 
 /**
  * @author Daniel Persson
@@ -19,9 +18,6 @@ import com.mygdx.chalmersdefense.utilities.FontFactory;
  */
 final class WinPanelOverlay extends AbstractOverlay {
     private final WinPanelOverlayController winPanelOverlayController; // Controller used for adding listeners
-
-    private final TextureAtlas winButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/winGameButtonSkin/winGameButtonSkin.atlas")); // Load atlas file from skin
-    private final Skin winButtonSkin = new Skin(Gdx.files.internal("buttons/winGameButtonSkin/winGameButtonSkin.json"), winButtonTexture); // Create skin object
 
     private final Group winPanelGroup = new Group(); // Group to add all actors to
 
@@ -32,7 +28,7 @@ final class WinPanelOverlay extends AbstractOverlay {
      * @param abstractOverlayController reference to common controller
      * @param winPanelOverlayController reference to controller for win panel
      */
-    public WinPanelOverlay(AbstractOverlayController abstractOverlayController, WinPanelOverlayController winPanelOverlayController) {
+    WinPanelOverlay(AbstractOverlayController abstractOverlayController, WinPanelOverlayController winPanelOverlayController) {
         super(abstractOverlayController);
         this.winPanelOverlayController = winPanelOverlayController;
     }
@@ -53,19 +49,14 @@ final class WinPanelOverlay extends AbstractOverlay {
         winPanelGroup.addActor(title);
         winPanelGroup.addActor(mainText);
 
-        // Create first button
-        Button mainMenuButton = new Button(winButtonSkin);
-        Label mainMenuButtonText = new Label("Main menu", FontFactory.getLabelStyle24BlackSemiBold());
-        setupWinAndLostOverlayButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1);
-        winPanelGroup.addActor(mainMenuButton);
-        abstractOverlayController.addMainMenuClickListener(mainMenuButton);
+        TextureAtlas winButtonTexture = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "winGameButtonSkin/winGameButtonSkin.atlas")); // Load atlas file from skin
+        Skin winButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "winGameButtonSkin/winGameButtonSkin.json"), winButtonTexture); // Create skin object
 
-        // Create second button
-        Button continueButton = new Button(winButtonSkin);
-        Label continueButtonText = new Label("Continue", FontFactory.getLabelStyle24BlackSemiBold());
-        setupWinAndLostOverlayButtons(backgroundImage, continueButton, continueButtonText, 2);
-        winPanelGroup.addActor(continueButton);
-        winPanelOverlayController.addWinPanelContinueClickListener(continueButton);
+        // Create main menu button
+        createMainMenuButton(winButtonSkin);
+
+        // Create continue button
+        createContinueButton(winButtonSkin);
 
         winPanelGroup.setVisible(false);
     }
@@ -79,5 +70,26 @@ final class WinPanelOverlay extends AbstractOverlay {
    @Override
     public void hideOverlay() {
         winPanelGroup.setVisible(false);
+    }
+
+
+
+    //Create continue button
+    private void createMainMenuButton(Skin winButtonSkin) {
+        Button mainMenuButton = new Button(winButtonSkin);
+        Label mainMenuButtonText = new Label("Main menu", FontFactory.getLabelStyle24BlackSemiBold());
+        setupWinAndLostOverlayButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1);
+        winPanelGroup.addActor(mainMenuButton);
+        abstractOverlayController.addMainMenuClickListener(mainMenuButton);
+    }
+
+
+    //Create continue button
+    private void createContinueButton(Skin winButtonSkin) {
+        Button continueButton = new Button(winButtonSkin);
+        Label continueButtonText = new Label("Continue", FontFactory.getLabelStyle24BlackSemiBold());
+        setupWinAndLostOverlayButtons(backgroundImage, continueButton, continueButtonText, 2);
+        winPanelGroup.addActor(continueButton);
+        winPanelOverlayController.addWinPanelContinueClickListener(continueButton);
     }
 }

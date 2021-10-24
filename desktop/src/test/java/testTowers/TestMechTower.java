@@ -1,6 +1,6 @@
 package testTowers;
 
-import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.model.path.IPath;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.towers.ITower;
@@ -22,34 +22,24 @@ import static org.junit.Assert.assertTrue;
  */
 public class TestMechTower {
 
-    Path path = PathFactory.createClassicPath();
+    IPath path = PathFactory.createClassicPath();
     List<ITower> addToList = new ArrayList<>();
     List<ITower> towersList = new ArrayList<>();
 
-    ITower tSmurf = TowerFactory.CreateSmurf(100, 200);
-
-    @Test
-    public void testUpdateAndCreateOneTower() {
-        towersList.add(tSmurf);
-        ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,path.getCollisionRectangles());
-        t.placeTower();
-
-        t.update(new ArrayList<>(), 10, true);
-        assertEquals(1, addToList.size());
-    }
+    ITower tSmurf = TowerFactory.createSmurf(100, 200);
 
     @Test
     public void testUpdateAndCreateTwoTower() {
         towersList.add(tSmurf);
-        ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,path.getCollisionRectangles());
-        t.placeTower();
+        ITower mech = TowerFactory.createMech(0, 0, addToList,towersList,path.getCollisionRectangles());
+        mech.placeTower();
 
         HashMap<String, Double> upgrades = new HashMap<>();
         upgrades.put("attackSpeedMul",0.2);
         upgrades.put("attackRangeMul",2.0);
-        t.upgradeTower(upgrades);
+        mech.upgradeTower(upgrades);
 
-        t.update(new ArrayList<>(), 10, true);
+        mech.update(new ArrayList<>(), 10, true);
         assertEquals(2, addToList.size());
     }
 
@@ -60,15 +50,15 @@ public class TestMechTower {
         upgrades.put("attackRangeMul",2.0);
         towersList.add(tSmurf);
         List<ITower> addToList = new ArrayList<>();
-        ITower t = TowerFactory.CreateMech(0, 0, addToList,towersList,path.getCollisionRectangles());
+        ITower mech = TowerFactory.createMech(0, 0, addToList,towersList,path.getCollisionRectangles());
         List<IProjectile> pList = new ArrayList<>();
 
-        t.placeTower();
-        t.upgradeTower(upgrades);
-        t.upgradeTower(upgrades);
+        mech.placeTower();
+        mech.upgradeTower(upgrades);
+        mech.upgradeTower(upgrades);
 
 
-        t.update(pList, 10, true);
+        mech.update(pList, 10, true);
 
         assertTrue(pList.size() > 0);
     }

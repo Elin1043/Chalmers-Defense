@@ -1,13 +1,10 @@
 package testViruses;
 
-import com.mygdx.chalmersdefense.model.path.Path;
+import com.mygdx.chalmersdefense.model.path.IPath;
 import com.mygdx.chalmersdefense.model.path.PathFactory;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -16,7 +13,7 @@ import static org.junit.Assert.*;
  * Test class for Virus class
  */
 public class TestVirus {
-    Path p = PathFactory.createClassicPath();
+    IPath p = PathFactory.createClassicPath();
 
     @Test
     public void testVirusGetHit() {

@@ -23,7 +23,7 @@ public class TestProjectile {
 
     @Before
     public void createProjectile() {
-        ITower tower = TowerFactory.CreateSmurf(0, 0);
+        ITower tower = TowerFactory.createSmurf(0, 0);
         tower.placeTower();
         tower.update(projectilesList, 0, true);
         projectile = projectilesList.get(0);
@@ -65,7 +65,7 @@ public class TestProjectile {
 
     @Test
     public void testProjectileSetAngle() {
-        ITower tower = TowerFactory.CreateElectro(0, 0);
+        ITower tower = TowerFactory.createElectro(0, 0);
         tower.placeTower();
         tower.update(projectilesList, 0, true);
         projectile = projectilesList.get(1);

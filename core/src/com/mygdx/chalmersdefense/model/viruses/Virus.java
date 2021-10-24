@@ -1,8 +1,10 @@
 package com.mygdx.chalmersdefense.model.viruses;
 
-import com.mygdx.chalmersdefense.model.path.Path;
-import com.mygdx.chalmersdefense.utilities.Calculate;
-import com.mygdx.chalmersdefense.utilities.PositionVector;
+
+import com.mygdx.chalmersdefense.model.path.IPath;
+import com.mygdx.chalmersdefense.model.path.PathFactory;
+import com.mygdx.chalmersdefense.model.modelUtilities.Calculate;
+import com.mygdx.chalmersdefense.model.modelUtilities.PositionVector;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -15,6 +17,7 @@ import java.util.Objects;
  * <p>
  * 2021-09-24 Modified by Elin Forsberg: Added methods to decrease health of virus and check if it's dead
  * 2021-10-19 Modified by Elin Forsberg: Added another constructor to be used by the BossVirus
+ * 2021-10-22 Modified by Elin Forsberg: Made path variable get the active path
  */
 abstract class Virus implements IVirus {
     private int health; // Current health of virus
@@ -31,22 +34,21 @@ abstract class Virus implements IVirus {
     private float totalDistanceTrawled = 0;     // Total distance the virus have trawled
 
     private float slowdown = 1;                 // Amount of slow down that gets applied to the virus speed
-    private int slowDownTimer = 0;
+    private int slowDownTimer = 0;              // Timer of the slowDownEffect
 
-    private final Path path;    // pointer to path object
+    private final IPath path = PathFactory.getActivePath();    // pointer to path object
     private PositionVector currentMoveToVector;     // Current vector (coordinates) to move to
     private int currentMoveToVectorIndex = 0;       // Which index to use when new vector is retrieved
+
 
 
     /**
      * Creates Virus object
      *
      * @param health Amount of health the virus start with
-     * @param path   The path to follow
      */
-    Virus(int health, Path path) {
+    Virus(int health) {
         this.health = health;
-        this.path = path;
         initializeVirus();
 
         xPos = currentMoveToVector.getX() - widthX / 2F;
@@ -57,15 +59,13 @@ abstract class Virus implements IVirus {
     /**
      * Creates a virus object with specific values
      * @param health health of the virus
-     * @param path  path to be used by virus
      * @param x   x-coordinate of virus
      * @param y   y-coordinate of virus
      * @param currentMoveToVectorIndex  vectorIndex virus should walk towards
      */
-    Virus(int health, Path path,float x, float y, int currentMoveToVectorIndex) {
+    Virus(int health,float x, float y, int currentMoveToVectorIndex) {
         this.health = health;
-        this.path = path;
-        this.currentMoveToVectorIndex = currentMoveToVectorIndex;
+       this.currentMoveToVectorIndex = currentMoveToVectorIndex;
         initializeVirus();
 
         float[] randomPoint = Calculate.randPoint(x, y,50);
@@ -75,12 +75,11 @@ abstract class Virus implements IVirus {
     }
 
 
+    //Initialize the virus
     private void initializeVirus(){
         updateSpriteKey();
-
         currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex);
 
-        // TODO Kanske vill göra detta när man ändrar liv. Iallafall om man har något virus av annan storlek
         try {
             BufferedImage img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("viruses/virus" + health + "Hp.png")));
             this.widthX = img.getWidth();
@@ -120,7 +119,7 @@ abstract class Virus implements IVirus {
         if (this.slowdown > slowdown) {
             this.slowdown = slowdown;
         }
-        slowDownTimer = 800;
+        slowDownTimer = 600;
     }
 
 
@@ -138,6 +137,7 @@ abstract class Virus implements IVirus {
         return ((3F + health) / 4F) * slowdown;
     }
 
+    //Move the virus to towards the next point
     private void moveToPoint(double totalSpeed) {
 
         // Gets length to next move to point
@@ -171,6 +171,7 @@ abstract class Virus implements IVirus {
         totalDistanceTrawled += totalSpeed;
     }
 
+    //Update the slowTimer
     private void updateSlowTimer(){
         if (slowDownTimer <= 0){
             slowdown = 1;
@@ -179,51 +180,33 @@ abstract class Virus implements IVirus {
         }
     }
 
+    //Update the spriteKey
     private void updateSpriteKey() {
         spriteKey = "virus" + health;
     } // Updates the key to Sprite hashmap
 
-    /**
-     * Gets Virus x position
-     *
-     * @return Virus x position
-     */
+
+    @Override
     public float getX() {
         return xPos;
     }
 
-    /**
-     * Gets Virus y position
-     *
-     * @return Virus y position
-     */
+    @Override
     public float getY() {
         return yPos;
     }
 
-    /**
-     * Gets width of virus
-     *
-     * @return width
-     */
+    @Override
     public float getWidth() {
         return widthX;
     }
 
-    /**
-     * Gets height of virus
-     *
-     * @return height
-     */
+    @Override
     public float getHeight() {
         return heightY;
     }
 
-    /**
-     * Gets the key to Sprite hashmap for rendering
-     *
-     * @return Key to hashmap
-     */
+    @Override
     public String getSpriteKey() {
         return spriteKey;
     }
@@ -233,30 +216,18 @@ abstract class Virus implements IVirus {
         return 0;
     }
 
-    /**
-     * Gets the amount of damage the virus does when reaching end of path
-     *
-     * @return Amount of damage to be done
-     */
+    @Override
     public int getLifeDecreaseAmount() {
         return health;
     }
 
-    /**
-     * Gets the total distance trawled by the virus object
-     *
-     * @return Total distance trawled
-     */
+
     @Override
     public float getTotalDistanceTraveled() {
         return totalDistanceTrawled;
     }
 
-    /**
-     * Gets if virus health is 0, which means it's dead
-     *
-     * @return if health is 0
-     */
+    @Override
     public boolean isDead() {
         return this.health <= 0;
     }

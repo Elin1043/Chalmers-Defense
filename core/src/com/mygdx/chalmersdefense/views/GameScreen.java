@@ -1,7 +1,6 @@
 package com.mygdx.chalmersdefense.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,10 +17,10 @@ import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
-import com.mygdx.chalmersdefense.utilities.FontFactory;
-import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
-import com.mygdx.chalmersdefense.views.GameScreenViews.BottomBarUpgradePanel;
-import com.mygdx.chalmersdefense.views.GameScreenViews.RightSidePanel;
+import com.mygdx.chalmersdefense.views.gameScreenViews.BottomBarUpgradePanel;
+import com.mygdx.chalmersdefense.views.gameScreenViews.RightSidePanel;
+import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
+import com.mygdx.chalmersdefense.utilities.RangeCircle;
 import com.mygdx.chalmersdefense.views.overlays.AbstractOverlay;
 import com.mygdx.chalmersdefense.views.overlays.OverlayManager;
 
@@ -42,57 +41,49 @@ import static com.badlogic.gdx.graphics.GL20.*;
  * 2021-10-19 Modified by Daniel Persson: Added progressbar for displaying round progress <br>
  */
 final class GameScreen extends AbstractScreen implements Screen {
-
+    private final GameScreenController gameScreenController;   // Controller for GameScreen
     // Panels
     private final BottomBarUpgradePanel bottomBarUpgradePanel; // Upgrade panel object
     private final RightSidePanel rightSidePanel;               // Right side HUD with towers and powerups
 
-    private final IViewModel model;  // Reference to models IView methods
-    private final Stage stageHUD;    // A separate stage for displaying HUD information
+    private final IViewModel model;     // Reference to models IView methods
+    private final Stage stageHUD;       // A separate stage for displaying HUD information
 
-    private ProgressBar progressBar; // Progressbar for displaying round progress
+    // Updatable progressbar items
+    private ProgressBar progressBar;    // Progressbar for displaying round progress
     private final TextureRegion progressBarFilled = new TextureRegion(new Texture(Gdx.files.internal("GameScreen/progressbar/ProgressBarFilled.png"))); // A texture region of progressbar fill texture
     private final Image progressBarSmurf = new Image(new Texture("GameScreen/progressbar/SmurfImage.png"));     // Image of a smurf that is attached to progressbar knob
     private final Sprite waypointMarker = new Sprite(new Texture("GameScreen/progressbar/WaypointMarker.png")); // Sprite of waypoint markers
 
+    // Updatable labels
+    private final Label lifeLabel = new Label("", FontFactory.getLabelStyle36Black());
+    private final Label moneyLabel = new Label("", FontFactory.getLabelStyle36Black());
+    private final Label roundLabel = new Label("", FontFactory.getLabelStyle36Black());
 
-    private final Image lifeIcon = new Image(new Texture("lifeIcon.png"));
-    private final Image moneyIcon = new Image(new Texture("moneyIcon.png"));
-    private final Label lifeLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle36Black());
-    private final Label moneyLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle36Black());
-    private final Label roundLabel = new Label("", com.mygdx.chalmersdefense.utilities.FontFactory.getLabelStyle36Black());
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();  // Used to render circle
 
-    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
-
-    public GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
+    /**
+     * Creates the game screen of the game.
+     * @param model the model to display information from
+     * @param gameScreenController the controller class to use for adding listeners to this class
+     * @param rightSidePanelController the controller class for use by the RightSidePanel
+     * @param bottomBarPanelController the controller class for use by the BottomBarPanel
+     */
+    GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
         super();
         this.rightSidePanel = new RightSidePanel(this, model, rightSidePanelController);
         this.bottomBarUpgradePanel = new BottomBarUpgradePanel(this, model, bottomBarPanelController, spriteMap, largeSpriteMap);
         this.model = model;
-        this.stageHUD = new Stage(this.getViewport());
+        this.stageHUD = new Stage(getViewport());
+        this.gameScreenController = gameScreenController;
 
-        // Create skin object
-        // Load atlas file from skin
-        TextureAtlas pauseButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.atlas"));
-        Skin pauseButtonSkin = new Skin(Gdx.files.internal("buttons/pauseButtonSkin/pauseButtonSkin.json"), pauseButtonAtlas);
-        Button pauseButton = new Button(pauseButtonSkin);
-        pauseButton.setPosition(10, 1070 - pauseButton.getHeight());
-        gameScreenController.addPauseButtonClickListener(pauseButton);
+        createPauseButton();
 
         // Background image for bottom part of HUD
-        Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
-        bottomBarPanelBackground.setPosition(0, 0);
-        Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
-        stageHUD.addActor(bottomBarPanelBackground);
+        createHUDBackgrounds();
 
-        // This should come from classicPath class
-        Image mapImage = new Image(new Texture("ClassicMap.png")); // TODO Hämta från Path
-        mapImage.setPosition(0, bottomBarPanelBackground.getHeight());
-        gameScreenController.addMapClickListener(mapImage);
-
-        // Background image for right part of HUD
-        sideBarBackground.setPosition(1920 - 320, 0);
-        stageHUD.addActor(sideBarBackground);
+        // Adds this stage to controller to get screen coordinates when window is scaled
+        gameScreenController.addStageToController(this);
 
         // Enables input from both stages at the same time
         addToMultiplexer(bottomBarUpgradePanel.getStage());
@@ -100,12 +91,17 @@ final class GameScreen extends AbstractScreen implements Screen {
         addToMultiplexer(gameScreenController);
         addToMultiplexer(rightSidePanelController);
 
-
         createProgressBar();
 
-        addActor(mapImage);
-        addActor(pauseButton);
         createLifeAndMoneyIcon();
+    }
+
+    @Override
+    void setBackgroundImage(){
+        Image mapImage = new Image(new Texture(model.getMapImagePath()));
+        mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
+        gameScreenController.addMapClickListener(mapImage);
+        getActors().insert(0, mapImage);
     }
 
     /**
@@ -120,7 +116,7 @@ final class GameScreen extends AbstractScreen implements Screen {
         renderRangeCircle();
         renderMapObjects();
 
-        updateButtonInfo();
+        updateLabelInfo();
 
         // Renders HUD above sprites but below upgrade panel.
         stageHUD.act();
@@ -140,16 +136,17 @@ final class GameScreen extends AbstractScreen implements Screen {
             bottomBarUpgradePanel.hideBottomBar();
         }
 
-        OverlayManager.getInstance().showOverlay(model.showOverlay());
-
+        // Render open overlay on GameScreen stage
+        OverlayManager.getInstance().showOverlay(model.getCurrentOverlay(), this);
         AbstractOverlay abstractOverlay = OverlayManager.getInstance().getCurrentOverlay();
         if (abstractOverlay != null) {
             abstractOverlay.render();
         }
-
     }
 
 
+
+    //Create progressbar
     private void createProgressBar() {
         TextureAtlas progressBarAtlas = new TextureAtlas(Gdx.files.internal("GameScreen/progressbar/ProgressBarSkin.atlas")); // Load atlas file from skin
         Skin progressBarSkin = new Skin(Gdx.files.internal("GameScreen/progressbar/ProgressBarSkin.json"), progressBarAtlas); // Create skin object
@@ -163,7 +160,7 @@ final class GameScreen extends AbstractScreen implements Screen {
         finnishFlag.setPosition(progressBar.getX() + progressBar.getWidth() - 2, progressBar.getY() + progressBar.getHeight()/2);
 
         Label winningRoundLabel = new Label("Round: " + model.getWinningRound(), FontFactory.getLabelStyle18Black());
-        winningRoundLabel.setPosition(progressBar.getX() + progressBar.getWidth() - winningRoundLabel.getWidth(), progressBar.getY() - winningRoundLabel.getHeight() - 5);
+        winningRoundLabel.setPosition(progressBar.getX() + progressBar.getWidth() - winningRoundLabel.getWidth() - 21, progressBar.getY() - winningRoundLabel.getHeight() - 5);
 
         stageHUD.addActor(progressBar);
         stageHUD.addActor(progressBarSmurf);
@@ -171,6 +168,8 @@ final class GameScreen extends AbstractScreen implements Screen {
         stageHUD.addActor(winningRoundLabel);
     }
 
+
+    //Renders progressbar
     private void renderProgressBar() {
         progressBar.setValue(model.getCurrentRound());
 
@@ -184,8 +183,10 @@ final class GameScreen extends AbstractScreen implements Screen {
         batch.end();
     }
 
+
+    //Renders waypoint markers
     private void renderWaypointsOnProgressBar() {
-        int[][]  waypointData = {{1,1},{2,2},{3,3},{50,5}};
+        int[][] waypointData = {{1,1},{2,3},{3,6},{50,10},{4,12},{5,16},{50,20},{50,30}};  // Data is structured like this: {Virus HP, first round appearance}.
         float progressBarStepWidth = progressBar.getWidth()/progressBar.getMaxValue();
         for (int[] waypoint : waypointData) {
             Sprite virusSprite = spriteMap.get("virus" + waypoint[0]);
@@ -206,12 +207,15 @@ final class GameScreen extends AbstractScreen implements Screen {
         }
     }
 
+
+    //Renders all map objects
     private void renderMapObjects() {
         super.batch.begin();
         for (IMapObject mapObject : model.getAllMapObjects()) {
             Sprite objectSprite = spriteMap.get(mapObject.getSpriteKey());
             objectSprite.setPosition(mapObject.getX(), mapObject.getY());
             objectSprite.setRotation(mapObject.getAngle());
+
 
             objectSprite.draw(super.batch);
 
@@ -220,8 +224,10 @@ final class GameScreen extends AbstractScreen implements Screen {
 
     }
 
+
+    //Renders range circle
     private void renderRangeCircle() {
-        GetRangeCircle circle = model.getRangeCircle();
+        RangeCircle circle = model.getRangeCircle();
 
         Gdx.gl.glEnable(GL_BLEND);
         Gdx.gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -232,13 +238,43 @@ final class GameScreen extends AbstractScreen implements Screen {
         Gdx.gl.glDisable(GL_BLEND);
     }
 
-    private void updateButtonInfo(){
+
+    //Update label info for HUD labels
+    private void updateLabelInfo(){
         lifeLabel.setText(model.getLivesLeft());
         moneyLabel.setText(model.getMoney());
         roundLabel.setText("Round: " + model.getCurrentRound());
     }
 
+
+    //Create pause button
+    private void createPauseButton() {
+        TextureAtlas pauseButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/gameScreenButtons/pauseButtonSkin/pauseButtonSkin.atlas")); // Load atlas file from skin
+        Skin pauseButtonSkin = new Skin(Gdx.files.internal("buttons/gameScreenButtons/pauseButtonSkin/pauseButtonSkin.json"), pauseButtonAtlas); // Create skin object
+        Button pauseButton = new Button(pauseButtonSkin);
+        pauseButton.setPosition(10, 1070 - pauseButton.getHeight());
+        gameScreenController.addPauseButtonClickListener(pauseButton);
+        addActor(pauseButton);
+    }
+
+
+    //Background image for bottom part of HUD
+    private void createHUDBackgrounds() {
+        Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
+        bottomBarPanelBackground.setPosition(0, 0);
+        stageHUD.addActor(bottomBarPanelBackground);
+
+        Image sideBarBackground = new Image(new Texture("GameScreen/SideBarBackground.png"));
+        sideBarBackground.setPosition(1920 - 320, 0);
+        stageHUD.addActor(sideBarBackground);
+    }
+
+
+    //Creates life and money icons and labels
     private void createLifeAndMoneyIcon(){
+        Image lifeIcon = new Image(new Texture("lifeIcon.png"));
+        Image moneyIcon = new Image(new Texture("moneyIcon.png"));
+
         lifeIcon.setPosition(23, 100);
         moneyIcon.setPosition(23, 20);
 
@@ -255,7 +291,9 @@ final class GameScreen extends AbstractScreen implements Screen {
         stageHUD.addActor(roundLabel);
     }
 
-    private Color getColorOfCircle(GetRangeCircle circle) {
+
+    //Returns color of inputted circle
+    private Color getColorOfCircle(RangeCircle circle) {
         switch (circle.getColor()) {
             case RED -> {
                 return new Color(255 / 255F, 51 / 255F, 51 / 255F, 0.8F);

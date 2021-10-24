@@ -5,6 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * @author Jenny Carlsson
+ *
+ * A test class for testing preferences
+ */
 public class TestPreferences {
     Preferences pref;
 

@@ -8,14 +8,17 @@ import java.util.Random;
 
 /**
  * @author Joel Båtsman Hilmersson
- * Class representing CleanHands powerup, doubles attackspeed of towers
+ * Class representing CleanHands powerup, triples attackspeed of towers
  *
  * 2021-10-15 Modified by Elin Forsberg: Implemented use of PowerUp factory and abstract PowerUp class
  */
 final class CleanHands extends PowerUp{
 
+    /**
+     * Creates an instance of the power-up object
+     */
     CleanHands() {
-        super(500, 500, 300);
+        super(200 * 20, 200 * 3, 1000);
     }
 
     @Override
@@ -31,5 +34,4 @@ final class CleanHands extends PowerUp{
             addGraphicsList.add(GenericMapObjectFactory.createBubbles(rand.nextInt(1921), rand.nextInt(1081), rand.nextInt(361)));
         }
     }
-
 }

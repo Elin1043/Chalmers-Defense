@@ -43,7 +43,7 @@ public class TestUpgrades {
     @Test
     public void testUpgradeTower() {
         model.dragStart("eco", 300, 300); // Creates tower
-        model.dragEnd(2, 2, 300, 300);
+        model.dragEnd(300, 300);
 
         model.upgradeClickedTower();
         int upgradeLevel = Character.getNumericValue(model.getClickedTower().getSpriteKey().charAt(model.getClickedTower().getSpriteKey().length() - 1));
@@ -64,7 +64,7 @@ public class TestUpgrades {
 
     @Test
     public void testGetTowerUpgradePriceException() {
-        Integer upgradePrice = model.getTowerUpgradePrice("This name should not exist and therefore throw exception", 100);
-        assertEquals(0L, (long) upgradePrice); // If the exception was thrown, it will return a long = 0
+        int upgradePrice = model.getTowerUpgradePrice("This name should not exist and therefore throw exception", 100);
+        assertEquals(0, upgradePrice); // If the exception was thrown, it will return a long = 0
     }
 }

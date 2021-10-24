@@ -1,6 +1,6 @@
 package com.mygdx.chalmersdefense.model.path;
 
-import com.mygdx.chalmersdefense.utilities.PositionVector;
+import com.mygdx.chalmersdefense.model.modelUtilities.PositionVector;
 
 /**
  * @author Daniel Persson
@@ -8,12 +8,15 @@ import com.mygdx.chalmersdefense.utilities.PositionVector;
  * Class representing a ClassicPath
  *
  * <p>
- * 2021-10-05 Modified by Elin Forsberg: Made ClassicPath package-private <br>
+ * 2021-10-05 Modified by Elin Forsberg: Made ClassicPath package-private and final <br>
  */
 
 
 final class ClassicPath extends Path {
 
+    /**
+     * Creates an object of ClassicPath
+     */
      ClassicPath() {
         super(80);
         setPathWaypoints();
@@ -22,7 +25,7 @@ final class ClassicPath extends Path {
 
 
     @Override
-    protected void setPathWaypoints() {
+     void setPathWaypoints() {
         if (pathWaypoints.isEmpty()) {
             pathWaypoints.add(new PositionVector(-50, 456));
             pathWaypoints.add(new PositionVector(483, 456));
@@ -39,6 +42,11 @@ final class ClassicPath extends Path {
             pathWaypoints.add(new PositionVector(861, 1300));
 
         }
+    }
+
+    @Override
+    public String getImagePath() {
+        return "ClassicMap.png";
     }
 
 

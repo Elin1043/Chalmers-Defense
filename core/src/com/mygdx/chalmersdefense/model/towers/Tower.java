@@ -3,7 +3,8 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
-import com.mygdx.chalmersdefense.utilities.CountDownTimer;
+import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
+import com.mygdx.chalmersdefense.model.modelUtilities.CountDownTimer;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -33,7 +34,7 @@ abstract class Tower implements ITower {
     private float x;                // X coordinate on map
     private float y;                // y coordinate on map
 
-    private final List<ITargetMode> targetModes;    // List that holds references to the targetmodes
+    private final List<ITargetMode> targetModes = TargetModeFactory.getTargetModes();    // List that holds references to the targetmodes
     private ITargetMode currentTargetMode;    // Which current targeting mode to use
 
     private float width;            // Width of tower object
@@ -47,11 +48,19 @@ abstract class Tower implements ITower {
     private int reloadTime;                 // Variable to calculate new reload time when upgrading
 
 
-    Tower(float x, float y, String name, int reloadTime, int cost, int range, List<ITargetMode> targetModes) {
+    /**
+     * Creates object of a Tower
+     * @param x - startcoordinate of tower
+     * @param y - startcoordinate of tower
+     * @param name of the tower
+     * @param reloadSpeed of the tower
+     * @param cost of the tower
+     * @param range of the tower
+     */
+    Tower(float x, float y, String name, int reloadSpeed, int cost, int range) {
         this.name = name;
-        this.targetModes = targetModes;
-        this.reloadTime = reloadTime;
-        this.reloadTimer = new CountDownTimer(reloadTime, 0);
+        this.reloadTime = reloadSpeed;
+        this.reloadTimer = new CountDownTimer(reloadSpeed, 0);
         this.currentTargetMode = targetModes.get(0);
         updateSpriteKey();
 
@@ -59,8 +68,6 @@ abstract class Tower implements ITower {
             BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("towers/" + name + "/" + spriteKey + ".png")));
             this.width = towerImage.getWidth();
             this.height = towerImage.getHeight();
-
-
         } catch (IOException exception) {
             exception.printStackTrace();
         }
@@ -88,6 +95,8 @@ abstract class Tower implements ITower {
         }
     }
 
+
+    //Update the reload timer
     private void updateReloadTimer() {
         if (reloadTimer.getCurrentCountTime() > 0){ // If the timer is over 0 it should count down
             reloadTimer.haveReachedZero();
@@ -97,20 +106,30 @@ abstract class Tower implements ITower {
     @Override
     public void changeTargetMode(boolean goRight){
         if(goRight){
-            if(targetModes.indexOf(currentTargetMode) >= targetModes.size()-1){
-                currentTargetMode = targetModes.get(0);
-            }
-            else{
-                currentTargetMode = targetModes.get(targetModes.indexOf(currentTargetMode) + 1);
-            }
+            increaseIndexOfTargetMode();
         }
         else{
-            if(targetModes.indexOf(currentTargetMode) <= 0){
-                currentTargetMode = targetModes.get(targetModes.size()-1);
-            }
-            else{
-                currentTargetMode = targetModes.get(targetModes.indexOf(currentTargetMode) - 1);
-            }
+            decreaseIndexOfTargetMode();
+        }
+    }
+
+    //Increase the index of targetMode
+    private void increaseIndexOfTargetMode(){
+        if(targetModes.indexOf(currentTargetMode) >= targetModes.size()-1){
+            currentTargetMode = targetModes.get(0);
+        }
+        else{
+            currentTargetMode = targetModes.get(targetModes.indexOf(currentTargetMode) + 1);
+        }
+    }
+
+    //Decrease the index of targetMode
+    private void decreaseIndexOfTargetMode(){
+        if(targetModes.indexOf(currentTargetMode) <= 0){
+            currentTargetMode = targetModes.get(targetModes.size()-1);
+        }
+        else{
+            currentTargetMode = targetModes.get(targetModes.indexOf(currentTargetMode) - 1);
         }
     }
 
@@ -125,18 +144,6 @@ abstract class Tower implements ITower {
         upgradeLevel++;
         updateSpriteKey();
     }
-
-    @Override
-    public void powerUpTower(boolean maskedUp){
-        if(maskedUp){
-            range *= 1.5;
-        }
-        else{
-            range *= (2.0/3);
-        }
-    }
-
-
 
     @Override
     public int getUpgradeLevel() {
@@ -236,5 +243,11 @@ abstract class Tower implements ITower {
     public void placeTower() {
         isPlaced = true;
     }
+
+    /**
+     * Returns the current targetmode index in the targetmode list
+     * @return the current targetmode index
+     */
+    int getCurrentTargetModeIndex() { return targetModes.indexOf(currentTargetMode); }
 
 }

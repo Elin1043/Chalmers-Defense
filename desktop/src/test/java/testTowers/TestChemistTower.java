@@ -18,12 +18,12 @@ public class TestChemistTower {
 
     @Test
     public void testCreateProjectile() {
-        ITower t = TowerFactory.CreateChemist(0, 0, new ArrayList<>());
-        List<IProjectile> l = new ArrayList<>();
+        ITower tower = TowerFactory.createChemist(0, 0, new ArrayList<>());
+        List<IProjectile> list = new ArrayList<>();
 
-        t.placeTower();
+        tower.placeTower();
 
-        t.update(l, 10, true);
-        assertEquals(1, l.size());
+        tower.update(list, 10, true);
+        assertEquals(1, list.size());
     }
 }

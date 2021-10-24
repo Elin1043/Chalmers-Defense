@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model.powerUps;
 
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
-import com.mygdx.chalmersdefense.utilities.CountDownTimer;
+import com.mygdx.chalmersdefense.model.modelUtilities.CountDownTimer;
 
 import java.util.List;
 
@@ -9,20 +9,28 @@ import java.util.List;
  * @author Elin Forsberg
  * Class representing an abstract power-up class holding common functions.
  */
-abstract class PowerUp implements  IPowerUp{
+abstract class PowerUp implements IPowerUp{
     private boolean isActivated = false;              // If powerUp is activated
     private boolean canActivate = true;              // If powerUp can be activated
 
-    private final CountDownTimer cooldown;            // Cooldown of the powerUp
-    private final CountDownTimer powerUpTimer;        // Lifetime of the powerUp
+    private CountDownTimer cooldown;            // Cooldown of the powerUp
+    private CountDownTimer powerUpTimer;        // Lifetime of the powerUp
 
-    private final int cost;         // Cost of powerUp
+    private final int cost;             // Cost of powerUp
+    private final int lengthOfCooldown; // The final length of cooldown timer. Used when resetting timers
+    private final int lengthOfPowerUp;  // The final length of power-up timer. Used when resetting timers
 
-
+    /**
+     * Creates an instance of the power-up
+     * @param lengthOfCooldown the length of power-up cool down
+     * @param lengthOfPowerUp the length of active power-up time
+     * @param cost the cost of the power-up
+     */
     PowerUp(int lengthOfCooldown, int lengthOfPowerUp, int cost){
         cooldown = new CountDownTimer(lengthOfCooldown);
         powerUpTimer = new CountDownTimer(lengthOfPowerUp);
-
+        this.lengthOfCooldown = lengthOfCooldown;
+        this.lengthOfPowerUp = lengthOfPowerUp;
         this.cost = cost;
     }
 
@@ -82,5 +90,13 @@ abstract class PowerUp implements  IPowerUp{
     @Override
     public int getCost() {
         return cost;
+    }
+
+    @Override
+    public void resetPowerUp(){
+        cooldown = new CountDownTimer(lengthOfCooldown);
+        powerUpTimer = new CountDownTimer(lengthOfPowerUp);
+        isActivated = false;
+        canActivate = true;
     }
 }

@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model.path;
 
-import com.mygdx.chalmersdefense.utilities.PathRectangle;
-import com.mygdx.chalmersdefense.utilities.PositionVector;
+import com.mygdx.chalmersdefense.model.modelUtilities.PathRectangle;
+import com.mygdx.chalmersdefense.model.modelUtilities.PositionVector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,32 +14,32 @@ import java.util.List;
  * <p>
  * 2021-09-24 Modified by Elin Forsberg and Joel Båtsman Hilmersson: Elin created createMapCollision and Joel implemented it here. <br>
  * 2021-10-03 Modified by Joel Båtsman Hilmersson: Switched to use pathRectangle instead of normal Java rectangle. <br>
+ * 2021-10-21 Modified by Elin Forsberg: Implemented IPath interface.
  */
 
 
-public abstract class Path {
+abstract class Path implements IPath {
 
-    private final int pathWidth;
+    private final int pathWidth; // The path width of this path
 
-    protected final List<PositionVector> pathWaypoints = new ArrayList<>();
-    private final List<PathRectangle> collisionRectangles = new ArrayList<>();
+    final List<PositionVector> pathWaypoints = new ArrayList<>(); // The waypoints building up the path
+    private final List<PathRectangle> collisionRectangles = new ArrayList<>(); // The path collision
 
-    protected Path(int pathWidth) {
+    /**
+     * Creates an object of path
+     * @param pathWidth width of the path
+     */
+    Path(int pathWidth) {
         this.pathWidth = pathWidth;
     }
 
     /**
      * Creates path waypoints
      */
-    protected abstract void setPathWaypoints();
+    abstract void setPathWaypoints();
 
 
-    /**
-     * Returns waypoint of given index
-     *
-     * @param index to get waypoint of
-     * @return waypoint
-     */
+    @Override
     public PositionVector getWaypoint(int index) {
         return pathWaypoints.get(index);
     }
@@ -47,7 +47,7 @@ public abstract class Path {
     /**
      * Method for creating rectangles on path later used for collision
      */
-    protected void createMapCollision() {
+    void createMapCollision() {
         for (int i = 0; i < pathWaypoints.size() - 1; i++) {
             float posX = getWaypoint(i).getX();
             float posY = getWaypoint(i).getY();
@@ -62,6 +62,7 @@ public abstract class Path {
         }
     }
 
+    //Create and add a vertical rectangle
     private void verticalPathHandler(float posX, float posY, float nextY) {
         float distY = Math.abs((nextY - posY));     // The path length in y direction
 
@@ -72,6 +73,7 @@ public abstract class Path {
         }
     }
 
+    //Create and add a horizontal rectangle
     private void horizontalPathHandler(float posX, float posY, float nextX) {
         float distX = Math.abs((nextX - posX));     // The path length in x direction
 
@@ -82,11 +84,8 @@ public abstract class Path {
         }
     }
 
-    /**
-     * Gets the list of rectangles used for collision
-     *
-     * @return list of rectangles
-     */
+
+    @Override
     public List<PathRectangle> getCollisionRectangles() {
         return collisionRectangles;
     }

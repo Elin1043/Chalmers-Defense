@@ -1,25 +1,28 @@
 package com.mygdx.chalmersdefense.views.overlays;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
-import com.mygdx.chalmersdefense.views.AbstractScreen;
-import com.mygdx.chalmersdefense.views.ScreenManager;
 
+/**
+ * @author Daniel Persson
+ * A singleton class for switching between overlays
+ */
 final public class OverlayManager {
-    private static OverlayManager instance;
+    private static OverlayManager instance; // Instance of OverlayManager
 
-    // All overlays. Maybe move to separate class OverlayManager
+    // All overlay objects
     private AbstractOverlay pauseMenuOverlay;
     private AbstractOverlay settingsOverlay;
     private AbstractOverlay lostPanelOverlay;
     private AbstractOverlay winPanelOverlay;
     private AbstractOverlay infoOverlay;
 
-    private AbstractOverlay currentOverlay;
-    private AbstractOverlay prevOverlay;
+    private AbstractOverlay currentOverlay;  // Currently open overlay
+    private AbstractOverlay prevOverlay;     // Previous open overlay
 
-    private OverlayManager() {
-        super();
-    }
+
+    //Singleton constructor
+    private OverlayManager() {}
 
     /**
      * Returns this instance
@@ -35,7 +38,11 @@ final public class OverlayManager {
 
     /**
      * Initialize the different screens
-     *
+     * @param pauseMenuOverlay the pause menu overlay panel
+     * @param settingsOverlay the settings overlay panel
+     * @param lostPanelOverlay the lost panel overlay
+     * @param winPanelOverlay the win panel overlay
+     * @param infoOverlay the info overlay panel
      */
     public void initialize(AbstractOverlay pauseMenuOverlay, AbstractOverlay settingsOverlay, AbstractOverlay lostPanelOverlay, AbstractOverlay winPanelOverlay, AbstractOverlay infoOverlay) {
         this.pauseMenuOverlay = pauseMenuOverlay;
@@ -49,20 +56,21 @@ final public class OverlayManager {
      * Shows the screen based on inputted ScreenEnum
      *
      * @param overlayEnum which screen to switch to
+     * @param currentScreen to set currentOverlay stage to
      */
-    public void showOverlay(ScreenOverlayEnum overlayEnum) {
+    public void showOverlay(ScreenOverlayEnum overlayEnum, Stage currentScreen) {
         // Render current overlay to be shown
-        AbstractScreen currentScreen = ScreenManager.getInstance().getCurrentScreen();
         currentOverlay = getOverlay(overlayEnum);
 
         if (currentOverlay == null && prevOverlay != null) prevOverlay.hideOverlay();
         if (currentOverlay != null && currentOverlay != prevOverlay) {
             currentOverlay.setStage(currentScreen);
-            //currentOverlay.render();
         }
         prevOverlay = currentOverlay;
     }
 
+
+   //Returns AbstractOverlay object depending on overlayEnum
     private AbstractOverlay getOverlay(ScreenOverlayEnum overlayEnum) {
         return switch (overlayEnum) {
             case PAUSE_MENU -> pauseMenuOverlay;
@@ -74,6 +82,10 @@ final public class OverlayManager {
         };
     }
 
+    /**
+     * Get currently showing overlay
+     * @return overlay object
+     */
     public AbstractOverlay getCurrentOverlay() {
         return currentOverlay;
     }

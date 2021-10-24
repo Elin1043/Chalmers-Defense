@@ -1,7 +1,6 @@
 package com.mygdx.chalmersdefense.model.powerUps;
 
 
-import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 
 import java.util.List;
@@ -16,11 +15,10 @@ public abstract class PowerUpFactory {
 
     /**
      * Create a powerUp of the type MaskedUp
-     * @param allTowers towers to power up
      * @return new MaskedUp object
      */
-    private static IPowerUp createMaskedUpPowerUp(List<ITower> allTowers) {
-        return new MaskedUp(allTowers);
+    private static IPowerUp createMaskedUpPowerUp() {
+        return new MaskedUp();
     }
 
     /**
@@ -42,12 +40,11 @@ public abstract class PowerUpFactory {
 
     /**
      * Creates a list of all different power-ups
-     * @param allTowers towers to power up
      * @param viruses viruses to hurt
      * @return the list with all power-ups
      */
-    public static List<IPowerUp> createPowerUps(List<ITower> allTowers, List<IVirus> viruses) {
-        return List.of(createCleanHandsPowerUp(), createMaskedUpPowerUp(allTowers), createVaccinatedPowerUp(viruses));
+    public static List<IPowerUp> createPowerUps(List<IVirus> viruses) {
+        return List.of(createCleanHandsPowerUp(), createMaskedUpPowerUp(), createVaccinatedPowerUp(viruses));
     }
 
 }

@@ -58,11 +58,11 @@ public class TestSpawnViruses {
 
     @Test
     public void testSpawnWholeRound() {
-        sp.spawnRound(1);
+        sp.spawnRound(30);
         while (sp.isSpawning()) {
             sp.decrementSpawnTimer();
         }
-        assertEquals(36, l.size());     // If the class has spawned every virus in round data. (This needs to be updated to match the correct amount)
+        assertEquals(180, l.size());     // If the class has spawned every virus in round data. (This needs to be updated to match the correct amount)
     }
 
     @Test

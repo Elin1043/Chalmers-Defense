@@ -1,50 +1,33 @@
 package com.mygdx.chalmersdefense.views;
 
 import com.badlogic.gdx.Game;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
+import com.mygdx.chalmersdefense.utilities.event.IEventListener;
+import com.mygdx.chalmersdefense.utilities.event.concreteEvents.ViewControllerEvents;
 
 /**
  * @author Daniel Persson
  * A singleton class for mangaging the dirrefent screens.
  */
-final public class ScreenManager {
-    private AbstractScreen mainScreen;
-    private AbstractScreen gameScreen;
+final public class ScreenManager implements IEventListener<ViewControllerEvents> {
+    private final AbstractScreen mainScreen; // The main screen of the game
+    private final AbstractScreen gameScreen; // The game screen in the game
 
-    private AbstractScreen currentScreen;
-    private ScreenEnum currentScreenEnum;
-
-    private static ScreenManager instance;
-
-    private Game game;
-
-    private ScreenManager() {
-        super();
-
-    }
+    private final Game game;             // The current game
 
     /**
-     * Returns this instance
-     *
-     * @return the only ScreenManager instance
+     * Creates an instance of the ScreenManagerClass
+     * @param game the current game
+     * @param mainScreen the games main screen
+     * @param gameScreen the game screen of the game
+     * @param eventbus the view eventbus to get sceen changer events from
      */
-    public static ScreenManager getInstance() {
-        if (instance == null) {
-            instance = new ScreenManager();
-        }
-        return instance;
-    }
-
-    /**
-     * Initialize the different screens
-     *
-     * @param game       the game object to switch screen with
-     * @param mainScreen mainScreen instance
-     * @param gameScreen gameScreen instance
-     */
-    public void initialize(Game game, AbstractScreen mainScreen, AbstractScreen gameScreen) {
+    public ScreenManager(Game game, AbstractScreen mainScreen, AbstractScreen gameScreen, EventBus eventbus) {
         this.game = game;
         this.mainScreen = mainScreen;
         this.gameScreen = gameScreen;
+        eventbus.listenFor(ViewControllerEvents.class, this);
+        showScreen(ScreenEnum.MAIN_MENU);
     }
 
     /**
@@ -53,13 +36,14 @@ final public class ScreenManager {
      * @param screenEnum which screen to switch to
      */
     public void showScreen(ScreenEnum screenEnum) {
-        currentScreen = getScreen(screenEnum);
-        currentScreenEnum = screenEnum;
+        AbstractScreen currentScreen = getScreen(screenEnum);
         if (currentScreen != null) {
+            currentScreen.setBackgroundImage();
             game.setScreen(currentScreen);
         }
     }
 
+    //Get the current screen
     private AbstractScreen getScreen(ScreenEnum screenEnum) {
         return switch (screenEnum) {
             case MAIN_MENU -> mainScreen;
@@ -67,19 +51,11 @@ final public class ScreenManager {
         };
     }
 
-    /**
-     * A getter for which screen is currently showing
-     * @return current screen
-     */
-    public AbstractScreen getCurrentScreen() {
-        return currentScreen;
-    }
-
-    /**
-     * A getter for which screen enum is currently showing
-     * @return an enum for current screen
-     */
-    public ScreenEnum getCurrentScreenEnum() {
-        return currentScreenEnum;
+    @Override
+    public void handle(ViewControllerEvents event) {
+        switch (event.getEventType()) {
+            case SHOWMAIN_SCREEN -> showScreen(ScreenEnum.MAIN_MENU);
+            case SHOWGAME_SCREEN -> showScreen(ScreenEnum.GAME);
+        }
     }
 }

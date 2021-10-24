@@ -22,7 +22,7 @@ public class TestGenericMapObject {
 
 
     @Before
-    public void createGenericMapobject(){
+    public void createGenericMapObject(){
         object = GenericMapObjectFactory.createBubbles(0, 0 ,0);
     }
 

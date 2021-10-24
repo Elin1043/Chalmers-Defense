@@ -7,10 +7,18 @@ import java.util.List;
  * <p>
  * Class representing Hackerman / HackerTowers shooting projectile
  */
-final class MatrixProjectile extends Projectile{
+final class MatrixProjectile extends Projectile {
 
     private final List<IProjectile> projectileList; // The list to add the MatrixArea to
 
+    /**
+     * Creates a MatrixProjectile object
+     * @param x The x start position
+     * @param y The y start position
+     * @param angle The angle of the projectile
+     * @param upgradeLevel The upgrade level of the projectile
+     * @param projectileList The list to add new projectiles to
+     */
     MatrixProjectile(float x, float y, float angle, int upgradeLevel, List<IProjectile> projectileList) {
         super(7, "hackerProjectile" + upgradeLevel, x, y, angle, Math.min(upgradeLevel - 1, 1));
         this.projectileList = projectileList;

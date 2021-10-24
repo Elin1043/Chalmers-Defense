@@ -3,15 +3,13 @@ package com.mygdx.chalmersdefense.controllers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.chalmersdefense.model.IControllModel;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
+import com.mygdx.chalmersdefense.utilities.event.concreteEvents.ViewControllerEvents;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
-import com.mygdx.chalmersdefense.views.ScreenEnum;
-import com.mygdx.chalmersdefense.views.ScreenManager;
 
 
 /**
@@ -23,10 +21,17 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
  * Controller class for MainScreen
  */
 public class MainScreenController extends InputAdapter {
-    private final IControllModel model;
+    private final IControllModel model;     // Model reference
+    private final EventBus viewEventBus;    // Eventbus to publish events to
 
-    public MainScreenController(IControllModel model){
+    /**
+     * Creates a controller for use by the MainScreen class
+     * @param model the model to control
+     * @param viewEventBus eventbus to add events to
+     */
+    public MainScreenController(IControllModel model, EventBus viewEventBus){
         this.model = model;
+        this.viewEventBus = viewEventBus;
     }
 
     /**
@@ -37,7 +42,7 @@ public class MainScreenController extends InputAdapter {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ScreenManager.getInstance().showScreen(ScreenEnum.GAME);
+            viewEventBus.emit(new ViewControllerEvents(ViewControllerEvents.EventType.SHOWGAME_SCREEN));
             }
         });
     }
@@ -68,6 +73,10 @@ public class MainScreenController extends InputAdapter {
         });
     }
 
+    /**
+     * Listener for info button
+     * @param button the info button
+     */
     public void addInfoButtonClickListener(Button button) {
         button.addListener(new ClickListener() {
             @Override

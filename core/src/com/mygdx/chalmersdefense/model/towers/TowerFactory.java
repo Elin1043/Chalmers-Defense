@@ -1,10 +1,9 @@
 package com.mygdx.chalmersdefense.model.towers;
 
 
-import com.mygdx.chalmersdefense.model.Player;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
-import com.mygdx.chalmersdefense.model.targetMode.TargetModeFactory;
-import com.mygdx.chalmersdefense.utilities.PathRectangle;
+import com.mygdx.chalmersdefense.model.modelUtilities.PathRectangle;
 
 import java.util.List;
 
@@ -16,7 +15,6 @@ import java.util.List;
 
 public abstract class TowerFactory {
 
-
     /**
      * Creates a smurfTower
      *
@@ -24,19 +22,21 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower CreateSmurf(float startPosX, float startPosY) {
-        return new SmurfTower(startPosX, startPosY, "IT-Smurf", 60 * 3, 100, 200, TargetModeFactory.getTargetModes());
+    public static ITower createSmurf(float startPosX, float startPosY) {
+        return new SmurfTower(startPosX, startPosY);
     }
+
 
     /**
      * Creates a chemistTower
      *
      * @param startPosX x-coordinate to create tower
      * @param startPosY y-coordinate to create tower
+     * @param addProjectileToList list to add projectiles to
      * @return tower that was created
      */
-    public static ITower CreateChemist(float startPosX, float startPosY, List<IProjectile> addProjectileToList) {
-        return new ChemistTower(startPosX, startPosY, "Chemist", 60 * 3, 200, 200, TargetModeFactory.getTargetModes(), addProjectileToList);
+    public static ITower createChemist(float startPosX, float startPosY, List<IProjectile> addProjectileToList) {
+        return new ChemistTower(startPosX, startPosY, addProjectileToList);
     }
 
     /**
@@ -44,10 +44,11 @@ public abstract class TowerFactory {
      *
      * @param startPosX x-coordinate to create tower
      * @param startPosY y-coordinate to create tower
+     * @param addProjectileToList list to add projectiles to
      * @return tower that was created
      */
-    public static ITower CreateHacker(float startPosX, float startPosY, List<IProjectile> addProjectileToList) {
-        return new HackerTower(startPosX, startPosY, "Hackerman", 60 * 3, 300, 700, TargetModeFactory.getTargetModes(), addProjectileToList);
+    public static ITower createHacker(float startPosX, float startPosY, List<IProjectile> addProjectileToList) {
+        return new HackerTower(startPosX, startPosY, addProjectileToList);
     }
 
     /**
@@ -57,20 +58,22 @@ public abstract class TowerFactory {
      * @param startPosY y-coordinate to create tower
      * @return tower that was created
      */
-    public static ITower CreateElectro(float startPosX, float startPosY) {
-        return new ElectroTower(startPosX, startPosY, "Electroman", 60 * 3, 400, 200, TargetModeFactory.getTargetModes());
+    public static ITower createElectro(float startPosX, float startPosY) {
+        return new ElectroTower(startPosX, startPosY);
     }
-
 
     /**
      * Creates a mechTower
      *
      * @param startPosX x-coordinate to create tower
      * @param startPosY y-coordinate to create tower
+     * @param towerToAddList list to add towers to
+     * @param allTowers list of all towers
+     * @param pathRectangles list of rectangles on path
      * @return tower that was created
      */
-    public static ITower CreateMech(float startPosX, float startPosY, List<ITower> towerToAddList, List<ITower> allTowers, List<PathRectangle> pathRectangles) {
-        return new MechTower(startPosX, startPosY, "Mechoman", 60 * 3, 500, 200, TargetModeFactory.getTargetModes(), towerToAddList, allTowers, pathRectangles);
+    public static ITower createMech(float startPosX, float startPosY, List<ITower> towerToAddList, List<ITower> allTowers, List<PathRectangle> pathRectangles) {
+        return new MechTower(startPosX, startPosY, towerToAddList, allTowers, pathRectangles);
     }
 
     /**
@@ -78,10 +81,11 @@ public abstract class TowerFactory {
      *
      * @param startPosX x-coordinate to create tower
      * @param startPosY y-coordinate to create tower
+     * @param eventBus the eventbus to add event to
      * @return tower that was created
      */
-    public static ITower CreateEco(float startPosX, float startPosY, Player player) {
-        return new EcoTower(startPosX, startPosY, "Economist", 60 * 3, 600, 200, TargetModeFactory.getTargetModes(), player);
+    public static ITower createEco(float startPosX, float startPosY, EventBus eventBus) {
+        return new EcoTower(startPosX, startPosY, eventBus);
     }
 
 

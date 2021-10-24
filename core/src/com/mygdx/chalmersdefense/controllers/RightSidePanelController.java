@@ -1,11 +1,9 @@
 package com.mygdx.chalmersdefense.controllers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mygdx.chalmersdefense.model.IControllModel;
@@ -20,11 +18,13 @@ import com.mygdx.chalmersdefense.model.IControllModel;
  * 2021-10-19 Modified by Joel Båtsman Hilmersson: The class now extends InputAdapter to override methods to listen for keyboard input <br>
  * 2021-10-19 Modified by Jenny Carlsson: Added short keys for power ups <br>
  */
-
 public class RightSidePanelController extends InputAdapter {
-    private final IControllModel model;
+    private final IControllModel model; // Model reference
 
-
+    /**
+     * Creates a controller for use by the RightSidePanel class
+     * @param model the model to control
+     */
     public RightSidePanelController(IControllModel model) {
         this.model = model;
     }
@@ -65,26 +65,22 @@ public class RightSidePanelController extends InputAdapter {
             @Override
             public void dragStart(InputEvent event, float x, float y, int pointer) {
                 String towerName = event.getListenerActor().getName();
-                ImageButton button = (ImageButton) event.getListenerActor();
+                Button button = (Button) event.getListenerActor();
                 model.dragStart(towerName, button.getX(), button.getY());
             }
 
             @Override
             public void drag(InputEvent event, float x, float y, int pointer) {
-                ImageButton button = (ImageButton) event.getListenerActor();
                 float inputX = event.getStageX();
                 float inputY = event.getStageY();
-                int windowHeight = Gdx.graphics.getHeight();
-                int windowWidth = Gdx.graphics.getWidth();
-                model.onDrag((button.getImage().getWidth() / 2), (button.getImage().getHeight() / 2), inputX, inputY, windowHeight, windowWidth);
+                model.onDrag(inputX, inputY);
             }
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
-                ImageButton button = (ImageButton) event.getListenerActor();
                 float inputX = event.getStageX();
                 float inputY = event.getStageY();
-                model.dragEnd((button.getImage().getWidth() / 2), (button.getImage().getHeight() / 2), inputX, inputY);
+                model.dragEnd(inputX, inputY);
             }
         });
     }

@@ -1,6 +1,6 @@
 package com.mygdx.chalmersdefense.model.genericMapObjects;
 
-import com.mygdx.chalmersdefense.utilities.CountDownTimer;
+import com.mygdx.chalmersdefense.model.modelUtilities.CountDownTimer;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -10,7 +10,6 @@ import java.util.Objects;
 /**
  * @author Elin Forsberg
  * Class defining a generic MapObject
- *
  */
 final class GenericMapObject implements IGenericMapObject {
 
@@ -26,8 +25,17 @@ final class GenericMapObject implements IGenericMapObject {
 
     boolean canRemove = false;  // Boolean over if this object can be removed by map
 
-    private final CountDownTimer animationTimer ;
+    private final CountDownTimer animationTimer; // Timer to use when counting down to animation finish
 
+    /**
+     * Creates an abject representing a graphical element on screen
+     * @param speed the speed of the object
+     * @param spriteKey the sprite key for the object
+     * @param x the x starting coordinate
+     * @param y the y starting coordinate
+     * @param angle the direction to move in
+     * @param time the amount of time this object is on screen before it gets scraped
+     */
     GenericMapObject(float speed, String spriteKey, float x, float y, float angle, int time) {
         this.speed = speed;
         this.spriteKey = spriteKey;
@@ -36,7 +44,6 @@ final class GenericMapObject implements IGenericMapObject {
         this.angle = angle;
 
         animationTimer = new CountDownTimer(time);
-
 
         try {
             BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("genericMapObjects/" + spriteKey + ".png")));

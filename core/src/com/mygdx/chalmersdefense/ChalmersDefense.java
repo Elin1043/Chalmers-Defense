@@ -2,8 +2,9 @@ package com.mygdx.chalmersdefense;
 
 import com.badlogic.gdx.Game;
 import com.mygdx.chalmersdefense.controllers.*;
-import com.mygdx.chalmersdefense.controllers.overlays.*;
+import com.mygdx.chalmersdefense.controllers.overlayControllers.*;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.views.*;
 import com.mygdx.chalmersdefense.views.overlays.*;
@@ -29,15 +30,16 @@ final public class ChalmersDefense extends Game {
         Preferences preferences = new Preferences();
         Model model = new Model(preferences);
 
-        // Creating Controllers
-        MainScreenController mainScreenController = new MainScreenController(model);
+        EventBus viewEventBus = new EventBus();  // A reference to the EventBus in the game
 
+        // Creating Controllers
+        MainScreenController mainScreenController = new MainScreenController(model, viewEventBus);
         GameScreenController gameScreenController = new GameScreenController(model);
         RightSidePanelController rightSidePanelController = new RightSidePanelController(model);
         BottomBarPanelController bottomBarPanelController = new BottomBarPanelController(model);
 
-        AbstractOverlayController abstractOverlayController = new AbstractOverlayController(model);
-        PauseMenuOverlayController pauseMenuOverlayController = new PauseMenuOverlayController(model);
+        AbstractOverlayController abstractOverlayController = new AbstractOverlayController(model, viewEventBus);
+        PauseMenuOverlayController pauseMenuOverlayController = new PauseMenuOverlayController(model, viewEventBus);
         SettingsOverlayController settingsOverlayController = new SettingsOverlayController(model, preferences);
         LostPanelOverlayController lostPanelOverlayController = new LostPanelOverlayController(model);
         WinPanelOverlayController winPanelOverlayController = new WinPanelOverlayController(model);
@@ -56,8 +58,7 @@ final public class ChalmersDefense extends Game {
         new Sounds(preferences);
 
         // Init ScreenManager
-        ScreenManager.getInstance().initialize(this, mainScreen, gameScreen);
-        ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+        new ScreenManager(this, mainScreen, gameScreen, viewEventBus);
 
         // Init OverlayManager
         OverlayManager.getInstance().initialize(pauseMenuOverlay, settingsMenuOverlay, lostPanelOverlay, winPanelOverlay, infoOverlay);

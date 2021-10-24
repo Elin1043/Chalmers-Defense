@@ -8,10 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.Align;
-import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
-import com.mygdx.chalmersdefense.controllers.overlays.LostPanelOverlayController;
-import com.mygdx.chalmersdefense.utilities.FontFactory;
+import com.mygdx.chalmersdefense.controllers.overlayControllers.AbstractOverlayController;
+import com.mygdx.chalmersdefense.controllers.overlayControllers.LostPanelOverlayController;
+import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
 
 /**
  * @author Daniel Persson
@@ -29,7 +28,7 @@ final class LostPanelOverlay extends AbstractOverlay {
      * @param abstractOverlayController reference to common controller
      * @param lostPanelOverlayController reference to controller for lost panel
      */
-    public LostPanelOverlay(AbstractOverlayController abstractOverlayController, LostPanelOverlayController lostPanelOverlayController) {
+    LostPanelOverlay(AbstractOverlayController abstractOverlayController, LostPanelOverlayController lostPanelOverlayController) {
         super(abstractOverlayController);
         this.lostPanelOverlayController = lostPanelOverlayController;
     }
@@ -50,25 +49,18 @@ final class LostPanelOverlay extends AbstractOverlay {
         lostPanelGroup.addActor(mainText);
 
         // Button skin
-        TextureAtlas lostButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/lostGameButtonSkin/lostGameButtonSkin.atlas")); // Load atlas file from skin
-        Skin lostButtonSkin = new Skin(Gdx.files.internal("buttons/lostGameButtonSkin/lostGameButtonSkin.json"), lostButtonTexture); // Create skin object
+        TextureAtlas lostButtonTexture = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "lostGameButtonSkin/lostGameButtonSkin.atlas")); // Load atlas file from skin
+        Skin lostButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "lostGameButtonSkin/lostGameButtonSkin.json"), lostButtonTexture); // Create skin object
 
         // Create first button
-        Button mainMenuButton = new Button(lostButtonSkin);
-        Label mainMenuButtonText = new Label(" Main menu ", FontFactory.getLabelStyle24BlackSemiBold());
-        setupWinAndLostOverlayButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1);
-        lostPanelGroup.addActor(mainMenuButton);
-        abstractOverlayController.addMainMenuClickListener(mainMenuButton);
+        createMainMenuButton(lostButtonSkin);
 
         // Create second button
-        Button tryAgainButton = new Button(lostButtonSkin);
-        Label tryAgainButtonText = new Label("Try again", FontFactory.getLabelStyle24BlackSemiBold());
-        setupWinAndLostOverlayButtons(backgroundImage, tryAgainButton, tryAgainButtonText, 2);
-        lostPanelGroup.addActor(tryAgainButton);
-        lostPanelOverlayController.addLostPanelTryAgainClickListener(tryAgainButton);
+        createTryAgainButton(lostButtonSkin);
 
         lostPanelGroup.setVisible(false);
     }
+
 
     @Override
     public void render() {
@@ -79,5 +71,25 @@ final class LostPanelOverlay extends AbstractOverlay {
     @Override
     public void hideOverlay() {
         lostPanelGroup.setVisible(false);
+    }
+
+
+    //Create main menu button
+    private void createMainMenuButton(Skin lostButtonSkin) {
+        Button mainMenuButton = new Button(lostButtonSkin);
+        Label mainMenuButtonText = new Label(" Main menu ", FontFactory.getLabelStyle24BlackSemiBold());
+        setupWinAndLostOverlayButtons(backgroundImage, mainMenuButton, mainMenuButtonText, 1);
+        lostPanelGroup.addActor(mainMenuButton);
+        abstractOverlayController.addMainMenuClickListener(mainMenuButton);
+    }
+
+
+    //Create try again button
+    private void createTryAgainButton(Skin lostButtonSkin) {
+        Button tryAgainButton = new Button(lostButtonSkin);
+        Label tryAgainButtonText = new Label("Try again", FontFactory.getLabelStyle24BlackSemiBold());
+        setupWinAndLostOverlayButtons(backgroundImage, tryAgainButton, tryAgainButtonText, 2);
+        lostPanelGroup.addActor(tryAgainButton);
+        lostPanelOverlayController.addLostPanelTryAgainClickListener(tryAgainButton);
     }
 }

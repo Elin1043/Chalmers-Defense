@@ -21,8 +21,7 @@ abstract class Projectile implements IProjectile {
     private float width;    // Current width of projectile
     private float height;   // Current height of projectile
     private final float speed;    // Speed of projectile
-    private final float damage;   // Damage of projectile
-
+    private final float damage;   // Damage of the projectile
 
     private final String spriteKey;   // The key to the Sprite Hashmap
     private float x;            // X coordinate on map
@@ -32,6 +31,15 @@ abstract class Projectile implements IProjectile {
 
     boolean canRemove = false;  // Boolean over if this projectile can be removed by map
 
+    /**
+     * Creates an abstract Projectile object with common projectile methods
+     * @param speed The projectile speed
+     * @param spriteKey The projectiles sprite key
+     * @param x The objects start x position
+     * @param y The objects start y position
+     * @param angle The angle of the projectile
+     * @param damage The amount of damage the projectile does
+     */
     Projectile(float speed, String spriteKey, float x, float y, float angle, float damage) {
         this.speed = speed;
         this.spriteKey = spriteKey;
@@ -39,8 +47,6 @@ abstract class Projectile implements IProjectile {
         this.y = y;
         this.angle = angle;
         this.damage = damage;
-        // TODO Fix speed calc in children
-
 
         try {
             BufferedImage towerImage = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("projectiles/" + spriteKey + ".png")));
@@ -70,8 +76,11 @@ abstract class Projectile implements IProjectile {
 
     }
 
+
     /**
      * Method to call when virus is hit
+     * @param hitVirusHashCode hashcode of the virus hit
+     * @param angle angle to move towards
      */
     void virusIsHit(int hitVirusHashCode, float angle) {
         haveHitList.add(hitVirusHashCode);

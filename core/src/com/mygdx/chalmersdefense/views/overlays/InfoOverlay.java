@@ -2,12 +2,12 @@ package com.mygdx.chalmersdefense.views.overlays;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
-import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
-import com.mygdx.chalmersdefense.utilities.FontFactory;
+import com.mygdx.chalmersdefense.controllers.overlayControllers.AbstractOverlayController;
+import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
 
 /**
  * @author Jenny Carlsson
@@ -28,22 +28,21 @@ final class InfoOverlay extends AbstractOverlay {
     }
 
     @Override
-    protected void initialize() {
+    void initialize() {
         stage.addActor(infoGroup);
         if (!infoGroup.hasChildren()) {
             infoGroup.addActor(backgroundImage);
 
             backgroundImage.setPosition(stage.getWidth()/2 - backgroundImage.getWidth()/2, stage.getHeight()/2 - backgroundImage.getHeight()/2);
-            ImageButton exitButton = createExitPauseMenuButton(infoGroup, backgroundImage);
+            Button exitButton = createExitPauseMenuButton(infoGroup, backgroundImage);
             abstractOverlayController.addExitOverlayButtonClickListener(exitButton);
 
             createLabels();
         }
     }
 
-    /**
-     * Method for creating labels
-     */
+
+    //Method for creating labels
     private void createLabels() {
         Label infoTitleLabel = new Label("Game info", FontFactory.getLabelStyle36BlackBold());
         infoGroup.addActor(infoTitleLabel);

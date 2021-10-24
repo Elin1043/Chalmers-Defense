@@ -12,6 +12,7 @@ public interface IPowerUp {
 
     /**
      * Activates the power-up if the power-up can be used
+     * @param addGraphicsList list to add the graphicsObject to
      */
     void powerUpClicked(List<IGenericMapObject> addGraphicsList);
 
@@ -37,4 +38,9 @@ public interface IPowerUp {
      * @return cost
      */
     int getCost();
+
+    /**
+     * resets the power-ups to it's initial state
+     */
+    void resetPowerUp();
 }

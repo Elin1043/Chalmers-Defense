@@ -1,0 +1,27 @@
+
+InfoButtonSkin.png
+size: 512, 512
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+InfoButtonDefault
+  rotate: false
+  xy: 1, 260
+  size: 364, 103
+  orig: 364, 103
+  offset: 0, 0
+  index: -1
+InfoButtonHover
+  rotate: false
+  xy: 1, 155
+  size: 364, 103
+  orig: 364, 103
+  offset: 0, 0
+  index: -1
+InfoButtonPressed
+  rotate: false
+  xy: 1, 50
+  size: 364, 103
+  orig: 364, 103
+  offset: 0, 0
+  index: -1

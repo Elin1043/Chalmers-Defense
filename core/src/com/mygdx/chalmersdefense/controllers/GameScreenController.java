@@ -3,15 +3,14 @@ package com.mygdx.chalmersdefense.controllers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.IControllModel;
-import com.mygdx.chalmersdefense.views.ScreenManager;
 
 /**
  * @author Daniel Persson
@@ -27,15 +26,25 @@ import com.mygdx.chalmersdefense.views.ScreenManager;
  * 2021-10-19 Modified by Jenny Carlsson: Added short keys for pause menu <br>
  */
 public class GameScreenController extends InputAdapter {
-    private final IControllModel model;
+    private final IControllModel model; // Model reference
+    private Stage stage;                // Stage to get mouse coordinates from
 
+    /**
+     * Creates a controller for use by the GameScreen class
+     * @param model the model to control
+     */
     public GameScreenController(IControllModel model) {
         this.model = model;
     }
 
     /**
+     * Adds a stage to convert direct mouse inputs to correct screen coordinates on the stage
+     * @param stage the stage to convert to screen coordinates to
+     */
+    public void addStageToController(Stage stage){ this.stage = stage; }
+
+    /**
      * Adds listener to map in GamerScreen
-     *
      * @param image GameScreens mapImage
      */
     public void addMapClickListener(Image image) {
@@ -49,7 +58,6 @@ public class GameScreenController extends InputAdapter {
 
     /**
      * Adds click listener to pause button in GameScreen
-     *
      * @param button GameScreens pause button
      */
     public void addPauseButtonClickListener(Button button) {
@@ -64,6 +72,7 @@ public class GameScreenController extends InputAdapter {
 
     @Override
     public boolean keyDown (int keycode) {
+
         switch (keycode) {
             case (Input.Keys.ESCAPE) -> {
                 model.stopGameUpdate();
@@ -111,9 +120,10 @@ public class GameScreenController extends InputAdapter {
 
     //Places tower at mouse location
     private void placeTowerAtMousePosition(String name) {
-        Vector2 v = ScreenManager.getInstance().getCurrentScreen().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
-        model.dragStart(name, v.x, v.y);
-        model.onDrag(60, 80, v.x, v.y, Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-        model.dragEnd(60, 80, v.x, v.y);
+        Vector2 screenCoordinateVector = stage.screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+
+        model.dragStart(name, screenCoordinateVector.x, screenCoordinateVector.y);
+        model.onDrag(screenCoordinateVector.x, screenCoordinateVector.y);
+        model.dragEnd(screenCoordinateVector.x, screenCoordinateVector.y);
     }
 }

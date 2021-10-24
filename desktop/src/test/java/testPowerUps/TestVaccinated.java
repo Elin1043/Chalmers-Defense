@@ -3,7 +3,6 @@ package testPowerUps;
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.model.powerUps.IPowerUp;
 import com.mygdx.chalmersdefense.model.powerUps.PowerUpFactory;
-import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
 import org.junit.Before;
@@ -22,13 +21,12 @@ import static org.junit.Assert.assertTrue;
 public class TestVaccinated {
 
     private IPowerUp powerUp;
-    private List<ITower> towerList = new ArrayList<>();
-    private List<IVirus> virusList = new ArrayList<>();
-    private List<IGenericMapObject> genericMapObjectList = new ArrayList<>();
+    private final List<IVirus> virusList = new ArrayList<>();
+    private final List<IGenericMapObject> genericMapObjectList = new ArrayList<>();
 
     @Before
     public void createPowerUp(){
-        powerUp = PowerUpFactory.createPowerUps(towerList, virusList).get(2);
+        powerUp = PowerUpFactory.createPowerUps(virusList).get(2);
     }
 
     @Test
@@ -51,6 +49,6 @@ public class TestVaccinated {
 
     @Test
     public void testGetCost(){
-        assertEquals(500, powerUp.getCost());
+        assertEquals(900, powerUp.getCost());
     }
 }

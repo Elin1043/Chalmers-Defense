@@ -2,7 +2,6 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
-import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import java.util.List;
 
@@ -17,8 +16,14 @@ final class HackerTower extends Tower {
 
     private final List<IProjectile> addToList;  // List to add new projectiles to
 
-    HackerTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes, List<IProjectile> addToList) {
-        super(x, y, name, reloadSpeed, cost, range, targetModes);
+    /**
+     * Creates object of a HackerTower
+     * @param x - startcoordinate of tower
+     * @param y - startcoordinate of tower
+     * @param addToList list to add towers projectiles to
+     */
+    HackerTower(float x, float y, List<IProjectile> addToList) {
+        super(x, y, "Hackerman", 240, 300, 700);
         this.addToList = addToList;
     }
 

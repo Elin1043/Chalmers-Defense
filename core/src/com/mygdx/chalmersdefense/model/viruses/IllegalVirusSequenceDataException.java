@@ -7,6 +7,10 @@ package com.mygdx.chalmersdefense.model.viruses;
  */
 final public class IllegalVirusSequenceDataException extends RuntimeException {
 
+    /**
+     * Creates this exception
+     * @param message the message this exception should display
+     */
     public IllegalVirusSequenceDataException(String message) {
         super(message);
     }

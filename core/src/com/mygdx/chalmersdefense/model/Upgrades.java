@@ -1,8 +1,8 @@
 package com.mygdx.chalmersdefense.model;
 
 import com.mygdx.chalmersdefense.model.towers.ITower;
-import com.mygdx.chalmersdefense.utilities.IParseJSON;
-import com.mygdx.chalmersdefense.utilities.JSONParserWrapper;
+import com.mygdx.chalmersdefense.model.modelUtilities.IParseJSON;
+import com.mygdx.chalmersdefense.model.modelUtilities.JSONParserWrapper;
 
 import java.util.HashMap;
 
@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 abstract class Upgrades {
     private static final int MAX_UPGRADES = 3;                     // Current max upgrade level
-    private static final IParseJSON jsonParser = new JSONParserWrapper("UpgradeData.json");
+    private static final IParseJSON jsonParser = new JSONParserWrapper("UpgradeData.json");  //Parser used for parsing json data
 
     /**
      * Main method for upgrading a tower.
@@ -71,8 +71,8 @@ abstract class Upgrades {
      * @param upgradeLevel level of upgrade to get price from
      * @return a Long with towers upgrade price depending on upgrade level.
      */
-    public static Integer getTowerUpgradePrice(String towerName, int upgradeLevel) {
-        Integer price;
+    public static int getTowerUpgradePrice(String towerName, int upgradeLevel) {
+        int price;
         try {
             price = jsonParser.startParser().navThroughJSON(towerName).getByIndex(upgradeLevel-1).getInteger("price");
         } catch (NullPointerException | IllegalArgumentException exception) {

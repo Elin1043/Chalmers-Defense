@@ -2,7 +2,6 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
-import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
 
 import java.util.List;
 
@@ -12,9 +11,13 @@ import java.util.List;
  */
 final class ElectroTower extends Tower {
 
-
-    ElectroTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<ITargetMode> targetModes) {
-        super(x, y, name, reloadSpeed, cost, range, targetModes);
+    /**
+     * Creates object of a ElectroTower
+     * @param x - startcoordinate of tower
+     * @param y - startcoordinate of tower
+     */
+    ElectroTower(float x, float y) {
+        super(x, y, "Electroman", 300, 400, 200);
     }
 
 

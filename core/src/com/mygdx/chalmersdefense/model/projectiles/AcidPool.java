@@ -1,7 +1,7 @@
 package com.mygdx.chalmersdefense.model.projectiles;
 
 
-import com.mygdx.chalmersdefense.utilities.CountDownTimer;
+import com.mygdx.chalmersdefense.model.modelUtilities.CountDownTimer;
 
 /**
  * @author Joel Båtsman Hilmersson
@@ -10,10 +10,21 @@ import com.mygdx.chalmersdefense.utilities.CountDownTimer;
 final class AcidPool extends Projectile{
 
     private final CountDownTimer poolTimer = new CountDownTimer(150); // Max Lifetime off acid pool
-    private final CountDownTimer maxVirusHit = new CountDownTimer(5); // Max amount of virus that can be hit with the pool
+    private final CountDownTimer maxVirusHit; // Max amount of virus that can be hit with the pool
 
+    /**
+     * Creates an AcidPool object
+     * @param x The x start position
+     * @param y The y start position
+     * @param upgradeLevel The upgrade level of the projectile
+     */
     AcidPool(float x, float y, int upgradeLevel) {
         super(0, "chemistAcid" + upgradeLevel, x, y, 0, 1);
+        maxVirusHit = switch (upgradeLevel) {
+            case 1 -> new CountDownTimer(2);
+            case 2 -> new CountDownTimer(4);
+            default -> new CountDownTimer(10);
+        };
     }
 
     @Override

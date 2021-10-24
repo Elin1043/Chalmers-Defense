@@ -2,8 +2,7 @@ package com.mygdx.chalmersdefense.model.towers;
 
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
-import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
-import com.mygdx.chalmersdefense.utilities.CountDownTimer;
+import com.mygdx.chalmersdefense.model.modelUtilities.CountDownTimer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,16 +18,32 @@ final class MechMiniTower extends Tower {
 
     private final CountDownTimer lifeTimeCounter;   // The life timer of the MiniMechTower
 
-    MechMiniTower(float x, float y, int reloadSpeed, int range, List<ITargetMode> targetModes,ITargetMode currentTargetMode, int upgradeLevel) {
-        super(x, y, "MechMini", reloadSpeed, 0, range, targetModes);
+    /**
+     * Creates object of a MechMiniTower
+     * @param x - startcoordinate of tower
+     * @param y - startcoordinate of tower
+     * @param reloadSpeed of the tower
+     * @param range of the tower
+     * @param currentTargetModeIndex targetModeIndex for getting targetMode
+     * @param upgradeLevel upgradelevel to be set
+     */
+    MechMiniTower(float x, float y, int reloadSpeed, int range, int currentTargetModeIndex, int upgradeLevel) {
+        super(x, y, "MechMini", reloadSpeed, 0, range);
 
         Random rand = new Random();
         this.lifeTimeCounter = new CountDownTimer(rand.nextInt(401) + 800);
 
-        for (int i = 0; i < targetModes.indexOf(currentTargetMode); i++){
+        // Changes target modes to be the same as the mechtower that created this tower
+        for (int i = 0; i < currentTargetModeIndex; i++){
             super.changeTargetMode(true);
         }
 
+        upgradeMiniMechToCorrectLevel(upgradeLevel);
+
+    }
+
+    // Upgrades the tower to it's correct state
+    private void upgradeMiniMechToCorrectLevel(int upgradeLevel) {
         HashMap<String, Double> upgrades = new HashMap<>();
         upgrades.put("attackSpeedMul", 1.0);
         upgrades.put("attackRangeMul", 1.0);
@@ -37,11 +52,10 @@ final class MechMiniTower extends Tower {
 
         if(upgradeLevel == 3){
             upgrades.clear();
-            upgrades.put("attackSpeedMul",0.2);
+            upgrades.put("attackSpeedMul",1.1);
             upgrades.put("attackRangeMul",2.0);
             super.upgradeTower(upgrades);
         }
-
     }
 
     @Override

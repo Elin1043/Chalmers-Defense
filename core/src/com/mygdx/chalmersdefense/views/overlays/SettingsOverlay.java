@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
-import com.mygdx.chalmersdefense.controllers.overlays.AbstractOverlayController;
-import com.mygdx.chalmersdefense.controllers.overlays.SettingsOverlayController;
-import com.mygdx.chalmersdefense.utilities.FontFactory;
+import com.mygdx.chalmersdefense.controllers.overlayControllers.AbstractOverlayController;
+import com.mygdx.chalmersdefense.controllers.overlayControllers.SettingsOverlayController;
+import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.views.ScreenEnum;
 import com.mygdx.chalmersdefense.views.ScreenManager;
@@ -43,7 +43,7 @@ final class SettingsOverlay extends AbstractOverlay {
      * @param settingsOverlayController reference to controller for settings overlay
      * @param preferences reference to the games preferences
      */
-    public SettingsOverlay(AbstractOverlayController abstractOverlayController, SettingsOverlayController settingsOverlayController, Preferences preferences) {
+    SettingsOverlay(AbstractOverlayController abstractOverlayController, SettingsOverlayController settingsOverlayController, Preferences preferences) {
         super(abstractOverlayController);
         this.settingsOverlayController = settingsOverlayController;
         this.preferences = preferences;
@@ -58,40 +58,23 @@ final class SettingsOverlay extends AbstractOverlay {
 
             goBackButton = createGoBackButton();
 
-            ImageButton exitButton = createExitPauseMenuButton(settingsMenuGroup, backgroundImage);
-            abstractOverlayController.addExitOverlayButtonClickListener(exitButton);
+            // Create and add click listener to exit button
+            abstractOverlayController.addExitOverlayButtonClickListener(createExitPauseMenuButton(settingsMenuGroup, backgroundImage));
 
             // Creates title
-            Label settingsTitleLabel = new Label("Settings", FontFactory.getLabelStyle36BlackBold());
-            settingsMenuGroup.addActor(settingsTitleLabel);
-            settingsTitleLabel.setPosition(backgroundImage.getX() + (backgroundImage.getWidth() / 2 - settingsTitleLabel.getWidth() / 2), backgroundImage.getY() + 320);
+            createSettingTitle();
 
             // Creates music slider and peripheral components
-            createLabels("Music:", backgroundImage.getX() + 250, backgroundImage.getY() + 275);
-            musicSlider = createSlider(270, 275);
-            settingsOverlayController.addMusicVolumeSliderListener(musicSlider);
-            settingsOverlayController.addMuteMusicClickListener(createCheckBox(" Mute sound", 270, 245));
-            settingsMenuGroup.addActor(musicPercentLabel);
-            musicPercentLabel.setPosition(backgroundImage.getX() + 270 + 320,backgroundImage.getY() + 245);
-            musicPercentLabel.setAlignment(Align.right);
+            createMusicSetting();
 
             // Creates sound effects slider and peripheral components
-            createLabels("Sound effects:", backgroundImage.getX() + 250, backgroundImage.getY() + 200);
-            soundEffectsSlider = createSlider(270, 200);
-            settingsOverlayController.addSoundEffectsVolumeSliderListener(soundEffectsSlider);
-            settingsOverlayController.addMuteSoundEffectsClickListener(createCheckBox(" Mute sound effects", 270, 170));
-            settingsMenuGroup.addActor(soundEffectsPercentLabel);
-            soundEffectsPercentLabel.setPosition(backgroundImage.getX() + 270 + 320,backgroundImage.getY() + 170);
-            soundEffectsPercentLabel.setAlignment(Align.right);
+            createSoundEffectsSetting();
 
             // Creates autoplay label and checkbox
-            createLabels("Autoplay:", backgroundImage.getX() + 250, backgroundImage.getY() + 125);
-            settingsOverlayController.addAutoplayClickListener(createCheckBox("", 270, 129));
+            createAutoplaySetting();
 
             // Creates fullscreen label and checkbox
-            createLabels("Fullscreen:", backgroundImage.getX() + 590, backgroundImage.getY() + 125);
-            isFullscreenCheckBox = createCheckBox("", 610, 129);
-            settingsOverlayController.addFullscreenClickListener(isFullscreenCheckBox);
+            createFullscreenSetting();
 
             // Creates refresh rate label and checkboxes
             createLabels("Refresh rate:", backgroundImage.getX() + 250, backgroundImage.getY() + 50);
@@ -101,8 +84,6 @@ final class SettingsOverlay extends AbstractOverlay {
 
     @Override
     public void render() {
-        goBackButton.setVisible(ScreenManager.getInstance().getCurrentScreenEnum() != ScreenEnum.MAIN_MENU);
-
         updateValueLabels();
         isFullscreenCheckBox.setChecked(Gdx.graphics.isFullscreen());
         updateRefreshRateCheckBoxes();
@@ -116,9 +97,56 @@ final class SettingsOverlay extends AbstractOverlay {
         settingsMenuGroup.setVisible(false);
     }
 
-    /**
-     * Creates refresh rate buttons for different refresh rates
-     */
+
+
+   //Creates title
+    private void createSettingTitle() {
+        Label settingsTitleLabel = new Label("Settings", FontFactory.getLabelStyle36BlackBold());
+        settingsMenuGroup.addActor(settingsTitleLabel);
+        settingsTitleLabel.setPosition(backgroundImage.getX() + (backgroundImage.getWidth() / 2 - settingsTitleLabel.getWidth() / 2), backgroundImage.getY() + 320);
+    }
+
+
+    //Creates music slider and peripheral components
+    private void createMusicSetting() {
+        createLabels("Music:", backgroundImage.getX() + 250, backgroundImage.getY() + 275);
+        musicSlider = createSlider(270, 275);
+        settingsOverlayController.addMusicVolumeSliderListener(musicSlider);
+        settingsOverlayController.addMuteMusicClickListener(createCheckBox(" Mute sound", 270, 245));
+        settingsMenuGroup.addActor(musicPercentLabel);
+        musicPercentLabel.setPosition(backgroundImage.getX() + 270 + 320,backgroundImage.getY() + 245);
+        musicPercentLabel.setAlignment(Align.right);
+    }
+
+
+    //Creates sound effects slider and peripheral components
+    private void createSoundEffectsSetting() {
+        createLabels("Sound effects:", backgroundImage.getX() + 250, backgroundImage.getY() + 200);
+        soundEffectsSlider = createSlider(270, 200);
+        settingsOverlayController.addSoundEffectsVolumeSliderListener(soundEffectsSlider);
+        settingsOverlayController.addMuteSoundEffectsClickListener(createCheckBox(" Mute sound effects", 270, 170));
+        settingsMenuGroup.addActor(soundEffectsPercentLabel);
+        soundEffectsPercentLabel.setPosition(backgroundImage.getX() + 270 + 320,backgroundImage.getY() + 170);
+        soundEffectsPercentLabel.setAlignment(Align.right);
+    }
+
+
+    //Creates autoplay label and checkbox
+    private void createAutoplaySetting() {
+        createLabels("Autoplay:", backgroundImage.getX() + 250, backgroundImage.getY() + 125);
+        settingsOverlayController.addAutoplayClickListener(createCheckBox("", 270, 129));
+    }
+
+
+    //Creates fullscreen label and checkbox
+    private void createFullscreenSetting() {
+        createLabels("Fullscreen:", backgroundImage.getX() + 590, backgroundImage.getY() + 125);
+        isFullscreenCheckBox = createCheckBox("", 610, 129);
+        settingsOverlayController.addFullscreenClickListener(isFullscreenCheckBox);
+    }
+
+
+    //Creates refresh rate buttons for different refresh rates
     private void createRefreshRateButtons() {
         TextureAtlas checkBoxTexture = new TextureAtlas(Gdx.files.internal("checkbox/CheckboxSkin.atlas")); // Load atlas file from skin
         Skin checkBoxSkin = new Skin(Gdx.files.internal("checkbox/CheckboxSkin.json"), checkBoxTexture); // Create skin object
@@ -127,25 +155,28 @@ final class SettingsOverlay extends AbstractOverlay {
         settingsMenuGroup.addActor(horizontalGroup);
         horizontalGroup.space(20);
         horizontalGroup.setPosition(backgroundImage.getX() + 270, backgroundImage.getY() + 64);
+
+        // Create 60 hz checkbox
         refreshRateCheckbox60 = new CheckBox(" 60", checkBoxSkin);
         horizontalGroup.addActor(refreshRateCheckbox60);
         settingsOverlayController.addRefreshRateClickListener(refreshRateCheckbox60, 60);
         refreshRateCheckbox60.setChecked(preferences.getInteger("refreshRate") == 60);
 
+        // Create 144 hz checkbox
         refreshRateCheckbox144 = new CheckBox(" 144", checkBoxSkin);
         horizontalGroup.addActor(refreshRateCheckbox144);
         settingsOverlayController.addRefreshRateClickListener(refreshRateCheckbox144, 144);
         refreshRateCheckbox144.setChecked(preferences.getInteger("refreshRate") == 144);
 
+        // Create 165 hz checkbox
         refreshRateCheckbox165 = new CheckBox(" 165", checkBoxSkin);
         horizontalGroup.addActor(refreshRateCheckbox165);
         settingsOverlayController.addRefreshRateClickListener(refreshRateCheckbox165, 165);
         refreshRateCheckbox165.setChecked(preferences.getInteger("refreshRate") == 165);
     }
 
-    /**
-     * Returns a new checkbox
-     */
+
+    //Returns a new checkbox
     private CheckBox createCheckBox(String string, float x, float y) {
         TextureAtlas checkBoxTexture = new TextureAtlas(Gdx.files.internal("checkbox/CheckboxSkin.atlas")); // Load atlas file from skin
         Skin checkBoxSkin = new Skin(Gdx.files.internal("checkbox/CheckboxSkin.json"), checkBoxTexture); // Create skin object
@@ -156,9 +187,8 @@ final class SettingsOverlay extends AbstractOverlay {
         return checkBox;
     }
 
-    /**
-     * Returns a new slider
-     */
+
+    //Returns a new slider
     private Slider createSlider(float x, float y) {
         TextureAtlas settingsSliderTexture = new TextureAtlas(Gdx.files.internal("settingsSlider/SettingsSliderSkin.atlas")); // Load atlas file from skin
         Skin settingsSliderSkin = new Skin(Gdx.files.internal("settingsSlider/SettingsSliderSkin.json"), settingsSliderTexture); // Create skin object
@@ -170,9 +200,8 @@ final class SettingsOverlay extends AbstractOverlay {
         return slider;
     }
 
-    /**
-     * Creates labels
-     */
+
+    //Creates labels
     private void createLabels(String text, float x, float y){
         Label label = new Label(text, FontFactory.getLabelStyle26Black());
         settingsMenuGroup.addActor(label);
@@ -180,12 +209,11 @@ final class SettingsOverlay extends AbstractOverlay {
         label.setAlignment(Align.right);
     }
 
-    /**
-     * Returns a new go back button
-     */
-    private Button createGoBackButton() {
-        TextureAtlas GoBackButtonTexture = new TextureAtlas(Gdx.files.internal("buttons/goBackButtonSkin/GoBackButtonSkin.atlas")); // Load atlas file from skin
-        Skin goBackButtonSkin = new Skin(Gdx.files.internal("buttons/goBackButtonSkin/GoBackButtonSkin.json"), GoBackButtonTexture); // Create skin object
+
+   //Returns a new go back button
+   private Button createGoBackButton() {
+        TextureAtlas GoBackButtonTexture = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "goBackButtonSkin/GoBackButtonSkin.atlas")); // Load atlas file from skin
+        Skin goBackButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "goBackButtonSkin/GoBackButtonSkin.json"), GoBackButtonTexture); // Create skin object
 
         Button goBackButton = new Button(goBackButtonSkin);
         settingsMenuGroup.addActor(goBackButton);
@@ -194,17 +222,15 @@ final class SettingsOverlay extends AbstractOverlay {
         return goBackButton;
     }
 
-    /**
-     * Updates labels
-     */
+
+    //Updates labels
     private void updateValueLabels() {
         musicPercentLabel.setText("" + (int) musicSlider.getValue() + "%");
         soundEffectsPercentLabel.setText("" + (int) soundEffectsSlider.getValue() + "%");
     }
 
-    /**
-     * Updates checkboxes
-     */
+
+    //Updates checkboxes
     private void updateRefreshRateCheckBoxes() {
         refreshRateCheckbox60.setChecked(preferences.getInteger("refreshRate") == 60);
         refreshRateCheckbox144.setChecked(preferences.getInteger("refreshRate") == 144);

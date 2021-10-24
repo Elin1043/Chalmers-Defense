@@ -1,9 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
+import com.mygdx.chalmersdefense.utilities.RangeCircle;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
-import com.mygdx.chalmersdefense.model.targetMode.ITargetMode;
-import com.mygdx.chalmersdefense.model.viruses.IVirus;
-import com.mygdx.chalmersdefense.utilities.GetRangeCircle;
 
 import java.util.List;
 
@@ -25,7 +23,7 @@ public interface IViewModel {
      *
      * @return the circle
      */
-    GetRangeCircle getRangeCircle();
+    RangeCircle getRangeCircle();
 
     /**
      * A delegation for getting title of a tower upgrade.
@@ -66,14 +64,14 @@ public interface IViewModel {
      * Get target mode of clicked tower
      * @return target mode
      */
-    ITargetMode getClickedTowerTargetMode();
+    String getClickedTowerTargetMode();
 
     /**
      * Returns which overlay is supposed to show
      *
      * @return which overlay is supposed to show
      */
-    ScreenOverlayEnum showOverlay();
+    ScreenOverlayEnum getCurrentOverlay();
 
     /**
      * Return the current money value
@@ -124,15 +122,20 @@ public interface IViewModel {
     boolean[] getPowerUpActive();
 
     /**
-     * Return the list of viruses on path
-     * @return the list of viruses
-     */
-    //TODO Remove THIS when not needed
-    List<IVirus> getViruses();
-
-    /**
      * Returns if the game is stopped and the map is cleared from viruses
      * @return a boolean for game state
      */
     boolean isGameStopped();
+
+    /**
+     * Returns the background image path
+     * @return image path
+     */
+    String getMapImagePath();
+
+    /**
+     * Gets if game speed is sped up
+     * @return true if game is sped up. Otherwise false
+     */
+    boolean isGameSpedUp();
 }

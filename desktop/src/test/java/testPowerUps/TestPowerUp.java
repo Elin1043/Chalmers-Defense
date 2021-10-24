@@ -3,7 +3,6 @@ package testPowerUps;
 import com.mygdx.chalmersdefense.model.genericMapObjects.IGenericMapObject;
 import com.mygdx.chalmersdefense.model.powerUps.IPowerUp;
 import com.mygdx.chalmersdefense.model.powerUps.PowerUpFactory;
-import com.mygdx.chalmersdefense.model.towers.ITower;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,13 +19,12 @@ import static org.junit.Assert.*;
 public class TestPowerUp {
 
     private IPowerUp powerUp;
-    private List<ITower> towerList = new ArrayList<>();
-    private List<IVirus> virusList = new ArrayList<>();
-    private List<IGenericMapObject> genericMapObjectList = new ArrayList<>();
+    private final List<IVirus> virusList = new ArrayList<>();
+    private final List<IGenericMapObject> genericMapObjectList = new ArrayList<>();
 
     @Before
     public void createPowerUp(){
-        powerUp = PowerUpFactory.createPowerUps(towerList, virusList).get(0);
+        powerUp = PowerUpFactory.createPowerUps(virusList).get(0);
     }
 
     @Test
@@ -52,12 +50,18 @@ public class TestPowerUp {
 
         powerUp.powerUpClicked(genericMapObjectList);
 
-        assertEquals(2, powerUp.getTimer());
+        assertEquals(3, powerUp.getTimer());
 
         while (powerUp.getIsActive()){
             powerUp.decreaseTimer();
         }
 
-        assertEquals(2, powerUp.getTimer());
+        assertEquals(20, powerUp.getTimer());
+    }
+
+    @Test
+    public void testAddGraphicObject(){
+        powerUp.powerUpClicked(genericMapObjectList);
+        assertTrue(genericMapObjectList.size() > 0);
     }
 }
