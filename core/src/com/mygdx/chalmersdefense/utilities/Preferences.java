@@ -73,7 +73,7 @@ final public class Preferences {
      * @param key preference
      * @return the preference
      */
-    public float getInteger(String key) {
+    public int getInteger(String key) {
         return integerHashMap.get(key);
     }
 }
