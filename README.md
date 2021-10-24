@@ -11,6 +11,9 @@ create a tower defense game based on defending Chalmers from corona viruses that
 ### Game view
 ![MainScreen](/Documents/images/GameScreen.png)
 
+### Information about the different towers
+<img src="/Documents/images/TowerInformation.png" width="450">
+
 ## Filestructure
 Path                                    | Comment
 --------------------------------------- | -------------
