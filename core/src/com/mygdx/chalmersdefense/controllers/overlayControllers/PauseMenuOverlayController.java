@@ -40,7 +40,7 @@ public class PauseMenuOverlayController {
                     model.stopGameUpdate();
                     model.resetModel();
                     model.setShowOverlay(ScreenOverlayEnum.NONE);
-                    viewEventBus.emit(new ViewControllerEvents(ViewControllerEvents.Type.SHOWMAIN_SCREEN));
+                    viewEventBus.emit(new ViewControllerEvents(ViewControllerEvents.EventType.SHOWMAIN_SCREEN));
                 }
             }
             }

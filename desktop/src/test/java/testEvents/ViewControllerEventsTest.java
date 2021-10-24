@@ -15,8 +15,8 @@ public class ViewControllerEventsTest {
 
     @Test
     public void testCreateViewControllerEvents() {
-        ViewControllerEvents viewEvent = new ViewControllerEvents(ViewControllerEvents.Type.SHOWGAME_SCREEN);
-        assertSame(viewEvent.getEventType(), ViewControllerEvents.Type.SHOWGAME_SCREEN);
+        ViewControllerEvents viewEvent = new ViewControllerEvents(ViewControllerEvents.EventType.SHOWGAME_SCREEN);
+        assertSame(viewEvent.getEventType(), ViewControllerEvents.EventType.SHOWGAME_SCREEN);
     }
 
 }
