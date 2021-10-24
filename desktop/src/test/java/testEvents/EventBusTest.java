@@ -1,3 +1,5 @@
+package testEvents;
+
 import com.mygdx.chalmersdefense.utilities.event.EventBus;
 import com.mygdx.chalmersdefense.utilities.event.IEvent;
 import com.mygdx.chalmersdefense.utilities.event.IEventListener;

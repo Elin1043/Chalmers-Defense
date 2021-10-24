@@ -51,13 +51,13 @@ public class TestPowerUp {
 
         powerUp.powerUpClicked(genericMapObjectList);
 
-        assertEquals(2, powerUp.getTimer());
+        assertEquals(3, powerUp.getTimer());
 
         while (powerUp.getIsActive()){
             powerUp.decreaseTimer();
         }
 
-        assertEquals(2, powerUp.getTimer());
+        assertEquals(20, powerUp.getTimer());
     }
 
     @Test

@@ -123,16 +123,6 @@ public interface IViewModel {
     boolean[] getPowerUpActive();
 
     /**
-     * Return the list of viruses on path
-     * @return the list of viruses
-     */
-    //TODO Remove THIS when not needed
-    List<IVirus> getVirusesToAddList();
-
-    //TODO Remove when not needed
-    List<IVirus> getViruses();
-
-    /**
      * Returns if the game is stopped and the map is cleared from viruses
      * @return a boolean for game state
      */

@@ -1,7 +1,6 @@
 package com.mygdx.chalmersdefense.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,8 +16,6 @@ import com.mygdx.chalmersdefense.controllers.GameScreenController;
 import com.mygdx.chalmersdefense.controllers.RightSidePanelController;
 import com.mygdx.chalmersdefense.model.IMapObject;
 import com.mygdx.chalmersdefense.model.IViewModel;
-import com.mygdx.chalmersdefense.model.viruses.VirusFactory;
-import com.mygdx.chalmersdefense.views.AbstractScreen;
 import com.mygdx.chalmersdefense.views.gameScreenViews.BottomBarUpgradePanel;
 import com.mygdx.chalmersdefense.views.gameScreenViews.RightSidePanel;
 import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
@@ -161,19 +158,6 @@ public final class GameScreen extends AbstractScreen implements Screen {
         if (abstractOverlay != null) {
             abstractOverlay.render();
         }
-
-
-        //TODO Remove when not needed
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            model.getVirusesToAddList().add(VirusFactory.createVirusOne());
-        }
-
-
-        //TODO Remove when not needed
-        if(Gdx.input.isKeyPressed(Input.Keys.K)) {
-            model.getViruses().clear();
-        }
-
     }
 
 

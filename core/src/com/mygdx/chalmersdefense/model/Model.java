@@ -259,18 +259,6 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
         return round.getWinningRound();
     }
 
-    //TODO Remove THIS when not needed
-    @Override
-    public List<IVirus> getVirusesToAddList() {
-        return map.getVirusesToAddList();
-    }
-
-    //TODO Remove when not needed
-    @Override
-    public List<IVirus> getViruses() {
-        return map.getViruses();
-    }
-
     @Override
     public List<IMapObject> getAllMapObjects() {
         return Collections.unmodifiableList(map.getAllMapObjects());

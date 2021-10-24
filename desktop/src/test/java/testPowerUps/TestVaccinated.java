@@ -51,6 +51,6 @@ public class TestVaccinated {
 
     @Test
     public void testGetCost(){
-        assertEquals(500, powerUp.getCost());
+        assertEquals(900, powerUp.getCost());
     }
 }

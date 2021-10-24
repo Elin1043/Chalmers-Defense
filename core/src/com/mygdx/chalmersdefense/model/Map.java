@@ -533,11 +533,6 @@ final class Map {
         return virusToAddList;
     }
 
-    //TODO Remove when not needed
-    List<IVirus> getViruses() {
-        return virusesList;
-    }
-
     /**
      * Return the list of objects on map
      *

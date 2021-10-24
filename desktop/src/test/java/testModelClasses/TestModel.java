@@ -41,10 +41,10 @@ public class TestModel {
     public void testGetTowerSellprice() {
         model.dragStart("smurf", 0, 0);
         model.dragEnd(100, 100);
-        assertEquals(60, model.getClickedTowerSellPrice());
+        assertEquals(120, model.getClickedTowerSellPrice());
 
         model.upgradeClickedTower();
-        assertEquals(360, model.getClickedTowerSellPrice());
+        assertEquals(420, model.getClickedTowerSellPrice());
     }
 
     @Test

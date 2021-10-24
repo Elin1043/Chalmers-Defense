@@ -52,4 +52,15 @@ public class TestMap {
         model.sellClickedTower();
         assertEquals(0, model.getAllMapObjects().size());
     }
+
+    @Test
+    public void testSellUpgradedTower() {
+        model.dragStart("smurf", 300, 300); // Creates tower
+        model.dragEnd(300, 300);
+        model.upgradeClickedTower();
+
+        assertEquals(1, model.getAllMapObjects().size());
+        model.sellClickedTower();
+        assertEquals(0, model.getAllMapObjects().size());
+    }
 }
