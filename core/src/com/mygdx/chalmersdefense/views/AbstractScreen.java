@@ -22,18 +22,22 @@ import java.util.HashMap;
  */
 public abstract class AbstractScreen extends Stage implements Screen {
 
-    final HashMap<String, Sprite> spriteMap = new HashMap<>();
-    final HashMap<String, Sprite> largeSpriteMap = new HashMap<>();
+    final HashMap<String, Sprite> spriteMap = new HashMap<>();       // HashMap for containing all game sprites
+    final HashMap<String, Sprite> largeSpriteMap = new HashMap<>();  // HashMap for containing all large game sprites
 
-    final Batch batch = new SpriteBatch();
+    final Batch batch = new SpriteBatch();                           // SpriteBatch to use when rendering sprites
 
-    private final InputMultiplexer multiplexer = new InputMultiplexer();
+    private final InputMultiplexer multiplexer = new InputMultiplexer(); // Used to get inputs from multiple different stages
 
+    /**
+     * Creates the foundation for a screen
+     */
     AbstractScreen() {
         super(new FitViewport(1920, 1080, new OrthographicCamera(1920, 1080)));
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
         createSprites();
+        createLargeSprites();
     }
 
     /**
@@ -83,7 +87,9 @@ public abstract class AbstractScreen extends Stage implements Screen {
     @Override
     public void resume() {}
 
-
+    /**
+     * Put all sprites in a HashMap to optimize render time
+     */
     private void createSprites() {
         spriteMap.put("IT-Smurf1", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1.png")));
         spriteMap.put("Chemist1", new Sprite(new Texture("towers/Chemist/Chemist1.png")));
@@ -148,8 +154,12 @@ public abstract class AbstractScreen extends Stage implements Screen {
         spriteMap.put("money1", new Sprite(new Texture("projectiles/money1.png")));
         spriteMap.put("money2", new Sprite(new Texture("projectiles/money2.png")));
         spriteMap.put("money3", new Sprite(new Texture("projectiles/money3.png")));
+    }
 
-
+    /**
+     * Put all sprites in a HashMap to optimize render time
+     */
+    private void createLargeSprites() {
         largeSpriteMap.put("IT-Smurf1Large", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1Large.png")));
         largeSpriteMap.put("Chemist1Large", new Sprite(new Texture("towers/Chemist/Chemist1Large.png")));
         largeSpriteMap.put("Hackerman1Large", new Sprite(new Texture("towers/Hackerman/Hackerman1Large.png")));
