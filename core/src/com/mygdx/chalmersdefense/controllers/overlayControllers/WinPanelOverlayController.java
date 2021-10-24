@@ -11,8 +11,12 @@ import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
  * A controller class for WinPanelOverlay
  */
 public class WinPanelOverlayController {
-    private IControllModel model;
+    private IControllModel model; // Model reference
 
+    /**
+     * Creates a controller for use by the WinPanelOverlay class
+     * @param model the model to control
+     */
     public WinPanelOverlayController(IControllModel model) {
         this.model = model;
     }

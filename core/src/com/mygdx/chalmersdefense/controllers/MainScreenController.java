@@ -21,8 +21,8 @@ import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
  * Controller class for MainScreen
  */
 public class MainScreenController extends InputAdapter {
-    private final IControllModel model; //
-    private EventBus viewEventBus;
+    private final IControllModel model;     // Model reference
+    private final EventBus viewEventBus;    // Eventbus to publish events to
 
     /**
      * Creates a controller for use by the MainScreen class

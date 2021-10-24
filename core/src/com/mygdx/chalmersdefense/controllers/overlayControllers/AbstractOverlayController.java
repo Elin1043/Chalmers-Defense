@@ -18,9 +18,14 @@ import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
  * A controller class for keys <br>
  */
 public class AbstractOverlayController extends InputAdapter {
-    private final IControllModel model;
+    private final IControllModel model; // Model reference
     private EventBus viewEventBus;
 
+    /**
+     * Creates a controller for use by the AbstractOverlay class
+     * @param model the model to control
+     * @param viewEventBus eventbus to publish events to
+     */
     public AbstractOverlayController(IControllModel model, EventBus viewEventBus) {
         this.model = model;
         this.viewEventBus = viewEventBus;
