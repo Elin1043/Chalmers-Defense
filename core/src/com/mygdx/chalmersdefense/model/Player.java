@@ -6,7 +6,7 @@ package com.mygdx.chalmersdefense.model;
  *
  * 2021-10-03 Modified by Daniel Persson: Added reset method for resetting all values in player.
  */
-final public class Player {
+final class Player {
 
     private int money;// How much money the player has currently
     private int lives;  // How many lives the player has currently
