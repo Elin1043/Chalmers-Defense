@@ -67,7 +67,7 @@ final class Player {
      *
      * @param amount amount to increase by
      */
-    public void increaseMoney(int amount) {
+    void increaseMoney(int amount) {
         money += amount;
     }
 
