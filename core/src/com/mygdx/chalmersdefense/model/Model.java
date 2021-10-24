@@ -45,13 +45,12 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     private final Player player = new Player(LIVES, START_CAPITAL); // Player object
 
-    private final Map map = new Map(player);        // Current map object
-    private final SpawnViruses virusSpawner = new SpawnViruses(map.getVirusesToAddList());   // The class for spawning viruses
-
     private ScreenOverlayEnum showOverlay = ScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
 
     private final Preferences preferences;
     private EventBus eventBus = new EventBus();
+    private final Map map = new Map(eventBus);        // Current map object
+    private final SpawnViruses virusSpawner = new SpawnViruses(map.getVirusesToAddList());   // The class for spawning viruses
 
 
 
@@ -138,7 +137,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
 
     @Override
     public void onDrag(float x, float y) {
-        map.onDrag(x, y);
+        map.onDrag(x, y, player.getMoney());
     }
 
     @Override
@@ -155,7 +154,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel {
     @Override
     public void powerUpClicked(String powerUpName){
         if (!isGameStopped()) {
-            map.powerUpClicked(powerUpName);
+            map.powerUpClicked(powerUpName, player.getMoney());
         }
     }
 

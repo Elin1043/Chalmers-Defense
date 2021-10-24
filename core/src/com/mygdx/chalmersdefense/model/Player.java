@@ -32,6 +32,16 @@ final public class Player implements IEventListener<ModelEvents> {
         if (event.getEventType() == ModelEvents.Type.ADDTOPLAYER) {
             increaseMoney(event.getAmount());
         }
+        if(event.getEventType() == ModelEvents.Type.REMOVEFROMPLAYER){
+            decreaseMoney(event.getAmount());
+        }
+        if(event.getEventType() == ModelEvents.Type.DECREASELIFE){
+            try {
+                decreaseLivesBy(event.getAmount());
+            } catch (PlayerLostAllLifeException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

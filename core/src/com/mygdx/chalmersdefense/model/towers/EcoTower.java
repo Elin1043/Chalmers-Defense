@@ -1,6 +1,7 @@
 package com.mygdx.chalmersdefense.model.towers;
 
-import com.mygdx.chalmersdefense.model.Player;
+import com.mygdx.chalmersdefense.model.ModelEvents;
+import com.mygdx.chalmersdefense.model.event.EventBus;
 import com.mygdx.chalmersdefense.model.projectiles.IProjectile;
 import com.mygdx.chalmersdefense.model.projectiles.ProjectileFactory;
 import com.mygdx.chalmersdefense.model.modelUtilities.CountDownTimer;
@@ -15,7 +16,7 @@ import java.util.List;
 final class EcoTower extends Tower {
 
     private final CountDownTimer currentReload = new CountDownTimer(600, 0); // Reload time of this tower
-    private final Player player;    // Player to add money to
+    private final EventBus eventbus;
 
     /**
      * Creates object of a EcoTower
@@ -25,19 +26,22 @@ final class EcoTower extends Tower {
      * @param reloadSpeed of the tower
      * @param cost of the tower
      * @param range of the tower
-     * @param player current player to add money to
+     * @param eventbus current eventBus from Model
      */
-    EcoTower(float x, float y, String name, int reloadSpeed, int cost, int range, Player player) {
+    EcoTower(float x, float y, String name, int reloadSpeed, int cost, int range,EventBus eventbus) {
         super(x, y, name, reloadSpeed, cost, range);
-        this.player = player;
+        this.eventbus = eventbus;
     }
 
     @Override
     void createProjectile(List<IProjectile> projectileList) {
         switch (getUpgradeLevel()) {
-            case 1 -> player.increaseMoney(20);
-            case 2 -> player.increaseMoney(40);
-            case 3 -> player.increaseMoney(80);
+            case 1 -> eventbus.emit(new ModelEvents(ModelEvents.Type.ADDTOPLAYER, 20));
+            case 2 -> eventbus.emit(new ModelEvents(ModelEvents.Type.ADDTOPLAYER, 40));
+            case 3 -> eventbus.emit(new ModelEvents(ModelEvents.Type.ADDTOPLAYER, 60));
+//            case 1 -> player.increaseMoney(20);
+//            case 2 -> player.increaseMoney(40);
+//            case 3 -> player.increaseMoney(80);
         }
 
         projectileList.add(ProjectileFactory.createMoneyPile(getX(), getY(), getUpgradeLevel()));
