@@ -2,11 +2,18 @@ package com.mygdx.chalmersdefense.utilities;
 
 import java.util.HashMap;
 
+/**
+ * @author Daniel Persson
+ * A class to hold prefrences for the game
+ */
 final public class Preferences {
     private final HashMap<String, Boolean> booleanHashMap = new HashMap<>();     //Hashmap of preferences using booleans
     private final HashMap<String, Float> floatHashMap = new HashMap<>();         //Hashmap of preferences using floats
     private final HashMap<String, Integer> integerHashMap = new HashMap<>();     //Hashmap of preferences using integers
 
+    /**
+     * Sets up default preferences
+     */
     public Preferences() {
         putFloat("musicVolume", 0.2f);
         putFloat("soundEffectsVolume", 0);

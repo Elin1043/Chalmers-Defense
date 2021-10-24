@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.mygdx.chalmersdefense.utilities.event.EventBus;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.IControllModel;
 
@@ -27,11 +26,11 @@ import com.mygdx.chalmersdefense.model.IControllModel;
  * 2021-10-19 Modified by Jenny Carlsson: Added short keys for pause menu <br>
  */
 public class GameScreenController extends InputAdapter {
-    private final IControllModel model;
-    private Stage stage;
+    private final IControllModel model; // Model reference
+    private Stage stage;                // Stage to get mouse coordinates from
 
     /**
-     * Creates a controller for use by the GameScreenClass
+     * Creates a controller for use by the GameScreen class
      * @param model the model to control
      */
     public GameScreenController(IControllModel model) {
@@ -46,7 +45,6 @@ public class GameScreenController extends InputAdapter {
 
     /**
      * Adds listener to map in GamerScreen
-     *
      * @param image GameScreens mapImage
      */
     public void addMapClickListener(Image image) {
@@ -60,7 +58,6 @@ public class GameScreenController extends InputAdapter {
 
     /**
      * Adds click listener to pause button in GameScreen
-     *
      * @param button GameScreens pause button
      */
     public void addPauseButtonClickListener(Button button) {

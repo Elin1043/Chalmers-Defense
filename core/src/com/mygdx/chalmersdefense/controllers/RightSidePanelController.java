@@ -1,6 +1,5 @@
 package com.mygdx.chalmersdefense.controllers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -19,7 +18,6 @@ import com.mygdx.chalmersdefense.model.IControllModel;
  * 2021-10-19 Modified by Joel Båtsman Hilmersson: The class now extends InputAdapter to override methods to listen for keyboard input <br>
  * 2021-10-19 Modified by Jenny Carlsson: Added short keys for power ups <br>
  */
-
 public class RightSidePanelController extends InputAdapter {
     private final IControllModel model;
 
