@@ -3,6 +3,7 @@ package testTowers;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.model.event.EventBus;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,11 +18,12 @@ public class TestEcoTower {
 
     LwjglApplication app = new LwjglApplication(new ChalmersDefense());
     Preferences preferences = new Preferences();
+    EventBus eventBus = new EventBus();
     Model m;
 
     @Before
     public void init() {
-        m = new Model(preferences);    // Need to create model since Player class is package private which we need to create an EcoTower
+        m = new Model(preferences,eventBus);    // Need to create model since Player class is package private which we need to create an EcoTower
     }
 
     @Test

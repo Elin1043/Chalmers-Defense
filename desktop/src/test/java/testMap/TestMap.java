@@ -3,6 +3,7 @@ package testMap;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.model.event.EventBus;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import org.junit.Test;
 
@@ -17,7 +18,8 @@ import static org.junit.Assert.assertTrue;
 public class TestMap {
     LwjglApplication app = new LwjglApplication(new ChalmersDefense());
     Preferences preferences = new Preferences();
-    Model model = new Model(preferences);
+    EventBus eventBus = new EventBus();
+    Model model = new Model(preferences, eventBus);
 
     @Test
     public void testMapProjectileCollision() {

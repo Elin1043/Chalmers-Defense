@@ -4,6 +4,8 @@ import com.badlogic.gdx.Game;
 import com.mygdx.chalmersdefense.controllers.*;
 import com.mygdx.chalmersdefense.controllers.overlayControllers.*;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.model.ModelEvents;
+import com.mygdx.chalmersdefense.model.event.EventBus;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.views.*;
 import com.mygdx.chalmersdefense.views.overlays.*;
@@ -27,7 +29,9 @@ final public class ChalmersDefense extends Game {
     @Override
     public void create() {
         Preferences preferences = new Preferences();
-        Model model = new Model(preferences);
+        EventBus eventBus = new EventBus();
+        eventBus.listenFor(ModelEvents.class, Model::handle);
+        Model model = new Model(preferences, eventBus);
 
         // Creating Controllers
         MainScreenController mainScreenController = new MainScreenController(model);

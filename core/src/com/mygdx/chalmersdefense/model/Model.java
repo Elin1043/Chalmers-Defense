@@ -1,6 +1,8 @@
 package com.mygdx.chalmersdefense.model;
 
 
+import com.mygdx.chalmersdefense.model.event.EventBus;
+import com.mygdx.chalmersdefense.model.event.IEvent;
 import com.mygdx.chalmersdefense.utilities.*;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
@@ -33,7 +35,8 @@ import java.util.List;
  * 2021-10-22 Modified by Daniel Persson: Changed Upgrade object to use updated upgrades class. Also moved upgrade logic to map
  */
 
-final public class Model implements IUpdateModel, IControllModel, IViewModel {
+public class Model implements IUpdateModel, IControllModel, IViewModel {
+    private static Player player = new Player(100, 3000);
     private final int WINNING_ROUND = 30;       // Current winning round
     private final int LIVES = 100;              // Current amount of starting lives
     private final int START_CAPITAL = 40000;    // Current amount of start capital
@@ -41,7 +44,7 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     private final IGameTimer timer = new GameTimer(this);    // Timer object
     private Rounds round = new Rounds(WINNING_ROUND);              // Round helper
 
-    private final Player player = new Player(LIVES, START_CAPITAL); // Player object
+    //private final Player player = new Player(LIVES, START_CAPITAL); // Player object
 
     private final Map map = new Map(player);        // Current map object
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getVirusesToAddList());   // The class for spawning viruses
@@ -49,9 +52,23 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
     private ScreenOverlayEnum showOverlay = ScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
 
     private final Preferences preferences;
+    private EventBus eventBus;
 
-    public Model(Preferences preferences) {
+    public Model(Preferences preferences, EventBus eventBus) {
         this.preferences = preferences;
+        this.eventBus = eventBus;
+
+
+    }
+
+    public static void handle(ModelEvents event){
+        if (event.getEventType() == ModelEvents.Type.ADDTOPLAYER) {
+            addPlayerMoney();
+        }
+    }
+
+    public static void addPlayerMoney(){
+        player.increaseMoney(200);
     }
 
     @Override
@@ -85,7 +102,10 @@ final public class Model implements IUpdateModel, IControllModel, IViewModel {
                 showOverlay = ScreenOverlayEnum.WINPANEL;
             }
             if (preferences.getBoolean("autoplay") && getCurrentRound() != 1 && !round.gameWon()) startRoundPressed();
+            this.eventBus.emit(new ModelEvents(ModelEvents.Type.ADDTOPLAYER));
         }
+
+
     }
 
     @Override

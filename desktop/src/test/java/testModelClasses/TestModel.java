@@ -3,6 +3,7 @@ package testModelClasses;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.model.event.EventBus;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import org.junit.Before;
@@ -22,12 +23,13 @@ public class TestModel {
 
     LwjglApplication app = new LwjglApplication(new ChalmersDefense());
     Preferences preferences = new Preferences();
+    EventBus eventBus = new EventBus();
     Model model;
 
     @Before
     public void init() {
         preferences.putBoolean("autoplay", false);
-        model = new Model(preferences);
+        model = new Model(preferences, eventBus);
     }
 
     @Test
