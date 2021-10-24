@@ -43,7 +43,7 @@ final class SettingsOverlay extends AbstractOverlay {
      * @param settingsOverlayController reference to controller for settings overlay
      * @param preferences reference to the games preferences
      */
-    public SettingsOverlay(AbstractOverlayController abstractOverlayController, SettingsOverlayController settingsOverlayController, Preferences preferences) {
+    SettingsOverlay(AbstractOverlayController abstractOverlayController, SettingsOverlayController settingsOverlayController, Preferences preferences) {
         super(abstractOverlayController);
         this.settingsOverlayController = settingsOverlayController;
         this.preferences = preferences;
@@ -164,16 +164,20 @@ final class SettingsOverlay extends AbstractOverlay {
         settingsMenuGroup.addActor(horizontalGroup);
         horizontalGroup.space(20);
         horizontalGroup.setPosition(backgroundImage.getX() + 270, backgroundImage.getY() + 64);
+
+        // Create 60 hz checkbox
         refreshRateCheckbox60 = new CheckBox(" 60", checkBoxSkin);
         horizontalGroup.addActor(refreshRateCheckbox60);
         settingsOverlayController.addRefreshRateClickListener(refreshRateCheckbox60, 60);
         refreshRateCheckbox60.setChecked(preferences.getInteger("refreshRate") == 60);
 
+        // Create 144 hz checkbox
         refreshRateCheckbox144 = new CheckBox(" 144", checkBoxSkin);
         horizontalGroup.addActor(refreshRateCheckbox144);
         settingsOverlayController.addRefreshRateClickListener(refreshRateCheckbox144, 144);
         refreshRateCheckbox144.setChecked(preferences.getInteger("refreshRate") == 144);
 
+        // Create 165 hz checkbox
         refreshRateCheckbox165 = new CheckBox(" 165", checkBoxSkin);
         horizontalGroup.addActor(refreshRateCheckbox165);
         settingsOverlayController.addRefreshRateClickListener(refreshRateCheckbox165, 165);
