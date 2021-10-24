@@ -33,9 +33,8 @@ public class GameScreenController extends InputAdapter {
     /**
      * Creates a controller for use by the GameScreenClass
      * @param model the model to control
-     * @param viewEventBus
      */
-    public GameScreenController(IControllModel model, EventBus viewEventBus) {
+    public GameScreenController(IControllModel model) {
         this.model = model;
     }
 

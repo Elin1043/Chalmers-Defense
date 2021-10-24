@@ -41,7 +41,7 @@ public class MainScreenController extends InputAdapter {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                viewEventBus.emit(new ViewEvents(ViewEvents.Type.SHOWGAME_SCREEN));
+            viewEventBus.emit(new ViewEvents(ViewEvents.Type.SHOWGAME_SCREEN));
             }
         });
     }
