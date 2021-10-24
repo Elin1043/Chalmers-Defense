@@ -58,40 +58,23 @@ final class SettingsOverlay extends AbstractOverlay {
 
             goBackButton = createGoBackButton();
 
-            Button exitButton = createExitPauseMenuButton(settingsMenuGroup, backgroundImage);
-            abstractOverlayController.addExitOverlayButtonClickListener(exitButton);
+            // Create and add click listener to exit button
+            abstractOverlayController.addExitOverlayButtonClickListener(createExitPauseMenuButton(settingsMenuGroup, backgroundImage));
 
             // Creates title
-            Label settingsTitleLabel = new Label("Settings", FontFactory.getLabelStyle36BlackBold());
-            settingsMenuGroup.addActor(settingsTitleLabel);
-            settingsTitleLabel.setPosition(backgroundImage.getX() + (backgroundImage.getWidth() / 2 - settingsTitleLabel.getWidth() / 2), backgroundImage.getY() + 320);
+            createSettingTitle();
 
             // Creates music slider and peripheral components
-            createLabels("Music:", backgroundImage.getX() + 250, backgroundImage.getY() + 275);
-            musicSlider = createSlider(270, 275);
-            settingsOverlayController.addMusicVolumeSliderListener(musicSlider);
-            settingsOverlayController.addMuteMusicClickListener(createCheckBox(" Mute sound", 270, 245));
-            settingsMenuGroup.addActor(musicPercentLabel);
-            musicPercentLabel.setPosition(backgroundImage.getX() + 270 + 320,backgroundImage.getY() + 245);
-            musicPercentLabel.setAlignment(Align.right);
+            createMusicSetting();
 
             // Creates sound effects slider and peripheral components
-            createLabels("Sound effects:", backgroundImage.getX() + 250, backgroundImage.getY() + 200);
-            soundEffectsSlider = createSlider(270, 200);
-            settingsOverlayController.addSoundEffectsVolumeSliderListener(soundEffectsSlider);
-            settingsOverlayController.addMuteSoundEffectsClickListener(createCheckBox(" Mute sound effects", 270, 170));
-            settingsMenuGroup.addActor(soundEffectsPercentLabel);
-            soundEffectsPercentLabel.setPosition(backgroundImage.getX() + 270 + 320,backgroundImage.getY() + 170);
-            soundEffectsPercentLabel.setAlignment(Align.right);
+            createSoundEffectsSetting();
 
             // Creates autoplay label and checkbox
-            createLabels("Autoplay:", backgroundImage.getX() + 250, backgroundImage.getY() + 125);
-            settingsOverlayController.addAutoplayClickListener(createCheckBox("", 270, 129));
+            createAutoplaySetting();
 
             // Creates fullscreen label and checkbox
-            createLabels("Fullscreen:", backgroundImage.getX() + 590, backgroundImage.getY() + 125);
-            isFullscreenCheckBox = createCheckBox("", 610, 129);
-            settingsOverlayController.addFullscreenClickListener(isFullscreenCheckBox);
+            createFullscreenSetting();
 
             // Creates refresh rate label and checkboxes
             createLabels("Refresh rate:", backgroundImage.getX() + 250, backgroundImage.getY() + 50);
@@ -115,6 +98,60 @@ final class SettingsOverlay extends AbstractOverlay {
     public void hideOverlay() {
         settingsMenuGroup.setVisible(false);
     }
+
+
+    /**
+     * Creates title
+     */
+    private void createSettingTitle() {
+        Label settingsTitleLabel = new Label("Settings", FontFactory.getLabelStyle36BlackBold());
+        settingsMenuGroup.addActor(settingsTitleLabel);
+        settingsTitleLabel.setPosition(backgroundImage.getX() + (backgroundImage.getWidth() / 2 - settingsTitleLabel.getWidth() / 2), backgroundImage.getY() + 320);
+    }
+
+    /**
+     * Creates music slider and peripheral components
+     */
+    private void createMusicSetting() {
+        createLabels("Music:", backgroundImage.getX() + 250, backgroundImage.getY() + 275);
+        musicSlider = createSlider(270, 275);
+        settingsOverlayController.addMusicVolumeSliderListener(musicSlider);
+        settingsOverlayController.addMuteMusicClickListener(createCheckBox(" Mute sound", 270, 245));
+        settingsMenuGroup.addActor(musicPercentLabel);
+        musicPercentLabel.setPosition(backgroundImage.getX() + 270 + 320,backgroundImage.getY() + 245);
+        musicPercentLabel.setAlignment(Align.right);
+    }
+
+    /**
+     * Creates sound effects slider and peripheral components
+     */
+    private void createSoundEffectsSetting() {
+        createLabels("Sound effects:", backgroundImage.getX() + 250, backgroundImage.getY() + 200);
+        soundEffectsSlider = createSlider(270, 200);
+        settingsOverlayController.addSoundEffectsVolumeSliderListener(soundEffectsSlider);
+        settingsOverlayController.addMuteSoundEffectsClickListener(createCheckBox(" Mute sound effects", 270, 170));
+        settingsMenuGroup.addActor(soundEffectsPercentLabel);
+        soundEffectsPercentLabel.setPosition(backgroundImage.getX() + 270 + 320,backgroundImage.getY() + 170);
+        soundEffectsPercentLabel.setAlignment(Align.right);
+    }
+
+    /**
+     * Creates autoplay label and checkbox
+     */
+    private void createAutoplaySetting() {
+        createLabels("Autoplay:", backgroundImage.getX() + 250, backgroundImage.getY() + 125);
+        settingsOverlayController.addAutoplayClickListener(createCheckBox("", 270, 129));
+    }
+
+    /**
+     * Creates fullscreen label and checkbox
+     */
+    private void createFullscreenSetting() {
+        createLabels("Fullscreen:", backgroundImage.getX() + 590, backgroundImage.getY() + 125);
+        isFullscreenCheckBox = createCheckBox("", 610, 129);
+        settingsOverlayController.addFullscreenClickListener(isFullscreenCheckBox);
+    }
+
 
     /**
      * Creates refresh rate buttons for different refresh rates
