@@ -103,6 +103,7 @@ final public class BottomBarUpgradePanel {
 
     /**
      * Method used to render upgrade panel to the screen
+     * @param tower to update upgrade panel with
      */
     public void render(IMapObject tower) {
         stage.act();
