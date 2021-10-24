@@ -3,7 +3,6 @@ package testMap;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
-import com.mygdx.chalmersdefense.utilities.event.EventBus;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import org.junit.Test;
 
@@ -47,6 +46,17 @@ public class TestMap {
     public void testSellTower() {
         model.dragStart("smurf", 300, 300); // Creates tower
         model.dragEnd(300, 300);
+
+        assertEquals(1, model.getAllMapObjects().size());
+        model.sellClickedTower();
+        assertEquals(0, model.getAllMapObjects().size());
+    }
+
+    @Test
+    public void testSellUpgradedTower() {
+        model.dragStart("smurf", 300, 300); // Creates tower
+        model.dragEnd(300, 300);
+        model.upgradeClickedTower();
 
         assertEquals(1, model.getAllMapObjects().size());
         model.sellClickedTower();

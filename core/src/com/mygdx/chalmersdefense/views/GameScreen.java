@@ -1,7 +1,6 @@
 package com.mygdx.chalmersdefense.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -143,19 +142,6 @@ final class GameScreen extends AbstractScreen implements Screen {
         if (abstractOverlay != null) {
             abstractOverlay.render();
         }
-
-
-        //TODO Remove when not needed
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            model.getVirusesToAddList().add(VirusFactory.createVirusOne());
-        }
-
-
-        //TODO Remove when not needed
-        if(Gdx.input.isKeyPressed(Input.Keys.K)) {
-            model.getViruses().clear();
-        }
-
     }
 
 

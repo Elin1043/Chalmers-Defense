@@ -101,7 +101,7 @@ public class TestTower {
         ITower tower = TowerFactory.createSmurf(0, 0);
         List<ITargetMode> targetModes = TargetModeFactory.getTargetModes();
 
-        for (int i = 0; i < targetModes.size(); i++) {    // This should spinn target modes around completely and be on the same as it started on
+        for (int i = 0; i < targetModes.size(); i++) {    // This should spin target modes around completely and be on the same as it started on
             tower.changeTargetMode(true);
         }
         assertEquals(targetModes.get(0), tower.getCurrentTargetMode());
@@ -112,7 +112,7 @@ public class TestTower {
         ITower tower = TowerFactory.createSmurf(0, 0);
         List<ITargetMode> targetModes = TargetModeFactory.getTargetModes();
 
-        for (int i = 0; i < targetModes.size(); i++) {    // This should spinn target modes around completely and be on the same as it started on
+        for (int i = 0; i < targetModes.size(); i++) {    // This should spin target modes around completely and be on the same as it started on
             tower.changeTargetMode(false);
         }
         assertEquals(targetModes.get(0), tower.getCurrentTargetMode());

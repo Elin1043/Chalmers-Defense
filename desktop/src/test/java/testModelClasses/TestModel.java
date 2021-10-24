@@ -3,7 +3,6 @@ package testModelClasses;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
 import com.mygdx.chalmersdefense.model.Model;
-import com.mygdx.chalmersdefense.utilities.event.EventBus;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import org.junit.Before;
@@ -41,10 +40,10 @@ public class TestModel {
     public void testGetTowerSellprice() {
         model.dragStart("smurf", 0, 0);
         model.dragEnd(100, 100);
-        assertEquals(60, model.getClickedTowerSellPrice());
+        assertEquals(120, model.getClickedTowerSellPrice());
 
         model.upgradeClickedTower();
-        assertEquals(360, model.getClickedTowerSellPrice());
+        assertEquals(420, model.getClickedTowerSellPrice());
     }
 
     @Test
@@ -53,7 +52,6 @@ public class TestModel {
         model.dragEnd(100, 100);
 
         assertEquals(model.getClickedTowerTargetMode(), "First");
-
     }
 
     @Test
@@ -61,14 +59,11 @@ public class TestModel {
         model.dragStart("smurf", 0, 0);
         model.dragEnd(100, 100);
 
-
         assertEquals(model.getClickedTowerTargetMode(), "First");
 
         model.changeTargetMode(true);
 
-
         assertEquals(model.getClickedTowerTargetMode(), "Last");
-
     }
 
     @Test
@@ -76,14 +71,11 @@ public class TestModel {
         model.dragStart("smurf", 0, 0);
         model.dragEnd(100, 100);
 
-
         assertEquals(model.getClickedTowerTargetMode(), "First");
 
         model.changeTargetMode(false);
 
-
         assertEquals(model.getClickedTowerTargetMode(), "Strongest");
-
     }
 
     @Test
@@ -103,10 +95,8 @@ public class TestModel {
 
     @Test (expected = IllegalArgumentException.class)
     public void testIllegalPowerUpCall(){
-
         model.startRoundPressed();
         model.powerUpClicked("This Should never be a power-up");
-
     }
 
     @Test
@@ -124,11 +114,9 @@ public class TestModel {
     }
 
     @Test
-    public void testResetModel() {
-        int startCapital = model.getMoney();
+    public void testBeforeResetModel() {
         int startHealth = model.getLivesLeft();
 
-        
         model.dragStart("chemist", 0, 0);
         model.dragEnd(100, 100);
 
@@ -141,6 +129,20 @@ public class TestModel {
         model.startRoundPressed();
         assertEquals(2, model.getCurrentRound());
         assertTrue(startHealth > model.getLivesLeft());
+    }
+
+    @Test
+    public void testResetModel() {
+        int startCapital = model.getMoney();
+        int startHealth = model.getLivesLeft();
+
+        model.dragStart("chemist", 0, 0);
+        model.dragEnd(100, 100);
+
+        model.startRoundPressed();  // StartRound
+        for (int i = 0; i < 10000; i++) {
+            model.updateModel();
+        }
 
         model.resetModel();
 
@@ -149,6 +151,8 @@ public class TestModel {
         assertEquals(startHealth, model.getLivesLeft());
         assertEquals(0, model.getAllMapObjects().size());
     }
+
+
 
     @Test (expected = IllegalArgumentException.class)
     public void testDragStartIllegalTowerName() {
