@@ -6,11 +6,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Eventbus to be used for communication between the different classes and modules
+ */
 public class EventBus {
 
-    private Map<Class, List<IEventListener>> listeners = new HashMap<>();
+    private Map<Class, List<IEventListener>> listeners = new HashMap<>(); //Map of all the listeners
 
 
+    /**
+     * Creates a post to send to the listeners
+     * @param event the type of Event
+     */
     public void emit(IEvent event){
         Class<? extends IEvent> eventClass = event.getClass();
         List<IEventListener> eventListeners = listeners.get(eventClass);
@@ -20,6 +27,12 @@ public class EventBus {
         }
     }
 
+    /**
+     * Used to make a class listen for the different emits
+     * @param eventClass
+     * @param listener
+     * @param <T>
+     */
     public <T extends IEvent> void listenFor(Class<T> eventClass, IEventListener<T> listener){
         if(!listeners.containsKey(eventClass)){
             listeners.put(eventClass,new LinkedList<>());

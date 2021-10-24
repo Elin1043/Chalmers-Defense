@@ -49,15 +49,19 @@ public final class PositionVector {
 
     /**
      * Set the position of a new positionVector
+     * @param x - coordinate to be set
+     * @param y - coordinate to be set
      * @return new positionVector
      */
     public PositionVector setVectorPos(float x, float y) {
         return new PositionVector(x, y);
     }
 
+
     /**
      * Set the x - position of the positionVector
-     * @return x - position
+     * @param x - coordinate to be set
+     * @return new PositionVector
      */
     public PositionVector setX(float x) {
         return new PositionVector(x, this.y);
@@ -65,7 +69,8 @@ public final class PositionVector {
 
     /**
      * Set the y - position of the positionVector
-     * @return y - position
+     * @param y - coordinate to be set
+     * @return new PositionVector
      */
     public PositionVector setY(float y) {
         return new PositionVector(this.x, y);
