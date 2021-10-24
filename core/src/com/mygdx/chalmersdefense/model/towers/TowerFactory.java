@@ -24,7 +24,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower createSmurf(float startPosX, float startPosY) {
-        return new SmurfTower(startPosX, startPosY, "IT-Smurf", 60 * 2, 100, 200);
+        return new SmurfTower(startPosX, startPosY, "IT-Smurf", 60 * 2, 200, 200);
     }
 
     /**
@@ -35,7 +35,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower createChemist(float startPosX, float startPosY, List<IProjectile> addProjectileToList) {
-        return new ChemistTower(startPosX, startPosY, "Chemist", 60 * 7, 200, 200, addProjectileToList);
+        return new ChemistTower(startPosX, startPosY, "Chemist", 60 * 7, 500, 200, addProjectileToList);
     }
 
     /**
@@ -46,7 +46,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower createHacker(float startPosX, float startPosY, List<IProjectile> addProjectileToList) {
-        return new HackerTower(startPosX, startPosY, "Hackerman", 60 * 4, 300, 700, addProjectileToList);
+        return new HackerTower(startPosX, startPosY, "Hackerman", 60 * 4, 400, 700, addProjectileToList);
     }
 
     /**
@@ -57,7 +57,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower createElectro(float startPosX, float startPosY) {
-        return new ElectroTower(startPosX, startPosY, "Electroman", 60 * 5, 400, 200);
+        return new ElectroTower(startPosX, startPosY, "Electroman", 60 * 5, 600, 200);
     }
 
 
@@ -69,7 +69,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower createMech(float startPosX, float startPosY, List<ITower> towerToAddList, List<ITower> allTowers, List<PathRectangle> pathRectangles) {
-        return new MechTower(startPosX, startPosY, "Mechoman", 60 * 3, 500, 200, towerToAddList, allTowers, pathRectangles);
+        return new MechTower(startPosX, startPosY, "Mechoman", 60 * 3, 500, 300, towerToAddList, allTowers, pathRectangles);
     }
 
     /**
@@ -80,7 +80,7 @@ public abstract class TowerFactory {
      * @return tower that was created
      */
     public static ITower createEco(float startPosX, float startPosY, EventBus eventBus) {
-        return new EcoTower(startPosX, startPosY, "Economist", 60 * 3, 600, 200, eventBus);
+        return new EcoTower(startPosX, startPosY, "Economist", 60 * 3, 600, 800, eventBus);
     }
 
 
