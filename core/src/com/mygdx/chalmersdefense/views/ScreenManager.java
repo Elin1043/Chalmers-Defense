@@ -13,39 +13,17 @@ final public class ScreenManager implements IEventListener<ViewControllerEvents>
     private AbstractScreen mainScreen; // The main screen of the game
     private AbstractScreen gameScreen; // The game screen in the game
 
-    private static ScreenManager instance;
-
-    private Game game;             // The current game
-    private EventBus eventbus;    // The eventbus to call when money should be added
+    private final Game game;             // The current game
+    private final EventBus eventbus;    // The eventbus to call when money should be added
 
 
-    private ScreenManager() {}
-
-    /**
-     * Returns this instance
-     *
-     * @return the only ScreenManager instance
-     */
-    public static ScreenManager getInstance() {
-        if (instance == null) {
-            instance = new ScreenManager();
-        }
-        return instance;
-    }
-
-    /**
-     * Initialize the different screens
-     *
-     * @param game       the game object to switch screen with
-     * @param mainScreen mainScreen instance
-     * @param gameScreen gameScreen instance
-     */
-    public void initialize(Game game, AbstractScreen mainScreen, AbstractScreen gameScreen, EventBus eventbus) {
+    public ScreenManager(Game game, AbstractScreen mainScreen, AbstractScreen gameScreen, EventBus eventbus) {
         this.game = game;
         this.mainScreen = mainScreen;
         this.gameScreen = gameScreen;
         this.eventbus = eventbus;
         this.eventbus.listenFor(ViewControllerEvents.class, this);
+        showScreen(ScreenEnum.MAIN_MENU);
     }
 
     /**
