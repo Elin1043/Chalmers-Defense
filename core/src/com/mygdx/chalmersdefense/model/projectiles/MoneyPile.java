@@ -11,8 +11,8 @@ import com.mygdx.chalmersdefense.model.modelUtilities.CountDownTimer;
  */
 
 final class MoneyPile extends Projectile{
-    // Timer over how long to show money animation
-    private final CountDownTimer timer = new CountDownTimer(150);
+
+    private final CountDownTimer timer = new CountDownTimer(150); // Timer over how long to show money animation
 
     /**
      * Creates a MoneyPile object

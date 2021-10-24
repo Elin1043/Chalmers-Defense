@@ -17,7 +17,6 @@ public abstract class PathFactory {
      * Create a classic path
      * @return the classic path
      */
-
     public static IPath createClassicPath() {
         return activePath = new ClassicPath();
     }

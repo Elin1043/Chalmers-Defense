@@ -2,7 +2,7 @@ package com.mygdx.chalmersdefense.model.modelUtilities;
 
 import com.mygdx.chalmersdefense.model.IMapObject;
 
-import java.awt.*;
+import java.awt.Rectangle;
 
 
 /**
@@ -13,10 +13,16 @@ import java.awt.*;
 public final class PathRectangle implements IMapObject {
     private final Rectangle rectangle = new Rectangle();    // The wrapped rectangle object
 
+    /**
+     * Creates a PathRectangle object
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param width the width of the rectangle
+     * @param height the height of the rectangle
+     */
     public PathRectangle(float x, float y, float width, float height) {
         rectangle.setRect(x, y, width, height);
     }
-
 
     @Override
     public float getX() {
