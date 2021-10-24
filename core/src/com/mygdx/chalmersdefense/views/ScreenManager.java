@@ -67,6 +67,7 @@ final public class ScreenManager implements IEventListener<ViewControllerEvents>
         }
     }
 
+    //Get the current screen
     private AbstractScreen getScreen(ScreenEnum screenEnum) {
         return switch (screenEnum) {
             case MAIN_MENU -> mainScreen;

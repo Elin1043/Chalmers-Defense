@@ -145,9 +145,8 @@ final class GameScreen extends AbstractScreen implements Screen {
     }
 
 
-    /**
-     * Create progressbar
-     */
+
+    //Create progressbar
     private void createProgressBar() {
         TextureAtlas progressBarAtlas = new TextureAtlas(Gdx.files.internal("GameScreen/progressbar/ProgressBarSkin.atlas")); // Load atlas file from skin
         Skin progressBarSkin = new Skin(Gdx.files.internal("GameScreen/progressbar/ProgressBarSkin.json"), progressBarAtlas); // Create skin object
@@ -169,9 +168,8 @@ final class GameScreen extends AbstractScreen implements Screen {
         stageHUD.addActor(winningRoundLabel);
     }
 
-    /**
-     * Renders progressbar
-     */
+
+    //Renders progressbar
     private void renderProgressBar() {
         progressBar.setValue(model.getCurrentRound());
 
@@ -185,9 +183,8 @@ final class GameScreen extends AbstractScreen implements Screen {
         batch.end();
     }
 
-    /**
-     * Renders waypoint markers
-     */
+
+    //Renders waypoint markers
     private void renderWaypointsOnProgressBar() {
         int[][] waypointData = {{1,1},{2,3},{3,6},{50,10},{4,12},{5,16},{50,20},{50,30}};  // Data is structured like this: {Virus HP, first round appearance}.
         float progressBarStepWidth = progressBar.getWidth()/progressBar.getMaxValue();
@@ -210,9 +207,8 @@ final class GameScreen extends AbstractScreen implements Screen {
         }
     }
 
-    /**
-     * Renders all map objects
-     */
+
+    //Renders all map objects
     private void renderMapObjects() {
         super.batch.begin();
         for (IMapObject mapObject : model.getAllMapObjects()) {
@@ -228,9 +224,8 @@ final class GameScreen extends AbstractScreen implements Screen {
 
     }
 
-    /**
-     * Renders range circle
-     */
+
+    //Renders range circle
     private void renderRangeCircle() {
         RangeCircle circle = model.getRangeCircle();
 
@@ -243,18 +238,16 @@ final class GameScreen extends AbstractScreen implements Screen {
         Gdx.gl.glDisable(GL_BLEND);
     }
 
-    /**
-     * Update label info for HUD labels
-     */
+
+    //Update label info for HUD labels
     private void updateLabelInfo(){
         lifeLabel.setText(model.getLivesLeft());
         moneyLabel.setText(model.getMoney());
         roundLabel.setText("Round: " + model.getCurrentRound());
     }
 
-    /**
-     * Create pause button
-     */
+
+    //Create pause button
     private void createPauseButton() {
         TextureAtlas pauseButtonAtlas = new TextureAtlas(Gdx.files.internal("buttons/gameScreenButtons/pauseButtonSkin/pauseButtonSkin.atlas")); // Load atlas file from skin
         Skin pauseButtonSkin = new Skin(Gdx.files.internal("buttons/gameScreenButtons/pauseButtonSkin/pauseButtonSkin.json"), pauseButtonAtlas); // Create skin object
@@ -264,9 +257,8 @@ final class GameScreen extends AbstractScreen implements Screen {
         addActor(pauseButton);
     }
 
-    /**
-     * Background image for bottom part of HUD
-     */
+
+    //Background image for bottom part of HUD
     private void createHUDBackgrounds() {
         Image bottomBarPanelBackground = new Image(new Texture("GameScreen/BottomBarBackground.png"));
         bottomBarPanelBackground.setPosition(0, 0);
@@ -277,9 +269,8 @@ final class GameScreen extends AbstractScreen implements Screen {
         stageHUD.addActor(sideBarBackground);
     }
 
-    /**
-     * Creates life and money icons and labels
-     */
+
+    //Creates life and money icons and labels
     private void createLifeAndMoneyIcon(){
         Image lifeIcon = new Image(new Texture("lifeIcon.png"));
         Image moneyIcon = new Image(new Texture("moneyIcon.png"));
@@ -300,9 +291,8 @@ final class GameScreen extends AbstractScreen implements Screen {
         stageHUD.addActor(roundLabel);
     }
 
-    /**
-     * Returns color of inputted circle
-     */
+
+    //Returns color of inputted circle
     private Color getColorOfCircle(RangeCircle circle) {
         switch (circle.getColor()) {
             case RED -> {

@@ -41,9 +41,8 @@ final class InfoOverlay extends AbstractOverlay {
         }
     }
 
-    /**
-     * Method for creating labels
-     */
+
+    //Method for creating labels
     private void createLabels() {
         Label infoTitleLabel = new Label("Game info", FontFactory.getLabelStyle36BlackBold());
         infoGroup.addActor(infoTitleLabel);

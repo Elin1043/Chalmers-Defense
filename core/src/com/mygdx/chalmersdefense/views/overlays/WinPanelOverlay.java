@@ -73,9 +73,8 @@ final class WinPanelOverlay extends AbstractOverlay {
     }
 
 
-    /**
-     * Create continue button
-     */
+
+    //Create continue button
     private void createMainMenuButton(Skin winButtonSkin) {
         Button mainMenuButton = new Button(winButtonSkin);
         Label mainMenuButtonText = new Label("Main menu", FontFactory.getLabelStyle24BlackSemiBold());
@@ -84,9 +83,8 @@ final class WinPanelOverlay extends AbstractOverlay {
         abstractOverlayController.addMainMenuClickListener(mainMenuButton);
     }
 
-    /**
-     * Create continue button
-     */
+
+    //Create continue button
     private void createContinueButton(Skin winButtonSkin) {
         Button continueButton = new Button(winButtonSkin);
         Label continueButtonText = new Label("Continue", FontFactory.getLabelStyle24BlackSemiBold());

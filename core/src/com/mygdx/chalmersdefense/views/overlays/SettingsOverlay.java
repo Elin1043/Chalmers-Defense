@@ -100,18 +100,16 @@ final class SettingsOverlay extends AbstractOverlay {
     }
 
 
-    /**
-     * Creates title
-     */
+
+   //Creates title
     private void createSettingTitle() {
         Label settingsTitleLabel = new Label("Settings", FontFactory.getLabelStyle36BlackBold());
         settingsMenuGroup.addActor(settingsTitleLabel);
         settingsTitleLabel.setPosition(backgroundImage.getX() + (backgroundImage.getWidth() / 2 - settingsTitleLabel.getWidth() / 2), backgroundImage.getY() + 320);
     }
 
-    /**
-     * Creates music slider and peripheral components
-     */
+
+    //Creates music slider and peripheral components
     private void createMusicSetting() {
         createLabels("Music:", backgroundImage.getX() + 250, backgroundImage.getY() + 275);
         musicSlider = createSlider(270, 275);
@@ -122,9 +120,8 @@ final class SettingsOverlay extends AbstractOverlay {
         musicPercentLabel.setAlignment(Align.right);
     }
 
-    /**
-     * Creates sound effects slider and peripheral components
-     */
+
+    //Creates sound effects slider and peripheral components
     private void createSoundEffectsSetting() {
         createLabels("Sound effects:", backgroundImage.getX() + 250, backgroundImage.getY() + 200);
         soundEffectsSlider = createSlider(270, 200);
@@ -135,17 +132,15 @@ final class SettingsOverlay extends AbstractOverlay {
         soundEffectsPercentLabel.setAlignment(Align.right);
     }
 
-    /**
-     * Creates autoplay label and checkbox
-     */
+
+    //Creates autoplay label and checkbox
     private void createAutoplaySetting() {
         createLabels("Autoplay:", backgroundImage.getX() + 250, backgroundImage.getY() + 125);
         settingsOverlayController.addAutoplayClickListener(createCheckBox("", 270, 129));
     }
 
-    /**
-     * Creates fullscreen label and checkbox
-     */
+
+    //Creates fullscreen label and checkbox
     private void createFullscreenSetting() {
         createLabels("Fullscreen:", backgroundImage.getX() + 590, backgroundImage.getY() + 125);
         isFullscreenCheckBox = createCheckBox("", 610, 129);
@@ -153,9 +148,7 @@ final class SettingsOverlay extends AbstractOverlay {
     }
 
 
-    /**
-     * Creates refresh rate buttons for different refresh rates
-     */
+    //Creates refresh rate buttons for different refresh rates
     private void createRefreshRateButtons() {
         TextureAtlas checkBoxTexture = new TextureAtlas(Gdx.files.internal("checkbox/CheckboxSkin.atlas")); // Load atlas file from skin
         Skin checkBoxSkin = new Skin(Gdx.files.internal("checkbox/CheckboxSkin.json"), checkBoxTexture); // Create skin object
@@ -184,9 +177,8 @@ final class SettingsOverlay extends AbstractOverlay {
         refreshRateCheckbox165.setChecked(preferences.getInteger("refreshRate") == 165);
     }
 
-    /**
-     * Returns a new checkbox
-     */
+
+    //Returns a new checkbox
     private CheckBox createCheckBox(String string, float x, float y) {
         TextureAtlas checkBoxTexture = new TextureAtlas(Gdx.files.internal("checkbox/CheckboxSkin.atlas")); // Load atlas file from skin
         Skin checkBoxSkin = new Skin(Gdx.files.internal("checkbox/CheckboxSkin.json"), checkBoxTexture); // Create skin object
@@ -197,9 +189,8 @@ final class SettingsOverlay extends AbstractOverlay {
         return checkBox;
     }
 
-    /**
-     * Returns a new slider
-     */
+
+    //Returns a new slider
     private Slider createSlider(float x, float y) {
         TextureAtlas settingsSliderTexture = new TextureAtlas(Gdx.files.internal("settingsSlider/SettingsSliderSkin.atlas")); // Load atlas file from skin
         Skin settingsSliderSkin = new Skin(Gdx.files.internal("settingsSlider/SettingsSliderSkin.json"), settingsSliderTexture); // Create skin object
@@ -211,9 +202,8 @@ final class SettingsOverlay extends AbstractOverlay {
         return slider;
     }
 
-    /**
-     * Creates labels
-     */
+
+    //Creates labels
     private void createLabels(String text, float x, float y){
         Label label = new Label(text, FontFactory.getLabelStyle26Black());
         settingsMenuGroup.addActor(label);
@@ -221,10 +211,9 @@ final class SettingsOverlay extends AbstractOverlay {
         label.setAlignment(Align.right);
     }
 
-    /**
-     * Returns a new go back button
-     */
-    private Button createGoBackButton() {
+
+   //Returns a new go back button
+   private Button createGoBackButton() {
         TextureAtlas GoBackButtonTexture = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "goBackButtonSkin/GoBackButtonSkin.atlas")); // Load atlas file from skin
         Skin goBackButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "goBackButtonSkin/GoBackButtonSkin.json"), GoBackButtonTexture); // Create skin object
 
@@ -235,17 +224,15 @@ final class SettingsOverlay extends AbstractOverlay {
         return goBackButton;
     }
 
-    /**
-     * Updates labels
-     */
+
+    //Updates labels
     private void updateValueLabels() {
         musicPercentLabel.setText("" + (int) musicSlider.getValue() + "%");
         soundEffectsPercentLabel.setText("" + (int) soundEffectsSlider.getValue() + "%");
     }
 
-    /**
-     * Updates checkboxes
-     */
+
+    //Updates checkboxes
     private void updateRefreshRateCheckBoxes() {
         refreshRateCheckbox60.setChecked(preferences.getInteger("refreshRate") == 60);
         refreshRateCheckbox144.setChecked(preferences.getInteger("refreshRate") == 144);

@@ -39,9 +39,8 @@ final class MainScreen extends AbstractScreen {
         createQuitButton();
     }
 
-    /**
-     * Creates play button
-     */
+
+    //Creates play button
     private void createPlayButton() {
         TextureAtlas playButtonAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "playButtonSkin/PlayButtonSkin.atlas")); // Load atlas file from skin
         Skin playButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "playButtonSkin/PlayButtonSkin.json"), playButtonAtlas); // Create skin object
@@ -52,9 +51,8 @@ final class MainScreen extends AbstractScreen {
         addActor(playButton);
     }
 
-    /**
-     * Creates settings button
-     */
+
+    //Creates settings button
     private void createSettingsButton() {
         TextureAtlas settingsButtonAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "settingsButtonSkin/SettingsButtonSkin.atlas")); // Load atlas file from skin
         Skin settingsButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "settingsButtonSkin/SettingsButtonSkin.json"), settingsButtonAtlas); // Create skin object
@@ -65,9 +63,8 @@ final class MainScreen extends AbstractScreen {
         addActor(settingsButton);
     }
 
-    /**
-     * Creates info button
-     */
+
+    //Creates info button
     private void createInfoButton() {
         TextureAtlas infoButtonAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "infoButtonSkin/InfoButtonSkin.atlas")); // Load atlas file from skin
         Skin infoButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "infoButtonSkin/InfoButtonSkin.json"), infoButtonAtlas); // Create skin object
@@ -78,9 +75,8 @@ final class MainScreen extends AbstractScreen {
         addActor(infoButton);
     }
 
-    /**
-     * Creates quit button
-     */
+
+    //Creates quit button
     private void createQuitButton() {
         TextureAtlas quitButtonAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "quitButtonSkin/QuitButtonSkin.atlas")); // Load atlas file from skin
         Skin quitButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "quitButtonSkin/QuitButtonSkin.json"), quitButtonAtlas); // Create skin object
