@@ -15,7 +15,7 @@ import static com.badlogic.gdx.graphics.GL20.*;
 
 /**
  * @author Daniel Persson
- *
+ * <p>
  * Class representing an AbstractOverlay
  */
 public abstract class AbstractOverlay {
@@ -28,6 +28,7 @@ public abstract class AbstractOverlay {
 
     /**
      * Creates the foundation for a overlay
+     *
      * @param abstractOverlayController reference to common controller for all overlays
      */
     AbstractOverlay(AbstractOverlayController abstractOverlayController) {
@@ -59,6 +60,7 @@ public abstract class AbstractOverlay {
 
     /**
      * Sets overlay stage based on screen stage
+     *
      * @param stage the stage of a screen to add overlay to
      */
     public void setStage(Stage stage) {
@@ -85,7 +87,8 @@ public abstract class AbstractOverlay {
 
     /**
      * Common method for creating a exit button on overlays
-     * @param group group to add Button to
+     *
+     * @param group           group to add Button to
      * @param backgroundImage used to place button in top right corner
      * @return Button object
      */
@@ -100,14 +103,15 @@ public abstract class AbstractOverlay {
 
     /**
      * Common setup method for win and lost panel buttons
+     *
      * @param backgroundImage to set button position
-     * @param button the button to be setup
-     * @param buttonLabel of the new button
-     * @param buttonNr of the new button (1 or 2)
+     * @param button          the button to be setup
+     * @param buttonLabel     of the new button
+     * @param buttonNr        of the new button (1 or 2)
      */
     void setupWinAndLostOverlayButtons(Image backgroundImage, Button button, Label buttonLabel, int buttonNr) {
         // Offset used to place button in center of left or right part.
-        float offsetMulX = buttonNr == 1 ? 1 / 4f : 3/ 4f;
+        float offsetMulX = buttonNr == 1 ? 1 / 4f : 3 / 4f;
 
         button.setPosition(
                 backgroundImage.getX() + (backgroundImage.getWidth() * offsetMulX) - button.getWidth() / 2,
@@ -118,9 +122,10 @@ public abstract class AbstractOverlay {
 
     /**
      * Common setup method for win and lost panel labels
+     *
      * @param backgroundImage to position labels
-     * @param title Label to set position on
-     * @param mainText Label to set position on
+     * @param title           Label to set position on
+     * @param mainText        Label to set position on
      */
     void setupWinOrLoseOverlayLabels(Image backgroundImage, Label title, Label mainText) {
         title.setPosition(

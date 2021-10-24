@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author Elin Forsberg
  * Class representing the MechTower
- *
+ * <p>
  * 2021-10-14 Modified by Joel Båtsman Hilmersson: MechTower now only spawns MinimechTowers and do not remove them <br>
  */
 final class MechTower extends Tower {
@@ -21,18 +21,19 @@ final class MechTower extends Tower {
     private final List<ITower> allTowers;           // The list of all towers on the map
     private final List<PathRectangle> pathRectangles;  // The list of all pathRectangles on current map
 
-    private final CountDownTimer robotCoolDownTimer = new CountDownTimer(1500,0); // Timer for robot spawning cooldown
+    private final CountDownTimer robotCoolDownTimer = new CountDownTimer(1500, 0); // Timer for robot spawning cooldown
 
 
     /**
      * Creates object of a MechTower
-     * @param x - startcoordinate of tower
-     * @param y - startcoordinate of tower
+     *
+     * @param x               - startcoordinate of tower
+     * @param y               - startcoordinate of tower
      * @param towersToAddList list to add towers to
-     * @param allTowers list of all towers on map
-     * @param pathRectangles on the map
+     * @param allTowers       list of all towers on map
+     * @param pathRectangles  on the map
      */
-    MechTower(float x, float y, List<ITower> towersToAddList, List<ITower> allTowers,  List<PathRectangle> pathRectangles) {
+    MechTower(float x, float y, List<ITower> towersToAddList, List<ITower> allTowers, List<PathRectangle> pathRectangles) {
         super(x, y, "Mechoman", 180, 500, 200);
         this.reloadSpeed = 180;
         this.towersToAddList = towersToAddList;
@@ -43,7 +44,7 @@ final class MechTower extends Tower {
 
 
     @Override
-    void createProjectile(List<IProjectile> projectileList){
+    void createProjectile(List<IProjectile> projectileList) {
         projectileList.add(ProjectileFactory.createWrenchProjectile(super.getX(), super.getY(), getAngle()));
 
     }
@@ -53,18 +54,17 @@ final class MechTower extends Tower {
 
         spawnMiniTowers();
 
-        if(getUpgradeLevel() == 3){
+        if (getUpgradeLevel() == 3) {
             super.update(projectilesList, newAngle, hasTarget);
-        }
-        else {
+        } else {
             this.setAngle(0);
         }
 
     }
 
     //Spawn minitowers
-    private void spawnMiniTowers(){
-        if (this.isPlaced() && robotCoolDownTimer.haveReachedZero()){
+    private void spawnMiniTowers() {
+        if (this.isPlaced() && robotCoolDownTimer.haveReachedZero()) {
             createMiniTowers();
         }
     }
@@ -74,18 +74,18 @@ final class MechTower extends Tower {
         float[] point1 = getRandomNonCollidingPoint();
         float[] point2 = getRandomNonCollidingPoint();
 
-        if(getUpgradeLevel() == 1 || getUpgradeLevel() == 3){
+        if (getUpgradeLevel() == 1 || getUpgradeLevel() == 3) {
             createOneTower(point1);
         }
 
-        if(getUpgradeLevel() == 2){
+        if (getUpgradeLevel() == 2) {
             createTwoTowers(point1, point2);
         }
     }
 
     //Create one minitower
     private void createOneTower(float[] point1) {
-        if(point1[0] != -1){
+        if (point1[0] != -1) {
             ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, getRange(), getCurrentTargetModeIndex(), super.getUpgradeLevel());
 
             towersToAddList.add(miniTower1);
@@ -96,7 +96,7 @@ final class MechTower extends Tower {
 
     //Create two minitowers
     private void createTwoTowers(float[] point1, float[] point2) {
-        if(point1[0] != -1 && point2[0] != -1){
+        if (point1[0] != -1 && point2[0] != -1) {
             ITower miniTower1 = new MechMiniTower(point1[0], point1[1], reloadSpeed, getRange(), getCurrentTargetModeIndex(), super.getUpgradeLevel());
             ITower miniTower2 = new MechMiniTower(point2[0], point2[1], reloadSpeed, getRange(), getCurrentTargetModeIndex(), super.getUpgradeLevel());
 
@@ -113,10 +113,9 @@ final class MechTower extends Tower {
     private float[] getRandomNonCollidingPoint() {
         float[] point = Calculate.randPoint(getX(), getY(), getRange());
         for (int i = 0; i < 100; i++) {
-            if(pathCollision(getWidth(), getHeight(), point[0],point[1]) || towerCollision(getWidth(), getHeight(), point[0],point[1]) || Calculate.checkIfOutOfBounds(new PathRectangle(point[0],point[1], 20, 20), false)){
+            if (pathCollision(getWidth(), getHeight(), point[0], point[1]) || towerCollision(getWidth(), getHeight(), point[0], point[1]) || Calculate.checkIfOutOfBounds(new PathRectangle(point[0], point[1], 20, 20), false)) {
                 point = Calculate.randPoint(getX(), getY(), getRange());
-            }
-            else{
+            } else {
                 return point;
             }
         }
@@ -125,9 +124,9 @@ final class MechTower extends Tower {
     }
 
     //Checks if given coordinates collides with path
-    private boolean pathCollision(double width, double height,double x, double y){
+    private boolean pathCollision(double width, double height, double x, double y) {
         for (PathRectangle rectangle : pathRectangles) {
-            if (Calculate.calculateIntersects(width , height, rectangle.getWidth(), rectangle.getHeight(), x, y, rectangle.getX(),rectangle.getY())) {
+            if (Calculate.calculateIntersects(width, height, rectangle.getWidth(), rectangle.getHeight(), x, y, rectangle.getX(), rectangle.getY())) {
                 return true;
             }
         }
@@ -135,9 +134,9 @@ final class MechTower extends Tower {
     }
 
     //Checks if given coordinates collides with towers
-    private boolean towerCollision(double width, double height,double x, double y){
+    private boolean towerCollision(double width, double height, double x, double y) {
         for (ITower tower : allTowers) {
-            if (Calculate.calculateIntersects(width , height, tower.getWidth(), tower.getHeight(), x, y, tower.getX(),tower.getY())) {
+            if (Calculate.calculateIntersects(width, height, tower.getWidth(), tower.getHeight(), x, y, tower.getX(), tower.getY())) {
                 return true;
             }
         }

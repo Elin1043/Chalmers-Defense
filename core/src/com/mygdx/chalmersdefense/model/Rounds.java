@@ -10,6 +10,7 @@ final class Rounds {
 
     /**
      * Create an instance of Rounds
+     *
      * @param winningRound the round where the player wins
      */
     Rounds(int winningRound) {

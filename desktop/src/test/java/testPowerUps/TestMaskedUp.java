@@ -23,12 +23,12 @@ public class TestMaskedUp {
     private final List<IGenericMapObject> genericMapObjectList = new ArrayList<>();
 
     @Before
-    public void createPowerUp(){
-        powerUp = PowerUpFactory.createPowerUps( virusList).get(1);
+    public void createPowerUp() {
+        powerUp = PowerUpFactory.createPowerUps(virusList).get(1);
     }
 
     @Test
-    public void testAddGraphicObject(){
+    public void testAddGraphicObject() {
         powerUp.powerUpClicked(genericMapObjectList);
         assertTrue(genericMapObjectList.size() > 0);
     }

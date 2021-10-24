@@ -65,7 +65,7 @@ public class TestTargetModes {
     }
 
     @Test
-    public void testGetStrongestTarget(){
+    public void testGetStrongestTarget() {
         vList.add(VirusFactory.createVirusFive());  // To have two of the same virus types
         vList.get(5).update();
         vList.get(5).update();

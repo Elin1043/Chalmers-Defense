@@ -22,7 +22,8 @@ public class SettingsOverlayController {
 
     /**
      * Creates a controller for use by the SettingsOverlay class
-     * @param model the model to control
+     *
+     * @param model       the model to control
      * @param preferences to get game preferences from
      */
     public SettingsOverlayController(IControllModel model, Preferences preferences) {
@@ -32,6 +33,7 @@ public class SettingsOverlayController {
 
     /**
      * Add change listener to music volume slider
+     *
      * @param slider to add listener to
      */
     public void addMusicVolumeSliderListener(Slider slider) {
@@ -46,6 +48,7 @@ public class SettingsOverlayController {
 
     /**
      * Add change listener to sound effects volume slider
+     *
      * @param slider to add listener to
      */
     public void addSoundEffectsVolumeSliderListener(Slider slider) {
@@ -60,6 +63,7 @@ public class SettingsOverlayController {
 
     /**
      * Add click listener to back button in settings
+     *
      * @param button to add listener to
      */
     public void addGoBackButton(Button button) {
@@ -73,6 +77,7 @@ public class SettingsOverlayController {
 
     /**
      * Add change listener to music volume slider
+     *
      * @param checkBox to add listener to
      */
     public void addMuteMusicClickListener(CheckBox checkBox) {
@@ -87,6 +92,7 @@ public class SettingsOverlayController {
 
     /**
      * Add change listener to sound effects mute checkbox
+     *
      * @param checkBox to add listener to
      */
     public void addMuteSoundEffectsClickListener(CheckBox checkBox) {
@@ -101,6 +107,7 @@ public class SettingsOverlayController {
 
     /**
      * Add change listener to autoplay checkbox
+     *
      * @param checkBox to add listener to
      */
     public void addAutoplayClickListener(CheckBox checkBox) {
@@ -115,6 +122,7 @@ public class SettingsOverlayController {
 
     /**
      * Add change listener to fullscreen checkbox
+     *
      * @param checkBox to add listener to
      */
     public void addFullscreenClickListener(CheckBox checkBox) {
@@ -133,7 +141,8 @@ public class SettingsOverlayController {
 
     /**
      * Add change listener to refresh rate checkbox
-     * @param checkBox to add listener to
+     *
+     * @param checkBox    to add listener to
      * @param refreshRate what refresh rate to change to
      */
     public void addRefreshRateClickListener(CheckBox checkBox, int refreshRate) {

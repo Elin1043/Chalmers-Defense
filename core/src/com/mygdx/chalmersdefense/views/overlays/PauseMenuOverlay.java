@@ -12,9 +12,9 @@ import com.mygdx.chalmersdefense.views.viewUtilities.FontFactory;
 /**
  * @author Jenny Carlsson
  * @author Daniel Persson
- *
+ * <p>
  * A class for representing the pause menu in GameScreen
- *
+ * <p>
  * 2021-10-12 Modified by Jenny Carlsson and Daniel Persson: Added pause menu exit button
  */
 final class PauseMenuOverlay extends AbstractOverlay {
@@ -28,7 +28,8 @@ final class PauseMenuOverlay extends AbstractOverlay {
 
     /**
      * Sets up class and passes abstractOverlayController to super constructor
-     * @param abstractOverlayController reference to common controller
+     *
+     * @param abstractOverlayController  reference to common controller
      * @param pauseMenuOverlayController reference to controller for pause menu overlay
      */
     PauseMenuOverlay(AbstractOverlayController abstractOverlayController, PauseMenuOverlayController pauseMenuOverlayController) {
@@ -42,7 +43,7 @@ final class PauseMenuOverlay extends AbstractOverlay {
         if (!pauseMenuGroup.hasChildren()) {
             pauseMenuGroup.addActor(backgroundImage);
 
-            backgroundImage.setPosition(stage.getWidth()/2 - backgroundImage.getWidth()/2, stage.getHeight()/2 - backgroundImage.getHeight()/2);
+            backgroundImage.setPosition(stage.getWidth() / 2 - backgroundImage.getWidth() / 2, stage.getHeight() / 2 - backgroundImage.getHeight() / 2);
             createButtons();
             Button exitButton = createExitPauseMenuButton(pauseMenuGroup, backgroundImage);
             abstractOverlayController.addExitOverlayButtonClickListener(exitButton);

@@ -64,8 +64,9 @@ final class GameScreen extends AbstractScreen implements Screen {
 
     /**
      * Creates the game screen of the game.
-     * @param model the model to display information from
-     * @param gameScreenController the controller class to use for adding listeners to this class
+     *
+     * @param model                    the model to display information from
+     * @param gameScreenController     the controller class to use for adding listeners to this class
      * @param rightSidePanelController the controller class for use by the RightSidePanel
      * @param bottomBarPanelController the controller class for use by the BottomBarPanel
      */
@@ -97,7 +98,7 @@ final class GameScreen extends AbstractScreen implements Screen {
     }
 
     @Override
-    void setBackgroundImage(){
+    void setBackgroundImage() {
         Image mapImage = new Image(new Texture(model.getMapImagePath()));
         mapImage.setPosition(0, Gdx.graphics.getHeight() - mapImage.getHeight());
         gameScreenController.addMapClickListener(mapImage);
@@ -145,7 +146,6 @@ final class GameScreen extends AbstractScreen implements Screen {
     }
 
 
-
     //Create progressbar
     private void createProgressBar() {
         TextureAtlas progressBarAtlas = new TextureAtlas(Gdx.files.internal("GameScreen/progressbar/ProgressBarSkin.atlas")); // Load atlas file from skin
@@ -154,10 +154,10 @@ final class GameScreen extends AbstractScreen implements Screen {
         progressBar.setSize(921, 52);
         progressBar.setPosition(350, 60);
 
-        progressBarSmurf.setPosition(progressBar.getX() + (progressBar.getWidth()/progressBar.getMaxValue()) * progressBar.getValue() - 1, 120);
+        progressBarSmurf.setPosition(progressBar.getX() + (progressBar.getWidth() / progressBar.getMaxValue()) * progressBar.getValue() - 1, 120);
 
         Image finnishFlag = new Image(new Texture(Gdx.files.internal("GameScreen/progressbar/FinnishFlagImage.png")));
-        finnishFlag.setPosition(progressBar.getX() + progressBar.getWidth() - 2, progressBar.getY() + progressBar.getHeight()/2);
+        finnishFlag.setPosition(progressBar.getX() + progressBar.getWidth() - 2, progressBar.getY() + progressBar.getHeight() / 2);
 
         Label winningRoundLabel = new Label("Round: " + model.getWinningRound(), FontFactory.getLabelStyle18Black());
         winningRoundLabel.setPosition(progressBar.getX() + progressBar.getWidth() - winningRoundLabel.getWidth() - 21, progressBar.getY() - winningRoundLabel.getHeight() - 5);
@@ -176,8 +176,8 @@ final class GameScreen extends AbstractScreen implements Screen {
         // If progressbar is at 100% dont render knob.
         progressBar.setDisabled(model.getCurrentRound() >= model.getWinningRound());
 
-        progressBarFilled.setRegion(0, 0,(int) (((progressBar.getWidth() - 6)/progressBar.getMaxValue()) * progressBar.getValue()) - 2 , 46);
-        progressBarSmurf.setPosition(progressBar.getX() + (progressBar.getWidth()/progressBar.getMaxValue()) * progressBar.getValue() - 20, 120);
+        progressBarFilled.setRegion(0, 0, (int) (((progressBar.getWidth() - 6) / progressBar.getMaxValue()) * progressBar.getValue()) - 2, 46);
+        progressBarSmurf.setPosition(progressBar.getX() + (progressBar.getWidth() / progressBar.getMaxValue()) * progressBar.getValue() - 20, 120);
         batch.begin();
         batch.draw(progressBarFilled, progressBar.getX() + 3, progressBar.getY() + 3);
         batch.end();
@@ -186,16 +186,18 @@ final class GameScreen extends AbstractScreen implements Screen {
 
     //Renders waypoint markers
     private void renderWaypointsOnProgressBar() {
-        int[][] waypointData = {{1,1},{2,3},{3,6},{50,10},{4,12},{5,16},{50,20},{50,30}};  // Data is structured like this: {Virus HP, first round appearance}.
-        float progressBarStepWidth = progressBar.getWidth()/progressBar.getMaxValue();
+        int[][] waypointData = {{1, 1}, {2, 3}, {3, 6}, {50, 10}, {4, 12}, {5, 16}, {50, 20}, {50, 30}};  // Data is structured like this: {Virus HP, first round appearance}.
+        float progressBarStepWidth = progressBar.getWidth() / progressBar.getMaxValue();
         for (int[] waypoint : waypointData) {
             Sprite virusSprite = spriteMap.get("virus" + waypoint[0]);
             float waypointPos = progressBar.getX() + waypoint[1] * progressBarStepWidth;
 
             virusSprite.setScale(0.5f);
-            if(waypoint[0] == 50){virusSprite.setScale(0.25f);}
+            if (waypoint[0] == 50) {
+                virusSprite.setScale(0.25f);
+            }
 
-            virusSprite.setPosition(waypointPos - virusSprite.getWidth()/2, progressBar.getY() - virusSprite.getHeight()/2 -20);
+            virusSprite.setPosition(waypointPos - virusSprite.getWidth() / 2, progressBar.getY() - virusSprite.getHeight() / 2 - 20);
             waypointMarker.setPosition(waypointPos, 58);
 
             batch.begin();
@@ -240,7 +242,7 @@ final class GameScreen extends AbstractScreen implements Screen {
 
 
     //Update label info for HUD labels
-    private void updateLabelInfo(){
+    private void updateLabelInfo() {
         lifeLabel.setText(model.getLivesLeft());
         moneyLabel.setText(model.getMoney());
         roundLabel.setText("Round: " + model.getCurrentRound());
@@ -271,7 +273,7 @@ final class GameScreen extends AbstractScreen implements Screen {
 
 
     //Creates life and money icons and labels
-    private void createLifeAndMoneyIcon(){
+    private void createLifeAndMoneyIcon() {
         Image lifeIcon = new Image(new Texture("lifeIcon.png"));
         Image moneyIcon = new Image(new Texture("moneyIcon.png"));
 

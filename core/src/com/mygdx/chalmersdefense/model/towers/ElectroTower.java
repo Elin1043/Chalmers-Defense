@@ -13,6 +13,7 @@ final class ElectroTower extends Tower {
 
     /**
      * Creates object of a ElectroTower
+     *
      * @param x - startcoordinate of tower
      * @param y - startcoordinate of tower
      */

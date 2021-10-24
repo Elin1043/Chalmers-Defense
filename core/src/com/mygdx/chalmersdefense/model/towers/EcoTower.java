@@ -20,8 +20,9 @@ final class EcoTower extends Tower {
 
     /**
      * Creates object of a EcoTower
-     * @param x - startcoordinate of tower
-     * @param y - startcoordinate of tower
+     *
+     * @param x        - startcoordinate of tower
+     * @param y        - startcoordinate of tower
      * @param eventbus current eventBus from Model
      */
     EcoTower(float x, float y, EventBus eventbus) {

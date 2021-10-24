@@ -17,8 +17,9 @@ final class ChemistTower extends Tower {
 
     /**
      * Creates object of a ChemistTower
-     * @param x - startcoordinate of tower
-     * @param y - startcoordinate of tower
+     *
+     * @param x         - startcoordinate of tower
+     * @param y         - startcoordinate of tower
      * @param addToList list to add towers projectiles to
      */
     ChemistTower(float x, float y, List<IProjectile> addToList) {

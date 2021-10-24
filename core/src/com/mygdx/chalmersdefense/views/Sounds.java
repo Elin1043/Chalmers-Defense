@@ -16,9 +16,10 @@ final public class Sounds {
 
     /**
      * Creates a object for handling sounds
+     *
      * @param preferences for the game
      */
-    public Sounds(Preferences preferences){
+    public Sounds(Preferences preferences) {
         this.preferences = preferences;
 
         // Setup of music
@@ -37,10 +38,10 @@ final public class Sounds {
         }, 0, 0.01F);
     }
 
-    
+
     //Update volume if preferences changes
     private void updateMusicVolume() {
-        if (preferences.getBoolean("muteMusic")){
+        if (preferences.getBoolean("muteMusic")) {
             music.setVolume(0);
         } else {
             music.setVolume(preferences.getFloat("musicVolume"));

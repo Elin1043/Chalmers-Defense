@@ -13,6 +13,7 @@ public interface IPath {
 
     /**
      * Returns the background image path to the image
+     *
      * @return the image path
      */
     String getImagePath();

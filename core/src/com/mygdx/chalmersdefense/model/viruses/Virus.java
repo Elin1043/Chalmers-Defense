@@ -41,7 +41,6 @@ abstract class Virus implements IVirus {
     private int currentMoveToVectorIndex = 0;       // Which index to use when new vector is retrieved
 
 
-
     /**
      * Creates Virus object
      *
@@ -58,17 +57,18 @@ abstract class Virus implements IVirus {
 
     /**
      * Creates a virus object with specific values
-     * @param health health of the virus
-     * @param x   x-coordinate of virus
-     * @param y   y-coordinate of virus
-     * @param currentMoveToVectorIndex  vectorIndex virus should walk towards
+     *
+     * @param health                   health of the virus
+     * @param x                        x-coordinate of virus
+     * @param y                        y-coordinate of virus
+     * @param currentMoveToVectorIndex vectorIndex virus should walk towards
      */
-    Virus(int health,float x, float y, int currentMoveToVectorIndex) {
+    Virus(int health, float x, float y, int currentMoveToVectorIndex) {
         this.health = health;
-       this.currentMoveToVectorIndex = currentMoveToVectorIndex;
+        this.currentMoveToVectorIndex = currentMoveToVectorIndex;
         initializeVirus();
 
-        float[] randomPoint = Calculate.randPoint(x, y,50);
+        float[] randomPoint = Calculate.randPoint(x, y, 50);
 
         xPos = randomPoint[0] - widthX / 2F;
         yPos = randomPoint[1] - heightY / 2F;
@@ -76,7 +76,7 @@ abstract class Virus implements IVirus {
 
 
     //Initialize the virus
-    private void initializeVirus(){
+    private void initializeVirus() {
         updateSpriteKey();
         currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex);
 
@@ -93,7 +93,7 @@ abstract class Virus implements IVirus {
 
     @Override
     public void decreaseHealth(float damage) {
-        if (damage < 1 && damage > 0.1F){
+        if (damage < 1 && damage > 0.1F) {
             slowDownEffect(damage);
         } else {
             this.health -= damage;
@@ -113,9 +113,10 @@ abstract class Virus implements IVirus {
 
     /**
      * Set how much slowndown to be set on virus
+     *
      * @param slowdown amount of slowdown
      */
-    void slowDownEffect(float slowdown){
+    void slowDownEffect(float slowdown) {
         if (this.slowdown > slowdown) {
             this.slowdown = slowdown;
         }
@@ -131,6 +132,7 @@ abstract class Virus implements IVirus {
 
     /**
      * Get the total speed of the virus
+     *
      * @return total speed
      */
     double getTotalVirusSpeed() {
@@ -172,8 +174,8 @@ abstract class Virus implements IVirus {
     }
 
     //Update the slowTimer
-    private void updateSlowTimer(){
-        if (slowDownTimer <= 0){
+    private void updateSlowTimer() {
+        if (slowDownTimer <= 0) {
             slowdown = 1;
         } else {
             slowDownTimer--;
@@ -234,19 +236,28 @@ abstract class Virus implements IVirus {
 
     /**
      * Returns slowdown
+     *
      * @return slowdown
      */
-    float getSlowdown(){ return slowdown; }
+    float getSlowdown() {
+        return slowdown;
+    }
 
     /**
      * Gets the position of the virus
+     *
      * @return Position of virus
      */
-    float[] getPos(){ return new float[] {xPos, yPos}; }
+    float[] getPos() {
+        return new float[]{xPos, yPos};
+    }
 
     /**
      * Gets the current move to vector
+     *
      * @return the move to vector
      */
-    int getCurrentMoveToVectorIndex(){ return currentMoveToVectorIndex - 1; }
+    int getCurrentMoveToVectorIndex() {
+        return currentMoveToVectorIndex - 1;
+    }
 }

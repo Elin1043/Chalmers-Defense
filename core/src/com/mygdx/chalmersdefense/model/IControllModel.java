@@ -25,8 +25,9 @@ public interface IControllModel {
     /**
      * Handles a tower being dragged.
      * Updates the towers position after mouse and check for collision
-     *  @param x            The X-position of the mouse
-     * @param y            The Y-position of the mouse
+     *
+     * @param x The X-position of the mouse
+     * @param y The Y-position of the mouse
      */
     void onDrag(float x, float y);
 
@@ -35,8 +36,9 @@ public interface IControllModel {
      * Checks if tower can be placed on current position.
      * If not: tower is removed
      * if valid: place the tower
-     *  @param x            The X-position of the mouse
-     * @param y            The Y-position of the mouse
+     *
+     * @param x The X-position of the mouse
+     * @param y The Y-position of the mouse
      */
     void dragEnd(float x, float y);
 
@@ -47,6 +49,7 @@ public interface IControllModel {
 
     /**
      * Handles when a placed tower is clicked
+     *
      * @param mouseX mouse x position
      * @param mouseY mouse y position
      */
@@ -59,6 +62,7 @@ public interface IControllModel {
 
     /**
      * Sets showOverlay to supplied overlay enum
+     *
      * @param overlay enum of overlay to show
      */
     void setShowOverlay(ScreenOverlayEnum overlay);
@@ -70,6 +74,7 @@ public interface IControllModel {
 
     /**
      * Change tower targetMode
+     *
      * @param goRight spin direction thorough the array
      */
     void changeTargetMode(boolean goRight);
@@ -86,6 +91,7 @@ public interface IControllModel {
 
     /**
      * Handle a powerUp button being clicked
+     *
      * @param powerUpName The name of the power-up to be activated
      */
     void powerUpClicked(String powerUpName);

@@ -2,12 +2,12 @@ package testModelClasses;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
-import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.utilities.Preferences;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Daniel Persson

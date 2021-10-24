@@ -25,7 +25,8 @@ final class LostPanelOverlay extends AbstractOverlay {
 
     /**
      * Sets up class and passes abstractOverlayController to super constructor
-     * @param abstractOverlayController reference to common controller
+     *
+     * @param abstractOverlayController  reference to common controller
      * @param lostPanelOverlayController reference to controller for lost panel
      */
     LostPanelOverlay(AbstractOverlayController abstractOverlayController, LostPanelOverlayController lostPanelOverlayController) {

@@ -50,12 +50,13 @@ abstract class Tower implements ITower {
 
     /**
      * Creates object of a Tower
-     * @param x - startcoordinate of tower
-     * @param y - startcoordinate of tower
-     * @param name of the tower
+     *
+     * @param x           - startcoordinate of tower
+     * @param y           - startcoordinate of tower
+     * @param name        of the tower
      * @param reloadSpeed of the tower
-     * @param cost of the tower
-     * @param range of the tower
+     * @param cost        of the tower
+     * @param range       of the tower
      */
     Tower(float x, float y, String name, int reloadSpeed, int cost, int range) {
         this.name = name;
@@ -79,6 +80,7 @@ abstract class Tower implements ITower {
 
     /**
      * Create a new projectile
+     *
      * @param projectileList the list of which the projectile should be added too
      */
     abstract void createProjectile(List<IProjectile> projectileList);
@@ -98,44 +100,41 @@ abstract class Tower implements ITower {
 
     //Update the reload timer
     private void updateReloadTimer() {
-        if (reloadTimer.getCurrentCountTime() > 0){ // If the timer is over 0 it should count down
+        if (reloadTimer.getCurrentCountTime() > 0) { // If the timer is over 0 it should count down
             reloadTimer.haveReachedZero();
         }
     }
 
     @Override
-    public void changeTargetMode(boolean goRight){
-        if(goRight){
+    public void changeTargetMode(boolean goRight) {
+        if (goRight) {
             increaseIndexOfTargetMode();
-        }
-        else{
+        } else {
             decreaseIndexOfTargetMode();
         }
     }
 
     //Increase the index of targetMode
-    private void increaseIndexOfTargetMode(){
-        if(targetModes.indexOf(currentTargetMode) >= targetModes.size()-1){
+    private void increaseIndexOfTargetMode() {
+        if (targetModes.indexOf(currentTargetMode) >= targetModes.size() - 1) {
             currentTargetMode = targetModes.get(0);
-        }
-        else{
+        } else {
             currentTargetMode = targetModes.get(targetModes.indexOf(currentTargetMode) + 1);
         }
     }
 
     //Decrease the index of targetMode
-    private void decreaseIndexOfTargetMode(){
-        if(targetModes.indexOf(currentTargetMode) <= 0){
-            currentTargetMode = targetModes.get(targetModes.size()-1);
-        }
-        else{
+    private void decreaseIndexOfTargetMode() {
+        if (targetModes.indexOf(currentTargetMode) <= 0) {
+            currentTargetMode = targetModes.get(targetModes.size() - 1);
+        } else {
             currentTargetMode = targetModes.get(targetModes.indexOf(currentTargetMode) - 1);
         }
     }
 
     @Override
     public void upgradeTower(HashMap<String, Double> upgrades) {
-        reloadTime *= upgrades.get("attackSpeedMul") ;
+        reloadTime *= upgrades.get("attackSpeedMul");
 
         // Creates new timer object with new timer
         reloadTimer = new CountDownTimer(reloadTime, reloadTimer.getCurrentCountTime());
@@ -246,8 +245,11 @@ abstract class Tower implements ITower {
 
     /**
      * Returns the current targetmode index in the targetmode list
+     *
      * @return the current targetmode index
      */
-    int getCurrentTargetModeIndex() { return targetModes.indexOf(currentTargetMode); }
+    int getCurrentTargetModeIndex() {
+        return targetModes.indexOf(currentTargetMode);
+    }
 
 }

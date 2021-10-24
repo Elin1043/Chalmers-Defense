@@ -4,7 +4,7 @@ import com.mygdx.chalmersdefense.model.modelUtilities.CountDownTimer;
 
 /**
  * @author Joel Båtsman Hilmersson
- *
+ * <p>
  * Class representing an area effected by the matrix. Slows down viruses that comes in contact
  */
 final class MatrixArea extends Projectile {
@@ -13,17 +13,20 @@ final class MatrixArea extends Projectile {
 
     /**
      * Creates a MatrixArea object
-     * @param x The x start position
-     * @param y The y start position
+     *
+     * @param x            The x start position
+     * @param y            The y start position
      * @param upgradeLevel The upgrade level of the projectile
      */
     MatrixArea(float x, float y, int upgradeLevel) {
-        super(0, "hackerArea" + upgradeLevel, x, y, 0, new float[] {0.75F, 0.75F, 0.5F}[upgradeLevel - 1]);
+        super(0, "hackerArea" + upgradeLevel, x, y, 0, new float[]{0.75F, 0.75F, 0.5F}[upgradeLevel - 1]);
     }
 
     @Override
     public void update(boolean hasVirusBeenHit, int hitVirusHashCode, float angle) {
-        if (matrixTimer.haveReachedZero()) { this.canRemove = true; }
+        if (matrixTimer.haveReachedZero()) {
+            this.canRemove = true;
+        }
         super.update(hasVirusBeenHit, hitVirusHashCode, angle);
     }
 

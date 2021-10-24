@@ -97,7 +97,7 @@ public class TestTower {
     }
 
     @Test
-    public void testChangeTargetModeRight(){
+    public void testChangeTargetModeRight() {
         ITower tower = TowerFactory.createSmurf(0, 0);
         List<ITargetMode> targetModes = TargetModeFactory.getTargetModes();
 
@@ -108,7 +108,7 @@ public class TestTower {
     }
 
     @Test
-    public void testChangeTargetModeLeft(){
+    public void testChangeTargetModeLeft() {
         ITower tower = TowerFactory.createSmurf(0, 0);
         List<ITargetMode> targetModes = TargetModeFactory.getTargetModes();
 

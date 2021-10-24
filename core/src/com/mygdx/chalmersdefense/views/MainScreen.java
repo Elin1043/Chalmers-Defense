@@ -23,7 +23,8 @@ final class MainScreen extends AbstractScreen {
 
     /**
      * Creates the main screen of the game
-     * @param model the model to display information from
+     *
+     * @param model                the model to display information from
      * @param mainScreenController the controller class to use for adding listeners to this class
      */
     MainScreen(IViewModel model, MainScreenController mainScreenController) {
@@ -69,7 +70,7 @@ final class MainScreen extends AbstractScreen {
         TextureAtlas infoButtonAtlas = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "infoButtonSkin/InfoButtonSkin.atlas")); // Load atlas file from skin
         Skin infoButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "infoButtonSkin/InfoButtonSkin.json"), infoButtonAtlas); // Create skin object
         Button infoButton = new Button(infoButtonSkin);
-        infoButton.setPosition(1140,110);
+        infoButton.setPosition(1140, 110);
 
         mainScreenController.addInfoButtonClickListener(infoButton);
         addActor(infoButton);

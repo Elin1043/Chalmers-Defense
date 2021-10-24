@@ -26,10 +26,10 @@ public abstract class ProjectileFactory {
     /**
      * Creates a projectile of type ZeroOneProjectile
      *
-     * @param towerX       the x - coordinate of the tower shooting the projectile
-     * @param towerY       the y - coordinate of the tower shooting the projectile
-     * @param angle        the angle of the tower shooting the projectile
-     * @param upgradeLevel the upgradeLevel of the tower shooting the projectile
+     * @param towerX         the x - coordinate of the tower shooting the projectile
+     * @param towerY         the y - coordinate of the tower shooting the projectile
+     * @param angle          the angle of the tower shooting the projectile
+     * @param upgradeLevel   the upgradeLevel of the tower shooting the projectile
      * @param projectileList the list of projectiles to add new projectile to
      * @return the created projectile
      */
@@ -93,9 +93,9 @@ public abstract class ProjectileFactory {
     /**
      * Creates a projectile of type WrenchProjectile
      *
-     * @param towerX       the x - coordinate of the tower shooting the projectile
-     * @param towerY       the y - coordinate of the tower shooting the projectile
-     * @param angle        the angle of the tower shooting the projectile
+     * @param towerX the x - coordinate of the tower shooting the projectile
+     * @param towerY the y - coordinate of the tower shooting the projectile
+     * @param angle  the angle of the tower shooting the projectile
      * @return the created projectile
      */
     static public IProjectile createWrenchProjectile(float towerX, float towerY, float angle) {

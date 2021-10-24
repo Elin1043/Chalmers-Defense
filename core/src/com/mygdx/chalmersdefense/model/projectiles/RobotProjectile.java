@@ -12,13 +12,14 @@ final class RobotProjectile extends Projectile {
 
     /**
      * Creates a RobotProjectile object
-     * @param x The x start position
-     * @param y The y start position
-     * @param angle The angle of the projectile
+     *
+     * @param x            The x start position
+     * @param y            The y start position
+     * @param angle        The angle of the projectile
      * @param upgradeLevel The upgrade level of the projectile
      */
     RobotProjectile(float x, float y, float angle, int upgradeLevel) {
-        super(5, "mechaProjectile" + upgradeLevel, x, y, angle, Math.max(1, upgradeLevel-1));
+        super(5, "mechaProjectile" + upgradeLevel, x, y, angle, Math.max(1, upgradeLevel - 1));
         hitCountsLeft = switch (upgradeLevel) {
             case 3 -> new CountDownTimer(2);
             default -> new CountDownTimer(0);

@@ -11,10 +11,11 @@ final class AcidProjectile extends Projectile {
 
     /**
      * Creates a AcidProjectile object
-     * @param x The x start position
-     * @param y The y start position
-     * @param angle The angle of the projectile
-     * @param upgradeLevel The upgrade level of the projectile
+     *
+     * @param x              The x start position
+     * @param y              The y start position
+     * @param angle          The angle of the projectile
+     * @param upgradeLevel   The upgrade level of the projectile
      * @param projectileList The list to add new projectiles to
      */
     AcidProjectile(float x, float y, float angle, int upgradeLevel, List<IProjectile> projectileList) {

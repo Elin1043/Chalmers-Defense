@@ -13,10 +13,11 @@ final class MatrixProjectile extends Projectile {
 
     /**
      * Creates a MatrixProjectile object
-     * @param x The x start position
-     * @param y The y start position
-     * @param angle The angle of the projectile
-     * @param upgradeLevel The upgrade level of the projectile
+     *
+     * @param x              The x start position
+     * @param y              The y start position
+     * @param angle          The angle of the projectile
+     * @param upgradeLevel   The upgrade level of the projectile
      * @param projectileList The list to add new projectiles to
      */
     MatrixProjectile(float x, float y, float angle, int upgradeLevel, List<IProjectile> projectileList) {

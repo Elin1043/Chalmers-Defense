@@ -55,6 +55,7 @@ public interface IViewModel {
 
     /**
      * Get the sell price of the clicked tower
+     *
      * @return price
      */
     int getClickedTowerSellPrice();
@@ -62,6 +63,7 @@ public interface IViewModel {
 
     /**
      * Get target mode of clicked tower
+     *
      * @return target mode
      */
     String getClickedTowerTargetMode();
@@ -111,30 +113,35 @@ public interface IViewModel {
 
     /**
      * Return the active timer of the powerUps
+     *
      * @return active timer
      */
     int[] getPowerUpTimer();
 
     /**
      * Return if the different powerUps are active
+     *
      * @return active or not
      */
     boolean[] getPowerUpActive();
 
     /**
      * Returns if the game is stopped and the map is cleared from viruses
+     *
      * @return a boolean for game state
      */
     boolean isGameStopped();
 
     /**
      * Returns the background image path
+     *
      * @return image path
      */
     String getMapImagePath();
 
     /**
      * Gets if game speed is sped up
+     *
      * @return true if game is sped up. Otherwise false
      */
     boolean isGameSpedUp();

@@ -22,7 +22,8 @@ final public class OverlayManager {
 
 
     //Singleton constructor
-    private OverlayManager() {}
+    private OverlayManager() {
+    }
 
     /**
      * Returns this instance
@@ -38,11 +39,12 @@ final public class OverlayManager {
 
     /**
      * Initialize the different screens
+     *
      * @param pauseMenuOverlay the pause menu overlay panel
-     * @param settingsOverlay the settings overlay panel
+     * @param settingsOverlay  the settings overlay panel
      * @param lostPanelOverlay the lost panel overlay
-     * @param winPanelOverlay the win panel overlay
-     * @param infoOverlay the info overlay panel
+     * @param winPanelOverlay  the win panel overlay
+     * @param infoOverlay      the info overlay panel
      */
     public void initialize(AbstractOverlay pauseMenuOverlay, AbstractOverlay settingsOverlay, AbstractOverlay lostPanelOverlay, AbstractOverlay winPanelOverlay, AbstractOverlay infoOverlay) {
         this.pauseMenuOverlay = pauseMenuOverlay;
@@ -55,7 +57,7 @@ final public class OverlayManager {
     /**
      * Shows the screen based on inputted ScreenEnum
      *
-     * @param overlayEnum which screen to switch to
+     * @param overlayEnum   which screen to switch to
      * @param currentScreen to set currentOverlay stage to
      */
     public void showOverlay(ScreenOverlayEnum overlayEnum, Stage currentScreen) {
@@ -70,7 +72,7 @@ final public class OverlayManager {
     }
 
 
-   //Returns AbstractOverlay object depending on overlayEnum
+    //Returns AbstractOverlay object depending on overlayEnum
     private AbstractOverlay getOverlay(ScreenOverlayEnum overlayEnum) {
         return switch (overlayEnum) {
             case PAUSE_MENU -> pauseMenuOverlay;
@@ -84,6 +86,7 @@ final public class OverlayManager {
 
     /**
      * Get currently showing overlay
+     *
      * @return overlay object
      */
     public AbstractOverlay getCurrentOverlay() {

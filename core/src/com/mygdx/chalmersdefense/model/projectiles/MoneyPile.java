@@ -10,14 +10,15 @@ import com.mygdx.chalmersdefense.model.modelUtilities.CountDownTimer;
  * Class representing money pile
  */
 
-final class MoneyPile extends Projectile{
+final class MoneyPile extends Projectile {
 
     private final CountDownTimer timer = new CountDownTimer(150); // Timer over how long to show money animation
 
     /**
      * Creates a MoneyPile object
-     * @param x The x start position
-     * @param y The y start position
+     *
+     * @param x            The x start position
+     * @param y            The y start position
      * @param upgradeLevel The upgrade level of the projectile
      */
     MoneyPile(float x, float y, int upgradeLevel) {

@@ -25,7 +25,8 @@ final public class Preferences {
 
     /**
      * Put a new boolean value into hashmap
-     * @param key preference
+     *
+     * @param key   preference
      * @param value value of preference
      */
     public void putBoolean(String key, boolean value) {
@@ -34,6 +35,7 @@ final public class Preferences {
 
     /**
      * Gets a boolean preference from hashmap
+     *
      * @param key preference
      * @return the preference
      */
@@ -43,7 +45,8 @@ final public class Preferences {
 
     /**
      * Put a new float value into hashmap
-     * @param key preference
+     *
+     * @param key   preference
      * @param value value of preference
      */
     public void putFloat(String key, float value) {
@@ -52,6 +55,7 @@ final public class Preferences {
 
     /**
      * Gets a float preference from hashmap
+     *
      * @param key preference
      * @return the preference
      */
@@ -61,7 +65,8 @@ final public class Preferences {
 
     /**
      * Put a new integer value into hashmap
-     * @param key preference
+     *
+     * @param key   preference
      * @param value value of preference
      */
     public void putInteger(String key, int value) {
@@ -70,6 +75,7 @@ final public class Preferences {
 
     /**
      * Gets a integer preference from hashmap
+     *
      * @param key preference
      * @return the preference
      */

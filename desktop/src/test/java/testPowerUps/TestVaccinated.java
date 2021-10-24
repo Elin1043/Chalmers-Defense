@@ -25,22 +25,22 @@ public class TestVaccinated {
     private final List<IGenericMapObject> genericMapObjectList = new ArrayList<>();
 
     @Before
-    public void createPowerUp(){
+    public void createPowerUp() {
         powerUp = PowerUpFactory.createPowerUps(virusList).get(2);
     }
 
     @Test
-    public void testAddGraphicObject(){
+    public void testAddGraphicObject() {
         powerUp.powerUpClicked(genericMapObjectList);
         assertTrue(genericMapObjectList.size() > 0);
     }
 
     @Test
-    public void testDamageVirus(){
+    public void testDamageVirus() {
         virusList.add(VirusFactory.createVirusOne());
         powerUp.powerUpClicked(genericMapObjectList);
 
-        while (powerUp.getIsActive()){
+        while (powerUp.getIsActive()) {
             powerUp.decreaseTimer();
         }
 
@@ -48,7 +48,7 @@ public class TestVaccinated {
     }
 
     @Test
-    public void testGetCost(){
+    public void testGetCost() {
         assertEquals(900, powerUp.getCost());
     }
 }

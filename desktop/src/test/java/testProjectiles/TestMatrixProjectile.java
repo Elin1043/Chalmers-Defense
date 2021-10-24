@@ -11,15 +11,15 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * @author Joel Båtsman Hilmersson
- *<p>
+ * <p>
  * Class for testing the MatrixProjectile
  */
 public class TestMatrixProjectile {
 
     @Test
-    public void testVirusIsHit(){
+    public void testVirusIsHit() {
         List<IProjectile> pList = new ArrayList<>();
-        IProjectile p = ProjectileFactory.createMatrixProjectile(0,0,0,1, pList);
+        IProjectile p = ProjectileFactory.createMatrixProjectile(0, 0, 0, 1, pList);
 
         p.update(true, 0, -1);
         assertTrue(pList.size() > 0);

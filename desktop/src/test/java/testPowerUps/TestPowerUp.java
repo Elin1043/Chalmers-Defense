@@ -23,21 +23,21 @@ public class TestPowerUp {
     private final List<IGenericMapObject> genericMapObjectList = new ArrayList<>();
 
     @Before
-    public void createPowerUp(){
+    public void createPowerUp() {
         powerUp = PowerUpFactory.createPowerUps(virusList).get(0);
     }
 
     @Test
-    public void testPowerUpClicked(){
+    public void testPowerUpClicked() {
         powerUp.powerUpClicked(genericMapObjectList);
         assertTrue(powerUp.getIsActive());
     }
 
     @Test
-    public void testDecreaseTimer(){
+    public void testDecreaseTimer() {
         powerUp.powerUpClicked(genericMapObjectList);
 
-        for (int i = 0; i < 10000; i++){
+        for (int i = 0; i < 10000; i++) {
             powerUp.decreaseTimer();
         }
 
@@ -45,14 +45,14 @@ public class TestPowerUp {
     }
 
     @Test
-    public void testGetTimer(){
+    public void testGetTimer() {
         assertEquals(-1, powerUp.getTimer());
 
         powerUp.powerUpClicked(genericMapObjectList);
 
         assertEquals(3, powerUp.getTimer());
 
-        while (powerUp.getIsActive()){
+        while (powerUp.getIsActive()) {
             powerUp.decreaseTimer();
         }
 
@@ -60,7 +60,7 @@ public class TestPowerUp {
     }
 
     @Test
-    public void testAddGraphicObject(){
+    public void testAddGraphicObject() {
         powerUp.powerUpClicked(genericMapObjectList);
         assertTrue(genericMapObjectList.size() > 0);
     }

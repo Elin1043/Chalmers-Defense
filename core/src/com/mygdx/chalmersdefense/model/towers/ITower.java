@@ -100,6 +100,7 @@ public interface ITower extends IMapObject {
 
     /**
      * Change the targetMode of the tower
+     *
      * @param goRight which way in array to go
      */
     void changeTargetMode(boolean goRight);

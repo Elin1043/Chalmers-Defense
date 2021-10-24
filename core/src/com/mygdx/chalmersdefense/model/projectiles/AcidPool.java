@@ -7,15 +7,16 @@ import com.mygdx.chalmersdefense.model.modelUtilities.CountDownTimer;
  * @author Joel Båtsman Hilmersson
  * Class representing an acidPool projectile
  */
-final class AcidPool extends Projectile{
+final class AcidPool extends Projectile {
 
     private final CountDownTimer poolTimer = new CountDownTimer(150); // Max Lifetime off acid pool
     private final CountDownTimer maxVirusHit; // Max amount of virus that can be hit with the pool
 
     /**
      * Creates an AcidPool object
-     * @param x The x start position
-     * @param y The y start position
+     *
+     * @param x            The x start position
+     * @param y            The y start position
      * @param upgradeLevel The upgrade level of the projectile
      */
     AcidPool(float x, float y, int upgradeLevel) {
@@ -29,13 +30,17 @@ final class AcidPool extends Projectile{
 
     @Override
     public void update(boolean hasVirusBeenHit, int hitVirusHashCode, float angle) {
-        if (poolTimer.haveReachedZero()) { this.canRemove = true; }
+        if (poolTimer.haveReachedZero()) {
+            this.canRemove = true;
+        }
         super.update(hasVirusBeenHit, hitVirusHashCode, angle);
     }
 
     @Override
     void virusIsHit(int hitVirusHashCode, float angle) {
-        if (maxVirusHit.haveReachedZero()) { this.canRemove = true; }
+        if (maxVirusHit.haveReachedZero()) {
+            this.canRemove = true;
+        }
         super.haveHitList.add(hitVirusHashCode);
     }
 }

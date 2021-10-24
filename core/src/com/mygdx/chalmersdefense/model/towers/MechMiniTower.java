@@ -20,12 +20,13 @@ final class MechMiniTower extends Tower {
 
     /**
      * Creates object of a MechMiniTower
-     * @param x - startcoordinate of tower
-     * @param y - startcoordinate of tower
-     * @param reloadSpeed of the tower
-     * @param range of the tower
+     *
+     * @param x                      - startcoordinate of tower
+     * @param y                      - startcoordinate of tower
+     * @param reloadSpeed            of the tower
+     * @param range                  of the tower
      * @param currentTargetModeIndex targetModeIndex for getting targetMode
-     * @param upgradeLevel upgradelevel to be set
+     * @param upgradeLevel           upgradelevel to be set
      */
     MechMiniTower(float x, float y, int reloadSpeed, int range, int currentTargetModeIndex, int upgradeLevel) {
         super(x, y, "MechMini", reloadSpeed, 0, range);
@@ -34,7 +35,7 @@ final class MechMiniTower extends Tower {
         this.lifeTimeCounter = new CountDownTimer(rand.nextInt(401) + 800);
 
         // Changes target modes to be the same as the mechtower that created this tower
-        for (int i = 0; i < currentTargetModeIndex; i++){
+        for (int i = 0; i < currentTargetModeIndex; i++) {
             super.changeTargetMode(true);
         }
 
@@ -50,22 +51,25 @@ final class MechMiniTower extends Tower {
         super.upgradeTower(upgrades);
 
 
-        if(upgradeLevel == 3){
+        if (upgradeLevel == 3) {
             upgrades.clear();
-            upgrades.put("attackSpeedMul",1.1);
-            upgrades.put("attackRangeMul",2.0);
+            upgrades.put("attackSpeedMul", 1.1);
+            upgrades.put("attackRangeMul", 2.0);
             super.upgradeTower(upgrades);
         }
     }
 
     @Override
     public void update(List<IProjectile> projectilesList, float newAngle, boolean hasTarget) {
-        if (lifeTimeCounter.haveReachedZero()) { setIfCanRemove(true); }
+        if (lifeTimeCounter.haveReachedZero()) {
+            setIfCanRemove(true);
+        }
         super.update(projectilesList, newAngle, hasTarget);
     }
 
     @Override
-    public void upgradeTower(HashMap<String, Double> upgrades) {}
+    public void upgradeTower(HashMap<String, Double> upgrades) {
+    }
 
     @Override
     void createProjectile(List<IProjectile> projectileList) {

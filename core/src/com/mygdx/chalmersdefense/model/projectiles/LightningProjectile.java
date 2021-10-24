@@ -6,7 +6,7 @@ import com.mygdx.chalmersdefense.model.modelUtilities.CountDownTimer;
 /**
  * @author Elin Forsberg
  * Class representing a lightning projectile
- *
+ * <p>
  * 2021-10-15 Modified by Jenny Carlsson: Fixed longer chains when upgraded ElectroTower
  */
 final class LightningProjectile extends Projectile {
@@ -15,9 +15,10 @@ final class LightningProjectile extends Projectile {
 
     /**
      * Creates a LightningProjectile object
-     * @param x The x start position
-     * @param y The y start position
-     * @param angle The angle of the projectile
+     *
+     * @param x            The x start position
+     * @param y            The y start position
+     * @param angle        The angle of the projectile
      * @param upgradeLevel The upgrade level of the projectile
      */
     LightningProjectile(float x, float y, float angle, int upgradeLevel) {

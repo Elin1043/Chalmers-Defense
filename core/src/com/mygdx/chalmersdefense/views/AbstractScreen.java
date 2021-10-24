@@ -42,9 +42,10 @@ public abstract class AbstractScreen extends Stage implements Screen {
 
     /**
      * Adds processor to multiplexer
+     *
      * @param newProcessor supplied processor
      */
-    void addToMultiplexer(InputProcessor newProcessor){
+    void addToMultiplexer(InputProcessor newProcessor) {
         multiplexer.addProcessor(newProcessor);
     }
 
@@ -82,10 +83,12 @@ public abstract class AbstractScreen extends Stage implements Screen {
     }
 
     @Override
-    public void pause() {}
+    public void pause() {
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+    }
 
 
     //Put all sprites in a HashMap to optimize render time

@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * @author Joel Båtsman Hilmersson
  * Test class for MechTower
- *
+ * <p>
  * 2021-10-11 Modified by Elin Forsberg: Changed methods to work with new MechoMan class and added tests
  */
 public class TestMechTower {
@@ -31,12 +31,12 @@ public class TestMechTower {
     @Test
     public void testUpdateAndCreateTwoTower() {
         towersList.add(tSmurf);
-        ITower mech = TowerFactory.createMech(0, 0, addToList,towersList,path.getCollisionRectangles());
+        ITower mech = TowerFactory.createMech(0, 0, addToList, towersList, path.getCollisionRectangles());
         mech.placeTower();
 
         HashMap<String, Double> upgrades = new HashMap<>();
-        upgrades.put("attackSpeedMul",0.2);
-        upgrades.put("attackRangeMul",2.0);
+        upgrades.put("attackSpeedMul", 0.2);
+        upgrades.put("attackRangeMul", 2.0);
         mech.upgradeTower(upgrades);
 
         mech.update(new ArrayList<>(), 10, true);
@@ -46,11 +46,11 @@ public class TestMechTower {
     @Test
     public void testCreateProjectile() {
         HashMap<String, Double> upgrades = new HashMap<>();
-        upgrades.put("attackSpeedMul",0.2);
-        upgrades.put("attackRangeMul",2.0);
+        upgrades.put("attackSpeedMul", 0.2);
+        upgrades.put("attackRangeMul", 2.0);
         towersList.add(tSmurf);
         List<ITower> addToList = new ArrayList<>();
-        ITower mech = TowerFactory.createMech(0, 0, addToList,towersList,path.getCollisionRectangles());
+        ITower mech = TowerFactory.createMech(0, 0, addToList, towersList, path.getCollisionRectangles());
         List<IProjectile> pList = new ArrayList<>();
 
         mech.placeTower();

@@ -28,7 +28,7 @@ public class TestRobotProjectile {
         tower.placeTower();
         tower.changeTargetMode(true);
 
-        while (miniMechList.size() <= 0){
+        while (miniMechList.size() <= 0) {
             tower.update(projectilesList, 0, false);
         }
 

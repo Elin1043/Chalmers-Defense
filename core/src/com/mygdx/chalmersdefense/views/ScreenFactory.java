@@ -14,7 +14,8 @@ public abstract class ScreenFactory {
 
     /**
      * Creates a MainScreen
-     * @param model to get view data from
+     *
+     * @param model                to get view data from
      * @param mainScreenController reference to specific controller
      * @return MainScreen object
      */
@@ -24,8 +25,9 @@ public abstract class ScreenFactory {
 
     /**
      * Creates a GameScreen
-     * @param model to get view data from
-     * @param gameScreenController reference to specific controller
+     *
+     * @param model                    to get view data from
+     * @param gameScreenController     reference to specific controller
      * @param rightSidePanelController reference to controller for RightSidePanel
      * @param bottomBarPanelController reference to controller for BottomBarUpgradePanel
      * @return GameScreen object

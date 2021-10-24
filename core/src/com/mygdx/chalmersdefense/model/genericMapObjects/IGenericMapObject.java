@@ -4,7 +4,7 @@ import com.mygdx.chalmersdefense.model.IMapObject;
 
 /**
  * @author Elin Forsberg
- *
+ * <p>
  * Interface for GenericMapObject
  */
 public interface IGenericMapObject extends IMapObject {

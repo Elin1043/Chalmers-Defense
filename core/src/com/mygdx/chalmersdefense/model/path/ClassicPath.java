@@ -17,7 +17,7 @@ final class ClassicPath extends Path {
     /**
      * Creates an object of ClassicPath
      */
-     ClassicPath() {
+    ClassicPath() {
         super(80);
         setPathWaypoints();
         super.createMapCollision();
@@ -25,7 +25,7 @@ final class ClassicPath extends Path {
 
 
     @Override
-     void setPathWaypoints() {
+    void setPathWaypoints() {
         if (pathWaypoints.isEmpty()) {
             pathWaypoints.add(new PositionVector(-50, 456));
             pathWaypoints.add(new PositionVector(483, 456));

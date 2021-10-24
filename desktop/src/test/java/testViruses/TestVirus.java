@@ -73,13 +73,13 @@ public class TestVirus {
     }
 
     @Test
-    public void testVirusSlowDown(){
+    public void testVirusSlowDown() {
         IVirus v1 = VirusFactory.createVirusOne();
         IVirus v2 = VirusFactory.createVirusOne();
 
         v1.decreaseHealth(0.7F);    // If damage under zero it will be slowed down
 
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             v1.update();
             v2.update();
         }

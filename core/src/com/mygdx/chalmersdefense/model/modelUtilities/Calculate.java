@@ -30,8 +30,9 @@ public abstract class Calculate {
 
     /**
      * Calculates a random point in a circle with a specified range
-     * @param x Center x coordinate
-     * @param y Center y coordinate
+     *
+     * @param x     Center x coordinate
+     * @param y     Center y coordinate
      * @param range The range to randomize points in
      * @return An array with a random point vector
      */
@@ -41,7 +42,7 @@ public abstract class Calculate {
         float xTemp = (float) (x + len * Math.cos(deg));
         float yTemp = (float) (y + len * Math.sin(deg));
 
-        return new float[]{xTemp,yTemp};
+        return new float[]{xTemp, yTemp};
     }
 
     /**
@@ -73,14 +74,15 @@ public abstract class Calculate {
 
     /**
      * Check if two objects values intersects
-     * @param obj1Width width of object 1
+     *
+     * @param obj1Width  width of object 1
      * @param obj1Height height of object 1
-     * @param obj2Width width of object 2
+     * @param obj2Width  width of object 2
      * @param obj2Height height of object 2
-     * @param obj1X x-coordinate of object 1
-     * @param obj1Y y-coordinate of object 1
-     * @param obj2X x-coordinate of object 2
-     * @param obj2Y y-coordinate of object 2
+     * @param obj1X      x-coordinate of object 1
+     * @param obj1Y      y-coordinate of object 1
+     * @param obj2X      x-coordinate of object 2
+     * @param obj2Y      y-coordinate of object 2
      * @return if they collide
      */
     public static boolean calculateIntersects(double obj1Width, double obj1Height, double obj2Width, double obj2Height, double obj1X, double obj1Y, double obj2X, double obj2Y) {
@@ -102,7 +104,8 @@ public abstract class Calculate {
 
     /**
      * Checks if object is out of game field or not
-     * @param object the object to be checked
+     *
+     * @param object                       the object to be checked
      * @param triggerOnlyOnCompleteOutside modifies the method to only trigger when object is completely outside game area
      * @return True - if the object is outside, False if the object is inside
      */

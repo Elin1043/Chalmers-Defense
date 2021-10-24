@@ -19,11 +19,12 @@ import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
  */
 public class AbstractOverlayController extends InputAdapter {
     private final IControllModel model; // Model reference
-    private EventBus viewEventBus;
+    private final EventBus viewEventBus;
 
     /**
      * Creates a controller for use by the AbstractOverlay class
-     * @param model the model to control
+     *
+     * @param model        the model to control
      * @param viewEventBus eventbus to publish events to
      */
     public AbstractOverlayController(IControllModel model, EventBus viewEventBus) {
@@ -33,6 +34,7 @@ public class AbstractOverlayController extends InputAdapter {
 
     /**
      * Added click listener for exit pause menu button
+     *
      * @param button exit button
      */
     public void addExitOverlayButtonClickListener(Button button) {
@@ -61,8 +63,8 @@ public class AbstractOverlayController extends InputAdapter {
     }
 
     @Override
-    public boolean keyDown (int keycode) {
-        switch(keycode) {
+    public boolean keyDown(int keycode) {
+        switch (keycode) {
             case (Input.Keys.ESCAPE) -> {
                 model.startGameUpdate();
                 model.setShowOverlay(ScreenOverlayEnum.NONE);

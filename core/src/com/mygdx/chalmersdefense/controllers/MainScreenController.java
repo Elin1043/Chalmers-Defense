@@ -17,7 +17,7 @@ import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
  * @author Elin Forsberg
  * @author Joel Båtsman Hilmersson
  * @author Jenny Carlsson
- *
+ * <p>
  * Controller class for MainScreen
  */
 public class MainScreenController extends InputAdapter {
@@ -26,29 +26,32 @@ public class MainScreenController extends InputAdapter {
 
     /**
      * Creates a controller for use by the MainScreen class
-     * @param model the model to control
+     *
+     * @param model        the model to control
      * @param viewEventBus eventbus to add events to
      */
-    public MainScreenController(IControllModel model, EventBus viewEventBus){
+    public MainScreenController(IControllModel model, EventBus viewEventBus) {
         this.model = model;
         this.viewEventBus = viewEventBus;
     }
 
     /**
      * Listener for playButoon
+     *
      * @param button the play button
      */
     public void addPlayButtonListener(Button button) {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-            viewEventBus.emit(new ViewControllerEvents(ViewControllerEvents.EventType.SHOWGAME_SCREEN));
+                viewEventBus.emit(new ViewControllerEvents(ViewControllerEvents.EventType.SHOWGAME_SCREEN));
             }
         });
     }
 
     /**
      * Listener for QuitButton
+     *
      * @param button the quit button
      */
     public void addQuitButtonClickListener(Button button) {
@@ -62,6 +65,7 @@ public class MainScreenController extends InputAdapter {
 
     /**
      * Listener for settings button
+     *
      * @param button the settings button
      */
     public void addSettingsButtonClickListener(Button button) {
@@ -75,6 +79,7 @@ public class MainScreenController extends InputAdapter {
 
     /**
      * Listener for info button
+     *
      * @param button the info button
      */
     public void addInfoButtonClickListener(Button button) {
@@ -87,7 +92,7 @@ public class MainScreenController extends InputAdapter {
     }
 
     @Override
-    public boolean keyDown (int keycode) {
+    public boolean keyDown(int keycode) {
         switch (keycode) {
             case (Input.Keys.F11) -> {
                 if (Gdx.graphics.isFullscreen()) {

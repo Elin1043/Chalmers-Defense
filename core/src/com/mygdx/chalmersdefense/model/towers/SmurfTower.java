@@ -13,9 +13,9 @@ final class SmurfTower extends Tower {
 
     /**
      * Creates object of a SmurfTower
+     *
      * @param x - startcoordinate of tower
      * @param y - startcoordinate of tower
-
      */
     SmurfTower(float x, float y) {
         super(x, y, "IT-Smurf", 120, 200, 200);

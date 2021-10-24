@@ -13,11 +13,12 @@ public final class RangeCircle {
 
     /**
      * Creates an instance of a RangeCircle using coordinates
-     * @param x the start x coordinate
-     * @param y the start y coordinate
+     *
+     * @param x     the start x coordinate
+     * @param y     the start y coordinate
      * @param range the range of the circle
      */
-    public RangeCircle(float x, float y, float range){
+    public RangeCircle(float x, float y, float range) {
         this.x = x;
         this.y = y;
         this.range = range;
@@ -25,9 +26,10 @@ public final class RangeCircle {
 
     /**
      * Creates a RangeCircle from another given RangeCircle
+     *
      * @param circle the circle to copy
      */
-    public RangeCircle(RangeCircle circle){
+    public RangeCircle(RangeCircle circle) {
         this.x = circle.getX();
         this.y = circle.getY();
         this.range = circle.getRange();
@@ -45,8 +47,9 @@ public final class RangeCircle {
 
     /**
      * Update the position of the circle
-     * @param x - position to be set
-     * @param y - position to be set
+     *
+     * @param x     - position to be set
+     * @param y     - position to be set
      * @param range to be set
      */
     public void updatePos(float x, float y, float range) {
@@ -57,6 +60,7 @@ public final class RangeCircle {
 
     /**
      * Sets the colour of the enum
+     *
      * @param enumColor color to be set
      */
     public void setEnumColor(Color enumColor) {
@@ -65,6 +69,7 @@ public final class RangeCircle {
 
     /**
      * Get the color of the enum
+     *
      * @return the color
      */
     public Color getColor() {
@@ -73,6 +78,7 @@ public final class RangeCircle {
 
     /**
      * Get the x - position of the cirlce
+     *
      * @return x - position
      */
     public float getX() {
@@ -81,6 +87,7 @@ public final class RangeCircle {
 
     /**
      * Get the y - position of the cirlce
+     *
      * @return y - position
      */
     public float getY() {
@@ -89,6 +96,7 @@ public final class RangeCircle {
 
     /**
      * Get the range of the cirlce
+     *
      * @return range
      */
     public float getRange() {

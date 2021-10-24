@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author Joel Båtsman Hilmersson
  * A factory class for creating different viruses
- *
+ * <p>
  * 2021-10-21 Modified by Elin Forsberg: Removed path from virusfactory
  */
 public abstract class VirusFactory {
@@ -58,8 +58,11 @@ public abstract class VirusFactory {
 
     /**
      * Creates a BossVirus
+     *
      * @param virusList list to add viruses to
      * @return The new BossVirus object
      */
-    static public IVirus createBossVirus(List<IVirus> virusList) { return new BossVirus(virusList); }
+    static public IVirus createBossVirus(List<IVirus> virusList) {
+        return new BossVirus(virusList);
+    }
 }

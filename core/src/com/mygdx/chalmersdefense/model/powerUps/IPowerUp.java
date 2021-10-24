@@ -12,6 +12,7 @@ public interface IPowerUp {
 
     /**
      * Activates the power-up if the power-up can be used
+     *
      * @param addGraphicsList list to add the graphicsObject to
      */
     void powerUpClicked(List<IGenericMapObject> addGraphicsList);
@@ -23,18 +24,21 @@ public interface IPowerUp {
 
     /**
      * Return the active timer amount
+     *
      * @return active timer
      */
     int getTimer();
 
     /**
      * Return if the powerUp is active
+     *
      * @return if activated
      */
     boolean getIsActive();
 
     /**
      * Return the cost of the PowerUP
+     *
      * @return cost
      */
     int getCost();

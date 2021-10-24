@@ -83,7 +83,7 @@ public class TestModel {
     }
 
     @Test
-    public void testAllPowerUpClicked(){
+    public void testAllPowerUpClicked() {
         model.dragStart("smurf", 0, 0);
         model.dragEnd(100, 100);
 
@@ -97,8 +97,8 @@ public class TestModel {
         assertTrue(model.getPowerUpTimer()[0] > 0 && model.getPowerUpTimer()[1] > 0 && model.getPowerUpTimer()[2] > 0);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testIllegalPowerUpCall(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testIllegalPowerUpCall() {
         model.startRoundPressed();
         model.powerUpClicked("This Should never be a power-up");
     }
@@ -157,8 +157,7 @@ public class TestModel {
     }
 
 
-
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testDragStartIllegalTowerName() {
         model.dragStart("This should never be a tower name", 0, 0);
     }

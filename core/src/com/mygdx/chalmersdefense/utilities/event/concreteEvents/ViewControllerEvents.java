@@ -19,6 +19,7 @@ public class ViewControllerEvents implements IEvent {
 
     /**
      * Creates an instance of ViewControllerEvents
+     *
      * @param eventType the type of event
      */
     public ViewControllerEvents(EventType eventType) {
@@ -27,6 +28,7 @@ public class ViewControllerEvents implements IEvent {
 
     /**
      * Return the EventType
+     *
      * @return the EventType
      */
     public EventType getEventType() {

@@ -16,6 +16,7 @@ final public class JSONParserWrapper implements IParseJSON {
 
     /**
      * A JSON parser for parsing JSON files
+     *
      * @param jsonPath path to JSON file
      */
     public JSONParserWrapper(String jsonPath) {

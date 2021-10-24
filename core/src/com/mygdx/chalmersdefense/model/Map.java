@@ -44,10 +44,11 @@ final class Map {
     private final EventBus eventBus;                                      // A reference to the EventBus in the game
     private final IPath path = PathFactory.createClassicPath();     // Current path
 
-    private final RangeCircle rangeCircle = new RangeCircle(0,0,0);     // Helper class for showing gray range circle
+    private final RangeCircle rangeCircle = new RangeCircle(0, 0, 0);     // Helper class for showing gray range circle
 
     /**
      * Creates an instance of Map
+     *
      * @param eventBus to be used for calling player
      */
     Map(EventBus eventBus) {
@@ -125,7 +126,9 @@ final class Map {
 
             tower.update(projectilesList, newAngle, towerHasTarget);
 
-            if (tower.canRemove() && !tower.equals(selectedTower)) { removeTowers.add(tower); }
+            if (tower.canRemove() && !tower.equals(selectedTower)) {
+                removeTowers.add(tower);
+            }
         }
 
         towersList.removeAll(removeTowers);
@@ -133,8 +136,8 @@ final class Map {
 
 
     // If power-up modifier is active, apply the modifier
-    private float getModifiedTowerRange(ITower tower){
-        if (powerUpList.get(1).getIsActive()){
+    private float getModifiedTowerRange(ITower tower) {
+        if (powerUpList.get(1).getIsActive()) {
             return tower.getRange() * 1.5f;
         } else {
             return tower.getRange();
@@ -224,7 +227,7 @@ final class Map {
 
     //Get angle to virus in range of projectile
     private float getAngleToVirus(IProjectile projectile, List<IVirus> removeList) {
-        List<IVirus> virusInRange = getTargetableViruses(projectile,removeList);
+        List<IVirus> virusInRange = getTargetableViruses(projectile, removeList);
 
         if (virusInRange.size() > 0) {
             IVirus virus = virusInRange.get(0);
@@ -234,7 +237,7 @@ final class Map {
     }
 
     //Get the targetable viruses in range on projectile
-    private List<IVirus> getTargetableViruses(IProjectile projectile, List<IVirus> removeList){
+    private List<IVirus> getTargetableViruses(IProjectile projectile, List<IVirus> removeList) {
         List<IVirus> virusInRange = getVirusesInRange(projectile.getX(), projectile.getY(), 250, virusesList);
 
         for (IVirus virus : virusInRange) {
@@ -261,18 +264,20 @@ final class Map {
 
     //Updates the rangeCircle
     private void updateRangeCircle() {
-        if(selectedTower != null){
-            rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth()/2, selectedTower.getY() + selectedTower.getHeight()/2, getModifiedTowerRange(selectedTower));
+        if (selectedTower != null) {
+            rangeCircle.updatePos(selectedTower.getX() + selectedTower.getWidth() / 2, selectedTower.getY() + selectedTower.getHeight() / 2, getModifiedTowerRange(selectedTower));
         }
     }
 
     //Update all the genericObjects
-    private void updateGenericObjects(){
+    private void updateGenericObjects() {
         List<IGenericMapObject> removeList = new ArrayList<>();
 
         for (IGenericMapObject object : genericObjectsList) {
             object.update();
-            if(object.canRemove()){ removeList.add(object); }
+            if (object.canRemove()) {
+                removeList.add(object);
+            }
         }
 
         genericObjectsList.removeAll(removeList);
@@ -280,24 +285,27 @@ final class Map {
 
     //Updates the powerUps
     private void updatePowerUps() {
-        for (IPowerUp powerUp : powerUpList){
+        for (IPowerUp powerUp : powerUpList) {
             powerUp.decreaseTimer();
         }
 
-        if (powerUpList.get(0).getIsActive()){
-            for (int i = 0; i < 3; i++) { updateTowers(); }
+        if (powerUpList.get(0).getIsActive()) {
+            for (int i = 0; i < 3; i++) {
+                updateTowers();
+            }
         }
     }
 
 
     /**
      * Returns the timers for all power-ups
+     *
      * @return Array with all timers in it
      */
-    int[] getPowerUpTimers(){
+    int[] getPowerUpTimers() {
         int[] timers = new int[powerUpList.size()];
 
-        for (int i = 0; i < powerUpList.size(); i++){
+        for (int i = 0; i < powerUpList.size(); i++) {
             timers[i] = powerUpList.get(i).getTimer();
         }
 
@@ -306,12 +314,13 @@ final class Map {
 
     /**
      * Returns a list with the active status of all power-ups
+     *
      * @return Array with current active status of power-ups
      */
-    boolean[] getPowerUpActiveStatus(){
+    boolean[] getPowerUpActiveStatus() {
         boolean[] powerUpsActive = new boolean[powerUpList.size()];
 
-        for (int i = 0; i < powerUpList.size(); i++){
+        for (int i = 0; i < powerUpList.size(); i++) {
             powerUpsActive[i] = powerUpList.get(i).getIsActive();
         }
 
@@ -334,8 +343,7 @@ final class Map {
             //Check if tower collides with a placed tower
             if (Calculate.objectsIntersects(tower, checkTower) && !(checkTower.hashCode() == tower.hashCode())) {
                 return true;
-            }
-            else if (Calculate.checkIfOutOfBounds(tower, false)) {
+            } else if (Calculate.checkIfOutOfBounds(tower, false)) {
                 return true;
             }
             //check if tower collide with path
@@ -373,8 +381,9 @@ final class Map {
     /**
      * Handles a tower being dragged.
      * Updates the towers position after mouse and check for collision
-     * @param x The X-position of the mouse
-     * @param y The Y-position of the mouse
+     *
+     * @param x     The X-position of the mouse
+     * @param y     The Y-position of the mouse
      * @param money The amount of money the player has
      */
     void onDrag(float x, float y, int money) {
@@ -399,14 +408,15 @@ final class Map {
      * Checks if tower can be placed on current position.
      * If not: tower is removed
      * if valid: place the tower
-     *  @param x            The X-position of the mouse
-     * @param y            The Y-position of the mouse
+     *
+     * @param x The X-position of the mouse
+     * @param y The Y-position of the mouse
      */
     void dragEnd(float x, float y) {
         if (!selectedTower.canRemove()) {
             selectedTower.placeTower();
             selectedTower.setPos(x - selectedTower.getWidth() / 2f, y - selectedTower.getHeight() / 2f);
-            this.eventBus.emit(new ModelEvents(ModelEvents.EventType.REMOVEMONEYFROMPLAYER,selectedTower.getCost()));
+            this.eventBus.emit(new ModelEvents(ModelEvents.EventType.REMOVEMONEYFROMPLAYER, selectedTower.getCost()));
         } else {
             towersList.remove(selectedTower);
             rangeCircle.setEnumColor(RangeCircle.Color.NONE);
@@ -416,6 +426,7 @@ final class Map {
 
     /**
      * Handles when a placed tower is clicked
+     *
      * @param x - coordinate to check
      * @param y - coordinate to check
      */
@@ -447,9 +458,9 @@ final class Map {
     void upgradeClickedTower() {
         // If upgrade is applied decrease player money
         if (Upgrades.upgradeTower(selectedTower)) {
-            this.eventBus.emit(new ModelEvents(ModelEvents.EventType.REMOVEMONEYFROMPLAYER,Upgrades.getTowerUpgradePrice(selectedTower.getName(), selectedTower.getUpgradeLevel() - 1)));
+            this.eventBus.emit(new ModelEvents(ModelEvents.EventType.REMOVEMONEYFROMPLAYER, Upgrades.getTowerUpgradePrice(selectedTower.getName(), selectedTower.getUpgradeLevel() - 1)));
 
-            rangeCircle.updatePos(selectedTower.getX() + getSelectedTower().getWidth()/2, selectedTower.getY() + getSelectedTower().getHeight()/2, selectedTower.getRange());
+            rangeCircle.updatePos(selectedTower.getX() + getSelectedTower().getWidth() / 2, selectedTower.getY() + getSelectedTower().getHeight() / 2, selectedTower.getRange());
         }
     }
 
@@ -468,6 +479,7 @@ final class Map {
 
     /**
      * Returns sell price for an upgraded tower
+     *
      * @return price
      */
     private float upgradedTowerSellPrice() {
@@ -484,15 +496,17 @@ final class Map {
 
     /**
      * Change the targetMode of the clicked tower
+     *
      * @param goRight if it should go to the right index(otherwise to the left)
      */
-    void changeTargetMode(boolean goRight){
+    void changeTargetMode(boolean goRight) {
         selectedTower.changeTargetMode(goRight);
     }
 
 
     /**
      * Return the circle used for rendering range
+     *
      * @return the circle
      */
     RangeCircle getRangeCircle() {
@@ -510,14 +524,14 @@ final class Map {
 
     /**
      * Get the sell price of the clicked tower
+     *
      * @return price
      */
     int getSelectedTowerSellPrice() {
         float cost;
-        if(selectedTower.getUpgradeLevel() == 1){
+        if (selectedTower.getUpgradeLevel() == 1) {
             cost = (selectedTower.getCost() * 0.6F);
-        }
-        else{
+        } else {
             cost = upgradedTowerSellPrice();
         }
         return Math.round(cost);
@@ -535,6 +549,7 @@ final class Map {
 
     /**
      * Returns the list to add viruses to
+     *
      * @return list of viruses
      */
     List<IVirus> getVirusesToAddList() {
@@ -566,9 +581,12 @@ final class Map {
 
     /**
      * Returns the background image path to the image
+     *
      * @return the imagePath
      */
-    String getMapImagePath(){ return path.getImagePath(); }
+    String getMapImagePath() {
+        return path.getImagePath();
+    }
 
     /**
      * Method to call when round is cleared, makes map ready for next round
@@ -583,24 +601,25 @@ final class Map {
 
     /**
      * Method to handle a powerUp button being clicked. Also checks if player have enough cost to buy powerup-
+     *
      * @param powerUpName name of the button that was clicked
-     * @param money the amount of money player has
+     * @param money       the amount of money player has
      */
     void powerUpClicked(String powerUpName, int money) {
         IPowerUp powerUp = switch (powerUpName) {
             case "cleanHands" -> powerUpList.get(0);
-            case "maskedUp"   -> powerUpList.get(1);
+            case "maskedUp" -> powerUpList.get(1);
             case "vaccinated" -> powerUpList.get(2);
-            default -> throw new IllegalArgumentException("The argument: '" + powerUpName + "' is not a valid power-up"); 
+            default -> throw new IllegalArgumentException("The argument: '" + powerUpName + "' is not a valid power-up");
         };
 
-        handlePowerUpClicked(powerUp,money);
+        handlePowerUpClicked(powerUp, money);
     }
 
     private void handlePowerUpClicked(IPowerUp powerUp, int money) {
         if ((money >= powerUp.getCost()) && !powerUp.getIsActive() && powerUp.getTimer() == -1) {
             powerUp.powerUpClicked(genericObjectsList);
-            this.eventBus.emit(new ModelEvents(ModelEvents.EventType.REMOVEMONEYFROMPLAYER,powerUp.getCost()));
+            this.eventBus.emit(new ModelEvents(ModelEvents.EventType.REMOVEMONEYFROMPLAYER, powerUp.getCost()));
         }
     }
 }

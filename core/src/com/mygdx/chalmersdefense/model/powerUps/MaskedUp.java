@@ -9,11 +9,11 @@ import java.util.Random;
 /**
  * @author Elin Forsberg
  * Class representing MaskedUp powerup, increases range of towers
- *
+ * <p>
  * 2021-10-13 Modified by Joel Båtsman Hilmersson: Changed class to use CountDownTimer <br>
  * 2021-10-15 Modified by Elin Forsberg: Implemented use of PowerUp factory and abstract PowerUp class <br>
  */
-final class MaskedUp extends PowerUp{
+final class MaskedUp extends PowerUp {
 
     /**
      * Creates an instance of the power up Masked-Up
@@ -23,7 +23,7 @@ final class MaskedUp extends PowerUp{
     }
 
     @Override
-    void addGraphicObject(List<IGenericMapObject> addGraphicsList){
+    void addGraphicObject(List<IGenericMapObject> addGraphicsList) {
         Random rand = new Random();
 
         addGraphicsList.add(GenericMapObjectFactory.createMaskedUpSmurf(-500, 500, 0));

@@ -14,6 +14,7 @@ public abstract class TargetModeFactory {
 
     /**
      * Gets the list of targetmodes
+     *
      * @return list of targetmodes
      */
     public static List<ITargetMode> getTargetModes() {

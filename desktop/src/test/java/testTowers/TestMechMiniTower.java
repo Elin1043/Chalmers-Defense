@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * @author Joel Båtsman Hilmersson
- *
+ * <p>
  * 2021-10-11 Modified by Elin Forsberg: Changed methods to work with new MechoMan class and added tests
  */
 public class TestMechMiniTower {
@@ -33,7 +33,7 @@ public class TestMechMiniTower {
 
         mech.placeTower();
 
-        while (addToList.size() == 0){
+        while (addToList.size() == 0) {
             mech.update(new ArrayList<>(), 10, true);
         }
 
@@ -47,9 +47,9 @@ public class TestMechMiniTower {
     @Test
     public void testUpgradeTower() {
         HashMap<String, Double> upgrades = new HashMap<>();
-        upgrades.put("attackSpeedMul",0.2);
-        upgrades.put("attackRangeMul",2.0);
-        ITower mech = TowerFactory.createMech(0, 0, addToList,towersList,path.getCollisionRectangles());
+        upgrades.put("attackSpeedMul", 0.2);
+        upgrades.put("attackRangeMul", 2.0);
+        ITower mech = TowerFactory.createMech(0, 0, addToList, towersList, path.getCollisionRectangles());
 
         mech.placeTower();
         mech.update(new ArrayList<>(), 10, true);

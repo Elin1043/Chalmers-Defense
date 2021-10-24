@@ -41,7 +41,7 @@ import java.util.List;
 public class Model implements IControllModel, IViewModel, IEventListener<ModelEvents> {
     private final int WINNING_ROUND = 30;       // Current winning round
     private final int LIVES = 100;              // Current amount of starting lives
-    private final int START_CAPITAL = 40000;    // Current amount of start capital
+    private final int START_CAPITAL = 750;    // Current amount of start capital
 
     private Rounds round = new Rounds(WINNING_ROUND);              // Round helper
 
@@ -58,6 +58,7 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
 
     /**
      * Creates an instance of Model
+     *
      * @param preferences the settings to be used
      */
     public Model(Preferences preferences) {
@@ -68,7 +69,7 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
 
     @Override
     public void handle(ModelEvents event) {
-        switch(event.getEventType()){
+        switch (event.getEventType()) {
             case ADDMONEYTOPLAYER -> player.increaseMoney(event.getAmount());
             case REMOVEMONEYFROMPLAYER -> player.decreaseMoney(event.getAmount());
             case DECREASELIFEOFPLAYER -> {
@@ -126,7 +127,9 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
 
     @Override
     public void startGameUpdate() {
-        if (!isGameStopped()) { timer.startUpdateTimer(); }
+        if (!isGameStopped()) {
+            timer.startUpdateTimer();
+        }
     }
 
 
@@ -172,7 +175,7 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
     }
 
     @Override
-    public void powerUpClicked(String powerUpName){
+    public void powerUpClicked(String powerUpName) {
         if (!isGameStopped()) {
             map.powerUpClicked(powerUpName, player.getMoney());
         }
@@ -204,7 +207,7 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
     }
 
     @Override
-    public void changeTargetMode(boolean goRight){
+    public void changeTargetMode(boolean goRight) {
         map.changeTargetMode(goRight);
     }
 
@@ -214,12 +217,12 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
     }
 
     @Override
-    public int[] getPowerUpTimer(){
+    public int[] getPowerUpTimer() {
         return map.getPowerUpTimers();
     }
 
     @Override
-    public boolean[] getPowerUpActive(){
+    public boolean[] getPowerUpActive() {
         return map.getPowerUpActiveStatus();
     }
 
@@ -274,8 +277,12 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
     }
 
     @Override
-    public String getMapImagePath() { return map.getMapImagePath(); }
+    public String getMapImagePath() {
+        return map.getMapImagePath();
+    }
 
     @Override
-    public boolean isGameSpedUp() { return timer.isGameSpedUp(); }
+    public boolean isGameSpedUp() {
+        return timer.isGameSpedUp();
+    }
 }

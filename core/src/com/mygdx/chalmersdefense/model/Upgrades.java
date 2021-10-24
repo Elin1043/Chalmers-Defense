@@ -40,7 +40,7 @@ abstract class Upgrades {
     public static String getTowerUpgradeTitle(String towerName, int upgradeLevel) {
         String title;
         try {
-            title = jsonParser.startParser().navThroughJSON(towerName).getByIndex(upgradeLevel-1).getString("title");
+            title = jsonParser.startParser().navThroughJSON(towerName).getByIndex(upgradeLevel - 1).getString("title");
         } catch (NullPointerException | IllegalArgumentException exception) {
             title = "";
         }
@@ -57,7 +57,7 @@ abstract class Upgrades {
     public static String getTowerUpgradeDesc(String towerName, int upgradeLevel) {
         String desc;
         try {
-            desc = jsonParser.startParser().navThroughJSON(towerName).getByIndex(upgradeLevel-1).getString("desc");
+            desc = jsonParser.startParser().navThroughJSON(towerName).getByIndex(upgradeLevel - 1).getString("desc");
         } catch (NullPointerException | IllegalArgumentException exception) {
             desc = "";
         }
@@ -74,7 +74,7 @@ abstract class Upgrades {
     public static int getTowerUpgradePrice(String towerName, int upgradeLevel) {
         int price;
         try {
-            price = jsonParser.startParser().navThroughJSON(towerName).getByIndex(upgradeLevel-1).getInteger("price");
+            price = jsonParser.startParser().navThroughJSON(towerName).getByIndex(upgradeLevel - 1).getInteger("price");
         } catch (NullPointerException | IllegalArgumentException exception) {
             price = 0;
         }
@@ -92,7 +92,7 @@ abstract class Upgrades {
         String[] upgradeAttributes = {"attackSpeedMul", "attackRangeMul"};
         HashMap<String, Double> upgrades = new HashMap<>();
         try {
-            upgrades = jsonParser.startParser().navThroughJSON(towerName).getByIndex(upgradeLevel-1).getDoubleHashMap(upgradeAttributes);
+            upgrades = jsonParser.startParser().navThroughJSON(towerName).getByIndex(upgradeLevel - 1).getDoubleHashMap(upgradeAttributes);
         } catch (IllegalArgumentException exception) {
             // If retrieving of upgrade data fails set all values to 1 (Multiplier = 1 produces no modification to towers).
             for (String attr : upgradeAttributes) {

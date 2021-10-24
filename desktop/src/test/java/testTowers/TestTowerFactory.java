@@ -51,7 +51,7 @@ public class TestTowerFactory {
         List<ITower> list = new ArrayList<>();
         List<ITower> listToAdd = new ArrayList<>();
         List<PathRectangle> rectangles = new ArrayList<>();
-        ITower tower = TowerFactory.createMech(0, 0,listToAdd, list, rectangles);
+        ITower tower = TowerFactory.createMech(0, 0, listToAdd, list, rectangles);
         assertSame("Mechoman", tower.getName());
     }
 

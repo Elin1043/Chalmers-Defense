@@ -1,15 +1,14 @@
 package com.mygdx.chalmersdefense.model.viruses;
 
 
-
 /**
  * @author Joel Båtsman Hilmersson
- *
+ * <p>
  * Class representing standard virus
- *
+ * <p>
  * 2021-10-19 Modified by Elin: implemented the class into the application
  */
-final class StandardVirus extends Virus{
+final class StandardVirus extends Virus {
 
     /**
      * Creates Virus object
@@ -22,13 +21,14 @@ final class StandardVirus extends Virus{
 
     /**
      * Creates a virus object with specific values
-     * @param health health of the virus
-     * @param x   x-coordinate of virus
-     * @param y   y-coordinate of virus
-     * @param wayPointIndex  wayPointIndex virus should walk towards
+     *
+     * @param health        health of the virus
+     * @param x             x-coordinate of virus
+     * @param y             y-coordinate of virus
+     * @param wayPointIndex wayPointIndex virus should walk towards
      */
     StandardVirus(int health, float x, float y, int wayPointIndex) {
-        super(health, x,y, wayPointIndex);
+        super(health, x, y, wayPointIndex);
     }
 
     @Override

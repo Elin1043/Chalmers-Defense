@@ -4,10 +4,10 @@ import java.util.List;
 
 /**
  * @author Joel Båtsman Hilmersson
- *
+ * <p>
  * Class representing boss virus
  */
-final class BossVirus extends Virus{
+final class BossVirus extends Virus {
 
     private final List<IVirus> virusList; // The virus list to add new viruses to
 
@@ -24,15 +24,15 @@ final class BossVirus extends Virus{
     @Override
     public void decreaseHealth(float damage) {
         super.decreaseHealth(damage);
-        if (isDead()){
+        if (isDead()) {
             for (int i = 0; i < 5; i++) {
-                virusList.add(new StandardVirus(5, getPos()[0] + getWidth()/2F, getPos()[1] + getHeight()/2F, getCurrentMoveToVectorIndex()));
+                virusList.add(new StandardVirus(5, getPos()[0] + getWidth() / 2F, getPos()[1] + getHeight() / 2F, getCurrentMoveToVectorIndex()));
             }
         }
     }
 
     @Override
-    void slowDownEffect(float slowdown){
+    void slowDownEffect(float slowdown) {
         float newSlowdown = slowdown;
         newSlowdown *= (1 + (1 - slowdown));
         super.slowDownEffect(newSlowdown);

@@ -14,6 +14,7 @@ public class LostPanelOverlayController {
 
     /**
      * Creates a controller for use by the LostPanelOverlay class
+     *
      * @param model the model to control
      */
     public LostPanelOverlayController(IControllModel model) {

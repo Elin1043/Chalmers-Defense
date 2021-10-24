@@ -15,7 +15,7 @@ import com.mygdx.chalmersdefense.model.IControllModel;
 /**
  * @author Daniel Persson
  * Controller class for GameScreen (excluded panels)
- *
+ * <p>
  * 2021-09-22 Created by Daniel Persson: A class for handling listener setup for GameScreen. <br>
  * 2021-10-03 Modified by Daniel Persson: Added click listener for main menu and try again buttons. <br>
  * 2021-10-04 Modified by Joel Båtsman Hilmersson: Changed to use IControllModel interface instead of Model <br>
@@ -31,6 +31,7 @@ public class GameScreenController extends InputAdapter {
 
     /**
      * Creates a controller for use by the GameScreen class
+     *
      * @param model the model to control
      */
     public GameScreenController(IControllModel model) {
@@ -39,12 +40,16 @@ public class GameScreenController extends InputAdapter {
 
     /**
      * Adds a stage to convert direct mouse inputs to correct screen coordinates on the stage
+     *
      * @param stage the stage to convert to screen coordinates to
      */
-    public void addStageToController(Stage stage){ this.stage = stage; }
+    public void addStageToController(Stage stage) {
+        this.stage = stage;
+    }
 
     /**
      * Adds listener to map in GamerScreen
+     *
      * @param image GameScreens mapImage
      */
     public void addMapClickListener(Image image) {
@@ -58,6 +63,7 @@ public class GameScreenController extends InputAdapter {
 
     /**
      * Adds click listener to pause button in GameScreen
+     *
      * @param button GameScreens pause button
      */
     public void addPauseButtonClickListener(Button button) {
@@ -71,7 +77,7 @@ public class GameScreenController extends InputAdapter {
     }
 
     @Override
-    public boolean keyDown (int keycode) {
+    public boolean keyDown(int keycode) {
 
         switch (keycode) {
             case (Input.Keys.ESCAPE) -> {

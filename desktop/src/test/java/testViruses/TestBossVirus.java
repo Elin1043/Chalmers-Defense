@@ -17,11 +17,11 @@ import static org.junit.Assert.assertTrue;
 public class TestBossVirus {
 
     @Test
-    public void testVirusBossVirusDecreaseHealth(){
+    public void testVirusBossVirusDecreaseHealth() {
         List<IVirus> virusList = new ArrayList<>();
         IVirus v1 = VirusFactory.createBossVirus(virusList);
 
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             v1.update();
         }
 
@@ -32,13 +32,13 @@ public class TestBossVirus {
     }
 
     @Test
-    public void testVirusBossVirusSlowDownEffect(){
+    public void testVirusBossVirusSlowDownEffect() {
         List<IVirus> virusList = new ArrayList<>();
         IVirus v1 = VirusFactory.createBossVirus(virusList);
         IVirus v2 = VirusFactory.createBossVirus(virusList);
 
         v1.decreaseHealth(0.7F);
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             v1.update();
             v2.update();
         }

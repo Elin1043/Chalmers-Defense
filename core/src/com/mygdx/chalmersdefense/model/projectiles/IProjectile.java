@@ -11,9 +11,10 @@ public interface IProjectile extends IMapObject {
 
     /**
      * Moves the projectile in calculated direction
-     * @param hasVirusBeenHit if virus has been hit
+     *
+     * @param hasVirusBeenHit  if virus has been hit
      * @param hitVirusHashCode hashcode of the virus hit
-     * @param angle to move towards
+     * @param angle            to move towards
      */
     void update(boolean hasVirusBeenHit, int hitVirusHashCode, float angle);
 
@@ -34,6 +35,7 @@ public interface IProjectile extends IMapObject {
 
     /**
      * Returns how much damage the projectile does
+     *
      * @return amount of damage
      */
     float getDamageAmount();

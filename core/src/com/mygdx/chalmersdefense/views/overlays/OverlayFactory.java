@@ -11,7 +11,8 @@ public abstract class OverlayFactory {
 
     /**
      * Creates a PauseMenuOverlay
-     * @param abstractOverlayController common controller to use
+     *
+     * @param abstractOverlayController  common controller to use
      * @param pauseMenuOverlayController specific controller to use
      * @return PauseMenuOverlay object
      */
@@ -21,9 +22,10 @@ public abstract class OverlayFactory {
 
     /**
      * Creates a SettingsOverlay
+     *
      * @param abstractOverlayController common controller to use
      * @param settingsOverlayController specific controller to use
-     * @param preferences reference to game preferences
+     * @param preferences               reference to game preferences
      * @return SettingsOverlay object
      */
     public static AbstractOverlay createSettingsOverlay(AbstractOverlayController abstractOverlayController, SettingsOverlayController settingsOverlayController, Preferences preferences) {
@@ -32,7 +34,8 @@ public abstract class OverlayFactory {
 
     /**
      * Creates a LostPanelOverlay
-     * @param abstractOverlayController common controller to use
+     *
+     * @param abstractOverlayController  common controller to use
      * @param lostPanelOverlayController specific controller to use
      * @return LostPanelOverlay object
      */
@@ -42,6 +45,7 @@ public abstract class OverlayFactory {
 
     /**
      * Creates a WinPanelOverlay
+     *
      * @param abstractOverlayController common controller to use
      * @param winPanelOverlayController specific controller to use
      * @return WinPanelOverlay object
@@ -52,6 +56,7 @@ public abstract class OverlayFactory {
 
     /**
      * Creates a InfoOverlay
+     *
      * @param abstractOverlayController common controller to use
      * @return InfoOverlay object
      */

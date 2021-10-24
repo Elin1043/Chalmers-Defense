@@ -8,7 +8,7 @@ import static org.junit.Assert.assertSame;
 
 /**
  * @author Elin Forsberg
- *
+ * <p>
  * Test class for ViewControllerEvents
  */
 public class ViewControllerEventsTest {

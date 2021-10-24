@@ -23,12 +23,13 @@ public class ModelEvents implements IEvent {
 
     /**
      * Creates the ModelEvent for use in the EventBus
+     *
      * @param eventType the type of event
-     * @param amount optional parameter for use event caller to send data
+     * @param amount    optional parameter for use event caller to send data
      */
     public ModelEvents(EventType eventType, int... amount) {
         this.eventType = eventType;
-        if(amount.length > 0){
+        if (amount.length > 0) {
             this.amount = amount[0];
         }
 
@@ -36,6 +37,7 @@ public class ModelEvents implements IEvent {
 
     /**
      * Returns the type of event this class represents
+     *
      * @return the type of event
      */
     public EventType getEventType() {
@@ -44,6 +46,7 @@ public class ModelEvents implements IEvent {
 
     /**
      * Returns the data connected to the event
+     *
      * @return the data
      */
     public int getAmount() {

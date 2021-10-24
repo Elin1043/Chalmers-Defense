@@ -21,6 +21,7 @@ final class InfoOverlay extends AbstractOverlay {
 
     /**
      * Sets up class and passes abstractOverlayController to super constructor
+     *
      * @param abstractOverlayController reference to common controller
      */
     public InfoOverlay(AbstractOverlayController abstractOverlayController) {
@@ -33,7 +34,7 @@ final class InfoOverlay extends AbstractOverlay {
         if (!infoGroup.hasChildren()) {
             infoGroup.addActor(backgroundImage);
 
-            backgroundImage.setPosition(stage.getWidth()/2 - backgroundImage.getWidth()/2, stage.getHeight()/2 - backgroundImage.getHeight()/2);
+            backgroundImage.setPosition(stage.getWidth() / 2 - backgroundImage.getWidth() / 2, stage.getHeight() / 2 - backgroundImage.getHeight() / 2);
             Button exitButton = createExitPauseMenuButton(infoGroup, backgroundImage);
             abstractOverlayController.addExitOverlayButtonClickListener(exitButton);
 
@@ -62,7 +63,7 @@ final class InfoOverlay extends AbstractOverlay {
 
         Label textLabel = new Label("Chalmers Defence is a game of strategy, with a graphical user interface inspired by Chalmers University of Technology. Gather your forces and defend the campus!!!  ", FontFactory.getLabelStyle24Black());
         infoGroup.addActor(textLabel);
-        textLabel.setPosition(backgroundImage.getX() + 40 , backgroundImage.getY() + 450);
+        textLabel.setPosition(backgroundImage.getX() + 40, backgroundImage.getY() + 450);
         textLabel.setAlignment(Align.center);
         textLabel.setWrap(true);
         textLabel.setWidth(700);
@@ -73,7 +74,7 @@ final class InfoOverlay extends AbstractOverlay {
         tipListLabel.setWrap(true);
         tipListLabel.setWidth(300);
 
-        Label shortkeyListLabel = new Label("F11: Toggle fullscreen \n\nESC:  Pause game \nSPACE:  Start round/speed up \n\nM: Activate \"Masked up\" power up \nV: Activate \"Vaccinated\" power up \nC: Activate \"Clean hands\" power up \n\nNumbers 1-6: Place tower where the mouse is (1 is top left, 6 is bottom right) " , FontFactory.getLabelStyle18Black());
+        Label shortkeyListLabel = new Label("F11: Toggle fullscreen \n\nESC:  Pause game \nSPACE:  Start round/speed up \n\nM: Activate \"Masked up\" power up \nV: Activate \"Vaccinated\" power up \nC: Activate \"Clean hands\" power up \n\nNumbers 1-6: Place tower where the mouse is (1 is top left, 6 is bottom right) ", FontFactory.getLabelStyle18Black());
         infoGroup.addActor(shortkeyListLabel);
         shortkeyListLabel.setPosition(backgroundImage.getX() + 405, backgroundImage.getY() + 120);
         shortkeyListLabel.setWrap(true);

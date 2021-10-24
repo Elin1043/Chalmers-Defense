@@ -17,10 +17,11 @@ final public class ScreenManager implements IEventListener<ViewControllerEvents>
 
     /**
      * Creates an instance of the ScreenManagerClass
-     * @param game the current game
+     *
+     * @param game       the current game
      * @param mainScreen the games main screen
      * @param gameScreen the game screen of the game
-     * @param eventbus the view eventbus to get sceen changer events from
+     * @param eventbus   the view eventbus to get sceen changer events from
      */
     public ScreenManager(Game game, AbstractScreen mainScreen, AbstractScreen gameScreen, EventBus eventbus) {
         this.game = game;

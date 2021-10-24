@@ -9,7 +9,7 @@ import java.util.List;
  * @author Elin Forsberg
  * Class representing an abstract power-up class holding common functions.
  */
-abstract class PowerUp implements IPowerUp{
+abstract class PowerUp implements IPowerUp {
     private boolean isActivated = false;              // If powerUp is activated
     private boolean canActivate = true;              // If powerUp can be activated
 
@@ -22,11 +22,12 @@ abstract class PowerUp implements IPowerUp{
 
     /**
      * Creates an instance of the power-up
+     *
      * @param lengthOfCooldown the length of power-up cool down
-     * @param lengthOfPowerUp the length of active power-up time
-     * @param cost the cost of the power-up
+     * @param lengthOfPowerUp  the length of active power-up time
+     * @param cost             the cost of the power-up
      */
-    PowerUp(int lengthOfCooldown, int lengthOfPowerUp, int cost){
+    PowerUp(int lengthOfCooldown, int lengthOfPowerUp, int cost) {
         cooldown = new CountDownTimer(lengthOfCooldown);
         powerUpTimer = new CountDownTimer(lengthOfPowerUp);
         this.lengthOfCooldown = lengthOfCooldown;
@@ -35,8 +36,8 @@ abstract class PowerUp implements IPowerUp{
     }
 
     @Override
-    public void powerUpClicked(List<IGenericMapObject> addGraphicsList){
-        if(canActivate){
+    public void powerUpClicked(List<IGenericMapObject> addGraphicsList) {
+        if (canActivate) {
             canActivate = false;
             isActivated = true;
             addGraphicObject(addGraphicsList);
@@ -45,31 +46,28 @@ abstract class PowerUp implements IPowerUp{
 
     /**
      * Add graphicObject to the given list
+     *
      * @param addGraphicsList list to add object to
      */
     abstract void addGraphicObject(List<IGenericMapObject> addGraphicsList);
 
     @Override
-    public void decreaseTimer(){
+    public void decreaseTimer() {
         if (isActivated && powerUpTimer.haveReachedZero()) {
             isActivated = false;
 
-        }
-        else if (!isActivated && !canActivate && cooldown.haveReachedZero()) {
+        } else if (!isActivated && !canActivate && cooldown.haveReachedZero()) {
             canActivate = true;
         }
     }
 
     @Override
     public int getTimer() {
-        if(isActivated && !canActivate){
+        if (isActivated && !canActivate) {
             return (powerUpTimer.getCurrentCountTime() * 5) / 1000;
-        }
-
-        else if(!canActivate){
+        } else if (!canActivate) {
             return (cooldown.getCurrentCountTime() * 5) / 1000;
-        }
-        else{
+        } else {
             return -1;
         }
     }
@@ -81,9 +79,10 @@ abstract class PowerUp implements IPowerUp{
 
     /**
      * Get current time of powerUpTimer
+     *
      * @return current time
      */
-    int getCurrentTime(){
+    int getCurrentTime() {
         return powerUpTimer.getCurrentCountTime();
     }
 
@@ -93,7 +92,7 @@ abstract class PowerUp implements IPowerUp{
     }
 
     @Override
-    public void resetPowerUp(){
+    public void resetPowerUp() {
         cooldown = new CountDownTimer(lengthOfCooldown);
         powerUpTimer = new CountDownTimer(lengthOfPowerUp);
         isActivated = false;

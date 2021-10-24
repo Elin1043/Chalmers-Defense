@@ -19,7 +19,7 @@ final class Strongest implements ITargetMode {
         for (IVirus virus : virusInRange) {
             if ((virus.getLifeDecreaseAmount() > strongestVirus.getLifeDecreaseAmount())) {
                 strongestVirus = virus;
-            } else if (virus.getLifeDecreaseAmount() == strongestVirus.getLifeDecreaseAmount()){
+            } else if (virus.getLifeDecreaseAmount() == strongestVirus.getLifeDecreaseAmount()) {
                 strongestVirus = getMostTraveledVirus(strongestVirus, virus);
             }
         }
@@ -29,7 +29,7 @@ final class Strongest implements ITargetMode {
 
     //Gets the virus that have traveled the furthest
     private IVirus getMostTraveledVirus(IVirus strongestVirus, IVirus virus) {
-        if (virus.getTotalDistanceTraveled() > strongestVirus.getTotalDistanceTraveled()){
+        if (virus.getTotalDistanceTraveled() > strongestVirus.getTotalDistanceTraveled()) {
             strongestVirus = virus;
         }
         return strongestVirus;

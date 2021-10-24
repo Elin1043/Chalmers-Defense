@@ -25,6 +25,7 @@ final class WinPanelOverlay extends AbstractOverlay {
 
     /**
      * Sets up class and passes abstractOverlayController to super constructor
+     *
      * @param abstractOverlayController reference to common controller
      * @param winPanelOverlayController reference to controller for win panel
      */
@@ -67,11 +68,10 @@ final class WinPanelOverlay extends AbstractOverlay {
         winPanelGroup.setVisible(true);
     }
 
-   @Override
+    @Override
     public void hideOverlay() {
         winPanelGroup.setVisible(false);
     }
-
 
 
     //Create continue button

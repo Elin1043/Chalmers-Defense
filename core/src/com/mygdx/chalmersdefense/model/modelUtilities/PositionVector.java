@@ -4,7 +4,7 @@ package com.mygdx.chalmersdefense.model.modelUtilities;
 /**
  * @author Daniel Persson
  * @author Jenny Carlsson
- *
+ * <p>
  * Class representing a positionVector
  */
 public final class PositionVector {
@@ -14,6 +14,7 @@ public final class PositionVector {
 
     /**
      * Creates a vector with given coordinates
+     *
      * @param x the x coordinate
      * @param y the y coordinate
      */
@@ -24,6 +25,7 @@ public final class PositionVector {
 
     /**
      * Creates a vector from a previous vector
+     *
      * @param positionVector the given vector to copy
      */
     public PositionVector(PositionVector positionVector) {
@@ -33,6 +35,7 @@ public final class PositionVector {
 
     /**
      * Get the x - position of the positionVector
+     *
      * @return x - position
      */
     public float getX() {
@@ -41,6 +44,7 @@ public final class PositionVector {
 
     /**
      * Get the y - position of the positionVector
+     *
      * @return y - position
      */
     public float getY() {
@@ -49,6 +53,7 @@ public final class PositionVector {
 
     /**
      * Set the position of a new positionVector
+     *
      * @param x - coordinate to be set
      * @param y - coordinate to be set
      * @return new positionVector
@@ -60,6 +65,7 @@ public final class PositionVector {
 
     /**
      * Set the x - position of the positionVector
+     *
      * @param x - coordinate to be set
      * @return new PositionVector
      */
@@ -69,6 +75,7 @@ public final class PositionVector {
 
     /**
      * Set the y - position of the positionVector
+     *
      * @param y - coordinate to be set
      * @return new PositionVector
      */

@@ -15,9 +15,10 @@ public final class PathRectangle implements IMapObject {
 
     /**
      * Creates a PathRectangle object
-     * @param x the x coordinate
-     * @param y the y coordinate
-     * @param width the width of the rectangle
+     *
+     * @param x      the x coordinate
+     * @param y      the y coordinate
+     * @param width  the width of the rectangle
      * @param height the height of the rectangle
      */
     public PathRectangle(float x, float y, float width, float height) {

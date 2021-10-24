@@ -33,12 +33,13 @@ abstract class Projectile implements IProjectile {
 
     /**
      * Creates an abstract Projectile object with common projectile methods
-     * @param speed The projectile speed
+     *
+     * @param speed     The projectile speed
      * @param spriteKey The projectiles sprite key
-     * @param x The objects start x position
-     * @param y The objects start y position
-     * @param angle The angle of the projectile
-     * @param damage The amount of damage the projectile does
+     * @param x         The objects start x position
+     * @param y         The objects start y position
+     * @param angle     The angle of the projectile
+     * @param damage    The amount of damage the projectile does
      */
     Projectile(float speed, String spriteKey, float x, float y, float angle, float damage) {
         this.speed = speed;
@@ -79,8 +80,9 @@ abstract class Projectile implements IProjectile {
 
     /**
      * Method to call when virus is hit
+     *
      * @param hitVirusHashCode hashcode of the virus hit
-     * @param angle angle to move towards
+     * @param angle            angle to move towards
      */
     void virusIsHit(int hitVirusHashCode, float angle) {
         haveHitList.add(hitVirusHashCode);
@@ -138,6 +140,8 @@ abstract class Projectile implements IProjectile {
     }
 
     @Override
-    public float getDamageAmount(){ return damage; }
+    public float getDamageAmount() {
+        return damage;
+    }
 
 }

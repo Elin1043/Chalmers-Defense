@@ -29,12 +29,13 @@ final class GenericMapObject implements IGenericMapObject {
 
     /**
      * Creates an abject representing a graphical element on screen
-     * @param speed the speed of the object
+     *
+     * @param speed     the speed of the object
      * @param spriteKey the sprite key for the object
-     * @param x the x starting coordinate
-     * @param y the y starting coordinate
-     * @param angle the direction to move in
-     * @param time the amount of time this object is on screen before it gets scraped
+     * @param x         the x starting coordinate
+     * @param y         the y starting coordinate
+     * @param angle     the direction to move in
+     * @param time      the amount of time this object is on screen before it gets scraped
      */
     GenericMapObject(float speed, String spriteKey, float x, float y, float angle, int time) {
         this.speed = speed;
@@ -56,7 +57,6 @@ final class GenericMapObject implements IGenericMapObject {
     }
 
 
-
     @Override
     public void update() {
         float xLength = (float) (Math.cos(Math.toRadians(this.angle)) * speed);
@@ -65,7 +65,7 @@ final class GenericMapObject implements IGenericMapObject {
         x = x + xLength;
         y = y + yLength;
 
-        if(animationTimer.haveReachedZero()){
+        if (animationTimer.haveReachedZero()) {
             canRemove = true;
         }
 

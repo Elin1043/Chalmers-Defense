@@ -9,6 +9,7 @@ final class IllegalMethodCallException extends RuntimeException {
 
     /**
      * Creates this exception
+     *
      * @param message the given message to hold
      */
     public IllegalMethodCallException(String message) {

@@ -39,9 +39,10 @@ final class SettingsOverlay extends AbstractOverlay {
 
     /**
      * Sets up class and passes abstractOverlayController to super constructor
+     *
      * @param abstractOverlayController reference to common controller
      * @param settingsOverlayController reference to controller for settings overlay
-     * @param preferences reference to the games preferences
+     * @param preferences               reference to the games preferences
      */
     SettingsOverlay(AbstractOverlayController abstractOverlayController, SettingsOverlayController settingsOverlayController, Preferences preferences) {
         super(abstractOverlayController);
@@ -98,8 +99,7 @@ final class SettingsOverlay extends AbstractOverlay {
     }
 
 
-
-   //Creates title
+    //Creates title
     private void createSettingTitle() {
         Label settingsTitleLabel = new Label("Settings", FontFactory.getLabelStyle36BlackBold());
         settingsMenuGroup.addActor(settingsTitleLabel);
@@ -114,7 +114,7 @@ final class SettingsOverlay extends AbstractOverlay {
         settingsOverlayController.addMusicVolumeSliderListener(musicSlider);
         settingsOverlayController.addMuteMusicClickListener(createCheckBox(" Mute sound", 270, 245));
         settingsMenuGroup.addActor(musicPercentLabel);
-        musicPercentLabel.setPosition(backgroundImage.getX() + 270 + 320,backgroundImage.getY() + 245);
+        musicPercentLabel.setPosition(backgroundImage.getX() + 270 + 320, backgroundImage.getY() + 245);
         musicPercentLabel.setAlignment(Align.right);
     }
 
@@ -126,7 +126,7 @@ final class SettingsOverlay extends AbstractOverlay {
         settingsOverlayController.addSoundEffectsVolumeSliderListener(soundEffectsSlider);
         settingsOverlayController.addMuteSoundEffectsClickListener(createCheckBox(" Mute sound effects", 270, 170));
         settingsMenuGroup.addActor(soundEffectsPercentLabel);
-        soundEffectsPercentLabel.setPosition(backgroundImage.getX() + 270 + 320,backgroundImage.getY() + 170);
+        soundEffectsPercentLabel.setPosition(backgroundImage.getX() + 270 + 320, backgroundImage.getY() + 170);
         soundEffectsPercentLabel.setAlignment(Align.right);
     }
 
@@ -195,14 +195,14 @@ final class SettingsOverlay extends AbstractOverlay {
 
         Slider slider = new Slider(0, 100, 1, false, settingsSliderSkin);
         settingsMenuGroup.addActor(slider);
-        slider.setPosition(backgroundImage.getX() + x,backgroundImage.getY() + y);
+        slider.setPosition(backgroundImage.getX() + x, backgroundImage.getY() + y);
         slider.setSize(364, 25);
         return slider;
     }
 
 
     //Creates labels
-    private void createLabels(String text, float x, float y){
+    private void createLabels(String text, float x, float y) {
         Label label = new Label(text, FontFactory.getLabelStyle26Black());
         settingsMenuGroup.addActor(label);
         label.setPosition(x - label.getWidth(), y);
@@ -210,8 +210,8 @@ final class SettingsOverlay extends AbstractOverlay {
     }
 
 
-   //Returns a new go back button
-   private Button createGoBackButton() {
+    //Returns a new go back button
+    private Button createGoBackButton() {
         TextureAtlas GoBackButtonTexture = new TextureAtlas(Gdx.files.internal(buttonsAssetsRoot + "goBackButtonSkin/GoBackButtonSkin.atlas")); // Load atlas file from skin
         Skin goBackButtonSkin = new Skin(Gdx.files.internal(buttonsAssetsRoot + "goBackButtonSkin/GoBackButtonSkin.json"), GoBackButtonTexture); // Create skin object
 

@@ -60,11 +60,12 @@ final public class BottomBarUpgradePanel {
 
     /**
      * Creates the BottomBarUpgrade panel for use by GameScreen
-     * @param stage the parent stage
-     * @param model the model to display information from
+     *
+     * @param stage                    the parent stage
+     * @param model                    the model to display information from
      * @param bottomBarPanelController the controller class to use for adding listeners to this class
-     * @param spriteMap the sprite hashmap for the game containing all sprites
-     * @param largeSpriteMap the large sprite hashmap for the game containing larger sprites
+     * @param spriteMap                the sprite hashmap for the game containing all sprites
+     * @param largeSpriteMap           the large sprite hashmap for the game containing larger sprites
      */
     public BottomBarUpgradePanel(Stage stage, IViewModel model, BottomBarPanelController bottomBarPanelController, HashMap<String, Sprite> spriteMap, HashMap<String, Sprite> largeSpriteMap) {
         this.stage = new Stage(stage.getViewport());
@@ -103,6 +104,7 @@ final public class BottomBarUpgradePanel {
 
     /**
      * Method used to render upgrade panel to the screen
+     *
      * @param tower to update upgrade panel with
      */
     public void render(IMapObject tower) {
@@ -140,12 +142,12 @@ final public class BottomBarUpgradePanel {
 
 
     // Create target mode buttons
-    private void createChangeTargetModeButton(){
+    private void createChangeTargetModeButton() {
         TextureRegion changeTargetTextureRegion1 = new TextureRegion(new Texture(Gdx.files.internal(buttonsAssetsRoot + "changeTargetModeButton.png")));
         TextureRegionDrawable changeTargetTexRegDrawable1 = new TextureRegionDrawable(changeTargetTextureRegion1);
 
         TextureRegion changeTargetTextureRegion2 = new TextureRegion(new Texture(Gdx.files.internal(buttonsAssetsRoot + "changeTargetModeButton.png")));
-        changeTargetTextureRegion2.flip(true,false);
+        changeTargetTextureRegion2.flip(true, false);
         TextureRegionDrawable changeTargetTexRegDrawable2 = new TextureRegionDrawable(changeTargetTextureRegion2);
 
         ImageButton changeTarget1 = new ImageButton(changeTargetTexRegDrawable1);
@@ -186,7 +188,7 @@ final public class BottomBarUpgradePanel {
 
 
     // Update labels
-    private void updatePanelLabels(){
+    private void updatePanelLabels() {
         sellPriceLabel.setText("+" + "$" + model.getClickedTowerSellPrice());
 
         targetModeLabel.setText(model.getClickedTowerTargetMode());
@@ -297,7 +299,6 @@ final public class BottomBarUpgradePanel {
         descLabel.setText(model.getTowerUpgradeDesc(towerName, buttonNr));
         priceLabel.setText("" + model.getTowerUpgradePrice(towerName, buttonNr));
     }
-
 
 
     // Updates the visual style of upgrade button two
