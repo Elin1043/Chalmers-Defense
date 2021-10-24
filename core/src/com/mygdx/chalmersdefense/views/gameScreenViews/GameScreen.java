@@ -238,6 +238,7 @@ public final class GameScreen extends AbstractScreen implements Screen {
             objectSprite.setPosition(mapObject.getX(), mapObject.getY());
             objectSprite.setRotation(mapObject.getAngle());
 
+
             objectSprite.draw(super.batch);
 
         }
