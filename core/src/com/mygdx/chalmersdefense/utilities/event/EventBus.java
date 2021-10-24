@@ -29,9 +29,9 @@ public class EventBus {
 
     /**
      * Used to make a class listen for the different emits
-     * @param eventClass
-     * @param listener
-     * @param <T>
+     * @param eventClass The eventClass to listen to
+     * @param listener The listeners handle method
+     * @param <T> the type of eventClass
      */
     public <T extends IEvent> void listenFor(Class<T> eventClass, IEventListener<T> listener){
         if(!listeners.containsKey(eventClass)){
