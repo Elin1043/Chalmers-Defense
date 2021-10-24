@@ -60,9 +60,6 @@ final public class ChalmersDefense extends Game {
         // Init ScreenManager
         new ScreenManager(this, mainScreen, gameScreen, viewEventBus);
 
-//        ScreenManager.getInstance().initialize(this, mainScreen, gameScreen, viewEventBus);
-//        ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
-
         // Init OverlayManager
         OverlayManager.getInstance().initialize(pauseMenuOverlay, settingsMenuOverlay, lostPanelOverlay, winPanelOverlay, infoOverlay);
 
