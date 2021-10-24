@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.utilities.event.events;
+package com.mygdx.chalmersdefense.utilities.event.concreteEvents;
 
 import com.mygdx.chalmersdefense.utilities.event.IEvent;
 

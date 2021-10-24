@@ -1,6 +1,6 @@
 package testEvents;
 
-import com.mygdx.chalmersdefense.utilities.event.events.ViewControllerEvents;
+import com.mygdx.chalmersdefense.utilities.event.concreteEvents.ViewControllerEvents;
 import org.junit.Test;
 
 import static org.junit.Assert.assertSame;
