@@ -87,9 +87,8 @@ public abstract class AbstractScreen extends Stage implements Screen {
     @Override
     public void resume() {}
 
-    /**
-     * Put all sprites in a HashMap to optimize render time
-     */
+
+    //Put all sprites in a HashMap to optimize render time
     private void createSprites() {
         spriteMap.put("IT-Smurf1", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1.png")));
         spriteMap.put("Chemist1", new Sprite(new Texture("towers/Chemist/Chemist1.png")));
@@ -156,9 +155,8 @@ public abstract class AbstractScreen extends Stage implements Screen {
         spriteMap.put("money3", new Sprite(new Texture("projectiles/money3.png")));
     }
 
-    /**
-     * Put all sprites in a HashMap to optimize render time
-     */
+
+    //Put all sprites in a HashMap to optimize render time
     private void createLargeSprites() {
         largeSpriteMap.put("IT-Smurf1Large", new Sprite(new Texture("towers/IT-Smurf/IT-Smurf1Large.png")));
         largeSpriteMap.put("Chemist1Large", new Sprite(new Texture("towers/Chemist/Chemist1Large.png")));

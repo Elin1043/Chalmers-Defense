@@ -20,9 +20,8 @@ final public class OverlayManager {
     private AbstractOverlay currentOverlay;  // Currently open overlay
     private AbstractOverlay prevOverlay;     // Previous open overlay
 
-    /**
-     * Singleton constructor
-     */
+
+    //Singleton constructor
     private OverlayManager() {}
 
     /**
@@ -66,9 +65,8 @@ final public class OverlayManager {
         prevOverlay = currentOverlay;
     }
 
-    /**
-     * Returns AbstractOverlay object depending on overlayEnum
-     */
+
+   //Returns AbstractOverlay object depending on overlayEnum
     private AbstractOverlay getOverlay(ScreenOverlayEnum overlayEnum) {
         return switch (overlayEnum) {
             case PAUSE_MENU -> pauseMenuOverlay;

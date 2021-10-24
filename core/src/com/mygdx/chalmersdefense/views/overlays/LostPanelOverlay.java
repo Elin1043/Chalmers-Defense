@@ -73,9 +73,8 @@ final class LostPanelOverlay extends AbstractOverlay {
         lostPanelGroup.setVisible(false);
     }
 
-    /**
-     * Create main menu button
-     */
+
+    //Create main menu button
     private void createMainMenuButton(Skin lostButtonSkin) {
         Button mainMenuButton = new Button(lostButtonSkin);
         Label mainMenuButtonText = new Label(" Main menu ", FontFactory.getLabelStyle24BlackSemiBold());
@@ -84,9 +83,8 @@ final class LostPanelOverlay extends AbstractOverlay {
         abstractOverlayController.addMainMenuClickListener(mainMenuButton);
     }
 
-    /**
-     * Create try again button
-     */
+
+    //Create try again button
     private void createTryAgainButton(Skin lostButtonSkin) {
         Button tryAgainButton = new Button(lostButtonSkin);
         Label tryAgainButtonText = new Label("Try again", FontFactory.getLabelStyle24BlackSemiBold());

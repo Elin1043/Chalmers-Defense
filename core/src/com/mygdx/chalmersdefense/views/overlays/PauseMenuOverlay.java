@@ -60,9 +60,8 @@ final class PauseMenuOverlay extends AbstractOverlay {
         pauseMenuGroup.setVisible(false);
     }
 
-    /**
-     * Creates buttons
-     */
+
+    //Creates buttons
     private void createButtons() {
         String[] buttonTexts = {"Continue", "Settings", "Quit"};
 

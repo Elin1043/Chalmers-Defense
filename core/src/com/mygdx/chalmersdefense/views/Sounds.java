@@ -37,9 +37,8 @@ final public class Sounds {
         }, 0, 0.01F);
     }
 
-    /**
-     * Update volume if preferences changes
-     */
+    
+    //Update volume if preferences changes
     private void updateMusicVolume() {
         if (preferences.getBoolean("muteMusic")){
             music.setVolume(0);
