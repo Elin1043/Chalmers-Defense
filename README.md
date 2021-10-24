@@ -4,11 +4,17 @@
 
 Currently just a very simple startup thing with a graphics library added to it. Will be used as a base to hopefully
 create a tower defense game based on defending Chalmers from corona viruses that comes along a path to infect Chalmers.
+##Images
+### Main screen of the game
+![MainScreen](/Documents/images/MainScreen.png)
+
+### Game view
+![MainScreen](/Documents/images/GameScreen.png)
 
 ## Filestructure
 Path                                    | Comment
 --------------------------------------- | -------------
-`/Documents`                            | All documents accociated with the project
+`/Documents`                            | All documents associated with the project
 `/core/src/com/mygdx/chalmersdefense`   | The main folder for the code
 `/desktop/src/test/java/`               | Folder containing all JUnit tests
 `/core/assets`                          | Location for all assets in the game
@@ -32,8 +38,8 @@ jennycarlsson | Jenny Carlsson
 
 ## Known Issues
 ### Mac OS
-* Currently the application does not work properly for Mac OS. The program is able to start and run but a problem occurs regarding the circle around the towers. They appear slightly oval and the positioning is incorrect.
-* Changing from fullscreen to window mode on a Mac causes the program to crash. 
+* Currently the application does not work properly for macOS. The program is able to start and run but a problem occurs regarding the circle around the towers. They appear slightly oval and the positioning is incorrect.
+* Changing from fullscreen to window mode on a Mac causes the program to crash.
 
 Note: Same problems as above can be expected for Linux.
 
