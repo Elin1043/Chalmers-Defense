@@ -119,6 +119,7 @@ final public class SpawnViruses {
         }
     }
 
+    //Starts the spawnRoundHandler
     private void startSpawnRoundHandler() {
         try {
             parseRound();
@@ -127,6 +128,7 @@ final public class SpawnViruses {
         }
     }
 
+    //Parse the current round
     private void parseRound() {
         if (isSpawning && (waveIndex < currentRound.length)) {
 
@@ -139,6 +141,7 @@ final public class SpawnViruses {
         }
     }
 
+    //Handles the initial wave parsing
     private void mainSpawnHandler() {
         String[] splitedWave = currentRound[waveIndex].split("[|]");
 
@@ -151,12 +154,14 @@ final public class SpawnViruses {
         }
     }
 
+    //Handles when there is a single virus to be spawned
     private void singleVirusSpawnHandler(String[] splitedWave) {
         addToList(Integer.parseInt(splitedWave[0]));
         waveIndex++;
         scheduleNextSpawnTime(splitedWave, 1);
     }
 
+    //Handles when there are multiple viruses to be spawned
     private void multiVirusSpawnHandler(String[] splitedWave) {
 
         if (splitedWave[0].split("[*]").length == 2) {
@@ -170,6 +175,7 @@ final public class SpawnViruses {
         }
     }
 
+    //Handles when there are viruses of the same type to be spawned
     private void sameTypeVirusSpawner(String[] splitedWave) {
 
         String[] spawnInfo = splitedWave[0].split("[*]");
@@ -186,6 +192,7 @@ final public class SpawnViruses {
         }
     }
 
+    //Handles when there are different types of viruses to be spawned
     private void differentTypeVirusSpawner(String[] splitedWave) {
 
         String[] spawnInfo = splitedWave[0].split("[/]");
@@ -210,10 +217,12 @@ final public class SpawnViruses {
         }
     }
 
+    //Schedules the next time to spawn viruses
     private void scheduleNextSpawnTime(String[] splitedWave, int i) {
         spawnTimer = Integer.parseInt(splitedWave[i]);
     }
 
+    //Adds the virus created to the list from Map
     private void addToList(int typeOfVirus) {
         switch (typeOfVirus) {
             case 1 -> listToAddVirusesTo.add(VirusFactory.createVirusOne());

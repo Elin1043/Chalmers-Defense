@@ -34,7 +34,7 @@ abstract class Virus implements IVirus {
     private float totalDistanceTrawled = 0;     // Total distance the virus have trawled
 
     private float slowdown = 1;                 // Amount of slow down that gets applied to the virus speed
-    private int slowDownTimer = 0;
+    private int slowDownTimer = 0;              // Timer of the slowDownEffect
 
     private final IPath path = PathFactory.getActivePath();    // pointer to path object
     private PositionVector currentMoveToVector;     // Current vector (coordinates) to move to
@@ -78,10 +78,8 @@ abstract class Virus implements IVirus {
     //Initialize the virus
     private void initializeVirus(){
         updateSpriteKey();
-
         currentMoveToVector = path.getWaypoint(currentMoveToVectorIndex);
 
-        // TODO Kanske vill göra detta när man ändrar liv. Iallafall om man har något virus av annan storlek
         try {
             BufferedImage img = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("viruses/virus" + health + "Hp.png")));
             this.widthX = img.getWidth();
