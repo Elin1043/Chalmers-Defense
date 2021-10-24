@@ -38,7 +38,7 @@ import java.util.List;
  * 2021-10-22 Modified by Elin Forsberg: Implemented the use of EventBus <br>
  */
 
-public class Model implements IUpdateModel, IControllModel, IViewModel, IEventListener<ModelEvents> {
+public class Model implements IControllModel, IViewModel, IEventListener<ModelEvents> {
     private final int WINNING_ROUND = 30;       // Current winning round
     private final int LIVES = 100;              // Current amount of starting lives
     private final int START_CAPITAL = 40000;    // Current amount of start capital
@@ -83,8 +83,10 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
     }
 
 
-    @Override
-    public synchronized void updateModel() {
+    /**
+     * Update the model and in turn it's subcomponents
+     */
+    private void updateModel() {
         map.updateMap();
         checkRoundCompleted();
         virusSpawner.decrementSpawnTimer();

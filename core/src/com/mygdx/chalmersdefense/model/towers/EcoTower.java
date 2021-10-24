@@ -32,9 +32,9 @@ final class EcoTower extends Tower {
     @Override
     void createProjectile(List<IProjectile> projectileList) {
         switch (getUpgradeLevel()) {
-            case 1 -> eventbus.emit(new ModelEvents(ModelEvents.Type.ADDMONEYTOPLAYER, 20));
-            case 2 -> eventbus.emit(new ModelEvents(ModelEvents.Type.ADDMONEYTOPLAYER, 40));
-            case 3 -> eventbus.emit(new ModelEvents(ModelEvents.Type.ADDMONEYTOPLAYER, 60));
+            case 1 -> eventbus.emit(new ModelEvents(ModelEvents.EventType.ADDMONEYTOPLAYER, 20));
+            case 2 -> eventbus.emit(new ModelEvents(ModelEvents.EventType.ADDMONEYTOPLAYER, 40));
+            case 3 -> eventbus.emit(new ModelEvents(ModelEvents.EventType.ADDMONEYTOPLAYER, 60));
         }
 
         projectileList.add(ProjectileFactory.createMoneyPile(getX(), getY(), getUpgradeLevel()));

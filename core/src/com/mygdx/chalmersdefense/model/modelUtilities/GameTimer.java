@@ -65,7 +65,7 @@ final public class GameTimer implements IGameTimer {
             @Override
             public void run() {
                 if (task.isScheduled()) {
-                    eventBus.emit(new ModelEvents(ModelEvents.Type.UPDATEMODEL));
+                    eventBus.emit(new ModelEvents(ModelEvents.EventType.UPDATEMODEL));
                 }
             }
         };

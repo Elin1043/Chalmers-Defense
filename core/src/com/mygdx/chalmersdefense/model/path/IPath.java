@@ -10,6 +10,7 @@ import java.util.List;
  * Interface for paths
  */
 public interface IPath {
+
     /**
      * Returns the background image path to the image
      */

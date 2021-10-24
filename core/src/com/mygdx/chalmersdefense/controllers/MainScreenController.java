@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.chalmersdefense.model.IControllModel;
 import com.mygdx.chalmersdefense.utilities.event.EventBus;
-import com.mygdx.chalmersdefense.utilities.event.events.ViewControllerEvents;
+import com.mygdx.chalmersdefense.utilities.event.concreteEvents.ViewControllerEvents;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 
 
@@ -37,7 +37,7 @@ public class MainScreenController extends InputAdapter {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-            viewEventBus.emit(new ViewControllerEvents(ViewControllerEvents.Type.SHOWGAME_SCREEN));
+            viewEventBus.emit(new ViewControllerEvents(ViewControllerEvents.EventType.SHOWGAME_SCREEN));
             }
         });
     }

@@ -3,7 +3,7 @@ package com.mygdx.chalmersdefense.views;
 import com.badlogic.gdx.Game;
 import com.mygdx.chalmersdefense.utilities.event.EventBus;
 import com.mygdx.chalmersdefense.utilities.event.IEventListener;
-import com.mygdx.chalmersdefense.utilities.event.events.ViewControllerEvents;
+import com.mygdx.chalmersdefense.utilities.event.concreteEvents.ViewControllerEvents;
 
 /**
  * @author Daniel Persson

@@ -8,13 +8,13 @@ import com.mygdx.chalmersdefense.utilities.event.IEvent;
  */
 public class ModelEvents implements IEvent {
 
-    private final Type eventType; // The types of event this class can handle
+    private final EventType eventType; // The types of event this class can handle
     private int amount = 0;     // Optional value for use by the event caller
 
     /**
      * The different events this class handles
      */
-    public enum Type{
+    public enum EventType {
         ADDMONEYTOPLAYER,
         REMOVEMONEYFROMPLAYER,
         DECREASELIFEOFPLAYER,
@@ -26,7 +26,7 @@ public class ModelEvents implements IEvent {
      * @param eventType the type of event
      * @param amount optional parameter for use event caller to send data
      */
-    public ModelEvents(Type eventType, int... amount) {
+    public ModelEvents(EventType eventType, int... amount) {
         this.eventType = eventType;
         if(amount.length > 0){
             this.amount = amount[0];
@@ -38,7 +38,7 @@ public class ModelEvents implements IEvent {
      * Returns the type of event this class represents
      * @return the type of event
      */
-    public Type getEventType() {
+    public EventType getEventType() {
         return eventType;
     }
 
