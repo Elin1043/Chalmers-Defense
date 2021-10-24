@@ -8,6 +8,10 @@ final class Rounds {
     private int currentRound = 0;   // Current round
     private final int winningRound;       // Winning round
 
+    /**
+     * Create an instance of Rounds
+     * @param winningRound the round where the player wins
+     */
     Rounds(int winningRound) {
         this.winningRound = winningRound;
     }

@@ -46,6 +46,10 @@ final class Map {
 
     private final RangeCircle rangeCircle = new RangeCircle(0,0,0);     // Helper class for showing gray range circle
 
+    /**
+     * Creates an instance of Map
+     * @param eventBus to be used for calling player
+     */
     Map(EventBus eventBus) {
         this.eventBus = eventBus;
     }
@@ -174,7 +178,7 @@ final class Map {
         projectilesList.removeAll(removeProjectiles);
     }
 
-    // Handels the actual projectile update
+    // Handles the actual projectile update
     private void projectileUpdateHandler(IProjectile projectile) {
         List<IVirus> virusThatWasHit = new ArrayList<>();
 

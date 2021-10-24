@@ -1,14 +1,15 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.mygdx.chalmersdefense.utilities.event.EventBus;
-import com.mygdx.chalmersdefense.utilities.event.IEventListener;
-import com.mygdx.chalmersdefense.model.modelUtilities.events.ModelEvents;
-import com.mygdx.chalmersdefense.utilities.*;
-import com.mygdx.chalmersdefense.model.viruses.IVirus;
-import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
 import com.mygdx.chalmersdefense.model.modelUtilities.GameTimer;
 import com.mygdx.chalmersdefense.model.modelUtilities.IGameTimer;
+import com.mygdx.chalmersdefense.model.modelUtilities.events.ModelEvents;
+import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
+import com.mygdx.chalmersdefense.utilities.Preferences;
+import com.mygdx.chalmersdefense.utilities.RangeCircle;
+import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
+import com.mygdx.chalmersdefense.utilities.event.IEventListener;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,9 +32,10 @@ import java.util.List;
  * 2021-09-27 Modified by Daniel Persson: Added delegation getters for upgrade title, description and price. <br>
  * 2021-09-28 Modified by Everyone: Moved methods to Map class <br>
  * 2021-09-30 Modified by Joel Båtsman Hilmersson: Added a specifc timer object <br>
- * 2021-10-15 Modified by Elin Forsberg and Joel Båtsman Hilmmersson: Added methods for powerUps
- * 2021-10-22 Modified by Joel Båtsman Hilmmersson: Split big methods into smaller ones
- * 2021-10-22 Modified by Daniel Persson: Changed Upgrade object to use updated upgrades class. Also moved upgrade logic to map
+ * 2021-10-15 Modified by Elin Forsberg and Joel Båtsman Hilmmersson: Added methods for powerUps<br>
+ * 2021-10-22 Modified by Joel Båtsman Hilmmersson: Split big methods into smaller ones<br>
+ * 2021-10-22 Modified by Daniel Persson: Changed Upgrade object to use updated upgrades class. Also moved upgrade logic to map<br>
+ * 2021-10-22 Modified by Elin Forsberg: Implemented the use of EventBus <br>
  */
 
 public class Model implements IUpdateModel, IControllModel, IViewModel, IEventListener<ModelEvents> {
@@ -47,22 +49,22 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
 
     private ScreenOverlayEnum showOverlay = ScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
 
-    private final Preferences preferences;
+    private final Preferences preferences;              // Class contains the settings the player has chosen
     private final EventBus eventBus = new EventBus();  // A reference to the EventBus in the game
     private final Map map = new Map(eventBus);        // Current map object
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getVirusesToAddList());   // The class for spawning viruses
 
     private final IGameTimer timer = new GameTimer(eventBus);    // Timer object
 
-
-
-
+    /**
+     * Creates an instance of Model
+     * @param preferences the settings to be used
+     */
     public Model(Preferences preferences) {
         this.preferences = preferences;
         eventBus.listenFor(ModelEvents.class, this);
 
     }
-
 
     @Override
     public void handle(ModelEvents event) {

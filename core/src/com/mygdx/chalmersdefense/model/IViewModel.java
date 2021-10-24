@@ -1,8 +1,7 @@
 package com.mygdx.chalmersdefense.model;
 
-import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
-import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.utilities.RangeCircle;
+import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 
 import java.util.List;
 

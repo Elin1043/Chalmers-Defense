@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 abstract class Upgrades {
     private static final int MAX_UPGRADES = 3;                     // Current max upgrade level
-    private static final IParseJSON jsonParser = new JSONParserWrapper("UpgradeData.json");
+    private static final IParseJSON jsonParser = new JSONParserWrapper("UpgradeData.json");  //Parser used for parsing json data
 
     /**
      * Main method for upgrading a tower.
