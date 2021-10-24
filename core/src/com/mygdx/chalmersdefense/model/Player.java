@@ -14,7 +14,7 @@ final class Player {
     /**
      * Creates player object
      *
-     * @param lives        Amount of lives the player has from the start
+     * @param lives Amount of lives the player has from the start
      * @param startCapital Amount of money the player has from the start
      */
     Player(int lives, int startCapital) {
@@ -27,7 +27,7 @@ final class Player {
     /**
      * Method for resetting all values in Player object
      *
-     * @param lives        Amount of lives the player has after resetting
+     * @param lives Amount of lives the player has after resetting
      * @param startCapital Amount of money the player after resetting
      */
     void resetPlayer(int lives, int startCapital) {
