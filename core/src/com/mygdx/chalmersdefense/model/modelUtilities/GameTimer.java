@@ -1,9 +1,8 @@
 package com.mygdx.chalmersdefense.model.modelUtilities;
 
 import com.badlogic.gdx.utils.Timer;
-import com.mygdx.chalmersdefense.model.IUpdateModel;
-import com.mygdx.chalmersdefense.model.event.EventBus;
-import com.mygdx.chalmersdefense.model.event.ModelEvents;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
+import com.mygdx.chalmersdefense.model.modelUtilities.events.ModelEvents;
 
 /**
  * @author Joel Båtsman Hilmersson

@@ -1,13 +1,15 @@
-package com.mygdx.chalmersdefense.model.event;
+package com.mygdx.chalmersdefense.utilities.event.events;
 
-public class ViewEvents implements IEvent {
+import com.mygdx.chalmersdefense.utilities.event.IEvent;
+
+public class ViewControllerEvents implements IEvent {
     private final Type eventType;
 
     public enum Type{
         SHOWMAIN_SCREEN,
         SHOWGAME_SCREEN
     }
-    public ViewEvents(Type eventType) {
+    public ViewControllerEvents(Type eventType) {
         this.eventType = eventType;
     }
 

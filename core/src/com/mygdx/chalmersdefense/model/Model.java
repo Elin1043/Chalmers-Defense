@@ -1,9 +1,9 @@
 package com.mygdx.chalmersdefense.model;
 
 
-import com.mygdx.chalmersdefense.model.event.EventBus;
-import com.mygdx.chalmersdefense.model.event.IEventListener;
-import com.mygdx.chalmersdefense.model.event.ModelEvents;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
+import com.mygdx.chalmersdefense.utilities.event.IEventListener;
+import com.mygdx.chalmersdefense.model.modelUtilities.events.ModelEvents;
 import com.mygdx.chalmersdefense.utilities.*;
 import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;

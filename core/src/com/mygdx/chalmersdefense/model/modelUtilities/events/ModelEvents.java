@@ -1,4 +1,6 @@
-package com.mygdx.chalmersdefense.model.event;
+package com.mygdx.chalmersdefense.model.modelUtilities.events;
+
+import com.mygdx.chalmersdefense.utilities.event.IEvent;
 
 public class ModelEvents implements IEvent {
 

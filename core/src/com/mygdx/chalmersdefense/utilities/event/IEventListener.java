@@ -1,4 +1,4 @@
-package com.mygdx.chalmersdefense.model.event;
+package com.mygdx.chalmersdefense.utilities.event;
 
 public interface IEventListener <T extends IEvent>{
 

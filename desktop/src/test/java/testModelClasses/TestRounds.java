@@ -2,9 +2,8 @@ package testModelClasses;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.mygdx.chalmersdefense.ChalmersDefense;
-import com.mygdx.chalmersdefense.model.event.EventBus;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
 import com.mygdx.chalmersdefense.utilities.Preferences;
-import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.Model;
 import org.junit.Before;
 import org.junit.Test;

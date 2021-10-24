@@ -1,8 +1,5 @@
 package com.mygdx.chalmersdefense.model;
 
-import com.mygdx.chalmersdefense.model.event.IEventListener;
-import com.mygdx.chalmersdefense.model.event.ModelEvents;
-
 /**
  * @author Joel Båtsman Hilmersson
  * Class representing the player and their resorces

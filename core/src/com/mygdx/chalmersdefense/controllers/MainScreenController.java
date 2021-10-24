@@ -3,17 +3,13 @@ package com.mygdx.chalmersdefense.controllers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.chalmersdefense.model.IControllModel;
-import com.mygdx.chalmersdefense.model.event.EventBus;
-import com.mygdx.chalmersdefense.model.event.ViewEvents;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
+import com.mygdx.chalmersdefense.utilities.event.events.ViewControllerEvents;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
-import com.mygdx.chalmersdefense.views.ScreenEnum;
-import com.mygdx.chalmersdefense.views.ScreenManager;
 
 
 /**
@@ -41,7 +37,7 @@ public class MainScreenController extends InputAdapter {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-            viewEventBus.emit(new ViewEvents(ViewEvents.Type.SHOWGAME_SCREEN));
+            viewEventBus.emit(new ViewControllerEvents(ViewControllerEvents.Type.SHOWGAME_SCREEN));
             }
         });
     }

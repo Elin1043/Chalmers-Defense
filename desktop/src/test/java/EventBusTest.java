@@ -1,6 +1,6 @@
-import com.mygdx.chalmersdefense.model.event.EventBus;
-import com.mygdx.chalmersdefense.model.event.IEvent;
-import com.mygdx.chalmersdefense.model.event.IEventListener;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
+import com.mygdx.chalmersdefense.utilities.event.IEvent;
+import com.mygdx.chalmersdefense.utilities.event.IEventListener;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ public class EventBusTest {
     private EventBus eventBus ;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         eventBus = new EventBus();
     }
 

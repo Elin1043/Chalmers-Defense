@@ -1,16 +1,15 @@
 package com.mygdx.chalmersdefense.views;
 
 import com.badlogic.gdx.Game;
-import com.mygdx.chalmersdefense.model.event.EventBus;
-import com.mygdx.chalmersdefense.model.event.IEventListener;
-import com.mygdx.chalmersdefense.model.event.ModelEvents;
-import com.mygdx.chalmersdefense.model.event.ViewEvents;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
+import com.mygdx.chalmersdefense.utilities.event.IEventListener;
+import com.mygdx.chalmersdefense.utilities.event.events.ViewControllerEvents;
 
 /**
  * @author Daniel Persson
  * A singleton class for mangaging the dirrefent screens.
  */
-final public class ScreenManager implements IEventListener<ViewEvents> {
+final public class ScreenManager implements IEventListener<ViewControllerEvents> {
     private AbstractScreen mainScreen;
     private AbstractScreen gameScreen;
 
@@ -51,7 +50,7 @@ final public class ScreenManager implements IEventListener<ViewEvents> {
         this.mainScreen = mainScreen;
         this.gameScreen = gameScreen;
         this.eventbus = eventbus;
-        this.eventbus.listenFor(ViewEvents.class, this);
+        this.eventbus.listenFor(ViewControllerEvents.class, this);
     }
 
     /**
@@ -92,7 +91,7 @@ final public class ScreenManager implements IEventListener<ViewEvents> {
     }
 
     @Override
-    public void handle(ViewEvents event) {
+    public void handle(ViewControllerEvents event) {
         switch (event.getEventType()) {
             case SHOWMAIN_SCREEN -> showScreen(ScreenEnum.MAIN_MENU);
             case SHOWGAME_SCREEN -> showScreen(ScreenEnum.GAME);

@@ -4,10 +4,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.chalmersdefense.model.IControllModel;
-import com.mygdx.chalmersdefense.model.event.EventBus;
-import com.mygdx.chalmersdefense.model.event.ViewEvents;
-import com.mygdx.chalmersdefense.views.ScreenEnum;
-import com.mygdx.chalmersdefense.views.ScreenManager;
+import com.mygdx.chalmersdefense.utilities.event.EventBus;
+import com.mygdx.chalmersdefense.utilities.event.events.ViewControllerEvents;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 
 /**
@@ -42,7 +40,7 @@ public class PauseMenuOverlayController {
                     model.stopGameUpdate();
                     model.resetModel();
                     model.setShowOverlay(ScreenOverlayEnum.NONE);
-                    viewEventBus.emit(new ViewEvents(ViewEvents.Type.SHOWMAIN_SCREEN));
+                    viewEventBus.emit(new ViewControllerEvents(ViewControllerEvents.Type.SHOWMAIN_SCREEN));
                 }
             }
             }
