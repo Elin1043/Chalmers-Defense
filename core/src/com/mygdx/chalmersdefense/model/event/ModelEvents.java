@@ -3,16 +3,20 @@ package com.mygdx.chalmersdefense.model.event;
 public class ModelEvents implements IEvent {
 
     private final Type eventType;
-    private final int amount;
+    private int amount = 0;
 
     public enum Type{
         ADDMONEYTOPLAYER,
         REMOVEMONEYFROMPLAYER,
-        DECREASELIFEOFPLAYER
+        DECREASELIFEOFPLAYER,
+        UPDATEMODEL
     }
-    public ModelEvents(Type eventType, int amount) {
+    public ModelEvents(Type eventType, int... amount) {
         this.eventType = eventType;
-        this.amount = amount;
+        if(amount.length > 0){
+            this.amount = amount[0];
+        }
+
     }
 
     public Type getEventType() {

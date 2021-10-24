@@ -2,6 +2,8 @@ package com.mygdx.chalmersdefense.model.modelUtilities;
 
 import com.badlogic.gdx.utils.Timer;
 import com.mygdx.chalmersdefense.model.IUpdateModel;
+import com.mygdx.chalmersdefense.model.event.EventBus;
+import com.mygdx.chalmersdefense.model.event.ModelEvents;
 
 /**
  * @author Joel Båtsman Hilmersson
@@ -17,15 +19,15 @@ final public class GameTimer implements IGameTimer {
         public void run() {}
     }; // The runnable task the timer uses to schedule method calls with
     private float delay = 0.005F;               // Delay in seconds between task calls
-    private final IUpdateModel model;           // The model to update
+    private EventBus eventBus;                  // A reference to the EventBus in the game
 
     /**
      * Constructor for the GameTimer class
      *
-     * @param model The class to update continuously
+     * @param eventBus The active EventBus
      */
-    public GameTimer(IUpdateModel model) {
-        this.model = model;
+    public GameTimer(EventBus eventBus) {
+        this.eventBus = eventBus;
     }
 
     @Override
@@ -63,7 +65,7 @@ final public class GameTimer implements IGameTimer {
             @Override
             public void run() {
                 if (task.isScheduled()) {
-                    model.updateModel();
+                    eventBus.emit(new ModelEvents(ModelEvents.Type.UPDATEMODEL));
                 }
             }
         };

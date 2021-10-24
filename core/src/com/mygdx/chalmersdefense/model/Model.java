@@ -41,7 +41,6 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
     private final int LIVES = 100;              // Current amount of starting lives
     private final int START_CAPITAL = 40000;    // Current amount of start capital
 
-    private final IGameTimer timer = new GameTimer(this);    // Timer object
     private Rounds round = new Rounds(WINNING_ROUND);              // Round helper
 
     private final Player player = new Player(LIVES, START_CAPITAL); // Player object
@@ -52,6 +51,8 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
     private final EventBus eventBus = new EventBus();  // A reference to the EventBus in the game
     private final Map map = new Map(eventBus);        // Current map object
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getVirusesToAddList());   // The class for spawning viruses
+
+    private final IGameTimer timer = new GameTimer(eventBus);    // Timer object
 
 
 
@@ -75,6 +76,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
                     showOverlay = ScreenOverlayEnum.LOSEPANEL;
                 }
             }
+            case UPDATEMODEL -> updateModel();
         }
     }
 
