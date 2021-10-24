@@ -49,7 +49,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
     private ScreenOverlayEnum showOverlay = ScreenOverlayEnum.NONE;       // Boolean for views of they should show win panel
 
     private final Preferences preferences;
-    private EventBus eventBus = new EventBus();
+    private final EventBus eventBus = new EventBus();
     private final Map map = new Map(eventBus);        // Current map object
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getVirusesToAddList());   // The class for spawning viruses
 
@@ -59,7 +59,7 @@ public class Model implements IUpdateModel, IControllModel, IViewModel, IEventLi
 
     public Model(Preferences preferences) {
         this.preferences = preferences;
-        eventBus.listenFor(ModelEvents.class, this::handle);
+        eventBus.listenFor(ModelEvents.class, this);
 
     }
 
