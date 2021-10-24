@@ -60,6 +60,14 @@ final class BottomBarUpgradePanel {
     private final Label sellPriceLabel = new Label("", FontFactory.getLabelStyle26Black());
     private final Label targetModeLabel = new Label("", FontFactory.getLabelStyle20Black());
 
+    /**
+     * Creates the BottomBarUpgrade panel for use by GameScreen
+     * @param stage the parent stage
+     * @param model the model to display information from
+     * @param bottomBarPanelController the controller class to use for adding listeners to this class
+     * @param spriteMap the sprite hashmap for the game containing all sprites
+     * @param largeSpriteMap the large sprite hashmap for the game containing larger sprites
+     */
     public BottomBarUpgradePanel(Stage stage, IViewModel model, BottomBarPanelController bottomBarPanelController, HashMap<String, Sprite> spriteMap, HashMap<String, Sprite> largeSpriteMap) {
         this.stage = new Stage(stage.getViewport());
         this.model = model;
@@ -228,28 +236,17 @@ final class BottomBarUpgradePanel {
         int towerUpgradeLevel = Character.getNumericValue(tower.getSpriteKey().charAt(tower.getSpriteKey().length() - 1));     // Gets the last char in the string, and therefore the upgrade level
 
         Sprite upgradedTowerSprite = spriteMap.get(towerName + (buttonNr + 1));
-        upgradedTowerSprite.setPosition(upgradeButton.getX() + (268 - upgradedTowerSprite.getWidth() / 2), (upgradeButton.getHeight() - upgradeButton.getY()) / 2 - upgradedTowerSprite.getHeight() / 2 + upgradeButton.getY() + 20);
-        upgradedTowerSprite.setRotation(0);
+        placeAndDrawUpgradeSprite(upgradeButton, upgradedTowerSprite);
+
 
         boolean cantAfford = model.getMoney() < model.getTowerUpgradePrice(towerName, buttonNr);
         boolean upgradeIsBought = (towerUpgradeLevel >= 1 + buttonNr);
 
         // If upgrade is bought disable button input
         if (upgradeIsBought) {
-            upgradeButton.setChecked(true);
-            upgradeButton.setTouchable(Touchable.disabled);
+            upgradeIsBaught(upgradeButton);
         } else {
-            upgradeButton.setChecked(false);
-            upgradeButton.setTouchable(Touchable.enabled);
-
-            // If player can't afford upgrade disable button
-            if (cantAfford) {
-                upgradeButton.setDisabled(true);
-                upgradeButton.setTouchable(Touchable.disabled);
-            } else {
-                upgradeButton.setDisabled(false);
-                upgradeButton.setTouchable(Touchable.enabled);
-            }
+            upgradeIsNotBought(upgradeButton, cantAfford);
         }
 
         // Modify second button only
@@ -257,46 +254,90 @@ final class BottomBarUpgradePanel {
             updateSecondUpgradeButton(towerUpgradeLevel, upgradeButton, upgradedTowerSprite, cantAfford, upgradeIsBought);
         }
 
+        updateUpgradeInformationLabels(buttonNr, titleLabel, descLabel, priceLabel, towerName);
+    }
+
+    // Places and draws the upgrade sprite in the button
+    private void placeAndDrawUpgradeSprite(Button upgradeButton, Sprite upgradedTowerSprite) {
+        upgradedTowerSprite.setPosition(upgradeButton.getX() + (268 - upgradedTowerSprite.getWidth() / 2), (upgradeButton.getHeight() - upgradeButton.getY()) / 2 - upgradedTowerSprite.getHeight() / 2 + upgradeButton.getY() + 20);
+        upgradedTowerSprite.setRotation(0);
+
         batch.begin();
         upgradedTowerSprite.draw(batch);
         upgradedTowerSprite.setColor(Color.WHITE);
         batch.end();
+    }
 
-        //upgradeButton.setDisabled(model.getMoney() < model.getTowerUpgradePrice(tower, 1));
+    // Makes upgrade button blue
+    private void upgradeIsBaught(Button upgradeButton) {
+        upgradeButton.setChecked(true);
+        upgradeButton.setTouchable(Touchable.disabled);
+    }
 
+    // Makes green if player can afford, otherwise makes it red
+    private void upgradeIsNotBought(Button upgradeButton, boolean cantAfford) {
+        upgradeButton.setChecked(false);
+        upgradeButton.setTouchable(Touchable.enabled);
+
+        // If player can't afford upgrade disable button (makes it red)
+        if (cantAfford) {
+            upgradeButton.setDisabled(true);
+            upgradeButton.setTouchable(Touchable.disabled);
+        } else {
+            upgradeButton.setDisabled(false);
+            upgradeButton.setTouchable(Touchable.enabled);
+        }
+    }
+
+    // Updates the text information on the upgrade buttons
+    private void updateUpgradeInformationLabels(int buttonNr, Label titleLabel, Label descLabel, Label priceLabel, String towerName) {
         titleLabel.setText(model.getTowerUpgradeTitle(towerName, buttonNr));
         descLabel.setText(model.getTowerUpgradeDesc(towerName, buttonNr));
         priceLabel.setText("" + model.getTowerUpgradePrice(towerName, buttonNr));
     }
 
+
+    // Updates the visual style of upgrade button two
     private void updateSecondUpgradeButton(int towerUpgradeLevel, Button upgradeButton, Sprite upgradedTowerSprite, boolean cantAfford, boolean upgradeIsBought) {
 
         if (!upgradeIsBought) {
-            // If first upgrade not bought disable second button
-            if (towerUpgradeLevel == 1) {
-                upgradeButton.setDisabled(true);
-                upgradeButton.setTouchable(Touchable.disabled);
-                upgradeButton.setColor(Color.LIGHT_GRAY);
-                upgradedTowerSprite.setColor(Color.LIGHT_GRAY);
-                // If first upgrade is bought enable second upgrade button
-            } else if (towerUpgradeLevel >= 2) {
-                upgradeButton.setDisabled(false);
-                upgradeButton.setTouchable(Touchable.enabled);
-                upgradeButton.setColor(Color.WHITE);
-                upgradedTowerSprite.setColor(Color.WHITE);
-
-                // If player can afford enable upgrade button
-                if (!cantAfford) {
-                    upgradeButton.setDisabled(false);
-                } else {
-                    upgradeButton.setTouchable(Touchable.disabled);
-                }
-            }
+            upgradeTwoIsNotBaught(towerUpgradeLevel, upgradeButton, upgradedTowerSprite, cantAfford);
         } else { //
-            upgradeButton.setDisabled(false);
-            upgradeButton.setTouchable(Touchable.enabled);
-            upgradeButton.setColor(Color.WHITE);
-            upgradedTowerSprite.setColor(Color.WHITE);
+            resetOldDisabledStatus(upgradeButton, upgradedTowerSprite);
         }
+    }
+
+    // Handels logic behind upgrade button twos visual style
+    private void upgradeTwoIsNotBaught(int towerUpgradeLevel, Button upgradeButton, Sprite upgradedTowerSprite, boolean cantAfford) {
+
+        // If first upgrade not bought disable second button
+        if (towerUpgradeLevel == 1) {
+            makeUpgradeButtonDisabled(upgradeButton, upgradedTowerSprite);
+
+            // If first upgrade is bought enable second upgrade button
+        } else if (towerUpgradeLevel >= 2) {
+            resetOldDisabledStatus(upgradeButton, upgradedTowerSprite);
+
+            // If player can't afford, disable upgrade button (make it red)
+            if (cantAfford) {
+                upgradeButton.setTouchable(Touchable.disabled);
+                upgradeButton.setDisabled(true);
+            }
+        }
+    }
+
+    private void makeUpgradeButtonDisabled(Button upgradeButton, Sprite upgradedTowerSprite) {
+        upgradeButton.setDisabled(true);
+        upgradeButton.setTouchable(Touchable.disabled);
+        upgradeButton.setColor(Color.LIGHT_GRAY);
+        upgradedTowerSprite.setColor(Color.LIGHT_GRAY);
+    }
+
+    // Resets old disabled status for the button reassuring it will be new state for the button
+    private void resetOldDisabledStatus(Button upgradeButton, Sprite upgradedTowerSprite) {
+        upgradeButton.setDisabled(false);
+        upgradeButton.setTouchable(Touchable.enabled);
+        upgradeButton.setColor(Color.WHITE);
+        upgradedTowerSprite.setColor(Color.WHITE);
     }
 }

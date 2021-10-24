@@ -63,6 +63,13 @@ public final class GameScreen extends AbstractScreen implements Screen {
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
+    /**
+     * Creates the game screen of the game.
+     * @param model the model to display information from
+     * @param gameScreenController the controller class to use for adding listeners to this class
+     * @param rightSidePanelController the controller class for use by the RightSidePanel
+     * @param bottomBarPanelController the controller class for use by the BottomBarPanel
+     */
     public GameScreen(IViewModel model, GameScreenController gameScreenController, RightSidePanelController rightSidePanelController, BottomBarPanelController bottomBarPanelController) {
         super();
         this.rightSidePanel = new RightSidePanel(this, model, rightSidePanelController);
