@@ -84,8 +84,6 @@ final class SettingsOverlay extends AbstractOverlay {
 
     @Override
     public void render() {
-        goBackButton.setVisible(ScreenManager.getInstance().getCurrentScreenEnum() != ScreenEnum.MAIN_MENU);
-
         updateValueLabels();
         isFullscreenCheckBox.setChecked(Gdx.graphics.isFullscreen());
         updateRefreshRateCheckBoxes();

@@ -9,14 +9,24 @@ public final class RangeCircle {
     private float y;    // The y coordinate
     private float range;    // The range of the circle
 
-    private Color enumColor = Color.NONE;
+    private Color enumColor = Color.NONE;       // The color of the circle
 
+    /**
+     * Creates an instance of a RangeCircle using coordinates
+     * @param x the start x coordinate
+     * @param y the start y coordinate
+     * @param range the range of the circle
+     */
     public RangeCircle(float x, float y, float range){
         this.x = x;
         this.y = y;
         this.range = range;
     }
 
+    /**
+     * Creates a RangeCircle from another given RangeCircle
+     * @param circle the circle to copy
+     */
     public RangeCircle(RangeCircle circle){
         this.x = circle.getX();
         this.y = circle.getY();

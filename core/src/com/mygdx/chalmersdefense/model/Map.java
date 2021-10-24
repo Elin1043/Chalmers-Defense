@@ -373,8 +373,9 @@ final class Map {
     /**
      * Handles a tower being dragged.
      * Updates the towers position after mouse and check for collision
-     *  @param x            The X-position of the mouse
-     * @param y            The Y-position of the mouse
+     * @param x The X-position of the mouse
+     * @param y The Y-position of the mouse
+     * @param money The amount of money the player has
      */
     void onDrag(float x, float y, int money) {
 
@@ -413,9 +414,10 @@ final class Map {
         }
     }
 
-
     /**
      * Handles when a placed tower is clicked
+     * @param x - coordinate to check
+     * @param y - coordinate to check
      */
     void checkIfTowerClicked(float x, float y) {
         // Algorithm for finding which tower is clicked
@@ -479,8 +481,10 @@ final class Map {
         return cost;
     }
 
+
     /**
      * Change the targetMode of the clicked tower
+     * @param goRight if it should go to the right index(otherwise to the left)
      */
     void changeTargetMode(boolean goRight){
         selectedTower.changeTargetMode(goRight);
@@ -562,6 +566,7 @@ final class Map {
 
     /**
      * Returns the background image path to the image
+     * @return the imagePath
      */
     String getMapImagePath(){ return path.getImagePath(); }
 
@@ -579,6 +584,7 @@ final class Map {
     /**
      * Method to handle a powerUp button being clicked. Also checks if player have enough cost to buy powerup-
      * @param powerUpName name of the button that was clicked
+     * @param money the amount of money player has
      */
     void powerUpClicked(String powerUpName, int money) {
         IPowerUp powerUp = switch (powerUpName) {

@@ -22,9 +22,9 @@ final class EcoTower extends Tower {
      * Creates object of a EcoTower
      * @param x - startcoordinate of tower
      * @param y - startcoordinate of tower
-     ** @param eventbus current eventBus from Model
+     * @param eventbus current eventBus from Model
      */
-    EcoTower(float x, float y,EventBus eventbus) {
+    EcoTower(float x, float y, EventBus eventbus) {
         super(x, y, "Economist", 180, 600, 60);
         this.eventbus = eventbus;
     }

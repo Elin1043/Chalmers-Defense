@@ -28,6 +28,7 @@ final class MechTower extends Tower {
      * Creates object of a MechTower
      * @param x - startcoordinate of tower
      * @param y - startcoordinate of tower
+     * @param towersToAddList list to add towers to
      * @param allTowers list of all towers on map
      * @param pathRectangles on the map
      */

@@ -58,8 +58,7 @@ final public class ChalmersDefense extends Game {
         new Sounds(preferences);
 
         // Init ScreenManager
-        ScreenManager.getInstance().initialize(this, mainScreen, gameScreen, viewEventBus);
-        ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+        new ScreenManager(this, mainScreen, gameScreen, viewEventBus);
 
         // Init OverlayManager
         OverlayManager.getInstance().initialize(pauseMenuOverlay, settingsMenuOverlay, lostPanelOverlay, winPanelOverlay, infoOverlay);

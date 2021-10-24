@@ -26,11 +26,13 @@ public abstract class TowerFactory {
         return new SmurfTower(startPosX, startPosY);
     }
 
+
     /**
      * Creates a chemistTower
      *
      * @param startPosX x-coordinate to create tower
      * @param startPosY y-coordinate to create tower
+     * @param addProjectileToList list to add projectiles to
      * @return tower that was created
      */
     public static ITower createChemist(float startPosX, float startPosY, List<IProjectile> addProjectileToList) {
@@ -42,6 +44,7 @@ public abstract class TowerFactory {
      *
      * @param startPosX x-coordinate to create tower
      * @param startPosY y-coordinate to create tower
+     * @param addProjectileToList list to add projectiles to
      * @return tower that was created
      */
     public static ITower createHacker(float startPosX, float startPosY, List<IProjectile> addProjectileToList) {
@@ -59,12 +62,14 @@ public abstract class TowerFactory {
         return new ElectroTower(startPosX, startPosY);
     }
 
-
     /**
      * Creates a mechTower
      *
      * @param startPosX x-coordinate to create tower
      * @param startPosY y-coordinate to create tower
+     * @param towerToAddList list to add towers to
+     * @param allTowers list of all towers
+     * @param pathRectangles list of rectangles on path
      * @return tower that was created
      */
     public static ITower createMech(float startPosX, float startPosY, List<ITower> towerToAddList, List<ITower> allTowers, List<PathRectangle> pathRectangles) {
@@ -76,6 +81,7 @@ public abstract class TowerFactory {
      *
      * @param startPosX x-coordinate to create tower
      * @param startPosY y-coordinate to create tower
+     * @param eventBus the eventbus to add event to
      * @return tower that was created
      */
     public static ITower createEco(float startPosX, float startPosY, EventBus eventBus) {

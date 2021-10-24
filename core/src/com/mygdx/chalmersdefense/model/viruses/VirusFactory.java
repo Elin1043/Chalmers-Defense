@@ -56,10 +56,9 @@ public abstract class VirusFactory {
         return new StandardVirus(5);
     }
 
-
     /**
      * Creates a BossVirus
-     *
+     * @param virusList list to add viruses to
      * @return The new BossVirus object
      */
     static public IVirus createBossVirus(List<IVirus> virusList) { return new BossVirus(virusList); }

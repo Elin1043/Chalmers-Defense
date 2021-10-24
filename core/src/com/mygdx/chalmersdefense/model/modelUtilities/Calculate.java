@@ -32,6 +32,7 @@ public abstract class Calculate {
      * Calculates a random point in a circle with a specified range
      * @param x Center x coordinate
      * @param y Center y coordinate
+     * @param range The range to randomize points in
      * @return An array with a random point vector
      */
     public static float[] randPoint(float x, float y, int range) {
