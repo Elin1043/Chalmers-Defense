@@ -38,7 +38,7 @@ final public class ChalmersDefense extends Game {
         RightSidePanelController rightSidePanelController = new RightSidePanelController(model);
         BottomBarPanelController bottomBarPanelController = new BottomBarPanelController(model);
 
-        AbstractOverlayController abstractOverlayController = new AbstractOverlayController(model);
+        AbstractOverlayController abstractOverlayController = new AbstractOverlayController(model, viewEventBus);
         PauseMenuOverlayController pauseMenuOverlayController = new PauseMenuOverlayController(model, viewEventBus);
         SettingsOverlayController settingsOverlayController = new SettingsOverlayController(model, preferences);
         LostPanelOverlayController lostPanelOverlayController = new LostPanelOverlayController(model);
