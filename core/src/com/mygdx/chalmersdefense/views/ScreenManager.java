@@ -1,12 +1,16 @@
 package com.mygdx.chalmersdefense.views;
 
 import com.badlogic.gdx.Game;
+import com.mygdx.chalmersdefense.model.event.EventBus;
+import com.mygdx.chalmersdefense.model.event.IEventListener;
+import com.mygdx.chalmersdefense.model.event.ModelEvents;
+import com.mygdx.chalmersdefense.model.event.ViewEvents;
 
 /**
  * @author Daniel Persson
  * A singleton class for mangaging the dirrefent screens.
  */
-final public class ScreenManager {
+final public class ScreenManager implements IEventListener<ViewEvents> {
     private AbstractScreen mainScreen;
     private AbstractScreen gameScreen;
 
@@ -16,8 +20,12 @@ final public class ScreenManager {
     private static ScreenManager instance;
 
     private Game game;
+    private EventBus eventbus;    // The eventbus to call when money should be added
 
-    private ScreenManager() { }
+
+    private ScreenManager() {
+
+    }
 
     /**
      * Returns this instance
@@ -38,10 +46,12 @@ final public class ScreenManager {
      * @param mainScreen mainScreen instance
      * @param gameScreen gameScreen instance
      */
-    public void initialize(Game game, AbstractScreen mainScreen, AbstractScreen gameScreen) {
+    public void initialize(Game game, AbstractScreen mainScreen, AbstractScreen gameScreen, EventBus eventbus) {
         this.game = game;
         this.mainScreen = mainScreen;
         this.gameScreen = gameScreen;
+        this.eventbus = eventbus;
+        this.eventbus.listenFor(ViewEvents.class, this);
     }
 
     /**
@@ -79,5 +89,13 @@ final public class ScreenManager {
      */
     public ScreenEnum getCurrentScreenEnum() {
         return currentScreenEnum;
+    }
+
+    @Override
+    public void handle(ViewEvents event) {
+        switch (event.getEventType()) {
+            case SHOWMAIN_SCREEN -> showScreen(ScreenEnum.MAIN_MENU);
+            case SHOWGAME_SCREEN -> showScreen(ScreenEnum.GAME);
+        }
     }
 }

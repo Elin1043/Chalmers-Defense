@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.mygdx.chalmersdefense.controllers.*;
 import com.mygdx.chalmersdefense.controllers.overlayControllers.*;
 import com.mygdx.chalmersdefense.model.Model;
+import com.mygdx.chalmersdefense.model.event.EventBus;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.views.*;
 import com.mygdx.chalmersdefense.views.overlays.*;
@@ -29,10 +30,11 @@ final public class ChalmersDefense extends Game {
         Preferences preferences = new Preferences();
         Model model = new Model(preferences);
 
-        // Creating Controllers
-        MainScreenController mainScreenController = new MainScreenController(model);
+        EventBus viewEventBus = new EventBus();  // A reference to the EventBus in the game
 
-        GameScreenController gameScreenController = new GameScreenController(model);
+        // Creating Controllers
+        MainScreenController mainScreenController = new MainScreenController(model, viewEventBus);
+        GameScreenController gameScreenController = new GameScreenController(model, viewEventBus);
         RightSidePanelController rightSidePanelController = new RightSidePanelController(model);
         BottomBarPanelController bottomBarPanelController = new BottomBarPanelController(model);
 
@@ -56,7 +58,7 @@ final public class ChalmersDefense extends Game {
         new Sounds(preferences);
 
         // Init ScreenManager
-        ScreenManager.getInstance().initialize(this, mainScreen, gameScreen);
+        ScreenManager.getInstance().initialize(this, mainScreen, gameScreen, viewEventBus);
         ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
 
         // Init OverlayManager

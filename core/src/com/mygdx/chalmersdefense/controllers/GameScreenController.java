@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.chalmersdefense.model.event.EventBus;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 import com.mygdx.chalmersdefense.model.IControllModel;
 
@@ -32,8 +33,9 @@ public class GameScreenController extends InputAdapter {
     /**
      * Creates a controller for use by the GameScreenClass
      * @param model the model to control
+     * @param viewEventBus
      */
-    public GameScreenController(IControllModel model) {
+    public GameScreenController(IControllModel model, EventBus viewEventBus) {
         this.model = model;
     }
 
