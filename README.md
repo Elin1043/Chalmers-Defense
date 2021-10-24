@@ -30,5 +30,15 @@ Turbobus      | Joel Båtsman Hilmersson
 Elin1043      | Elin Forsberg
 jennycarlsson | Jenny Carlsson
 
+## Known Issues
+### Mac OS
+* Currently the application does not work properly for Mac OS. The program is able to start and run but a problem occurs regarding the circle around the towers. They appear slightly oval and the positioning is incorrect.
+* Changing from fullscreen to window mode on a Mac causes the program to crash. 
+
+Note: Same problems as above can be expected for Linux.
+
+### Scaling
+* When exiting the fullscreen mode the text sometimes becomes hard to read because of a scaling issue with libGDX. 
+
 ## Current UML class-diagram
 ![UML class-diagram](/Documents/UMLclass-diagramChalmersDefense.png)
