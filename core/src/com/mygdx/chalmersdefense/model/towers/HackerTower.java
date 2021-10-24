@@ -20,14 +20,10 @@ final class HackerTower extends Tower {
      * Creates object of a HackerTower
      * @param x - startcoordinate of tower
      * @param y - startcoordinate of tower
-     * @param name of the tower
-     * @param reloadSpeed of the tower
-     * @param cost of the tower
-     * @param range of the tower
      * @param addToList list to add towers projectiles to
      */
-    HackerTower(float x, float y, String name, int reloadSpeed, int cost, int range, List<IProjectile> addToList) {
-        super(x, y, name, reloadSpeed, cost, range);
+    HackerTower(float x, float y, List<IProjectile> addToList) {
+        super(x, y, "Hackerman", 240, 300, 700);
         this.addToList = addToList;
     }
 

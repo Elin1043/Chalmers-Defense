@@ -21,14 +21,10 @@ final class EcoTower extends Tower {
      * Creates object of a EcoTower
      * @param x - startcoordinate of tower
      * @param y - startcoordinate of tower
-     * @param name of the tower
-     * @param reloadSpeed of the tower
-     * @param cost of the tower
-     * @param range of the tower
      * @param player current player to add money to
      */
-    EcoTower(float x, float y, String name, int reloadSpeed, int cost, int range, Player player) {
-        super(x, y, name, reloadSpeed, cost, range);
+    EcoTower(float x, float y, Player player) {
+        super(x, y, "Economist", 180, 600, 60);
         this.player = player;
     }
 

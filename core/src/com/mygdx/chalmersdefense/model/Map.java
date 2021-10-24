@@ -611,6 +611,4 @@ final class Map {
             player.decreaseMoney(powerUp.getCost());
         }
     }
-
-
 }

@@ -15,13 +15,10 @@ final class SmurfTower extends Tower {
      * Creates object of a SmurfTower
      * @param x - startcoordinate of tower
      * @param y - startcoordinate of tower
-     * @param name of the tower
-     * @param reloadSpeed of the tower
-     * @param cost of the tower
-     * @param range of the tower
+
      */
-    SmurfTower(float x, float y, String name, int reloadSpeed, int cost, int range) {
-        super(x, y, name, reloadSpeed, cost, range);
+    SmurfTower(float x, float y) {
+        super(x, y, "IT-Smurf", 120, 200, 200);
     }
 
 
