@@ -87,6 +87,28 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
         }
     }
 
+    @Override
+    public void skipRound() {
+        map.resetMap();
+        round.incrementToNextRound();
+        virusSpawner.resetSpawnViruses();
+    }
+
+    @Override
+    public void invincible() {
+        invincible = true;
+    }
+
+    @Override
+    public void moreMoney() {
+        player.increaseMoney(1000);
+    }
+
+    @Override
+    public void lessMoney() {
+        player.decreaseMoney(100);
+    }
+
 
     /**
      * Update the model and in turn it's subcomponents
@@ -106,25 +128,7 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
         showOverlay = ScreenOverlayEnum.NONE;
     }
 
-    @Override
-    public void skipRound() {
-       map.resetMap();
-       if(round.getCurrentRound() <= round.getWinningRound()){
-           round.incrementToNextRound();
-       }
 
-       virusSpawner.resetSpawnViruses();
-    }
-
-    @Override
-    public void invincible() {
-        invincible = true;
-    }
-
-    @Override
-    public void moreMoney() {
-        player.increaseMoney(10000);
-    }
 
     //Checks if round is completed
     private void checkRoundCompleted() {

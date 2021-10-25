@@ -156,4 +156,6 @@ public interface IViewModel {
     void invincible();
 
     void moreMoney();
+
+    void lessMoney();
 }
