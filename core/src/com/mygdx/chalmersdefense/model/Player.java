@@ -78,7 +78,7 @@ final class Player {
      * @throws PlayerLostAllLifeException When the life counter reaches zero or below
      */
     void decreaseLivesBy(int livesToDecrease) throws PlayerLostAllLifeException {
-        if (lives <= 0) {
+        if (lives - livesToDecrease<= 0) {
             lives = 0;
             throw new PlayerLostAllLifeException();
         } else {
