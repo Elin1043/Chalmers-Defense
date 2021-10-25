@@ -4,6 +4,7 @@ package com.mygdx.chalmersdefense.model;
 import com.mygdx.chalmersdefense.model.modelUtilities.GameTimer;
 import com.mygdx.chalmersdefense.model.modelUtilities.IGameTimer;
 import com.mygdx.chalmersdefense.model.modelUtilities.events.ModelEvents;
+import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.utilities.RangeCircle;
@@ -55,6 +56,7 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
     private final SpawnViruses virusSpawner = new SpawnViruses(map.getVirusesToAddList());   // The class for spawning viruses
 
     private final IGameTimer timer = new GameTimer(eventBus);    // Timer object
+    private boolean invincible = false;
 
     /**
      * Creates an instance of Model
@@ -74,7 +76,9 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
             case REMOVEMONEYFROMPLAYER -> player.decreaseMoney(event.getAmount());
             case DECREASELIFEOFPLAYER -> {
                 try {
-                    player.decreaseLivesBy(event.getAmount());
+                    if(!invincible){
+                        player.decreaseLivesBy(event.getAmount());
+                    }
                 } catch (PlayerLostAllLifeException e) {
                     showOverlay = ScreenOverlayEnum.LOSEPANEL;
                 }
@@ -100,6 +104,26 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
         map.resetMap();
         virusSpawner.resetSpawnViruses();
         showOverlay = ScreenOverlayEnum.NONE;
+    }
+
+    @Override
+    public void skipRound() {
+       map.resetMap();
+       if(round.getCurrentRound() <= round.getWinningRound()){
+           round.incrementToNextRound();
+       }
+
+       virusSpawner.resetSpawnViruses();
+    }
+
+    @Override
+    public void invincible() {
+        invincible = true;
+    }
+
+    @Override
+    public void moreMoney() {
+        player.increaseMoney(10000);
     }
 
     //Checks if round is completed
@@ -285,4 +309,10 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
     public boolean isGameSpedUp() {
         return timer.isGameSpedUp();
     }
+
+    @Override
+    public List<IVirus> getVirusesToAddList() {
+        return map.getVirusesToAddList();
+    }
+
 }

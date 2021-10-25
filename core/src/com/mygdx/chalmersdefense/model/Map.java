@@ -86,6 +86,7 @@ final class Map {
         rangeCircle.setEnumColor(RangeCircle.Color.NONE);
     }
 
+
     //Resets all powerUps
     private void resetAllPowerUps() {
         for (IPowerUp powerUp : powerUpList) {
@@ -622,4 +623,10 @@ final class Map {
             this.eventBus.emit(new ModelEvents(ModelEvents.EventType.REMOVEMONEYFROMPLAYER, powerUp.getCost()));
         }
     }
+
+    public List<IVirus> getViruses() {
+        return virusesList;
+    }
+
+
 }

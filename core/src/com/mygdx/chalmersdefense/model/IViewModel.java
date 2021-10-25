@@ -1,5 +1,8 @@
 package com.mygdx.chalmersdefense.model;
 
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.utilities.RangeCircle;
 import com.mygdx.chalmersdefense.utilities.ScreenOverlayEnum;
 
@@ -145,4 +148,12 @@ public interface IViewModel {
      * @return true if game is sped up. Otherwise false
      */
     boolean isGameSpedUp();
+
+    List<IVirus> getVirusesToAddList();
+
+    void skipRound();
+
+    void invincible();
+
+    void moreMoney();
 }
