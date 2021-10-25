@@ -86,6 +86,11 @@ final class Map {
         rangeCircle.setEnumColor(RangeCircle.Color.NONE);
     }
 
+    // TODO PRESENTATION
+    void resetViruses(){
+        virusesList.clear();
+    }
+
 
     //Resets all powerUps
     private void resetAllPowerUps() {

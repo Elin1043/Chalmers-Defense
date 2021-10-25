@@ -89,7 +89,7 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
 
     @Override
     public void skipRound() {
-        map.resetMap();
+        map.resetViruses();
         round.incrementToNextRound();
         virusSpawner.resetSpawnViruses();
     }
@@ -126,6 +126,7 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
         map.resetMap();
         virusSpawner.resetSpawnViruses();
         showOverlay = ScreenOverlayEnum.NONE;
+        timer.stopUpdateTimer();
     }
 
 
