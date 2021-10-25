@@ -84,17 +84,15 @@ public class TestModel {
 
     @Test
     public void testAllPowerUpClicked() {
-        model.dragStart("smurf", 0, 0);
-        model.dragEnd(100, 100);
 
         model.startRoundPressed();
-        model.powerUpClicked("cleanHands");
         model.powerUpClicked("maskedUp");
+        model.powerUpClicked("cleanHands");
         model.powerUpClicked("vaccinated");
         eventBus.emit(new ModelEvents(ModelEvents.EventType.UPDATEMODEL));
 
-        assertTrue(model.getPowerUpActive()[0] && model.getPowerUpActive()[1] && model.getPowerUpActive()[2]);
-        assertTrue(model.getPowerUpTimer()[0] > 0 && model.getPowerUpTimer()[1] > 0 && model.getPowerUpTimer()[2] > 0);
+        assertTrue(!model.getPowerUpActive()[0] && model.getPowerUpActive()[1] && !model.getPowerUpActive()[2]);
+        assertTrue(model.getPowerUpTimer()[0] == -1 && model.getPowerUpTimer()[1] > 0 && model.getPowerUpTimer()[2] == -1);
     }
 
     @Test(expected = IllegalArgumentException.class)
