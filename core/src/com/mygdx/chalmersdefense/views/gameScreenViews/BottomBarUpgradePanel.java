@@ -319,6 +319,10 @@ final public class BottomBarUpgradePanel {
         if (towerUpgradeLevel == 1) {
             makeUpgradeButtonDisabled(upgradeButton, upgradedTowerSprite);
 
+            // If player can afford upgrade enable button
+            if (!cantAfford) {
+                upgradeButton.setDisabled(false);
+            }
 
             // If first upgrade is bought enable second upgrade button
         } else if (towerUpgradeLevel >= 2) {
