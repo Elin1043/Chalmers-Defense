@@ -148,14 +148,4 @@ public interface IViewModel {
      * @return true if game is sped up. Otherwise false
      */
     boolean isGameSpedUp();
-
-    List<IVirus> getVirusesToAddList();
-
-    void skipRound();
-
-    void invincible();
-
-    void moreMoney();
-
-    void lessMoney();
 }

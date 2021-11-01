@@ -145,29 +145,6 @@ final class GameScreen extends AbstractScreen implements Screen {
             abstractOverlay.render();
         }
 
-        //TODO Remove when not needed
-        if(Gdx.input.isKeyJustPressed(Input.Keys.I)) {
-            model.invincible();
-        }
-
-
-        //TODO Remove when not needed
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            model.skipRound();
-        }
-
-        //TODO Remove when not needed
-        if(Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)) {
-            model.moreMoney();
-        }
-
-        //TODO Remove when not needed
-        if(Gdx.input.isKeyJustPressed(Input.Keys.MINUS)) {
-            model.lessMoney();
-        }
-
-
-
     }
 
 

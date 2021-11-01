@@ -4,7 +4,6 @@ package com.mygdx.chalmersdefense.model;
 import com.mygdx.chalmersdefense.model.modelUtilities.GameTimer;
 import com.mygdx.chalmersdefense.model.modelUtilities.IGameTimer;
 import com.mygdx.chalmersdefense.model.modelUtilities.events.ModelEvents;
-import com.mygdx.chalmersdefense.model.viruses.IVirus;
 import com.mygdx.chalmersdefense.model.viruses.SpawnViruses;
 import com.mygdx.chalmersdefense.utilities.Preferences;
 import com.mygdx.chalmersdefense.utilities.RangeCircle;
@@ -86,29 +85,6 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
             case UPDATEMODEL -> updateModel();
         }
     }
-
-    @Override
-    public void skipRound() {
-        map.resetViruses();
-        round.incrementToNextRound();
-        virusSpawner.resetSpawnViruses();
-    }
-
-    @Override
-    public void invincible() {
-        invincible = true;
-    }
-
-    @Override
-    public void moreMoney() {
-        player.increaseMoney(1000);
-    }
-
-    @Override
-    public void lessMoney() {
-        player.decreaseMoney(100);
-    }
-
 
     /**
      * Update the model and in turn it's subcomponents
@@ -314,10 +290,4 @@ public class Model implements IControllModel, IViewModel, IEventListener<ModelEv
     public boolean isGameSpedUp() {
         return timer.isGameSpedUp();
     }
-
-    @Override
-    public List<IVirus> getVirusesToAddList() {
-        return map.getVirusesToAddList();
-    }
-
 }
