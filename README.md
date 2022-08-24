@@ -2,8 +2,6 @@
 
 [![Build Status](https://app.travis-ci.com/Danilll01/TDA367-OO-Projekt.svg?branch=main)](https://app.travis-ci.com/Danilll01/TDA367-OO-Projekt)
 
-Currently just a very simple startup thing with a graphics library added to it. Will be used as a base to hopefully
-create a tower defense game based on defending Chalmers from corona viruses that comes along a path to infect Chalmers.
 ## Images
 ### Main screen of the game
 ![MainScreen](/Documents/images/MainScreen.png)
@@ -22,6 +20,8 @@ Path                                    | Comment
 `/desktop/src/test/java/`               | Folder containing all JUnit tests
 `/core/assets`                          | Location for all assets in the game
 
+2D Tower Defense game where you have to place towers and manage your money in order so save Chalmers University from the feared
+corona virus!
 
 ## How to run the program
 ### Option 1:
