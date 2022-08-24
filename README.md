@@ -2,6 +2,7 @@
 
 [![Build Status](https://app.travis-ci.com/Danilll01/TDA367-OO-Projekt.svg?branch=main)](https://app.travis-ci.com/Danilll01/TDA367-OO-Projekt)
 
+A 2D Tower Defense game where you have to place towers and manage your money in order to save Chalmers University from the feared Corona virus!
 ## Images
 ### Main screen of the game
 ![MainScreen](/Documents/images/MainScreen.png)
